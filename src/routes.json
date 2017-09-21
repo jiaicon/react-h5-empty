@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/",
+    "page": "./pages/home/home",
+    "chunk": "main",
+    "tabbar": "home"
+  },
+  {
+    "path": "/repo/:owner/:repo",
+    "page": "./pages/repo/repo",
+    "chunk": "main"
+  },
+  {
+    "path": "/error",
+    "page": "./pages/error",
+    "chunk": "main"
+  }
+]

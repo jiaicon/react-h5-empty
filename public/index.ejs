@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>
+    <%= config.title %>
+  </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="x5-orientation"content="portrait">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script>
+    var designWidth = 375;
+    var screenWidth = screen.width;
+    var scale = screenWidth / designWidth;
+    var meta = '<meta name="viewport" content="width=' + designWidth + ", initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ', user-scalable=no, target-densitydpi=device-dpi, minimal-ui" >';
+    document.write(meta);
+  </script>
+  <script src="/lib/jweixin-1.0.0.js"></script>
+  <script>
+    // 微信 config，类型可以是 JS Object 或者 JSON 字符串
+    window.wxConfig = {}; // 或者 '{}'
+
+    // server 端下发 token
+    window.token = '7f85e1de20e6cb90a4e953ae198ac19259bea4aa6716c';
+
+    if (window.wxConfig) {
+      try{
+        if (typeof window.wxConfig === 'string') {
+          window.wxConfig = JSON.parse(window.wxConfig);
+        }
+        window.wx.config(wxConfig);
+      }
+      catch(e) {
+        alert(e);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="container">
+  </div>
+  <script src="<%= bundle %>"></script>
+</body>
+
+</html>
