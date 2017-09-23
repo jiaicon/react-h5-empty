@@ -1,12 +1,16 @@
+/**
+ * @file 个人中心入口页面
+ */
+
 /* global wx:false */
 import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../components/share';
-import './home.css';
+import './my.css';
 
-class HomePage extends React.Component {
+class MyPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -30,17 +34,17 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className="page-home">
-        <h1>首页</h1>
+      <div className="page-profile">
+        <h1>个人中心</h1>
       </div>
     );
   }
 }
 
-HomePage.propTypes = {
+MyPage.propTypes = {
 };
 
 export default connect(
-  state => state.home,
+  state => state.signin,
   dispatch => bindActionCreators({}, dispatch),
-)(HomePage);
+)(MyPage);

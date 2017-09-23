@@ -4,9 +4,9 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../components/share';
-import './home.css';
+import './signin.css';
 
-class HomePage extends React.Component {
+class SigninPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -30,17 +30,17 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className="page-home">
-        <h1>首页</h1>
+      <div className="page-signin">
+        <h1>签到打卡</h1>
       </div>
     );
   }
 }
 
-HomePage.propTypes = {
+SigninPage.propTypes = {
 };
 
 export default connect(
-  state => state.home,
+  state => state.signin,
   dispatch => bindActionCreators({}, dispatch),
-)(HomePage);
+)(SigninPage);

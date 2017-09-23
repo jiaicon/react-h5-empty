@@ -1,13 +1,107 @@
 [
   {
     "path": "/",
-    "page": "./pages/home/home",
-    "chunk": "main",
-    "tabbar": "home"
+    "page": "./pages/launch/launch",
+    "chunk": "main"
   },
   {
-    "path": "/repo/:owner/:repo",
-    "page": "./pages/repo/repo",
+    "path": "/signin",
+    "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
+    "path": "/my",
+    "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/certificate",
+    "page": "./pages/my/certificate/certificate",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/collects",
+    "page": "./pages/my/collects/collects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/duration",
+    "page": "./pages/my/duration/duration",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/duration/applys",
+    "page": "./pages/my/duration/applys",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/duration/post",
+    "page": "./pages/my/duration/post",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/family",
+    "page": "./pages/my/family/family",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/family/add",
+    "page": "./pages/my/family/add",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/messages",
+    "page": "./pages/my/messages/messages",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/profile",
+    "page": "./pages/my/profile/profile",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/profile/verify",
+    "page": "./pages/my/profile/verify",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/profile/edit",
+    "page": "./pages/my/profile/edit",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/projects",
+    "page": "./pages/my/projects/projects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/service",
+    "page": "./pages/my/service/service",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/service/introduce",
+    "page": "./pages/my/service/introduce",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/service/help",
+    "page": "./pages/my/service/help",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/setting",
+    "page": "./pages/my/setting/setting",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/setting/password",
+    "page": "./pages/my/setting/password",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/teams",
+    "page": "./pages/my/teams/teams",
     "chunk": "main"
   },
   {

@@ -1,46 +1,40 @@
 import fetch from '../../utils/fetch';
 
-export const getRepo = (owner, repo) => ({
-  type: 'GET_REPO',
-  meta: { id: `${owner}/${repo}` },
-  payload: fetch(`/repos/${owner}/${repo}`, { method: 'GET' }),
+export const search = keyword => ({
+  type: 'SEARCH',
+  meta: {
+    keyword,
+  },
+  payload: fetch(`/search/repositories?q=${keyword}`, { method: 'GET' }),
 });
 
 export default (state = {
-  id: '',
   fetching: false,
   failed: false,
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'GET_REPO_PENDING':
+    case 'SEARCH_PENDING':
       return {
         ...state,
-        id: action.meta.id,
         fetching: true,
         failed: false,
+        keyword: action.meta.keyword,
       };
-    case 'GET_REPO_FULFILLED':
-
-      if (action.meta.id !== state.id) {
-        return state;
-      }
-
+    case 'SEARCH_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload,
+        keyword: action.meta.keyword,
       };
-    case 'GET_REPO_REJECTED':
-      if (action.meta.id !== state.id) {
-        return state;
-      }
-
+    case 'SEARCH_REJECTED':
       return {
         ...state,
         failed: true,
         fetching: false,
+        keyword: action.meta.keyword,
       };
     default:
       return state;
