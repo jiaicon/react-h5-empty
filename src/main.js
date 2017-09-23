@@ -8,49 +8,56 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+ /* global wx:false */
+
 import 'babel-polyfill';
 import 'whatwg-fetch';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
-import {Provider} from 'react-redux';
+import Alert from 'react-s-alert';
+import { Provider } from 'react-redux';
+
+import { Spinner } from 'react-redux-spinner';
+
+
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+
+import './components/layout/global.css';
 
 import router from './pages/router';
 import history from './pages/history';
 
 import store from './stores';
-import './components/layout/global.css';
-import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
-
-import {Spinner} from 'react-redux-spinner';
 import WXShare from './components/share';
 
-wx && wx.ready(()=>WXShare());
+if (wx) {
+  wx.ready(() => WXShare());
+}
 
 let routes = require('./routes.json').default; // Loaded with utils/routes-loader.js
 
 const container = document.getElementById('container');
 
 function renderComponent(component) {
-
   ReactDOM.render(
     <Provider store={store}>
-    <div>
-      {component}
-      <Alert
-        stack={{
-        limit: 3
-      }}
-        effect="stackslide"
-        position="top"
-        offset={0}
-        timeout={2000}/>
-      <Spinner/>
-    </div>
-  </Provider>, container);
+      <div>
+        {component}
+        <Alert
+          stack={{
+            limit: 3,
+          }}
+          effect="stackslide"
+          position="top"
+          offset={0}
+          timeout={2000}
+        />
+        <Spinner />
+      </div>
+    </Provider>, container);
 }
 
 // Find and render a web page matching the current URL path, if such page is not
@@ -61,7 +68,7 @@ function render(location) {
     .then(renderComponent)
     .catch(error => router.resolve(routes, {
       ...location,
-      error
+      error,
     }).then(renderComponent));
 }
 

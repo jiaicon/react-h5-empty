@@ -2,7 +2,7 @@
  * @file 首页 TABS 页面统一入口，负责 URL 到 TAB  以及页面的映射
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import Link from '../../components/link/link';
 import './launch.css';
@@ -54,11 +54,11 @@ class LaunchPage extends React.Component {
     const { page } = this.state;
 
     return (
-      <div className="launch-page">
-        <div className="launch-page-content">
+      <div className="page-launch">
+        <div className="page-launch-content">
           {page}
         </div>
-        <ul className="launch-page-tabs">
+        <ul className="page-launch-tabs">
           <li><Link to="/">首页</Link></li>
           <li><Link to="/signin">签到打卡</Link></li>
           <li><Link to="/my">个人中心</Link></li>
