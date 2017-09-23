@@ -1,29 +1,25 @@
-import {combineReducers} from 'redux';
+/* global window:true */
 import {
     pendingTasksReducer, // The redux reducer
-    pendingTask, // The action key for modifying loading state
-    begin, // The action value if a "long" running task begun
-    end // The action value if a "long" running task ended
-} from 'react-redux-spinner'
+} from 'react-redux-spinner';
 
-import thunk from 'redux-thunk'
-import promiseMiddleware from 'redux-promise-middleware'
-import {compose, createStore, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise-middleware';
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 
-import home from '../pages/home/home.store'
-import repo from '../pages/repo/repo.store'
-
+import home from '../pages/home/home.store';
 
 const rootReducer = combineReducers({
-    home,
-    repo,
-    pendingTasks: pendingTasksReducer
+  home,
+  pendingTasks: pendingTasksReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];
 
+/* eslint-disable no-underscore-dangle */
 export default createStore(
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    compose(applyMiddleware(...middleware))
+    compose(applyMiddleware(...middleware)),
 );
+/* eslint-enable no-underscore-dangle */
