@@ -20,8 +20,20 @@ export default function request(requestUrl, requestOptions = {}) {
     options.loading = true;
   }
 
+  // 添加默认请求头
+  const headers = options.headers || {};
+  options.headers = {
+    ...headers,
+    // 授权 token
+    'X-auth-token': localStorage.TOKEN || '',
+    // 机构代码
+    'X-org-code': localStorage.ORGCODE || '',
+    // 经纬度 经度-纬度
+    'X-location': localStorage.LOCATIOIN || '',
+  };
+
   if (options.method === 'POST') {
-        // 处理 data，仅支持一层结构，支持上传数组数据，例如{url:['1','2']} 会转换为 url[]=1&&url[]=2
+    // 处理 data，仅支持一层结构，支持上传数组数据，例如{url:['1','2']} 会转换为 url[]=1&&url[]=2
     const data = options.data || {};
     const keys = Object.keys(data);
     const fd = new FormData();
@@ -51,6 +63,7 @@ export default function request(requestUrl, requestOptions = {}) {
     options.credentials = 'include';
   }
 
+  // TODO: 如果没有经纬度信息则需要调用微信 JSSDK 获取经纬度之后再发起请求，对调用者透明
   return fetch(url, options)
             .then(response => response.json())
             .then((json) => {
