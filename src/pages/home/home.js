@@ -40,6 +40,8 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
 };
 
+HomePage.title = '首页';
+
 export default connect(
   state => state.home,
   dispatch => bindActionCreators({}, dispatch),

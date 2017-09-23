@@ -68,6 +68,8 @@ class LaunchPage extends React.Component {
   }
 }
 
+LaunchPage.title = '智多星';
+
 LaunchPage.propTypes = {
 };
 

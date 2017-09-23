@@ -41,6 +41,9 @@ class MyPage extends React.Component {
   }
 }
 
+
+MyPage.title = '个人中心';
+
 MyPage.propTypes = {
 };
 

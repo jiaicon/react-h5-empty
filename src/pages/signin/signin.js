@@ -37,6 +37,8 @@ class SigninPage extends React.Component {
   }
 }
 
+SigninPage.title = '签到打卡';
+
 SigninPage.propTypes = {
 };
 

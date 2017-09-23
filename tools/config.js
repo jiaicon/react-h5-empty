@@ -9,6 +9,6 @@
  */
 
 module.exports = {
-  title: 'H5站点标题', // Your website title
+  title: '智多星', // Your website title
   url: 'http://www.baidu.com',
 };

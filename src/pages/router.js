@@ -79,33 +79,42 @@ function resolve(routes, context) {
             .forEach((k) => {
               url = url.replace(`${k}`, params[k]);
             });
-          return fetch(url, {method}).then(resp => resp.json());
-        })
+          return fetch(url, { method }).then(resp => resp.json());
+        }),
       ]).then(([
         Page, ...data
       ]) => {
         const props = keys.reduce((result, key, i) => ({
           ...result,
-          [key]: data[i]
+          [key]: data[i],
         }), {});
-        return <Page
+        return (<Page
           route={{
-          ...route,
-          params
-        }}
+            ...route,
+            params,
+          }}
           error={context.error}
-          {...props}/>;
+          {...props}
+        />);
       });
     }
 
     return route
       .load()
-      .then(Page => <Page
-        route={{
-        ...route,
-        params
-      }}
-        error={context.error}/>);
+      .then((Page) => {
+        if (Page.title) {
+          document.title = Page.title;
+        }
+
+        return (<Page
+          route={{
+            ...route,
+            params,
+          }}
+          error={context.error}
+        />)
+;
+      });
   }
 
   const error = new Error('Page not found');
@@ -114,5 +123,5 @@ function resolve(routes, context) {
 }
 
 export default {
-  resolve
+  resolve,
 };

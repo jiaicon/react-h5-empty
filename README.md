@@ -94,13 +94,17 @@ $ yarn build                    # Compiles the app into the /public/dist folder
 3. 页面组件放在个页面目录中的 `components` 中
 4. store 分为通用和页面级，页面级主要用于服务端数据请求和存储，最后合并到 `src/stores/index` 中，页面级 action 和 reducer 合并到同一个文件放在页面目录下并已 `.store` 命名
 
-#### 组件规范
+### 组件规范
 
 1. 必须写 propTypes，并且禁用 object 类型，object 类型请使用 shape 并完整书写其中属性
 2. 注意生命周期方法顺序
 3. 定时器务必在 componentWillUnmount 中进行清除
 
-#### 微信调试开发版本
+### 微信调试开发版本
 
 1. 手机连接 charles 代理
 2. 在 charles 代理中设置 Map Remote，将域名映射到 http://localhost:300
+
+### API 文档
+
+[智多星 API文档](https://www.zybuluo.com/lina/note/892990)
