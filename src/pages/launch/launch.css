@@ -1,15 +1,26 @@
 .page-launch{
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-.page-launch-tabs{
-  width: 100%;
   position: absolute;
+  top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-launch .page-launch-content {
+  flex: 1;
+}
+
+.page-launch-tabs{
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #b3b3b3;
 }
 .page-launch-tabs li{
-  float: left;
-  width: calc(100%/3);
+  flex: 1;
+  list-style: none;
+  text-align: center;
 }
