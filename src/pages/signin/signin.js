@@ -41,6 +41,6 @@ SigninPage.propTypes = {
 };
 
 export default connect(
-  state => state.signin,
+  state => state.signin || {},
   dispatch => bindActionCreators({}, dispatch),
 )(SigninPage);
