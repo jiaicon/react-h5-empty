@@ -1,0 +1,15 @@
+.page-launch{
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.page-launch-tabs{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.page-launch-tabs li{
+  float: left;
+  width: calc(100%/3);
+}

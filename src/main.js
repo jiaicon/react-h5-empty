@@ -44,7 +44,7 @@ const container = document.getElementById('container');
 function renderComponent(component) {
   ReactDOM.render(
     <Provider store={store}>
-      <div>
+      <div className="container-data">
         {component}
         <Alert
           stack={{
