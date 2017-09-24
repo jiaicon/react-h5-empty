@@ -1,3 +1,6 @@
 .page-profile {
     padding: 20px;
 }
+.page-item-container li{
+  list-style: none;
+}
