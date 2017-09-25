@@ -7,10 +7,16 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 
-import home from '../pages/home/home.store';
+import homeReducer from '../pages/home/home.store';
+import loginReducer from '../pages/my/login/login.store';
+import registerReducer from '../pages/my/register/register.store';
+import { userReducer } from './common';
 
 const rootReducer = combineReducers({
-  home,
+  home: homeReducer,
+  login: loginReducer,
+  register: registerReducer,
+  user: userReducer,
   pendingTasks: pendingTasksReducer,
 });
 

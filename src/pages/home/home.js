@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../components/share';
 import './home.css';
+import { register } from '../my/register/register.store';
 
 class HomePage extends React.Component {
 
@@ -14,7 +15,7 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-
+    this.props.register('miller', '1234');
   }
 
   componentDidMount() {
@@ -38,11 +39,12 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
+  register: React.PropTypes.func,
 };
 
 HomePage.title = '首页';
 
 export default connect(
   state => state.home,
-  dispatch => bindActionCreators({}, dispatch),
+  dispatch => bindActionCreators({ register }, dispatch),
 )(HomePage);
