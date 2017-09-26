@@ -16,9 +16,6 @@ class MyPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state={
-      avatar:'...'
-    }
   }
 
   componentWillMount() {
@@ -48,8 +45,13 @@ class MyPage extends React.Component {
           </div>
         </div>
         <div className="page-my-photo-container">
-            <img src="" alt="picture" />
-            <div></div>
+          <div className="page-my-photo-background">
+            <img src="/images/my/0.jpg" alt="images" className="page-my-photo" />
+          </div>
+          <div className="page-my-user-info">
+            <p className="page-my-user-info-nick">用户昵称</p>
+            <p className="page-my-user-info-signature">努力做好每一个活动</p>
+          </div>
         </div>
         <div>团队，项目，时长</div>
         <div>
