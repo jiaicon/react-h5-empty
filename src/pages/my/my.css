@@ -70,3 +70,45 @@
   color:#7a7a7a;
 }
 
+.page-my-record-container{
+  display: flex;
+  justify-content: space-around;
+}
+.page-my-record-item-top{
+  text-align: center;
+  font-size: 12px;
+  color: #acacac;
+}
+.page-my-record-item-num{
+  font-size: 15px;
+  color: #000;
+}
+.page-my-record-item-bottom{
+  font-size: 12px;
+  color: #858585;
+}
+
+.page-my-item-container li a{
+  display: flex;
+  justify-content: space-between;
+  color: #000;
+  font-size: 16px;
+  height: 40px;
+  align-items:center;
+  border-bottom: 1px solid #ccc;
+}
+.page-my-item-container li:last-child a{
+  border:none;
+}
+.page-my-item-icon{
+  width: 20px;
+  height: 20px;
+  font-size: 0;
+  color:transparent;
+  background-image: url(/images/my/my_header_setting.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.page-my-item-big{
+  font-size: 24px;
+}

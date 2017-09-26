@@ -53,15 +53,28 @@ class MyPage extends React.Component {
             <p className="page-my-user-info-signature">努力做好每一个活动</p>
           </div>
         </div>
-        <div>团队，项目，时长</div>
+        <div className="page-my-record-container">
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">2</b>个</p>
+            <p className="page-my-record-item-bottom">我的团队</p>
+          </div>
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">2</b>个</p>
+            <p className="page-my-record-item-bottom">我的项目</p>
+          </div>
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">12</b>小时</p>
+            <p className="page-my-record-item-bottom">志愿时长</p>
+          </div>
+        </div>
         <div>
           <ul className="page-my-item-container">
-            <li><Link to="/my/profile">个人资料</Link></li>
-            <li><Link to="/my/certificate">我的证书</Link></li>
-            <li><Link to="/my/family">我的家庭</Link></li>
-            <li><Link to="/my/collects">我的收藏</Link></li>
-            <li><Link to="/my/service">服务中心</Link></li>
-            <li><Link to="/my/setting">设置(修改密码,退出登录)</Link></li>
+            <li><Link to="/my/profile"><i className="page-my-item-icon">.</i>个人资料<span className="page-my-item-big">&gt;</span></Link></li>
+            <li><Link to="/my/certificate"><i className="page-my-item-icon">.</i>我的证书<span className="page-my-item-big">&gt;</span></Link></li>
+            <li><Link to="/my/family"><i className="page-my-item-icon">.</i>我的家庭<span className="page-my-item-big">&gt;</span></Link></li>
+            <li><Link to="/my/collects"><i className="page-my-item-icon">.</i>我的收藏<span className="page-my-item-big">&gt;</span></Link></li>
+            <li><Link to="/my/service"><i className="page-my-item-icon">.</i>服务中心<span className="page-my-item-big">&gt;</span></Link></li>
+            <li><Link to="/my/setting"><i className="page-my-item-icon">.</i>设置(修改密码,退出登录)<span className="page-my-item-big">&gt;</span></Link></li>
           </ul>
         </div>
 
