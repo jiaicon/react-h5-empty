@@ -1,3 +1,89 @@
 .page-home {
-    padding: 20px;
+
+}
+
+.page-home .header {
+
+}
+
+.page-home .slick-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 264px;
+  background: url(/images/default_banner.png) no-repeat top left;
+  background-size: cover;
+}
+
+.page-home .slick-container img{
+  width: 100%;
+}
+
+.page-home .slick-dots {
+  position: absolute;
+  bottom: 10px;
+}
+
+.page-home .header-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  align-items: center;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  z-index: 1;
+  font-weight: 300;
+}
+
+.page-home .header-bar .city-name {
+  width: 64px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  opacity: 0.75;
+  background: #333333;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.page-home .header-bar .login-button {
+  width: 64px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  opacity: 0.75;
+  background: #FFFFFF;
+  border-radius: 14px;
+  color: #333333;
+  font-size: 14px;
+}
+
+.page-home .header-bar .search-bar {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  opacity: 0.9;
+  border-radius: 16px;
+  background: #F8F8F8 url(/images/search.png) no-repeat 10px center;
+  background-size: 25px 25px;
+  flex: 1;
+  margin: 0 15px;
+}
+
+.page-home .header-bar .search-bar .input {
+  margin-left: 45px;
+  flex: 1;
+  font-size: 14px;
+  color: #C0C0C0;
+}
+
+.page-home .header-bar .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
 }
