@@ -38,11 +38,11 @@ class MyPage extends React.Component {
       <div className="page-my">
         <div className="page-my-top">
           <div className="page-my-header">
-            <div className="page-my-header-setting">
-              <Link to="/my/setting">
+            <Link to="/my/setting">
+             <div className="page-my-header-setting">
               设置
-              </Link>
-            </div>
+              </div>
+            </Link>
             <div>
               <div className="page-my-header-messages-container">
                 <span className="page-my-header-messages-red-point">.</span>
