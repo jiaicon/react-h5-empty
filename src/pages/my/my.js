@@ -41,11 +41,11 @@ class MyPage extends React.Component {
             <Link to="/my/setting">
               <div className="page-my-header-setting" />
             </Link>
-            <div>
+            <Link to="/my/messages">
               <div className="page-my-header-messages-container">
                 <span className="page-my-header-messages-red-point" />
               </div>
-            </div>
+            </Link>
           </div>
           <div className="page-my-photo-container">
             <div className="page-my-photo-background">
@@ -57,18 +57,24 @@ class MyPage extends React.Component {
             </div>
           </div>
           <div className="page-my-record-container">
-            <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">2</b>个</p>
-              <p className="page-my-record-item-bottom">我的团队</p>
-            </div>
-            <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">2</b>个</p>
-              <p className="page-my-record-item-bottom">我的项目</p>
-            </div>
-            <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">12</b>小时</p>
-              <p className="page-my-record-item-bottom">志愿时长</p>
-            </div>
+            <Link to="/my/teams">
+              <div className="page-my-record-item">
+                <p className="page-my-record-item-top"><b className="page-my-record-item-num">2</b>个</p>
+                <p className="page-my-record-item-bottom">我的团队</p>
+              </div>
+            </Link>
+            <Link to="/my/projects">
+              <div className="page-my-record-item">
+                <p className="page-my-record-item-top"><b className="page-my-record-item-num">2</b>个</p>
+                <p className="page-my-record-item-bottom">我的项目</p>
+              </div>
+            </Link>
+            <Link to="/my/duration">
+              <div className="page-my-record-item">
+                <p className="page-my-record-item-top"><b className="page-my-record-item-num">12</b>小时</p>
+                <p className="page-my-record-item-bottom">志愿时长</p>
+              </div>
+            </Link>
           </div>
         </div>
         <div className="page-my-line" />
