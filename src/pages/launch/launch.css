@@ -6,21 +6,67 @@
   left: 0;
   display: flex;
   flex-direction: column;
+  background: #EAEAEA;
 }
 
-.page-launch .page-launch-content {
+.page-launch .content {
   flex: 1;
 }
 
-.page-launch-tabs{
-  height: 40px;
+.page-launch .tabs{
+  height: 49px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #b3b3b3;
+  background: #fff;
 }
-.page-launch-tabs li{
+.page-launch .tabs li{
   flex: 1;
   list-style: none;
   text-align: center;
+}
+
+.page-launch .tabs li a{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-decoration: none;
+}
+
+.page-launch .tabs li .tab-icon {
+  height: 25px;
+  width: 25px;
+  background-size: contain;
+  background-position: center;
+}
+
+.page-launch .tabs li .tab-icon-home {
+  background-image: url(/images/tab_home.png);
+}
+
+.page-launch .tabs li .tab-icon-home.active {
+  background-image: url(/images/tab_home_active.png);
+}
+
+.page-launch .tabs li .tab-icon-signin {
+  background-image: url(/images/tab_signin.png);
+}
+
+.page-launch .tabs li .tab-icon-signin.active {
+  background-image: url(/images/tab_signin_active.png);
+}
+
+.page-launch .tabs li .tab-icon-me {
+  background-image: url(/images/tab_me.png);
+}
+
+.page-launch .tabs li .tab-icon-me.active {
+  background-image: url(/images/tab_me_active.png);
+}
+
+
+.page-launch .tabs li a span {
+  font-size: 10px;
+  color: #333333;
 }
