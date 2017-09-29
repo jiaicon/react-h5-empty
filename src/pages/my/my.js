@@ -39,13 +39,13 @@ class MyPage extends React.Component {
         <div className="page-my-top">
           <div className="page-my-header">
             <Link to="/my/setting">
-             <div className="page-my-header-setting">
+              <div className="page-my-header-setting">
               设置
               </div>
             </Link>
             <div>
               <div className="page-my-header-messages-container">
-                <span className="page-my-header-messages-red-point">.</span>
+                <span className="page-my-header-messages-red-point" />
               </div>
             </div>
           </div>
@@ -73,13 +73,13 @@ class MyPage extends React.Component {
             </div>
           </div>
         </div>
-        <div className="page-my-line">.</div>
+        <div className="page-my-line" />
         <div className="page-my-item-container-padding">
           <ul className="page-my-item-container">
             <li>
               <Link to="/my/profile">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-data">.</i>个人资料
+                  <i className="page-my-item-icon page-my-item-icon-data" />个人资料
                 </div>
                 <span className="page-my-item-big">&gt;</span>
               </Link>
@@ -87,7 +87,7 @@ class MyPage extends React.Component {
             <li>
               <Link to="/my/certificate">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-certificate">.</i>我的证书
+                  <i className="page-my-item-icon page-my-item-icon-certificate" />我的证书
                 </div>
                 <span className="page-my-item-big">&gt;</span>
               </Link>
@@ -95,7 +95,7 @@ class MyPage extends React.Component {
             <li>
               <Link to="/my/family">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-family">.</i>我的家庭
+                  <i className="page-my-item-icon page-my-item-icon-family" />我的家庭
                 </div>
                 <span className="page-my-item-big">&gt;</span>
               </Link>
@@ -103,7 +103,7 @@ class MyPage extends React.Component {
             <li>
               <Link to="/my/collects">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-like">.</i>我的收藏
+                  <i className="page-my-item-icon page-my-item-icon-like" />我的收藏
                 </div>
                 <span className="page-my-item-big">&gt;</span>
               </Link>
@@ -111,7 +111,7 @@ class MyPage extends React.Component {
             <li>
               <Link to="/my/service">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-service">.</i>服务中心
+                  <i className="page-my-item-icon page-my-item-icon-service" />服务中心
                 </div>
                 <span className="page-my-item-big">&gt;</span>
               </Link>
