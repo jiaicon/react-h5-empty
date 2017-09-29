@@ -1,5 +1,5 @@
-.page-my{
-    padding: 20px;
+.page-my-top{
+  padding: 15px 15px 0;
 }
 .page-my-item-container li{
   list-style: none;
@@ -10,28 +10,34 @@
   display: flex;
   justify-content:space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 .page-my-header-setting{
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  font-size: 0;
+  color: transparent;
+  background-image: url(/images/my/setting.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .page-my-header-messages-container{
-  width: 20px;
-  height: 20px;
-  background-image: url(/images/my/my_header_setting.png);
+  width: 24px;
+  height: 24px;
+  background-image: url(/images/my/news.png);
   background-repeat: no-repeat;
   background-size: contain;
   position: relative;
 }
 .page-my-header-messages-red-point{
+  display:block;
   width: 8px;
   height: 8px;
   background-color: #fa3434;
-  display: block;
   border-radius: 50%;
   position: absolute;
   right: -2px;
-  top: -2px;
+  top: 0px;
   text-indent: -9999px;
   color: transparent;
   font-size: 0px;
@@ -41,6 +47,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 }
 .page-my-photo-background{
   width: 80px;
@@ -48,7 +55,9 @@
   border-radius: 5px;
   /* background-image: url(''); */
   background-color: #ccc;
-  margin-right: 16px;
+  margin-right: 15px;
+  box-shadow: 0 2px 8px 0 rgba(192,192,192,0.50);
+  border-radius: 8px;
 
 }
 .page-my-photo{
@@ -59,41 +68,66 @@
 .page-my-user-info{
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 }
 .page-my-user-info-nick{
-  font-size: 20px;
-  color: #000;
+  font-size: 22px;
+  color: #333333;
+  letter-spacing: 0;
+  margin-bottom: 10px;
 }
 .page-my-user-info-signature{
   font-size: 14px;
-  color:#7a7a7a;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 14px;
 }
 
 .page-my-record-container{
   display: flex;
   justify-content: space-around;
+  margin-bottom: 20px;
+}
+.page-my-record-item{
+  width: 52px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
 }
 .page-my-record-item-top{
   text-align: center;
-  font-size: 12px;
-  color: #acacac;
+  font-size: 13px;
+  color: #151515;
+  letter-spacing: 0;
+  line-height: 14px;
 }
 .page-my-record-item-num{
-  font-size: 15px;
-  color: #000;
+  font-size: 20px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 14px;
 }
 .page-my-record-item-bottom{
-  font-size: 12px;
-  color: #858585;
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 14px;
 }
-
+.page-my-line{
+  height: 9px;
+  background: #F8F8F8;
+  font-size: 0;
+}
+.page-my-item-container-padding{
+  padding:0 15px;
+}
 .page-my-item-container li a{
   display: flex;
   justify-content: space-between;
-  color: #000;
+  color: #333;
   font-size: 16px;
-  height: 40px;
+  height: 64px;
   align-items:center;
   border-bottom: 1px solid #ccc;
 }
@@ -101,14 +135,46 @@
   border:none;
 }
 .page-my-item-icon{
-  width: 20px;
-  height: 20px;
+  display: block;
+  width: 24px;
+  height: 24px;
   font-size: 0;
   color:transparent;
-  background-image: url(/images/my/my_header_setting.png);
   background-repeat: no-repeat;
   background-size: contain;
+  margin-right: 15px;
 }
 .page-my-item-big{
-  font-size: 24px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url(/images/my/more.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+.page-my-item-box{
+  display: flex;
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+  color: #333333;
+}
+.page-my-item-icon-data{
+  background-image: url(/images/my/data.png)
+}
+.page-my-item-icon-certificate{
+  background-image: url(/images/my/certificate.png)
+}
+.page-my-item-icon-family{
+  background-image: url(/images/my/family.png)
+}
+.page-my-item-icon-like{
+  background-image: url(/images/my/like.png)
+}
+.page-my-item-icon-service{
+  background-image: url(/images/my/service.png)
+}
+.page-my-item-icon-data{
+  background-image: url(/images/my/data.png)
 }
