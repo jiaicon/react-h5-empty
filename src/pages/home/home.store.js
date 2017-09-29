@@ -1,11 +1,8 @@
 import fetch from '../../utils/fetch';
 
-export const search = keyword => ({
-  type: 'SEARCH',
-  meta: {
-    keyword,
-  },
-  payload: fetch(`/search/repositories?q=${keyword}`, { method: 'GET' }),
+export const requestHomeData = () => ({
+  type: 'HOME_DATA',
+  payload: fetch('/index', { method: 'GET' }),
 });
 
 export default (state = {
@@ -14,27 +11,24 @@ export default (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'SEARCH_PENDING':
+    case 'HOME_DATA_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
-        keyword: action.meta.keyword,
       };
-    case 'SEARCH_FULFILLED':
+    case 'HOME_DATA_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
-        data: action.payload,
-        keyword: action.meta.keyword,
+        data: action.payload.data,
       };
-    case 'SEARCH_REJECTED':
+    case 'HOME_DATA_REJECTED':
       return {
         ...state,
         failed: true,
         fetching: false,
-        keyword: action.meta.keyword,
       };
     default:
       return state;
