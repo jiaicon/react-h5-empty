@@ -22,7 +22,7 @@ export default (state = {
         ...state,
         fetching: false,
         failed: false,
-        data: action.payload.data,
+        data: action.payload && action.payload.data,
       };
     case 'HOME_DATA_REJECTED':
       return {

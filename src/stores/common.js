@@ -30,7 +30,9 @@ export const requestUserInfo = () => (dispatch) => {
     method: 'GET',
   }).then((json) => {
     // 获取到用户信息后单独处理（存储 token/用户信息）
-    dispatch({ type: USERINFO_FULFILLED, payload: json });
+    if (json) {
+      dispatch({ type: USERINFO_FULFILLED, payload: json });
+    }
   }).catch((e) => {
     console.log('requestUserInfo failed');
     console.log(e);
