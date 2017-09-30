@@ -1,0 +1,73 @@
+.page-register{
+  padding: 30px 37px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.page-register-photo{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url(/images/my/register.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 8px;
+}
+.page-register-photo-img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+}
+.page-register-photo-fonts{
+  font-size: 13px;
+  color: #999999;
+  margin-bottom: 13px;
+}
+.page-register-item{
+  width: 295px;
+  height: 49px;
+  border-bottom: 1px solid #E5E5E5;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.page-register-fonts{
+  display: block;
+  width: 62px;
+  font-size: 15px;
+  color: #999999;
+  margin-right: 15px;
+}
+.page-register-input{
+  width: 98px;
+  margin-right: 53px;
+  font-size: 15px;
+  color: #333333;
+  outline: none;
+}
+.page-register-code{
+  font-size: 13px;
+  color: #6AC6F8;
+}
+.page-register-submmit{
+  width: 300px;
+  height: 50px;
+  background: #C7EAFD;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 16px;
+  color: #666666;
+  margin-top: 41px;
+}
+.page-register-agree{
+  margin-top: 18px;
+  font-size: 13px;
+  color: #999999;
+  line-height: 14px;
+}
+.page-register-agreement{
+  font-size: 13px;
+  color: #6ac6f8;
+}
