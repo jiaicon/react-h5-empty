@@ -390,3 +390,9 @@ a {
  .fb-item {
    flex: 1;
  }
+
+ .line1px {
+  height: 1px;
+  background: #E5E5E5;
+  transform: scaleY(0.5);
+}

@@ -103,6 +103,7 @@ class LaunchPage extends React.Component {
             </Link>
           </li>
         </ul>
+        <div className="line1px" style={{ width: '100%', position: 'absolute', bottom: '49px', left: '0' }} />
       </div>
     );
   }
