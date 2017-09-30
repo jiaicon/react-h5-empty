@@ -4,6 +4,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../components/share';
+import { requestHomeData } from '../home/home.store';
 import './signin.css';
 
 class SigninPage extends React.Component {
@@ -14,7 +15,7 @@ class SigninPage extends React.Component {
   }
 
   componentWillMount() {
-
+    this.props.requestHomeData();
   }
 
   componentDidMount() {
@@ -40,9 +41,10 @@ class SigninPage extends React.Component {
 SigninPage.title = '签到打卡';
 
 SigninPage.propTypes = {
+  requestHomeData: React.PropTypes.func,
 };
 
 export default connect(
   state => state.signin || {},
-  dispatch => bindActionCreators({}, dispatch),
+  dispatch => bindActionCreators({ requestHomeData }, dispatch),
 )(SigninPage);

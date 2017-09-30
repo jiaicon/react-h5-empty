@@ -1,0 +1,116 @@
+.projects-empty-tip {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background: #fff;
+}
+
+.component-projects li{
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #fff;
+  text-decoration: none;
+}
+
+.component-projects .project-header {
+  height: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.component-projects .project-header .org-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+.component-projects .project-header .org-name {
+  flex: 1;
+  text-align: left;
+  font-size: 15px;
+  color: #333333;
+  line-height: 30px;
+  margin-left: 5px;
+}
+
+.component-projects .project-main {
+  overflow: hidden;
+  position: relative;
+}
+
+.component-projects .project-main img {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.component-projects .project-main .project-status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background-position: top right;
+  background-size: contain;
+}
+
+.component-projects .project-main .project-status-recruit {
+  background-image: url(/images/activities_status_recruit.png);
+}
+
+.component-projects .project-main .project-status-progress {
+  background-image: url(/images/activities_status_progress.png);
+}
+
+.component-projects .project-main .project-status-end {
+  background-image: url(/images/activities_status_end.png);
+}
+
+.component-projects .project-main .project-name {
+  font-size: 18px;
+  color: #333333;
+  background: url(/images/icon_safeguard.png) no-repeat right center;
+  background-size: 24px;
+  padding-right: 30px;
+}
+
+.component-projects .project-main .project-date {
+  font-size: 13px;
+  color: #666666;
+  margin: 10px 0;
+  font-weight: 200;
+}
+
+.component-projects .project-footer{
+  display: flex;
+  font-size: 13px;
+  color: #666666;
+  font-weight: 200;
+}
+
+.component-projects .project-footer .project-location {
+  flex: 1;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 30px;
+  background: url(/images/icon_location.png) no-repeat left center;
+  background-size: 24px;
+}
+
+.component-projects .project-footer .project-members {
+  flex: 1;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 30px;
+  background: url(/images/icon_people.png) no-repeat left center;
+  background-size: 24px;
+}
+
+.component-projects .project-footer .project-members span:first-child{
+  color: #F6AB00;
+}
+
+

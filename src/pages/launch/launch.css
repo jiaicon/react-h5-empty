@@ -6,19 +6,20 @@
   left: 0;
   display: flex;
   flex-direction: column;
-  background: #EAEAEA;
+  background: #FAFAFA;
 }
 
 .page-launch .content {
   flex: 1;
+  overflow-y: scroll;
 }
 
 .page-launch .tabs{
-  height: 49px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #fff;
+  height: 49px;
 }
 .page-launch .tabs li{
   flex: 1;

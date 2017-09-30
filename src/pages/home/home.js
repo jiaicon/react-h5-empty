@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import WXShare from '../../components/share';
 import './home.css';
 import Link from '../../components/link/link';
+import Projects from '../../components/projects/projects';
 import { requestHomeData } from './home.store';
 
 class HomePage extends React.Component {
@@ -29,11 +30,11 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    const { home } = this.props;
+    // const { home } = this.props;
 
-    if (!home.data) {
-      this.props.requestHomeData();
-    }
+    // if (!home.data) {
+    this.props.requestHomeData();
+    // }
   }
 
   componentDidMount() {
@@ -86,11 +87,56 @@ class HomePage extends React.Component {
   }
 
   render() {
+    const { home } = this.props;
+
     return (
       <div className="page-home">
-        <div className="header">
+        <div className="page-home-header">
           {this.renderHeaderBar()}
           {this.renderSlick()}
+        </div>
+        <div className="page-home-body">
+          <div className="menus">
+            <Link to="/">
+              <div className="menu-icon menu-icon-project" />
+              <span>志愿项目</span>
+            </Link>
+            <Link to="/">
+              <div className="menu-icon menu-icon-team" />
+              <span>志愿团队</span>
+            </Link>
+            <Link to="/">
+              <div className="menu-icon menu-icon-record" />
+              <span>时长记录</span>
+            </Link>
+            <Link to="/">
+              <div className="menu-icon menu-icon-service" />
+              <span>服务中心</span>
+            </Link>
+          </div>
+          <div className="menus-activity">
+            <Link to="/">
+              <img src="/images/activities_nearby.png" alt="附近" />
+            </Link>
+            <Link to="/">
+              <img src="/images/activities_new.png" alt="最新" />
+            </Link>
+            <Link to="/">
+              <img src="/images/activities_hot.png" alt="最热" />
+            </Link>
+          </div>
+          <div className="project-list">
+            <div className="list-header">
+              <div className="main-label">
+                <div className="label-line" />
+                <span>精品活动</span>
+                <div className="label-line" />
+              </div>
+              <div className="sub-label">Awesome Activity</div>
+            </div>
+            <div className="line1px" />
+            {home && home.data ? <Projects projects={home.data.project} /> : null}
+          </div>
         </div>
       </div>
     );

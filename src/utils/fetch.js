@@ -69,6 +69,8 @@ export default function request(requestUrl, requestOptions = {}) {
     options.credentials = 'same-origin';
   }
 
+  console.log('开始请求-', options);
+
   // TODO: 如果没有经纬度信息则需要调用微信 JSSDK 获取经纬度之后再发起请求，对调用者透明
   return fetch(url, options)
             .then(response => response.json())
@@ -78,10 +80,12 @@ export default function request(requestUrl, requestOptions = {}) {
               }
 
               store.dispatch(removeAysncTask());
+              console.log('请求成功-', json);
               return json;
             })
             .catch((error) => {
               store.dispatch(removeAysncTask());
               Alert.error(`请求发送失败：${error}`);
+              console.log('请求失败-', error);
             });
 }

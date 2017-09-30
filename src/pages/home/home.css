@@ -1,9 +1,10 @@
 .page-home {
-
+  width: 100%;
+  height: 100%;
 }
 
-.page-home .header {
-
+.page-home .page-home-header {
+  position: relative;
 }
 
 .page-home .slick-container {
@@ -86,4 +87,123 @@
   width: 28px;
   height: 28px;
   border-radius: 14px;
+}
+
+.page-home .menus {
+  display: flex;
+  padding: 20px 27px 17px;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+}
+
+.page-home .menus a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-home .menus a .menu-icon {
+  height: 35px;
+  width: 35px;
+  background-size: contain;
+  background-position: center;
+}
+
+.page-home .menus a .menu-icon-project {
+  background-image: url(/images/menu_project.png);
+}
+
+.page-home .menus a .menu-icon-team {
+  background-image: url(/images/menu_team.png);
+}
+
+.page-home .menus a .menu-icon-record {
+  background-image: url(/images/menu_record.png);
+}
+
+.page-home .menus a .menu-icon-service {
+  background-image: url(/images/menu_service.png);
+}
+
+.page-home .menus a span {
+  font-size: 12px;
+  color: #333333;
+  line-height: 14px;
+  margin-top: 5px;
+}
+
+.page-home .menus-activity {
+  display: flex;
+  padding: 12px;
+}
+
+.page-home .menus-activity a{
+  width: 110px;
+  height: 80px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.page-home .menus-activity a:last-child {
+  margin-right: 0;
+}
+
+.page-home .menus-activity a img {
+  width: 100%;
+  height: 100%;
+}
+
+.page-home .project-list {
+
+}
+
+.page-home .project-list .list-header {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 58px;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-home .project-list .list-header .main-label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-home .project-list .list-header .main-label span {
+  font-size: 14px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 15px;
+  margin: 0 10px;
+}
+
+.page-home .project-list .list-header .main-label .label-line {
+  height: 1px;
+  width: 40px;
+  background: #E5E5E5;
+  transform: scaleY(0.5);
+}
+
+.page-home .project-list .list-header .sub-label {
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 0;
+  transform: scale(0.8);
+  font-weight: 100;
+}
+
+.page-home .project-list .line1px {
+  height: 1px;
+  background: #E5E5E5;
+  transform: scaleY(0.5);
+}
+
+.page-home .project-list > ul li {
+  background: #fff;
 }
