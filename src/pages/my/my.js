@@ -87,6 +87,7 @@ class MyPage extends React.Component {
                 </div>
                 <span className="page-my-item-big" />
               </Link>
+              <div className="line1px" />
             </li>
             <li>
               <Link to="/my/certificate">
@@ -95,6 +96,7 @@ class MyPage extends React.Component {
                 </div>
                 <span className="page-my-item-big" />
               </Link>
+              <div className="line1px" />
             </li>
             <li>
               <Link to="/my/family">
@@ -103,6 +105,7 @@ class MyPage extends React.Component {
                 </div>
                 <span className="page-my-item-big" />
               </Link>
+              <div className="line1px" />
             </li>
             <li>
               <Link to="/my/collects">
@@ -111,6 +114,7 @@ class MyPage extends React.Component {
                 </div>
                 <span className="page-my-item-big" />
               </Link>
+              <div className="line1px" />
             </li>
             <li>
               <Link to="/my/service">

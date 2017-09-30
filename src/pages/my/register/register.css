@@ -27,7 +27,6 @@
 .page-register-item{
   width: 295px;
   height: 49px;
-  border-bottom: 1px solid #E5E5E5;
   display: flex;
   justify-content: flex-start;
   align-items: center;
