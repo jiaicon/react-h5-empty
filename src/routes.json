@@ -108,5 +108,25 @@
     "path": "/error",
     "page": "./pages/error",
     "chunk": "main"
+  },
+  {
+    "path": "/my/entry",
+    "page": "./pages/my/register/entry",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/register",
+    "page": "./pages/my/register/register",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/login",
+    "page": "./pages/my/login/login",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/forget",
+    "page": "./pages/my/login/forget",
+    "chunk": "main"
   }
 ]
