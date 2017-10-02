@@ -128,5 +128,10 @@
     "path": "/my/forget",
     "page": "./pages/my/login/forget",
     "chunk": "main"
+  },
+  {
+    "path": "/my/agree",
+    "page": "./pages/my/register/agree",
+    "chunk": "main"
   }
 ]

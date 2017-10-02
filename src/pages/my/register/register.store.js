@@ -1,22 +1,37 @@
+import Alert from 'react-s-alert';
+import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 import { USERINFO_FULFILLED } from '../../../stores/common';
+
 
 export const REGISTER_PENDING = 'REGISTER_PENDING';
 export const REGISTER_FULFILLED = 'REGISTER_FULFILLED';
 export const REGISTER_REJECTED = 'REGISTER_REJECTED';
 
 
-export const register = (username, phone, verifyCode, pwd, avatars) => (dispatch) => {
+// TODO:
+export const CODE_PENDING = 'CODE_PENDING';
+export const CODE_FULFILLED = 'CODE_FULFILLED';
+export const CODE_REJECTED = 'CODE_REJECTED';
+
+export const requestVerifyCode = phone => (dispatch) => {
+  dispatch({ type: CODE_PENDING });
+  fetch('/verifycode', {
+    data: { phone },
+  }).then((json) => {
+    Alert.success('发送成功');
+    dispatch({ type: CODE_FULFILLED, payload: json.data });
+  }).catch(() => {
+    dispatch({ type: CODE_REJECTED });
+  });
+};
+
+
+export const register = data => (dispatch) => {
   dispatch({ type: REGISTER_PENDING });
 
   fetch('/register', {
-    data: {
-      username,
-      pwd,
-      phone,
-      verify_code: verifyCode,
-      avatars,
-    },
+    data,
   }).then((json) => {
     dispatch({ type: REGISTER_FULFILLED, payload: json.data });
 
@@ -28,7 +43,8 @@ export const register = (username, phone, verifyCode, pwd, avatars) => (dispatch
   });
 };
 
-export default (state = {
+// 注册
+const registerReducer = (state = {
   fetching: false,
   failed: false,
   data: null,
@@ -57,4 +73,38 @@ export default (state = {
       return state;
   }
 };
+const codeReduxcer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case CODE_PENDING:
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case CODE_FULFILLED:
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+      };
+    case CODE_REJECTED:
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+const reducer = combineReducers({
+  code: codeReduxcer,
+  regis: registerReducer,
 
+});
+export default reducer;
