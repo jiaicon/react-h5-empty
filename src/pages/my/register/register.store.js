@@ -73,7 +73,7 @@ const registerReducer = (state = {
       return state;
   }
 };
-const codeReduxcer = (state = {
+const codeReducer = (state = {
   fetching: false,
   failed: false,
   data: null,
@@ -103,7 +103,7 @@ const codeReduxcer = (state = {
   }
 };
 const reducer = combineReducers({
-  codeReduxcer,
+  codeReducer,
   registerReducer,
 
 });

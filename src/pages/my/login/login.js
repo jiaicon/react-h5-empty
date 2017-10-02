@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import history from '../../history';
 import Link from '../../../components/link/link';
 import './login.css';
 import { loginAction } from './login.store';
@@ -18,7 +19,7 @@ class Login extends React.Component {
     autoBind(this);
   }
 
-  componentWillMount(nextprops) {
+  componentWillMount() {
 
   }
 
@@ -26,7 +27,12 @@ class Login extends React.Component {
 
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { login: cLogin } = this.props;
+    const { login: nLogin } = nextProps;
+    if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
+      history.push('/my');
+    }
   }
 
   componentWillUnmount() {}
@@ -44,7 +50,7 @@ class Login extends React.Component {
     const username = this.state.username;
     const pwd = this.state.pws;
 
-    this.props.login(username, pwd);
+    this.props.loginAction(username, pwd);
   }
   render() {
     return (
@@ -109,7 +115,7 @@ Login.propTypes = {
 
 export default connect(
   state => ({
-    login: state.login,
+    login: state.loginReducer,
     user: state.user,
   }),
   dispatch => bindActionCreators({ loginAction }, dispatch),
