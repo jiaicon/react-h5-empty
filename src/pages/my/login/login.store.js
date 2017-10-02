@@ -6,7 +6,7 @@ export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
 export const LOGIN_REJECTED = 'LOGIN_REJECTED';
 
 
-export const login = (username, pwd) => (dispatch) => {
+export const loginAction = (username, pwd) => (dispatch) => {
   dispatch({ type: LOGIN_PENDING });
 
   fetch('/login', {

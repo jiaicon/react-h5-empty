@@ -9,6 +9,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
+import history from '../../history';
 import './register.css';
 import { requestVerifyCode, register } from './register.store';
 
@@ -34,14 +35,6 @@ class Register extends React.Component {
     };
   }
 
-  componentWillMount() {
-    const timer = this.state.timer;
-    clearInterval(timer);
-    this.setState({
-      buttonString: '获取验证码',
-      timer: null,
-    });
-  }
 
   componentDidMount() {
 
@@ -50,48 +43,49 @@ class Register extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { code: cCode, regis: cRegis } = this.props;
     const { code: nCode, regis: nRegis } = nextProps;
-    console.log(cCode.fetching);
     const countDownTrigger = this.state.countDownTrigger;
-    if (cCode && cCode.fetching && nCode && !nCode.fetching && !nCode.failed) {
+
+    if (cCode.fetching && !nCode.fetching && !nCode.failed) {
       this.setState({
         countDownTrigger: false,
       });
       this.onStartCountDown();
     }
-
-
-    if (cRegis && cRegis.fetching && nRegis && !nRegis.fetching && !nRegis.failed) {
+    if (cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
       history.push('/my/login');
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    const timer = this.state.timer;
+    clearInterval(timer);
+    this.setState({
+      buttonString: '获取验证码',
+      timer: null,
+    });
+  }
   onSubmit =() => {
     const name = this.state.name;
     const phone = this.state.phone;
-    const code = this.state.code;
+    const verifyCode = this.state.verifyCode;
     const password = this.state.password;
     const checked = this.checkbox.checked;
     const photo = this.state.photo;
-    if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(code, '手机验证码') || checkEmpty(password, '密码')) {
-      return;
+    if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
+
     }
     if (!checked) {
       Alert.warning('请确认已阅读《志多星协议》');
-      return;
     }
     if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
       Alert.warning('请输入正确的用户名》');
-      return;
     }
-    if (code.length <= 6 || code.length >= 20) {
-      Alert.warning('请输入正确密码6-20位');
-    }
+
     const data = {};
     data.username = name;
     data.pwd = password;
     data.phone = phone;
-    data.verify_code = code;
+    data.verify_code = verifyCode;
     if (photo) {
       data.avatars = photo;
     }
@@ -144,16 +138,15 @@ class Register extends React.Component {
   onTextChanged =() => {
     const name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
-    const code = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
+    const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
     const password = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
 
     this.setState({
       ...this.state,
       name,
       phone,
-      code,
+      verifyCode,
       password,
-      checked,
     });
   }
   // 上传照片
@@ -243,12 +236,29 @@ Register.title = '注册';
 Register.propTypes = {
   requestVerifyCode: PropTypes.func,
   register: PropTypes.func,
-};
+  code: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+    data: PropTypes.shape({
+      // TODO:
 
+    }),
+  }),
+  regis: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+    data: PropTypes.shape({
+      // TODO:
+      id: PropTypes.number,
+      token: PropTypes.string,
+    }),
+  }),
+
+};
 export default connect(
   state => ({
-    code: state.code,
-    regis: state.regis,
+    code: state.register.codeReduxcer,
+    regis: state.register.registerReducer,
   }),
   dispatch => bindActionCreators({ requestVerifyCode, register }, dispatch),
 )(Register);
