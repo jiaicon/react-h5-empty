@@ -402,3 +402,7 @@ a {
   background: #E5E5E5;
   transform: scaleX(0.5);
 }
+
+input::-webkit-input-placeholder{
+  color: #C0C0C0;
+}

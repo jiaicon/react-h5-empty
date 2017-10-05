@@ -52,7 +52,7 @@
 .page-my-photo-background{
   width: 80px;
   height: 80px;
-  /* background-image: url(''); */
+  background-image: url(/images/my/register.png);
   background-color: #ccc;
   margin-right: 15px;
   /* box-shadow: 0 2px 8px 0 rgba(192,192,192,0.50); */
