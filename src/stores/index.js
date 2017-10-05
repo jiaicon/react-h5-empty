@@ -10,6 +10,7 @@ import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import homeReducer from '../pages/home/home.store';
 import loginReducer from '../pages/my/login/login.store';
 import registerReducer from '../pages/my/register/register.store';
+import projectReducer from '../pages/project/project.store';
 import { userReducer } from './common';
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   register: registerReducer,
   user: userReducer,
   pendingTasks: pendingTasksReducer,
+  project: projectReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];

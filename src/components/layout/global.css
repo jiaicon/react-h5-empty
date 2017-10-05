@@ -396,3 +396,9 @@ a {
   background: #E5E5E5;
   transform: scaleY(0.5);
 }
+
+.line1px-v {
+  width: 1px;
+  background: #E5E5E5;
+  transform: scaleX(0.5);
+}

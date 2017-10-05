@@ -10,6 +10,11 @@
     "chunk": "main"
   },
   {
+    "path": "/project/:projectId",
+    "page": "./pages/project/detail/detail",
+    "chunk": "main"
+  },
+  {
     "path": "/my",
     "page": "./pages/launch/launch",
     "chunk": "main"

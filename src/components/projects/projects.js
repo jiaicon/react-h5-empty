@@ -3,6 +3,7 @@ import autoBind from 'react-autobind';
 import classnames from 'classnames';
 import './projects.css';
 import Link from '../link/link';
+import { parseTimeStringToDateString } from '../../utils/funcs';
 
 class Projects extends React.Component {
 
@@ -38,7 +39,7 @@ class Projects extends React.Component {
             const { team } = project;
 
             return (<li key={project.id}>
-              <Link to="/">
+              <Link to={`/project/${project.id}`}>
                 <div className="project-header">
                   <img className="org-avatar" src={team.logo} alt="头像" />
                   <div className="org-name">{team.name}</div>
@@ -46,7 +47,7 @@ class Projects extends React.Component {
                 <div className="project-main">
                   <img src={project.photo} alt="项目图片" />
                   <div className="project-name">{project.name}</div>
-                  <div className="project-date">活动日期：{project.join_begin.replace(/-/g, '.')}-{project.join_end.replace(/-/g, '.')}</div>
+                  <div className="project-date">活动日期：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}</div>
                   <div
                     className={classnames({
                       'project-status': true,
