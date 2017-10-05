@@ -112,7 +112,7 @@ export const AGAINCODE_REJECTED = 'AGAINCODE_REJECTED';
 
 export const againVerifyCode = phone => (dispatch) => {
   dispatch({ type: AGAINCODE_PENDING });
-  fetch('/verifycode', {
+  fetch('/phone/verifycode', {
     data: { phone },
   }).then((json) => {
     Alert.success('发送成功');

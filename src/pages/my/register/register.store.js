@@ -16,7 +16,7 @@ export const CODE_REJECTED = 'CODE_REJECTED';
 
 export const requestVerifyCode = phone => (dispatch) => {
   dispatch({ type: CODE_PENDING });
-  fetch('/verifycode', {
+  fetch('/phone/verifycode', {
     data: { phone },
   }).then((json) => {
     Alert.success('发送成功');
