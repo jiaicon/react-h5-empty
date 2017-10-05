@@ -135,7 +135,7 @@ class HomePage extends React.Component {
               <div className="sub-label">Awesome Activity</div>
             </div>
             <div className="line1px" />
-            {home && home.data ? <Projects projects={home.data.project} /> : null}
+            <Projects projects={(home.data && home.data.project) || []} />
           </div>
         </div>
       </div>

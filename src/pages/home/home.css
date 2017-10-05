@@ -137,6 +137,7 @@
 
 .page-home .menus-activity {
   display: flex;
+  justify-content: center;
   padding: 12px;
 }
 
