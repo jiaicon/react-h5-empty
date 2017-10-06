@@ -60,7 +60,9 @@ class Projects extends React.Component {
                 <div className="project-footer">
                   <div className="project-location">{project.county_name} {project.distance}</div>
                   <div className="project-members">
-                    <span>{project.join_people_count}</span>&nbsp;/&nbsp;<span>{project.people_count}</span>
+                    <span>{project.join_people_count}</span>
+                    &nbsp;/&nbsp;
+                    <span>{project.people_count}</span>
                   </div>
                 </div>
               </Link>

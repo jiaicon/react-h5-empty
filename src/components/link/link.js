@@ -8,7 +8,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import history from '../../pages/history';
 
 class Link extends React.Component {
@@ -17,7 +17,7 @@ class Link extends React.Component {
     to: PropTypes
       .oneOfType([PropTypes.string, PropTypes.object])
       .isRequired,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   };
 
   handleClick = (event) => {
@@ -43,8 +43,8 @@ class Link extends React.Component {
 
     if (this.props.to) {
       history.push(this.props.to);
-    } else {
-      history.push({pathname: event.currentTarget.pathname, search: event.currentTarget.search});
+    } else if (this.props.to !== '') {
+      history.push({ pathname: event.currentTarget.pathname, search: event.currentTarget.search });
     }
   };
 
@@ -54,12 +54,13 @@ class Link extends React.Component {
       ...props
     } = this.props; // eslint-disable-line no-use-before-define
     // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a
+    return (<a
       href={typeof to === 'string'
       ? to
       : history.createHref(to)}
       {...props}
-      onClick={this.handleClick}/>;
+      onClick={this.handleClick}
+    />);
   }
 
 }

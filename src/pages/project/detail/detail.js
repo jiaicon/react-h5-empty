@@ -2,12 +2,28 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
+import Alert from 'react-s-alert';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../../components/share';
 import { parseTimeStringToDateString } from '../../../utils/funcs';
 import './detail.css';
 import Link from '../../../components/link/link';
-import { requestProjectDetail } from './detail.store';
+import {
+  requestProjectDetail,
+  collectProject,
+  unCollectProject,
+  joinProject,
+  quitProject,
+} from './detail.store';
+
+/**
+ * TODO
+ * 1. 联调确认用户是否收藏的字段(collected)
+ * 2. 联调确认取消收藏的接口
+ * 3. 提示用户分享的 UI 以及设置微信分享配置信息
+ * 4. 联调确认项目发布日期字段(publish_date)
+ */
 
 class ProjectDetailPage extends React.Component {
 
@@ -32,6 +48,32 @@ class ProjectDetailPage extends React.Component {
 
   componentWillUnmount() {}
 
+  handleFavoriteClick() {
+    const { detail: { data: detailData } } = this.props;
+
+    if (detailData.collected) {
+      this.props.unCollectProject(detailData.id);
+    } else {
+      this.props.collectProject(detailData.id);
+    }
+  }
+
+  handleShareClick() { // eslint-disable-line
+    Alert.info('请点击右上角菜单进行分享↑');
+  }
+
+  handleActionClick(action) {
+    const { projectId } = this;
+
+    return () => {
+      if (action === 'join') {
+        this.props.joinProject(projectId);
+      } else if (action === 'quit') {
+        this.props.quitProject(projectId);
+      }
+    };
+  }
+
   render() {
     const { detail: { data: detailData }, user: { isLogin } } = this.props;
     const currentProjectId = parseInt(this.projectId, 10);
@@ -47,6 +89,7 @@ class ProjectDetailPage extends React.Component {
     const fulled = detailData.join_people_count === detailData.people_count;
     let actionLabel = '';
     let actionClassName = '';
+    let action = '';
 
     if (detailData.activity_status === 3) {
       actionLabel = '已结束';
@@ -54,12 +97,17 @@ class ProjectDetailPage extends React.Component {
     } else if (!joined && fulled) {
       actionLabel = '已满员';
       actionClassName = 'project-action-full';
+    } else if (!joined && detailData.activity_status === 2) {
+      actionLabel = '进行中';
+      actionClassName = 'project-action-full';
     } else if (!joined) {
       actionLabel = '我要报名';
       actionClassName = 'project-action-available';
+      action = 'join';
     } else if (joined) {
       actionLabel = '我要退出';
       actionClassName = 'project-action-quit';
+      action = 'quit';
     }
 
     return (
@@ -148,15 +196,15 @@ class ProjectDetailPage extends React.Component {
         </div>
         <div className="foot">
           <div className="line1px" />
-          <Link to="/" className="project-action project-action-favorite">
-            <span className="selected" />
+          <Link to="" onClick={this.handleFavoriteClick} className="project-action project-action-favorite">
+            <span className={classnames({ selected: detailData.collected })} />
             <span>收藏</span>
           </Link>
-          <Link to="/" className="project-action project-action-share">
+          <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
             <span />
             <span>分享</span>
           </Link>
-          <Link to="/" className={`project-action-main ${actionClassName}`}>
+          <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
             {actionLabel}
           </Link>
         </div>
@@ -167,6 +215,10 @@ class ProjectDetailPage extends React.Component {
 
 ProjectDetailPage.propTypes = {
   requestProjectDetail: PropTypes.func,
+  collectProject: PropTypes.func,
+  unCollectProject: PropTypes.func,
+  joinProject: PropTypes.func,
+  quitProject: PropTypes.func,
   detail: PropTypes.shape({
     fetchingId: PropTypes.string,
     data: PropTypes.shape({}),
@@ -188,5 +240,11 @@ export default connect(
     detail: state.project.detail,
     user: state.user,
   }),
-  dispatch => bindActionCreators({ requestProjectDetail }, dispatch),
+  dispatch => bindActionCreators({
+    requestProjectDetail,
+    collectProject,
+    unCollectProject,
+    joinProject,
+    quitProject,
+  }, dispatch),
 )(ProjectDetailPage);
