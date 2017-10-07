@@ -12,6 +12,7 @@
 
 .page-project-list .body {
   position: relative;
+  padding-top: 45px;
 }
 
 .page-project-list .body .project-filter-container {
@@ -19,5 +20,31 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 100%;
+  z-index: 1;
+}
+
+.page-project-list .project-list .component-projects{
+  padding-top: 10px;
+}
+
+.page-project-list .loading-more {
+  height: 50px;
+  background: #FAFAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #999999;
+}
+
+.page-project-list .loading-more img {
+  margin-right: 10px;
+  animation: spinner 1s linear infinite;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spinner{
+	0%{ transform: rotateZ(0deg); }
+	100%{ transform: rotateZ(360deg); }
 }

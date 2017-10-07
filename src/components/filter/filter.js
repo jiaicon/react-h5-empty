@@ -43,6 +43,12 @@ class Filter extends React.Component {
     return () => this.setState({
       ...this.state,
       showOptionsType: this.state.showOptionsType === optionType ? '' : optionType,
+    }, () => {
+      if (this.state.showOptionsType) {
+        this.props.onFilterShow();
+      } else {
+        this.props.onFilterHide();
+      }
     });
   }
 
@@ -116,6 +122,8 @@ class Filter extends React.Component {
 
 Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
+  onFilterShow: PropTypes.func,
+  onFilterHide: PropTypes.func,
 };
 
 export default Filter;

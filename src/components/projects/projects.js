@@ -28,7 +28,9 @@ class Projects extends React.Component {
   render() {
     const { projects } = this.props;
 
-    if (!projects || !projects.length) {
+    if (!projects) {
+      return null;
+    } else if (projects && !projects.length) {
       return <div className="projects-empty-tip">目前还没有活动哦</div>;
     }
 

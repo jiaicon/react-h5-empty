@@ -7,6 +7,10 @@
   font-weight: 200;
 }
 
+.component-projects{
+  background: #FAFAFA;
+}
+
 .component-projects li{
   padding: 15px;
   margin-bottom: 10px;

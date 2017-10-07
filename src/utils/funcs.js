@@ -7,3 +7,9 @@ export function parseTimeStringToDateString(timeString) {
   return dateString.replace(/-/g, '.');
 }
 
+export function isWindowReachBottom(threshold = 0) {
+  if ((window.innerHeight + window.scrollY + threshold) >= document.body.scrollHeight) {
+    return true;
+  }
+  return false;
+}
