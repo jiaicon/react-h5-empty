@@ -68,7 +68,7 @@ class ProjectDetailPage extends React.Component {
     return () => {
       if (action === 'join') {
         this.props.joinProject(projectId);
-      } else if (action === 'quit') {
+      } else if (action === 'quit' && window.confirm('确定要退出吗？')) {
         this.props.quitProject(projectId);
       }
     };
