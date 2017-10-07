@@ -7,6 +7,7 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Link from '../../../components/link/link';
 import './setting.css';
 
 class Setting extends React.Component {
@@ -31,7 +32,14 @@ class Setting extends React.Component {
   render() {
     return (
       <div className="page-setting">
-        <h1>个人设置</h1>
+        <Link to="/my/forget">
+          <div className="page-setting-forget">
+            <div> 修改密码</div>
+            <div className="page-setting-icon" />
+          </div>
+
+        </Link>
+        <div className="page-setting-quit">退出登录</div>
 
 
       </div>

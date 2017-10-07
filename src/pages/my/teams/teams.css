@@ -18,6 +18,7 @@
   overflow: hidden;
   display: flex;
   align-items:center;
+  width: 345px;
 
 }
 .page-teams-search-btn{
@@ -34,15 +35,19 @@ input::-webkit-input-placeholder{
   color: #C0C0C0;
 }
 .page-teams-search{
-  width: 296px;
+  width: 277px;
   height: 30px;
   outline: none;
   border-radius:100px;
   font-size: 14px;
 }
-/* .page-teams-search-cancel{
-
-} */
+.page-teams-search-cancel{
+  font-size: 14px;
+  color:#C0C0C0;
+}
+.page-teams-search-cancel-hidden{
+  display: none;
+}
 .page-teams-main{
   padding-left: 15px;
   padding-right:15px;

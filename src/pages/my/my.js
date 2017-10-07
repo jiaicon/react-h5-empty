@@ -21,18 +21,18 @@ class MyPage extends React.Component {
   }
 
   componentWillMount() {
-
+    this.props.requestUserInfo();
+    // this.props.teamAction();
+    // this.props.projectAction();
+    // this.props.rewardTimeAction();
+    // console.log(this.props.user);
+    // console.log(this.props.team);
+    // console.log(this.props.reward);
+    // console.log(this.props.project);
   }
 
   componentDidMount() {
-    this.props.requestUserInfo();
-    this.props.teamAction();
-    this.props.projectAction();
-    this.props.rewardTimeAction();
-    console.log(this.props.user);
-    console.log(this.props.team);
-    console.log(this.props.reward);
-    console.log(this.props.project);
+
   }
 
   componentWillReceiveProps(nextProps) {
