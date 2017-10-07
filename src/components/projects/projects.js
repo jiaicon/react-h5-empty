@@ -39,7 +39,7 @@ class Projects extends React.Component {
             const { team } = project;
 
             return (<li key={project.id}>
-              <Link to={`/project/${project.id}`}>
+              <Link to={`/project/detail/${project.id}`}>
                 <div className="project-header">
                   <img className="org-avatar" src={team.logo} alt="头像" />
                   <div className="org-name">{team.name}</div>

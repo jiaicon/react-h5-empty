@@ -1,0 +1,23 @@
+.page-project-list {
+
+}
+
+.page-project-list .search-bar-container {
+  height: 44px;
+  padding: 6px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.page-project-list .body {
+  position: relative;
+}
+
+.page-project-list .body .project-filter-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}

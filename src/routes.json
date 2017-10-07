@@ -10,8 +10,13 @@
     "chunk": "main"
   },
   {
-    "path": "/project/:projectId",
+    "path": "/project/detail/:projectId",
     "page": "./pages/project/detail/detail",
+    "chunk": "main"
+  },
+  {
+    "path": "/project/list",
+    "page": "./pages/project/list/list",
     "chunk": "main"
   },
   {
