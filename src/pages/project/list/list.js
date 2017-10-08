@@ -99,7 +99,7 @@ class ProjectListPage extends React.Component {
       <div className="page-project-list">
         <div className="header">
           <div className="search-bar-container">
-            <Link className="component-search-bar" to="">
+            <Link className="component-search-bar" to="/project/search">
               <input className="input" placeholder="搜索项目" />
             </Link>
           </div>

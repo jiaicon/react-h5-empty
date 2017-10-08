@@ -20,6 +20,11 @@
     "chunk": "main"
   },
   {
+    "path": "/project/search",
+    "page": "./pages/project/search/search",
+    "chunk": "main"
+  },
+  {
     "path": "/my",
     "page": "./pages/launch/launch",
     "chunk": "main"
