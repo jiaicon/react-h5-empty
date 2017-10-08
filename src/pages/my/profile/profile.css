@@ -1,0 +1,113 @@
+
+.page-profile{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 36px;
+}
+.page-profile-title{
+  width: 100%;
+  padding-left: 15px;
+  font-size: 20px;
+  color: #333333;
+  font-weight: 600;
+  padding-bottom: 36px;
+}
+.page-profile-header-box{
+  width: 100%;
+  height: 50px;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-profile-header-box{
+  font-size: 15px;
+  color: #666666;
+}
+.page-profile-header-img{
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+
+}
+.page-profile-header-img-container{
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-image: url(/images/my/register.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+}
+.page-profile-header-upload{
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.page-profile-edit-icon{
+  width: 20px;
+  height: 20px;
+  background-image: url(/images/my/more.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 5px;
+}
+.page-profile-header-uploade-box{
+  display: flex;
+  flex-direction: reverse;
+  align-items: center;
+}
+.page-profile-fonts-view{
+  width: 100%;
+  height: 57px;
+  padding: 0 15px;
+  font-size: 15px;
+  color: #999999;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  text-overflow: clip;
+  white-space:nowrap;
+}
+.page-profile-take-up{
+  height: 15px;
+  width: 100%;
+  background-color: #f8f8f8;
+}
+.page-profile-bottom{
+  width: 100%;
+  /* iphone6 603高度   标题状态啦64  此处减64=179 */
+  height: 243px;
+  background-color: #f8f8f8;
+}
+.page-profile-bottom-btn{
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #6AC6F8;
+  text-align: center;
+  line-height: 50px;
+}
+.page-profile-checkbox-container{
+  width: 100%;
+  padding: 0 15px;
+}
+.page-profile-initial-fonts{
+  font-size: 15px;
+  color: #333333;
+}
+.page-profile-realinfo-takeup{
+  width: 100%;
+  height: 40px;
+  background-color: #f8f8f8;
+}
+.page-profile-realinfo-padding-top{
+  padding-top: 36px;
+}

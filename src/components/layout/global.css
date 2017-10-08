@@ -396,6 +396,35 @@ a {
   background: #E5E5E5;
   transform: scaleY(0.5);
 }
+
+.line1px-v {
+  width: 1px;
+  background: #E5E5E5;
+  transform: scaleX(0.5);
+}
+
 input::-webkit-input-placeholder{
+  color: #C0C0C0;
+}
+
+/**
+ * CSS Components
+ */
+ .component-search-bar {
+  display: flex;
+  align-items: stretch;
+  height: 32px;
+  opacity: 0.9;
+  border-radius: 16px;
+  background: #F8F8F8 url(/images/search.png) no-repeat 10px center;
+  background-size: 25px 25px;
+  flex: 1;
+  margin: 0 15px;
+}
+
+.component-search-bar .input {
+  margin-left: 45px;
+  flex: 1;
+  font-size: 14px;
   color: #C0C0C0;
 }

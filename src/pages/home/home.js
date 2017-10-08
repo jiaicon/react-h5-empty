@@ -53,8 +53,8 @@ class HomePage extends React.Component {
 
     return (<div className="header-bar">
       <div className="city-name">北京市</div>
-      <Link className="search-bar" to="/">
-        <span className="input">搜索项目</span>
+      <Link className="component-search-bar" to="/">
+        <input className="input" placeholder="搜索项目" />
       </Link>
       {
         !user.isLogin ? <Link className="login-button" to="/my/login">登录</Link> : null
@@ -96,7 +96,7 @@ class HomePage extends React.Component {
         </div>
         <div className="page-home-body">
           <div className="menus">
-            <Link to="/">
+            <Link to="/project/list">
               <div className="menu-icon menu-icon-project" />
               <span>志愿项目</span>
             </Link>

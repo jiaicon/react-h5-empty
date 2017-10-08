@@ -36,19 +36,22 @@ export default function request(requestUrl, requestOptions = {}) {
   // 自定义头必须设置 mode 为 cors
   // options.mode = 'cors';
 
+  // 处理 data，仅支持一层结构，支持上传数组数据，例如{url:['1','2']} 会转换为 url[]=1&&url[]=2
+  const data = options.data || {};
+  const keys = Object.keys(data);
+
   if (options.method === 'POST') {
-    // 处理 data，仅支持一层结构，支持上传数组数据，例如{url:['1','2']} 会转换为 url[]=1&&url[]=2
-    const data = options.data || {};
-    const keys = Object.keys(data);
     const fd = new FormData();
 
     keys.forEach((key) => {
       const value = data[key];
 
-      if (!Array.isArray(value)) {
-        fd.append(key, value);
-      } else {
-        value.forEach(v => fd.append(`${key}[]`, v));
+      if (value !== undefined) {
+        if (!Array.isArray(value)) {
+          fd.append(key, value);
+        } else {
+          value.forEach(v => fd.append(`${key}[]`, v));
+        }
       }
     });
 
@@ -57,6 +60,22 @@ export default function request(requestUrl, requestOptions = {}) {
     }
 
     options.body = fd;
+  } else {
+    const params = [];
+
+    keys.forEach((key) => {
+      const value = data[key];
+
+      if (value !== undefined) {
+        if (!Array.isArray(value)) {
+          params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+        } else {
+          value.forEach(v => params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`));
+        }
+      }
+    });
+
+    url = `${url}?${params.join('&')}`;
   }
 
   if (options.loading) {
@@ -71,21 +90,60 @@ export default function request(requestUrl, requestOptions = {}) {
 
   console.log('开始请求-', options);
 
-  // TODO: 如果没有经纬度信息则需要调用微信 JSSDK 获取经纬度之后再发起请求，对调用者透明
-  return fetch(url, options)
-            .then(response => response.json())
-            .then((json) => {
-              if (('error_code' in json) && json.error_code !== 0) {
-                Alert.warning(`操作失败：${json.error_message || '未知错误'}`);
-              }
+  return new Promise((resolve, reject) => {
+    fetch(url, options)
+    .then(response => response.json())
+    .then((json) => {
+      if (options.loading) {
+        store.dispatch(removeAysncTask());
+      }
 
-              store.dispatch(removeAysncTask());
-              console.log('请求成功-', json);
-              return json;
-            })
-            .catch((error) => {
-              store.dispatch(removeAysncTask());
-              Alert.error(`请求发送失败：${error}`);
-              console.log('请求失败-', error);
-            });
+      if (('error_code' in json) && json.error_code === 0) {
+        if (options.successWords) {
+          Alert.success(options.successWords);
+        }
+        console.log('请求成功-', json);
+        resolve(json);
+      } else {
+        console.log('请求返回失败-', json);
+        Alert.error('请求发送失败');
+
+        reject(json);
+      }
+    })
+    .catch((error) => {
+      if (options.loading) {
+        store.dispatch(removeAysncTask());
+      }
+
+      Alert.error(`请求发送失败：${error}`);
+      console.log('请求失败-', error);
+      reject(error);
+    });
+  });
+
+  // TODO: 如果没有经纬度信息则需要调用微信 JSSDK 获取经纬度之后再发起请求，对调用者透明
+  // return fetch(url, options)
+  //           .then(response => response.json())
+  //           .then((json) => {
+  //             store.dispatch(removeAysncTask());
+
+  //             if (('error_code' in json) && json.error_code === 0) {
+  //               if (options.successWords) {
+  //                 Alert.success(options.successWords);
+  //                 console.log('请求成功-', json);
+  //               }
+  //               return json;
+  //             }
+
+  //             console.log('请求返回失败-', json);
+  //             Alert.error('请求发送失败');
+
+  //             return Promise.reject(json);
+  //           })
+  //           .catch((error) => {
+  //             // store.dispatch(removeAysncTask());
+  //             Alert.error(`请求发送失败：${error}`);
+  //             console.log('请求失败-', error);
+  //           });
 }

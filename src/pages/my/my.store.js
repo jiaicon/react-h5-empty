@@ -184,12 +184,51 @@ const messagesReducer = (state = {
       return state;
   }
 };
+// 提交个人信息，头像，口号，擅长
+export const correctUserInfo = data => ({
+  type: 'USERINFO_DATA',
+  meta: {
+    data,
+  },
+  payload: fetch('user', { method: 'POST' }),
+});
+const correctUserInfoReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'USERINFO_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'USERINFO_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+        keyword: action.meta.keyword,
+      };
+    case 'USERINFO_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 const reducer = combineReducers({
   teamReducer,
   projectReducer,
   rewardTimeReducer,
   searchTeamReducer,
   messagesReducer,
+  correctUserInfoReducer,
 
 });
 export default reducer;
