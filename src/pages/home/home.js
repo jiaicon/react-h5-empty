@@ -53,7 +53,7 @@ class HomePage extends React.Component {
 
     return (<div className="header-bar">
       <div className="city-name">北京市</div>
-      <Link className="component-search-bar" to="/">
+      <Link className="component-search-bar" to="/project/search">
         <input className="input" placeholder="搜索项目" />
       </Link>
       {

@@ -1,0 +1,49 @@
+.page-project-search {
+
+}
+
+.page-project-search .search-bar-container {
+  height: 44px;
+  padding: 6px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.page-project-search .search-bar-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #333333;
+}
+
+.page-project-search .search-bar-container .component-search-bar {
+  margin-left: 0;
+}
+
+.page-project-search .project-list .component-projects{
+  padding-top: 10px;
+}
+
+.page-project-search .loading-more {
+  height: 50px;
+  background: #FAFAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #999999;
+}
+
+.page-project-search .loading-more img {
+  margin-right: 10px;
+  animation: spinner 1s linear infinite;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spinner{
+  0%{ transform: rotateZ(0deg); }
+  100%{ transform: rotateZ(360deg); }
+}
