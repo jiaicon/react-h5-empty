@@ -1,0 +1,11 @@
+.page-team-list {
+
+}
+
+.page-team-list .search-bar-container {
+  height: 44px;
+  padding: 6px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}

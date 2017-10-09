@@ -1,0 +1,52 @@
+.component-teams {
+  padding: 0 15px;
+}
+
+.component-teams li {
+
+}
+
+.component-teams li > a {
+  display: flex;
+  align-items: stretch;
+  padding: 20px 0 19px;
+}
+
+.component-teams li > a > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.component-teams li > a > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.component-teams li .team-name {
+  font-size: 18px;
+  color: #333333;
+}
+
+.component-teams li .team-info {
+  font-size: 13px;
+  color: #666666;
+  display: flex;
+  justify-content: space-between;
+}
+
+.component-teams li .team-info span:first-child {
+  background: url(/images/icon_duration.png) no-repeat left center;
+  background-size: 24px;
+  padding-left: 30px;
+}
+
+.component-teams li .team-info span:last-child {
+  background: url(/images/icon_people.png) no-repeat left center;
+  background-size: 24px;
+  padding-left: 30px;
+}

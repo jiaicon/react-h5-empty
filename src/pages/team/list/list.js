@@ -5,29 +5,18 @@ import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
 import './list.css';
 import Link from '../../../components/link/link';
-import Filter from '../../../components/filter/filter';
-import Projects from '../../../components/projects/projects';
+import Teams from '../../../components/teams/teams';
 import { isWindowReachBottom } from '../../../utils/funcs';
 
 import {
-  requestProjectList,
+  requestTeamList,
 } from './list.store';
 
-class ProjectListPage extends React.Component {
+class TeamListPage extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
-
-    this.state = {
-      isFilterShow: false,
-    };
-
-    this.selectedOption = {
-      service_object: '',
-      service_category: '',
-      sort: '最新发布',
-    };
   }
 
   componentWillMount() {
@@ -45,30 +34,6 @@ class ProjectListPage extends React.Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  onFilterChange(selectedOption) {
-    this.selectedOption = {
-      service_object: selectedOption.objects,
-      service_category: selectedOption.categories,
-      sort: selectedOption.types,
-    };
-
-    this.requestList();
-  }
-
-  onFilterShow() {
-    this.setState({
-      ...this.state,
-      isFilterShow: true,
-    });
-  }
-
-  onFilterHide() {
-    this.setState({
-      ...this.state,
-      isFilterShow: false,
-    });
-  }
-
   handleScroll() {
     if (isWindowReachBottom(50)) {
       this.requestList(true);
@@ -83,8 +48,7 @@ class ProjectListPage extends React.Component {
       return;
     }
 
-    this.props.requestProjectList({
-      ...this.selectedOption,
+    this.props.requestTeamList({
       current_page: more ? listData.page.current_page + 1 : 1,
       more,
     });
@@ -92,29 +56,23 @@ class ProjectListPage extends React.Component {
 
   render() {
     const { list: { data: listData } } = this.props;
+
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
 
     return (
-      <div className="page-project-list">
+      <div className="page-team-list">
         <div className="header">
           <div className="search-bar-container">
-            <Link className="component-search-bar" to="/project/search">
-              <input className="input" placeholder="搜索项目" />
+            <Link className="component-search-bar" to="/team/search">
+              <input className="input" placeholder="搜索团队" />
             </Link>
           </div>
         </div>
         <div className="line1px" />
         <div className="body">
-          <div className="project-filter-container" style={{ height: this.state.isFilterShow ? '100%' : 'auto' }}>
-            <Filter
-              onFilterChange={this.onFilterChange}
-              onFilterShow={this.onFilterShow}
-              onFilterHide={this.onFilterHide}
-            />
-          </div>
-          <div className="project-list">
-            <Projects projects={listData ? listData.list : null} />
+          <div className="team-list">
+            <Teams teams={listData ? listData.list : null} />
           </div>
           {
             showLoadingMore
@@ -131,8 +89,8 @@ class ProjectListPage extends React.Component {
   }
 }
 
-ProjectListPage.propTypes = {
-  requestProjectList: PropTypes.func,
+TeamListPage.propTypes = {
+  requestTeamList: PropTypes.func,
   list: PropTypes.shape({
     data: PropTypes.shape({
       list: PropTypes.arrayOf(PropTypes.shape({})),
@@ -144,14 +102,14 @@ ProjectListPage.propTypes = {
   }),
 };
 
-ProjectListPage.title = '志愿项目';
+TeamListPage.title = '志愿团队';
 
 export default connect(
   state => ({
-    list: state.project.list,
+    list: state.team.list,
     user: state.user,
   }),
   dispatch => bindActionCreators({
-    requestProjectList,
+    requestTeamList,
   }, dispatch),
-)(ProjectListPage);
+)(TeamListPage);

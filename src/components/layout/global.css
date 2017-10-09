@@ -428,3 +428,25 @@ input::-webkit-input-placeholder{
   font-size: 14px;
   color: #C0C0C0;
 }
+
+.component-loading-more {
+  height: 50px;
+  background: #FAFAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #999999;
+}
+
+.component-loading-more img {
+  margin-right: 10px;
+  animation: spinner 1s linear infinite;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spinner{
+	0%{ transform: rotateZ(0deg); }
+	100%{ transform: rotateZ(360deg); }
+}

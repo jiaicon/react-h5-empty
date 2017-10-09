@@ -4,6 +4,8 @@
 
 /* global wx:false */
 import React, { PropTypes } from 'react';
+import Swipeout from 'rc-swipeout';
+import 'rc-swipeout/assets/index.css';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -55,7 +57,22 @@ class Family extends React.Component {
         </div>
         <div className="page-family-take-up" />
         <div>
-          <FamilyItem data={user}  />
+          <FamilyItem data={user} />
+          <Swipeout
+            right={[
+              {
+                text: '删除',
+                onPress: () => console.log('delete'),
+                style: { backgroundColor: 'red', color: 'white' },
+                className: 'custom-class-2',
+              },
+            ]}
+            onOpen={() => console.log('open')}
+            onClose={() => console.log('close')}
+          >
+            <div style={{ height: 44 }}> swipeout demo </div>
+          </Swipeout>
+
         </div>
 
 
