@@ -98,7 +98,7 @@ export default (state = {
         ...state,
         data: {
           ...state.data,
-          collected: 1,
+          collection_status: 1,
         },
       };
     case 'PROJECT_UNCOLLECT_FULFILLED':
@@ -106,7 +106,7 @@ export default (state = {
         ...state,
         data: {
           ...state.data,
-          collected: 0,
+          collection_status: 0,
         },
       };
     case 'PROJECT_JOIN_FULFILLED':

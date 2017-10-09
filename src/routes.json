@@ -30,6 +30,11 @@
     "chunk": "main"
   },
   {
+    "path": "/team/detail/:teamId",
+    "page": "./pages/team/detail/detail",
+    "chunk": "main"
+  },
+  {
     "path": "/team/search",
     "page": "./pages/team/search/search",
     "chunk": "main"
