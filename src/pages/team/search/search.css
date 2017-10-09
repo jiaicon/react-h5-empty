@@ -1,8 +1,8 @@
-.page-project-search {
+.page-team-search {
 
 }
 
-.page-project-search .search-bar-container {
+.page-team-search .search-bar-container {
   height: 44px;
   padding: 6px 15px;
   display: flex;
@@ -10,7 +10,7 @@
   align-items: stretch;
 }
 
-.page-project-search .search-bar-container button {
+.page-team-search .search-bar-container button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,10 +18,10 @@
   color: #333333;
 }
 
-.page-project-search .search-bar-container .component-search-bar {
+.page-team-search .search-bar-container .component-search-bar {
   margin-left: 0;
 }
 
-.page-project-search .project-list .component-projects{
+.page-team-search .project-list .component-projects{
   padding-top: 10px;
 }

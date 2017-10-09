@@ -3,7 +3,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './search.css';
-import Projects from '../../../components/projects/projects';
+import Teams from '../../../components/teams/teams';
 import { isWindowReachBottom } from '../../../utils/funcs';
 import history from '../../history';
 
@@ -11,7 +11,7 @@ import {
   requestSearch,
 } from './search.store';
 
-class ProjectSearchPage extends React.Component {
+class TeamSearchPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -82,7 +82,7 @@ class ProjectSearchPage extends React.Component {
     listData.page && (listData.page.current_page < listData.page.total_page);
 
     return (
-      <div className="page-project-search">
+      <div className="page-team-search">
         <div className="header">
           <div className="search-bar-container">
             <form onSubmit={this.handleSearch} className="component-search-bar">
@@ -93,25 +93,25 @@ class ProjectSearchPage extends React.Component {
         </div>
         <div className="line1px" />
         <div className="body">
-          <div className="project-list">
-            <Projects projects={listData && keyword === this.keyword ? listData.list : null} />
+          <div className="team-list">
+            <Teams teams={listData && keyword === this.keyword ? listData.list : null} />
           </div>
           {
-            showLoadingMore
-            ?
-              <div className="component-loading-more">
-                <img src="/images/icon_loading.png" alt="loading" />
-              正在加载
-            </div>
-            : null
-          }
+          showLoadingMore
+          ?
+            <div className="component-loading-more">
+              <img src="/images/icon_loading.png" alt="loading" />
+            正在加载
+          </div>
+          : null
+        }
         </div>
       </div>
     );
   }
 }
 
-ProjectSearchPage.propTypes = {
+TeamSearchPage.propTypes = {
   requestSearch: PropTypes.func,
   list: PropTypes.shape({
     data: PropTypes.shape({
@@ -124,14 +124,14 @@ ProjectSearchPage.propTypes = {
   }),
 };
 
-ProjectSearchPage.title = '搜索志愿项目';
+TeamSearchPage.title = '搜索志愿项目';
 
 export default connect(
   state => ({
-    list: state.project.search,
+    list: state.team.search,
     user: state.user,
   }),
   dispatch => bindActionCreators({
     requestSearch,
   }, dispatch),
-)(ProjectSearchPage);
+)(TeamSearchPage);
