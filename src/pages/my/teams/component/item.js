@@ -56,7 +56,7 @@ class Item extends React.Component {
               </div>
               <div className="page-teams-item-main-bottom-time">
                 <img src="/images/my/people.png" className="page-teams-item-main-bottom-icon" alt="icon" />
-                <p>成员:{item.team_size}人</p>
+                <p>成员:{item.team_size ? item.team_size : 0}人</p>
               </div>
 
             </div>

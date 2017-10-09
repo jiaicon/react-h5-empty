@@ -12,6 +12,7 @@ import loginReducer from '../pages/my/login/login.store';
 import registerReducer from '../pages/my/register/register.store';
 import projectReducer from '../pages/project/project.store';
 import teamReducer from '../pages/team/team.store';
+import myReducer from '../pages/my/my.store';
 import { userReducer } from './common';
 
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   pendingTasks: pendingTasksReducer,
   project: projectReducer,
   team: teamReducer,
+  my: myReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];

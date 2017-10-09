@@ -12,6 +12,7 @@
     "fastclick": "^1.0.6",
     "history": "^4.6.1",
     "query-string": "^5.0.0",
+    "rc-swipeout": "^2.0.1",
     "react": "^15.4.2",
     "react-autobind": "^1.0.6",
     "react-dom": "^15.4.2",

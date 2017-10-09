@@ -25,23 +25,24 @@ class Teams extends React.Component {
   }
 
   componentWillMount() {
+    console.log('渲染前');
     this.props.teamAction();
-    console.log(this.props.teamAction());
   }
 
   componentDidMount() {
-
+    console.log('渲染完成');
   }
 
   componentWillReceiveProps(nextProps) {
-    const { search: csearch } = this.props;
-    const { search: nsearch } = nextProps;
-    if (nsearch && csearch && csear.fetching && !nsearch.fetching && !nsearch.failed) {
-      this.setState({
-        ...this.state,
-        toggle: false,
-      });
-    }
+    console.log('接收数据');
+    // const { search: csearch } = this.props;
+    // const { search: nsearch } = nextProps;
+    // if (nsearch && csearch && csear.fetching && !nsearch.fetching && !nsearch.failed) {
+    //   this.setState({
+    //     ...this.state,
+    //     toggle: false,
+    //   });
+    // }
   }
 
   componentWillUnmount() {
@@ -72,11 +73,15 @@ class Teams extends React.Component {
     });
   }
   renderTeamTemplate=() => {
-    const data = this.props.team;
-    console.log(this.props.team.data);
+    // const data = this.props.team.data;
+    // console.log(this.props.team.data);
+    const data = this.props.team.data;
+    if (!data || !data.list) {
+      return <div />;
+    }
     return (
       <div>
-        {data.map((item, key) => <Item data={item} key={key} />)}
+        {data.list.map((item, key) => <Item data={item} key={key} />)}
       </div>
     );
   }
@@ -118,61 +123,6 @@ class Teams extends React.Component {
   }
 
   render() {
-    const data = this.props.team;
-    // const data = [
-    //   {
-    //     id: 123,
-    //     name: '服务远征1号队',
-    //     slogan: '服务为名',
-    //     logo: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506748088074&di=cc5df76d62ad75cec9d48b44ad95e83d&imgtype=0&src=http%3A%2F%2Fimg4.tbcdn.cn%2Ftfscom%2Fi8%2FTB1aFcWSFXXXXb.XVXXYXGcGpXX_M2.SS2',
-    //     type: '企事业单位',
-    //     team_size: 111,
-    //     identifier: 'aaa',
-    //     contact_name: '张三',
-    //     contact_phone: '18866666666',
-    //     contact_addr: '某某省某某市',
-    //     parent_id: 13,
-    //     province_id: 12,
-    //     province_name: '河北',
-    //     city_id: 1212,
-    //     city_name: '保定',
-    //     county_id: 121212,
-    //     county_name: '望都县',
-    //     time_long: 12.5,
-    //     abstract: '团队市很棒的',
-    //     created_at: '2017-03-03',
-    //     join_status: 0,
-    //     category: {
-    //       service_category_name: '赛事服务',
-    //     },
-    //   },
-    //   {
-    //     id: 123,
-    //     name: '服务远征1号队',
-    //     slogan: '服务为名',
-    //     logo: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506748088074&di=cc5df76d62ad75cec9d48b44ad95e83d&imgtype=0&src=http%3A%2F%2Fimg4.tbcdn.cn%2Ftfscom%2Fi8%2FTB1aFcWSFXXXXb.XVXXYXGcGpXX_M2.SS2',
-    //     type: '企事业单位',
-    //     team_size: 111,
-    //     identifier: 'aaa',
-    //     contact_name: '张三',
-    //     contact_phone: '18866666666',
-    //     contact_addr: '某某省某某市',
-    //     parent_id: 13,
-    //     province_id: 12,
-    //     province_name: '河北',
-    //     city_id: 1212,
-    //     city_name: '保定',
-    //     county_id: 121212,
-    //     county_name: '望都县',
-    //     time_long: 12.5,
-    //     abstract: '团队市很棒的',
-    //     created_at: '2017-03-03',
-    //     join_status: 1,
-    //     category: {
-    //       service_category_name: '赛事服务',
-    //     },
-    //   },
-    // ];
     // 搜索会来数据
     const ndata = [
       {
@@ -293,8 +243,8 @@ Teams.propTypes = {
 
 export default connect(
   state => ({
-    team: state.my.teamReducer,
-    search: state.my.searchTeamReducer,
+    team: state.my.team,
+    search: state.my.search,
 
   }),
   dispatch => bindActionCreators({

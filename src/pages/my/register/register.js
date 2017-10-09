@@ -259,8 +259,8 @@ Register.propTypes = {
 };
 export default connect(
   state => ({
-    code: state.register.codeReducer,
-    regis: state.register.registerReducer,
+    code: state.register.code,
+    regis: state.register.register,
   }),
   dispatch => bindActionCreators({ requestVerifyCode, register }, dispatch),
 )(Register);

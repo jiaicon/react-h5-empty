@@ -58,6 +58,7 @@
   background-image: url(/images/my/register.png);
   background-color: #ccc;
   margin-right: 15px;
+  background-size: cover;
   /* box-shadow: 0 2px 8px 0 rgba(192,192,192,0.50); */
   border-radius: 8px;
 
