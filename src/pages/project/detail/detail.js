@@ -114,7 +114,7 @@ class ProjectDetailPage extends React.Component {
       <div className="page-project-detail">
         <div className="header">
           <img className="project-photo" src={detailData.photo} alt="项目图片" />
-          <div className="header-addition">
+          <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
               <img src={detailData.team.logo} alt="头像" />
               <span>{detailData.team.name}</span>
@@ -122,7 +122,7 @@ class ProjectDetailPage extends React.Component {
             <div className="project-number">
               项目编号：{detailData.identifier}
             </div>
-          </div>
+          </Link>
         </div>
         <div className="body">
           <div className="project-name">
