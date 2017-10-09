@@ -3,10 +3,12 @@
  */
 
 /* global wx:false */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { requestUserInfo } from '../../../stores/common';
+import FamilyItem from './component/familyItem';
 import './family.css';
 
 class Family extends React.Component {
@@ -17,11 +19,11 @@ class Family extends React.Component {
   }
 
   componentWillMount() {
-
+    this.props.requestUserInfo();
   }
 
   componentDidMount() {
-
+    console.log(this.props.user);
   }
 
   componentWillReceiveProps() {
@@ -30,9 +32,31 @@ class Family extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const user = this.props.user;
+    console.log(user);
     return (
-      <div className="page-certificate">
-        <h1>我的家庭</h1>
+      <div className="page-family">
+        <div className="pages-family-top-area-container">
+          <div className="pages-family-top-area-title-and-btn">
+            <h5>我的家庭</h5>
+            <div className="pages-family-top-area-btn">添加成员</div>
+          </div>
+          <div className="page-family-top-area-view">
+            <div className="page-family-top-area-view-family-box">
+              <p><span>1</span>人</p>
+              <p>家庭成员</p>
+            </div>
+            <div className="page-family-top-area-view-line" />
+            <div className="page-family-top-area-view-family-box">
+              <p><span>139</span>小时</p>
+              <p>志愿总时长</p>
+            </div>
+          </div>
+        </div>
+        <div className="page-family-take-up" />
+        <div>
+          <FamilyItem data={user}  />
+        </div>
 
 
       </div>
@@ -47,6 +71,10 @@ Family.propTypes = {
 };
 
 export default connect(
-  state => state.my || {},
-  dispatch => bindActionCreators({}, dispatch),
+  state => ({
+    user: state.user,
+  }),
+  dispatch => bindActionCreators({
+    requestUserInfo,
+  }, dispatch),
 )(Family);

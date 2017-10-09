@@ -151,7 +151,7 @@ Messages.propTypes = {
 
 export default connect(
   state => ({
-    messages: state.messagesReducer,
+    messages: state.my.messages,
   }),
   dispatch => bindActionCreators({ messagesAction }, dispatch),
 )(Messages);

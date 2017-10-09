@@ -222,13 +222,53 @@ const correctUserInfoReducer = (state = {
       return state;
   }
 };
+// 请求家庭成员
+export const familyAction = id => ({
+  type: 'FAMILY_DATA',
+  meta: {
+    id,
+  },
+  payload: fetch('/myfamily/{id}', { method: 'GET' }),
+});
+const familyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'FAMILY_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+        keyword: action.meta.keyword,
+      };
+    case 'FAMILY_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+        keyword: action.meta.keyword,
+      };
+    case 'FAMILY_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+        keyword: action.meta.keyword,
+      };
+    default:
+      return state;
+  }
+};
 const reducer = combineReducers({
-  teamReducer,
-  projectReducer,
-  rewardTimeReducer,
-  searchTeamReducer,
-  messagesReducer,
-  correctUserInfoReducer,
-
+  team: teamReducer,
+  project: projectReducer,
+  reward: rewardTimeReducer,
+  search: searchTeamReducer,
+  messages: messagesReducer,
+  correct: correctUserInfoReducer,
+  family: familyReducer,
 });
 export default reducer;

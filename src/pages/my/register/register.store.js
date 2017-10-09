@@ -103,8 +103,8 @@ const codeReducer = (state = {
   }
 };
 const reducer = combineReducers({
-  codeReducer,
-  registerReducer,
+  code: codeReducer,
+  register: registerReducer,
 
 });
 export default reducer;

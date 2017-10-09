@@ -50,7 +50,7 @@ class MyPage extends React.Component {
     return (
       <div className="page-my-photo-container">
         <div className="page-my-photo-background">
-          <img src={user.avatars ? user.avatars : ''} alt="images" className="page-my-photo" />
+          <img src={user.avatars ? user.avatars : ''} alt="photo" className="page-my-photo" />
         </div>
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.username ? user.username : '未设置昵称'}</p>
@@ -344,9 +344,9 @@ MyPage.propTypes = {
 export default connect(
   state => ({
     user: state.user,
-    team: state.teamReducer,
-    project: state.projectReducer,
-    reward: state.rewardReducer,
+    team: state.team,
+    project: state.project,
+    reward: state.reward,
   }),
   dispatch => bindActionCreators({ requestUserInfo,
     teamAction,
