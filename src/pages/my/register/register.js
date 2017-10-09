@@ -72,13 +72,15 @@ class Register extends React.Component {
     const checked = this.checkbox.checked;
     const photo = this.state.photo;
     if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
-
+      return;
     }
     if (!checked) {
       Alert.warning('请确认已阅读《志多星协议》');
+      return;
     }
     if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
       Alert.warning('请输入正确的用户名》');
+      return;
     }
 
     const data = {};
@@ -182,7 +184,7 @@ class Register extends React.Component {
       <div className="page-register">
         <div className="page-register-photo">
           <div className="page-register-photo-container">
-            <image className="page-register-photo-img" src="" alt="头像" />
+            <img className="page-register-photo-img" src={this.state.photo} alt="" />
             <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-register-uploader-btn" />
           </div>
         </div>

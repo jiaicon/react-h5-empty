@@ -115,6 +115,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/service/center",
+    "page": "./pages/my/service/center",
+    "chunk": "main"
+  },
+  {
     "path": "/my/setting",
     "page": "./pages/my/setting/setting",
     "chunk": "main"

@@ -13,20 +13,20 @@ const teamReducer = (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'TEAM_PENDING':
+    case 'TEAM_DATA_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case 'TEAM_FULFILLED':
+    case 'TEAM_DATA_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
-        data: action.payload.data,
+        data: action.payload && action.payload.data,
       };
-    case 'TEAM_REJECTED':
+    case 'TEAM_DATA_REJECTED':
       return {
         ...state,
         failed: true,
@@ -38,30 +38,34 @@ const teamReducer = (state = {
 };
 // 获取项目数据
 
-export const projectAction = () => ({
-  type: 'PROJECT',
-  payload: fetch('/user/project', { method: 'GET' }),
+export const projectAction = num => ({
+  type: 'PROJECT_DATA',
+  meta: {
+    num,
+  },
+  payload: fetch(`/user/project?state=${num}`, { method: 'GET' }),
 });
+
 const projectReducer = (state = {
   fetching: false,
   failed: false,
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'PROJECT_PENDING':
+    case 'PROJECT_DATA_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case 'PROJECT_FULFILLED':
+    case 'PROJECT_DATA_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload.data,
       };
-    case 'PROJECT_REJECTED':
+    case 'PROJECT_DATA_REJECTED':
       return {
         ...state,
         failed: true,
@@ -74,7 +78,7 @@ const projectReducer = (state = {
 // 获取志愿时长
 
 export const rewardTimeAction = () => ({
-  type: 'REWARDTIME',
+  type: 'REWARDTIME_DATA',
   payload: fetch('/user/reward/time', { method: 'GET' }),
 });
 const rewardTimeReducer = (state = {
@@ -83,20 +87,20 @@ const rewardTimeReducer = (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'REWARDTIME_PENDING':
+    case 'REWARDTIME_DATA_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case 'REWARDTIME_FULFILLED':
+    case 'REWARDTIME_DATA_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload.data,
       };
-    case 'REWARDTIME_REJECTED':
+    case 'REWARDTIME_DATA_REJECTED':
       return {
         ...state,
         failed: true,
@@ -107,11 +111,8 @@ const rewardTimeReducer = (state = {
   }
 };
 // 搜索团队
-export const SEARCHTEAM_PENDING = 'SEARCHTEAM_PENDING';
-export const SEARCHTEAM_FULFILLED = 'SEARCHTEAM_FULFILLED';
-export const SEARCHTEAM_REJECTED = 'SEARCHTEAM_REJECTED';
 export const searchAction = keyword => ({
-  type: 'SEARCH',
+  type: 'SEARCH_DATA',
   meta: {
     keyword,
   },
@@ -123,14 +124,14 @@ const searchTeamReducer = (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'SEARCHTEAM_PENDING':
+    case 'SEARCHTEAM_DATA_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
         keyword: action.meta.keyword,
       };
-    case 'SEARCHTEAM_FULFILLED':
+    case 'SEARCHTEAM_DATA_FULFILLED':
       return {
         ...state,
         fetching: false,
@@ -138,7 +139,7 @@ const searchTeamReducer = (state = {
         data: action.payload,
         keyword: action.meta.keyword,
       };
-    case 'SEARCHTEAM_REJECTED':
+    case 'SEARCHTEAM_DATA_REJECTED':
       return {
         ...state,
         failed: true,
@@ -149,11 +150,85 @@ const searchTeamReducer = (state = {
       return state;
   }
 };
+// 我的消息
+export const messagesAction = () => ({
+  type: 'MESSAGES_DATA',
+  payload: fetch('/message', { method: 'GET' }),
+});
+const messagesReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'MESSAGES_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'MESSAGES_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'MESSAGES_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+// 提交个人信息，头像，口号，擅长
+export const correctUserInfo = data => ({
+  type: 'USERINFO_DATA',
+  meta: {
+    data,
+  },
+  payload: fetch('user', { method: 'POST' }),
+});
+const correctUserInfoReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'USERINFO_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'USERINFO_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+        keyword: action.meta.keyword,
+      };
+    case 'USERINFO_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 const reducer = combineReducers({
   teamReducer,
   projectReducer,
   rewardTimeReducer,
   searchTeamReducer,
+  messagesReducer,
+  correctUserInfoReducer,
 
 });
 export default reducer;
