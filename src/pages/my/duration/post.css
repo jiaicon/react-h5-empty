@@ -1,0 +1,117 @@
+.page-post-bg{
+  width: 100%;
+  background: #f8f8f8;
+  position:absolute;
+  top:0;
+  bottom:0;
+}
+.page-post-container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.page-post-mask-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  display: block;
+}
+.page-post-take-up{
+  width: 100%;
+  height: 160px;
+  opacity: 0.2;
+  background: #333333;
+}
+.page-post-mask-content{
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  background: #f8f8f8;
+}
+.page-post-container-item{
+  width: 345px;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-size: 14px;
+  padding-left: 12px;
+  color: #999;
+  display: flex;
+  flex-direction: reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-post-color{
+  color: #333;
+}
+.page-post-container-item-more{
+  width: 20px;
+  height: 20px;
+  background-image: url(/images/my/more.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 10px;
+}
+.page-post-container-text{
+  width: 345px;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-size: 14px;
+  padding-left: 12px;
+  color: #333333;
+}
+.page-post-container-explain{
+  margin-top: 15px;
+  width: 345px;
+  height: 125px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  resize: none;
+  font-size: 14px;
+  color: #333333;
+  padding: 12px;
+  line-height: 24px;
+}
+.page-post-container-explain::-webkit-input-placeholder {
+  color: #999;
+}
+.page-post-container-text::-webkit-input-placeholder {
+  color: #999;
+}
+.page-post-container-photo-text{
+  width: 345px;
+  margin-top: 15px;
+  font-size: 14px;
+  padding-left: 12px;
+  color: #999;
+}
+.page-post-btn{
+  width: 300px;
+  height: 50px;
+  background: #C7EAFD;
+  border-radius: 100px;
+  font-size: 16px;
+  color: #666666;
+  text-align: center;
+  line-height: 50px;
+}
+.page-post-container-photo-container{
+  width: 345px;
+  height: 130px;
+  margin-bottom: 25px;
+  padding-left:12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

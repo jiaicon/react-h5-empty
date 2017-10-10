@@ -67,7 +67,7 @@ class Profile extends React.Component {
   renderRealInfo() {
     const user = this.props.user;
     return (
-      <div>
+      <div className="page-profile-realinfo-box">
         <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">用户名</div>
@@ -106,50 +106,52 @@ class Profile extends React.Component {
     const user = this.props.user;
     return (
       <div className="page-profile">
-        <div className="page-profile-title">基本信息</div>
-        <div className="page-profile-header-box">
-          <div className="page-profile-fonts">头像</div>
-          <div className="page-profile-header-uploade-box">
-            <div className="page-profile-header-img-container">
-              <img className="page-profile-header-img" src={this.state.photo ? this.state.photo : user.avatars} alt="" />
-              <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-profile-header-upload" />
-            </div>
+        <div>
+          <div className="page-profile-title">基本信息</div>
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">头像</div>
+            <div className="page-profile-header-uploade-box">
+              <div className="page-profile-header-img-container">
+                <img className="page-profile-header-img" src={this.state.photo ? this.state.photo : user.avatars} alt="" />
+                <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-profile-header-upload" />
+              </div>
 
-            <div className="page-profile-edit-icon" />
-          </div>
-        </div>
-        <div className="line1px" />
-        <div className="page-profile-header-box">
-          <div className="page-profile-fonts">用户名</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
-        </div>
-        <div className="line1px" />
-        <div className="page-profile-header-box">
-          <div className="page-profile-fonts">志愿者编号</div>
-          <div className="page-profile-initial-fonts">{user.id}</div>
-        </div>
-        <div className="line1px" />
-        <div className="page-profile-header-box">
-          <div className="page-profile-fonts">个人擅长</div>
-          <div className="page-profile-edit-icon" />
-        </div>
-        <div className="line1px" />
-        <div>
-          <div className="page-profile-checkbox-container">
-            <CheckboxGroup />
-          </div>
-          <div className="line1px" />
-        </div>
-        <div>
-          <Link to="/my/profile/edit">
-            <div className="page-profile-header-box">
-              <div className="page-profile-fonts">志愿者口号</div>
               <div className="page-profile-edit-icon" />
             </div>
-            <div className="page-profile-fonts-view">{user.slogan}</div>
-          </Link>
+          </div>
+          <div className="line1px" />
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">用户名</div>
+            <div className="page-profile-initial-fonts">{user.username}</div>
+          </div>
+          <div className="line1px" />
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">志愿者编号</div>
+            <div className="page-profile-initial-fonts">{user.id}</div>
+          </div>
+          <div className="line1px" />
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">个人擅长</div>
+            <div className="page-profile-edit-icon" />
+          </div>
+          <div className="line1px" />
+          <div>
+            <div className="page-profile-checkbox-container">
+              <CheckboxGroup />
+            </div>
+            <div className="line1px" />
+          </div>
+          <div>
+            <Link to="/my/profile/edit">
+              <div className="page-profile-header-box">
+                <div className="page-profile-fonts">志愿者口号</div>
+                <div className="page-profile-edit-icon" />
+              </div>
+              <div className="page-profile-fonts-view">{user.slogan}</div>
+            </Link>
+          </div>
+          <div className="page-profile-take-up" />
         </div>
-        <div className="page-profile-take-up" />
         {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
         <div className="page-profile-bottom">
           <Link to="/my/profile/verify">

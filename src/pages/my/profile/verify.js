@@ -92,45 +92,47 @@ class Verify extends React.Component {
   render() {
     return (
       <div className="page-my-profile-verify-container">
-        <div className="page-my-profile-verify-title">实名认证信息</div>
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">姓名</div>
-          <input type="text" maxLength="5" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">身份证号</div>
-          <input type="text" maxLength="18" ref={(c) => { this.idcard = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">性别</div>
-          <input type="text" ref={(c) => { this.sex = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">民族</div>
-          <input type="text" ref={(c) => { this.people = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">省份</div>
-          <div className="page-my-profile-verify-icon" />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">城市</div>
-          <div className="page-my-profile-verify-icon" />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">区县</div>
-          <div className="page-my-profile-verify-icon" />
-        </div>
-        <div className="line1px" />
-        <div className="page-my-profile-verify-header-box">
-          <div className="page-my-profile-verify-fonts">详细地址</div>
-          <input type="text" ref={(c) => { this.address = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+        <div>
+          <div className="page-my-profile-verify-title">实名认证信息</div>
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">姓名</div>
+            <input type="text" maxLength="5" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">身份证号</div>
+            <input type="text" maxLength="18" ref={(c) => { this.idcard = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">性别</div>
+            <input type="text" ref={(c) => { this.sex = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">民族</div>
+            <input type="text" ref={(c) => { this.people = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">省份</div>
+            <div className="page-my-profile-verify-icon" />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">城市</div>
+            <div className="page-my-profile-verify-icon" />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">区县</div>
+            <div className="page-my-profile-verify-icon" />
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">详细地址</div>
+            <input type="text" ref={(c) => { this.address = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+          </div>
         </div>
         <div className="page-my-profile-verify-bottom">
           <div className="page-my-profile-verify-btn">提交</div>

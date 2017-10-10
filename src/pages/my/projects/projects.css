@@ -1,4 +1,7 @@
 .page-projects{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -11,19 +14,19 @@
   flex-direction:reverse;
   justify-content: space-around;
   align-items: center;
-  font-size: 0;
 }
 .page-projects-tab-container li{
   flex: 1;
   height: 49px;
   display:flex;
   justify-content: center;
-  font-size: 0;
 }
+
 .page-projects-tab-container li div{
   height: 49px;
   line-height: 49px;
   font-size: 15px;
+  padding: 0 5px;
 }
 .page-projects-tab-current-li div{
   color: #6AC6F8;
@@ -84,4 +87,12 @@
 .page-projectItem-main-time{
   font-size: 13px;
   color: #666666;
+}
+
+
+.page-projects-main-box{
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }

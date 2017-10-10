@@ -50,7 +50,7 @@ class MyPage extends React.Component {
     return (
       <div className="page-my-photo-container">
         <div className="page-my-photo-background">
-          <img src={user.avatars ? user.avatars : ''} alt="photo" className="page-my-photo" />
+          <img src={user.avatars ? user.avatars : ''} alt=" " className="page-my-photo" />
         </div>
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.username ? user.username : '未设置昵称'}</p>

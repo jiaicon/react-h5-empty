@@ -1,6 +1,11 @@
 .page-my-profile-verify-container{
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
 }
 .page-my-profile-verify-title{
   width: 100%;
@@ -43,8 +48,7 @@
 }
 .page-my-profile-verify-bottom{
   width: 100%;
-  /* iphone 6 603  98*/
-  height: 162px;
+  flex: 1;
   background-color: #f0f0f0;
   display: flex;
   justify-content: center;
