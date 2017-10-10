@@ -23,18 +23,18 @@ export default function request(requestUrl, requestOptions = {}) {
   // 添加默认请求头
   // 先注释，否则 PREFLIGHT 的 OPTIONS 请求返回会失败导致请求失败
   // 需要服务端进行设置，参考https://stackoverflow.com/questions/40900977/custom-request-headers-not-being-sent-with-a-javascript-fetch-request
-  // const headers = options.headers || {};
-  // options.headers = {
-  //   ...headers,
-  //   // 授权 token
-  //   'X-auth-token': localStorage.TOKEN || '1',
-  //   // 机构代码
-  //   'X-org-code': localStorage.ORGCODE || '2',
-  //   // 经纬度 经度-纬度
-  //   'X-location': localStorage.LOCATIOIN || '3',
-  // };
+  const headers = options.headers || {};
+  options.headers = {
+    ...headers,
+    // 授权 token
+    'X-auth-token': window.token || '',
+    // 机构代码
+    'X-org-code': localStorage.ORGCODE || 'XKdwpfgegW',
+    // 经纬度 经度-纬度
+    'X-location': localStorage.LOCATIOIN || '1-2',
+  };
   // 自定义头必须设置 mode 为 cors
-  // options.mode = 'cors';
+  options.mode = 'cors';
 
   // 处理 data，仅支持一层结构，支持上传数组数据，例如{url:['1','2']} 会转换为 url[]=1&&url[]=2
   const data = options.data || {};
@@ -88,7 +88,7 @@ export default function request(requestUrl, requestOptions = {}) {
     options.credentials = 'same-origin';
   }
 
-  console.log('开始请求-', options);
+  console.log('开始请求-', url, options);
 
   return new Promise((resolve, reject) => {
     fetch(url, options)
@@ -102,10 +102,10 @@ export default function request(requestUrl, requestOptions = {}) {
         if (options.successWords) {
           Alert.success(options.successWords);
         }
-        console.log('请求成功-', json);
+        console.log('请求成功-', url, json);
         resolve(json);
       } else {
-        console.log('请求返回失败-', json);
+        console.log('请求返回失败-', url, json);
         Alert.error('请求发送失败');
 
         reject(json);
@@ -117,7 +117,7 @@ export default function request(requestUrl, requestOptions = {}) {
       }
 
       Alert.error(`请求发送失败：${error}`);
-      console.log('请求失败-', error);
+      console.log('请求失败-', url, error);
       reject(error);
     });
   });

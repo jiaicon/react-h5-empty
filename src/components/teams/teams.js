@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import classnames from 'classnames';
 import './teams.css';
 import Link from '../link/link';
+import Image from '../image/image';
+
 
 class Teams extends React.Component {
 
@@ -38,7 +39,7 @@ class Teams extends React.Component {
         {
           teams.map(team => (<li key={team.id}>
             <Link to={`/team/detail/${team.id}`}>
-              <img src={team.logo} alt="头像" />
+              <Image src={team.logo} alt="头像" />
               <div>
                 <div className="team-name">
                   {team.name}

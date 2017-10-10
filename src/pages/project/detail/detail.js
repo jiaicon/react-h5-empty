@@ -9,6 +9,8 @@ import WXShare from '../../../components/share';
 import { parseTimeStringToDateString } from '../../../utils/funcs';
 import './detail.css';
 import Link from '../../../components/link/link';
+import Image from '../../../components/image/image';
+
 import {
   requestProjectDetail,
   collectProject,
@@ -113,10 +115,10 @@ class ProjectDetailPage extends React.Component {
     return (
       <div className="page-project-detail">
         <div className="header">
-          <img className="project-photo" src={detailData.photo} alt="项目图片" />
+          <Image className="project-photo" src={detailData.photo} defaultSrc="/images/default_banner.png" alt="项目图片" />
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
-              <img src={detailData.team.logo} alt="头像" />
+              <Image src={detailData.team.logo} alt="头像" />
               <span>{detailData.team.name}</span>
             </div>
             <div className="project-number">

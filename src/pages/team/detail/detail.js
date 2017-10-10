@@ -10,6 +10,8 @@ import './detail.css';
 import Link from '../../../components/link/link';
 import Tab from '../../../components/tab/tab';
 import Projects from '../../../components/projects/projects';
+import Image from '../../../components/image/image';
+
 import {
   requestTeamDetail,
   requestTeamProjectList,
@@ -112,10 +114,10 @@ class TeamDetailPage extends React.Component {
 
     return (<div>
       <div className="header">
-        <img className="team-photo" src={detailData.logo} alt="团队图片" />
+        <Image className="team-photo" src={detailData.logo} alt="团队图片" defaultSrc="/images/default_banner.png" />
         <div className="header-addition">
           <div className="team-info">
-            <img src={detailData.logo} alt="头像" />
+            <Image src={detailData.logo} alt="头像" />
             <span>{detailData.name}</span>
           </div>
           <div className="team-number">
@@ -146,7 +148,7 @@ class TeamDetailPage extends React.Component {
               <div className="line1px" />
             </li>
             {
-              detailData.parent ?
+              detailData.parent && detailData.parent.name ?
                 <li>
                   <span>上级团队</span>
                   <Link to={`/team/detail/${detailData.parent.id}`}>{detailData.parent.name}</Link>

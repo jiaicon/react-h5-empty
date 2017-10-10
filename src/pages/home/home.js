@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import WXShare from '../../components/share';
 import './home.css';
 import Link from '../../components/link/link';
+import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
 import { requestHomeData } from './home.store';
 
@@ -60,7 +61,7 @@ class HomePage extends React.Component {
         !user.isLogin ? <Link className="login-button" to="/my/login">登录</Link> : null
       }
       { user.avatars ?
-        <img className="avatar" src={user.avatars} alt="头像" />
+        <Image className="avatar" src={user.avatars} alt="头像" />
         :
         null
       }
@@ -74,14 +75,16 @@ class HomePage extends React.Component {
     }
 
     return (<div className="slick-container">
-      <Slick {...this.slickSettings}>
-        {home.data.banner
+      { home.data.banner && home.data.banner.length ?
+        <Slick {...this.slickSettings}>
+          {home.data.banner
               .map(item => (
                 <Link key={item.id} to="/">
                   <img src={item.photo} alt={item.title} />
                 </Link>
               ))}
-      </Slick>
+        </Slick> : null
+      }
     </div>);
   }
 
