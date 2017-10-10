@@ -69,12 +69,12 @@ class Register extends React.Component {
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const password = this.state.password;
-    const checked = this.checkbox.checked;
+    const agreement = this.state.agreement;
     const photo = this.state.photo;
     if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
       return;
     }
-    if (!checked) {
+    if (!agreement) {
       Alert.warning('请确认已阅读《志多星协议》');
       return;
     }
@@ -142,9 +142,11 @@ class Register extends React.Component {
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
     const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
     const password = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
+    const agreement = this.checkbox.checked;
 
     this.setState({
       ...this.state,
+      agreement,
       name,
       phone,
       verifyCode,

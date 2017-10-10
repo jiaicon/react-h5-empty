@@ -1,10 +1,14 @@
 
 .page-profile{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 36px;
+  overflow-y: scroll;
 }
 .page-profile-title{
   width: 100%;
@@ -82,8 +86,7 @@
 }
 .page-profile-bottom{
   width: 100%;
-  /* iphone6 603高度   标题状态啦64  此处减64=179 */
-  height: 243px;
+  flex: 1;
   background-color: #f8f8f8;
 }
 .page-profile-bottom-btn{
@@ -110,4 +113,8 @@
 }
 .page-profile-realinfo-padding-top{
   padding-top: 36px;
+}
+
+.page-profile-realinfo-box{
+  display: none;
 }

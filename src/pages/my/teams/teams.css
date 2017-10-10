@@ -1,4 +1,9 @@
 .page-teams-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -49,6 +54,8 @@ input::-webkit-input-placeholder{
   display: none;
 }
 .page-teams-main{
+  flex: 1;
+  overflow-y: scroll;
   padding-left: 15px;
   padding-right:15px;
   display: flex;

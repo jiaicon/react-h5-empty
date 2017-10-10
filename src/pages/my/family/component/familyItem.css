@@ -8,6 +8,7 @@
   height: 60px;
   margin-bottom: 19px;
   display: flex;
+  justify-content: space-between;
 }
 .page-family-item-main-photo-bg{
   width: 60px;
@@ -15,7 +16,6 @@
   background-image: url(/images/my/register.png);
   background-repeat: no-repeat;
   background-size: contain;
-  margin-right: 15px;
 }
 .page-family-item-main-photo{
   width: 60px;
@@ -27,6 +27,11 @@
   display: flex;
   align-items: center;
 }
+.page-family-item-name-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 .page-family-item-time-container span{
   font-size: 15px;
   color: #6AC6F8;
@@ -34,4 +39,8 @@
 .page-family-item-name{
   font-size: 18px;
   color: #333333;
+}
+.page-family-item-account{
+  font-size: 13px;
+  color: #666666;
 }

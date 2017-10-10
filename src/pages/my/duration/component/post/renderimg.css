@@ -1,0 +1,19 @@
+.page-applys-item-render-container{
+  width: 100px;
+  height: 100px;
+  margin-right: 12px;
+  position: relative;
+}
+.page-applys-item-render-container img{
+  width: 100px;
+  height: 100px;
+}
+.page-applys-item-render-del{
+  width: 20px;
+  height: 20px;
+  background: url(/images/my/delete.png) no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import Swipeout from 'rc-swipeout';
 import 'rc-swipeout/assets/index.css';
 import autoBind from 'react-autobind';
+import Link from '../../../components/link/link';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../../stores/common';
@@ -41,7 +42,9 @@ class Family extends React.Component {
         <div className="pages-family-top-area-container">
           <div className="pages-family-top-area-title-and-btn">
             <h5>我的家庭</h5>
-            <div className="pages-family-top-area-btn">添加成员</div>
+            <Link to="/my/family/add">
+              <div className="pages-family-top-area-btn">添加成员</div>
+            </Link>
           </div>
           <div className="page-family-top-area-view">
             <div className="page-family-top-area-view-family-box">
@@ -63,14 +66,14 @@ class Family extends React.Component {
               {
                 text: '删除',
                 onPress: () => console.log('delete'),
-                style: { backgroundColor: 'red', color: 'white' },
+                style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
                 className: 'custom-class-2',
               },
             ]}
             onOpen={() => console.log('open')}
             onClose={() => console.log('close')}
           >
-            <div style={{ height: 44 }}> swipeout demo </div>
+            <FamilyItem data={user} />
           </Swipeout>
 
         </div>

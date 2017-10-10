@@ -226,7 +226,7 @@ class Projects extends React.Component {
           { this.state.title.map((val, index) => (<TabItem currentClass={this.currentClass} handleClick={this.handleClick} val={val} index={index} />)) }
         </ul>
         <div className="line1px" />
-        <div>
+        <div className="page-projects-main-box">
           {data.map((item, index) => (<ProjectItem data={item} index={index} />)) }
         </div>
 
