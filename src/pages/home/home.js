@@ -100,7 +100,7 @@ class HomePage extends React.Component {
               <div className="menu-icon menu-icon-project" />
               <span>志愿项目</span>
             </Link>
-            <Link to="/">
+            <Link to="/team/list">
               <div className="menu-icon menu-icon-team" />
               <span>志愿团队</span>
             </Link>
@@ -114,13 +114,13 @@ class HomePage extends React.Component {
             </Link>
           </div>
           <div className="menus-activity">
-            <Link to="/">
+            <Link to="/project/list">
               <img src="/images/activities_nearby.png" alt="附近" />
             </Link>
-            <Link to="/">
+            <Link to="/project/list">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
-            <Link to="/">
+            <Link to="/project/list">
               <img src="/images/activities_hot.png" alt="最热" />
             </Link>
           </div>

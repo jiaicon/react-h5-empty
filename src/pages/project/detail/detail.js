@@ -19,7 +19,7 @@ import {
 
 /**
  * TODO
- * 1. 联调确认用户是否收藏的字段(collected)
+ * 1. 联调确认用户是否收藏的字段(collection_status)
  * 2. 联调确认取消收藏的接口
  * 3. 提示用户分享的 UI 以及设置微信分享配置信息
  * 4. 联调确认项目发布日期字段(publish_date)
@@ -51,7 +51,7 @@ class ProjectDetailPage extends React.Component {
   handleFavoriteClick() {
     const { detail: { data: detailData } } = this.props;
 
-    if (detailData.collected) {
+    if (detailData.collection_status) {
       this.props.unCollectProject(detailData.id);
     } else {
       this.props.collectProject(detailData.id);
@@ -114,7 +114,7 @@ class ProjectDetailPage extends React.Component {
       <div className="page-project-detail">
         <div className="header">
           <img className="project-photo" src={detailData.photo} alt="项目图片" />
-          <div className="header-addition">
+          <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
               <img src={detailData.team.logo} alt="头像" />
               <span>{detailData.team.name}</span>
@@ -122,7 +122,7 @@ class ProjectDetailPage extends React.Component {
             <div className="project-number">
               项目编号：{detailData.identifier}
             </div>
-          </div>
+          </Link>
         </div>
         <div className="body">
           <div className="project-name">
@@ -197,7 +197,7 @@ class ProjectDetailPage extends React.Component {
         <div className="foot">
           <div className="line1px" />
           <Link to="" onClick={this.handleFavoriteClick} className="project-action project-action-favorite">
-            <span className={classnames({ selected: detailData.collected })} />
+            <span className={classnames({ selected: detailData.collection_status })} />
             <span>收藏</span>
           </Link>
           <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">

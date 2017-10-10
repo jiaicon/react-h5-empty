@@ -41,12 +41,12 @@ class Projects extends React.Component {
             const { team } = project;
 
             return (<li key={project.id}>
-              <Link to={`/project/detail/${project.id}`}>
-                <div className="project-header">
+              <div>
+                <Link to={`/team/detail/${project.team.id}`} className="project-header">
                   <img className="org-avatar" src={team.logo} alt="头像" />
                   <div className="org-name">{team.name}</div>
-                </div>
-                <div className="project-main">
+                </Link>
+                <Link to={`/project/detail/${project.id}`} className="project-main">
                   <img src={project.photo} alt="项目图片" />
                   <div className="project-name">{project.name}</div>
                   <div className="project-date">活动日期：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}</div>
@@ -58,7 +58,7 @@ class Projects extends React.Component {
                       'project-status-end': project.activity_status === 3,
                     })}
                   />
-                </div>
+                </Link>
                 <div className="project-footer">
                   <div className="project-location">{project.county_name} {project.distance}</div>
                   <div className="project-members">
@@ -67,7 +67,7 @@ class Projects extends React.Component {
                     <span>{project.people_count}</span>
                   </div>
                 </div>
-              </Link>
+              </div>
             </li>);
           })
         }
