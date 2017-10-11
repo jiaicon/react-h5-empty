@@ -1,3 +1,83 @@
 .page-signin {
-    padding: 20px;
+  padding: 15px;
+}
+
+.page-signin .no-record {
+  text-align: center;
+  font-size: 13px;
+  color: #666666;
+}
+
+.page-signin .no-record img {
+  width: 150px;
+  margin-top: 150px;
+}
+
+.page-signin .signin-btn-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+}
+
+.page-signin .signin-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #C7EAFD;
+  border-radius: 100px;
+  height: 50px;
+  width: 300px;
+  font-size: 16px;
+  color: #666666;
+}
+
+.page-signin .signin-list li {
+  background: #FFFFFF;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #666666;
+  margin-bottom: 15px;
+}
+
+.page-signin .signin-list li .signin-header {
+  padding: 15px;
+}
+
+.page-signin .signin-list li .project-info {
+  padding: 15px;
+}
+
+.page-signin .signin-time span:last-child {
+  color: #6AC6F8;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.page-signin .signin-list li.signin-record .signin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-signin .signin-list li.signin-record .signin-header div:last-child {
+  background: #EBD1BA;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #976C3F;
+  padding: 2px 5px;
+}
+
+.page-signin .project-title {
+  font-size: 18px;
+  color: #333333;
+  margin-bottom: 10px;
+}
+
+.page-signin .project-duration span:last-child {
+  color: #6AC6F8;
+  margin-left: 10px;
 }

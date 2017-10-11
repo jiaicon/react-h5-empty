@@ -1,11 +1,19 @@
 import fetch from '../../utils/fetch';
 
-export const search = keyword => ({
-  type: 'SEARCH',
-  meta: {
-    keyword,
-  },
-  payload: fetch(`/search/repositories?q=${keyword}`, { method: 'GET' }),
+export const requestCheckinList = () => ({
+  type: 'CHECKIN_LIST',
+  payload: fetch('/clock/in', { method: 'GET' }),
+});
+
+// TODO: 打卡成功是否将新打卡记录返回
+export const checkin = code => ({
+  type: 'PROJECT_CHECKIN',
+  payload: fetch('/clock/in', {
+    data: {
+      code,
+    },
+    successWords: '打卡成功',
+  }),
 });
 
 export default (state = {
@@ -14,28 +22,29 @@ export default (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case 'SEARCH_PENDING':
+    case 'CHECKIN_LIST_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
-        keyword: action.meta.keyword,
       };
-    case 'SEARCH_FULFILLED':
+    case 'CHECKIN_LIST_FULFILLED':
+
       return {
         ...state,
         fetching: false,
         failed: false,
-        data: action.payload,
-        keyword: action.meta.keyword,
+        data: action.payload && action.payload.data,
       };
-    case 'SEARCH_REJECTED':
+    case 'CHECKIN_LIST_REJECTED':
       return {
         ...state,
         failed: true,
         fetching: false,
-        keyword: action.meta.keyword,
       };
+    case 'PROJECT_CHECKIN':
+      // TODO: 打卡成功是否将新打卡记录返回
+      return state;
     default:
       return state;
   }
