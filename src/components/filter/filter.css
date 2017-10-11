@@ -40,13 +40,13 @@
 }
 
 .component-project-filter .filter-header .filter-actions > a.opened span {
-  font-size: 15px;
   color: #333333;
   background-image: url(/images/icon_up.png);
   color: #6AC6F8;
 }
 
 .component-project-filter .filter-header .filter-actions > a span {
+  font-size: 15px;
   background:url(/images/icon_down.png) no-repeat center right;
   background-size: 15px;
   padding-right: 20px;
