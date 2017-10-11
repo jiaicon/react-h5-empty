@@ -32,19 +32,20 @@ class SigninPage extends React.Component {
   render() {
     const { data } = this.props;
     const records = data && data.list ? data.list : [];
-    const next = data ? data.next : null;
+    const next = data && data.next && data.next.project ? data.next : null;
 
     return (
       <div className="page-signin">
         {
-          data && data.list && data.list.length === 0 ?
+          data && data.list && data.list.length === 0 && !next ?
             <div className="no-record">
               <div>
                 <img src="/images/signin.png" alt="" />
               </div>
               <span>
-              暂无打卡记录
-            </span>
+                <p>还没有项目可以签到</p>
+                <p>快去加入项目吧</p>
+              </span>
             </div> : null
         }
         <ul className="signin-list">
@@ -62,7 +63,7 @@ class SigninPage extends React.Component {
                   <div className="project-title">{next.project && next.project.name}</div>
                   <div className="project-duration">
                     <span>可获得志愿者时长</span>
-                    <span>{parseInt(next.project.reward_time, 10)}小时</span>
+                    <span>{next.project && parseInt(next.project.reward_time, 10)}小时</span>
                   </div>
                 </div>
               </li>
