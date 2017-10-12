@@ -6,12 +6,16 @@
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import Link from '../../../components/link/link';
 import history from '../../history';
-import './register.css';
 import { requestVerifyCode, register } from './register.store';
+
+import './register.css';
+import Image from '../../../components/image/image';
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
@@ -22,19 +26,25 @@ function checkEmpty(value, label) {
   return false;
 }
 
-
+// captchaUrl: `${window.apiHost}/api/captcha/app?t=${Date.now()}`,
 class Register extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
     this.state = {
+      captchaUrl: 'http://alpha.api.volunteer.tmallwo.com/api/captcha',
       buttonString: '获取验证码',
       timer: null,
       countDownTrigger: true,
     };
   }
-
+  refreshCaptcha=() => {
+    this.setState({
+      ...this.state,
+      captchaUrl: `http://alpha.api.volunteer.tmallwo.com/api/captcha?t=${Date.now()}`,
+    });
+  }
 
   componentDidMount() {
 
@@ -79,10 +89,13 @@ class Register extends React.Component {
       return;
     }
     if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
-      Alert.warning('请输入正确的用户名》');
+      Alert.warning('请输入正确的用户名');
       return;
     }
-
+    if (password.length <= 5) {
+      Alert.warning('密码最少6位');
+      return;
+    }
     const data = {};
     data.username = name;
     data.pwd = password;
@@ -94,21 +107,27 @@ class Register extends React.Component {
     this.props.register(data);
   }
   onSend=() => {
-    const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
+    const phone = this.state.phone;
+    const captcha = this.state.captcha;
     const countDownTrigger = this.state.countDownTrigger;
+    const data = {};
     console.log(this.props);
-    if (phone && !/^\d{11}$/.test(phone)) {
-      Alert.warning('请输入合法的手机号');
-      return;
+    if (phone && captcha) {
+      if (countDownTrigger === true) {
+        data.phone = phone;
+        data.captcha_code = captcha;
+        this.props.requestVerifyCode(data);
+      } else {
+        Alert.warning('同一时间内不能多次点击');
+        
+      }
     } else if (!phone) {
       Alert.warning('请输入手机号');
-      return;
-    }
-
-    if (countDownTrigger) {
-      this.props.requestVerifyCode(phone);
+    } else {
+      Alert.warning('请输入验证码');
     }
   }
+
   onStartCountDown() {
     const buttonString = this.state.buttonString;
     const countDownTrigger = this.state.countDownTrigger;
@@ -141,12 +160,14 @@ class Register extends React.Component {
     const name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
     const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
+    const captcha = this.captcha.value.replace(/(^\s+)|(\s+$)/g, '');
     const password = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
     const agreement = this.checkbox.checked;
-
+    console.log(phone);
     this.setState({
       ...this.state,
       agreement,
+      captcha,
       name,
       phone,
       verifyCode,
@@ -156,6 +177,7 @@ class Register extends React.Component {
   // 上传照片
   onFileSelect=(evt) => {
     const file = evt.target.files[0];
+    console.log(file);
     if (file) {
       const fd = new FormData();
       fd.append('file', file);
@@ -176,7 +198,8 @@ class Register extends React.Component {
           }
         }
       };
-      xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
+      // xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
+      xhr.open('POST', 'http://alpha.api.volunteer.tmallwo.com/api/imgupload', true);
       xhr.send(fd);
     }
   }
@@ -186,7 +209,8 @@ class Register extends React.Component {
       <div className="page-register">
         <div className="page-register-photo">
           <div className="page-register-photo-container">
-            <img className="page-register-photo-img" src={this.state.photo} alt="" />
+            <Image src={this.state.photo} className="page-register-photo-img" />
+
             <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-register-uploader-btn" />
           </div>
         </div>
@@ -203,6 +227,14 @@ class Register extends React.Component {
             <div className="page-register-item">
               <span className="page-register-fonts">手机号</span>
               <input className="page-register-input" type="tel" ref={(c) => { this.userphone = c; }} onKeyUp={this.onTextChanged} maxLength="11" />
+            </div>
+            <div className="line1px" />
+          </li>
+          <li>
+            <div className="page-register-item">
+              <span className="page-register-fonts">图片码</span>
+              <input className="page-register-input" ref={(c) => { this.captcha = c; }} type="text" onKeyUp={this.onTextChanged} />
+              <img className="page-register-code" src={this.state.captchaUrl} onClick={this.refreshCaptcha} />
             </div>
             <div className="line1px" />
           </li>

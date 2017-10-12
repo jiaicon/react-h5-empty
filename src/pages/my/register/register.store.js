@@ -9,24 +9,6 @@ export const REGISTER_FULFILLED = 'REGISTER_FULFILLED';
 export const REGISTER_REJECTED = 'REGISTER_REJECTED';
 
 
-// TODO:
-export const CODE_PENDING = 'CODE_PENDING';
-export const CODE_FULFILLED = 'CODE_FULFILLED';
-export const CODE_REJECTED = 'CODE_REJECTED';
-
-export const requestVerifyCode = phone => (dispatch) => {
-  dispatch({ type: CODE_PENDING });
-  fetch('/phone/verifycode', {
-    data: { phone },
-  }).then((json) => {
-    Alert.success('发送成功');
-    dispatch({ type: CODE_FULFILLED, payload: json.data });
-  }).catch(() => {
-    dispatch({ type: CODE_REJECTED });
-  });
-};
-
-
 export const register = data => (dispatch) => {
   dispatch({ type: REGISTER_PENDING });
 
@@ -73,26 +55,54 @@ const registerReducer = (state = {
       return state;
   }
 };
+
+// TODO:
+// export const CODE_PENDING = 'CODE_PENDING';
+// export const CODE_FULFILLED = 'CODE_FULFILLED';
+// export const CODE_REJECTED = 'CODE_REJECTED';
+
+// export const requestVerifyCode = phone => (dispatch) => {
+//   dispatch({ type: CODE_PENDING });
+//   fetch(`${API_COMMON_BASE}/verifycode`, {
+//     data: { phone },
+//   }).then((json) => {
+//     Alert.success('发送成功');
+//     dispatch({ type: CODE_FULFILLED, payload: json.data });
+//   }).catch(() => {
+//     dispatch({ type: CODE_REJECTED });
+//   });
+// };
+
+
+export const requestVerifyCode = data => ({
+  type: 'CODE',
+  payload: fetch('http://alpha.api.volunteer.tmallwo.com/api/verifycode', {
+    data,
+    successWords: '发送成功',
+  }),
+});
+
+
 const codeReducer = (state = {
   fetching: false,
   failed: false,
   data: null,
 }, action) => {
   switch (action.type) {
-    case CODE_PENDING:
+    case 'CODE_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case CODE_FULFILLED:
+    case 'CODE_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload,
       };
-    case CODE_REJECTED:
+    case 'CODE_REJECTED':
       return {
         ...state,
         failed: true,

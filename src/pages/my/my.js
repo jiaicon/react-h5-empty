@@ -12,6 +12,7 @@ import { teamAction, rewardTimeAction, projectAction } from './my.store';
 import Link from '../../components/link/link';
 import WXShare from '../../components/share';
 import './my.css';
+import Image from '../../components/image/image';
 
 class MyPage extends React.Component {
 
@@ -22,9 +23,9 @@ class MyPage extends React.Component {
 
   componentWillMount() {
     this.props.requestUserInfo();
-    // this.props.teamAction();
-    // this.props.projectAction();
-    // this.props.rewardTimeAction();
+    this.props.teamAction();
+    this.props.projectAction();
+    this.props.rewardTimeAction();
     // console.log(this.props.user);
     // console.log(this.props.team);
     // console.log(this.props.reward);
@@ -49,9 +50,8 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <div className="page-my-photo-container">
-        <div className="page-my-photo-background">
-          <img src={user.avatars ? user.avatars : ''} alt=" " className="page-my-photo" />
-        </div>
+        <Image src={user.avatars} className="page-my-photo" />
+
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.username ? user.username : '未设置昵称'}</p>
           <p className="page-my-user-info-signature">{user.slogan ? user.slogan : '未设置口号'}</p>
@@ -62,27 +62,39 @@ class MyPage extends React.Component {
   renderPageMyRecordTemplate=() => {
     const { user } = this.props;
     // TODO:志愿时长。项目，团队
-    // const { team } = this.props;
-    // const { reward } = this.props;
-    // let len =team.length
-    const len = 'c2';
-    // let count =reward.join_project_count;
-    const count = 'c2';
-    // let time =reward.reward_time ;
-    const time = 'c128';
+    const { team } = this.props;
+    const { reward } = this.props;
+    let len = 0;
+    if (team.data == null || team.data.list == null) {
+      len = 0;
+    } else {
+      len = team.data.list.length;
+    }
+    let count = 0;
+    if (reward.data == null || reward.data.join_project_count == null) {
+      count = 0;
+    } else {
+      count = reward.data.join_project_count;
+    }
+    let time = 0;
+    if (reward.data == null || reward.data.join_project_count == null) {
+      time = 0;
+    } else {
+      time = reward.data.reward_time;
+    }
     return (
       <div className="page-my-record-container">
         {
         !user.isLogin ?
           <Link to="/my/login">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{len || 0}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{len }</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link> :
           <Link to="/my/teams">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{len || 0}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{len}</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link>
@@ -91,13 +103,13 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/login">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{count || 0}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link> :
           <Link to="/my/projects">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{count || 0}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link>
@@ -106,13 +118,13 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/login">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{time || 0}</b>h</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{time}</b>h</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link> :
           <Link to="/my/duration">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{time || 0}</b>h</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{time}</b>h</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link>
@@ -318,11 +330,20 @@ MyPage.propTypes = {
     real_name: PropTypes.string,
     nation: PropTypes.string,
     sex: PropTypes.number,
-    birthday: PropTypes.number,
+    birthday: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     identifier: PropTypes.string,
     slogan: PropTypes.string,
-    reward_time: PropTypes.number,
-    id_number: PropTypes.number,
+    reward_time: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    id_number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     province_id: PropTypes.number,
     province_name: PropTypes.string,
     city_id: PropTypes.number,
@@ -336,17 +357,49 @@ MyPage.propTypes = {
 
     })),
   }),
-  team: PropTypes.arrayOf(PropTypes.shape({})),
-  project: PropTypes.arrayOf(PropTypes.shape({})),
-  reward: PropTypes.arrayOf(PropTypes.shape({})),
+  team: PropTypes.shape({
+    data: PropTypes.shape({
+      list: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+
+        })),
+        PropTypes.array,
+      ]),
+    }),
+
+  }),
+  project: PropTypes.shape({
+    data: PropTypes.shape({
+      list: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+
+        })),
+        PropTypes.array,
+      ]),
+    }),
+
+  }),
+  reward: PropTypes.shape({
+    data: PropTypes.shape({
+      join_project_count: PropTypes.number,
+      reward_time: PropTypes.number,
+      project: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.shape({
+
+        })),
+
+      ]),
+
+    }),
+  }),
 };
 
 export default connect(
   state => ({
     user: state.user,
-    team: state.team,
-    project: state.project,
-    reward: state.reward,
+    team: state.my.team,
+    project: state.my.project,
+    reward: state.my.reward,
   }),
   dispatch => bindActionCreators({ requestUserInfo,
     teamAction,

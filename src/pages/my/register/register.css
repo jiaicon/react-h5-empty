@@ -92,3 +92,7 @@
 .page-register-checkbox{
   outline: none;
 }
+.page-register-code{
+  height: 30px;
+  line-height: 30px;
+}

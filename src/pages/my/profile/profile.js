@@ -12,7 +12,7 @@ import { requestUserInfo } from '../../../stores/common';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
 import './profile.css';
-import CheckboxGroup from './component/checkbox-group';
+
 
 class Profile extends React.Component {
 
@@ -21,6 +21,56 @@ class Profile extends React.Component {
     autoBind(this);
     this.state = ({
       photo: '',
+      checkboxdata: [
+        {
+          num: 1,
+          name: '关爱服务',
+        },
+        {
+          num: 2,
+          name: '国际服务',
+        },
+        {
+          num: 3,
+          name: '社区服务',
+        },
+        {
+          num: 4,
+          name: '应急救援',
+        },
+        {
+          num: 5,
+          name: '赛事服务',
+        },
+        {
+          num: 6,
+          name: '医疗卫生',
+        },
+        {
+          num: 7,
+          name: '绿色环保',
+        },
+        {
+          num: 8,
+          name: '文化倡导',
+        },
+        {
+          num: 9,
+          name: '教育',
+        },
+        {
+          num: 10,
+          name: '助残',
+        },
+        {
+          num: 11,
+          name: '助老',
+        },
+        {
+          num: 12,
+          name: '其他',
+        },
+      ],
     });
   }
 
@@ -60,7 +110,8 @@ class Profile extends React.Component {
           }
         }
       };
-      xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
+      // xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
+      xhr.open('POST', 'http://alpha.api.volunteer.tmallwo.com/api/imgupload', true);
       xhr.send(fd);
     }
   }
@@ -112,7 +163,7 @@ class Profile extends React.Component {
             <div className="page-profile-fonts">头像</div>
             <div className="page-profile-header-uploade-box">
               <div className="page-profile-header-img-container">
-                <img className="page-profile-header-img" src={this.state.photo ? this.state.photo : user.avatars} alt="" />
+                <img className="page-profile-header-img" src={this.state.photo ? this.state.photo : '/images/my/register.png'} alt="" />
                 <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-profile-header-upload" />
               </div>
 
@@ -127,20 +178,17 @@ class Profile extends React.Component {
           <div className="line1px" />
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">志愿者编号</div>
-            <div className="page-profile-initial-fonts">{user.id}</div>
+            <div className="page-profile-initial-fonts">{user.identifier}</div>
           </div>
           <div className="line1px" />
-          <div className="page-profile-header-box">
-            <div className="page-profile-fonts">个人擅长</div>
-            <div className="page-profile-edit-icon" />
-          </div>
-          <div className="line1px" />
-          <div>
-            <div className="page-profile-checkbox-container">
-              <CheckboxGroup />
+          <Link to="/my/profile/checkbox">
+            <div className="page-profile-header-box">
+              <div className="page-profile-fonts">个人擅长</div>
+              <div className="page-profile-edit-icon" />
             </div>
-            <div className="line1px" />
-          </div>
+          </Link>
+          <div className="line1px" />
+
           <div>
             <Link to="/my/profile/edit">
               <div className="page-profile-header-box">
@@ -180,11 +228,20 @@ Profile.propTypes = {
     real_name: PropTypes.string,
     nation: PropTypes.string,
     sex: PropTypes.number,
-    birthday: PropTypes.number,
+    birthday: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     identifier: PropTypes.string,
     slogan: PropTypes.string,
-    reward_time: PropTypes.number,
-    id_number: PropTypes.number,
+    reward_time: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    id_number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     province_id: PropTypes.number,
     province_name: PropTypes.string,
     city_id: PropTypes.number,
