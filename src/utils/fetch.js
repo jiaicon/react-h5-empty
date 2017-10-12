@@ -39,42 +39,24 @@ export default function request(requestUrl, requestOptions = {}) {
   // 处理 data，仅支持一层结构，支持上传数组数据，例如{url:['1','2']} 会转换为 url[]=1&&url[]=2
   const data = options.data || {};
   const keys = Object.keys(data);
+  const params = [];
+
+  keys.forEach((key) => {
+    const value = data[key];
+
+    if (value !== undefined) {
+      if (!Array.isArray(value)) {
+        params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+      } else {
+        value.forEach(v => params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`));
+      }
+    }
+  });
 
   if (options.method === 'POST') {
-    const fd = new FormData();
-
-    keys.forEach((key) => {
-      const value = data[key];
-
-      if (value !== undefined) {
-        if (!Array.isArray(value)) {
-          fd.append(key, value);
-        } else {
-          value.forEach(v => fd.append(`${key}[]`, v));
-        }
-      }
-    });
-
-    if (options.token !== false && window.token) {
-      fd.append('token', window.token);
-    }
-
-    options.body = fd;
+    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    options.body = params.join('&');
   } else {
-    const params = [];
-
-    keys.forEach((key) => {
-      const value = data[key];
-
-      if (value !== undefined) {
-        if (!Array.isArray(value)) {
-          params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-        } else {
-          value.forEach(v => params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`));
-        }
-      }
-    });
-
     url = `${url}?${params.join('&')}`;
   }
 
@@ -83,9 +65,9 @@ export default function request(requestUrl, requestOptions = {}) {
   }
 
   if (!options.credentials) {
-    // options.credentials = 'include';
+    options.credentials = 'include';
     // 临时调试用
-    options.credentials = 'same-origin';
+    // options.credentials = 'same-origin';
   }
 
   console.log('开始请求-', url, options);
