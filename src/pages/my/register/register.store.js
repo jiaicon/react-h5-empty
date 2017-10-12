@@ -55,25 +55,7 @@ const registerReducer = (state = {
       return state;
   }
 };
-
-// TODO:
-// export const CODE_PENDING = 'CODE_PENDING';
-// export const CODE_FULFILLED = 'CODE_FULFILLED';
-// export const CODE_REJECTED = 'CODE_REJECTED';
-
-// export const requestVerifyCode = phone => (dispatch) => {
-//   dispatch({ type: CODE_PENDING });
-//   fetch(`${API_COMMON_BASE}/verifycode`, {
-//     data: { phone },
-//   }).then((json) => {
-//     Alert.success('发送成功');
-//     dispatch({ type: CODE_FULFILLED, payload: json.data });
-//   }).catch(() => {
-//     dispatch({ type: CODE_REJECTED });
-//   });
-// };
-
-
+// 获取验证码
 export const requestVerifyCode = data => ({
   type: 'CODE',
   payload: fetch('http://alpha.api.volunteer.tmallwo.com/api/verifycode', {

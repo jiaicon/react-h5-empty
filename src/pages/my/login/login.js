@@ -30,6 +30,8 @@ class Login extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { login: cLogin } = this.props;
     const { login: nLogin } = nextProps;
+    console.log(this.props.login);
+    console.log(nextProps.login);
     if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
       history.push('/my');
     }
@@ -40,7 +42,7 @@ class Login extends React.Component {
   onTextChanged=() => {
     const username = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const pwd = this.pwd.value.replace(/(^\s+)|(\s+$)/g, '');
-
+    console.log(pwd);
     this.setState({
       username,
       pwd,
@@ -48,9 +50,11 @@ class Login extends React.Component {
   }
   submit=() => {
     const username = this.state.username;
-    const pwd = this.state.pws;
-
-    this.props.loginAction(username, pwd);
+    const pwd = this.state.pwd;
+    const data = {};
+    data.username = username;
+    data.pwd = pwd;
+    this.props.loginAction(data);
   }
   render() {
     return (
@@ -60,7 +64,7 @@ class Login extends React.Component {
           <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} placeholder="用户名或手机号" className="page-login-item-input" />
         </div>
         <div className="page-login-item">
-          <input type="text" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged} placeholder="输入密码" className="page-login-item-input" />
+          <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged} placeholder="输入密码" className="page-login-item-input" />
         </div>
         <div className="page-login-forget">
           <Link to="/my/forget">
@@ -109,14 +113,13 @@ Login.propTypes = {
       })),
     }),
   }),
-  user: PropTypes.shape({}),
+
 
 };
 
 export default connect(
   state => ({
-    login: state.loginReducer,
-    user: state.user,
+    login: state.login.login,
   }),
   dispatch => bindActionCreators({ loginAction }, dispatch),
 )(Login);

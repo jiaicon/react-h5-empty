@@ -41,9 +41,9 @@ const teamReducer = (state = {
 export const projectAction = num => ({
   type: 'PROJECT_DATA',
   meta: {
-    num,
+    state: num,
   },
-  payload: fetch(`/user/project?state=${num}`, { method: 'GET' }),
+  payload: fetch('/user/project', { method: 'GET' }),
 });
 
 const projectReducer = (state = {
