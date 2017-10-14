@@ -1,3 +1,5 @@
+/* eslint  "no-nested-ternary":"off" */
+
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -23,10 +25,12 @@ class ProjectListPage extends React.Component {
       isFilterShow: false,
     };
 
+    const params = queryString.parse(location.search);
+
     this.selectedOption = {
       service_object: '',
       service_category: '',
-      sort: 'time',
+      sort: params.types || 'time',
     };
   }
 
@@ -96,6 +100,7 @@ class ProjectListPage extends React.Component {
     const { list: { data: listData } } = this.props;
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
+    const params = queryString.parse(location.search);
 
     return (
       <div className="page-project-list">
@@ -113,6 +118,7 @@ class ProjectListPage extends React.Component {
               onFilterChange={this.onFilterChange}
               onFilterShow={this.onFilterShow}
               onFilterHide={this.onFilterHide}
+              types={params.types === 'time' ? '最新发布' : (params.types === 'distance' ? '距离最近' : '')}
             />
           </div>
           <div className="project-list">

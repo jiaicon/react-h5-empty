@@ -117,10 +117,10 @@ class HomePage extends React.Component {
             </Link>
           </div>
           <div className="menus-activity">
-            <Link to="/project/list">
+            <Link to="/project/list?types=distance">
               <img src="/images/activities_nearby.png" alt="附近" />
             </Link>
-            <Link to="/project/list">
+            <Link to="/project/list?types=time">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
             <Link to="/project/list?recommend=1">
