@@ -89,7 +89,7 @@ export default function request(requestUrl, requestOptions = {}) {
         console.log('请求成功-', url, json);
         resolve(json);
       } else if (json.error_code === 9999) {
-        history.push('/my/entry');
+        history.replace('/my/entry');
       } else {
         console.log('请求返回失败-', url, json);
         Alert.error('请求发送失败');
