@@ -13,3 +13,15 @@ export function isWindowReachBottom(threshold = 0) {
   }
   return false;
 }
+
+export function parseDistance(distance) {
+  let parsedDistance = distance / 1000;
+
+  if (parsedDistance < 10) {
+    parsedDistance = parsedDistance.toFixed(1);
+  } else {
+    parsedDistance = parseInt(parsedDistance, 10);
+  }
+
+  return `${parsedDistance}km`;
+}
