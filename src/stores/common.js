@@ -57,7 +57,7 @@ export function userReducer(state = { isLogin: !!localStorage.getItem('TOKEN') }
       }
 
       if (data.token) {
-        localStorage.setItem('TOKEN', data.token);
+        window.token = data.token;
       }
 
       return { ...action.payload.data, isLogin: true };

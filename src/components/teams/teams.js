@@ -44,15 +44,16 @@ class Teams extends React.Component {
                   <div className="team-name-content">
                     {team.name}
                   </div>
-                  {/** TODO:* */}
-                  {/** team.join_status===0无此字段* */}
-                  <div
-                    className={cx({
-                      'team-main-top-state': true,
-                      'team-main-top-state-hidden': { showLabel },
-                    })
+                  {
+                    showLabel ?
+                      <div
+                        className={cx({
+                          'team-main-top-state': true,
+                          'team-main-top-state-hidden': { showLabel },
+                        })
+                    }
+                      >审核中</div> : null
                   }
-                  >审核中</div>
                 </div>
 
                 <div className="team-info">

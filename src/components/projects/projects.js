@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import './projects.css';
 import Link from '../link/link';
 import Image from '../image/image';
-import { parseTimeStringToDateString } from '../../utils/funcs';
+import { parseTimeStringToDateString, parseDistance } from '../../utils/funcs';
 
 class Projects extends React.Component {
 
@@ -61,7 +61,7 @@ class Projects extends React.Component {
                   />
                 </Link>
                 <div className="project-footer">
-                  <div className="project-location">{project.county_name} {project.distance}</div>
+                  <div className="project-location">{project.county_name} {parseDistance(project.distance)}</div>
                   <div className="project-members">
                     <span>{project.join_people_count}</span>
                     &nbsp;/&nbsp;

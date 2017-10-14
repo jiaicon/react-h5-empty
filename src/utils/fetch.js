@@ -2,6 +2,7 @@ import Alert from 'react-s-alert';
 import { API_PREFIX } from './config';
 import { addAysncTask, removeAysncTask } from '../stores/common';
 import store from '../stores';
+import history from '../pages/history';
 
 
 export default function request(requestUrl, requestOptions = {}) {
@@ -29,9 +30,10 @@ export default function request(requestUrl, requestOptions = {}) {
     // 授权 token
     'X-auth-token': window.token || '',
     // 机构代码
-    'X-org-code': localStorage.ORGCODE || 'XKdwpfgegW',
+    'X-org-code': window.ortCode || 'XKdwpfgegW',
     // 经纬度 经度-纬度
-    'X-location': localStorage.LOCATIOIN || '1-2',
+    'X-location': localStorage.LOCATIOIN || '116.314820-40.065560',
+    'X-unique-key': window.uniqueKey || '',
   };
   // 自定义头必须设置 mode 为 cors
   options.mode = 'cors';
@@ -86,6 +88,8 @@ export default function request(requestUrl, requestOptions = {}) {
         }
         console.log('请求成功-', url, json);
         resolve(json);
+      } else if (json.error_code === 9999) {
+        history.push('/my/entry');
       } else {
         console.log('请求返回失败-', url, json);
         Alert.error('请求发送失败');
