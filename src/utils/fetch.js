@@ -29,9 +29,10 @@ export default function request(requestUrl, requestOptions = {}) {
     // 授权 token
     'X-auth-token': window.token || '',
     // 机构代码
-    'X-org-code': localStorage.ORGCODE || 'XKdwpfgegW',
+    'X-org-code': window.ortCode || 'XKdwpfgegW',
     // 经纬度 经度-纬度
-    'X-location': localStorage.LOCATIOIN || '1-2',
+    'X-location': localStorage.LOCATIOIN || '116.314820-40.065560',
+    'X-unique-key': window.uniqueKey || '',
   };
   // 自定义头必须设置 mode 为 cors
   options.mode = 'cors';
