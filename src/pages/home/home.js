@@ -123,7 +123,7 @@ class HomePage extends React.Component {
             <Link to="/project/list">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
-            <Link to="/project/list">
+            <Link to="/project/list?recommend=1">
               <img src="/images/activities_hot.png" alt="最热" />
             </Link>
           </div>
