@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
+import queryString from 'query-string';
 import './list.css';
 import Link from '../../../components/link/link';
 import Filter from '../../../components/filter/filter';
@@ -26,12 +26,13 @@ class ProjectListPage extends React.Component {
     this.selectedOption = {
       service_object: '',
       service_category: '',
-      sort: '最新发布',
+      sort: 'time',
     };
   }
 
   componentWillMount() {
-    this.requestList();
+    const params = queryString.parse(location.search);
+    this.requestList(false, !!params.recommend);
   }
 
   componentDidMount() {
@@ -49,7 +50,7 @@ class ProjectListPage extends React.Component {
     this.selectedOption = {
       service_object: selectedOption.objects,
       service_category: selectedOption.categories,
-      sort: selectedOption.types,
+      sort: selectedOption.types === '距离最近' ? 'distance' : 'time',
     };
 
     this.requestList();
@@ -75,7 +76,7 @@ class ProjectListPage extends React.Component {
     }
   }
 
-  requestList(more) {
+  requestList(more, recommend) {
     const { list: { data: listData, fetching } } = this.props;
 
     if (fetching ||
@@ -87,6 +88,7 @@ class ProjectListPage extends React.Component {
       ...this.selectedOption,
       current_page: more ? listData.page.current_page + 1 : 1,
       more,
+      recommend: recommend ? 1 : 0,
     });
   }
 
