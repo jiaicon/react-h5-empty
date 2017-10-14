@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
 import Alert from 'react-s-alert';
 import fetch from '../../../utils/fetch';
-import { USERINFO_FULFILLED } from '../../../stores/common';
+import history from '../../history';
+import { USERINFO_FULFILLED, USERINFO_CLEAR } from '../../../stores/common';
 
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
 export const LOGIN_REJECTED = 'LOGIN_REJECTED';
+export const LOGOUT_PENDING = 'LOGOUT_PENDING';
+export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
+export const LOGOUT_REJECTED = 'LOGOUT_REJECTED';
 
 
 export const loginAction = data => (dispatch) => {
@@ -21,6 +25,26 @@ export const loginAction = data => (dispatch) => {
   }).catch((e) => {
     console.log(e);
     dispatch({ type: LOGIN_REJECTED });
+  });
+};
+
+export const logoutAction = () => (dispatch) => {
+  dispatch({ type: LOGOUT_PENDING });
+
+  fetch('/logout', {
+    method: 'GET',
+  }).then((json) => {
+    dispatch({ type: LOGOUT_FULFILLED, payload: json.data });
+
+    // 获取到用户信息后单独处理（存储 token/用户信息）
+    dispatch({ type: USERINFO_CLEAR, payload: json });
+
+    if (json && !json.error_code) {
+      history.replace('/');
+    }
+  }).catch((e) => {
+    console.log(e);
+    dispatch({ type: LOGOUT_REJECTED });
   });
 };
 

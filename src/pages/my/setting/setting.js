@@ -2,13 +2,14 @@
  * @file 个人设置
  */
 
-/* global wx:false */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import './setting.css';
+import { logoutAction } from '../login/login.store';
 
 class Setting extends React.Component {
 
@@ -39,9 +40,7 @@ class Setting extends React.Component {
           </div>
 
         </Link>
-        <div className="page-setting-quit">退出登录</div>
-
-
+        <a className="page-setting-quit" onClick={this.props.logoutAction}>退出登录</a>
       </div>
     );
   }
@@ -51,9 +50,10 @@ class Setting extends React.Component {
 Setting.title = '个人中心';
 
 Setting.propTypes = {
+  logoutAction: React.PropTypes.func,
 };
 
 export default connect(
   state => state.my || {},
-  dispatch => bindActionCreators({}, dispatch),
+  dispatch => bindActionCreators({ logoutAction }, dispatch),
 )(Setting);

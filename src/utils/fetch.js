@@ -33,7 +33,7 @@ export default function request(requestUrl, requestOptions = {}) {
     'X-org-code': window.ortCode || 'XKdwpfgegW',
     // 经纬度 经度-纬度
     'X-location': localStorage.LOCATIOIN || '116.314820-40.065560',
-    'X-unique-key': window.uniqueKey || '',
+    'X-unique-key': window.uniqueKey || 'demo',
   };
   // 自定义头必须设置 mode 为 cors
   options.mode = 'cors';
@@ -88,7 +88,7 @@ export default function request(requestUrl, requestOptions = {}) {
         }
         console.log('请求成功-', url, json);
         resolve(json);
-      } else if (json.error_code === 9999) {
+      } else if (json.error_code === 9999 && options.noRedirect !== true) {
         history.push('/my/entry');
       } else {
         console.log('请求返回失败-', url, json);

@@ -13,6 +13,7 @@ export const addAysncTask = () => ({ type: 'ADD_ASYNC_TASK', [pendingTask]: begi
 export const removeAysncTask = () => ({ type: 'REMOVE_ASYNC_TASK', [pendingTask]: end });
 
 export const USERINFO_FULFILLED = 'USERINFO_FULFILLED';
+export const USERINFO_CLEAR = 'USERINFO_CLEAR';
 export const USERINFO_UPDATED = 'USERINFO_UPDATED';
 
 // 修改用户信息
@@ -22,7 +23,7 @@ export const updateUserInfo = userInfo => ({ type: 'USERINFO_UPDATED', payload: 
  * 用户信息获取
  */
 export const requestUserInfo = () => (dispatch) => {
-  const token = localStorage.getItem('TOKEN');
+  const token = window.token;
 
   // 用户信息请求为非强依赖请求，如果本地没有 token 即未登录则直接忽略即可
   if (!token) {
@@ -46,7 +47,7 @@ export const requestUserInfo = () => (dispatch) => {
 /**
  * 用户信息存储
  */
-export function userReducer(state = { isLogin: !!localStorage.getItem('TOKEN') }, action) {
+export function userReducer(state = { isLogin: !!window.token }, action) {
   const payload = action.payload;
   const data = payload && payload.data;
 
@@ -65,6 +66,16 @@ export function userReducer(state = { isLogin: !!localStorage.getItem('TOKEN') }
       return {
         ...state,
         ...action.payload.userInfo,
+      };
+    case USERINFO_CLEAR:
+      if (payload.error_code) {
+        return state;
+      }
+
+      window.token = null;
+
+      return {
+        isLogin: false,
       };
     default:
       return state;

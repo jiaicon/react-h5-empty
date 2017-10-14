@@ -34,11 +34,10 @@ class MyPage extends React.Component {
 
   }
 
-  componentWillReceiveProps() {
-
-  }
+  componentWillReceiveProps() {}
 
   componentWillUnmount() {}
+
   renderPageMymessagesTemplate() {
     return (
       <div className="page-my-header-messages-container">
@@ -46,6 +45,7 @@ class MyPage extends React.Component {
       </div>
     );
   }
+
   renderPageMyphotoTemplate() {
     const { user } = this.props;
     return (
@@ -133,7 +133,7 @@ class MyPage extends React.Component {
           {
             !user.isLogin ?
               <Link to="/my/login">
-                {this.renderPageMymessagesTemplat()}
+                {this.renderPageMymessagesTemplate()}
               </Link> :
               <Link to="/my/messages">
                 {this.renderPageMymessagesTemplate()}
