@@ -12,6 +12,7 @@
 .page-launch .content {
   flex: 1;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .page-launch .tabs{

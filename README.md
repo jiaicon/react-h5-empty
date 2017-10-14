@@ -108,3 +108,15 @@ $ yarn build                    # Compiles the app into the /public/dist folder
 ### API 文档
 
 [智多星 API文档](https://www.zybuluo.com/lina/note/892990)
+
+### 部署测试服务器
+
+```
+在 src 目录执行：
+1. yarn build
+2. sh /tools/deploy-testserver.sh
+
+60.205.182.2 miller/miller
+静态资源 /data/webapp/volunteer/Volunteer_wechat/public
+首页模板 /data/webapp/volunteer/Volunteer_wechat/resources/views/wechat.blade.php
+```
