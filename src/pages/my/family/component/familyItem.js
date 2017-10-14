@@ -5,8 +5,6 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import cx from 'classnames';
-import Link from '../../../../components/link/link';
 import './familyItem.css';
 import Image from '../../../../components/image/image';
 
@@ -22,7 +20,6 @@ class FamilyItem extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
   }
 
   componentWillReceiveProps() {

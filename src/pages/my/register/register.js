@@ -1,8 +1,9 @@
 /**
  * @file 注册
  */
-
-/* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
@@ -39,12 +40,7 @@ class Register extends React.Component {
       countDownTrigger: true,
     };
   }
-  refreshCaptcha=() => {
-    this.setState({
-      ...this.state,
-      captchaUrl: `http://alpha.api.volunteer.tmallwo.com/api/captcha?t=${Date.now()}`,
-    });
-  }
+
 
   componentDidMount() {
 
@@ -53,7 +49,6 @@ class Register extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { code: cCode, regis: cRegis } = this.props;
     const { code: nCode, regis: nRegis } = nextProps;
-    const countDownTrigger = this.state.countDownTrigger;
 
     if (cCode.fetching && !nCode.fetching && !nCode.failed) {
       this.setState({
@@ -74,7 +69,7 @@ class Register extends React.Component {
       timer: null,
     });
   }
-  onSubmit =() => {
+  onSubmit() {
     const name = this.state.name;
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
@@ -106,12 +101,11 @@ class Register extends React.Component {
     }
     this.props.register(data);
   }
-  onSend=() => {
+  onSend() {
     const phone = this.state.phone;
     const captcha = this.state.captcha;
     const countDownTrigger = this.state.countDownTrigger;
     const data = {};
-    console.log(this.props);
     if (phone && captcha) {
       if (countDownTrigger === true) {
         data.phone = phone;
@@ -128,8 +122,6 @@ class Register extends React.Component {
   }
 
   onStartCountDown() {
-    const buttonString = this.state.buttonString;
-    const countDownTrigger = this.state.countDownTrigger;
     let timer = this.state.timer;
     let num = 60;
     const that = this;
@@ -139,7 +131,7 @@ class Register extends React.Component {
       countDownTrigger: false,
     });
     timer = setInterval(() => {
-      num--;
+      num -= 1;
       that.setState({
         buttonString: num,
         timer,
@@ -155,14 +147,13 @@ class Register extends React.Component {
       }
     }, 1000);
   }
-  onTextChanged =() => {
+  onTextChanged() {
     const name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
     const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
     const captcha = this.captcha.value.replace(/(^\s+)|(\s+$)/g, '');
     const password = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
     const agreement = this.checkbox.checked;
-    console.log(phone);
     this.setState({
       ...this.state,
       agreement,
@@ -174,9 +165,8 @@ class Register extends React.Component {
     });
   }
   // 上传照片
-  onFileSelect=(evt) => {
+  onFileSelect(evt) {
     const file = evt.target.files[0];
-    console.log(file);
     if (file) {
       const fd = new FormData();
       fd.append('file', file);
@@ -202,7 +192,12 @@ class Register extends React.Component {
       xhr.send(fd);
     }
   }
-
+  refreshCaptcha() {
+    this.setState({
+      ...this.state,
+      captchaUrl: `http://alpha.api.volunteer.tmallwo.com/api/captcha?t=${Date.now()}`,
+    });
+  }
   render() {
     return (
       <div className="page-register">
@@ -233,7 +228,7 @@ class Register extends React.Component {
             <div className="page-register-item">
               <span className="page-register-fonts">图片码</span>
               <input className="page-register-input" ref={(c) => { this.captcha = c; }} type="text" onKeyUp={this.onTextChanged} />
-              <img className="page-register-code" src={this.state.captchaUrl} onClick={this.refreshCaptcha} />
+              <img className="page-register-code" src={this.state.captchaUrl} onClick={this.refreshCaptcha} alt="" />
             </div>
             <div className="line1px" />
           </li>

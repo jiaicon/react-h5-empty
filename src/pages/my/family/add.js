@@ -9,7 +9,6 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
-import history from '../../history';
 import { } from '../../../stores/common';
 import './add.css';
 
@@ -34,13 +33,13 @@ class Addmember extends React.Component {
   componentDidMount() {
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     // TODO:数据提交成功跳转
   }
 
   componentWillUnmount() {}
   // 上传照片
-  onFileSelect=(evt) => {
+  onFileSelect(evt) {
     const file = evt.target.files[0];
     if (file) {
       const fd = new FormData();
@@ -66,7 +65,7 @@ class Addmember extends React.Component {
       xhr.send(fd);
     }
   }
-  onTextChanged =() => {
+  onTextChanged() {
     const name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
     const password = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -80,7 +79,7 @@ class Addmember extends React.Component {
       agreement,
     });
   }
-  onSubmit =() => {
+  onSubmit() {
     const name = this.state.name;
     const phone = this.state.phone;
     const password = this.state.password;
@@ -142,7 +141,7 @@ class Addmember extends React.Component {
             <div className="line1px" />
           </li>
         </ul>
-        <div className="page-add-submmit" onClick={this.onSubmit}>确认提交</div>
+        <a className="page-add-submmit" onClick={this.onSubmit}>确认提交</a>
         <div className="page-add-agree">
           <input type="checkbox" onClick={this.onTextChanged} className="page-add-checkbox" ref={(c) => { this.checkbox = c; }} />
       我已阅读并授权

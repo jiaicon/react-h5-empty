@@ -5,10 +5,6 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import cx from 'classnames';
-
 import '../projects.css';
 
 class ProjectItem extends React.Component {

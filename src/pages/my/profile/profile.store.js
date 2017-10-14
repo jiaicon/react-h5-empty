@@ -1,4 +1,4 @@
-import Alert from 'react-s-alert';
+
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 // 实名
@@ -47,20 +47,20 @@ const registerReducer = (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case REGISTER_PENDING:
+    case 'REGISTER_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case REGISTER_FULFILLED:
+    case 'REGISTER_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload,
       };
-    case REGISTER_REJECTED:
+    case 'REGISTER_REJECTED':
       return {
         ...state,
         failed: true,
@@ -174,5 +174,6 @@ const reducer = combineReducers({
   person: personInfoReducer,
   checkUser: checkUserReducer,
   address: addressReducer,
+  register: registerReducer,
 });
 export default reducer;

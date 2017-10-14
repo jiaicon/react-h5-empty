@@ -22,6 +22,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  display: none;
+}
+.page-post-pop-block{
   display: block;
 }
 .page-post-take-up{

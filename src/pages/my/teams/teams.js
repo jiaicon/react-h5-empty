@@ -1,18 +1,21 @@
 /**
  * @file 志愿团队
  */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 
-/* global wx:false */
+
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import Alert from 'react-s-alert';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
-import Link from '../../../components/link/link';
 import { teamAction, searchAction } from '../my.store';
 import './teams.css';
 import Item from './component/item';
+import TeamsItem from '../../../components/teams/teams';
 
 class Teams extends React.Component {
 
@@ -25,24 +28,14 @@ class Teams extends React.Component {
   }
 
   componentWillMount() {
-    console.log('渲染前');
     this.props.teamAction();
   }
 
   componentDidMount() {
-    console.log('渲染完成');
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('接收数据');
-    // const { search: csearch } = this.props;
-    // const { search: nsearch } = nextProps;
-    // if (nsearch && csearch && csear.fetching && !nsearch.fetching && !nsearch.failed) {
-    //   this.setState({
-    //     ...this.state,
-    //     toggle: false,
-    //   });
-    // }
+  componentWillReceiveProps() {
+
   }
 
   componentWillUnmount() {
@@ -51,14 +44,14 @@ class Teams extends React.Component {
       toggle: true,
     });
   }
-  onTextChanged=() => {
+  onTextChanged() {
     const searchname = this.searchname.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       ...this.state,
       searchname,
     });
   }
-  onSearch=() => {
+  onSearch() {
     const searchname = this.state.searchname;
     if (!searchname) {
       Alert.warning('请正确输入团队名称');
@@ -66,26 +59,24 @@ class Teams extends React.Component {
     }
     this.props.searchAction(searchname);
   }
-  onCancel=() => {
+  onCancel() {
     this.setState({
       ...this.state,
       toggle: true,
     });
   }
-  renderTeamTemplate=() => {
-    // const data = this.props.team.data;
-    // console.log(this.props.team.data);
+  renderTeamTemplate() {
     const data = this.props.team.data;
     if (!data || !data.list) {
       return <div />;
     }
     return (
       <div>
-        {data.list.map((item, key) => <Item data={item} key={key} />)}
+        {data.list.map(item => <TeamsItem teams={data ? item : null} />)}
       </div>
     );
   }
-  renderSearchTemplate=() => {
+  renderSearchTemplate() {
     // const ndata = this.props.search;
     const ndata = [
       {
@@ -117,7 +108,7 @@ class Teams extends React.Component {
     ];
     return (
       <div>
-        {ndata.map((item, key) => <Item data={item} key={key} />)}
+        {ndata.map(item => <Item data={item} />)}
       </div>
     );
   }
@@ -185,30 +176,6 @@ Teams.propTypes = {
       })),
     }),
   }),
-  search: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    slogan: PropTypes.string,
-    logo: PropTypes.string,
-    type: PropTypes.string,
-    team_size: PropTypes.number,
-    identifier: PropTypes.string,
-    contact_name: PropTypes.string,
-    contact_phone: PropTypes.string,
-    contact_addr: PropTypes.string,
-    parent_id: PropTypes.number,
-    province_id: PropTypes.number,
-    province_name: PropTypes.string,
-    city_id: PropTypes.number,
-    city_name: PropTypes.string,
-    county_id: PropTypes.number,
-    county_name: PropTypes.string,
-    time_long: PropTypes.number,
-    abstract: PropTypes.string,
-    created_at: PropTypes.string,
-    category: PropTypes.string,
-    join_status: PropTypes.number,
-  })),
 };
 
 

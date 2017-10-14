@@ -2,7 +2,9 @@
  * @file 我的消息
  */
 
-/* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import Alert from 'react-s-alert';
@@ -32,8 +34,6 @@ class Edit extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.info);
-    console.log(nextProps.info);
     const { info: cInfo } = this.props;
     const { info: nInfo } = nextProps;
     if (cInfo.fetching && !cInfo.failed && !nInfo.fetching && !nInfo.failed) {
@@ -42,13 +42,13 @@ class Edit extends React.Component {
   }
 
   componentWillUnmount() {}
-  onTextChanged=() => {
+  onTextChanged() {
     const slogan = this.editslogan.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       slogan,
     });
   }
-  onSubmit=() => {
+  onSubmit() {
     const slogan = this.state.slogan;
     if (slogan) {
       const data = {
@@ -110,6 +110,7 @@ Edit.propTypes = {
 
     })),
   }),
+  info: PropTypes.shape({}),
 };
 
 export default connect(

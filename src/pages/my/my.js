@@ -2,7 +2,9 @@
  * @file 个人中心入口页面
  */
 
-/* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -10,7 +12,6 @@ import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../stores/common';
 import { teamAction, rewardTimeAction, projectAction, messagesAction } from './my.store';
 import Link from '../../components/link/link';
-import WXShare from '../../components/share';
 import './my.css';
 import Image from '../../components/image/image';
 
@@ -33,17 +34,19 @@ class MyPage extends React.Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
 
   }
 
   componentWillUnmount() {}
-  renderPageMymessagesTemplate=() => (
-    <div className="page-my-header-messages-container">
-      <span className="page-my-header-messages-red-point" />
-    </div>
-    )
-  renderPageMyphotoTemplate=() => {
+  renderPageMymessagesTemplate() {
+    return (
+      <div className="page-my-header-messages-container">
+        <span className="page-my-header-messages-red-point" />
+      </div>
+    );
+  }
+  renderPageMyphotoTemplate() {
     const { user } = this.props;
     return (
       <div className="page-my-photo-container">
@@ -56,18 +59,12 @@ class MyPage extends React.Component {
       </div>
     );
   }
-  renderPageMyRecordTemplate=() => {
+  renderPageMyRecordTemplate() {
     const { user } = this.props;
     // TODO:志愿时长。项目，团队
     const { team } = this.props;
     const { reward } = this.props;
 
-    let time = 0;
-    if (reward.data == null || reward.data.join_project_count == null) {
-      time = 0;
-    } else {
-      time = reward.data.reward_time;
-    }
     return (
       <div className="page-my-record-container">
         {
@@ -255,6 +252,30 @@ class MyPage extends React.Component {
             <div className="line1px" />
           </div>
         }
+        </li>
+        <li>
+          {
+      !user.isLogin ?
+        <div>
+          <Link to="/my/login">
+            <div className="page-my-item-box">
+              <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
+            </div>
+            <span className="page-my-item-big" />
+          </Link>
+          <div className="line1px" />
+        </div>
+        :
+        <div>
+          <Link to="/my/duration/applys">
+            <div className="page-my-item-box">
+              <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
+            </div>
+            <span className="page-my-item-big" />
+          </Link>
+          <div className="line1px" />
+        </div>
+      }
         </li>
         <li>
           {

@@ -2,13 +2,15 @@
  * @file 我的消息
  */
 
-/* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../../stores/common';
-import { imporvePersonInfo } from './profile.store.js';
+import { imporvePersonInfo } from './profile.store';
 import './checkbox.css';
 
 
@@ -97,16 +99,16 @@ class Checkbox extends React.Component {
 
   componentWillUnmount() {}
 
+  onSubmit=() => {
+
+  }
   checkNumCLick(e) {
     const limitArr = this.state.limitArr;
     const data = this.state.data;
     const len = limitArr.length;
-    const inputs = document.getElementsByTagName('input');
-    console.log(e.target.id);
     if (!data[e.target.id - 1].toggle && len < 3) {
       data[e.target.id - 1].toggle = true;
       limitArr.push(e.target.id - 1);
-      console.log(limitArr);
       this.setState({
         data,
         limitArr,
@@ -115,16 +117,11 @@ class Checkbox extends React.Component {
       data[e.target.id - 1].toggle = false;
       const index = limitArr.indexOf(e.target.id);
       limitArr.splice(index, 1);
-      console.log(limitArr);
       this.setState({
         limitArr,
         data,
       });
     }
-  }
-  onSubmit=() => {
-    const limitArr = this.state.limitArr;
-    this.props.imporvePersonInfo();
   }
 
   render() {
@@ -134,8 +131,8 @@ class Checkbox extends React.Component {
         <ul className="page-profile-checkbox-ground">
           {data.map((item, keys) =>
             <li>
-              <label>
-                <input checked={item.toggle} type="checkbox" ref={c => this.checkbox = c} index={keys} onChange={this.checkNumCLick} id={item.num} /><i>✓</i>{item.name}
+              <label htmlFor="check">
+                <input id="check" checked={item.toggle} type="checkbox" ref={c => this.checkbox = c} index={keys} onChange={this.checkNumCLick} id={item.num} /><i>✓</i>{item.name}
               </label>
             </li>,
           )}

@@ -35,7 +35,6 @@ class Collects extends React.Component {
 
   componentWillUnmount() {}
   handleClick(index) {
-    console.log(index);
     this.setState({
       ...this.state,
       current: index,
@@ -48,7 +47,8 @@ class Collects extends React.Component {
     return (
       <div className="page-collects">
         <ul className="page-collects-tab-container">
-          { this.state.title.map((val, index) => (<TabItem currentClass={this.currentClass} handleClick={this.handleClick} val={val} index={index} />)) }
+          { this.state.title.map((val, index) =>
+             (<TabItem currentClass={this.currentClass} handleClick={this.handleClick} val={val} index={index} />)) }
         </ul>
         <div className="line1px" />
         <div className="page-collects-content">

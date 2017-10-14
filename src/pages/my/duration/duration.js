@@ -33,7 +33,6 @@ class Duration extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    console.log(this.props.reward);
     const reward = this.props.reward.data;
     return (
       <div className="page-duration">
@@ -45,7 +44,8 @@ class Duration extends React.Component {
           </div>
           <div className="page-duration-top-area-view-line" />
           <div className="page-duration-top-area-view-duration-box">
-            <p><span>{this.props.reward.data.reward_time ? this.props.reward.data.reward_time : 0}</span>小时</p>
+            <p><span>{this.props.reward.data.reward_time ?
+               this.props.reward.data.reward_time : 0}</span>小时</p>
             <p>志愿总时长</p>
           </div>
         </div>

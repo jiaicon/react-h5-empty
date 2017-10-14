@@ -7,7 +7,6 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import cx from 'classnames';
 
 import './durationItem.css';
 
@@ -37,7 +36,7 @@ class DurationItem extends React.Component {
           <div className="page-duration-item-container-main-bottom">
             <div className="page-duration-item-container-main-bottom-logo-box">
               <div className="page-duration-item-container-main-bottom-logo">
-                <img src="/images/my/register.png" />
+                <img src="/images/my/register.png" alt="" />
               </div>
               <div>儿童基金会</div>
             </div>

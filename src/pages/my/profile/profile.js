@@ -9,10 +9,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { requestUserInfo } from '../../../stores/common';
-import { imporvePersonInfo } from './profile.store.js';
+import { imporvePersonInfo } from './profile.store';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
-import history from '../../history';
 import Image from '../../../components/image/image';
 import Alert from 'react-s-alert';
 import './profile.css';
@@ -35,7 +34,7 @@ class Profile extends React.Component {
   componentDidMount() {
   }
 
-  componentWillReceiveProps(nextsProps) {
+  componentWillReceiveProps() {
 
   }
 

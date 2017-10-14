@@ -3,12 +3,11 @@
  */
 
 /* global wx:false */
-import React, { PropTypes } from 'react';
+import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { } from '../my.store';
-import Link from '../../../components/link/link';
 import './center.css';
 
 class Center extends React.Component {

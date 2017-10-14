@@ -60,7 +60,7 @@ class Verify extends React.Component {
   }
 
   componentWillUnmount() {}
-  onTextChanged=() => {
+  onTextChanged() {
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
     const sex = this.sex.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -74,7 +74,7 @@ class Verify extends React.Component {
       people,
     });
   }
-  onSubmit=() => {
+  onSubmit() {
     const realname = this.state.realname;
     const idcard = this.state.idcard;
     const sex = this.state.sex;
@@ -100,29 +100,27 @@ class Verify extends React.Component {
 
     return true;
   }
-  handleProvinceClick =() => {
+  handleProvinceClick() {
     this.setState({
       ...this.state,
       province: this.province.value,
     });
     this.props.addressDataAction(this.province.value);
   }
-  handleCityClick=() => {
-    console.log(this.country.value);
+  handleCityClick() {
     this.setState({
       ...this.state,
       city: this.city.value,
     });
     this.props.addressDataAction(this.city.value);
   }
-  handleCountryClick=() => {
+  handleCountryClick() {
     this.setState({
       ...this.state,
       county: this.county.value,
     });
   }
   render() {
-    console.log(this.props.address);
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
     const county = this.props.address.data.county;

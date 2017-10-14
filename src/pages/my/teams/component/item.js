@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import cx from 'classnames';
-import Link from '../../../../components/link/link';
 import './style.css';
 
 class Item extends React.Component {
@@ -21,7 +20,6 @@ class Item extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
   }
 
   componentWillReceiveProps() {

@@ -36,7 +36,6 @@ class Forget extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { code: cCode, forget: cForget } = this.props;
     const { code: nCode, forget: nForget } = nextProps;
-    const countDownTrigger = this.state.countDownTrigger;
 
     if (cCode.fetching && !cCode.failed && !nCode.fetching && !nCode.failed) {
       this.onStartCountDown();
@@ -59,8 +58,6 @@ class Forget extends React.Component {
     });
   }
   onStartCountDown() {
-    const buttonString = this.state.buttonString;
-    const countDownTrigger = this.state.countDownTrigger;
     let timer = this.state.timer;
     let num = 60;
     const that = this;
@@ -70,7 +67,7 @@ class Forget extends React.Component {
       countDownTrigger: false,
     });
     timer = setInterval(() => {
-      num--;
+      num -= 1;
       that.setState({
         buttonString: num,
         timer,
@@ -86,7 +83,7 @@ class Forget extends React.Component {
       }
     }, 1000);
   }
-  onTextChanged=() => {
+  onTextChanged() {
     const phone = this.phone.value;
     const verifyCode = this.verifyCode.value;
     const pwd = this.pwd.value;
@@ -97,7 +94,7 @@ class Forget extends React.Component {
       pwd,
     });
   }
-  onSend=() => {
+  onSend() {
     const phone = this.state.phone;
     const countDownTrigger = this.state.countDownTrigger;
     const data = {};
@@ -113,7 +110,7 @@ class Forget extends React.Component {
       this.props.againVerifyCode(data);
     }
   }
-  onSubmit=() => {
+  onSubmit() {
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const pwd = this.state.pwd;

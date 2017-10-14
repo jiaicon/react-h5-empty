@@ -27,7 +27,6 @@ class Family extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user);
   }
 
   componentWillReceiveProps() {
@@ -38,7 +37,9 @@ class Family extends React.Component {
   render() {
     const user = this.props.user;
     const family = this.props.family;
-    console.log(family.family_size);
+    if (!family && !family.data) {
+      return <div />;
+    }
     return (
       <div className="page-family">
         <div className="pages-family-top-area-container">
@@ -50,12 +51,12 @@ class Family extends React.Component {
           </div>
           <div className="page-family-top-area-view">
             <div className="page-family-top-area-view-family-box">
-              <p><span>{family.family_size}</span>人</p>
+              <p><span>{family.data ? family.data.data.family_size + 1 : 0}</span>人</p>
               <p>家庭成员</p>
             </div>
             <div className="page-family-top-area-view-line" />
             <div className="page-family-top-area-view-family-box">
-              <p><span>139</span>小时</p>
+              <p><span>{family.data ? family.data.data.reward_time : 0}</span>小时</p>
               <p>志愿总时长</p>
             </div>
           </div>
@@ -63,20 +64,7 @@ class Family extends React.Component {
         <div className="page-family-take-up" />
         <div>
           <FamilyItem data={user} />
-          <Swipeout
-            right={[
-              {
-                text: '删除',
-                onPress: () => console.log('delete'),
-                style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
-                className: 'custom-class-2',
-              },
-            ]}
-            onOpen={() => console.log('open')}
-            onClose={() => console.log('close')}
-          >
-            <FamilyItem data={user} />
-          </Swipeout>
+
 
         </div>
 
@@ -85,11 +73,25 @@ class Family extends React.Component {
     );
   }
 }
-
+ // <Swipeout
+          //   right={[
+          //     {
+          //       text: '删除',
+          //       onPress: () => console.log('delete'),
+          //       style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
+          //       className: 'custom-class-2',
+          //     },
+          //   ]}
+          //   onOpen={() => console.log('open')}
+          //   onClose={() => console.log('close')}
+          // >
+          //   <FamilyItem data={user} />
+          // </Swipeout>
 
 Family.title = '我的家庭';
 
 Family.propTypes = {
+  familyAction: PropTypes.func,
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
@@ -127,46 +129,48 @@ Family.propTypes = {
     })),
   }),
   family: PropTypes.shape({
-    family_size: PropTypes.number,
-    reward_time: PropTypes.number,
-    family: PropTypes.arrayOf(
-      PropTypes.shape({
-        token: PropTypes.string,
-        id: PropTypes.number,
-        username: PropTypes.string,
-        phone: PropTypes.string,
-        avatars: PropTypes.string,
-        real_name: PropTypes.string,
-        nation: PropTypes.string,
-        sex: PropTypes.number,
-        birthday: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
-        identifier: PropTypes.string,
-        slogan: PropTypes.string,
-        reward_time: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
-        id_number: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number,
-        ]),
-        province_id: PropTypes.number,
-        province_name: PropTypes.string,
-        city_id: PropTypes.number,
-        city_name: PropTypes.string,
-        county_id: PropTypes.number,
-        county_name: PropTypes.string,
-        addr: PropTypes.string,
-        family_id: PropTypes.number,
-        join_family_time: PropTypes.string,
-        good_at: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.shape({
+      family_size: PropTypes.number,
+      reward_time: PropTypes.number,
+      family: PropTypes.arrayOf(
+        PropTypes.shape({
+          token: PropTypes.string,
+          id: PropTypes.number,
+          username: PropTypes.string,
+          phone: PropTypes.string,
+          avatars: PropTypes.string,
+          real_name: PropTypes.string,
+          nation: PropTypes.string,
+          sex: PropTypes.number,
+          birthday: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+          ]),
+          identifier: PropTypes.string,
+          slogan: PropTypes.string,
+          reward_time: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+          ]),
+          id_number: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+          ]),
+          province_id: PropTypes.number,
+          province_name: PropTypes.string,
+          city_id: PropTypes.number,
+          city_name: PropTypes.string,
+          county_id: PropTypes.number,
+          county_name: PropTypes.string,
+          addr: PropTypes.string,
+          family_id: PropTypes.number,
+          join_family_time: PropTypes.string,
+          good_at: PropTypes.arrayOf(PropTypes.shape({
 
-        })),
-      }),
-    ),
+          })),
+        }),
+      ),
+    }),
   }),
 };
 

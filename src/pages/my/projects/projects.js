@@ -7,9 +7,6 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Alert from 'react-s-alert';
-import cx from 'classnames';
-import Link from '../../../components/link/link';
 import { projectAction } from '../my.store';
 import ProjectItem from './component/projectItem';
 import TabItem from './component/tabItem';
@@ -223,7 +220,12 @@ class Projects extends React.Component {
     return (
       <div className="page-projects">
         <ul className="page-projects-tab-container">
-          { this.state.title.map((val, index) => (<TabItem currentClass={this.currentClass} handleClick={this.handleClick} val={val} index={index} />)) }
+          { this.state.title.map((val, index) =>
+           (<TabItem
+             currentClass={this.currentClass}
+             handleClick={this.handleClick} val={val} index={index}
+           />))
+          }
         </ul>
         <div className="line1px" />
         <div className="page-projects-main-box">

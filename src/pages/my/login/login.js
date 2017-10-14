@@ -31,8 +31,6 @@ class Login extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { login: cLogin } = this.props;
     const { login: nLogin } = nextProps;
-    console.log(this.props.login);
-    console.log(nextProps.login);
     if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
       history.push('/my');
     }
@@ -40,16 +38,16 @@ class Login extends React.Component {
 
   componentWillUnmount() {}
 
-  onTextChanged=() => {
+  onTextChanged() {
     const username = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const pwd = this.pwd.value.replace(/(^\s+)|(\s+$)/g, '');
-    console.log(pwd);
+
     this.setState({
       username,
       pwd,
     });
   }
-  submit=() => {
+  submit() {
     const username = this.state.username;
     const pwd = this.state.pwd;
     const data = {};
