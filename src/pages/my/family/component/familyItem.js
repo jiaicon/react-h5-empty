@@ -8,6 +8,7 @@ import autoBind from 'react-autobind';
 import cx from 'classnames';
 import Link from '../../../../components/link/link';
 import './familyItem.css';
+import Image from '../../../../components/image/image';
 
 class FamilyItem extends React.Component {
 
@@ -35,7 +36,7 @@ class FamilyItem extends React.Component {
       <div className="page-family-item-container">
         <div className="page-family-item-main">
           <div className="page-family-item-main-photo-bg">
-            <img src={item.avatars} className="page-family-item-main-photo" />
+            <Image src={item.avatars} className="page-family-item-main-photo" />
           </div>
           <div className="page-family-item-name-container">
             <div className="page-family-item-name">{item.username}</div>

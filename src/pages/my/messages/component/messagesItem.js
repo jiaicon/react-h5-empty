@@ -6,6 +6,7 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import '../messages.css';
+import Image from '../../../../components/image/image';
 
 class MessagesItem extends React.Component {
 
@@ -29,12 +30,15 @@ class MessagesItem extends React.Component {
 
   render() {
     const data = this.props.data;
+    if (!data) {
+      return <div />;
+    }
     return (
       <div className="page-messagesitem">
         <div className="page-messagesitem-header">
-          <img src={data.from_user.avatars} alt="logo" />
+          <Image src={data.avatars} />
           <div className="page-messagesitem-header-title-container">
-            <div className="page-messagesitem-header-title-container-bussiness">{data.from_user.username}</div>
+            <div className="page-messagesitem-header-title-container-bussiness">{data.username}</div>
             <div className="page-messagesitem-header-title-container-date">{data.publish_time}</div>
           </div>
         </div>

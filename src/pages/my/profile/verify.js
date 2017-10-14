@@ -2,15 +2,14 @@
  * @file 我的消息
  */
 
-/* global wx:false */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Link from '../../../components/link/link';
-import history from '../../history';
 import { requestUserInfo } from '../../../stores/common';
+import { checkUser, addressDataAction } from './profile.store.js';
 import './verify.css';
 
 function checkEmpty(value, label) {
@@ -41,10 +40,15 @@ class Verify extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = ({
+      province: 0,
+      city: 0,
+      county: 0,
+    });
   }
 
   componentWillMount() {
-
+    this.props.addressDataAction(0);
   }
 
   componentDidMount() {
@@ -52,11 +56,11 @@ class Verify extends React.Component {
   }
 
   componentWillReceiveProps() {
+
   }
 
   componentWillUnmount() {}
   onTextChanged=() => {
-    console.log(this);
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
     const sex = this.sex.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -76,20 +80,52 @@ class Verify extends React.Component {
     const sex = this.state.sex;
     const people = this.state.addrpeople;
     const address = this.state.address;
-    if (checkEmpty(realname, '姓名') || checkEmpty(idcard, '身份证号码') || checkEmpty(sex, '性别') || checkEmpty(people, '民族') || checkEmpty(address, '详细地址')) {
-      return;
+    const province = this.state.province;
+    const city = this.state.city;
+    const county = this.state.county;
+    if (
+      checkEmpty(realname, '姓名')
+      || checkEmpty(idcard, '身份证号码')
+      || checkEmpty(sex, '性别')
+      || checkEmpty(people, '民族')
+      || checkEmpty(province, '省份')
+      || checkEmpty(city, '城市')
+      || checkEmpty(county, '区县')
+      || checkEmpty(address, '详细地址')
+      || checkStr(realname)
+      || iscard(idcard)
+    ) {
+      return false;
     }
-    if (checkStr(realname)) {
-      return;
-    }
-    if (iscard(idcard)) {
-      return;
-    }
-    this.setState({
 
+    return true;
+  }
+  handleProvinceClick =() => {
+    this.setState({
+      ...this.state,
+      province: this.province.value,
+    });
+    this.props.addressDataAction(this.province.value);
+  }
+  handleCityClick=() => {
+    console.log(this.country.value);
+    this.setState({
+      ...this.state,
+      city: this.city.value,
+    });
+    this.props.addressDataAction(this.city.value);
+  }
+  handleCountryClick=() => {
+    this.setState({
+      ...this.state,
+      county: this.county.value,
     });
   }
   render() {
+    console.log(this.props.address);
+    const province = this.props.address.data.province;
+    const city = this.props.address.data.city;
+    const county = this.props.address.data.county;
     return (
       <div className="page-my-profile-verify-container">
         <div>
@@ -116,17 +152,37 @@ class Verify extends React.Component {
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">省份</div>
-            <div className="page-my-profile-verify-icon" />
+            <label htmlFor="province">
+              <select id="province" onChange={this.handleProvinceClick} ref={(c) => { this.province = c; }}>
+                <option value="-1" />
+                { province && province.map((item, keys) =>
+                  <option value={item.id} key={keys}>{item.name}</option>)}
+              </select>
+            </label>
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">城市</div>
-            <div className="page-my-profile-verify-icon" />
+            <label htmlFor="city">
+              <select id="city" onChange={this.handleCityClick} ref={(c) => { this.city = c; }}>
+                <option value="-1" />
+                {city && city.map((item, keys) =>
+                  <option value={item.id} key={keys}>{item.name}</option>,
+                )}
+              </select>
+            </label>
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">区县</div>
-            <div className="page-my-profile-verify-icon" />
+            <label htmlFor="county">
+              <select id="county" onChange={this.handleCountryClick} ref={(c) => { this.country = c; }}>
+                <option value="-1" />
+                {county && county.map((item, keys) =>
+                  <option value={item.id} key={keys}>{item.name}</option>,
+                )}
+              </select>
+            </label>
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
@@ -135,49 +191,67 @@ class Verify extends React.Component {
           </div>
         </div>
         <div className="page-my-profile-verify-bottom">
-          <div className="page-my-profile-verify-btn">提交</div>
+          <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
         </div>
 
       </div>
     );
   }
 }
-
-
 Verify.title = '实名认证';
 Verify.propTypes = {
-  user: PropTypes.shape({
-    token: PropTypes.string,
-    id: PropTypes.number,
-    username: PropTypes.string,
-    phone: PropTypes.string,
-    avatars: PropTypes.string,
-    real_name: PropTypes.string,
-    nation: PropTypes.string,
-    sex: PropTypes.number,
-    birthday: PropTypes.number,
-    identifier: PropTypes.string,
-    slogan: PropTypes.string,
-    reward_time: PropTypes.number,
-    id_number: PropTypes.number,
-    province_id: PropTypes.number,
-    province_name: PropTypes.string,
-    city_id: PropTypes.number,
-    city_name: PropTypes.string,
-    county_id: PropTypes.number,
-    county_name: PropTypes.string,
-    addr: PropTypes.string,
-    family_id: PropTypes.number,
-    join_family_time: PropTypes.string,
-    good_at: PropTypes.arrayOf(PropTypes.shape({
-
-    })),
+  addressDataAction: PropTypes.func,
+  address: PropTypes.shape({
+    data: PropTypes.shape({
+      province: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          lat: PropTypes.string,
+          level: PropTypes.number,
+          lon: PropTypes.string,
+          name: PropTypes.string,
+          parent_id: PropTypes.number,
+          short_name: PropTypes.string,
+          sort: PropTypes.number,
+          stt: PropTypes.number,
+        }),
+      ),
+      city: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          lat: PropTypes.string,
+          level: PropTypes.number,
+          lon: PropTypes.string,
+          name: PropTypes.string,
+          parent_id: PropTypes.number,
+          short_name: PropTypes.string,
+          sort: PropTypes.number,
+          stt: PropTypes.number,
+        }),
+      ),
+      county: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          lat: PropTypes.string,
+          level: PropTypes.number,
+          lon: PropTypes.string,
+          name: PropTypes.string,
+          parent_id: PropTypes.number,
+          short_name: PropTypes.string,
+          sort: PropTypes.number,
+          stt: PropTypes.number,
+        }),
+      ),
+    }),
   }),
 };
 
 export default connect(
   state => ({
     user: state.user,
+    address: state.info.address,
   }),
-  dispatch => bindActionCreators({ requestUserInfo }, dispatch),
+  dispatch => bindActionCreators({
+    requestUserInfo, checkUser, addressDataAction,
+  }, dispatch),
 )(Verify);

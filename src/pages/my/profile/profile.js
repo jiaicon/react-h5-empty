@@ -9,8 +9,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { requestUserInfo } from '../../../stores/common';
+import { imporvePersonInfo } from './profile.store.js';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
+import history from '../../history';
+import Image from '../../../components/image/image';
+import Alert from 'react-s-alert';
 import './profile.css';
 
 
@@ -21,70 +25,18 @@ class Profile extends React.Component {
     autoBind(this);
     this.state = ({
       photo: '',
-      checkboxdata: [
-        {
-          num: 1,
-          name: '关爱服务',
-        },
-        {
-          num: 2,
-          name: '国际服务',
-        },
-        {
-          num: 3,
-          name: '社区服务',
-        },
-        {
-          num: 4,
-          name: '应急救援',
-        },
-        {
-          num: 5,
-          name: '赛事服务',
-        },
-        {
-          num: 6,
-          name: '医疗卫生',
-        },
-        {
-          num: 7,
-          name: '绿色环保',
-        },
-        {
-          num: 8,
-          name: '文化倡导',
-        },
-        {
-          num: 9,
-          name: '教育',
-        },
-        {
-          num: 10,
-          name: '助残',
-        },
-        {
-          num: 11,
-          name: '助老',
-        },
-        {
-          num: 12,
-          name: '其他',
-        },
-      ],
     });
   }
 
   componentWillMount() {
     this.props.requestUserInfo();
-    console.log(this.props.user);
-    console.log(this.state.photo);
   }
 
   componentDidMount() {
-    console.log(this.props.user);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextsProps) {
+
   }
 
   componentWillUnmount() {}
@@ -100,11 +52,11 @@ class Profile extends React.Component {
           const res = JSON.parse(xhr.responseText);
 
           if (!res.error_code) {
-            this.setState({
-              ...this.state,
-              photo: res.data.url,
-            });
-            this.photo = res.data.url;
+            const data = {
+              avatars: res.data.url,
+            };
+            this.props.imporvePersonInfo(data);
+            this.props.requestUserInfo();
           } else {
             Alert.warning(`图片上传失败：${res.error_message}`);
           }
@@ -118,7 +70,7 @@ class Profile extends React.Component {
   renderRealInfo() {
     const user = this.props.user;
     return (
-      <div className="page-profile-realinfo-box">
+      <div>
         <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">用户名</div>
@@ -163,7 +115,8 @@ class Profile extends React.Component {
             <div className="page-profile-fonts">头像</div>
             <div className="page-profile-header-uploade-box">
               <div className="page-profile-header-img-container">
-                <img className="page-profile-header-img" src={this.state.photo ? this.state.photo : '/images/my/register.png'} alt="" />
+                <Image src={user.avatars} className="page-profile-header-img" />
+
                 <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-profile-header-upload" />
               </div>
 
@@ -201,12 +154,24 @@ class Profile extends React.Component {
           <div className="page-profile-take-up" />
         </div>
         {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
-        <div className="page-profile-bottom">
+        <div
+          className={cx({
+            'page-profile-bottom': true,
+            'page-profile-display-block': !user.id_number,
+            'page-profile-display-none': user.id_number,
+          })}
+        >
           <Link to="/my/profile/verify">
             <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
           </Link>
         </div>
-        <div>
+        <div
+          className={cx({
+            'page-profile-bottom': true,
+            'page-profile-display-block': user.id_number,
+            'page-profile-display-none': !user.id_number,
+          })}
+        >
           {this.renderRealInfo()}
         </div>
 
@@ -219,6 +184,8 @@ class Profile extends React.Component {
 Profile.title = '个人资料';
 
 Profile.propTypes = {
+  requestUserInfo: PropTypes.func,
+  imporvePersonInfo: PropTypes.func,
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
@@ -260,6 +227,7 @@ Profile.propTypes = {
 export default connect(
   state => ({
     user: state.user,
+    info: state.info.person,
   }),
-  dispatch => bindActionCreators({ requestUserInfo }, dispatch),
+  dispatch => bindActionCreators({ requestUserInfo, imporvePersonInfo }, dispatch),
 )(Profile);

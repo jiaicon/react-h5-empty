@@ -8,7 +8,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../stores/common';
-import { teamAction, rewardTimeAction, projectAction } from './my.store';
+import { teamAction, rewardTimeAction, projectAction, messagesAction } from './my.store';
 import Link from '../../components/link/link';
 import WXShare from '../../components/share';
 import './my.css';
@@ -22,10 +22,11 @@ class MyPage extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.requestUserInfo();
+    this.props.requestUserInfo();
     this.props.teamAction();
     this.props.projectAction();
     this.props.rewardTimeAction();
+    this.props.messagesAction();
   }
 
   componentDidMount() {
@@ -306,6 +307,7 @@ MyPage.propTypes = {
   teamAction: PropTypes.func,
   rewardTimeAction: PropTypes.func,
   projectAction: PropTypes.func,
+  messagesAction: PropTypes.func,
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
@@ -385,10 +387,13 @@ export default connect(
     team: state.my.team,
     project: state.my.project,
     reward: state.my.reward,
+    messages: state.my.messages,
   }),
   dispatch => bindActionCreators({
+    requestUserInfo,
     teamAction,
     rewardTimeAction,
-    projectAction },
+    projectAction,
+    messagesAction },
     dispatch),
 )(MyPage);

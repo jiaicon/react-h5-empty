@@ -8,25 +8,29 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 
 import homeReducer from '../pages/home/home.store';
-import loginReducer from '../pages/my/login/login.store';
-import registerReducer from '../pages/my/register/register.store';
 import projectReducer from '../pages/project/project.store';
 import teamReducer from '../pages/team/team.store';
-import myReducer from '../pages/my/my.store';
 import signinReducer from '../pages/signin/signin.store';
+
+import myReducer from '../pages/my/my.store';
+import loginReducer from '../pages/my/login/login.store';
+import registerReducer from '../pages/my/register/register.store';
+import infoReducer from '../pages/my/profile/profile.store';
+
 
 import { userReducer } from './common';
 
 const rootReducer = combineReducers({
   home: homeReducer,
-  login: loginReducer,
-  register: registerReducer,
   user: userReducer,
   pendingTasks: pendingTasksReducer,
   project: projectReducer,
   team: teamReducer,
-  my: myReducer,
   signin: signinReducer,
+  my: myReducer,
+  info: infoReducer,
+  login: loginReducer,
+  register: registerReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];

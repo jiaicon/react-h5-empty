@@ -62,7 +62,7 @@ class Register extends React.Component {
       this.onStartCountDown();
     }
     if (cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
-      history.push('/my/login');
+      history.replace('/my/login');
     }
   }
 
@@ -275,15 +275,12 @@ Register.propTypes = {
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
     data: PropTypes.shape({
-      // TODO:
-
     }),
   }),
   regis: PropTypes.shape({
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
     data: PropTypes.shape({
-      // TODO:
       id: PropTypes.number,
       token: PropTypes.string,
     }),

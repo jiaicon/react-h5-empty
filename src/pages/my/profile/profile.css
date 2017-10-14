@@ -41,9 +41,6 @@
   width: 40px;
   height: 40px;
   border-radius: 4px;
-  background-image: url(/images/my/register.png);
-  background-repeat: no-repeat;
-  background-size: contain;
   position: relative;
 }
 .page-profile-header-upload{
@@ -115,6 +112,11 @@
   padding-top: 36px;
 }
 
-.page-profile-realinfo-box{
+
+
+.page-profile-display-block{
+  display: block;
+}
+.page-profile-display-none{
   display: none;
 }

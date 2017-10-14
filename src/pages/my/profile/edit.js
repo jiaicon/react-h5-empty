@@ -5,19 +5,25 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { requestUserInfo } from '../../../stores/common';
+import { imporvePersonInfo } from './profile.store.js';
 import './edit.css';
+import history from '../../history';
 
 class Edit extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = ({
+      slogan: '',
+    });
   }
 
   componentWillMount() {
+
 
   }
 
@@ -25,24 +31,38 @@ class Edit extends React.Component {
 
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props.info);
+    console.log(nextProps.info);
+    const { info: cInfo } = this.props;
+    const { info: nInfo } = nextProps;
+    if (cInfo.fetching && !cInfo.failed && !nInfo.fetching && !nInfo.failed) {
+      history.replace('/my/profile');
+    }
   }
 
   componentWillUnmount() {}
   onTextChanged=() => {
-    const sologan = this.editslogogan.value.replace(/(^\s+)|(\s+$)/g, '');
+    const slogan = this.editslogan.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
-      sologan,
+      slogan,
     });
   }
   onSubmit=() => {
-    const sologan = this.state.sologan;
+    const slogan = this.state.slogan;
+    if (slogan) {
+      const data = {
+        slogan,
+      };
+      this.props.imporvePersonInfo(data);
+    } else {
+      Alert.warning('请输入个人口号');
+    }
   }
   render() {
-    const data = this.props.user;
     return (
       <div className="page-my-profile-edit-container">
-        <textarea placeholder="请介绍自己..." className="page-my-profile-edit-text" maxLength="20" ref={(c) => { this.editslogogan = c; }} onKeyUp={this.onTextChanged} />
+        <textarea placeholder={this.props.user.slogan} className="page-my-profile-edit-text" maxLength="20" ref={(c) => { this.editslogan = c; }} onKeyUp={this.onTextChanged} />
         <div className="page-mu-profile-edit-btn" onClick={this.onSubmit}>保存</div>
 
       </div>
@@ -53,6 +73,7 @@ class Edit extends React.Component {
 
 Edit.title = '志愿口号';
 Edit.propTypes = {
+  imporvePersonInfo: PropTypes.func,
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
@@ -62,11 +83,20 @@ Edit.propTypes = {
     real_name: PropTypes.string,
     nation: PropTypes.string,
     sex: PropTypes.number,
-    birthday: PropTypes.number,
+    birthday: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     identifier: PropTypes.string,
     slogan: PropTypes.string,
-    reward_time: PropTypes.number,
-    id_number: PropTypes.number,
+    reward_time: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    id_number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     province_id: PropTypes.number,
     province_name: PropTypes.string,
     city_id: PropTypes.number,
@@ -85,6 +115,7 @@ Edit.propTypes = {
 export default connect(
   state => ({
     user: state.user,
+    info: state.info.person,
   }),
-  dispatch => bindActionCreators({ requestUserInfo }, dispatch),
+  dispatch => bindActionCreators({ imporvePersonInfo }, dispatch),
 )(Edit);

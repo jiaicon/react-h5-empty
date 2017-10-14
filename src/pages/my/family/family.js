@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../../stores/common';
 import FamilyItem from './component/familyItem';
+import { familyAction } from '../my.store';
 import './family.css';
 
 class Family extends React.Component {
@@ -22,7 +23,7 @@ class Family extends React.Component {
   }
 
   componentWillMount() {
-    this.props.requestUserInfo();
+    this.props.familyAction();
   }
 
   componentDidMount() {
@@ -36,7 +37,8 @@ class Family extends React.Component {
 
   render() {
     const user = this.props.user;
-    console.log(user);
+    const family = this.props.family;
+    console.log(family.family_size);
     return (
       <div className="page-family">
         <div className="pages-family-top-area-container">
@@ -48,7 +50,7 @@ class Family extends React.Component {
           </div>
           <div className="page-family-top-area-view">
             <div className="page-family-top-area-view-family-box">
-              <p><span>1</span>人</p>
+              <p><span>{family.family_size}</span>人</p>
               <p>家庭成员</p>
             </div>
             <div className="page-family-top-area-view-line" />
@@ -88,13 +90,93 @@ class Family extends React.Component {
 Family.title = '我的家庭';
 
 Family.propTypes = {
+  user: PropTypes.shape({
+    token: PropTypes.string,
+    id: PropTypes.number,
+    username: PropTypes.string,
+    phone: PropTypes.string,
+    avatars: PropTypes.string,
+    real_name: PropTypes.string,
+    nation: PropTypes.string,
+    sex: PropTypes.number,
+    birthday: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    identifier: PropTypes.string,
+    slogan: PropTypes.string,
+    reward_time: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    id_number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    province_id: PropTypes.number,
+    province_name: PropTypes.string,
+    city_id: PropTypes.number,
+    city_name: PropTypes.string,
+    county_id: PropTypes.number,
+    county_name: PropTypes.string,
+    addr: PropTypes.string,
+    family_id: PropTypes.number,
+    join_family_time: PropTypes.string,
+    good_at: PropTypes.arrayOf(PropTypes.shape({
+
+    })),
+  }),
+  family: PropTypes.shape({
+    family_size: PropTypes.number,
+    reward_time: PropTypes.number,
+    family: PropTypes.arrayOf(
+      PropTypes.shape({
+        token: PropTypes.string,
+        id: PropTypes.number,
+        username: PropTypes.string,
+        phone: PropTypes.string,
+        avatars: PropTypes.string,
+        real_name: PropTypes.string,
+        nation: PropTypes.string,
+        sex: PropTypes.number,
+        birthday: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        identifier: PropTypes.string,
+        slogan: PropTypes.string,
+        reward_time: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        id_number: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        province_id: PropTypes.number,
+        province_name: PropTypes.string,
+        city_id: PropTypes.number,
+        city_name: PropTypes.string,
+        county_id: PropTypes.number,
+        county_name: PropTypes.string,
+        addr: PropTypes.string,
+        family_id: PropTypes.number,
+        join_family_time: PropTypes.string,
+        good_at: PropTypes.arrayOf(PropTypes.shape({
+
+        })),
+      }),
+    ),
+  }),
 };
 
 export default connect(
   state => ({
     user: state.user,
+    family: state.my.family,
   }),
   dispatch => bindActionCreators({
     requestUserInfo,
+    familyAction,
   }, dispatch),
 )(Family);
