@@ -30,6 +30,8 @@
 .component-teams li .team-name {
   font-size: 18px;
   color: #333333;
+  display: flex;
+  justify-content: space-between;
 }
 
 .component-teams li .team-info {
@@ -49,4 +51,27 @@
   background: url(/images/icon_people.png) no-repeat left center;
   background-size: 24px;
   padding-left: 30px;
+}
+.team-main-top-state{
+  width: 50px;
+  height: 20px;
+  background: #FED9A4;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #FFFFFF;
+  line-height: 20px;
+  text-align: center;
+}
+.team-main-top-state-visiblehidden{
+  visibility: hidden;
+}
+.team-main-top-state-hidden-{
+  display: hidden;
+}
+.team-name-content{
+  width: 199px;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+
 }

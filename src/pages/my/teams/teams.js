@@ -123,35 +123,6 @@ class Teams extends React.Component {
   }
 
   render() {
-    // 搜索会来数据
-    const ndata = [
-      {
-        id: 123,
-        name: 'cccc远征1号队',
-        slogan: '服务为名',
-        logo: '',
-        type: '企事业单位',
-        team_size: 111,
-        identifier: 'aaa',
-        contact_name: '张三',
-        contact_phone: '18866666666',
-        contact_addr: '某某省某某市',
-        parent_id: 13,
-        province_id: 12,
-        province_name: '河北',
-        city_id: 1212,
-        city_name: '保定',
-        county_id: 121212,
-        county_name: '望都县',
-        time_long: 12.5,
-        abstract: '团队市很棒的',
-        created_at: '2017-03-03',
-        join_status: 0,
-        category: {
-          service_category_name: '赛事服务',
-        },
-      },
-    ];
     const toggle = this.state;
     return (
       <div className="page-teams-container">

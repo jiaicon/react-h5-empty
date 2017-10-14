@@ -3,7 +3,7 @@ import autoBind from 'react-autobind';
 import './teams.css';
 import Link from '../link/link';
 import Image from '../image/image';
-
+import cx from 'classnames';
 
 class Teams extends React.Component {
 
@@ -27,13 +27,12 @@ class Teams extends React.Component {
 
   render() {
     const { teams } = this.props;
-
+    const showLabel = this.props.showLabel;
     if (!teams) {
       return null;
     } else if (teams && !teams.length) {
       return <div className="teams-empty-tip">目前还没有志愿团队哦</div>;
     }
-
     return (
       <ul className="component-teams">
         {
@@ -42,8 +41,20 @@ class Teams extends React.Component {
               <Image src={team.logo} alt="头像" />
               <div>
                 <div className="team-name">
-                  {team.name}
+                  <div className="team-name-content">
+                    {team.name}
+                  </div>
+                  {/** TODO:* */}
+                  {/** team.join_status===0无此字段* */}
+                  <div
+                    className={cx({
+                      'team-main-top-state': true,
+                      'team-main-top-state-hidden': { showLabel },
+                    })
+                  }
+                  >审核中</div>
                 </div>
+
                 <div className="team-info">
                   <span>时长：{team.reward_time} 小时</span>
                   <span>成员：{team.team_size} 人</span>
@@ -62,6 +73,7 @@ Teams.propTypes = {
   teams: PropTypes.arrayOf(PropTypes.shape({
 
   })),
+  showLabel: PropTypes.bool,
 };
 
 export default Teams;

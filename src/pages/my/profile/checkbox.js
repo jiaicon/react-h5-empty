@@ -8,6 +8,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../../stores/common';
+import { imporvePersonInfo } from './profile.store.js';
 import './checkbox.css';
 
 
@@ -18,7 +19,6 @@ class Checkbox extends React.Component {
     autoBind(this);
     this.state = ({
       limitArr: [],
-      limit: 0,
       data: [
         {
           num: 1,
@@ -96,42 +96,37 @@ class Checkbox extends React.Component {
   }
 
   componentWillUnmount() {}
+
   checkNumCLick(e) {
-    console.log(e.target.id);
     const limitArr = this.state.limitArr;
     const data = this.state.data;
-    const limit = this.state.limit;
-
-    // if (!data[e.target.id - 1]) {
-    //   data[e.target.id - 1].toggle = !data[e.target.id - 1].toggle;
-    //   this.setState({
-    //     ...this.state,
-    //     data,
-    //   });
-    // } else {
-    //   data[e.target.id - 1].toggle = !data[e.target.id - 1].toggle;
-    //   this.setState({
-    //     ...this.state,
-    //     data,
-    //   });
-    // }
-
-    // for (let i = 0; i < data.length; i++) {
-    //   for (const attr in data[i]) {
-    //     if (data[i].toggle) {
-    //       this.setState({
-    //         limit: limit + 1,
-    //       });
-    //     }
-    //     if (limit >= 3 && data[e.target.id - 1].toggle) {
-    //       data[e.target.id - 1].toggle = false;
-    //     }
-    //   }
-    // }
+    const len = limitArr.length;
+    const inputs = document.getElementsByTagName('input');
+    console.log(e.target.id);
+    if (!data[e.target.id - 1].toggle && len < 3) {
+      data[e.target.id - 1].toggle = true;
+      limitArr.push(e.target.id - 1);
+      console.log(limitArr);
+      this.setState({
+        data,
+        limitArr,
+      });
+    } else if (data[e.target.id - 1].toggle && len <= 3) {
+      data[e.target.id - 1].toggle = false;
+      const index = limitArr.indexOf(e.target.id);
+      limitArr.splice(index, 1);
+      console.log(limitArr);
+      this.setState({
+        limitArr,
+        data,
+      });
+    }
   }
   onSubmit=() => {
-
+    const limitArr = this.state.limitArr;
+    this.props.imporvePersonInfo();
   }
+
   render() {
     const data = this.state.data;
     return (
@@ -140,7 +135,7 @@ class Checkbox extends React.Component {
           {data.map((item, keys) =>
             <li>
               <label>
-                <input checked={item.toggle} value={item.num} type="checkbox" ref={(c) => { this.checkbox = c; }} index={keys} onChange={this.checkNumCLick} id={item.num} /><i>✓</i>{item.name}
+                <input checked={item.toggle} type="checkbox" ref={c => this.checkbox = c} index={keys} onChange={this.checkNumCLick} id={item.num} /><i>✓</i>{item.name}
               </label>
             </li>,
           )}
@@ -186,15 +181,14 @@ Checkbox.propTypes = {
     addr: PropTypes.string,
     family_id: PropTypes.number,
     join_family_time: PropTypes.string,
-    good_at: PropTypes.arrayOf(PropTypes.shape({
-
-    })),
+    good_at: PropTypes.arrayOf(),
   }),
 };
 
 export default connect(
   state => ({
     user: state.user,
+    person: state.info.person,
   }),
-  dispatch => bindActionCreators({ requestUserInfo }, dispatch),
+  dispatch => bindActionCreators({ requestUserInfo, imporvePersonInfo }, dispatch),
 )(Checkbox);
