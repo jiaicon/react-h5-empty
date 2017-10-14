@@ -9,6 +9,6 @@
  */
 
 module.exports = {
-  title: '智多星', // Your website title
+  title: '志多星', // Your website title
   url: 'http://www.baidu.com',
 };

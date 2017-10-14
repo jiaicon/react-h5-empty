@@ -13,6 +13,10 @@ export const addAysncTask = () => ({ type: 'ADD_ASYNC_TASK', [pendingTask]: begi
 export const removeAysncTask = () => ({ type: 'REMOVE_ASYNC_TASK', [pendingTask]: end });
 
 export const USERINFO_FULFILLED = 'USERINFO_FULFILLED';
+export const USERINFO_UPDATED = 'USERINFO_UPDATED';
+
+// 修改用户信息
+export const updateUserInfo = userInfo => ({ type: 'USERINFO_UPDATED', payload: { userInfo } });
 
 /**
  * 用户信息获取
@@ -57,6 +61,11 @@ export function userReducer(state = { isLogin: !!localStorage.getItem('TOKEN') }
       }
 
       return { ...action.payload.data, isLogin: true };
+    case USERINFO_UPDATED:
+      return {
+        ...state,
+        ...action.payload.userInfo,
+      };
     default:
       return state;
   }
