@@ -34,15 +34,19 @@ class Forget extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { code: cCode } = this.props;
-    const { code: nCode } = nextProps;
+    const { code: cCode, forget: cForget } = this.props;
+    const { code: nCode, forget: nForget } = nextProps;
     const countDownTrigger = this.state.countDownTrigger;
 
-    if (cCode.fetching && !nCode.fetching && !nCode.failed) {
+    if (cCode.fetching && !cCode.failed && !nCode.fetching && !nCode.failed) {
+      this.onStartCountDown();
       this.setState({
         countDownTrigger: false,
       });
-      this.onStartCountDown();
+    }
+
+    if (cForget.fetching && !cForget.failed && !nForget.fetching && !nForget.failed) {
+      history.push('/my/login');
     }
   }
 
@@ -75,7 +79,7 @@ class Forget extends React.Component {
         clearInterval(timer);
         that.setState({
           ...this.state,
-          buttonString: '发送',
+          buttonString: '获取验证码',
           timer: null,
           countDownTrigger: true,
         });
@@ -96,7 +100,7 @@ class Forget extends React.Component {
   onSend=() => {
     const phone = this.state.phone;
     const countDownTrigger = this.state.countDownTrigger;
-
+    const data = {};
     if (phone && !/^\d{11}$/.test(phone)) {
       Alert.warning('请输入合法的手机号');
       return;
@@ -104,17 +108,24 @@ class Forget extends React.Component {
       Alert.warning('请输入手机号');
       return;
     }
-
+    data.phone = phone;
     if (countDownTrigger) {
-      this.props.againVerifyCode(phone);
+      this.props.againVerifyCode(data);
     }
   }
   onSubmit=() => {
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const pwd = this.state.pwd;
+    const data = {
+      phone,
+      verify_code: verifyCode,
+      pwd,
+    };
+    this.props.forgetAction(data);
   }
   render() {
+    const buttonString = this.state.buttonString;
     return (
       <div className="page-forget">
         <div className="page-forget-top">修改密码</div>
@@ -125,7 +136,7 @@ class Forget extends React.Component {
         <div className="page-forget-item">
           <span className="page-forget-fonts">验证码</span>
           <input className="page-forget-input" type="number" ref={(c) => { this.verifyCode = c; }} onChange={this.onTextChanged} />
-          <div className="page-forget-code" onClick={this.onSend}>获取验证码</div>
+          <div className="page-forget-code" onClick={this.onSend}>{buttonString}</div>
         </div>
         <div className="page-forget-item">
           <span className="page-forget-fonts">新密码</span>
@@ -147,7 +158,6 @@ Forget.propTypes = {
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
     data: PropTypes.shape({
-      // TODO:
 
     }),
   }),
@@ -155,7 +165,6 @@ Forget.propTypes = {
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
     data: PropTypes.shape({
-      // TODO:
 
     }),
   }),
@@ -163,8 +172,8 @@ Forget.propTypes = {
 
 export default connect(
   state => ({
-    code: state.againReduxcer,
-    forget: state.forgetReducer,
+    code: state.login.code,
+    forget: state.login.forget,
   }),
   dispatch => bindActionCreators({ againVerifyCode, forgetAction }, dispatch),
 )(Forget);

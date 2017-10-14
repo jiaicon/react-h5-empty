@@ -22,14 +22,10 @@ class MyPage extends React.Component {
   }
 
   componentWillMount() {
-    this.props.requestUserInfo();
+    // this.props.requestUserInfo();
     this.props.teamAction();
     this.props.projectAction();
     this.props.rewardTimeAction();
-    // console.log(this.props.user);
-    // console.log(this.props.team);
-    // console.log(this.props.reward);
-    // console.log(this.props.project);
   }
 
   componentDidMount() {
@@ -64,18 +60,7 @@ class MyPage extends React.Component {
     // TODO:志愿时长。项目，团队
     const { team } = this.props;
     const { reward } = this.props;
-    let len = 0;
-    if (team.data == null || team.data.list == null) {
-      len = 0;
-    } else {
-      len = team.data.list.length;
-    }
-    let count = 0;
-    if (reward.data == null || reward.data.join_project_count == null) {
-      count = 0;
-    } else {
-      count = reward.data.join_project_count;
-    }
+
     let time = 0;
     if (reward.data == null || reward.data.join_project_count == null) {
       time = 0;
@@ -88,13 +73,13 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/login">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{len }</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{team.data == null ? 0 : team.data.list.length }</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link> :
           <Link to="/my/teams">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{len}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{team.data == null ? 0 : team.data.list.length }</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link>
@@ -103,13 +88,13 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/login">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{count}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.join_project_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link> :
           <Link to="/my/projects">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{count}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.join_project_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link>
@@ -118,13 +103,13 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/login">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{time}</b>h</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.reward_time}</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link> :
           <Link to="/my/duration">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{time}</b>h</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.reward_time}</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link>
@@ -401,7 +386,7 @@ export default connect(
     project: state.my.project,
     reward: state.my.reward,
   }),
-  dispatch => bindActionCreators({ requestUserInfo,
+  dispatch => bindActionCreators({
     teamAction,
     rewardTimeAction,
     projectAction },

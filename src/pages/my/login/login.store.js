@@ -8,14 +8,11 @@ export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
 export const LOGIN_REJECTED = 'LOGIN_REJECTED';
 
 
-export const loginAction = (username, pwd) => (dispatch) => {
+export const loginAction = data => (dispatch) => {
   dispatch({ type: LOGIN_PENDING });
 
   fetch('/login', {
-    data: {
-      username,
-      pwd,
-    },
+    data,
   }).then((json) => {
     dispatch({ type: LOGIN_FULFILLED, payload: json.data });
 
@@ -56,24 +53,16 @@ const loginReducer = (state = {
       return state;
   }
 };
-export const FORGET_PENDING = 'FORGET_PENDING';
-export const FORGET_FULFILLED = 'FORGET_FULFILLED';
-export const FORGET_REJECTED = 'FORGET_REJECTED';
-export const forgetAction = (phone, pwd) => (dispatch) => {
-  dispatch({ type: FORGET_PENDING });
 
-  fetch('/reset/pwd', {
-    data: {
-      phone,
-      pwd,
-    },
-  }).then((json) => {
-    dispatch({ type: FORGET_FULFILLED, payload: json.data });
-  }).catch((e) => {
-    console.log(e);
-    dispatch({ type: FORGET_REJECTED });
-  });
-};
+// 忘记密码，修改密码
+export const forgetAction = data => ({
+  type: 'FORGET',
+  payload: fetch('/reset/pwd', {
+    data,
+    successWords: '修改成功',
+  }),
+});
+
 
 const forgetReducer = (state = {
   fetching: false,
@@ -81,20 +70,20 @@ const forgetReducer = (state = {
   data: null,
 }, action) => {
   switch (action.type) {
-    case FORGET_PENDING:
+    case 'FORGET_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case FORGET_FULFILLED:
+    case 'FORGET_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload,
       };
-    case FORGET_REJECTED:
+    case 'FORGET_REJECTED':
       return {
         ...state,
         failed: true,
@@ -104,43 +93,36 @@ const forgetReducer = (state = {
       return state;
   }
 };
+// 获取验证码
+export const againVerifyCode = data => ({
+  type: 'CODE',
+  payload: fetch('http://alpha.api.volunteer.tmallwo.com/api/phone/verifycode', {
+    data,
+    successWords: '发送成功',
+  }),
+});
 
-// TODO:
-export const AGAINCODE_PENDING = 'AGAINCODE_PENDING';
-export const AGAINCODE_FULFILLED = 'AGAINCODE_FULFILLED';
-export const AGAINCODE_REJECTED = 'AGAINCODE_REJECTED';
 
-export const againVerifyCode = phone => (dispatch) => {
-  dispatch({ type: AGAINCODE_PENDING });
-  fetch('/phone/verifycode', {
-    data: { phone },
-  }).then((json) => {
-    Alert.success('发送成功');
-    dispatch({ type: AGAINCODE_FULFILLED, payload: json.data });
-  }).catch(() => {
-    dispatch({ type: AGAINCODE_REJECTED });
-  });
-};
 const againReducer = (state = {
   fetching: false,
   failed: false,
   data: null,
 }, action) => {
   switch (action.type) {
-    case AGAINCODE_PENDING:
+    case 'CODE_PENDING':
       return {
         ...state,
         fetching: true,
         failed: false,
       };
-    case AGAINCODE_FULFILLED:
+    case 'CODE_FULFILLED':
       return {
         ...state,
         fetching: false,
         failed: false,
         data: action.payload,
       };
-    case AGAINCODE_REJECTED:
+    case 'CODE_REJECTED':
       return {
         ...state,
         failed: true,
@@ -150,11 +132,11 @@ const againReducer = (state = {
       return state;
   }
 };
-const reducer = combineReducers({
-  forgetReducer,
-  againReducer,
-  loginReducer,
 
+const reducer = combineReducers({
+  forget: forgetReducer,
+  login: loginReducer,
+  code: againReducer,
 });
 export default reducer;
 

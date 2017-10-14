@@ -119,7 +119,6 @@ class Register extends React.Component {
         this.props.requestVerifyCode(data);
       } else {
         Alert.warning('同一时间内不能多次点击');
-        
       }
     } else if (!phone) {
       Alert.warning('请输入手机号');
@@ -149,7 +148,7 @@ class Register extends React.Component {
         clearInterval(timer);
         that.setState({
           ...this.state,
-          buttonString: '发送',
+          buttonString: '获取验证码',
           timer: null,
           countDownTrigger: true,
         });
