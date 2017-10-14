@@ -58,7 +58,7 @@
 <body>
   <div id="container">
   </div>
-  <script src="/dist/main.0e5c9afe390af1e3f80f.js"></script>
+  <script src="/dist/main.182524f307d8062eb798.js"></script>
 </body>
 
 </html>
