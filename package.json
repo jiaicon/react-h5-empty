@@ -7,6 +7,7 @@
     "npm": ">=3.8"
   },
   "dependencies": {
+    "EventEmitter": "^1.0.0",
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "fastclick": "^1.0.6",

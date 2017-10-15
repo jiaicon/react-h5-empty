@@ -1,11 +1,15 @@
 /* global wx:false */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "class-methods-use-this":"off" */
+
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
+
 
 class SigninPage extends React.Component {
 
@@ -28,6 +32,20 @@ class SigninPage extends React.Component {
   }
 
   componentWillUnmount() {}
+
+  handleSignin() {
+    wx.scanQRCode({
+      needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+      scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
+      success: (res) => {
+        const result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+        this.props.checkin(result);
+      },
+      fail: (error) => {
+        Alert.error(`扫码失败：${error && error.errMsg}`);
+      },
+    });
+  }
 
   render() {
     const { data } = this.props;
@@ -91,7 +109,7 @@ class SigninPage extends React.Component {
           }
         </ul>
         <div className="signin-btn-container">
-          <a className="signin-btn">
+          <a className="signin-btn" onClick={this.handleSignin}>
             点击签到
           </a>
         </div>
