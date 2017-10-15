@@ -109,8 +109,6 @@ class LaunchPage extends React.Component {
   }
 }
 
-LaunchPage.title = '志多星';
-
 LaunchPage.propTypes = {
   requestUserInfo: PropTypes.func,
   user: PropTypes.shape({

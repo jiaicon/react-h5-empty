@@ -36,7 +36,10 @@
     window.goodAt = {!! $gootAt !!};
 
     // server 下发的机构信息
-    window.ortCode = '{!! $orgCode !!}';
+    window.orgInfo = {!! $orgInfo !!};
+
+    // server 下发的机构编号
+    window.orgCode = '{!! $orgCode !!}';
 
     if (window.wxConfig) {
       try{
@@ -49,6 +52,8 @@
         alert(e);
       }
     }
+
+    window.orgInfo && (document.title = window.orgInfo.name);
   </script>
 </head>
 

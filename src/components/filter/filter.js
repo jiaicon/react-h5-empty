@@ -124,7 +124,7 @@ Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   onFilterShow: PropTypes.func,
   onFilterHide: PropTypes.func,
-  types: PropTypes.bool,
+  types: PropTypes.string,
 };
 
 export default Filter;

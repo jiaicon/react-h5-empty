@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import Alert from 'react-s-alert';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../../components/share';
 import { parseTimeStringToDateString } from '../../../utils/funcs';
@@ -20,14 +19,6 @@ import {
   quitProject,
 } from './detail.store';
 
-/**
- * TODO
- * 1. 联调确认用户是否收藏的字段(collection_status)
- * 2. 联调确认取消收藏的接口
- * 3. 提示用户分享的 UI 以及设置微信分享配置信息
- * 4. 联调确认项目发布日期字段(publish_date)
- */
-
 class ProjectDetailPage extends React.Component {
 
   constructor(props) {
@@ -43,13 +34,20 @@ class ProjectDetailPage extends React.Component {
     this.props.requestProjectDetail(this.projectId);
   }
 
-  componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
-  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.detail && nextProps.detail.data && !this.wxRegistered) {
+      const detailData = nextProps.detail.data;
 
-  componentWillReceiveProps() {
+      wx.ready(() => {
+        WXShare({
+          title: detailData.name,
+          desc: detailData.content,
+          image: detailData.photo,
+        });
+      });
+
+      this.wxRegistered = true;
+    }
   }
 
   componentWillUnmount() {}
@@ -153,7 +151,7 @@ class ProjectDetailPage extends React.Component {
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">发布日期</div>
-                <div className="detail-content">{detailData.publish_date}</div>
+                <div className="detail-content">{detailData.created_at}</div>
               </li>
               <li>
                 <div className="item-point" />

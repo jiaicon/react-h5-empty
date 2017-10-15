@@ -42,9 +42,6 @@ class TeamDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,6 +51,20 @@ class TeamDetailPage extends React.Component {
       this.teamId = newTeamId;
       this.props.requestTeamDetail(this.teamId);
       this.props.requestTeamProjectList(this.teamId);
+    }
+
+    if (nextProps.detail && nextProps.detail.team && !this.wxRegistered) {
+      const detailData = nextProps.detail.team;
+
+      wx.ready(() => {
+        WXShare({
+          title: detailData.name,
+          desc: detailData.abstract,
+          image: detailData.logo,
+        });
+      });
+
+      this.wxRegistered = true;
     }
   }
 

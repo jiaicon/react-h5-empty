@@ -22,6 +22,46 @@
 
     // server 端下发 token
     window.token = null;
+    window.orgInfo = {
+        "name": "机构1",
+        "logo": "",
+        "module_settings": [
+            [
+                {
+                    "label": "志愿团队",
+                    "key": "volunteer_team",
+                    "icon": "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/848611507952464.png"
+                },
+                {
+                    "label": "志愿项目",
+                    "key": "volunteer_project",
+                    "icon": "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/999161507952198.png"
+                },
+                {
+                    "label": "志愿保障",
+                    "key": "volunteer_ensure",
+                    "icon": "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/918461507952580.png"
+                }
+            ],
+            [
+                {
+                    "label": "时长记录",
+                    "key": "reward_history",
+                    "icon": "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/323921507952861.png"
+                },
+                {
+                    "label": "志愿攻略",
+                    "key": "volunteer_strategy",
+                    "icon": "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/942591507952733.png"
+                },
+                {
+                    "label": "服务中心",
+                    "key": "help_center",
+                    "icon": "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/583531507952882.png"
+                }
+            ]
+        ]
+    }
 
     if (window.wxConfig) {
       try{
@@ -34,6 +74,8 @@
         alert(e);
       }
     }
+
+    document.title = window.orgInfo.name;
   </script>
 </head>
 
