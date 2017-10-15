@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import { teamAction, searchAction } from '../my.store';
 import './teams.css';
-import Item from './component/item';
+import Link from '../../../components/link/link';
 import TeamsItem from '../../../components/teams/teams';
 
 class Teams extends React.Component {
@@ -22,9 +22,6 @@ class Teams extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = {
-      toggle: true,
-    };
   }
 
   componentWillMount() {
@@ -39,100 +36,31 @@ class Teams extends React.Component {
   }
 
   componentWillUnmount() {
-    this.setState({
-      ...this.state,
-      toggle: true,
-    });
-  }
-  onTextChanged() {
-    const searchname = this.searchname.value.replace(/(^\s+)|(\s+$)/g, '');
-    this.setState({
-      ...this.state,
-      searchname,
-    });
-  }
-  onSearch() {
-    const searchname = this.state.searchname;
-    if (!searchname) {
-      Alert.warning('请正确输入团队名称');
-      return;
-    }
-    this.props.searchAction(searchname);
-  }
-  onCancel() {
-    this.setState({
-      ...this.state,
-      toggle: true,
-    });
-  }
-  renderTeamTemplate() {
-    const data = this.props.team.data;
-    if (!data || !data.list) {
-      return <div />;
-    }
-    return (
-      <div>
-        {data.list.map(item => <TeamsItem teams={data ? item : null} />)}
-      </div>
-    );
-  }
-  renderSearchTemplate() {
-    // const ndata = this.props.search;
-    const ndata = [
-      {
-        id: 123,
-        name: 'cccc远征1号队',
-        slogan: '服务为名',
-        logo: '',
-        type: '企事业单位',
-        team_size: 111,
-        identifier: 'aaa',
-        contact_name: '张三',
-        contact_phone: '18866666666',
-        contact_addr: '某某省某某市',
-        parent_id: 13,
-        province_id: 12,
-        province_name: '河北',
-        city_id: 1212,
-        city_name: '保定',
-        county_id: 121212,
-        county_name: '望都县',
-        time_long: 12.5,
-        abstract: '团队市很棒的',
-        created_at: '2017-03-03',
-        join_status: 0,
-        category: {
-          service_category_name: '赛事服务',
-        },
-      },
-    ];
-    return (
-      <div>
-        {ndata.map(item => <Item data={item} />)}
-      </div>
-    );
+
   }
 
+  renderTeamTemplate() {
+    const { team: { data: listData } } = this.props;
+    return (
+      <div>
+        <TeamsItem teams={listData ? listData.list : null} showLabel />
+      </div>
+    );
+  }
+  // <div className="page-teams-search-btn" />
   render() {
-    const toggle = this.state;
     return (
       <div className="page-teams-container">
         <div className="page-teams-search-container">
-          <div className="page-teams-search-box">
-            <div className="page-teams-search-btn" onClick={this.onSearch} />
-            <input type="text" className="page-teams-search" placeholder="搜索志愿项目" ref={(c) => { this.searchname = c; }} onChange={this.onTextChanged} />
-            <div
-              className={cx({
-                'page-teams-search-cancel': true,
-                'page-teams-search-cancel-hidden': toggle,
-              })}
-              onClick={this.onCancel}
-            >X</div>
+          <div className="page-teams-container-box">
+            <Link className="component-search-bar" to="/team/search">
+              <input className="input" placeholder="搜索团队" />
+            </Link>
           </div>
         </div>
         <div className="line1px" />
         <div className="page-teams-main">
-          {toggle ? this.renderTeamTemplate() : this.searchTeamTemplate()}
+          {this.renderTeamTemplate()}
 
 
         </div>
@@ -147,7 +75,6 @@ Teams.title = '志愿团队';
 
 Teams.propTypes = {
   teamAction: PropTypes.func,
-  searchAction: PropTypes.func,
   team: PropTypes.shape({
     data: PropTypes.shape({
       list: PropTypes.arrayOf(PropTypes.shape({

@@ -2,6 +2,7 @@ import Alert from 'react-s-alert';
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 import { USERINFO_FULFILLED } from '../../../stores/common';
+import { API_HOST } from '../../../utils/config';
 
 
 export const REGISTER_PENDING = 'REGISTER_PENDING';
@@ -58,7 +59,7 @@ const registerReducer = (state = {
 // 获取验证码
 export const requestVerifyCode = data => ({
   type: 'CODE',
-  payload: fetch('http://alpha.api.volunteer.tmallwo.com/api/verifycode', {
+  payload: fetch(`${API_HOST}/api/verifycode`, {
     data,
     successWords: '发送成功',
   }),

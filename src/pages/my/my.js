@@ -9,8 +9,8 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { userCenterAction } from './my.store';
 import { requestUserInfo } from '../../stores/common';
-import { teamAction, rewardTimeAction, projectAction, messagesAction } from './my.store';
 import Link from '../../components/link/link';
 import './my.css';
 import Image from '../../components/image/image';
@@ -24,10 +24,7 @@ class MyPage extends React.Component {
 
   componentWillMount() {
     this.props.requestUserInfo();
-    this.props.teamAction();
-    this.props.projectAction();
-    this.props.rewardTimeAction();
-    this.props.messagesAction();
+    this.props.userCenterAction();
   }
 
   componentDidMount() {
@@ -50,7 +47,7 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <div className="page-my-photo-container">
-        <Image src={user.avatars} className="page-my-photo" />
+        <Image src={user.avatars ? user.avatars : ''} className="page-my-photo" />
 
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.username ? user.username : '未设置昵称'}</p>
@@ -61,53 +58,49 @@ class MyPage extends React.Component {
   }
   renderPageMyRecordTemplate() {
     const { user } = this.props;
-    // TODO:志愿时长。项目，团队
-    const { team } = this.props;
-    const { reward } = this.props;
-
     return (
       <div className="page-my-record-container">
         {
         !user.isLogin ?
-          <Link to="/my/login">
+          <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{team.data == null ? 0 : team.data.list.length }</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link> :
           <Link to="/my/teams">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{team.data == null ? 0 : team.data.list.length }</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count }</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link>
       }
         {
         !user.isLogin ?
-          <Link to="/my/login">
+          <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.join_project_count}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link> :
           <Link to="/my/projects">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.join_project_count}</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link>
       }
         {
         !user.isLogin ?
-          <Link to="/my/login">
+          <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.reward_time}</b>小时</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link> :
           <Link to="/my/duration">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{reward.data == null ? 0 : reward.data.reward_time}</b>小时</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link>
@@ -116,14 +109,14 @@ class MyPage extends React.Component {
       </div>
     );
   }
-  renderPageMyTop=() => {
+  renderPageMyTop() {
     const { user } = this.props;
     return (
       <div>
         <div className="page-my-header">
           {
             !user.isLogin ?
-              <Link to="/my/login">
+              <Link to="/my/entry">
                 <div className="page-my-header-setting" />
               </Link> :
               <Link to="/my/setting">
@@ -132,7 +125,7 @@ class MyPage extends React.Component {
           }
           {
             !user.isLogin ?
-              <Link to="/my/login">
+              <Link to="/my/entry">
                 {this.renderPageMymessagesTemplate()}
               </Link> :
               <Link to="/my/messages">
@@ -142,7 +135,7 @@ class MyPage extends React.Component {
         </div>
         {
           !user.isLogin ?
-            <Link to="/my/login">
+            <Link to="/my/entry">
               {this.renderPageMyphotoTemplate()}
             </Link> :
             <div>
@@ -153,7 +146,7 @@ class MyPage extends React.Component {
       </div>
     );
   }
-  renderPageMyContainer=() => {
+  renderPageMyContainer() {
     const { user } = this.props;
     return (
       <ul className="page-my-item-container">
@@ -161,7 +154,7 @@ class MyPage extends React.Component {
           {
         !user.isLogin ?
           <div>
-            <Link to="/my/login">
+            <Link to="/my/entry">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-data" />个人资料
               </div>
@@ -185,7 +178,7 @@ class MyPage extends React.Component {
           {
         !user.isLogin ?
           <div>
-            <Link to="/my/login">
+            <Link to="/my/entry">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-certificate" />我的证书
               </div>
@@ -209,7 +202,7 @@ class MyPage extends React.Component {
           {
         !user.isLogin ?
           <div>
-            <Link to="/my/login">
+            <Link to="/my/entry">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-family" />我的家庭
               </div>
@@ -233,7 +226,7 @@ class MyPage extends React.Component {
           {
         !user.isLogin ?
           <div>
-            <Link to="/my/login">
+            <Link to="/my/entry">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-like" />我的收藏
               </div>
@@ -257,7 +250,7 @@ class MyPage extends React.Component {
           {
       !user.isLogin ?
         <div>
-          <Link to="/my/login">
+          <Link to="/my/entry">
             <div className="page-my-item-box">
               <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
             </div>
@@ -281,7 +274,7 @@ class MyPage extends React.Component {
           {
         !user.isLogin ?
           <div>
-            <Link to="/my/login">
+            <Link to="/my/entry">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-service" />服务中心
               </div>
@@ -304,7 +297,6 @@ class MyPage extends React.Component {
     );
   }
   render() {
-    const user = this.props;
     return (
       <div className="page-my">
         <div className="page-my-top">
@@ -324,97 +316,88 @@ class MyPage extends React.Component {
 MyPage.title = '个人中心';
 
 MyPage.propTypes = {
+  userCenterAction: PropTypes.func,
   requestUserInfo: PropTypes.func,
-  teamAction: PropTypes.func,
-  rewardTimeAction: PropTypes.func,
-  projectAction: PropTypes.func,
-  messagesAction: PropTypes.func,
   user: PropTypes.shape({
-    token: PropTypes.string,
-    id: PropTypes.number,
-    username: PropTypes.string,
-    phone: PropTypes.string,
-    avatars: PropTypes.string,
-    real_name: PropTypes.string,
-    nation: PropTypes.string,
-    sex: PropTypes.number,
-    birthday: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    identifier: PropTypes.string,
-    slogan: PropTypes.string,
-    reward_time: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    id_number: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    province_id: PropTypes.number,
-    province_name: PropTypes.string,
-    city_id: PropTypes.number,
-    city_name: PropTypes.string,
-    county_id: PropTypes.number,
-    county_name: PropTypes.string,
-    addr: PropTypes.string,
-    family_id: PropTypes.number,
-    join_family_time: PropTypes.string,
-    good_at: PropTypes.arrayOf(PropTypes.shape({
-
-    })),
-  }),
-  team: PropTypes.shape({
     data: PropTypes.shape({
-      list: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-
-        })),
-        PropTypes.array,
+      isLogin: PropTypes.bool,
+      token: PropTypes.string,
+      id: PropTypes.number,
+      username: PropTypes.string,
+      phone: PropTypes.string,
+      avatars: PropTypes.string,
+      real_name: PropTypes.string,
+      nation: PropTypes.string,
+      sex: PropTypes.number,
+      birthday: PropTypes.string,
+      identifier: PropTypes.string,
+      slogan: PropTypes.string,
+      reward_time: PropTypes.string,
+      id_number: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
       ]),
-    }),
+      province_id: PropTypes.number,
+      province_name: PropTypes.string,
+      city_id: PropTypes.number,
+      city_name: PropTypes.string,
+      county_id: PropTypes.number,
+      county_name: PropTypes.string,
+      addr: PropTypes.string,
+      family_id: PropTypes.number,
+      join_family_time: PropTypes.string,
+      good_at: PropTypes.arrayOf(PropTypes.shape({
 
-  }),
-  project: PropTypes.shape({
-    data: PropTypes.shape({
-      list: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-
-        })),
-        PropTypes.array,
-      ]),
-    }),
-
-  }),
-  reward: PropTypes.shape({
-    data: PropTypes.shape({
-      join_project_count: PropTypes.number,
-      reward_time: PropTypes.number,
-      project: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-
-        })),
-
-      ]),
-
+      })),
     }),
   }),
+  usercenter: PropTypes.shape({
+    data: PropTypes.shape({
+      msg_count: PropTypes.number,
+      project_count: PropTypes.number,
+      team_count: PropTypes.number,
+      user: PropTypes.shape({
+        addr: PropTypes.string,
+        avatars: PropTypes.string,
+        birthday: PropTypes.string,
+        province_id: PropTypes.number,
+        province_name: PropTypes.string,
+        city_id: PropTypes.number,
+        city_name: PropTypes.string,
+        county_id: PropTypes.number,
+        county_name: PropTypes.string,
+        token: PropTypes.string,
+        good_at: PropTypes.arrayOf(PropTypes.shape({
+
+        })),
+        family_id: PropTypes.number,
+        id: PropTypes.number,
+        id_number: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        identifier: PropTypes.string,
+        join_family_time: PropTypes.string,
+        nation: PropTypes.string,
+        phone: PropTypes.string,
+        real_name: PropTypes.string,
+        reward_time: PropTypes.string,
+        sex: PropTypes.number,
+        slogan: PropTypes.string,
+        username: PropTypes.string,
+      }),
+    }),
+  }),
+
 };
 
 export default connect(
   state => ({
+    usercenter: state.my.usercenter,
     user: state.user,
-    team: state.my.team,
-    project: state.my.project,
-    reward: state.my.reward,
-    messages: state.my.messages,
   }),
   dispatch => bindActionCreators({
-    requestUserInfo,
-    teamAction,
-    rewardTimeAction,
-    projectAction,
-    messagesAction },
+    userCenterAction,
+    requestUserInfo },
     dispatch),
 )(MyPage);

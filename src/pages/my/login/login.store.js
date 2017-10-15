@@ -3,6 +3,7 @@ import Alert from 'react-s-alert';
 import fetch from '../../../utils/fetch';
 import history from '../../history';
 import { USERINFO_FULFILLED, USERINFO_CLEAR } from '../../../stores/common';
+import { API_HOST } from '../../../utils/config';
 
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
@@ -120,7 +121,7 @@ const forgetReducer = (state = {
 // 获取验证码
 export const againVerifyCode = data => ({
   type: 'CODE',
-  payload: fetch('http://alpha.api.volunteer.tmallwo.com/api/phone/verifycode', {
+  payload: fetch(`${API_HOST}/api/phone/verifycode`, {
     data,
     successWords: '发送成功',
   }),

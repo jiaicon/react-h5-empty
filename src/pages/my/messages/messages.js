@@ -32,10 +32,11 @@ class Messages extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const list = this.props.messages.data.list;
     return (
       <div className="page-messages">
-        {list ? list.map((item, keys) => <MessagesItem index={keys} data={item} />) : <div />}
+        {this.props.messages.data && this.props.messages.data.list && this.props.messages.data.list.length ?
+          this.props.messages.data.list && this.props.messages.data.list.map((item, keys) => <MessagesItem index={keys} data={item} />) :
+          <div className="page-messages-no-info">还没有消息哟</div>}
 
       </div>
     );
@@ -64,7 +65,7 @@ Messages.propTypes = {
             real_name: PropTypes.string,
             nation: PropTypes.string,
             sex: PropTypes.number,
-            birthday: PropTypes.number,
+            birthday: PropTypes.string,
             identifier: PropTypes.string,
             slogan: PropTypes.string,
             reward_time: PropTypes.number,
