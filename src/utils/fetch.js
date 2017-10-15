@@ -78,39 +78,37 @@ export default function request(requestUrl, requestOptions = {}) {
   console.log('开始请求-', url, options);
 
   return new Promise((resolve, reject) => {
-    getLocation(() => {
-      fetch(url, options)
-      .then(response => response.json())
-      .then((json) => {
-        if (options.loading) {
-          store.dispatch(removeAysncTask());
-        }
+    fetch(url, options)
+    .then(response => response.json())
+    .then((json) => {
+      if (options.loading) {
+        store.dispatch(removeAysncTask());
+      }
 
-        if (('error_code' in json) && json.error_code === 0) {
-          if (options.successWords) {
-            Alert.success(options.successWords);
-          }
-          console.log('请求成功-', url, json);
-          resolve(json);
-        } else if (json.error_code === 9999) {
-          history.replace('/my/entry');
-        } else {
-          console.log('请求返回失败-', url, json);
-          Alert.error(`请求失败: ${json.error_message}`);
-
-          reject(json);
+      if (('error_code' in json) && json.error_code === 0) {
+        if (options.successWords) {
+          Alert.success(options.successWords);
         }
-      })
-      .catch((error) => {
-        if (options.loading) {
-          store.dispatch(removeAysncTask());
-        }
+        console.log('请求成功-', url, json);
+        resolve(json);
+      } else if (json.error_code === 9999) {
+        history.replace('/my/entry');
+      } else {
+        console.log('请求返回失败-', url, json);
+        Alert.error(`请求失败: ${json.error_message}`);
 
-        Alert.error(`请求发送失败：${error}`);
-        console.log('请求失败-', url, error);
-        reject(error);
-      });
-    }, () => Alert.error('定位失败，请确认同意微信定位授权'));
+        reject(json);
+      }
+    })
+    .catch((error) => {
+      if (options.loading) {
+        store.dispatch(removeAysncTask());
+      }
+
+      Alert.error(`请求发送失败：${error}`);
+      console.log('请求失败-', url, error);
+      reject(error);
+    });
   });
 
   // TODO: 如果没有经纬度信息则需要调用微信 JSSDK 获取经纬度之后再发起请求，对调用者透明
