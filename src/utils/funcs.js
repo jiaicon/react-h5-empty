@@ -28,6 +28,14 @@ export function parseDistance(distance) {
 }
 
 export function getLocation(success, fail, noCache) {
+  if (window.dev) {
+    success({
+      lng: '116.314820',
+      lat: '40.065560',
+    });
+    return;
+  }
+
   let cachedLoc = localStorage.getItem('location');
   cachedLoc = cachedLoc ? JSON.parse(cachedLoc) : cachedLoc;
 
@@ -77,6 +85,11 @@ export function getLocation(success, fail, noCache) {
 }
 
 export function getCity(success, fail) {
+  if (window.dev) {
+    success('北京市');
+    return;
+  }
+
   getLocation((loc) => {
     const geocoder = new qq.maps.Geocoder({
       complete(result) {
