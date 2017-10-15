@@ -49,7 +49,7 @@ class Teams extends React.Component {
                       <div
                         className={cx({
                           'team-main-top-state': true,
-                          'team-main-top-state-hidden': { showLabel },
+                          'team-main-top-state-visiblehidden': team.join_status === 0,
                         })
                     }
                       >审核中</div> : null

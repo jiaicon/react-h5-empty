@@ -47,3 +47,7 @@
   white-space:wrap;
 
 }
+.page-messages-no-info{
+  width: 100%;
+  text-align: center;
+}

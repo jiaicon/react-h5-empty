@@ -256,8 +256,43 @@ const correctUserInfoReducer = (state = {
       return state;
   }
 };
+// 个人中心首页
+export const userCenterAction = () => ({
+  type: 'USER_CENTER_DATA',
+  payload: fetch('/user/center', { method: 'GET' }),
+});
+const userCenterReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'USER_CENTER_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'USER_CENTER_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'USER_CENTER_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 
 const reducer = combineReducers({
+  usercenter: userCenterReducer,
   team: teamReducer,
   project: projectReducer,
   reward: rewardTimeReducer,

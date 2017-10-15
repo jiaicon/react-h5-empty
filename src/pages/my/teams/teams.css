@@ -61,3 +61,7 @@ input::-webkit-input-placeholder{
   display: flex;
   flex-direction:column;
 }
+.page-teams-container-box{
+  width:345px;
+  height: 30px;
+}
