@@ -39,6 +39,7 @@
   color: #666666;
   display: flex;
   justify-content: space-between;
+  line-height: 24px;
 }
 
 .component-teams li .team-info span:first-child {

@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import cx from 'classnames';
 import './teams.css';
 import Link from '../link/link';
 import Image from '../image/image';
-import cx from 'classnames';
 
 class Teams extends React.Component {
 
