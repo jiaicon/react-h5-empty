@@ -121,6 +121,11 @@ $ yarn build                    # Compiles the app into the /public/dist folder
 首页模板 /data/webapp/volunteer/Volunteer_wechat/resources/views/wechat.blade.php
 ```
 
+### 本地与服务器
+
+1. 本地加载的是 public/index.ejs 编译而来的 index.html，因此调试全局变量请修改 index.ejs
+2. 服务器加载的是 wechat.blade.ejs 编译而来的 wechat.blade.php
+
 ### 管理系统
 
 * [志多星后台](http://alpha.api.admin.volunteer.tmallwo.com/org/list)

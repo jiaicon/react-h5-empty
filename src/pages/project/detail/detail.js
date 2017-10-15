@@ -3,13 +3,13 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import Alert from 'react-s-alert';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../../components/share';
 import { parseTimeStringToDateString } from '../../../utils/funcs';
 import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
+import ShareTip from '../../../components/sharetip/sharetip';
 
 import {
   requestProjectDetail,
@@ -19,33 +19,35 @@ import {
   quitProject,
 } from './detail.store';
 
-/**
- * TODO
- * 1. 联调确认用户是否收藏的字段(collection_status)
- * 2. 联调确认取消收藏的接口
- * 3. 提示用户分享的 UI 以及设置微信分享配置信息
- * 4. 联调确认项目发布日期字段(publish_date)
- */
-
 class ProjectDetailPage extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
+    this.state = {
+      showShareTip: false,
+    };
   }
 
   componentWillMount() {
     this.props.requestProjectDetail(this.projectId);
   }
 
-  componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
-  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.detail && nextProps.detail.data && !this.wxRegistered) {
+      const detailData = nextProps.detail.data;
 
-  componentWillReceiveProps() {
+      wx.ready(() => {
+        WXShare({
+          title: detailData.name,
+          desc: detailData.content,
+          image: detailData.photo,
+        });
+      });
+
+      this.wxRegistered = true;
+    }
   }
 
   componentWillUnmount() {}
@@ -60,8 +62,18 @@ class ProjectDetailPage extends React.Component {
     }
   }
 
+  hideShareTip() {
+    this.setState({
+      ...this.state,
+      showShareTip: false,
+    });
+  }
+
   handleShareClick() { // eslint-disable-line
-    Alert.info('请点击右上角菜单进行分享↑');
+    this.setState({
+      ...this.state,
+      showShareTip: true,
+    });
   }
 
   handleActionClick(action) {
@@ -139,7 +151,7 @@ class ProjectDetailPage extends React.Component {
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">发布日期</div>
-                <div className="detail-content">{detailData.publish_date}</div>
+                <div className="detail-content">{detailData.created_at}</div>
               </li>
               <li>
                 <div className="item-point" />
@@ -210,6 +222,9 @@ class ProjectDetailPage extends React.Component {
             {actionLabel}
           </Link>
         </div>
+        {
+          this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
+        }
       </div>
     );
   }

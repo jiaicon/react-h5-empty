@@ -45,10 +45,7 @@ class HomePage extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.home && nextProps.home.data) {
-      document.title = nextProps.home.data.org.name;
-    }
+  componentWillReceiveProps() {
   }
 
   componentWillUnmount() {}
@@ -65,7 +62,7 @@ class HomePage extends React.Component {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
       }
       { user.avatars ?
-        <Image className="avatar" src={user.avatars} alt="头像" />
+        <Link to="/my"><Image className="avatar" src={user.avatars} alt="头像" /></Link>
         :
         null
       }
@@ -92,8 +89,6 @@ class HomePage extends React.Component {
     </div>);
   }
 
-  render
-
   render() {
     const { home } = this.props;
 
@@ -104,8 +99,8 @@ class HomePage extends React.Component {
           {this.renderSlick()}
         </div>
         <div className="page-home-body">
-          {home && home.data && home.data.org ?
-            <Menus menus={home.data.org.module_settings} /> : null}
+          {window.orgInfo ?
+            <Menus menus={window.orgInfo.module_settings} /> : null}
           <div className="menus-activity">
             <Link to="/project/list?types=distance">
               <img src="/images/activities_nearby.png" alt="附近" />
@@ -146,10 +141,6 @@ HomePage.propTypes = {
         jump_mode: PropTypes.number,
         jump_id: PropTypes.number,
       })),
-      org: PropTypes.shape({
-        name: PropTypes.string,
-        module_settings: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({}))),
-      }),
       project: PropTypes.arrayOf(PropTypes.shape({})),
     }),
   }),

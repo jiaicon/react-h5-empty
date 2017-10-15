@@ -11,6 +11,7 @@ import Link from '../../../components/link/link';
 import Tab from '../../../components/tab/tab';
 import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
+import ShareTip from '../../../components/sharetip/sharetip';
 
 import {
   requestTeamDetail,
@@ -34,6 +35,9 @@ class TeamDetailPage extends React.Component {
     super(props);
     autoBind(this);
     this.teamId = props.route.params.teamId;
+    this.state = {
+      showShareTip: false,
+    };
   }
 
   componentWillMount() {
@@ -42,9 +46,6 @@ class TeamDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,6 +55,20 @@ class TeamDetailPage extends React.Component {
       this.teamId = newTeamId;
       this.props.requestTeamDetail(this.teamId);
       this.props.requestTeamProjectList(this.teamId);
+    }
+
+    if (nextProps.detail && nextProps.detail.team && !this.wxRegistered) {
+      const detailData = nextProps.detail.team;
+
+      wx.ready(() => {
+        WXShare({
+          title: detailData.name,
+          desc: detailData.abstract,
+          image: detailData.logo,
+        });
+      });
+
+      this.wxRegistered = true;
     }
   }
 
@@ -73,8 +88,18 @@ class TeamDetailPage extends React.Component {
     }
   }
 
+  hideShareTip() {
+    this.setState({
+      ...this.state,
+      showShareTip: false,
+    });
+  }
+
   handleShareClick() { // eslint-disable-line
-    Alert.info('请点击右上角菜单进行分享↑');
+    this.setState({
+      ...this.state,
+      showShareTip: true,
+    });
   }
 
   handleActionClick(action) {
@@ -230,6 +255,9 @@ class TeamDetailPage extends React.Component {
           onChange={this.onTabChange}
           selectedIndex={tabIndex}
         />
+        {
+          this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
+        }
       </div>
     );
   }
