@@ -23,12 +23,6 @@ import {
   saveTabIndex,
 } from './detail.store';
 
-/**
- * TODO
- * 1. 联调确认取消收藏的接口
- * 2. 提示用户分享的 UI 以及设置微信分享配置信息
- */
-
 class TeamDetailPage extends React.Component {
 
   constructor(props) {
@@ -154,13 +148,25 @@ class TeamDetailPage extends React.Component {
         <div className="team-info-list">
           <div className="team-member">
             <div className="team-member-item">
-              <div><span>23</span>人</div>
-              <p>团队成员</p>
+              <div>
+                <span>{
+                  detailData.team_size >= 10000
+                  ? (detailData.team_size / 10000).toFixed(2) : detailData.team_size}
+                </span>
+                {detailData.team_size >= 10000 ? '万' : ''}
+              </div>
+              <p>团队成员(人)</p>
             </div>
             <div className="line1px-v" />
             <div className="team-member-item">
-              <div><span>239</span>小时</div>
-              <p>团队总时长</p>
+              <div>
+                <span>{
+                  detailData.reward_time >= 10000
+                  ? (detailData.reward_time / 10000).toFixed(2) : detailData.reward_time}
+                </span>
+                {detailData.reward_time >= 10000 ? '万' : ''}
+              </div>
+              <p>团队总时长(小时)</p>
             </div>
           </div>
           <ul>
