@@ -6,12 +6,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import './home.css';
 import Link from '../../components/link/link';
 import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
+import { getCity, EM } from '../../utils/funcs';
 import { requestHomeData } from './home.store';
 
 class HomePage extends React.Component {
@@ -29,14 +31,35 @@ class HomePage extends React.Component {
       autoplay: true,
       autoplaySpeed: 6000,
     };
+
+    this.state = {
+      city: '定位中',
+    };
   }
 
   componentWillMount() {
     // const { home } = this.props;
 
     // if (!home.data) {
-    this.props.requestHomeData();
+    // this.props.requestHomeData();
     // }
+    // getLocation(loc=>{}, error=>);
+    getCity((city) => {
+      this.setState({
+        ...this.state,
+        city,
+      });
+      this.props.requestHomeData();
+    }, () => {
+      Alert.error('定位失败，请确认同意微信定位授权');
+      this.state = {
+        city: '未定位',
+      };
+      this.props.requestHomeData();
+    });
+
+    // 地理位置重新获取后需要刷新首页数据
+    EM.on('location', () => this.props.requestHomeData());
   }
 
   componentDidMount() {
@@ -54,7 +77,7 @@ class HomePage extends React.Component {
     const { user } = this.props;
 
     return (<div className="header-bar">
-      <div className="city-name">北京市</div>
+      <div className="city-name">{this.state.city}</div>
       <Link className="component-search-bar" to="/project/search">
         <input className="input" placeholder="搜索项目" />
       </Link>

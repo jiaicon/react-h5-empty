@@ -42,9 +42,15 @@ export default (state = {
         failed: true,
         fetching: false,
       };
-    case 'PROJECT_CHECKIN':
-      // TODO: 打卡成功是否将新打卡记录返回
-      return state;
+    case 'PROJECT_CHECKIN_FULFILLED':
+      if (action.payload.error_code || !action.payload.data) {
+        return state;
+      }
+
+      return {
+        ...state,
+        data: action.payload.data,
+      };
     default:
       return state;
   }
