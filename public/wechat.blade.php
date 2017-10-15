@@ -4,13 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>
-    志多星
-  </title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
     var screenWidth = screen.width;
@@ -39,7 +36,10 @@
     window.goodAt = {!! $gootAt !!};
 
     // server 下发的机构信息
-    window.ortCode = '{!! $orgCode !!}';
+    window.orgInfo = {!! $orgInfo !!};
+
+    // server 下发的机构编号
+    window.orgCode = '{!! $orgCode !!}';
 
     if (window.wxConfig) {
       try{
@@ -52,13 +52,15 @@
         alert(e);
       }
     }
+
+    window.orgInfo && (document.title = window.orgInfo.name);
   </script>
 </head>
 
 <body>
   <div id="container">
   </div>
-  <script src="/dist/main.27dc58a48cca1bbf1725.js"></script>
+  <script src="/dist/main.d9998a0a2353d4a1d23f.js"></script>
 </body>
 
 </html>

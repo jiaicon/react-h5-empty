@@ -11,6 +11,7 @@ import Link from '../../../components/link/link';
 import Tab from '../../../components/tab/tab';
 import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
+import ShareTip from '../../../components/sharetip/sharetip';
 
 import {
   requestTeamDetail,
@@ -34,6 +35,9 @@ class TeamDetailPage extends React.Component {
     super(props);
     autoBind(this);
     this.teamId = props.route.params.teamId;
+    this.state = {
+      showShareTip: false,
+    };
   }
 
   componentWillMount() {
@@ -84,8 +88,18 @@ class TeamDetailPage extends React.Component {
     }
   }
 
+  hideShareTip() {
+    this.setState({
+      ...this.state,
+      showShareTip: false,
+    });
+  }
+
   handleShareClick() { // eslint-disable-line
-    Alert.info('请点击右上角菜单进行分享↑');
+    this.setState({
+      ...this.state,
+      showShareTip: true,
+    });
   }
 
   handleActionClick(action) {
@@ -241,6 +255,9 @@ class TeamDetailPage extends React.Component {
           onChange={this.onTabChange}
           selectedIndex={tabIndex}
         />
+        {
+          this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
+        }
       </div>
     );
   }
