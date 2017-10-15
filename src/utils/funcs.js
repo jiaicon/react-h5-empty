@@ -1,5 +1,5 @@
 /* global wx:false, qq:false */
-import EventEmitter from 'EventEmitter';
+import EventEmitter from 'eventemitter3';
 
 export const EM = new EventEmitter();
 
