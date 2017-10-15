@@ -59,7 +59,7 @@ class HomePage extends React.Component {
     });
 
     // 地理位置重新获取后需要刷新首页数据
-    EM.on('location', () => this.props.requestHomeData());
+    // EM.on('location', () => this.props.requestHomeData());
   }
 
   componentDidMount() {

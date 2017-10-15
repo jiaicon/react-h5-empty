@@ -1,7 +1,4 @@
 /* global wx:false, qq:false */
-import EventEmitter from 'eventemitter3';
-
-export const EM = new EventEmitter();
 
 export function parseTimeStringToDateString(timeString) {
   const dateString = timeString.split(' ')[0];
@@ -66,8 +63,6 @@ export function getLocation(success, fail, noCache) {
               lng,
             });
           }
-
-          EM.emit('location');
         },
         fail: (error) => {
           if (fail) {
@@ -92,7 +87,7 @@ export function getCity(success, fail) {
 
   getLocation((loc) => {
     const geocoder = new qq.maps.Geocoder({
-      complete(result) {
+      complete: (result) => {
         if (success) {
           success(result.detail.addressComponents.city);
         }
