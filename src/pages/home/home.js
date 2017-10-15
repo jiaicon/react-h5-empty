@@ -11,6 +11,7 @@ import './home.css';
 import Link from '../../components/link/link';
 import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
+import Menus from '../../components/menus/menus';
 import { requestHomeData } from './home.store';
 
 class HomePage extends React.Component {
@@ -44,7 +45,10 @@ class HomePage extends React.Component {
     });
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.home && nextProps.home.data) {
+      document.title = nextProps.home.data.org.name;
+    }
   }
 
   componentWillUnmount() {}
@@ -88,6 +92,8 @@ class HomePage extends React.Component {
     </div>);
   }
 
+  render
+
   render() {
     const { home } = this.props;
 
@@ -98,29 +104,13 @@ class HomePage extends React.Component {
           {this.renderSlick()}
         </div>
         <div className="page-home-body">
-          <div className="menus">
-            <Link to="/project/list">
-              <div className="menu-icon menu-icon-project" />
-              <span>志愿项目</span>
-            </Link>
-            <Link to="/team/list">
-              <div className="menu-icon menu-icon-team" />
-              <span>志愿团队</span>
-            </Link>
-            <Link to="/">
-              <div className="menu-icon menu-icon-record" />
-              <span>时长记录</span>
-            </Link>
-            <Link to="/">
-              <div className="menu-icon menu-icon-service" />
-              <span>服务中心</span>
-            </Link>
-          </div>
+          {home && home.data && home.data.org ?
+            <Menus menus={home.data.org.module_settings} /> : null}
           <div className="menus-activity">
-            <Link to="/project/list">
+            <Link to="/project/list?types=distance">
               <img src="/images/activities_nearby.png" alt="附近" />
             </Link>
-            <Link to="/project/list">
+            <Link to="/project/list?types=time">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
             <Link to="/project/list?recommend=1">
@@ -156,13 +146,15 @@ HomePage.propTypes = {
         jump_mode: PropTypes.number,
         jump_id: PropTypes.number,
       })),
+      org: PropTypes.shape({
+        name: PropTypes.string,
+        module_settings: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({}))),
+      }),
       project: PropTypes.arrayOf(PropTypes.shape({})),
     }),
   }),
   user: PropTypes.shape({}),
 };
-
-HomePage.title = '首页';
 
 export default connect(
   state => ({

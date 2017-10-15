@@ -70,52 +70,6 @@
   border-radius: 14px;
 }
 
-.page-home .menus {
-  display: flex;
-  padding: 20px 27px 17px;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-}
-
-.page-home .menus a {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-home .menus a .menu-icon {
-  height: 35px;
-  width: 35px;
-  background-size: contain;
-  background-position: center;
-}
-
-.page-home .menus a .menu-icon-project {
-  background-image: url(/images/menu_project.png);
-}
-
-.page-home .menus a .menu-icon-team {
-  background-image: url(/images/menu_team.png);
-}
-
-.page-home .menus a .menu-icon-record {
-  background-image: url(/images/menu_record.png);
-}
-
-.page-home .menus a .menu-icon-service {
-  background-image: url(/images/menu_service.png);
-}
-
-.page-home .menus a span {
-  font-size: 12px;
-  color: #333333;
-  line-height: 14px;
-  margin-top: 5px;
-}
-
 .page-home .menus-activity {
   display: flex;
   justify-content: center;

@@ -173,5 +173,10 @@
     "path": "/my/agree",
     "page": "./pages/my/register/agree",
     "chunk": "main"
+  },
+  {
+    "path": "/building",
+    "page": "./pages/building/building",
+    "chunk": "main"
   }
 ]

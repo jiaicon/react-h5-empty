@@ -19,7 +19,7 @@ class Filter extends React.Component {
     this.state = {
       showOptionsType: '',
       selectedOption: {
-        types: '',
+        types: props.types || '',
         categories: '',
         objects: '',
       },
@@ -124,6 +124,7 @@ Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   onFilterShow: PropTypes.func,
   onFilterHide: PropTypes.func,
+  types: PropTypes.bool,
 };
 
 export default Filter;

@@ -5,7 +5,7 @@ import fetch from '../../utils/fetch';
 // 获取team数据
 export const teamAction = () => ({
   type: 'TEAM_DATA',
-  payload: fetch('/user/team', { method: 'GET', noRedirect: true }),
+  payload: fetch('/user/team', { method: 'GET' }),
 });
 const teamReducer = (state = {
   fetching: false,
@@ -43,7 +43,7 @@ export const projectAction = num => ({
   meta: {
     state: num,
   },
-  payload: fetch('/user/project', { method: 'GET', noRedirect: true }),
+  payload: fetch('/user/project', { method: 'GET' }),
 });
 
 const projectReducer = (state = {
@@ -224,7 +224,7 @@ export const correctUserInfo = data => ({
   meta: {
     data,
   },
-  payload: fetch('user', { method: 'POST' }),
+  payload: fetch('/user', { method: 'POST' }),
 });
 const correctUserInfoReducer = (state = {
   fetching: false,
