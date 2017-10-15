@@ -65,7 +65,7 @@ class HomePage extends React.Component {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
       }
       { user.avatars ?
-        <Image className="avatar" src={user.avatars} alt="头像" />
+        <Link to="/my"><Image className="avatar" src={user.avatars} alt="头像" /></Link>
         :
         null
       }

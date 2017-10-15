@@ -62,9 +62,9 @@ class Menus extends React.Component {
 
     return (<ul className="component-menus">
       {
-        menus.map(menusInLine => <li>
+        menus.map((menusInLine, idx) => <li key={idx}>
           {
-              menusInLine.map(menu => <Link to={menu.link}>
+              menusInLine.map(menu => <Link key={menu.label} to={menu.link}>
                 <div className="menu-icon" style={{ backgroundImage: `url(${menu.icon})` }} />
                 <span>{menu.label}</span>
               </Link>)

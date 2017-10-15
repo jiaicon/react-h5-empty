@@ -10,6 +10,7 @@ import { parseTimeStringToDateString } from '../../../utils/funcs';
 import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
+import ShareTip from '../../../components/sharetip/sharetip';
 
 import {
   requestProjectDetail,
@@ -33,6 +34,9 @@ class ProjectDetailPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
+    this.state = {
+      showShareTip: false,
+    };
   }
 
   componentWillMount() {
@@ -60,8 +64,18 @@ class ProjectDetailPage extends React.Component {
     }
   }
 
+  hideShareTip() {
+    this.setState({
+      ...this.state,
+      showShareTip: false,
+    });
+  }
+
   handleShareClick() { // eslint-disable-line
-    Alert.info('请点击右上角菜单进行分享↑');
+    this.setState({
+      ...this.state,
+      showShareTip: true,
+    });
   }
 
   handleActionClick(action) {
@@ -210,6 +224,9 @@ class ProjectDetailPage extends React.Component {
             {actionLabel}
           </Link>
         </div>
+        {
+          this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
+        }
       </div>
     );
   }
