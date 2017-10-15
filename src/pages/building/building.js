@@ -20,11 +20,11 @@ class BuildingPage extends React.Component {
     return (
       <div className="page-building">
         <div>
-            <img src="/images/construction.png" alt="" />
-          </div>
+          <img src="/images/construction.png" alt="" />
+        </div>
         <span>
-            <p>正在建设中</p>
-          </span>
+          <p>正在建设中</p>
+        </span>
       </div>
     );
   }

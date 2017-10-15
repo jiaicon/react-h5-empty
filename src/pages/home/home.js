@@ -11,18 +11,8 @@ import './home.css';
 import Link from '../../components/link/link';
 import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
+import Menus from '../../components/menus/menus';
 import { requestHomeData } from './home.store';
-
-const MODULE_LINK = {
-  volunteer_project: '/project/list',
-  volunteer_team: '/team/list',
-  reward_history: '/',
-  help_center: '/',
-  volunteer_ensure: '/building',
-  volunteer_feedback: '/building',
-  volunteer_strategy: '/building',
-  community_interact: '/building',
-};
 
 class HomePage extends React.Component {
 
@@ -114,24 +104,8 @@ class HomePage extends React.Component {
           {this.renderSlick()}
         </div>
         <div className="page-home-body">
-          <div className="menus">
-            <Link to="/project/list">
-              <div className="menu-icon menu-icon-project" />
-              <span>志愿项目</span>
-            </Link>
-            <Link to="/team/list">
-              <div className="menu-icon menu-icon-team" />
-              <span>志愿团队</span>
-            </Link>
-            <Link to="/my/duration/applys">
-              <div className="menu-icon menu-icon-record" />
-              <span>时长记录</span>
-            </Link>
-            <Link to="/my/service">
-              <div className="menu-icon menu-icon-service" />
-              <span>服务中心</span>
-            </Link>
-          </div>
+          {home && home.data && home.data.org ?
+            <Menus menus={home.data.org.module_settings} /> : null}
           <div className="menus-activity">
             <Link to="/project/list?types=distance">
               <img src="/images/activities_nearby.png" alt="附近" />
