@@ -61,7 +61,10 @@ class Filter extends React.Component {
           ...this.state.selectedOption,
           [optionType]: option === this.state.selectedOption[optionType] ? '' : option,
         },
-      }, () => this.props.onFilterChange(this.state.selectedOption));
+      }, () => {
+        this.props.onFilterChange(this.state.selectedOption);
+        this.props.onFilterHide();
+      });
     };
   }
 
