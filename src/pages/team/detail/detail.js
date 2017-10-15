@@ -59,6 +59,7 @@ class TeamDetailPage extends React.Component {
           title: detailData.name,
           desc: detailData.abstract,
           image: detailData.logo,
+          success: () => this.hideShareTip(),
         });
       });
 

@@ -43,6 +43,7 @@ class ProjectDetailPage extends React.Component {
           title: detailData.name,
           desc: detailData.content,
           image: detailData.photo,
+          success: () => this.hideShareTip(),
         });
       });
 
@@ -50,7 +51,9 @@ class ProjectDetailPage extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+
+  }
 
   handleFavoriteClick() {
     const { detail: { data: detailData } } = this.props;

@@ -28,7 +28,12 @@ const WXS = (option = {}) => {
     link: location.href.indexOf('?') > -1
           ? `${location.href}&orgcode=${window.orgCode}` : `${location.href}?orgcode=${window.orgCode}`,
     imgUrl: option.image || orgInfo.logo || `${host}/images/icon.png`,
-    success: () => Alert.success('分享成功'),
+    success: () => {
+      Alert.success('分享成功');
+      if (option.success) {
+        option.success();
+      }
+    },
   };
 
   console.log('微信分享设置:', newOption);
