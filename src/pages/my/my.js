@@ -7,6 +7,7 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userCenterAction } from './my.store';
@@ -38,7 +39,15 @@ class MyPage extends React.Component {
   renderPageMymessagesTemplate() {
     return (
       <div className="page-my-header-messages-container">
-        <span className="page-my-header-messages-red-point" />
+        {this.props.usercenter.data === null ?
+          <span /> :
+          <span
+            className={classnames({
+              'page-my-header-messages-red-point': this.props.usercenter.data.msg_count >= 1,
+            })
+          }
+          />
+        }
       </div>
     );
   }

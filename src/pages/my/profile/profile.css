@@ -112,7 +112,9 @@
   padding-top: 36px;
 }
 
-
+.page-profile-edit-box{
+  display: flex;
+}
 
 .page-profile-display-block{
   display: block;
