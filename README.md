@@ -120,3 +120,7 @@ $ yarn build                    # Compiles the app into the /public/dist folder
 静态资源 /data/webapp/volunteer/Volunteer_wechat/public
 首页模板 /data/webapp/volunteer/Volunteer_wechat/resources/views/wechat.blade.php
 ```
+
+### 管理系统
+
+* [志多星后台](http://alpha.api.admin.volunteer.tmallwo.com/org/list)

@@ -13,6 +13,17 @@ import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
 import { requestHomeData } from './home.store';
 
+const MODULE_LINK = {
+  volunteer_project: '/project/list',
+  volunteer_team: '/team/list',
+  reward_history: '/',
+  help_center: '/',
+  volunteer_ensure: '/building',
+  volunteer_feedback: '/building',
+  volunteer_strategy: '/building',
+  community_interact: '/building',
+};
+
 class HomePage extends React.Component {
 
   constructor(props) {
@@ -44,7 +55,10 @@ class HomePage extends React.Component {
     });
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.home && nextProps.home.data) {
+      document.title = nextProps.home.data.org.name;
+    }
   }
 
   componentWillUnmount() {}
@@ -88,6 +102,8 @@ class HomePage extends React.Component {
     </div>);
   }
 
+  render
+
   render() {
     const { home } = this.props;
 
@@ -107,11 +123,11 @@ class HomePage extends React.Component {
               <div className="menu-icon menu-icon-team" />
               <span>志愿团队</span>
             </Link>
-            <Link to="/">
+            <Link to="/my/duration/applys">
               <div className="menu-icon menu-icon-record" />
               <span>时长记录</span>
             </Link>
-            <Link to="/">
+            <Link to="/my/service">
               <div className="menu-icon menu-icon-service" />
               <span>服务中心</span>
             </Link>
@@ -156,13 +172,15 @@ HomePage.propTypes = {
         jump_mode: PropTypes.number,
         jump_id: PropTypes.number,
       })),
+      org: PropTypes.shape({
+        name: PropTypes.string,
+        module_settings: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({}))),
+      }),
       project: PropTypes.arrayOf(PropTypes.shape({})),
     }),
   }),
   user: PropTypes.shape({}),
 };
-
-HomePage.title = '首页';
 
 export default connect(
   state => ({
