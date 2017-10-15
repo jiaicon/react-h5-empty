@@ -18,6 +18,8 @@ import { requestVerifyCode, register } from './register.store';
 import './register.css';
 import Image from '../../../components/image/image';
 
+const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
+
 function checkEmpty(value, label) {
   if (!value || !value.length) {
     Alert.warning(`请填写${label}`);
@@ -187,8 +189,7 @@ class Register extends React.Component {
           }
         }
       };
-      // xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
-      xhr.open('POST', 'http://alpha.api.volunteer.tmallwo.com/api/imgupload', true);
+      xhr.open('POST', `${API_HOST}/api/imgupload`, true);
       xhr.send(fd);
     }
   }

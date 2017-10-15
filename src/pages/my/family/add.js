@@ -10,7 +10,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import { } from '../../../stores/common';
+import Image from '../../../components/image/image';
+import { addFamilyAction } from '../my.store';
+import history from '../../history';
 import './add.css';
+
+const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
@@ -25,6 +30,9 @@ class Addmember extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = ({
+      photo: '',
+    });
   }
 
   componentWillMount() {
@@ -33,8 +41,12 @@ class Addmember extends React.Component {
   componentDidMount() {
   }
 
-  componentWillReceiveProps() {
-    // TODO:数据提交成功跳转
+  componentWillReceiveProps(nextProps) {
+    const { add: Cadd } = this.props;
+    const { add: Nadd } = nextProps;
+    if (Cadd.fetching && !Cadd.failed && !Nadd.fetching && !Nadd.failed) {
+      history.replace('/my/family');
+    }
   }
 
   componentWillUnmount() {}
@@ -61,7 +73,7 @@ class Addmember extends React.Component {
           }
         }
       };
-      xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
+      xhr.open('POST', `${API_HOST}/api/imgupload`, true);
       xhr.send(fd);
     }
   }
@@ -106,14 +118,15 @@ class Addmember extends React.Component {
     if (photo) {
       data.avatars = photo;
     }
-    // TODO:提交数据
+    console.log(data);
+    this.props.addFamilyAction(data);
   }
   render() {
     return (
       <div className="page-add">
         <div className="page-add-photo">
           <div className="page-add-photo-container">
-            <img className="page-add-photo-img" src={''} alt="" />
+            <Image className="page-add-photo-img" src={this.state.photo} />
             <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-add-uploader-btn" />
           </div>
         </div>
@@ -141,7 +154,7 @@ class Addmember extends React.Component {
             <div className="line1px" />
           </li>
         </ul>
-        <a className="page-add-submmit" onClick={this.onSubmit}>确认提交</a>
+        <div className="page-add-submmit" onClick={this.onSubmit}>确认提交</div>
         <div className="page-add-agree">
           <input type="checkbox" onClick={this.onTextChanged} className="page-add-checkbox" ref={(c) => { this.checkbox = c; }} />
       我已阅读并授权
@@ -160,10 +173,18 @@ class Addmember extends React.Component {
 Addmember.title = '添加成员';
 
 Addmember.propTypes = {
+  addFamilyAction: PropTypes.func,
+  add: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
 };
 
 export default connect(
-  state => state.add || {},
+  state => ({
+    add: state.my.addFamily,
+  }),
   dispatch => bindActionCreators({
+    addFamilyAction,
   }, dispatch),
 )(Addmember);

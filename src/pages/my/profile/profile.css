@@ -69,7 +69,7 @@
   height: 57px;
   padding: 0 15px;
   font-size: 15px;
-  color: #999999;
+  color: #333;
   line-height: 20px;
   overflow: hidden;
   text-overflow:ellipsis;
@@ -121,4 +121,7 @@
 }
 .page-profile-display-none{
   display: none;
+}
+.page-profile-bottom-real-info-container{
+  background: #fff;
 }

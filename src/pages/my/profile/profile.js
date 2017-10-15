@@ -16,6 +16,15 @@ import Image from '../../../components/image/image';
 import Alert from 'react-s-alert';
 import './profile.css';
 
+function sexName(sex) {
+  if (sex === 1) {
+    return '男';
+  } else if (sex === 2) {
+    return '女';
+  } else if (sex === 0) {
+    return '未知';
+  }
+}
 
 class Profile extends React.Component {
 
@@ -68,37 +77,38 @@ class Profile extends React.Component {
   }
   renderRealInfo() {
     const user = this.props.user;
+
     return (
-      <div>
+      <div className="page-profile-bottom-real-info-container">
         <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">用户名</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
+          <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">身份证号</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
+          <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">性别</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
+          <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">民族</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
+          <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">现住地址</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
+          <div className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
           <div className="page-profile-fonts">详细地址</div>
-          <div className="page-profile-initial-fonts">{user.username}</div>
+          <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
         </div>
         <div className="page-profile-realinfo-takeup" />
       </div>
@@ -106,7 +116,6 @@ class Profile extends React.Component {
   }
   render() {
     const user = this.props.user;
-    console.log(user.good_at);
     return (
       <div className="page-profile">
         <div>
@@ -139,7 +148,7 @@ class Profile extends React.Component {
               <div className="page-profile-fonts">个人擅长</div>
               <div className="page-profile-edit-box">
                 {user.good_at != null ?
-                  user.good_at.map((item, index) => <span>{item.good_at_name}{index <= user.good_at.length - 1 ? '、' : ''} </span>)
+                  user.good_at.map((item, index) => <span className="page-profile-initial-fonts" >{item.good_at_name}{index <= user.good_at.length - 1 ? '、' : ''} </span>)
                   : <span />
                 }
                 <div className="page-profile-edit-icon" />
