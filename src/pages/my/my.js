@@ -7,6 +7,7 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userCenterAction } from './my.store';
@@ -38,7 +39,15 @@ class MyPage extends React.Component {
   renderPageMymessagesTemplate() {
     return (
       <div className="page-my-header-messages-container">
-        <span className="page-my-header-messages-red-point" />
+        {this.props.usercenter.data === null ?
+          <span /> :
+          <span
+            className={classnames({
+              'page-my-header-messages-red-point': this.props.usercenter.data.msg_count >= 1,
+            })
+          }
+          />
+        }
       </div>
     );
   }
@@ -64,7 +73,7 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link> :
@@ -79,7 +88,7 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link> :
@@ -94,7 +103,7 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>小时</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link> :

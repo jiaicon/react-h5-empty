@@ -106,6 +106,7 @@ class Profile extends React.Component {
   }
   render() {
     const user = this.props.user;
+    console.log(user.good_at);
     return (
       <div className="page-profile">
         <div>
@@ -136,7 +137,14 @@ class Profile extends React.Component {
           <Link to="/my/profile/checkbox">
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">个人擅长</div>
-              <div className="page-profile-edit-icon" />
+              <div className="page-profile-edit-box">
+                {user.good_at != null ?
+                  user.good_at.map((item, index) => <span>{item.good_at_name}{index <= user.good_at.length - 1 ? '、' : ''} </span>)
+                  : <span />
+                }
+                <div className="page-profile-edit-icon" />
+              </div>
+
             </div>
           </Link>
           <div className="line1px" />

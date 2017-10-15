@@ -1,0 +1,67 @@
+.component-duration-projects li{
+  height: 176px;
+  display: flex;
+  flex-direction: column;
+}
+.component-duration-projects-take-up{
+  height: 10px;
+}
+.component-duration-projects-main{
+  background: #fff;
+  padding:15px 15px 0 15px;
+}
+.component-duration-projects-main-name{
+  font-size: 18px;
+  color: #333333;
+  letter-spacing: 0;
+  margin-bottom: 14px;
+}
+.component-duration-projects-main-date{
+  font-size: 13px;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.component-duration-projects-main-date-icon{
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.component-duration-projects-main-date-icon-date{
+  background-image: url(/images/my/dates.png);
+}
+.component-duration-projects-main-date-icon-addr{
+  background-image: url(/images/icon_location.png);
+}
+.component-duration-projects-footer a{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding:10px 15px;
+}
+.component-duration-projects-footer-logo{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: #333333;
+}
+.component-duration-projects-footer-logo-img{
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.component-duration-projects-footer-date-box{
+  font-size: 13px;
+  color: #666666
+}
+.component-duration-projects-footer-date-box span{
+  color: #6AC6F8;
+}
+.duration-projects-empty-tip{
+  width: 100%;
+  text-align: center;
+}

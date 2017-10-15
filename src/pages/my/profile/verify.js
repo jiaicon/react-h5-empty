@@ -78,7 +78,7 @@ class Verify extends React.Component {
     const realname = this.state.realname;
     const idcard = this.state.idcard;
     const sex = this.state.sex;
-    const people = this.state.addrpeople;
+    const people = this.state.people;
     const address = this.state.address;
     const province = this.state.province;
     const city = this.state.city;
@@ -95,10 +95,18 @@ class Verify extends React.Component {
       || checkStr(realname)
       || iscard(idcard)
     ) {
-      return false;
+      return;
     }
-
-    return true;
+    const data = {
+      real_name: realname,
+      id_number: idcard,
+      nation: people,
+      province_id: province,
+      city_id: city,
+      county_id: county,
+      addr: address,
+    };
+    this.props.checkUser(data);
   }
   handleProvinceClick() {
     this.setState({
@@ -174,7 +182,7 @@ class Verify extends React.Component {
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">区县</div>
             <label htmlFor="county">
-              <select id="county" onChange={this.handleCountryClick} ref={(c) => { this.country = c; }}>
+              <select id="county" onChange={this.handleCountryClick} ref={(c) => { this.county = c; }}>
                 <option value="-1" />
                 {county && county.map((item, keys) =>
                   <option value={item.id} key={keys}>{item.name}</option>,
@@ -198,6 +206,7 @@ class Verify extends React.Component {
 }
 Verify.title = '实名认证';
 Verify.propTypes = {
+  checkUser: PropTypes.func,
   addressDataAction: PropTypes.func,
   address: PropTypes.shape({
     data: PropTypes.shape({
@@ -248,6 +257,7 @@ export default connect(
   state => ({
     user: state.user,
     address: state.info.address,
+    checkUser: state.info.checkUser,
   }),
   dispatch => bindActionCreators({
     requestUserInfo, checkUser, addressDataAction,

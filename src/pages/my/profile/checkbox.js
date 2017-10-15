@@ -9,7 +9,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { requestUserInfo } from '../../../stores/common';
+import history from '../../history';
 import { imporvePersonInfo } from './profile.store';
 import './checkbox.css';
 
@@ -21,101 +21,66 @@ class Checkbox extends React.Component {
     autoBind(this);
     this.state = ({
       limitArr: [],
-      data: [
-        {
-          num: 1,
-          name: '关爱服务',
-          toggle: false,
-        },
-        {
-          num: 2,
-          name: '国际服务',
-          toggle: false,
-        },
-        {
-          num: 3,
-          name: '社区服务',
-          toggle: false,
-        },
-        {
-          num: 4,
-          name: '应急救援',
-          toggle: false,
-        },
-        {
-          num: 5,
-          name: '赛事服务',
-          toggle: false,
-        },
-        {
-          num: 6,
-          name: '医疗卫生',
-          toggle: false,
-        },
-        {
-          num: 7,
-          name: '绿色环保',
-          toggle: false,
-        },
-        {
-          num: 8,
-          name: '文化倡导',
-          toggle: false,
-        },
-        {
-          num: 9,
-          name: '教育',
-          toggle: false,
-        },
-        {
-          num: 10,
-          name: '助残',
-          toggle: false,
-        },
-        {
-          num: 11,
-          name: '助老',
-          toggle: false,
-        },
-        {
-          num: 12,
-          name: '其他',
-          toggle: false,
-        },
-      ],
+      limitNum: 3,
     });
   }
 
-  componentWillMount() {
 
+  componentWillMount() {
+    const GoodAt = (window.goodAt == null ?
+      ['关爱服务', '国际服务', '社区服务', '应急救援', '赛事服务', '医疗卫生', '绿色环保', '文化倡导', '教育', '助残', '助老', '其他'] :
+       window.goodAt);
+    const data = [];
+    for (let i = 0; i < GoodAt.length; i += 1) {
+      const obj = {};
+      obj.name = GoodAt[i];
+      obj.num = i + 1;
+      obj.toggle = false;
+      Object.assign({}, obj);
+      data.push(obj);
+      this.setState({
+        ...this.state,
+        data,
+      });
+    }
   }
 
   componentDidMount() {
 
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { person: Cperson } = this.props;
+    const { person: Nperson } = nextProps;
+    if (Cperson.fetching && !Nperson.fetching && !Nperson.failed) {
+      history.replace('/my/profile');
+    }
   }
 
   componentWillUnmount() {}
 
-  onSubmit=() => {
-
+  onSubmit() {
+    const limitArr = this.state.limitArr;
+    const data = {
+      good_at: limitArr,
+    };
+    this.props.imporvePersonInfo(data);
   }
   checkNumCLick(e) {
     const limitArr = this.state.limitArr;
+    const limitNum = this.state.limitNum;
     const data = this.state.data;
     const len = limitArr.length;
-    if (!data[e.target.id - 1].toggle && len < 3) {
+    if (!data[e.target.id - 1].toggle && len < limitNum) {
       data[e.target.id - 1].toggle = true;
-      limitArr.push(e.target.id - 1);
+      limitArr.push(data[e.target.id - 1].name);
       this.setState({
         data,
         limitArr,
       });
-    } else if (data[e.target.id - 1].toggle && len <= 3) {
+    } else if (data[e.target.id - 1].toggle && len <= limitNum) {
       data[e.target.id - 1].toggle = false;
-      const index = limitArr.indexOf(e.target.id);
+      const index = limitArr.indexOf(data[e.target.id - 1].name);
       limitArr.splice(index, 1);
       this.setState({
         limitArr,
@@ -129,10 +94,10 @@ class Checkbox extends React.Component {
     return (
       <div className="page-profile-checkbox-container">
         <ul className="page-profile-checkbox-ground">
-          {data.map((item, keys) =>
+          {data.map(item =>
             <li>
-              <label htmlFor="check">
-                <input id="check" checked={item.toggle} type="checkbox" ref={c => this.checkbox = c} index={keys} onChange={this.checkNumCLick} id={item.num} /><i>✓</i>{item.name}
+              <label htmlFor={item.num}>
+                <input id={item.num} checked={item.toggle} type="checkbox" ref={c => this.checkbox = c} onChange={this.checkNumCLick} /><i>✓</i>{item.name}
               </label>
             </li>,
           )}
@@ -146,46 +111,16 @@ class Checkbox extends React.Component {
 
 Checkbox.title = '多选列表';
 Checkbox.propTypes = {
-  user: PropTypes.shape({
-    token: PropTypes.string,
-    id: PropTypes.number,
-    username: PropTypes.string,
-    phone: PropTypes.string,
-    avatars: PropTypes.string,
-    real_name: PropTypes.string,
-    nation: PropTypes.string,
-    sex: PropTypes.number,
-    birthday: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    identifier: PropTypes.string,
-    slogan: PropTypes.string,
-    reward_time: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    id_number: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    province_id: PropTypes.number,
-    province_name: PropTypes.string,
-    city_id: PropTypes.number,
-    city_name: PropTypes.string,
-    county_id: PropTypes.number,
-    county_name: PropTypes.string,
-    addr: PropTypes.string,
-    family_id: PropTypes.number,
-    join_family_time: PropTypes.string,
-    good_at: PropTypes.arrayOf(),
+  imporvePersonInfo: PropTypes.func,
+  person: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
   }),
 };
 
 export default connect(
   state => ({
-    user: state.user,
     person: state.info.person,
   }),
-  dispatch => bindActionCreators({ requestUserInfo, imporvePersonInfo }, dispatch),
+  dispatch => bindActionCreators({ imporvePersonInfo }, dispatch),
 )(Checkbox);

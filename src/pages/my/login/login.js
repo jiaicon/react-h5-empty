@@ -3,6 +3,9 @@
  */
 
 /* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -32,7 +35,7 @@ class Login extends React.Component {
     const { login: cLogin } = this.props;
     const { login: nLogin } = nextProps;
     if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
-      history.push('/my');
+      history.replace('/my');
     }
   }
 
