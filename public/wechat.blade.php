@@ -60,7 +60,7 @@
 <body>
   <div id="container">
   </div>
-  <script src="/dist/main.d9998a0a2353d4a1d23f.js"></script>
+  <script src="/dist/main.a25886f3480b6d9ec070.js"></script>
 </body>
 
 </html>
