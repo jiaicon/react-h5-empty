@@ -74,6 +74,15 @@
 .component-projects .project-main .project-status-end {
   background-image: url(/images/activities_status_end.png);
 }
+.component-projects .project-main .project-status-employed{
+  background-image: url(/images/employed.png);
+}
+.component-projects .project-main .project-status-employed-wait{
+  background-image: url(/images/employed_wait.png);
+}
+.component-projects .project-main .project-status-employed-end{
+  background-image: url(/images/activities_status_end.png);
+}
 
 .component-projects .project-main .project-name {
   font-size: 18px;

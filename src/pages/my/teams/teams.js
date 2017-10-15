@@ -9,10 +9,8 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
-import Alert from 'react-s-alert';
 import { bindActionCreators } from 'redux';
-import cx from 'classnames';
-import { teamAction, searchAction } from '../my.store';
+import { teamAction } from '../my.store';
 import './teams.css';
 import Link from '../../../components/link/link';
 import TeamsItem from '../../../components/teams/teams';
@@ -109,11 +107,10 @@ Teams.propTypes = {
 export default connect(
   state => ({
     team: state.my.team,
-    search: state.my.search,
 
   }),
   dispatch => bindActionCreators({
-    teamAction, searchAction },
+    teamAction },
     dispatch),
 )(Teams);
 

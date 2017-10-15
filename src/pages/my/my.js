@@ -64,7 +64,7 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
           </Link> :
@@ -79,7 +79,7 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>个</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
           </Link> :
@@ -94,7 +94,7 @@ class MyPage extends React.Component {
         !user.isLogin ?
           <Link to="/my/entry">
             <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">0</b>小时</p>
+              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
           </Link> :

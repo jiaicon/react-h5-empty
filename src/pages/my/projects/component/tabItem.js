@@ -3,6 +3,9 @@
  */
 
 /* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 
@@ -16,7 +19,6 @@ class ProjectItem extends React.Component {
   }
   handleClick() {
     this.props.handleClick(this.props.index);
-    console.log(this.props.index);
   }
 
   render() {
