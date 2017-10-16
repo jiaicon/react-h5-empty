@@ -33,7 +33,30 @@ class Family extends React.Component {
   }
 
   componentWillUnmount() {}
-
+  familyMember(data) {
+    return (
+      <Swipeout
+        right={[
+          {
+            text: '删除',
+            onPress: () => this.onSwipePress(),
+            style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
+            className: 'custom-class-2',
+          },
+        ]}
+        onOpen={() => this.onSwipeOpen()}
+        onClose={() => console.log('close')}
+      >
+        <FamilyItem data={data} />
+      </Swipeout>
+    );
+  }
+  onSwipeOpen() {
+    console.log('open');
+  }
+  onSwipePress() {
+    console.log('delete');
+  }
   render() {
     const user = this.props.user;
     const family = this.props.family;
@@ -64,8 +87,10 @@ class Family extends React.Component {
         <div className="page-family-take-up" />
         <div>
           <FamilyItem data={user} />
-
-
+          { this.props.family.data != null ?
+            family.data.data.family.map((item, index) => this.familyMember(item))
+            : <div />
+          }
         </div>
 
 
@@ -73,20 +98,7 @@ class Family extends React.Component {
     );
   }
 }
- // <Swipeout
-          //   right={[
-          //     {
-          //       text: '删除',
-          //       onPress: () => console.log('delete'),
-          //       style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
-          //       className: 'custom-class-2',
-          //     },
-          //   ]}
-          //   onOpen={() => console.log('open')}
-          //   onClose={() => console.log('close')}
-          // >
-          //   <FamilyItem data={user} />
-          // </Swipeout>
+
 
 Family.title = '我的家庭';
 

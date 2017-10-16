@@ -5,6 +5,7 @@
 /* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
+import history from '../../history';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -55,8 +56,12 @@ class Verify extends React.Component {
 
   }
 
-  componentWillReceiveProps() {
-
+  componentWillReceiveProps(nextProps) {
+    const { check: Ccheck } = this.props;
+    const { check: Ncheck } = nextProps;
+    if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
+      history.replace('/my/profile');
+    }
   }
 
   componentWillUnmount() {}
@@ -251,13 +256,17 @@ Verify.propTypes = {
       ),
     }),
   }),
+  check: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
 };
 
 export default connect(
   state => ({
     user: state.user,
     address: state.info.address,
-    checkUser: state.info.checkUser,
+    check: state.info.checkUser,
   }),
   dispatch => bindActionCreators({
     requestUserInfo, checkUser, addressDataAction,

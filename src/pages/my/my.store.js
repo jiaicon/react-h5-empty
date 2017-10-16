@@ -184,6 +184,40 @@ const familyReducer = (state = {
       return state;
   }
 };
+// 增加家庭成员
+export const addFamilyAction = data => ({
+  type: 'ADDFAMILY_DATA',
+  payload: fetch('/myfamily', { data }, { method: 'POST' }),
+});
+const addFamilyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'ADDFAMILY_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'ADDFAMILY_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+      };
+    case 'ADDFAMILY_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 // 我的消息
 export const messagesAction = () => ({
   type: 'MESSAGES_DATA',
@@ -300,5 +334,6 @@ const reducer = combineReducers({
   messages: messagesReducer,
   correct: correctUserInfoReducer,
   family: familyReducer,
+  addFamily: addFamilyReducer,
 });
 export default reducer;
