@@ -36,8 +36,8 @@ class FamilyItem extends React.Component {
             <Image src={item.avatars} className="page-family-item-main-photo" />
           </div>
           <div className="page-family-item-name-container">
-            <div className="page-family-item-name">{item.username}</div>
-            <div className="page-family-item-account">账号：暂无字段</div>
+            <div className="page-family-item-name">{item.real_name ? item.real_name : '未绑定个人名字'}</div>
+            <div className="page-family-item-account">账号：{item.username}</div>
           </div>
           <div className="page-family-item-time-container">
             <p>志愿时长：<span>{item.reward_time}小时</span></p>

@@ -42,6 +42,7 @@ class Projects extends React.Component {
     if (index === 0) {
       this.props.projectAction();
     } else {
+      console.log(index);
       this.props.projectAction(index);
     }
     this.setState({
@@ -54,6 +55,8 @@ class Projects extends React.Component {
   }
   render() {
     const { project: { data: listData } } = this.props;
+    console.log(this.props.project);
+
     // join_status:0
     return (
       <div className="page-projects">
@@ -67,12 +70,12 @@ class Projects extends React.Component {
         </ul>
         <div className="line1px" />
         <div className="page-projects-main-box">
-          { listData
-            ?
-              <ProjectsItem projects={listData ? listData.list : null} showLabel />
+          {this.props.project.data ?
+            <ProjectsItem projects={listData ? listData.list : null} showLabel />
             :
-              <div className="page-projects-main-no-info">还没有项目哟</div>
+            <div className="page-projects-main-no-info">还未加入项目</div>
           }
+
         </div>
 
       </div>
@@ -87,40 +90,44 @@ Projects.propTypes = {
   projectAction: PropTypes.func,
   project: PropTypes.shape({
     data: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      photo: PropTypes.string,
-      content: PropTypes.string,
-      identifier: PropTypes.string,
-      province_id: PropTypes.number,
-      province_name: PropTypes.string,
-      city_id: PropTypes.number,
-      city_name: PropTypes.string,
-      county_id: PropTypes.number,
-      county_name: PropTypes.string,
-      addr: PropTypes.string,
-      lng: PropTypes.number,
-      lat: PropTypes.number,
-      join_begin: PropTypes.string,
-      join_end: PropTypes.string,
-      begin: PropTypes.string,
-      end: PropTypes.string,
-      people_count: PropTypes.number,
-      join_people_count: PropTypes.number,
-      reward_time: PropTypes.number,
-      activity_status: PropTypes.number,
-      category: PropTypes.string,
-      service_object: PropTypes.string,
-      team: PropTypes.string,
-      join_status: PropTypes.number,
-      my_reward_time: PropTypes.number,
+      list: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          name: PropTypes.string,
+          photo: PropTypes.string,
+          content: PropTypes.string,
+          identifier: PropTypes.string,
+          province_id: PropTypes.number,
+          province_name: PropTypes.string,
+          city_id: PropTypes.number,
+          city_name: PropTypes.string,
+          county_id: PropTypes.number,
+          county_name: PropTypes.string,
+          addr: PropTypes.string,
+          lng: PropTypes.number,
+          lat: PropTypes.number,
+          join_begin: PropTypes.string,
+          join_end: PropTypes.string,
+          begin: PropTypes.string,
+          end: PropTypes.string,
+          people_count: PropTypes.number,
+          join_people_count: PropTypes.number,
+          reward_time: PropTypes.number,
+          activity_status: PropTypes.number,
+          category: PropTypes.string,
+          service_object: PropTypes.string,
+          team: PropTypes.string,
+          join_status: PropTypes.number,
+          my_reward_time: PropTypes.number,
+        }),
+      ),
     }),
   }),
 };
 
 export default connect(
   state => ({
-    project: state.project,
+    project: state.my.project,
   }),
   dispatch => bindActionCreators({
     projectAction,

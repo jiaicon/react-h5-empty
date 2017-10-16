@@ -31,7 +31,7 @@ class Teams extends React.Component {
     if (!teams) {
       return null;
     } else if (teams && !teams.length) {
-      return <div className="teams-empty-tip">目前还没有志愿团队哦</div>;
+      return <div className="teams-empty-tip">目前还没有活动哦</div>;
     }
     return (
       <ul className="component-teams">
@@ -71,9 +71,12 @@ class Teams extends React.Component {
 }
 
 Teams.propTypes = {
-  teams: PropTypes.arrayOf(PropTypes.shape({
+  teams: PropTypes.arrayOf(
+      PropTypes.shape({
 
-  })),
+      }),
+  ),
+
   showLabel: PropTypes.bool,
 };
 

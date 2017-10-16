@@ -77,3 +77,11 @@
   text-overflow: ellipsis;
 
 }
+.teams-empty-tip{
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background: #fff;
+  font-weight: 200;
+}

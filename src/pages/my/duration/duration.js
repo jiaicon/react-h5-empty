@@ -3,6 +3,10 @@
  */
 
 /* global wx:false */
+
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -74,12 +78,10 @@ Duration.propTypes = {
     data: PropTypes.shape({
       join_project_count: PropTypes.number,
       reward_time: PropTypes.number,
-      project: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
+      project: PropTypes.arrayOf(PropTypes.shape({
 
-        })),
+      })),
 
-      ]),
 
     }),
   }),
