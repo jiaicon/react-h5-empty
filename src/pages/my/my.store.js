@@ -5,11 +5,15 @@ import fetch from '../../utils/fetch';
 
 export const collectAction = num => ({
   type: 'COLLECT_DATA',
+  meta: {
+    type: num === 0 ? 'project' : 'team',
+  },
   payload: fetch('/user/collection', { method: 'GET', data: { type: num } }),
 });
 const collectReducer = (state = {
   fetching: false,
   failed: false,
+  type: 'team',
   data: null,
 }, action) => {
   switch (action.type) {
@@ -24,6 +28,7 @@ const collectReducer = (state = {
         ...state,
         fetching: false,
         failed: false,
+        type: action.meta.type,
         data: action.payload.data,
       };
     case 'COLLECT_DATA_REJECTED':
