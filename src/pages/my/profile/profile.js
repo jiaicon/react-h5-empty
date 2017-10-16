@@ -1,19 +1,19 @@
 /**
  * @file 个人资料
  */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 
-/* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
+import Alert from 'react-s-alert';
 import { requestUserInfo } from '../../../stores/common';
 import { imporvePersonInfo } from './profile.store';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
-import Alert from 'react-s-alert';
 import './profile.css';
 
 function sexName(sex) {
@@ -21,9 +21,9 @@ function sexName(sex) {
     return '男';
   } else if (sex === 2) {
     return '女';
-  } else if (sex === 0) {
-    return '未知';
   }
+
+  return '未知';
 }
 
 class Profile extends React.Component {
@@ -148,7 +148,10 @@ class Profile extends React.Component {
               <div className="page-profile-fonts">个人擅长</div>
               <div className="page-profile-edit-box">
                 {user.good_at != null ?
-                  user.good_at.map((item, index) => <span className="page-profile-initial-fonts" >{item.good_at_name}{index <= user.good_at.length - 1 ? '、' : ''} </span>)
+                  user.good_at.map((item, index) =>
+                    <span key={index} className="page-profile-initial-fonts" >
+                      {item.good_at_name}{index < user.good_at.length - 1 ? '、' : ''}
+                    </span>)
                   : <span />
                 }
                 <div className="page-profile-edit-icon" />
