@@ -1,7 +1,41 @@
 
 import { combineReducers } from 'redux';
 import fetch from '../../utils/fetch';
+// 收藏数据
 
+export const collectAction = num => ({
+  type: 'COLLECT_DATA',
+  payload: fetch(`/user/collection?type=${num}`, { method: 'GET' }),
+});
+const collectReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'COLLECT_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'COLLECT_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'COLLECT_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 // 获取team数据
 export const teamAction = () => ({
   type: 'TEAM_DATA',
@@ -41,7 +75,7 @@ const teamReducer = (state = {
 export const projectAction = num => ({
   type: 'PROJECT_DATA',
   meta: {
-    state: num,
+    status: num,
   },
   payload: fetch('/user/project', { method: 'GET' }),
 });
@@ -335,5 +369,6 @@ const reducer = combineReducers({
   correct: correctUserInfoReducer,
   family: familyReducer,
   addFamily: addFamilyReducer,
+  collect: collectReducer,
 });
 export default reducer;

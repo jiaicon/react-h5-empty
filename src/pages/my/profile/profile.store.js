@@ -1,6 +1,7 @@
 
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
+import { API_HOST } from '../../../utils/config';
 // 实名
 export const checkUser = data => ({
   type: 'CHECK',
@@ -110,7 +111,7 @@ const personInfoReducer = (state = {
 // 3级
 export const addressDataAction = id => ({
   type: 'ADDRESS_DATA',
-  payload: fetch(`http://alpha.api.volunteer.tmallwo.com/api/city?parent_id=${id}`, { method: 'GET' }),
+  payload: fetch(`${API_HOST}/api/city?parent_id=${id}`, { method: 'GET' }),
 });
 
 const addressReducer = (state = {

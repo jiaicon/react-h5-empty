@@ -3,13 +3,14 @@
  */
 
 /* global wx:false */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import './collects.css';
 import TabItem from '../projects/component/tabItem';
+import { collectAction } from '../my.store';
 
 class Collects extends React.Component {
 
@@ -23,7 +24,8 @@ class Collects extends React.Component {
   }
 
   componentWillMount() {
-
+    console.log(this.props.collectAction(0));
+    this.props.collectAction(0);
   }
 
   componentDidMount() {
@@ -35,6 +37,7 @@ class Collects extends React.Component {
 
   componentWillUnmount() {}
   handleClick(index) {
+    this.props.collectAction(index);
     this.setState({
       ...this.state,
       current: index,
@@ -44,6 +47,7 @@ class Collects extends React.Component {
     return this.state.current === index ? 'page-collects-tab-current-li' : '';
   }
   render() {
+    // const { collect: { data: listData } } = this.props;
     return (
       <div className="page-collects">
         <ul className="page-collects-tab-container">
@@ -75,9 +79,13 @@ class Collects extends React.Component {
 Collects.title = '我的收藏';
 
 Collects.propTypes = {
+  collectAction: PropTypes.func,
+
 };
 
 export default connect(
-  state => state.my || {},
-  dispatch => bindActionCreators({}, dispatch),
+  state => ({
+    collect: state.my.collect,
+  }),
+  dispatch => bindActionCreators({ collectAction }, dispatch),
 )(Collects);
