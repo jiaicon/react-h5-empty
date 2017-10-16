@@ -5,7 +5,7 @@ import fetch from '../../utils/fetch';
 
 export const collectAction = num => ({
   type: 'COLLECT_DATA',
-  payload: fetch(`/user/collection?type=${num}`, { method: 'GET' }),
+  payload: fetch('/user/collection', { method: 'GET', data: { type: num } }),
 });
 const collectReducer = (state = {
   fetching: false,
@@ -74,10 +74,7 @@ const teamReducer = (state = {
 
 export const projectAction = num => ({
   type: 'PROJECT_DATA',
-  meta: {
-    status: num,
-  },
-  payload: fetch('/user/project', { method: 'GET' }),
+  payload: fetch('/user/project', { method: 'GET', data: { status: num } }),
 });
 
 const projectReducer = (state = {

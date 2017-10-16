@@ -42,6 +42,7 @@ class Projects extends React.Component {
     if (index === 0) {
       this.props.projectAction();
     } else {
+      console.log(index);
       this.props.projectAction(index);
     }
     this.setState({
