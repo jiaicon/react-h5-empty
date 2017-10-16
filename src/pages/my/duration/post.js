@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import './post.css';
-import DutationProjects from '../../../components/duration apply/projects';
+import DutationProjects from '../../../components/duration_apply/projects';
 import { postapplyAction, projectapplyAction } from '../my.store';
 import history from '../../history';
 
@@ -169,7 +169,7 @@ class Post extends React.Component {
               attachment.map((item, key) => (
                 <div className="page-applys-item-render-container">
                   <img src={item} alt="" />
-                  <div className="page-applys-item-render-del" onClick={this.onDel} id={key} />
+                  <div className="page-applys-item-render-del" onClick={this.onDel} id={key} key={item} />
                 </div>
               ))
             }

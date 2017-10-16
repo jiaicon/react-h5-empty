@@ -42,7 +42,6 @@ class Projects extends React.Component {
     if (index === 0) {
       this.props.projectAction();
     } else {
-      console.log(index);
       this.props.projectAction(index);
     }
     this.setState({
@@ -55,7 +54,6 @@ class Projects extends React.Component {
   }
   render() {
     const { project: { data: listData } } = this.props;
-    console.log(this.props.project);
 
     // join_status:0
     return (
@@ -104,7 +102,7 @@ Projects.propTypes = {
           county_id: PropTypes.number,
           county_name: PropTypes.string,
           addr: PropTypes.string,
-          lng: PropTypes.number,
+          lng: PropTypes.string,
           lat: PropTypes.number,
           join_begin: PropTypes.string,
           join_end: PropTypes.string,

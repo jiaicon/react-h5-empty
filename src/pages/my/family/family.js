@@ -10,7 +10,6 @@ import autoBind from 'react-autobind';
 import Link from '../../../components/link/link';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { requestUserInfo } from '../../../stores/common';
 import FamilyItem from './component/familyItem';
 import { familyAction, deleteFamilyAction } from '../my.store';
 import './family.css';
@@ -62,15 +61,16 @@ class Family extends React.Component {
         onClose={() => console.log('1')}
       >
         <Link to={`/my/profile/detail/${data.id}`}>
-          <FamilyItem data={data} />
+          <FamilyItem data={data} key={data.id} />
         </Link>
       </Swipeout>
     );
   }
   render() {
+    console.log(this.props.route.path);
     const user = this.props.user;
     const family = this.props.family;
-    if (!family && !family.data) {
+    if (!family && !family.data && family.data.family_size !== 0) {
       return <div />;
     }
     return (
@@ -96,7 +96,7 @@ class Family extends React.Component {
         </div>
         <div className="page-family-take-up" />
         <div>
-          { family.data != null ?
+          { family != null && family.data != null && family.data.family_size !== 0 ?
             family.data.data.family.map(item => this.familyMember(item))
             : <div />
           }

@@ -8,6 +8,7 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import history from '../../history';
@@ -55,6 +56,10 @@ class Login extends React.Component {
     const pwd = this.state.pwd;
     const data = {};
     data.username = username;
+    if (pwd.length <= 5 || pwd.length >= 19) {
+      Alert.warning('密码范围6-20位数字字母组成');
+      return;
+    }
     data.pwd = pwd;
     this.props.loginAction(data);
   }

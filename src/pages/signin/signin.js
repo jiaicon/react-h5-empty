@@ -89,7 +89,7 @@ class SigninPage extends React.Component {
           }
           {
             records.map(record =>
-              <li className="signin-record">
+              <li key={record.clock_in_time} className="signin-record">
                 <div className="signin-header">
                   <div className="signin-time">
                     <span>签到时间</span>

@@ -53,7 +53,7 @@ class Checkbox extends React.Component {
     const { person: Cperson } = this.props;
     const { person: Nperson } = nextProps;
     if (Cperson.fetching && !Nperson.fetching && !Nperson.failed) {
-      history.replace('/my/profile');
+      history.replace('/my/profile/detail/user');
     }
   }
 
@@ -97,7 +97,7 @@ class Checkbox extends React.Component {
           {data.map(item =>
             <li>
               <label htmlFor={item.num}>
-                <input id={item.num} checked={item.toggle} type="checkbox" ref={c => this.checkbox = c} onChange={this.checkNumCLick} /><i>✓</i>{item.name}
+                <input id={item.num} checked={item.toggle} type="checkbox" key={item.name} ref={c => this.checkbox = c} onChange={this.checkNumCLick} /><i>✓</i>{item.name}
               </label>
             </li>,
           )}

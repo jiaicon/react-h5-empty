@@ -63,8 +63,11 @@
 .component-duration-projects-footer-date-box span{
   color: #6AC6F8;
 }
-.duration-projects-empty-tip{
+.duration-apply-projects-empty-tip{
   width: 100%;
   text-align: center;
   color: #999;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 200;
 }

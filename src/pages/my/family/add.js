@@ -42,9 +42,15 @@ class Addmember extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { add: Cadd } = this.props;
-    const { add: Nadd } = nextProps;
-    if (Cadd.fetching && !Cadd.failed && !Nadd.fetching && !Nadd.failed) {
+    const { data: Cdata, fetching: Cfetching, failed: Cfailed } = this.props.add;
+    const { data: Ndata, fetching: Nfetching, failed: Nfailed } = nextProps.add;
+
+    console.log(Cfetching);
+    console.log(Nfetching);
+    console.log(Cfailed);
+    console.log(Nfailed);
+    if (Cfetching && !Nfetching && !Cfailed && !Nfailed) {
+      console.log('跳转');
       history.replace('/my/family');
     }
   }
@@ -98,6 +104,10 @@ class Addmember extends React.Component {
     const agreement = this.state.agreement;
     const photo = this.state.photo;
     if (checkEmpty(name, '姓名') || checkEmpty(password, '密码')) {
+      return;
+    }
+    if (password.length <= 5 || password.length >= 19) {
+      Alert.warning('密码范围6-20位数字字母组成');
       return;
     }
     if (!agreement) {
@@ -177,6 +187,12 @@ Addmember.propTypes = {
   add: PropTypes.shape({
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
+    data: PropTypes.shape({
+
+      family: PropTypes.shape({
+
+      }),
+    }),
   }),
 };
 

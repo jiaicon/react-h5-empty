@@ -33,10 +33,10 @@ class Center extends React.Component {
   render() {
     return (
       <div className="page-center">
-        <div>客服</div>
-        <div>中心</div>
-        <div />
-
+        <div className="page-center-code">二维码</div>
+        <div className="page-center-info">请长按二维码，关注服务号，在服务号内留言。</div>
+        <div className="page-center-info">或直接拨打下方热线</div>
+        <a href="tel:010 - 26002600">客服热线</a>
 
       </div>
     );

@@ -1,20 +1,19 @@
 /**
  * @file 个人资料
  */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 
-/* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
+import Alert from 'react-s-alert';
 import { requestUserInfo } from '../../../stores/common';
-import { imporvePersonInfo } from './profile.store';
+import { imporvePersonInfo, otherFamilyAction } from './profile.store';
 import {} from '../my.store';
-import queryString from 'query-string';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
-import Alert from 'react-s-alert';
 import './profile.css';
 
 
@@ -23,9 +22,9 @@ function sexName(sex) {
     return '男';
   } else if (sex === 2) {
     return '女';
-  } else if (sex === 0) {
-    return '未知';
   }
+
+  return '未知';
 }
 
 class Profile extends React.Component {
@@ -36,20 +35,32 @@ class Profile extends React.Component {
     this.state = ({
       photo: '',
     });
+    const params = location.pathname;
+    const num = params.indexOf('detail/');
+    const userId = params.slice(num + 7);
+    this.userId = userId;
   }
 
   componentWillMount() {
     const params = location.pathname;
     const num = params.indexOf('detail/');
     const userId = params.slice(num + 7);
+    this.setState({
+      ...this.state,
+      userId,
+    });
     console.log(userId);
-    this.props.requestUserInfo();
+    if (userId === 'user') {
+      this.props.requestUserInfo();
+    } else {
+      this.props.otherFamilyAction(userId);
+    }
   }
 
   componentDidMount() {
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
 
   }
 
@@ -120,6 +131,9 @@ class Profile extends React.Component {
       </div>
     );
   }
+  onOtherHandleClick() {
+    Alert.warning('如需修改请登录账号');
+  }
   renderHost() {
     const user = this.props.user;
     return (
@@ -154,7 +168,10 @@ class Profile extends React.Component {
               <div className="page-profile-fonts">个人擅长</div>
               <div className="page-profile-edit-box">
                 {user.good_at != null ?
-                  user.good_at.map((item, index) => <span className="page-profile-initial-fonts" >{item.good_at_name}{index <= user.good_at.length - 1 ? '、' : ''} </span>)
+                  user.good_at.map((item, index) =>
+                    <span key={index} className="page-profile-initial-fonts" >
+                      {item.good_at_name}{index < user.good_at.length - 1 ? '、' : ''}
+                    </span>)
                   : <span />
                 }
                 <div className="page-profile-edit-icon" />
@@ -200,11 +217,76 @@ class Profile extends React.Component {
       </div>
     );
   }
+  renderOther() {
+    const otherfamily = this.props.otherfamily;
+    if (!otherfamily.data) {
+      return null;
+    }
+    return (
+      <div className="page-profile">
+        <div>
+          <div className="page-profile-title">基本信息</div>
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">头像</div>
+            <div className="page-profile-header-uploade-box">
+              <div className="page-profile-header-img-container" onClick={this.onOtherHandleClick}>
+                <Image src={otherfamily.data.avatars} className="page-profile-header-img" />
+              </div>
+
+              <div className="page-profile-edit-icon" />
+            </div>
+          </div>
+          <div className="line1px" />
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">用户名</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
+          </div>
+          <div className="line1px" />
+          <div className="page-profile-header-box">
+            <div className="page-profile-fonts">志愿者编号</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
+          </div>
+          <div className="line1px" />
+          <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
+            <div className="page-profile-fonts">个人擅长</div>
+            <div className="page-profile-edit-box">
+              {otherfamily.data.good_at != null ?
+              otherfamily.data.good_at.map((item, index) =>
+                <span key={index} className="page-profile-initial-fonts" >
+                  {item.good_at_name}{index < otherfamily.data.good_at.length - 1 ? '、' : ''}
+                </span>)
+              : <span />
+            }
+              <div className="page-profile-edit-icon" />
+            </div>
+
+          </div>
+          <div className="line1px" />
+
+          <div>
+            <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
+              <div className="page-profile-fonts">志愿者口号</div>
+              <div className="page-profile-edit-icon" />
+            </div>
+            <div className="page-profile-fonts-view">{otherfamily.data.slogan}</div>
+          </div>
+          <div className="page-profile-take-up" />
+        </div>
+        <div className="page-profile-bottom">
+
+          <div className="page-profile-bottom-btn" onClick={this.onOtherHandleClick}>申请成为实名注册志愿者</div>
+
+        </div>
+
+      </div>
+    );
+  }
   render() {
-    const user = this.props.user;
+    const userId = this.userId;
+
     return (
       <div>
-        {this.renderHost()}
+        {userId === 'user' ? this.renderHost() : this.renderOther()}
       </div>
     );
   }
@@ -216,6 +298,43 @@ Profile.title = '个人资料';
 Profile.propTypes = {
   requestUserInfo: PropTypes.func,
   imporvePersonInfo: PropTypes.func,
+  otherFamilyAction: PropTypes.func,
+  otherfamily: PropTypes.shape({
+    token: PropTypes.string,
+    id: PropTypes.number,
+    username: PropTypes.string,
+    phone: PropTypes.string,
+    avatars: PropTypes.string,
+    real_name: PropTypes.string,
+    nation: PropTypes.string,
+    sex: PropTypes.number,
+    birthday: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    identifier: PropTypes.string,
+    slogan: PropTypes.string,
+    reward_time: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    id_number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    province_id: PropTypes.number,
+    province_name: PropTypes.string,
+    city_id: PropTypes.number,
+    city_name: PropTypes.string,
+    county_id: PropTypes.number,
+    county_name: PropTypes.string,
+    addr: PropTypes.string,
+    family_id: PropTypes.number,
+    join_family_time: PropTypes.string,
+    good_at: PropTypes.arrayOf(PropTypes.shape({
+
+    })),
+  }),
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
@@ -258,6 +377,7 @@ export default connect(
   state => ({
     user: state.user,
     info: state.info.person,
+    otherfamily: state.info.otherfamily,
   }),
-  dispatch => bindActionCreators({ requestUserInfo, imporvePersonInfo }, dispatch),
+  dispatch => bindActionCreators({ requestUserInfo, imporvePersonInfo, otherFamilyAction }, dispatch),
 )(Profile);

@@ -42,7 +42,7 @@ class DurationProjects extends React.Component {
     if (!durationProject) {
       return null;
     } else if (durationProject && !durationProject.length) {
-      return <div className="duration-projects-empty-tip">目前还没有志愿项目哦</div>;
+      return <div className="duration-apply-projects-empty-tip">目前还没有志愿项目哦</div>;
     }
 
     return (

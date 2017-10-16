@@ -37,8 +37,15 @@
 .page-family-item-name{
   font-size: 18px;
   color: #333333;
+  width: 130px;
+  overflow:hidden;white-space:nowrap;
+  text-overflow: ellipsis;
+
 }
 .page-family-item-account{
   font-size: 13px;
   color: #666666;
+  width: 130px;
+  overflow:hidden;white-space:nowrap;
+  text-overflow: ellipsis;
 }

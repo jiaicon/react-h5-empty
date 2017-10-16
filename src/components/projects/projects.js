@@ -51,7 +51,7 @@ class Projects extends React.Component {
                   <div className="org-name">{team.name}</div>
                 </Link>
                 <Link to={`/project/detail/${project.id}`} className="project-main">
-                  <Image src={project.photo} defaultSrc="/images/default_banner.png" alt="项目图片" />
+                  <Image src={project.photo ? project.photo[0] : null} defaultSrc="/images/default_banner.png" alt="项目图片" />
                   <div className="project-name">{project.name}</div>
                   <div className="project-date">活动日期：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}</div>
                   {

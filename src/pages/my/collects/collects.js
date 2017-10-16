@@ -56,7 +56,7 @@ class Collects extends React.Component {
     return this.state.current === index ? 'page-collects-tab-current-li' : '';
   }
   render() {
-    const { collect: { data: listData } } = this.props;
+    const { collect: { data: listData, type } } = this.props;
 
     // console.log(this.props.collect.data.list);
     return (
@@ -65,7 +65,7 @@ class Collects extends React.Component {
           { this.state.title.map((val, index) =>
              (<TabItem
                currentClass={this.currentClass}
-               handleClick={this.handleClick} val={val} index={index}
+               handleClick={this.handleClick} val={val} index={index} key={val.name}
              />)) }
         </ul>
         <div className="line1px" />
@@ -76,7 +76,7 @@ class Collects extends React.Component {
               'page-collects-content-main-current': !this.state.current,
             })}
           >
-            <TeamsItem teams={listData ? listData.list : null} />
+            <TeamsItem teams={listData && type === 'team' ? listData.list : null} />
 
           </div>
           <div
@@ -85,7 +85,9 @@ class Collects extends React.Component {
               'page-collects-content-main-current': this.state.current,
             })}
           >
-            <ProjectsItem projects={listData ? listData.list : null} showLabel />
+            <ProjectsItem
+              projects={listData && type === 'project' ? listData.list : null} showLabel
+            />
 
           </div>
         </div>

@@ -8,7 +8,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
-import ApplyItem from '../../../components/duration apply/applysItem';
+import ApplyItem from '../../../components/duration_apply/applysItem';
 import { applyAction } from '../my.store';
 import './applys.css';
 
