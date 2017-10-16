@@ -3,7 +3,7 @@ import { API_PREFIX } from './config';
 import { addAysncTask, removeAysncTask } from '../stores/common';
 import store from '../stores';
 import history from '../pages/history';
-import { getLocation } from './funcs';
+// import { getLocation } from './funcs';
 
 
 export default function request(requestUrl, requestOptions = {}) {
