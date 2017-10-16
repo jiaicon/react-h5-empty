@@ -101,3 +101,19 @@ export function getCity(success, fail) {
     }
   });
 }
+
+export function getToken() {
+  if (window.dev) {
+    return localStorage.getItem('token');
+  }
+
+  return window.token;
+}
+
+export function setToken(token) {
+  if (window.dev) {
+    localStorage.setItem('token', token);
+  } else {
+    window.token = token;
+  }
+}
