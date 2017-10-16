@@ -170,11 +170,45 @@ const addressReducer = (state = {
       return state;
   }
 };
-
+// 家庭成员信息
+export const otherFamilyAction = id => ({
+  type: 'otherFamily',
+  payload: fetch(`/myfamily/${id}`, { method: 'GET' }),
+});
+const otherFamilReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'otherFamily_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'otherFamily_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'otherFamily_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 const reducer = combineReducers({
   person: personInfoReducer,
   checkUser: checkUserReducer,
   address: addressReducer,
   register: registerReducer,
+  otherfamily: otherFamilReducer,
 });
 export default reducer;

@@ -33,11 +33,20 @@ class Family extends React.Component {
     const { deletefamily: Cdeletefamily } = this.props;
     const { deletefamily: Ndeletefamily } = nextProps;
     if (Cdeletefamily.fetching && !Ndeletefamily.fetching && !Ndeletefamily.failed) {
-      this.props.family();
+      this.props.familyAction();
     }
   }
 
   componentWillUnmount() {}
+
+  onSwipeOpen() {
+    console.log('open');
+  }
+  onSwipePress(data) {
+    const id = data.id;
+    console.log(data.id);
+    this.props.deleteFamilyAction(id);
+  }
   familyMember(data) {
     return (
       <Swipeout
@@ -52,17 +61,11 @@ class Family extends React.Component {
         onOpen={() => this.onSwipeOpen()}
         onClose={() => console.log('1')}
       >
-        <FamilyItem data={data} />
+        <Link to={`/my/profile/detail/${data.id}`}>
+          <FamilyItem data={data} />
+        </Link>
       </Swipeout>
     );
-  }
-  onSwipeOpen() {
-    console.log('open');
-  }
-  onSwipePress(data) {
-    const id = data.id;
-    console.log(data.id);
-    this.props.deleteFamilyAction(id);
   }
   render() {
     const user = this.props.user;
@@ -93,8 +96,8 @@ class Family extends React.Component {
         </div>
         <div className="page-family-take-up" />
         <div>
-          { this.props.family.data != null ?
-            family.data.data.family.map((item, index) => this.familyMember(item))
+          { family.data != null ?
+            family.data.data.family.map(item => this.familyMember(item))
             : <div />
           }
         </div>

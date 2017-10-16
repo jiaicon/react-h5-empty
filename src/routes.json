@@ -85,7 +85,7 @@
     "chunk": "main"
   },
   {
-    "path": "/my/profile/:userId",
+    "path": "/my/profile/detail/:userId",
     "page": "./pages/my/profile/profile",
     "chunk": "main"
   },

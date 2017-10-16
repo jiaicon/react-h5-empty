@@ -469,7 +469,7 @@ const applyReducer = (state = {
 // 删除家庭成员
 export const deleteFamilyAction = id => ({
   type: 'DELETE_DATA',
-  payload: fetch(`/myfamily/${id}`, { method: 'delete ' }),
+  payload: fetch(`/myfamily/${id}`, { method: 'DELETE' }),
 });
 const deleteFamilyReducer = (state = {
   fetching: false,
@@ -500,6 +500,7 @@ const deleteFamilyReducer = (state = {
       return state;
   }
 };
+
 const reducer = combineReducers({
   usercenter: userCenterReducer,
   team: teamReducer,

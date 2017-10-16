@@ -11,10 +11,12 @@ import cx from 'classnames';
 import { requestUserInfo } from '../../../stores/common';
 import { imporvePersonInfo } from './profile.store';
 import {} from '../my.store';
+import queryString from 'query-string';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
 import Alert from 'react-s-alert';
 import './profile.css';
+
 
 function sexName(sex) {
   if (sex === 1) {
@@ -37,13 +39,17 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
+    const params = location.pathname;
+    const num = params.indexOf('detail/');
+    const userId = params.slice(num + 7);
+    console.log(userId);
     this.props.requestUserInfo();
   }
 
   componentDidMount() {
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
 
   }
 
@@ -114,7 +120,7 @@ class Profile extends React.Component {
       </div>
     );
   }
-  render() {
+  renderHost() {
     const user = this.props.user;
     return (
       <div className="page-profile">
@@ -191,6 +197,14 @@ class Profile extends React.Component {
           {this.renderRealInfo()}
         </div>
 
+      </div>
+    );
+  }
+  render() {
+    const user = this.props.user;
+    return (
+      <div>
+        {this.renderHost()}
       </div>
     );
   }
