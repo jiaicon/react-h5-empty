@@ -5,8 +5,6 @@
   width: 100%;
   height: 100%;
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
 }
 .page-my-top{
   padding: 15px 15px 0;
@@ -114,8 +112,6 @@
   background: #F8F8F8;
 }
 .page-my-item-container-padding{
-  flex:1;
-  overflow-x: scroll;
   padding:0 15px;
 }
 .page-my-item-container li a{
