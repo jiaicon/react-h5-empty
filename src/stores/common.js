@@ -5,6 +5,7 @@ import {
 } from 'react-redux-spinner';
 
 import fetch from '../utils/fetch';
+import { setToken, getToken } from '../utils/funcs';
 
 // 添加异步任务，会触发 loading
 export const addAysncTask = () => ({ type: 'ADD_ASYNC_TASK', [pendingTask]: begin });
@@ -23,7 +24,7 @@ export const updateUserInfo = userInfo => ({ type: 'USERINFO_UPDATED', payload: 
  * 用户信息获取
  */
 export const requestUserInfo = () => (dispatch) => {
-  const token = window.token;
+  const token = getToken();
 
   // 用户信息请求为非强依赖请求，如果本地没有 token 即未登录则直接忽略即可
   if (!token) {
@@ -47,7 +48,7 @@ export const requestUserInfo = () => (dispatch) => {
 /**
  * 用户信息存储
  */
-export function userReducer(state = { isLogin: !!window.token }, action) {
+export function userReducer(state = { isLogin: !!getToken() }, action) {
   const payload = action.payload;
   const data = payload && payload.data;
 
@@ -58,7 +59,7 @@ export function userReducer(state = { isLogin: !!window.token }, action) {
       }
 
       if (data.token) {
-        window.token = data.token;
+        setToken(data.token);
       }
 
       return { ...action.payload.data, isLogin: true };
@@ -72,7 +73,7 @@ export function userReducer(state = { isLogin: !!window.token }, action) {
         return state;
       }
 
-      window.token = null;
+      setToken(null);
 
       return {
         isLogin: false,

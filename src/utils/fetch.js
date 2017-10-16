@@ -3,7 +3,7 @@ import { API_PREFIX } from './config';
 import { addAysncTask, removeAysncTask } from '../stores/common';
 import store from '../stores';
 import history from '../pages/history';
-// import { getLocation } from './funcs';
+import { getToken } from './funcs';
 
 
 export default function request(requestUrl, requestOptions = {}) {
@@ -30,7 +30,7 @@ export default function request(requestUrl, requestOptions = {}) {
   options.headers = {
     ...headers,
     // 授权 token
-    'X-auth-token': window.token || '',
+    'X-auth-token': getToken() || '',
     // 机构代码
     'X-org-code': window.ortCode || 'XKdwpfgegW',
     // 经纬度 经度-纬度
