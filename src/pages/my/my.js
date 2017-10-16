@@ -173,7 +173,7 @@ class MyPage extends React.Component {
           </div>
           :
           <div>
-            <Link to="/my/profile/1">
+            <Link to="/my/profile">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-data" />个人资料
               </div>
