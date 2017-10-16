@@ -3,12 +3,13 @@
  */
 
 /* global wx:false */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
-import ApplyItem from './component/applysItem';
+import ApplyItem from '../../../components/duration apply/applysItem';
+import { applyAction } from '../my.store';
 import './applys.css';
 
 class Apply extends React.Component {
@@ -19,7 +20,7 @@ class Apply extends React.Component {
   }
 
   componentWillMount() {
-
+    this.props.applyAction();
   }
 
   componentDidMount() {
@@ -32,6 +33,7 @@ class Apply extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const { apply: { data: listData } } = this.props;
     return (
       <div className="page-apply">
         <div className="page-apply-header">
@@ -44,7 +46,9 @@ class Apply extends React.Component {
           </Link>
           <div className="page-apply-take-up" />
         </div>
-        <ApplyItem />
+        <div>
+          <ApplyItem data={listData ? listData.list : null} />
+        </div>
       </div>
     );
   }
@@ -54,9 +58,20 @@ class Apply extends React.Component {
 Apply.title = '补录申请';
 
 Apply.propTypes = {
+  applyAction: PropTypes.func,
+  apply: PropTypes.shape({
+    data: PropTypes.shape({
+      list: PropTypes.arrayOf(
+        PropTypes.shape({}),
+      ),
+    }),
+
+  }),
 };
 
 export default connect(
-  state => state.my || {},
-  dispatch => bindActionCreators({}, dispatch),
+  state => ({
+    apply: state.my.apply,
+  }),
+  dispatch => bindActionCreators({ applyAction }, dispatch),
 )(Apply);

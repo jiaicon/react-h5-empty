@@ -106,6 +106,8 @@ const projectReducer = (state = {
       return state;
   }
 };
+
+// 搜索团队
 // 获取志愿时长
 
 export const rewardTimeAction = () => ({
@@ -356,6 +358,148 @@ const userCenterReducer = (state = {
   }
 };
 
+
+// 补录时长项目列表get
+export const projectapplyAction = () => ({
+  type: 'PROJECTAPPLY_DATA',
+  payload: fetch('/user/apply', { method: 'GET' }),
+});
+const projectapplyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'PROJECTAPPLY_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'PROJECTAPPLY_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'PROJECTAPPLY_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
+
+// project_id: [integer] 项目id 【必填】
+// reward_time: [float] 补录时长 【必填】
+// content: [string] 申请内容【必填】
+// attachment: [array] 申请附件【非必填】
+export const postapplyAction = data => ({
+  type: 'POSTAPPLY_DATA',
+  payload: fetch('/user/apply', { data }, { method: 'POST' }),
+});
+const postApplyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'POSTAPPLY_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'POSTAPPLY_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+      };
+    case 'POSTAPPLY_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+// 补录时长申请列表get
+export const applyAction = () => ({
+  type: 'APPLY_DATA',
+  payload: fetch('/user/apply', { method: 'GET' }),
+});
+const applyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'APPLY_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'APPLY_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'APPLY_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+// 删除家庭成员
+export const deleteFamilyAction = id => ({
+  type: 'DELETE_DATA',
+  payload: fetch(`/myfamily/${id}`, { method: 'delete ' }),
+});
+const deleteFamilyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'DELETE_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'DELETE_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'DELETE_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 const reducer = combineReducers({
   usercenter: userCenterReducer,
   team: teamReducer,
@@ -367,5 +511,9 @@ const reducer = combineReducers({
   family: familyReducer,
   addFamily: addFamilyReducer,
   collect: collectReducer,
+  apply: applyReducer,
+  postapply: postApplyReducer,
+  projectapply: projectapplyReducer,
+  deletefamily: deleteFamilyReducer,
 });
 export default reducer;

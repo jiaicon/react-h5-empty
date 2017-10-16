@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestUserInfo } from '../../../stores/common';
 import FamilyItem from './component/familyItem';
-import { familyAction } from '../my.store';
+import { familyAction, deleteFamilyAction } from '../my.store';
 import './family.css';
 
 class Family extends React.Component {
@@ -29,7 +29,12 @@ class Family extends React.Component {
   componentDidMount() {
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { deletefamily: Cdeletefamily } = this.props;
+    const { deletefamily: Ndeletefamily } = nextProps;
+    if (Cdeletefamily.fetching && !Ndeletefamily.fetching && !Ndeletefamily.failed) {
+      this.props.family();
+    }
   }
 
   componentWillUnmount() {}
@@ -39,13 +44,13 @@ class Family extends React.Component {
         right={[
           {
             text: '删除',
-            onPress: () => this.onSwipePress(),
+            onPress: () => this.onSwipePress(data),
             style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
             className: 'custom-class-2',
           },
         ]}
         onOpen={() => this.onSwipeOpen()}
-        onClose={() => console.log('close')}
+        onClose={() => console.log('1')}
       >
         <FamilyItem data={data} />
       </Swipeout>
@@ -54,8 +59,10 @@ class Family extends React.Component {
   onSwipeOpen() {
     console.log('open');
   }
-  onSwipePress() {
-    console.log('delete');
+  onSwipePress(data) {
+    const id = data.id;
+    console.log(data.id);
+    this.props.deleteFamilyAction(id);
   }
   render() {
     const user = this.props.user;
@@ -74,7 +81,7 @@ class Family extends React.Component {
           </div>
           <div className="page-family-top-area-view">
             <div className="page-family-top-area-view-family-box">
-              <p><span>{family.data ? family.data.data.family_size + 1 : 0}</span>人</p>
+              <p><span>{family.data ? family.data.data.family_size : 0}</span>人</p>
               <p>家庭成员</p>
             </div>
             <div className="page-family-top-area-view-line" />
@@ -86,7 +93,6 @@ class Family extends React.Component {
         </div>
         <div className="page-family-take-up" />
         <div>
-          <FamilyItem data={user} />
           { this.props.family.data != null ?
             family.data.data.family.map((item, index) => this.familyMember(item))
             : <div />
@@ -104,6 +110,7 @@ Family.title = '我的家庭';
 
 Family.propTypes = {
   familyAction: PropTypes.func,
+  deleteFamilyAction: PropTypes.func,
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
@@ -184,15 +191,20 @@ Family.propTypes = {
       ),
     }),
   }),
+  deletefamily: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
 };
 
 export default connect(
   state => ({
-    user: state.user,
     family: state.my.family,
+    deletefamily: state.my.deletefamily,
+
   }),
   dispatch => bindActionCreators({
-    requestUserInfo,
     familyAction,
+    deleteFamilyAction,
   }, dispatch),
 )(Family);

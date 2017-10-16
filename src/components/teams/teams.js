@@ -71,9 +71,12 @@ class Teams extends React.Component {
 }
 
 Teams.propTypes = {
-  teams: PropTypes.arrayOf(PropTypes.shape({
+  teams: PropTypes.arrayOf(
+      PropTypes.shape({
 
-  })),
+      }),
+  ),
+
   showLabel: PropTypes.bool,
 };
 

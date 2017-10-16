@@ -1,4 +1,4 @@
-.page-post-bg{
+ .page-post-bg{
   width: 100%;
   background: #f8f8f8;
   position:absolute;
@@ -26,6 +26,10 @@
 }
 .page-post-pop-block{
   display: block;
+
+}
+.page-post-pop-none{
+  display: none;
 }
 .page-post-take-up{
   width: 100%;
@@ -117,4 +121,49 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+.page-post-item-upload-container{
+  width: 100px;
+  height: 100px;
+  background-image:url(/images/my/add.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 12px;
+  position: relative;
+}
+.page-applys-item-render-container{
+  width: 100px;
+  height: 100px;
+  margin-right: 12px;
+  position: relative;
+}
+.page-applys-item-render-container img{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.page-applys-item-render-del{
+  width: 20px;
+  height: 20px;
+  background: url(/images/my/delete.png) no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+}
+.page-register-uploader-btn{
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.page-post-font-color{
+  color:#333;
+  font-size: 14px;
 }
