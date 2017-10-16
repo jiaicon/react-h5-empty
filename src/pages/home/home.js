@@ -13,7 +13,7 @@ import Link from '../../components/link/link';
 import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
-import { getCity, EM } from '../../utils/funcs';
+import { getCity } from '../../utils/funcs';
 import { requestHomeData } from './home.store';
 
 class HomePage extends React.Component {

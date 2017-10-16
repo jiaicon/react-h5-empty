@@ -1,6 +1,9 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import Slick from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -27,6 +30,16 @@ class ProjectDetailPage extends React.Component {
     this.projectId = props.route.params.projectId;
     this.state = {
       showShareTip: false,
+    };
+
+    this.slickSettings = {
+      dots: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 6000,
     };
   }
 
@@ -91,6 +104,22 @@ class ProjectDetailPage extends React.Component {
     };
   }
 
+  renderSlick() {
+    const { detail: { data: detailData } } = this.props;
+    if (!detailData.photo || !detailData.photo.length) {
+      return <div className="slick-container" />;
+    }
+
+    return (<div className="slick-container">
+      <Slick {...this.slickSettings}>
+        {detailData.photo
+              .map(item => (
+                <Image src={item} defaultSrc="/images/default_banner.png" />
+              ))}
+      </Slick>
+    </div>);
+  }
+
   render() {
     const { detail: { data: detailData }, user: { isLogin } } = this.props;
     const currentProjectId = parseInt(this.projectId, 10);
@@ -130,7 +159,7 @@ class ProjectDetailPage extends React.Component {
     return (
       <div className="page-project-detail">
         <div className="header">
-          <Image className="project-photo" src={detailData.photo} defaultSrc="/images/default_banner.png" alt="项目图片" />
+          {this.renderSlick()}
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
               <Image src={detailData.team.logo} alt="头像" />

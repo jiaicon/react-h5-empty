@@ -7,10 +7,29 @@
 .page-project-detail .header {
   background: #fff;
 }
-
+/*
 .page-project-detail .header .project-photo {
   width: 100%;
   height: 220px;
+} */
+
+.page-project-detail .slick-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: url(/images/default_banner.png) no-repeat top left;
+  background-size: cover;
+}
+
+.page-project-detail .slick-container img{
+  width: 100%;
+  height: 220px;
+}
+
+.page-project-detail .slick-dots {
+  position: absolute;
+  bottom: 10px;
 }
 
 .page-project-detail .header .header-addition {
