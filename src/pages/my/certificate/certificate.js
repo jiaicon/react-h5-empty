@@ -110,7 +110,7 @@ class Certificate extends React.Component {
     const user = this.props.user;
     return (
       <div>
-        {user.real_name ? this.pop() : this.renderCertificate()}
+        {!user.real_name ? this.pop() : this.renderCertificate()}
 
       </div>
     );
