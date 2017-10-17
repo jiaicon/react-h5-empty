@@ -23,7 +23,7 @@ export const updateUserInfo = userInfo => ({ type: 'USERINFO_UPDATED', payload: 
 /**
  * 用户信息获取
  */
-export const requestUserInfo = () => (dispatch) => {
+export const requestUserInfo = noRedirect => (dispatch) => {
   const token = getToken();
 
   // 用户信息请求为非强依赖请求，如果本地没有 token 即未登录则直接忽略即可
@@ -34,6 +34,7 @@ export const requestUserInfo = () => (dispatch) => {
 
   fetch('/user', {
     method: 'GET',
+    noRedirect,
   }).then((json) => {
     // 获取到用户信息后单独处理（存储 token/用户信息）
     if (json) {

@@ -33,7 +33,7 @@ class LaunchPage extends React.Component {
 
   componentWillMount() {
     if (!this.props.user.id) {
-      this.props.requestUserInfo();
+      this.props.requestUserInfo(true);
     }
   }
 

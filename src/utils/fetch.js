@@ -91,7 +91,7 @@ export default function request(requestUrl, requestOptions = {}) {
         }
         console.log('请求成功-', url, json);
         resolve(json);
-      } else if (json.error_code === 9999) {
+      } else if (json.error_code === 9999 && options.noRedirect !== true) {
         history.replace('/my/entry');
       } else {
         console.log('请求返回失败-', url, json);
