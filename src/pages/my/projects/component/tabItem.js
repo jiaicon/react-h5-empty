@@ -2,7 +2,6 @@
  * @file 志愿项目
  */
 
-/* global wx:false */
 /* eslint  "class-methods-use-this":"off",
 "jsx-a11y/no-static-element-interactions":"off",
 "react/no-array-index-key":"off" */
@@ -11,7 +10,7 @@ import autoBind from 'react-autobind';
 
 import '../projects.css';
 
-class ProjectItem extends React.Component {
+class TabItem extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,13 +31,13 @@ class ProjectItem extends React.Component {
 }
 
 
-ProjectItem.title = '志愿项目';
+TabItem.title = '志愿项目';
 
-ProjectItem.propTypes = {
+TabItem.propTypes = {
   index: PropTypes.number,
   handleClick: PropTypes.func,
   currentClass: PropTypes.func,
   val: PropTypes.string,
 };
 
-export default ProjectItem;
+export default TabItem;

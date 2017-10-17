@@ -61,6 +61,7 @@ class Projects extends React.Component {
         <ul className="page-projects-tab-container">
           { this.state.title.map((val, index) =>
            (<TabItem
+             key={index}
              currentClass={this.currentClass}
              handleClick={this.handleClick} val={val} index={index}
            />))
@@ -103,18 +104,18 @@ Projects.propTypes = {
           county_name: PropTypes.string,
           addr: PropTypes.string,
           lng: PropTypes.string,
-          lat: PropTypes.number,
+          lat: PropTypes.string,
           join_begin: PropTypes.string,
           join_end: PropTypes.string,
           begin: PropTypes.string,
           end: PropTypes.string,
           people_count: PropTypes.number,
           join_people_count: PropTypes.number,
-          reward_time: PropTypes.number,
+          reward_time: PropTypes.string,
           activity_status: PropTypes.number,
-          category: PropTypes.string,
-          service_object: PropTypes.string,
-          team: PropTypes.string,
+          category: PropTypes.arrayOf(PropTypes.shape({})),
+          service_object: PropTypes.arrayOf(PropTypes.shape({})),
+          team: PropTypes.shape({}),
           join_status: PropTypes.number,
           my_reward_time: PropTypes.number,
         }),
