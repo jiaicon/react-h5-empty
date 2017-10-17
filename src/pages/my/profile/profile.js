@@ -1,7 +1,11 @@
 /**
  * @file 个人资料
  */
-/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
+/* eslint
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off",
+"class-methods-use-this": "off"
+*/
 
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
@@ -14,6 +18,7 @@ import { imporvePersonInfo, otherFamilyAction } from './profile.store';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
+import uploadToWX from '../../../utils/wxupload';
 import './profile.css';
 
 
@@ -65,33 +70,26 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {}
-  onFileSelect=(evt) => {
-    const file = evt.target.files[0];
-    if (file) {
-      const fd = new FormData();
-      fd.append('file', file);
 
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const res = JSON.parse(xhr.responseText);
+  onAvatarClick() {
+    uploadToWX({
+      success: (urls) => {
+        console.log('图片上传成功:', urls);
 
-          if (!res.error_code) {
-            const data = {
-              avatars: res.data.url,
-            };
-            this.props.imporvePersonInfo(data);
-            this.props.requestUserInfo();
-          } else {
-            Alert.warning(`图片上传失败：${res.error_message}`);
-          }
-        }
-      };
-      // xhr.open('POST', `${window.apiHost}/api/imgupload`, true);
-      xhr.open('POST', 'http://alpha.api.volunteer.tmallwo.com/api/imgupload', true);
-      xhr.send(fd);
-    }
+        const data = {
+          avatars: urls[0],
+        };
+        this.props.imporvePersonInfo(data);
+        this.props.requestUserInfo();
+      },
+    });
   }
+
+  onOtherHandleClick() {
+    Alert.warning('如需修改请登录账号');
+  }
+
+
   renderRealInfo() {
     const user = this.props.user;
 
@@ -131,9 +129,7 @@ class Profile extends React.Component {
       </div>
     );
   }
-  onOtherHandleClick() {
-    Alert.warning('如需修改请登录账号');
-  }
+
   renderHost() {
     const user = this.props.user;
     return (
@@ -143,12 +139,9 @@ class Profile extends React.Component {
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">头像</div>
             <div className="page-profile-header-uploade-box">
-              <div className="page-profile-header-img-container">
+              <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
                 <Image src={user.avatars} className="page-profile-header-img" />
-
-                <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-profile-header-upload" />
               </div>
-
               <div className="page-profile-edit-icon" />
             </div>
           </div>
