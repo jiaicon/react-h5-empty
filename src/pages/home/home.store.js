@@ -5,9 +5,15 @@ export const requestHomeData = () => ({
   payload: fetch('/index', { method: 'GET' }),
 });
 
+export const saveCity = city => ({
+  type: 'CITY_DATA_FULFILLED',
+  payload: { city },
+});
+
 export default (state = {
   fetching: false,
   failed: false,
+  city: null,
   data: null,
 }, action) => {
   switch (action.type) {
@@ -29,6 +35,11 @@ export default (state = {
         ...state,
         failed: true,
         fetching: false,
+      };
+    case 'CITY_DATA_FULFILLED':
+      return {
+        ...state,
+        city: action.payload.city,
       };
     default:
       return state;
