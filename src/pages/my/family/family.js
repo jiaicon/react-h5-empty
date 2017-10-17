@@ -23,12 +23,14 @@ class Family extends React.Component {
 
   componentWillMount() {
     this.props.familyAction();
+    console.log('WillMount');
   }
 
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('WillReceiveProps');
     const { deletefamily: Cdeletefamily } = this.props;
     const { deletefamily: Ndeletefamily } = nextProps;
     if (Cdeletefamily.fetching && !Ndeletefamily.fetching && !Ndeletefamily.failed) {
@@ -38,12 +40,8 @@ class Family extends React.Component {
 
   componentWillUnmount() {}
 
-  onSwipeOpen() {
-    console.log('open');
-  }
   onSwipePress(data) {
     const id = data.id;
-    console.log(data.id);
     this.props.deleteFamilyAction(id);
   }
   familyMember(data) {
@@ -57,8 +55,7 @@ class Family extends React.Component {
             className: 'custom-class-2',
           },
         ]}
-        onOpen={() => this.onSwipeOpen()}
-        onClose={() => console.log('1')}
+
       >
         <Link to={`/my/profile/detail/${data.id}`}>
           <FamilyItem data={data} key={data.id} />
@@ -66,12 +63,11 @@ class Family extends React.Component {
       </Swipeout>
     );
   }
+
   render() {
-    console.log(this.props.route.path);
-    const user = this.props.user;
-    const family = this.props.family;
-    if (!family && !family.data && family.data.family_size !== 0) {
-      return <div />;
+    const { family: { data: listData } } = this.props;
+    if (listData == null) {
+      return <div>1</div>;
     }
     return (
       <div className="page-family">
@@ -84,20 +80,20 @@ class Family extends React.Component {
           </div>
           <div className="page-family-top-area-view">
             <div className="page-family-top-area-view-family-box">
-              <p><span>{family.data ? family.data.data.family_size : 0}</span>人</p>
+              <p><span>{listData ? listData.data.family_size : 0}</span>人</p>
               <p>家庭成员</p>
             </div>
             <div className="page-family-top-area-view-line" />
             <div className="page-family-top-area-view-family-box">
-              <p><span>{family.data ? family.data.data.reward_time : 0}</span>小时</p>
+              <p><span>{listData ? listData.data.reward_time : 0}</span>小时</p>
               <p>志愿总时长</p>
             </div>
           </div>
         </div>
         <div className="page-family-take-up" />
         <div>
-          { family != null && family.data != null && family.data.family_size !== 0 ?
-            family.data.data.family.map(item => this.familyMember(item))
+          { listData && listData.data && listData.data.family ?
+            listData.data.family.map(item => this.familyMember(item))
             : <div />
           }
         </div>

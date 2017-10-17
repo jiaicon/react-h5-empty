@@ -12,6 +12,8 @@ import history from '../../history';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';
 
+const BussinessInfo = window.orgInfo.title || '和众泽益志愿者服务中心';
+
 function year(data) {
   return data.split('-');
 }
@@ -85,7 +87,7 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-content">截止{this.state.y}年{this.state.m}月{this.state.d}日</div>
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item"><span>9</span>次</div>
+              <div className="page-certificate-container-hours-item"><span>{user.join_project_count}</span>次</div>
               <div className="page-certificate-container-hours-item">累计服务次数</div>
             </div>
             <div className="page-certificate-container-hours">
@@ -93,7 +95,7 @@ class Certificate extends React.Component {
               <div className="page-certificate-container-hours-item">累计服务时长</div>
             </div>
           </div>
-          <div className="page-certificate-container-bussiness">认证机构：和众泽益志愿者服务中心</div>
+          <div className="page-certificate-container-bussiness">认证机构：{BussinessInfo}</div>
         </div>
       </div>
     );
@@ -117,6 +119,7 @@ Certificate.propTypes = {
   user: PropTypes.shape({
     token: PropTypes.string,
     id: PropTypes.number,
+    join_project_count: PropTypes.number,
     username: PropTypes.string,
     phone: PropTypes.string,
     avatars: PropTypes.string,

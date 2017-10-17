@@ -42,15 +42,21 @@ class Addmember extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data: Cdata, fetching: Cfetching, failed: Cfailed } = this.props.add;
-    const { data: Ndata, fetching: Nfetching, failed: Nfailed } = nextProps.add;
+    const { add: { data: Cdata },
+    add: { fetching: Cfetching },
+    add: { failed: Cfailed } } = this.props;
+
+    const { add: { data: Ndata },
+    add: { fetching: Nfetching },
+    add: { failed: Nfailed } } = nextProps;
 
     console.log(Cfetching);
     console.log(Nfetching);
     console.log(Cfailed);
     console.log(Nfailed);
-    if (Cfetching && !Nfetching && !Cfailed && !Nfailed) {
-      console.log('跳转');
+    console.log(Cdata);
+    console.log(Ndata);
+    if (!Cdata && Ndata && Cfetching && !Nfetching && !Cfailed && !Nfailed) {
       history.replace('/my/family');
     }
   }
@@ -188,12 +194,45 @@ Addmember.propTypes = {
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
     data: PropTypes.shape({
+      data: PropTypes.shape({
+        token: PropTypes.string,
+        id: PropTypes.number,
+        username: PropTypes.string,
+        phone: PropTypes.string,
+        avatars: PropTypes.string,
+        real_name: PropTypes.string,
+        nation: PropTypes.string,
+        sex: PropTypes.number,
+        birthday: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        identifier: PropTypes.string,
+        slogan: PropTypes.string,
+        reward_time: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        id_number: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        province_id: PropTypes.number,
+        province_name: PropTypes.string,
+        city_id: PropTypes.number,
+        city_name: PropTypes.string,
+        county_id: PropTypes.number,
+        county_name: PropTypes.string,
+        addr: PropTypes.string,
+        family_id: PropTypes.number,
+        join_family_time: PropTypes.string,
+        good_at: PropTypes.arrayOf(PropTypes.shape({
 
-      family: PropTypes.shape({
-
+        })),
       }),
     }),
   }),
+
 };
 
 export default connect(
