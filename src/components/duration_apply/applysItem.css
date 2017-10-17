@@ -25,15 +25,17 @@
 .page-applys-item-date span{
   color: #6AC6F8;
 }
-
-.page-applys-item-content-wait{
+.page-applys-item-content{
   width: 50px;
   height: 20px;
   border-radius: 4px;
-  background: #FED9A4;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.page-applys-item-content-wait{
+
+  background: #FED9A4;
 }
 .page-applys-item-content-wait:before{
 
@@ -45,13 +47,8 @@
 
 
 .page-applys-item-content-reject{
-  width: 50px;
-  height: 20px;
-  border-radius: 4px;
+
   background: #FBABAB;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .page-applys-item-content-reject:before{
 
@@ -62,13 +59,8 @@
 }
 
 .page-applys-item-content-pass{
-  width: 50px;
-  height: 20px;
-  border-radius: 4px;
+
   background:  #F8F8F8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .page-applys-item-content-pass:before{
 

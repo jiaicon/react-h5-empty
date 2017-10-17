@@ -27,26 +27,23 @@ class applysItem extends React.Component {
 
       <div className="page-applys-item-container">
         {
-          data.map((data) => {
-            const { team } = data;
-
-            return (
-              <div>
-                <div className="page-applys-item-title">{team.name}</div>
-                <div className="page-applys-item-date-box">
-                  <div className="page-applys-item-date">申请补录时长<span>{data.reward_time}小时</span></div>
-                  <div
-                    className={classnames({
-                      'page-applys-item-content-wait': data.verify_status === 1,
-                      'page-applys-item-content-reject': data.verify_status === 3,
-                      'page-applys-item-content-pass': data.verify_status === 2,
-                    })}
-                  />
-                </div>
-                <div className="line1px" />
+          data.map(data => (
+            <div>
+              <div className="page-applys-item-title">{data.project.name}</div>
+              <div className="page-applys-item-date-box">
+                <div className="page-applys-item-date">申请补录时长<span>{data.reward_time}小时</span></div>
+                <div
+                  className={classnames({
+                    'page-applys-item-content': true,
+                    'page-applys-item-content-wait': data.verify_status === 0,
+                    'page-applys-item-content-reject': data.verify_status === 2,
+                    'page-applys-item-content-pass': data.verify_status === 1,
+                  })}
+                />
               </div>
-            );
-          })
+              <div className="line1px" />
+            </div>
+            ))
         }
 
 

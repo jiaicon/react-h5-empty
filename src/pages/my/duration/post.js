@@ -44,7 +44,7 @@ class Post extends React.Component {
     const { postapply: Cpostapply } = this.props;
     const { postapply: Npostapply } = nextProps;
     if (Cpostapply.fetching && !Npostapply.fetching && !Npostapply.failed) {
-      history.replace('/my/applys');
+      history.replace('/my/duration/applys');
     }
   }
 
@@ -59,7 +59,6 @@ class Post extends React.Component {
       hours,
       info,
     });
-    console.log(hours);
   }
   // 上传照片
   onAvatarClick() {
@@ -137,24 +136,28 @@ class Post extends React.Component {
     }
   }
   onNext() {
+    console.log('我点击了');
     const id = this.state.data.id;
     const hours = this.state.hours;
     const content = this.state.info;
     const attachment = this.state.attachment;
     const data = {};
-    if (!reward_time) {
-      Alert('请输入补录时间');
+    if (!id) {
+      Alert.warning('请选择补录项目');
+    }
+    if (!hours) {
+      Alert.warning('请输入补录时间');
       return;
     }
     if (!content) {
-      Alert('请输入详细说明');
+      Alert.warning('请输入详细说明');
       return;
     }
-    if (attachment.length !== 0) {
-      data[attachment] = attachment;
-    } else {
-      return;
+    if (attachment.length != 0) {
+      data.attachment = attachment;
     }
+
+
     data.project_id = id;
     data.reward_time = hours;
     data.content = content;

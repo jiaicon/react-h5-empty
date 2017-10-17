@@ -70,7 +70,7 @@ class DurationProjects extends React.Component {
                   <div className="component-duration-projects-footer-logo">
                     <Image src={team.logo} className="component-duration-projects-footer-logo-img" />{team.name}
                   </div>
-                  <div className="component-duration-projects-footer-date-box">已获得志愿时长：<span>{project.reward_time}小时</span></div>
+                  <div className="component-duration-projects-footer-date-box">已获得志愿时长：<span>{project.my_reward_time}小时</span></div>
                 </Link>
               </div>
 

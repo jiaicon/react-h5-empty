@@ -367,7 +367,7 @@ const userCenterReducer = (state = {
 // 补录时长项目列表get
 export const projectapplyAction = () => ({
   type: 'PROJECTAPPLY_DATA',
-  payload: fetch('/user/apply', { method: 'GET' }),
+  payload: fetch('/project/apply', { method: 'GET' }),
 });
 const projectapplyReducer = (state = {
   fetching: false,
