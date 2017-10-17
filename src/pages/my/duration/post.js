@@ -16,6 +16,7 @@ import './post.css';
 import DutationProjects from '../../../components/duration_apply/projects';
 import { postapplyAction, projectapplyAction } from '../my.store';
 import history from '../../history';
+import uploadToWX from '../../../utils/wxupload';
 
 const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 class Post extends React.Component {
@@ -61,34 +62,49 @@ class Post extends React.Component {
     console.log(hours);
   }
   // 上传照片
-  onFileSelect(evt) {
+  onAvatarClick() {
     const attachment = this.state.attachment;
-    const file = evt.target.files[0];
-    if (file) {
-      const fd = new FormData();
-      fd.append('file', file);
-
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const res = JSON.parse(xhr.responseText);
-
-          if (!res.error_code) {
-            attachment.push(res.data.url);
-            this.setState({
-              ...this.state,
-              attachment,
-            });
-            this.photo = res.data.url;
-          } else {
-            Alert.warning(`图片上传失败：${res.error_message}`);
-          }
-        }
-      };
-      xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-      xhr.send(fd);
-    }
+    uploadToWX({
+      success: (urls) => {
+        console.log('图片上传成功:', urls);
+        attachment.push(urls[0]);
+        this.setState({
+          ...this.state,
+          attachment,
+        });
+        this.photo = urls[0];
+      },
+    });
   }
+
+  // onFileSelect(evt) {
+  //   const attachment = this.state.attachment;
+  //   const file = evt.target.files[0];
+  //   if (file) {
+  //     const fd = new FormData();
+  //     fd.append('file', file);
+
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.onreadystatechange = () => {
+  //       if (xhr.readyState === 4 && xhr.status === 200) {
+  //         const res = JSON.parse(xhr.responseText);
+
+  //         if (!res.error_code) {
+  //           attachment.push(res.data.url);
+  //           this.setState({
+  //             ...this.state,
+  //             attachment,
+  //           });
+  //           this.photo = res.data.url;
+  //         } else {
+  //           Alert.warning(`图片上传失败：${res.error_message}`);
+  //         }
+  //       }
+  //     };
+  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
+  //     xhr.send(fd);
+  //   }
+  // }
   onDel(e) {
     const attachment = this.state.attachment;
     const num = e.target.id;
@@ -176,9 +192,9 @@ class Post extends React.Component {
             {
               attachment.length === 3 ?
                 <div /> :
-                <div className="page-post-item-upload-container">
-                  <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-register-uploader-btn" />
-                </div>
+                <div
+                  className="page-post-item-upload-container" onClick={this.onAvatarClick}
+                />
             }
           </div>
           <div className="page-post-btn" onClick={this.onNext}>提交</div>

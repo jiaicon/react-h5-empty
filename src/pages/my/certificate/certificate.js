@@ -63,15 +63,21 @@ class Certificate extends React.Component {
 
   componentWillUnmount() {}
   pop() {
-    Alert.success('您还未实名注册，请先完成实名认证，获取个人志愿证书', {
-      position: 'top-right',
-      effect: 'stackslide',
-      onShow() {
-        setTimeout(() => {
-          history.replace('/my/profile/detail/user');
-        }, 3000);
-      },
-    });
+    const r = confirm('您还未实名注册，请先完成实名认证，获取个人志愿证书');
+    if (r == true) {
+      history.replace('/my/profile/detail/user');
+    } else {
+
+    }
+    // Alert.success('您还未实名注册，请先完成实名认证，获取个人志愿证书', {
+    //   position: 'top-right',
+    //   effect: 'stackslide',
+    //   onShow() {
+    //     setTimeout(() => {
+    //       history.replace('/my/profile/detail/user');
+    //     }, 3000);
+    //   },
+    // });
   }
   renderCertificate() {
     const user = this.props.user;
@@ -104,7 +110,7 @@ class Certificate extends React.Component {
     const user = this.props.user;
     return (
       <div>
-        {!user.real_name ? this.pop() : this.renderCertificate()}
+        {user.real_name ? this.pop() : this.renderCertificate()}
 
       </div>
     );

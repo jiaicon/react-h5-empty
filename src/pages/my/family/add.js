@@ -3,6 +3,9 @@
  */
 
 /* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"jsx-a11y/no-static-element-interactions":"off",
+"react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
@@ -14,6 +17,7 @@ import Image from '../../../components/image/image';
 import { addFamilyAction } from '../my.store';
 import history from '../../history';
 import './add.css';
+import uploadToWX from '../../../utils/wxupload';
 
 const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 
@@ -50,12 +54,6 @@ class Addmember extends React.Component {
     add: { fetching: Nfetching },
     add: { failed: Nfailed } } = nextProps;
 
-    console.log(Cfetching);
-    console.log(Nfetching);
-    console.log(Cfailed);
-    console.log(Nfailed);
-    console.log(Cdata);
-    console.log(Ndata);
     if (!Cdata && Ndata && Cfetching && !Nfetching && !Cfailed && !Nfailed) {
       history.replace('/my/family');
     }
@@ -63,32 +61,45 @@ class Addmember extends React.Component {
 
   componentWillUnmount() {}
   // 上传照片
-  onFileSelect(evt) {
-    const file = evt.target.files[0];
-    if (file) {
-      const fd = new FormData();
-      fd.append('file', file);
-
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const res = JSON.parse(xhr.responseText);
-
-          if (!res.error_code) {
-            this.setState({
-              ...this.state,
-              photo: res.data.url,
-            });
-            this.photo = res.data.url;
-          } else {
-            Alert.warning(`图片上传失败：${res.error_message}`);
-          }
-        }
-      };
-      xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-      xhr.send(fd);
-    }
+  onAvatarClick() {
+    uploadToWX({
+      success: (urls) => {
+        console.log('图片上传成功:', urls);
+        this.setState({
+          ...this.state,
+          photo: urls[0],
+        });
+        this.photo = urls[0];
+      },
+    });
   }
+
+  // onFileSelect(evt) {
+  //   const file = evt.target.files[0];
+  //   if (file) {
+  //     const fd = new FormData();
+  //     fd.append('file', file);
+
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.onreadystatechange = () => {
+  //       if (xhr.readyState === 4 && xhr.status === 200) {
+  //         const res = JSON.parse(xhr.responseText);
+
+  //         if (!res.error_code) {
+  //           this.setState({
+  //             ...this.state,
+  //             photo: res.data.url,
+  //           });
+  //           this.photo = res.data.url;
+  //         } else {
+  //           Alert.warning(`图片上传失败：${res.error_message}`);
+  //         }
+  //       }
+  //     };
+  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
+  //     xhr.send(fd);
+  //   }
+  // }
   onTextChanged() {
     const name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -134,16 +145,16 @@ class Addmember extends React.Component {
     if (photo) {
       data.avatars = photo;
     }
-    console.log(data);
     this.props.addFamilyAction(data);
   }
   render() {
     return (
       <div className="page-add">
         <div className="page-add-photo">
-          <div className="page-add-photo-container">
+          <div
+            className="page-add-photo-container" onClick={this.onAvatarClick}
+          >
             <Image className="page-add-photo-img" src={this.state.photo} />
-            <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-add-uploader-btn" />
           </div>
         </div>
         <div className="page-add-photo-fonts">上传头像(选填)</div>

@@ -17,6 +17,7 @@ import { requestVerifyCode, register } from './register.store';
 
 import './register.css';
 import Image from '../../../components/image/image';
+import uploadToWX from '../../../utils/wxupload';
 
 const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 
@@ -167,46 +168,56 @@ class Register extends React.Component {
     });
   }
   // 上传照片
-  onFileSelect(evt) {
-    const file = evt.target.files[0];
-    if (file) {
-      const fd = new FormData();
-      fd.append('file', file);
-
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const res = JSON.parse(xhr.responseText);
-
-          if (!res.error_code) {
-            this.setState({
-              ...this.state,
-              photo: res.data.url,
-            });
-            this.photo = res.data.url;
-          } else {
-            Alert.warning(`图片上传失败：${res.error_message}`);
-          }
-        }
-      };
-      xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-      xhr.send(fd);
-    }
+  onAvatarClick() {
+    uploadToWX({
+      success: (urls) => {
+        console.log('图片上传成功:', urls);
+        this.setState({
+          ...this.state,
+          photo: urls[0],
+        });
+      },
+    });
   }
+
+  // onFileSelect(evt) {
+  //   const file = evt.target.files[0];
+  //   if (file) {
+  //     const fd = new FormData();
+  //     fd.append('file', file);
+
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.onreadystatechange = () => {
+  //       if (xhr.readyState === 4 && xhr.status === 200) {
+  //         const res = JSON.parse(xhr.responseText);
+
+  //         if (!res.error_code) {
+  //           this.setState({
+  //             ...this.state,
+  //             photo: res.data.url,
+  //           });
+  //           this.photo = res.data.url;
+  //         } else {
+  //           Alert.warning(`图片上传失败：${res.error_message}`);
+  //         }
+  //       }
+  //     };
+  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
+  //     xhr.send(fd);
+  //   }
+  // }
   refreshCaptcha() {
     this.setState({
       ...this.state,
-      captchaUrl: `http://alpha.api.volunteer.tmallwo.com/api/captcha?t=${Date.now()}`,
+      captchaUrl: `${API_HOST}/api/captcha?t=${Date.now()}`,
     });
   }
   render() {
     return (
       <div className="page-register">
         <div className="page-register-photo">
-          <div className="page-register-photo-container">
+          <div className="page-register-photo-container" onClick={this.onAvatarClick}>
             <Image src={this.state.photo} className="page-register-photo-img" />
-
-            <input ref={(c) => { this.uploader = c; }} onChange={this.onFileSelect} type="file" accept="image/jpeg,image/png,image/gif" className="page-register-uploader-btn" />
           </div>
         </div>
         <div className="page-register-photo-fonts">上传头像(选填)</div>
