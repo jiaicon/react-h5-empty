@@ -43,13 +43,17 @@ class Entry extends React.Component {
           <div className="page-line" />
         </div>
         <div className="page-entry-team" />
-        <div className="page-entry-team-btn" />
+        <a href={`http://alpha.api.admin.volunteer.tmallwo.com/login/${window.orgCode}`}>
+          <div className="page-entry-team-btn" />
+        </a>
         <div className="page-entry-bottom">
           <Link to="/my/register">
             <div className="page-entry-bottom-person">个人注册</div>
           </Link>
           <div className="page-entry-bottom-line" />
-          <div className="page-entry-bottom-person">团队注册</div>
+          <a href={`http://alpha.api.admin.volunteer.tmallwo.com/register/${window.orgCode}`}>
+            <div className="page-entry-bottom-person">团队注册</div>
+          </a>
         </div>
       </div>
     );

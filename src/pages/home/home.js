@@ -14,7 +14,7 @@ import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
 import { getCity } from '../../utils/funcs';
-import { requestHomeData } from './home.store';
+import { requestHomeData, saveCity } from './home.store';
 
 class HomePage extends React.Component {
 
@@ -33,23 +33,29 @@ class HomePage extends React.Component {
     };
 
     this.state = {
-      city: '定位中',
+      city: props.home.city || '定位中',
     };
   }
 
   componentWillMount() {
-    // const { home } = this.props;
+    const { home } = this.props;
 
     // if (!home.data) {
     // this.props.requestHomeData();
     // }
     // getLocation(loc=>{}, error=>);
+
+    if (home.data) {
+      return;
+    }
+
     getCity((city) => {
       this.setState({
         ...this.state,
         city,
       });
       this.props.requestHomeData();
+      this.props.saveCity(city);
     }, () => {
       Alert.error('定位失败，请确认同意微信定位授权');
       this.state = {
@@ -104,7 +110,7 @@ class HomePage extends React.Component {
           {home.data.banner
               .map(item => (
                 <Link key={item.id} to="/">
-                  <img src={item.photo} alt={item.title} />
+                  <Image src={item.photo} resize={{ width: 1500 }} />
                 </Link>
               ))}
         </Slick> : null
@@ -155,6 +161,7 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
   requestHomeData: PropTypes.func,
+  saveCity: PropTypes.func,
   home: PropTypes.shape({
     data: PropTypes.shape({
       banner: PropTypes.arrayOf(PropTypes.shape({
@@ -166,6 +173,7 @@ HomePage.propTypes = {
       })),
       project: PropTypes.arrayOf(PropTypes.shape({})),
     }),
+    city: PropTypes.string,
   }),
   user: PropTypes.shape({}),
 };
@@ -175,5 +183,5 @@ export default connect(
     home: state.home,
     user: state.user,
   }),
-  dispatch => bindActionCreators({ requestHomeData }, dispatch),
+  dispatch => bindActionCreators({ requestHomeData, saveCity }, dispatch),
 )(HomePage);
