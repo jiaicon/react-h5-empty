@@ -38,12 +38,17 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    // const { home } = this.props;
+    const { home } = this.props;
 
     // if (!home.data) {
     // this.props.requestHomeData();
     // }
     // getLocation(loc=>{}, error=>);
+
+    if (home.data) {
+      return;
+    }
+
     getCity((city) => {
       this.setState({
         ...this.state,
@@ -104,7 +109,7 @@ class HomePage extends React.Component {
           {home.data.banner
               .map(item => (
                 <Link key={item.id} to="/">
-                  <img src={item.photo} alt={item.title} />
+                  <Image src={item.photo} resize={{ width: 1500 }} />
                 </Link>
               ))}
         </Slick> : null

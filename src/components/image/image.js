@@ -6,7 +6,10 @@ class Image extends React.Component {
   static propTypes = {
     src: PropTypes.string,
     // 图片裁剪配置[100, 200]
-    resize: PropTypes.arrayOf(PropTypes.number),
+    resize: PropTypes.shape({
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
     // 默认图片，当图片无法正常展示是显示
     defaultSrc: PropTypes.string,
   }
@@ -34,7 +37,7 @@ class Image extends React.Component {
     const resize = (props.resize || []);
     const { width, height } = resize;
 
-    if (resize.length) {
+    if (width || height) {
       src = `${src}?${width || 0}x${height || 0}`;
     }
 
