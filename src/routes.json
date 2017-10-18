@@ -50,8 +50,33 @@
     "chunk": "main"
   },
   {
-    "path": "/my/collects",
+    "path": "/my/collects/",
     "page": "./pages/my/collects/collects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/collects/project",
+    "page": "./pages/my/collects/collects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/projects/",
+    "page": "./pages/my/projects/projects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/projects/wait",
+    "page": "./pages/my/projects/projects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/projects/pass",
+    "page": "./pages/my/projects/projects",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/projects/end",
+    "page": "./pages/my/projects/projects",
     "chunk": "main"
   },
   {
@@ -102,11 +127,6 @@
   {
     "path": "/my/profile/checkbox",
     "page": "./pages/my/profile/checkbox",
-    "chunk": "main"
-  },
-  {
-    "path": "/my/projects",
-    "page": "./pages/my/projects/projects",
     "chunk": "main"
   },
   {

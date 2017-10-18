@@ -10,87 +10,49 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
+import cx from 'classnames';
 import './collects.css';
 import { collectAction } from '../my.store';
-import TeamPage from './collects_team';
-import ProjectPage from './collects_project';
+import ProjectsItem from '../../../components/projects/projects';
+import TAB from './collects';
 
-import Link from '../../../components/link/link';
-
-const TAB_URL_MAPS = {
-  '/my/collects/': <TeamPage />,
-  '/my/collects/project': <ProjectPage />,
-};
-
-
-class Collects extends React.Component {
+class ProjectPage extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = {
-      page: this.getTabName(this.props),
-    };
   }
 
   componentWillMount() {
+    this.props.collectAction(0);
   }
 
   componentDidMount() {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...this.state,
-      page: this.getTabName(nextProps),
-    });
+  componentWillReceiveProps() {
   }
 
   componentWillUnmount() {}
-  getTabName(props) {
-    return TAB_URL_MAPS[(props || this.props).route.path];
-  }
 
   render() {
-    const { page } = this.state;
-    const { path } = this.props.route;
+    const { collect: { data: listData, type } } = this.props;
     return (
-      <div className="page-collects-tab-container">
-        <ul className="page-collects-tab-ul-container">
-          <li>
-            <Link to="/my/collects/">
-              <div
-                className={classnames({
-                  'page-collects-tab-ul-container-li-current': true,
-                  active: path === '/my/collects/',
-                })}
-              >团队</div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/my/collects/project">
-              <div
-                className={classnames({
-                  'page-collects-tab-ul-container-li-current': true,
-                  active: path === '/my/collects/project',
-                })}
-              >项目</div>
-            </Link>
-          </li>
-        </ul>
-        <div className="line1px" style={{ width: '100%', position: 'top', bottom: '49px', left: '0' }} />
-        <div className="page-collects-tab-content">
-          {page}
-        </div>
+
+      <div className="page-collects">
+        <ProjectsItem
+          projects={listData && type === 'project' ? listData.list : null} showLabel
+        />
+
       </div>
     );
   }
 }
-Collects.title = '我的收藏';
 
-Collects.propTypes = {
+ProjectPage.title = '我的收藏';
+
+ProjectPage.propTypes = {
   collectAction: PropTypes.func,
   collect: PropTypes.shape({
     data: PropTypes.shape({
@@ -137,9 +99,6 @@ Collects.propTypes = {
 
     }),
   }),
-  route: PropTypes.shape({
-    path: PropTypes.string,
-  }),
 };
 
 export default connect(
@@ -147,4 +106,4 @@ export default connect(
     collect: state.my.collect,
   }),
   dispatch => bindActionCreators({ collectAction }, dispatch),
-)(Collects);
+)(ProjectPage);

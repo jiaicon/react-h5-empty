@@ -10,19 +10,30 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { projectAction } from '../my.store';
-import ProjectsItem from '../../../components/projects/projects';
-import TabItem from './component/tabItem';
+
+import Link from '../../../components/link/link';
+
+import classnames from 'classnames';
+import AllPage from './projects_all';
+import WaitPage from './projects_wait';
+import PassPage from './projects_pass';
+import EndPage from './projects_end';
 
 import './projects.css';
 
+const TAB_URL_MAPS = {
+  '/my/projects/': <AllPage />,
+  '/my/projects/wait': <WaitPage />,
+  '/my/projects/pass': <PassPage />,
+  '/my/projects/end': <EndPage />,
+};
 class Projects extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
     this.state = {
-      title: ['全部', '待录用', '已录用', '已结束'],
-      current: 0,
+      page: this.getTabName(this.props),
     };
   }
 
@@ -34,47 +45,68 @@ class Projects extends React.Component {
 
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...this.state,
+      page: this.getTabName(nextProps),
+    });
   }
 
   componentWillUnmount() {}
-  handleClick(index) {
-    if (index === 0) {
-      this.props.projectAction();
-    } else {
-      this.props.projectAction(index);
-    }
-    this.setState({
-      ...this.state,
-      current: index,
-    });
-  }
-  currentClass(index) {
-    return this.state.current === index ? 'page-projects-tab-current-li' : '';
+  getTabName(props) {
+    return TAB_URL_MAPS[(props || this.props).route.path];
   }
   render() {
     const { project: { data: listData } } = this.props;
-
-    // join_status:0
+    const { page } = this.state;
+    const { path } = this.props.route;
     return (
-      <div className="page-projects">
+      <div className="page-projects-container">
         <ul className="page-projects-tab-container">
-          { this.state.title.map((val, index) =>
-           (<TabItem
-             key={index}
-             currentClass={this.currentClass}
-             handleClick={this.handleClick} val={val} index={index}
-           />))
-          }
+          <li>
+            <Link to="/my/projects/">
+              <div
+                className={classnames({
+                  'page-projects-li-a-div-style': true,
+                  active: path === '/my/projects/',
+                })}
+              >全部</div>
+            </Link>
+          </li>
+          <li>
+            <Link to="/my/projects/wait">
+              <div
+                className={classnames({
+                  'page-projects-li-a-div-style': true,
+                  active: path === '/my/projects/wait',
+                })}
+              >待录用</div>
+            </Link>
+          </li>
+          <li>
+            <Link to="/my/projects/pass">
+              <div
+                className={classnames({
+                  'page-projects-li-a-div-style': true,
+                  active: path === '/my/projects/pass',
+                })}
+              >已录用</div>
+            </Link>
+          </li>
+          <li>
+            <Link to="/my/projects/end">
+              <div
+                className={classnames({
+                  'page-projects-li-a-div-style': true,
+                  active: path === '/my/projects/end',
+                })}
+              >已结束</div>
+            </Link>
+          </li>
         </ul>
         <div className="line1px" />
-        <div className="page-projects-main-box">
-          {this.props.project.data ?
-            <ProjectsItem projects={listData ? listData.list : null} showLabel />
-            :
-            <div className="page-projects-main-no-info">还未加入项目</div>
-          }
-
+        <div className="page-projects-content-main">
+          {page}
         </div>
 
       </div>
@@ -121,6 +153,9 @@ Projects.propTypes = {
         }),
       ),
     }),
+  }),
+  route: PropTypes.shape({
+    path: PropTypes.string,
   }),
 };
 
