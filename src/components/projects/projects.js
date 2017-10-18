@@ -60,8 +60,8 @@ class Projects extends React.Component {
                         className={classnames({
                           'project-status': true,
                           'project-status-employed': project.join_status === 1,
-                          'project-status-employed-wait': project.join_status === 2,
-                          'project-status-employed-end': project.join_status === 3,
+                          'project-status-employed-wait': project.join_status === 0,
+                          'project-status-employed-end': project.project_status === 5,
                         })}
                       />
                     :
