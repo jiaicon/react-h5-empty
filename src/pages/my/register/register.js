@@ -260,7 +260,7 @@ class Register extends React.Component {
         </div>
         {/** 1.jpg 正方  2.jpg 竖长  3.jpg 横长 */}
         <div className="avatar">
-          <Avatar show src="/images/3.jpg" />
+          <Avatar show={false} bg src="" />
         </div>
       </div>
     );

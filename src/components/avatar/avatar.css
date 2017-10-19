@@ -22,3 +22,10 @@
   width: 100%;
   height: 100%;
 }
+/* 背景 */
+.avatar-bg1{
+  background-image: url(/images/my/register.png);
+}
+.avatar-bg2{
+  background-image: url(/images/default_avatar.png);
+}
