@@ -14,6 +14,7 @@ import Image from '../../components/image/image';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
 import { getCity } from '../../utils/funcs';
+import uploadToWX from '../../utils/wxupload';
 import { requestHomeData, saveCity } from './home.store';
 
 class HomePage extends React.Component {
