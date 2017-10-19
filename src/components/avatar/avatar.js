@@ -7,7 +7,7 @@ import './avatar.css';
 class Avatar extends React.Component {
 
   static propTypes = {
-    // 确定人物头像，还是logo头像  show人物头像圆形    ！show LOGO方形状   bg控制人物背景图  !bg LOGO   bug:1.src传入坏死链接，无背景图  2.不能直接给组件改变大小，得套容器
+    // 确定人物头像，还是logo头像  show人物头像圆形    ！show LOGO方形状   bg控制人物背景图  !bg LOGO   bug: 1.不能直接给组件改变大小，得套容器
     show: PropTypes.bool,
     src: PropTypes.string,
     bg: PropTypes.bool,
@@ -34,6 +34,7 @@ class Avatar extends React.Component {
   }
   // 动态确定SRC为长方形，正方形
   getUrlWidthAndHeight(url) {
+    const show = this.props.show;
     const img = new Image();
     img.src = url;
     if (img.complete) {
@@ -57,6 +58,18 @@ class Avatar extends React.Component {
       });
     };
     this.imgload();
+    img.onerror = function imgerror() {
+      if (show) {
+        this.setState({
+          src: this.avatarSrc,
+        });
+      } else {
+        this.setState({
+          src: this.logoSrc,
+        });
+      }
+    };
+    this.imgerror();
   }
 
   configSrc(props) {
