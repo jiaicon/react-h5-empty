@@ -111,7 +111,6 @@ class ProjectListPage extends React.Component {
             </Link>
           </div>
         </div>
-        <div className="line1px" />
         <div className="body">
           <div className="project-filter-container" style={{ height: this.state.isFilterShow ? '100%' : 'auto' }}>
             <Filter

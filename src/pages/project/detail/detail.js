@@ -1,4 +1,6 @@
 /* global wx:false */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
+
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import Slick from 'react-slick';
@@ -113,8 +115,8 @@ class ProjectDetailPage extends React.Component {
     return (<div className="slick-container">
       <Slick {...this.slickSettings}>
         {detailData.photo
-              .map(item => (
-                <Image src={item} defaultSrc="/images/default_banner.png" />
+              .map((item, index) => (
+                <Image key={index} src={item} defaultSrc="/images/default_banner.png" />
               ))}
       </Slick>
     </div>);
@@ -133,6 +135,9 @@ class ProjectDetailPage extends React.Component {
     // activity_status: [integer] 活动状态 1 招募中，2进行中 3已结束
     const joined = isLogin && (detailData.join_status === 0 || detailData.join_status === 1);
     const fulled = detailData.join_people_count === detailData.people_count;
+    const serviceCategories = detailData.category.map(category => category.service_category_name);
+    const serviceObjects = detailData.service_object.map(obj => obj.service_object_name);
+
     let actionLabel = '';
     let actionClassName = '';
     let action = '';
@@ -150,6 +155,9 @@ class ProjectDetailPage extends React.Component {
       actionLabel = '我要报名';
       actionClassName = 'project-action-available';
       action = 'join';
+    } else if (joined && detailData.join_status === 0) {
+      actionLabel = '审核中';
+      actionClassName = 'project-action-audit';
     } else if (joined) {
       actionLabel = '我要退出';
       actionClassName = 'project-action-quit';
@@ -175,7 +183,7 @@ class ProjectDetailPage extends React.Component {
             {detailData.name}
           </div>
           <div className="project-category">
-            #&nbsp;{detailData.category.service_category_name}
+            #&nbsp;{serviceCategories.join('、')}
           </div>
           <div className="project-detail-list">
             <ul>
@@ -189,7 +197,7 @@ class ProjectDetailPage extends React.Component {
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">服务对象</div>
-                <div className="detail-content">{detailData.service_object.service_object_name}</div>
+                <div className="detail-content">{serviceObjects.join('、')}</div>
               </li>
               <li>
                 <div className="item-point" />
@@ -220,8 +228,7 @@ class ProjectDetailPage extends React.Component {
               <span>志愿保障</span>
               <div className="line1px-v" />
               <div className="guard-detail">
-                <div>志愿者保险、专业培训</div>
-                <div>志愿者保险、专业培训</div>
+                <div>{detailData.volunteer_security}</div>
               </div>
             </div>
           </div>

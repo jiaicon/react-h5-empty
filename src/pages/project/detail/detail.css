@@ -140,6 +140,7 @@
   color: #666666;
   letter-spacing: 0;
   line-height: 12px;
+  width: 65px;
 }
 
 .page-project-detail .body .project-detail-list .project-guard .line1px-v {
@@ -152,6 +153,7 @@
   font-size: 14px;
   color: #333333;
   line-height: 18px;
+  overflow: hidden;
 }
 
 .page-project-detail .body .project-report {
@@ -272,5 +274,10 @@
 .page-project-detail .foot .project-action-full, .page-project-detail .foot .project-action-end {
   background: #666666;
   color: #ffffff;
+}
+
+.page-project-detail .foot .project-action-audit {
+  background: #FDCD89;
+  color: #666666;
 }
 
