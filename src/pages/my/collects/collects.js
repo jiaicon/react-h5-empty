@@ -58,29 +58,31 @@ class Collects extends React.Component {
     const { path } = this.props.route;
     return (
       <div className="page-collects-tab-container">
-        <ul className="page-collects-tab-ul-container">
-          <li>
-            <Link to="/my/collects/">
-              <div
-                className={classnames({
-                  'page-collects-tab-ul-container-li-current': true,
-                  active: path === '/my/collects/',
-                })}
-              >团队</div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/my/collects/project">
-              <div
-                className={classnames({
-                  'page-collects-tab-ul-container-li-current': true,
-                  active: path === '/my/collects/project',
-                })}
-              >项目</div>
-            </Link>
-          </li>
-        </ul>
-        <div className="line1px" style={{ width: '100%', position: 'top', bottom: '49px', left: '0' }} />
+        <div style={{ width: '100%', height: '50px' }}>
+          <ul className="page-collects-tab-ul-container">
+            <li>
+              <Link to="/my/collects/">
+                <div
+                  className={classnames({
+                    'page-collects-tab-ul-container-li-current': true,
+                    active: path === '/my/collects/',
+                  })}
+                >团队</div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/my/collects/project">
+                <div
+                  className={classnames({
+                    'page-collects-tab-ul-container-li-current': true,
+                    active: path === '/my/collects/project',
+                  })}
+                >项目</div>
+              </Link>
+            </li>
+          </ul>
+          <div className="line1px" style={{ width: '100%' }} />
+        </div>
         <div className="page-collects-tab-content">
           {page}
         </div>

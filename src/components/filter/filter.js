@@ -100,6 +100,7 @@ class Filter extends React.Component {
     return (
       <div className="component-project-filter">
         <div className="filter-header">
+          {/** line1px-top */}
           <div className="line1px line1px-top" />
           <div className="filter-actions">
             <a className={classnames({ opened: showOptionsType === 'types' })} onClick={this.handleFilterHeaderClick('types')}>

@@ -414,7 +414,7 @@ input::-webkit-input-placeholder{
   display: flex;
   align-items: stretch;
   height: 32px;
-  opacity: 0.9;
+  opacity: .95;
   border-radius: 16px;
   background: #F8F8F8 url(/images/search.png) no-repeat 10px center;
   background-size: 25px 25px;
@@ -426,7 +426,7 @@ input::-webkit-input-placeholder{
   margin-left: 45px;
   flex: 1;
   font-size: 14px;
-  color: #C0C0C0;
+  color: #333;
 }
 
 .component-loading-more {

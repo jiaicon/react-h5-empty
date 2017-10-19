@@ -62,49 +62,50 @@ class Projects extends React.Component {
     const { path } = this.props.route;
     return (
       <div className="page-projects-container">
-        <ul className="page-projects-tab-container">
-          <li>
-            <Link to="/my/projects/">
-              <div
-                className={classnames({
-                  'page-projects-li-a-div-style': true,
-                  active: path === '/my/projects/',
-                })}
-              >全部</div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/my/projects/wait">
-              <div
-                className={classnames({
-                  'page-projects-li-a-div-style': true,
-                  active: path === '/my/projects/wait',
-                })}
-              >待录用</div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/my/projects/pass">
-              <div
-                className={classnames({
-                  'page-projects-li-a-div-style': true,
-                  active: path === '/my/projects/pass',
-                })}
-              >已录用</div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/my/projects/end">
-              <div
-                className={classnames({
-                  'page-projects-li-a-div-style': true,
-                  active: path === '/my/projects/end',
-                })}
-              >已结束</div>
-            </Link>
-          </li>
-        </ul>
-        <div className="line1px" />
+        <div style={{ width: '100%', height: '50px' }}>
+          <ul className="page-projects-tab-container">
+            <li>
+              <Link to="/my/projects/">
+                <div
+                  className={classnames({
+                    'page-projects-li-a-div-style': true,
+                    active: path === '/my/projects/',
+                  })}
+                >全部</div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/my/projects/wait">
+                <div
+                  className={classnames({
+                    'page-projects-li-a-div-style': true,
+                    active: path === '/my/projects/wait',
+                  })}
+                >待录用</div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/my/projects/pass">
+                <div
+                  className={classnames({
+                    'page-projects-li-a-div-style': true,
+                    active: path === '/my/projects/pass',
+                  })}
+                >已录用</div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/my/projects/end">
+                <div
+                  className={classnames({
+                    'page-projects-li-a-div-style': true,
+                    active: path === '/my/projects/end',
+                  })}
+                >已结束</div>
+              </Link>
+            </li>
+          </ul><div className="line1px" style={{ width: '100%' }} />
+        </div>
         <div className="page-projects-content-main">
           {page}
         </div>

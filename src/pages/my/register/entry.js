@@ -38,9 +38,9 @@ class Entry extends React.Component {
           <div className="page-entry-person-btn" />
         </Link>
         <div className="page-line-box">
-          <div className="page-line" />
+          <div className="line1px" style={{ width: '56px' }} />
           <p className="page-fonts">OR</p>
-          <div className="page-line" />
+          <div className="line1px" style={{ width: '56px' }} />
         </div>
         <div className="page-entry-team" />
         <a href={`http://alpha.api.admin.volunteer.tmallwo.com/login/${window.orgCode}`}>
@@ -48,11 +48,18 @@ class Entry extends React.Component {
         </a>
         <div className="page-entry-bottom">
           <Link to="/my/register">
-            <div className="page-entry-bottom-person">个人注册</div>
+            <div className="page-entry-bottom-person">
+            个人注册
+
+            </div>
+            <div className="line1px" style={{ width: '100%', background: '#6AC6F8' }} />
           </Link>
           <div className="page-entry-bottom-line" />
           <a href={`http://alpha.api.admin.volunteer.tmallwo.com/register/${window.orgCode}`}>
-            <div className="page-entry-bottom-person">团队注册</div>
+            <div className="page-entry-bottom-person">
+            团队注册
+            </div>
+            <div className="line1px" style={{ width: '100%', background: '#6AC6F8' }} />
           </a>
         </div>
       </div>

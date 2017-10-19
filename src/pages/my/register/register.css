@@ -42,6 +42,7 @@
   width: 151px;
   height: 49px;
   line-height: 49px;
+  display: block;
   font-size: 15px;
   color: #333333;
   outline: none;

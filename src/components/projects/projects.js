@@ -59,8 +59,8 @@ class Projects extends React.Component {
                       <div
                         className={classnames({
                           'project-status': true,
-                          'project-status-employed': project.join_status === 1,
-                          'project-status-employed-wait': project.join_status === 0,
+                          'project-status-employed': project.join_status === 1 && project.project_status !== 5,
+                          'project-status-employed-wait': project.join_status === 0 && project.project_status !== 5,
                           'project-status-employed-end': project.project_status === 5,
                         })}
                       />
