@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import './post.css';
-import DutationProjects from '../../../components/duration_apply/projects';
+import DutationProjects from '../../../components/duration/projects';
 import { postapplyAction, projectapplyAction } from '../my.store';
 import history from '../../history';
 import uploadToWX from '../../../utils/wxupload';
@@ -76,34 +76,6 @@ class Post extends React.Component {
     });
   }
 
-  // onFileSelect(evt) {
-  //   const attachment = this.state.attachment;
-  //   const file = evt.target.files[0];
-  //   if (file) {
-  //     const fd = new FormData();
-  //     fd.append('file', file);
-
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.onreadystatechange = () => {
-  //       if (xhr.readyState === 4 && xhr.status === 200) {
-  //         const res = JSON.parse(xhr.responseText);
-
-  //         if (!res.error_code) {
-  //           attachment.push(res.data.url);
-  //           this.setState({
-  //             ...this.state,
-  //             attachment,
-  //           });
-  //           this.photo = res.data.url;
-  //         } else {
-  //           Alert.warning(`图片上传失败：${res.error_message}`);
-  //         }
-  //       }
-  //     };
-  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-  //     xhr.send(fd);
-  //   }
-  // }
   onDel(e) {
     const attachment = this.state.attachment;
     const num = e.target.id;
@@ -146,14 +118,14 @@ class Post extends React.Component {
       Alert.warning('请选择补录项目');
     }
     if (!hours) {
-      Alert.warning('请输入补录时间');
+      Alert.warning('请输入正确的补录时间');
       return;
     }
     if (!content) {
       Alert.warning('请输入详细说明');
       return;
     }
-    if (attachment.length != 0) {
+    if (attachment.length !== 0) {
       data.attachment = attachment;
     }
 
@@ -180,14 +152,14 @@ class Post extends React.Component {
             >{data.name ? data.name : '补录时长项目'}</div>
             <div className="page-post-container-item-more" />
           </div>
-          <input type="number" className="page-post-container-text" placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }} onKeyUp={this.onTextChanged} />
+          <input type="tel" maxLength="2" className="page-post-container-text" placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }} onKeyUp={this.onTextChanged} />
           <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
           <div className="page-post-container-photo-text" >工作证明图片(选填)</div>
           <div className="page-post-container-photo-container">
             {
               attachment.map((item, key) => (
                 <div className="page-applys-item-render-container">
-                  <img src={item} alt="" />
+                  <div className="page-applys-item-view" style={{ backgroundImage: { item } }} />
                   <div className="page-applys-item-render-del" onClick={this.onDel} id={key} key={item} />
                 </div>
               ))
@@ -216,6 +188,7 @@ class Post extends React.Component {
               <DutationProjects
                 durationProject={this.props.projectapply.data ? this.props.projectapply.data.list : null}
                 HandleClick={this.HandleClick}
+                isEntry={false}
               />
             </div>
 
