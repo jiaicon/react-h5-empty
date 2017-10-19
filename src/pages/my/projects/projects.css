@@ -6,6 +6,8 @@
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  flex-direction: column;
 }
 .page-projects-tab-container{
   width: 100%;
@@ -32,4 +34,6 @@
 
 .page-projects-content-main{
   flex: 1;
+  overflow-y: scroll;
+  height: 100%;
 }

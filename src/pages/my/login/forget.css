@@ -18,6 +18,8 @@
   font-size: 15px;
   color: #999999;
   margin-right: 15px;
+  height: 49px;
+  line-height: 49px;
 }
 .page-forget-input{
   width: 98px;
@@ -25,6 +27,9 @@
   font-size: 15px;
   color: #333333;
   outline: none;
+  display: block;
+  height: 49px;
+  line-height: 49px;
 }
 .page-forget-code{
   font-size: 13px;
@@ -46,4 +51,5 @@
   color: #333333;
   width: 295px;
   margin-bottom: 23px;
+  font-weight: 800;
 }

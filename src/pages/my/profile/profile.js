@@ -148,12 +148,18 @@ class Profile extends React.Component {
           <div className="line1px" />
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">用户名</div>
-            <div className="page-profile-initial-fonts">{user.username}</div>
+            <div className="page-profile-edit-box">
+              <div className="page-profile-initial-fonts">{user.username}</div>
+              <div className="page-profile-initial-fonts-take-up" />
+            </div>
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">志愿者编号</div>
-            <div className="page-profile-initial-fonts">{user.identifier}</div>
+            <div className="page-profile-edit-box">
+              <div className="page-profile-initial-fonts">{user.identifier}</div>
+              <div className="page-profile-initial-fonts-take-up" />
+            </div>
           </div>
           <div className="line1px" />
           <Link to="/my/profile/checkbox">
@@ -232,12 +238,18 @@ class Profile extends React.Component {
           <div className="line1px" />
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">用户名</div>
-            <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
+            <div className="page-profile-edit-box">
+              <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
+              <div className="page-profile-initial-fonts-take-up" />
+            </div>
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">志愿者编号</div>
-            <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
+            <div className="page-profile-edit-box">
+              <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
+              <div className="page-profile-initial-fonts-take-up" />
+            </div>
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>

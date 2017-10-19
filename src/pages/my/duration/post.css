@@ -137,9 +137,11 @@
   margin-right: 12px;
   position: relative;
 }
-.page-applys-item-render-container img{
+.page-applys-item-view{
   width: 100px;
   height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
   position: absolute;
   top: 0;
   left: 0;

@@ -60,7 +60,7 @@ class Duration extends React.Component {
         <div className="line1px" />
 
         <div className="page-duration-main-box">
-          <DutationProjects durationProject={this.props.reward.data ? listData.project : null} />
+          <DutationProjects durationProject={this.props.reward.data ? listData.project : null} isEntry />
         </div>
 
 

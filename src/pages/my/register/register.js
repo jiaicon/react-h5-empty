@@ -77,13 +77,8 @@ class Register extends React.Component {
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const password = this.state.password;
-    const agreement = this.state.agreement;
     const photo = this.state.photo;
     if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
-      return;
-    }
-    if (!agreement) {
-      Alert.warning('请确认已阅读《志多星协议》');
       return;
     }
     if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
@@ -156,10 +151,10 @@ class Register extends React.Component {
     const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
     const captcha = this.captcha.value.replace(/(^\s+)|(\s+$)/g, '');
     const password = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
-    const agreement = this.checkbox.checked;
+
     this.setState({
       ...this.state,
-      agreement,
+
       captcha,
       name,
       phone,
@@ -179,33 +174,6 @@ class Register extends React.Component {
       },
     });
   }
-
-  // onFileSelect(evt) {
-  //   const file = evt.target.files[0];
-  //   if (file) {
-  //     const fd = new FormData();
-  //     fd.append('file', file);
-
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.onreadystatechange = () => {
-  //       if (xhr.readyState === 4 && xhr.status === 200) {
-  //         const res = JSON.parse(xhr.responseText);
-
-  //         if (!res.error_code) {
-  //           this.setState({
-  //             ...this.state,
-  //             photo: res.data.url,
-  //           });
-  //           this.photo = res.data.url;
-  //         } else {
-  //           Alert.warning(`图片上传失败：${res.error_message}`);
-  //         }
-  //       }
-  //     };
-  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-  //     xhr.send(fd);
-  //   }
-  // }
   refreshCaptcha() {
     this.setState({
       ...this.state,
@@ -262,8 +230,7 @@ class Register extends React.Component {
         </ul>
         <div className="page-register-submmit" onClick={this.onSubmit}>确认提交</div>
         <div className="page-register-agree">
-          <input type="checkbox" onClick={this.onTextChanged} className="page-register-checkbox" ref={(c) => { this.checkbox = c; }} />
-          我已阅读并授权
+          提交代表已阅读
           <Link to="/my/agree">
             <span className="page-register-agreement">《志多星用户协议》</span>
           </Link>

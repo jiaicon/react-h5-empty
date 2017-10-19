@@ -25,6 +25,8 @@
   font-size: 15px;
   color: #999999;
   outline: none;
+  height: 49px;
+  display: block;
 }
 .page-login-forget{
   width: 295px;

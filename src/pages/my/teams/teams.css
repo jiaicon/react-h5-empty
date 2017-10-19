@@ -56,12 +56,10 @@ input::-webkit-input-placeholder{
 .page-teams-main{
   flex: 1;
   overflow-y: scroll;
-  padding-left: 15px;
-  padding-right:15px;
   display: flex;
   flex-direction:column;
 }
 .page-teams-container-box{
-  width:345px;
+  width:100%;
   height: 30px;
 }

@@ -65,24 +65,26 @@ class Verify extends React.Component {
   }
 
   componentWillUnmount() {}
+  //  const sex = this.sex.value.replace(/(^\s+)|(\s+$)/g, '');
   onTextChanged() {
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
-    const sex = this.sex.value.replace(/(^\s+)|(\s+$)/g, '');
+
     const people = this.people.value.replace(/(^\s+)|(\s+$)/g, '');
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       address,
-      sex,
+
       realname,
       idcard,
       people,
     });
   }
+  //  || checkEmpty(sex, '性别')
   onSubmit() {
     const realname = this.state.realname;
     const idcard = this.state.idcard;
-    const sex = this.state.sex;
+
     const people = this.state.people;
     const address = this.state.address;
     const province = this.state.province;
@@ -91,7 +93,6 @@ class Verify extends React.Component {
     if (
       checkEmpty(realname, '姓名')
       || checkEmpty(idcard, '身份证号码')
-      || checkEmpty(sex, '性别')
       || checkEmpty(people, '民族')
       || checkEmpty(province, '省份')
       || checkEmpty(city, '城市')
@@ -133,6 +134,11 @@ class Verify extends React.Component {
       county: this.county.value,
     });
   }
+//   <div className="page-my-profile-verify-header-box">
+//   <div className="page-my-profile-verify-fonts">性别</div>
+//   <input type="text" ref={(c) => { this.sex = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+// </div>
+// <div className="line1px" />
   render() {
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
@@ -151,11 +157,7 @@ class Verify extends React.Component {
             <input type="text" maxLength="18" ref={(c) => { this.idcard = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
           </div>
           <div className="line1px" />
-          <div className="page-my-profile-verify-header-box">
-            <div className="page-my-profile-verify-fonts">性别</div>
-            <input type="text" ref={(c) => { this.sex = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-          </div>
-          <div className="line1px" />
+
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">民族</div>
             <input type="text" ref={(c) => { this.people = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
