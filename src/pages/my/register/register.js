@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import history from '../../history';
 import { requestVerifyCode, register } from './register.store';
-
+import Avatar from '../../../components/avatar/avatar';
 import './register.css';
 import Image from '../../../components/image/image';
 import uploadToWX from '../../../utils/wxupload';
@@ -37,7 +37,7 @@ class Register extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      captchaUrl: 'http://alpha.api.volunteer.tmallwo.com/api/captcha',
+      captchaUrl: `${API_HOST}/api/captcha`,
       buttonString: '获取验证码',
       timer: null,
       countDownTrigger: true,
@@ -174,6 +174,29 @@ class Register extends React.Component {
       },
     });
   }
+  onFileSelect(evt) {
+    const file = evt.target.files[0];
+    if (file) {
+      const fd = new FormData();
+      fd.append('file', file);
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const res = JSON.parse(xhr.responseText);
+          if (!res.error_code) {
+            this.setState({
+              ...this.state,
+              test: res.data.url,
+            });
+          } else {
+            Alert.warning(`图片上传失败：${res.error_message}`);
+          }
+        }
+      };
+      xhr.open('POST', `${API_HOST}/api/imgupload`, true);
+      xhr.send(fd);
+    }
+  }
   refreshCaptcha() {
     this.setState({
       ...this.state,
@@ -234,6 +257,10 @@ class Register extends React.Component {
           <Link to="/my/agree">
             <span className="page-register-agreement">《志多星用户协议》</span>
           </Link>
+        </div>
+        {/** 1.jpg 正方  2.jpg 竖长  3.jpg 横长 */}
+        <div className="avatar">
+          <Avatar show src="/images/3.jpg" />
         </div>
       </div>
     );

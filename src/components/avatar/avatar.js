@@ -7,9 +7,10 @@ import './avatar.css';
 class Avatar extends React.Component {
 
   static propTypes = {
-    // 确定人物头像，还是logo头像
-    isAvatar: PropTypes.bool,
+    // 确定人物头像，还是logo头像  show人物头像园    ！show LOGO方
+    show: PropTypes.bool,
     src: PropTypes.string,
+    shape: PropTypes.bool,
 
   }
 
@@ -22,7 +23,6 @@ class Avatar extends React.Component {
 
     this.state = {
       src: this.configSrc(props),
-      ratio: 0,
     };
   }
 
@@ -42,6 +42,9 @@ class Avatar extends React.Component {
           ratio: 1,
         });
       }
+      this.setState({
+        ratio: 0,
+      });
     }
     img.onload = function imgload() {
       if (img.width === img.height) {
@@ -49,14 +52,17 @@ class Avatar extends React.Component {
           ratio: 1,
         });
       }
+      this.setState({
+        ratio: 0,
+      });
     };
     this.imgload();
   }
 
   configSrc(props) {
-    const isAvatar = this.props.isAvatar;
+    const show = this.props.show;
     let src = this.props.src;
-    if (isAvatar) {
+    if (show) {
       src = props.src || this.avatarSrc;
     } else {
       src = props.src || this.logoSrc;
@@ -68,16 +74,17 @@ class Avatar extends React.Component {
   render() {
     const src = this.state.src;
     const ratio = this.state.ratio;
-    const isAvatar = this.props.isAvatar;
+    const show = this.props.show;
+    const shape = this.props.shape;
 
     return (<div
       className={classnames({
-        'avatar-box': ratio,
-        'avatar-center': !ratio,
-        'avatar-square': !isAvatar,
-        'avatar-round': isAvatar,
+        'avatar-box': !ratio,
+        'avatar-center': ratio,
+        'avatar-square': !show,
+        'avatar-round': show,
       })}
-      style={{ backgroundImage: { src } }}
+      style={{ backgroundImage: `url(${src})` }}
     />);
   }
 

@@ -37,19 +37,15 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.userId = props.route.params.userId;
     this.state = ({
       photo: '',
+
     });
-    const params = location.pathname;
-    const num = params.indexOf('detail/');
-    const userId = params.slice(num + 7);
-    this.userId = userId;
   }
 
   componentWillMount() {
-    const params = location.pathname;
-    const num = params.indexOf('detail/');
-    const userId = params.slice(num + 7);
+    const userId = this.props.route.params.userId;
     this.setState({
       ...this.state,
       userId,
@@ -375,6 +371,12 @@ Profile.propTypes = {
     good_at: PropTypes.arrayOf(PropTypes.shape({
 
     })),
+
+  }),
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      userId: PropTypes.string,
+    }),
   }),
 };
 
