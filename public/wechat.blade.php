@@ -14,6 +14,14 @@
     var scale = screenWidth / designWidth;
     var meta = '<meta name="viewport" content="width=' + designWidth + ", initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ', user-scalable=no, target-densitydpi=device-dpi, minimal-ui" >';
     document.write(meta);
+
+    // 调试工具，url 中加入 debug 开启
+    ;(function () {
+        if (!/debug/.test(window.location)) return;
+        var src = '/lib/eruda.min.js';
+        document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+        document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+    })();
   </script>
   <script src="/lib/jweixin-1.0.0.js"></script>
   <script>
@@ -61,7 +69,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-  <script src="/dist/main.43712b37533d25658d97.js"></script>
+  <script src="/dist/main.bf1c8c6032f001640cd4.js"></script>
 </body>
 
 </html>

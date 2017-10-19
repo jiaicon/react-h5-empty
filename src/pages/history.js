@@ -9,5 +9,8 @@
  */
 
 import createHistory from 'history/createBrowserHistory';
+import createHashHistory from 'history/createHashHistory';
 
-export default createHistory();
+const isWeixinAndroid = /Android/.test(navigator.userAgent) && /MicroMessenger/.test(navigator.userAgent);
+
+export default isWeixinAndroid ? createHashHistory() : createHistory();

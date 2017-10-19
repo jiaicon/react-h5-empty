@@ -95,7 +95,10 @@ export default function request(requestUrl, requestOptions = {}) {
         history.replace('/my/entry');
       } else {
         console.log('请求返回失败-', url, json);
-        Alert.error(`请求失败: ${json.error_message}`);
+
+        if (options.noRedirect !== true) {
+          Alert.error(`请求失败: ${json.error_message}`);
+        }
 
         reject(json);
       }
