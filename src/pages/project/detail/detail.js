@@ -3,9 +3,15 @@
 
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+import { Dialog } from 'react-weui';
+import 'weui/dist/style/weui.css';
+import 'react-weui/build/packages/react-weui.css';
+
 import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -44,6 +50,25 @@ class ProjectDetailPage extends React.Component {
       arrows: false,
       autoplay: true,
       autoplaySpeed: 6000,
+    };
+
+    this.dialog = {
+      title: '提示',
+      buttons: [
+        {
+          type: 'default',
+          label: '取消',
+          onClick: () => this.setState({ ...this.state, showDialog: false }),
+        },
+        {
+          type: 'primary',
+          label: '确认',
+          onClick: () => {
+            this.setState({ ...this.state, showDialog: false });
+            this.props.quitProject(this.projectId);
+          },
+        },
+      ],
     };
   }
 
@@ -111,8 +136,8 @@ class ProjectDetailPage extends React.Component {
         }
 
         this.props.joinProject(projectId);
-      } else if (action === 'quit' && window.confirm('确定要退出吗？')) {
-        this.props.quitProject(projectId);
+      } else if (action === 'quit') {
+        this.setState({ ...this.state, showDialog: true });
       }
     };
   }
@@ -272,6 +297,9 @@ class ProjectDetailPage extends React.Component {
             {actionLabel}
           </Link>
         </div>
+        <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+            确定要退出项目吗？
+        </Dialog>
         {
           this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
         }

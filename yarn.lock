@@ -4803,6 +4803,14 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
+react-weui@^1.1.3:
+  version "1.1.3"
+  resolved "http://registry.npm.taobao.org/react-weui/download/react-weui-1.1.3.tgz#d40601c80c44d9cb7852c301f2b0ef24dd8488b4"
+  dependencies:
+    babel-runtime "^6.18.0"
+    prop-types "^15.5.10"
+    weui "^1.1.0"
+
 react@^15.4.2:
   version "15.6.1"
   resolved "http://registry.npm.taobao.org/react/download/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
@@ -5995,6 +6003,10 @@ weinre@^2.0.0-pre-I0Z7U9OV:
     express "2.5.x"
     nopt "3.0.x"
     underscore "1.7.x"
+
+weui@^1.1.0, weui@^1.1.2:
+  version "1.1.2"
+  resolved "http://registry.npm.taobao.org/weui/download/weui-1.1.2.tgz#e33f771e2248edfe0fd07a2c6eadb3e7931a00cc"
 
 whatwg-fetch@>=0.10.0, whatwg-fetch@^2.0.3:
   version "2.0.3"
