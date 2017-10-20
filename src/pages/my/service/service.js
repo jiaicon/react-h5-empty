@@ -56,7 +56,7 @@ class Service extends React.Component {
           </div>
           <div className="line1px" />
         </Link>
-        <Link to="/my/service/center">
+        <a href="tel:010 - 26002600">
           <div className="page-service-item">
             <div className="page-service-item-fonts-box">
               <h3>客服中心</h3>
@@ -64,7 +64,7 @@ class Service extends React.Component {
             </div>
             <div className="page-service-item-bg page-service-item-bg3" />
           </div>
-        </Link>
+        </a>
 
       </div>
     );

@@ -1,31 +1,12 @@
-.avatar-box{
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
+.component-avatar-size-cover{
+  background-repeat: cover;
 }
-.avatar-center{
+.component-avatar-postition-center{
   background-position: center;
+}
+.component-avatar-norepeat{
   background-repeat: no-repeat;
-  width: 100%;
-  height: 100%;
 }
-/* 正方 */
-.avatar-square{
-  border-radius: 4px;
-  width: 100%;
-  height: 100%;}
-/* 原型 */
-
-.avatar-round{
+.component-avatar-shape{
   border-radius: 50%;
-  width: 100%;
-  height: 100%;
-}
-/* 背景 */
-.avatar-bg1{
-  background-image: url(/images/my/register.png);
-}
-.avatar-bg2{
-  background-image: url(/images/default_avatar.png);
 }

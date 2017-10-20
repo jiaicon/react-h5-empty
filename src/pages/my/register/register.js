@@ -14,9 +14,10 @@ import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import history from '../../history';
 import { requestVerifyCode, register } from './register.store';
-import Avatar from '../../../components/avatar/avatar';
-import './register.css';
+
 import Image from '../../../components/image/image';
+
+import './register.css';
 import uploadToWX from '../../../utils/wxupload';
 
 const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
@@ -258,10 +259,7 @@ class Register extends React.Component {
             <span className="page-register-agreement">《志多星用户协议》</span>
           </Link>
         </div>
-        {/** 1.jpg 正方  2.jpg 竖长  3.jpg 横长 */}
-        <div className="avatar">
-          <Avatar show={false} bg src="" />
-        </div>
+
       </div>
     );
   }
