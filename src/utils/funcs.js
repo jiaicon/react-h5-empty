@@ -117,3 +117,35 @@ export function setToken(token) {
     window.token = token;
   }
 }
+
+/**
+ * 时间戳转日期
+ * @param {int} timestamp 时间戳
+ * @return {string} 例如 2017年7月27日
+ */
+export function timestampToDateText(timestamp) {
+  let ts = timestamp;
+
+  if ((`${ts}`).length === 10) {
+    ts *= 1000;
+  }
+
+  const date = new Date(ts);
+
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+}
+
+/**
+* 2017-10-18 转 2017年10月18日
+* @param {string} dateText
+*/
+export function dateTextToDateText(dateText) {
+  const re = /^(\d+)-(\d+)-(\d+)$/;
+  const match = dateText.match(re);
+
+  if (match) {
+    return `${match[1]}年${match[2]}月${match[3]}日`;
+  }
+
+  return '';
+}

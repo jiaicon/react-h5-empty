@@ -156,7 +156,7 @@ class ProjectDetailPage extends React.Component {
       actionClassName = 'project-action-available';
       action = 'join';
     } else if (joined && detailData.join_status === 0) {
-      actionLabel = '审核中';
+      actionLabel = '等待审核';
       actionClassName = 'project-action-audit';
     } else if (joined) {
       actionLabel = '我要退出';

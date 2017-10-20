@@ -5,12 +5,12 @@
 /* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
-import history from '../../history';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import history from '../../history';
 import { requestUserInfo } from '../../../stores/common';
-import { checkUser, addressDataAction } from './profile.store.js';
+import { checkUser, addressDataAction } from './profile.store';
 import './verify.css';
 
 function checkEmpty(value, label) {
@@ -60,12 +60,14 @@ class Verify extends React.Component {
     const { check: Ccheck } = this.props;
     const { check: Ncheck } = nextProps;
     if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
+      this.props.requestUserInfo();
+      // TODO 如果从项目跳过来的需要跳回去
       history.replace('/my/profile');
     }
   }
 
   componentWillUnmount() {}
-  //  const sex = this.sex.value.replace(/(^\s+)|(\s+$)/g, '');
+
   onTextChanged() {
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -80,7 +82,7 @@ class Verify extends React.Component {
       people,
     });
   }
-  //  || checkEmpty(sex, '性别')
+
   onSubmit() {
     const realname = this.state.realname;
     const idcard = this.state.idcard;
@@ -114,6 +116,7 @@ class Verify extends React.Component {
     };
     this.props.checkUser(data);
   }
+
   handleProvinceClick() {
     this.setState({
       ...this.state,
@@ -121,6 +124,7 @@ class Verify extends React.Component {
     });
     this.props.addressDataAction(this.province.value);
   }
+
   handleCityClick() {
     this.setState({
       ...this.state,
@@ -128,17 +132,14 @@ class Verify extends React.Component {
     });
     this.props.addressDataAction(this.city.value);
   }
+
   handleCountryClick() {
     this.setState({
       ...this.state,
       county: this.county.value,
     });
   }
-//   <div className="page-my-profile-verify-header-box">
-//   <div className="page-my-profile-verify-fonts">性别</div>
-//   <input type="text" ref={(c) => { this.sex = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-// </div>
-// <div className="line1px" />
+
   render() {
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
@@ -214,6 +215,7 @@ class Verify extends React.Component {
 Verify.title = '实名认证';
 Verify.propTypes = {
   checkUser: PropTypes.func,
+  requestUserInfo: PropTypes.func,
   addressDataAction: PropTypes.func,
   address: PropTypes.shape({
     data: PropTypes.shape({

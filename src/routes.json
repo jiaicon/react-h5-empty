@@ -120,6 +120,16 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/verify/",
+    "page": "./pages/my/profile/verify",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/profile/verify/project/:projectId",
+    "page": "./pages/my/profile/verify",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/edit",
     "page": "./pages/my/profile/edit",
     "chunk": "main"

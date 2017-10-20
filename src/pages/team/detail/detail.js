@@ -12,6 +12,7 @@ import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
 import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
+import { dateTextToDateText } from '../../../utils/funcs';
 
 import {
   requestTeamDetail,
@@ -119,7 +120,7 @@ class TeamDetailPage extends React.Component {
     let action = '';
 
     if (!joined && !auditing) {
-      actionLabel = '我要报名';
+      actionLabel = '我要加入';
       actionClassName = 'team-action-available';
       action = 'join';
     } else if (joined) {
@@ -189,7 +190,9 @@ class TeamDetailPage extends React.Component {
                 : null
             }
             <li>
-              <span>注册日期</span><span>{detailData.created_at}</span>
+              <span>注册日期</span><span>{
+                detailData.created_at ?
+                dateTextToDateText(detailData.created_at.split(' ')[0]) : ''}</span>
               <div className="line1px" />
             </li>
             <li>
