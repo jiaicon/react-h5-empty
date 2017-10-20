@@ -9,13 +9,11 @@ class Avatar extends React.Component {
   static propTypes = {
     src: PropTypes.string,
     defaultSrc: PropTypes.string,
-    resize: PropTypes.shape({
+    size: PropTypes.shape({
       width: PropTypes.number,
       height: PropTypes.number,
       radius: PropTypes.number,
     }),
-
-
   }
 
   constructor(props) {
@@ -37,29 +35,39 @@ class Avatar extends React.Component {
 
   configSrc(props) {
     let src = this.props.src || this.props.defaultSrc || this.logoSrc;
-    const resize = (props.resize || []);
-    const { width, height } = resize;
-    if (width || height) {
-      src = `${src}?${width || 0}x${height || 0}`;
+    const size = (props.size || []);
+    const { width, height } = size;
+    const resizeWidth = width || height;
+
+    if (resizeWidth) {
+      // 确保 server 端返回不变形，所以只指定 width
+      src = `${src}?${resizeWidth * 3 || 0}x0`;
     }
     return src;
   }
 
   render() {
     const src = this.state.src;
-    const width = this.props.resize.width;
-    const height = this.props.resize.height;
-    const radius = this.props.resize.radius;
+    const width = this.props.size.width;
+    const height = this.props.size.height;
+    const radius = this.props.size.radius;
+    const props = {
+      ...this.props,
+    };
 
+    delete props.src;
+    delete props.size;
+    delete props.defaultSrc;
 
     return (<div
+      {...props}
       className={classnames({
         'component-avatar': true,
       })}
       style={{ backgroundImage: `url(${src})`,
-        width: `${width || 20}px`,
-        height: `${height || 20}px`,
-        borderRadius: `${radius || ''}px` }}
+        width: `${width || height || 20}px`,
+        height: `${height || width || 20}px`,
+        borderRadius: `${radius || (width || height) / 2}px` }}
     />);
   }
 

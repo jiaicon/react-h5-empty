@@ -11,10 +11,10 @@ import WXShare from '../../components/share';
 import './home.css';
 import Link from '../../components/link/link';
 import Image from '../../components/image/image';
+import Avatar from '../../components/avatar/avatar';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
 import { getCity } from '../../utils/funcs';
-import uploadToWX from '../../utils/wxupload';
 import { requestHomeData, saveCity } from './home.store';
 
 class HomePage extends React.Component {
@@ -92,7 +92,7 @@ class HomePage extends React.Component {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
       }
       { user.avatars ?
-        <Link to="/my"><Image className="avatar" src={user.avatars} alt="头像" /></Link>
+        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }}  /></Link>
         :
         null
       }

@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import Alert from 'react-s-alert';
 import { bindActionCreators } from 'redux';
 import WXShare from '../../../components/share';
 import './detail.css';
@@ -11,6 +10,7 @@ import Link from '../../../components/link/link';
 import Tab from '../../../components/tab/tab';
 import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
+import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
 
 import {
@@ -137,7 +137,7 @@ class TeamDetailPage extends React.Component {
         <Image className="team-photo" src={detailData.logo} alt="团队图片" defaultSrc="/images/default_banner.png" />
         <div className="header-addition">
           <div className="team-info">
-            <Image src={detailData.logo} alt="头像" />
+            <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
             <span>{detailData.name}</span>
           </div>
           <div className="team-number">

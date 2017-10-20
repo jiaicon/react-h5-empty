@@ -27,11 +27,8 @@
   color: #333333;
 }
 
-.page-team-detail .header .header-addition .team-info img {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  border-radius: 4px;
+.page-team-detail .header .header-addition .team-info > span {
+  margin-left: 10px;
 }
 
 .page-team-detail .header .header-addition .team-number {

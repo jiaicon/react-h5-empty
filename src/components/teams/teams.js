@@ -4,6 +4,7 @@ import cx from 'classnames';
 import './teams.css';
 import Link from '../link/link';
 import Image from '../image/image';
+import Avatar from '../avatar/avatar';
 
 class Teams extends React.Component {
 
@@ -38,8 +39,8 @@ class Teams extends React.Component {
         {
           teams.map(team => (<li key={team.id}>
             <Link to={`/team/detail/${team.id}`}>
-              <Image src={team.logo} alt="头像" />
-              <div>
+              <Avatar src={team.logo} size={{ width: 60, radius: 4 }} />
+              <div className="team-name-container">
                 <div className="team-name">
                   <div className="team-name-content">
                     {team.name}

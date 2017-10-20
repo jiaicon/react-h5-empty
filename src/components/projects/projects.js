@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import './projects.css';
 import Link from '../link/link';
 import Image from '../image/image';
+import Avatar from '../avatar/avatar';
 import { parseTimeStringToDateString, parseDistance } from '../../utils/funcs';
 
 class Projects extends React.Component {
@@ -47,7 +48,7 @@ class Projects extends React.Component {
             return (<li key={project.id}>
               <div>
                 <Link to={`/team/detail/${project.team.id}`} className="project-header">
-                  <Image className="org-avatar" src={team.logo} alt="头像" />
+                  <Avatar src={team.logo} size={{ width: 30, radius: 4 }} />
                   <div className="org-name">{team.name}</div>
                 </Link>
                 <Link to={`/project/detail/${project.id}`} className="project-main">
