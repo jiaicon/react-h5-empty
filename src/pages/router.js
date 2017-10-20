@@ -104,6 +104,8 @@ function resolve(routes, context) {
       .then((Page) => {
         if (Page.title) {
           document.title = Page.title;
+        } else {
+          document.title = window.orgInfo ? window.orgInfo.name : '';
         }
 
         return (<Page
