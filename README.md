@@ -110,6 +110,7 @@ $ yarn build                    # Compiles the app into the /public/dist folder
 [智多星 API文档](https://www.zybuluo.com/lina/note/892990)
 [微信JS-SDK说明文档](https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115)
 [微信JS-SDK DEMO](http://203.195.235.76/jssdk/)
+[React-WEUI](https://github.com/weui/react-weui/)
 
 ### 部署测试服务器
 

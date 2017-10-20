@@ -22,10 +22,12 @@
     "react-redux-spinner": "^0.7.2",
     "react-s-alert": "^1.3.0",
     "react-slick": "^0.14.11",
+    "react-weui": "^1.1.3",
     "redux": "^3.6.0",
     "redux-persist": "^4.6.0",
     "redux-promise-middleware": "^4.4.1",
     "redux-thunk": "^2.2.0",
+    "weui": "^1.1.2",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
