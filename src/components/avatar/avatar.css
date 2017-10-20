@@ -1,12 +1,7 @@
-.component-avatar-size-cover{
-  background-repeat: cover;
-}
-.component-avatar-postition-center{
+
+.component-avatar{
   background-position: center;
-}
-.component-avatar-norepeat{
   background-repeat: no-repeat;
-}
-.component-avatar-shape{
   border-radius: 50%;
+  background-size: cover;
 }

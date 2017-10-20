@@ -12,7 +12,7 @@ class Avatar extends React.Component {
     resize: PropTypes.shape({
       width: PropTypes.number,
       height: PropTypes.number,
-      shape: PropTypes.number,
+      radius: PropTypes.number,
     }),
 
 
@@ -34,40 +34,6 @@ class Avatar extends React.Component {
       src: this.configSrc(nextProps),
     });
   }
-  // 动态确定SRC为长方形，正方形
-  getUrlWidthAndHeight(url) {
-    const img = new Image();
-    img.src = url;
-    if (img.complete) {
-      if (img.width === img.height) {
-        this.setState({
-          ratio: 1,
-        });
-      }
-      this.setState({
-        ratio: 0,
-      });
-    }
-    img.onload = function imgload() {
-      if (img.width === img.height) {
-        this.setState({
-          ratio: 1,
-        });
-      }
-      this.setState({
-        ratio: 0,
-      });
-    };
-    this.imgload();
-
-    const src = url || this.props.defaultSrc || this.logoSrc;
-    img.onerror = function imgerror() {
-      this.setState({
-        src,
-      });
-    };
-    this.imgerror();
-  }
 
   configSrc(props) {
     let src = this.props.src || this.props.defaultSrc || this.logoSrc;
@@ -81,20 +47,19 @@ class Avatar extends React.Component {
 
   render() {
     const src = this.state.src;
-    const ratio = this.state.ratio;
     const width = this.props.resize.width;
     const height = this.props.resize.height;
-    const shape = this.props.resize.shape;
+    const radius = this.props.resize.radius;
 
 
     return (<div
       className={classnames({
-        'component-avatar-norepeat': true,
-        'component-avatar-size-cover': ratio,
-        'component-avatar-postition-center': !ratio,
-        'component-avatar-shape': true,
+        'component-avatar': true,
       })}
-      style={{ backgroundImage: `url(${src})`, width: `${width || 20}px`, height: `${height || 20}px`, borderRadius: `${shape || ''}px` }}
+      style={{ backgroundImage: `url(${src})`,
+        width: `${width || 20}px`,
+        height: `${height || 20}px`,
+        borderRadius: `${radius || ''}px` }}
     />);
   }
 
