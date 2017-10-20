@@ -23,14 +23,12 @@ class Family extends React.Component {
 
   componentWillMount() {
     this.props.familyAction();
-    console.log('WillMount');
   }
 
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('WillReceiveProps');
     const { deletefamily: Cdeletefamily } = this.props;
     const { deletefamily: Ndeletefamily } = nextProps;
     if (Cdeletefamily.fetching && !Ndeletefamily.fetching && !Ndeletefamily.failed) {
@@ -67,7 +65,7 @@ class Family extends React.Component {
   render() {
     const { family: { data: listData } } = this.props;
     if (listData == null) {
-      return <div>1</div>;
+      return <div>加载中</div>;
     }
     return (
       <div className="page-family">

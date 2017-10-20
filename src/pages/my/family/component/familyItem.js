@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import './familyItem.css';
-import Image from '../../../../components/image/image';
+import Avatar from '../../../../components/avatar/avatar';
 
 class FamilyItem extends React.Component {
 
@@ -33,7 +33,7 @@ class FamilyItem extends React.Component {
       <div className="page-family-item-container">
         <div className="page-family-item-main">
           <div className="page-family-item-main-photo-bg">
-            <Image src={item.avatars} className="page-family-item-main-photo" />
+            <Avatar src={item.avatars} size={{ width: 60, radius: 1 }} defaultSrc="/images/my/register.png" />
           </div>
           <div className="page-family-item-name-container">
             <div className="page-family-item-name">{item.real_name ? item.real_name : '未绑定个人名字'}</div>

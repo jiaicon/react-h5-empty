@@ -14,7 +14,7 @@ import { userCenterAction } from './my.store';
 import { requestUserInfo } from '../../stores/common';
 import Link from '../../components/link/link';
 import './my.css';
-import Image from '../../components/image/image';
+import Avatar from '../../components/avatar/avatar';
 
 class MyPage extends React.Component {
 
@@ -56,8 +56,7 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <div className="page-my-photo-container">
-        <Image src={user.avatars ? user.avatars : ''} className="page-my-photo" />
-
+        <Avatar src={user.avatars ? user.avatars : ''} size={{ width: 80, radius: 8 }} defaultSrc="/images/my/register.png" />
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.username ? user.username : '未设置昵称'}</p>
           <p className="page-my-user-info-signature">{user.slogan ? user.slogan : '未设置口号'}</p>

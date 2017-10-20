@@ -3,7 +3,6 @@ import autoBind from 'react-autobind';
 import cx from 'classnames';
 import './teams.css';
 import Link from '../link/link';
-import Image from '../image/image';
 import Avatar from '../avatar/avatar';
 
 class Teams extends React.Component {

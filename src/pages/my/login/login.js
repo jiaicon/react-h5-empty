@@ -15,6 +15,7 @@ import history from '../../history';
 import Link from '../../../components/link/link';
 import './login.css';
 import { loginAction } from './login.store';
+import Avatar from '../../../components/avatar/avatar';
 
 
 class Login extends React.Component {
@@ -66,7 +67,8 @@ class Login extends React.Component {
   render() {
     return (
       <div className="page-login">
-        <div className="page-login-header" />
+        <Avatar size={{ width: 80 }} defaultSrc="/images/my/logo.png" />
+
         <div className="page-login-item">
           <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} placeholder="用户名或手机号" className="page-login-item-input" />
         </div>

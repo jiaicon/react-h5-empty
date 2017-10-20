@@ -3,10 +3,9 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import classnames from 'classnames';
 import './projects.css';
 import Link from '../link/link';
-import Image from '../image/image';
+import Avatar from '../avatar/avatar';
 import { parseTimeStringToDateString, parseDistance } from '../../utils/funcs';
 
 class DurationProjects extends React.Component {
@@ -82,7 +81,9 @@ class DurationProjects extends React.Component {
                 <div className="component-duration-projects-footer">
                   <Link to={`/team/detail/${project.team.id}`}>
                     <div className="component-duration-projects-footer-logo">
-                      <Image src={team.logo} className="component-duration-projects-footer-logo-img" />{team.name}
+                      <div className="component-duration-projects-footer-logo-right">
+                        <Avatar src={team.logo} size={{ width: 30, radius: 1 }} />
+                      </div>
                     </div>
                     <div className="component-duration-projects-footer-date-box">已获得志愿时长：<span>{project.my_reward_time}小时</span></div>
                   </Link>
@@ -123,7 +124,10 @@ class DurationProjects extends React.Component {
                 <div className="component-duration-projects-footer">
                   <a>
                     <div className="component-duration-projects-footer-logo">
-                      <Image src={team.logo} className="component-duration-projects-footer-logo-img" />{team.name}
+                      <div className="component-duration-projects-footer-logo-right">
+                        <Avatar src={team.logo} size={{ width: 30, radius: 1 }} />
+                      </div>
+                      {team.name}
                     </div>
 
                   </a>

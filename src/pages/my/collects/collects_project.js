@@ -10,11 +10,10 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import cx from 'classnames';
 import './collects.css';
 import { collectAction } from '../my.store';
 import ProjectsItem from '../../../components/projects/projects';
-import TAB from './collects';
+
 
 class ProjectPage extends React.Component {
 

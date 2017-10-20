@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import { } from '../../../stores/common';
-import Image from '../../../components/image/image';
+import Avatar from '../../../components/avatar/avatar';
 import { addFamilyAction } from '../my.store';
 import history from '../../history';
 import './add.css';
@@ -115,7 +115,8 @@ class Addmember extends React.Component {
           <div
             className="page-add-photo-container" onClick={this.onAvatarClick}
           >
-            <Image className="page-add-photo-img" src={this.state.photo} />
+
+            <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           </div>
         </div>
         <div className="page-add-photo-fonts">上传头像(选填)</div>

@@ -15,6 +15,9 @@ import Link from '../../../components/link/link';
 import history from '../../history';
 import { requestVerifyCode, register } from './register.store';
 
+
+import Avatar from '../../../components/avatar/avatar';
+
 import Image from '../../../components/image/image';
 
 import './register.css';
@@ -209,7 +212,7 @@ class Register extends React.Component {
       <div className="page-register">
         <div className="page-register-photo">
           <div className="page-register-photo-container" onClick={this.onAvatarClick}>
-            <Image src={this.state.photo} className="page-register-photo-img" />
+            <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           </div>
         </div>
         <div className="page-register-photo-fonts">上传头像(选填)</div>

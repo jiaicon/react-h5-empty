@@ -18,6 +18,8 @@ import { postapplyAction, projectapplyAction } from '../my.store';
 import history from '../../history';
 import uploadToWX from '../../../utils/wxupload';
 
+import Avatar from '../../../components/avatar/avatar';
+
 const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 class Post extends React.Component {
 
@@ -154,23 +156,27 @@ class Post extends React.Component {
           </div>
           <input type="tel" maxLength="2" className="page-post-container-text" placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }} onKeyUp={this.onTextChanged} />
           <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
-          <div className="page-post-container-photo-text" >工作证明图片(选填)</div>
-          <div className="page-post-container-photo-container">
-            {
-              attachment.map((item, key) => (
-                <div className="page-applys-item-render-container">
-                  <div className="page-applys-item-view" style={{ backgroundImage: { item } }} />
-                  <div className="page-applys-item-render-del" onClick={this.onDel} id={key} key={item} />
-                </div>
-              ))
-            }
-            {
-              attachment.length === 3 ?
-                <div /> :
-                <div
-                  className="page-post-item-upload-container" onClick={this.onAvatarClick}
-                />
-            }
+          <div>
+            <div className="page-post-container-photo-text" >工作证明图片(选填)</div>
+            <div className="page-post-container-photo-container">
+              {
+             attachment.map((item, key) => (
+               <div className="page-applys-item-render-container">
+                 <div className="page-applys-item-view" >
+                   <Avatar src={item} size={{ width: 100, radius: 1 }} />
+                 </div>
+                 <div className="page-applys-item-render-del" onClick={this.onDel} id={key} key={item} />
+               </div>
+             ))
+           }
+              {
+             attachment.length === 3 ?
+               <div /> :
+               <div
+                 className="page-post-item-upload-container" onClick={this.onAvatarClick}
+               />
+           }
+            </div>
           </div>
           <div className="page-post-btn" onClick={this.onNext}>提交</div>
           {/** 遮罩层* */}

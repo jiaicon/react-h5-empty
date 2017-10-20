@@ -3,12 +3,17 @@
  */
 
 /* global wx:false */
+/* eslint  "class-methods-use-this":"off",
+"no-alert":"off",
+ */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import Alert from 'react-s-alert';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+
 import history from '../../history';
+import Avatar from '../../../components/avatar/avatar';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';
 
@@ -22,9 +27,19 @@ class Certificate extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = ({
-      photo: '/Images/my/register.png',
-    });
+    const { user: listData } = this.props;
+    const registerTime = listData.regitser_time;
+    const nowTime = listData.server_time;
+    const registerArr = year(registerTime);
+    const nowArr = year(nowTime);
+    const registerDay = registerArr[2].split(' ');
+    const nowDay = nowArr[2].split(' ');
+    this.state = {
+      registerArr,
+      nowArr,
+      registerDay,
+      nowDay,
+    };
   }
 
   componentWillMount() {
@@ -35,69 +50,45 @@ class Certificate extends React.Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    const user = nextProps.user;
-    const time = user.join_family_time;
-    const arr = year(time);
-    const day = arr[2].split(' ');
-    const NowTime = new Date();
-    const y = NowTime.getFullYear();
-    let m = NowTime.getMonth() + 1;
-    let d = NowTime.getDate();
-    if (m < 10) {
-      m = `0${m}`;
-    }
-    if (d < 10) {
-      d = `0${d}`;
-    }
-    this.setState({
-      ...this.state,
-      year: arr[0],
-      month: arr[1],
-      day: day[0],
-      y,
-      m,
-      d,
-    });
+  componentWillReceiveProps() {
+
   }
 
   componentWillUnmount() {}
-  pop() {
+  popToast() {
     const r = confirm('您还未实名注册，请先完成实名认证，获取个人志愿证书');
-    if (r == true) {
+    if (r === true) {
       history.replace('/my/profile/detail/user');
     } else {
-
+      history.replace('/my');
     }
-    // Alert.success('您还未实名注册，请先完成实名认证，获取个人志愿证书', {
-    //   position: 'top-right',
-    //   effect: 'stackslide',
-    //   onShow() {
-    //     setTimeout(() => {
-    //       history.replace('/my/profile/detail/user');
-    //     }, 3000);
-    //   },
-    // });
   }
   renderCertificate() {
-    const user = this.props.user;
+    const { user: listData } = this.props;
+    if (listData == null) {
+      return <div>加载中</div>;
+    }
+
+
     return (
       <div className="page-certificate-bg">
         <div className="page-certificate-container-border">
           <h5 className="page-certificate-container-title">志多星注册志愿服务证书</h5>
-          <img className="page-certificate-container-photo" alt="" src={user.avatars ? user.avatars : this.state.photo} />
+          <Avatar src={this.props.user.avatars} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           <div className="page-certificate-container-certificate" />
-          <div className="page-certificate-container-name">{user.real_name}</div>
-          <div className="page-certificate-container-content">证书编号：{user.identifier}</div>
-          <div className="page-certificate-container-content">{this.state.year}年{this.state.month}月{this.state.day}日注册成为志多星志愿者</div>
-          <div className="page-certificate-container-content">截止{this.state.y}年{this.state.m}月{this.state.d}日</div>
+          <div className="page-certificate-container-name">{this.props.user.real_name}</div>
+          <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>
+          <div className="page-certificate-container-content">{this.state.registerArr[0]}年{this.state.registerArr[1]}月{this.state.registerDay[0]}日注册成为志多星志愿者</div>
+          <div className="page-certificate-container-content">
+            {this.state.nowArr[0]}年{this.state.nowArr[1]}月{this.state.nowDay[0]}日
+          截止</div>
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item"><span>{user.join_project_count}</span>次</div>
+              <div className="page-certificate-container-hours-item"><span>{this.props.user.join_project_count}</span>次</div>
               <div className="page-certificate-container-hours-item">累计服务次数</div>
             </div>
             <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item"><span>{user.reward_time}</span>小时</div>
+              <div className="page-certificate-container-hours-item"><span>{this.props.user.reward_time}</span>小时</div>
               <div className="page-certificate-container-hours-item">累计服务时长</div>
             </div>
           </div>
@@ -107,10 +98,13 @@ class Certificate extends React.Component {
     );
   }
   render() {
-    const user = this.props.user;
+    const { user: listData } = this.props;
+    if (listData == null) {
+      return <div>加载中</div>;
+    }
     return (
       <div>
-        {!user.real_name ? this.pop() : this.renderCertificate()}
+        { this.props.user.id_number ? this.renderCertificate() : this.popToast()}
 
       </div>
     );

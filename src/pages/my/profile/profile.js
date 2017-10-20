@@ -17,7 +17,7 @@ import { requestUserInfo } from '../../../stores/common';
 import { imporvePersonInfo, otherFamilyAction } from './profile.store';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
-import Image from '../../../components/image/image';
+import Avatar from '../../../components/avatar/avatar';
 import uploadToWX from '../../../utils/wxupload';
 import './profile.css';
 
@@ -50,7 +50,6 @@ class Profile extends React.Component {
       ...this.state,
       userId,
     });
-    console.log(userId);
     if (userId === 'user') {
       this.props.requestUserInfo();
     } else {
@@ -70,8 +69,6 @@ class Profile extends React.Component {
   onAvatarClick() {
     uploadToWX({
       success: (urls) => {
-        console.log('图片上传成功:', urls);
-
         const data = {
           avatars: urls[0],
         };
@@ -136,7 +133,7 @@ class Profile extends React.Component {
             <div className="page-profile-fonts">头像</div>
             <div className="page-profile-header-uploade-box">
               <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
-                <Image src={user.avatars} className="page-profile-header-img" />
+                <Avatar src={user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
               </div>
               <div className="page-profile-edit-icon" />
             </div>
@@ -225,7 +222,7 @@ class Profile extends React.Component {
             <div className="page-profile-fonts">头像</div>
             <div className="page-profile-header-uploade-box">
               <div className="page-profile-header-img-container" onClick={this.onOtherHandleClick}>
-                <Image src={otherfamily.data.avatars} className="page-profile-header-img" />
+                <Avatar src={otherfamily.data.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
               </div>
 
               <div className="page-profile-edit-icon" />
