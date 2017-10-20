@@ -102,14 +102,14 @@ class ProjectDetailPage extends React.Component {
     return () => {
       const { user: { isLogin, id_number: idNumber } } = this.props;
 
-      // 未实名认证需要跳实名认证页面
-      if (isLogin && !idNumber) {
-        Alert.warning('请先完成实名认证');
-        history.push(`/my/profile/verify/project/${this.projectId}`);
-        return;
-      }
-
       if (action === 'join') {
+        // 未实名认证需要跳实名认证页面
+        if (isLogin && !idNumber) {
+          Alert.warning('请先完成实名认证');
+          history.push(`/my/profile/verify/project/${this.projectId}`);
+          return;
+        }
+
         this.props.joinProject(projectId);
       } else if (action === 'quit' && window.confirm('确定要退出吗？')) {
         this.props.quitProject(projectId);
