@@ -202,7 +202,7 @@ class TeamDetailPage extends React.Component {
               <div className="line1px" />
             </li>
             <li>
-              <span>团队地址</span><span>{detailData.contact_addr}</span>
+              <span>团队地址</span><span>{`${detailData.province_name}${detailData.city_name}${detailData.county_name}${detailData.addr}`}</span>
             </li>
           </ul>
         </div>
