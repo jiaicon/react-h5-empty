@@ -6,6 +6,7 @@ import autoBind from 'react-autobind';
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -15,6 +16,7 @@ import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
 import ShareTip from '../../../components/sharetip/sharetip';
+import history from '../../history';
 
 import {
   requestProjectDetail,
@@ -98,6 +100,15 @@ class ProjectDetailPage extends React.Component {
     const { projectId } = this;
 
     return () => {
+      const { user: { isLogin, id_number: idNumber } } = this.props;
+
+      // 未实名认证需要跳实名认证页面
+      if (isLogin && !idNumber) {
+        Alert.warning('请先完成实名认证');
+        history.push(`/my/profile/verify/project/${this.projectId}`);
+        return;
+      }
+
       if (action === 'join') {
         this.props.joinProject(projectId);
       } else if (action === 'quit' && window.confirm('确定要退出吗？')) {
