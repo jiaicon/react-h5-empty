@@ -45,6 +45,7 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.props.route);
     const userId = this.props.route.params.userId;
     this.setState({
       ...this.state,
@@ -383,5 +384,7 @@ export default connect(
     info: state.info.person,
     otherfamily: state.info.otherfamily,
   }),
-  dispatch => bindActionCreators({ requestUserInfo, imporvePersonInfo, otherFamilyAction }, dispatch),
+  dispatch => bindActionCreators({ requestUserInfo,
+    imporvePersonInfo,
+    otherFamilyAction }, dispatch),
 )(Profile);
