@@ -8,9 +8,12 @@ import { API_HOST } from '../../../utils/config';
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
 export const LOGIN_REJECTED = 'LOGIN_REJECTED';
+
 export const LOGOUT_PENDING = 'LOGOUT_PENDING';
 export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
 export const LOGOUT_REJECTED = 'LOGOUT_REJECTED';
+
+const STORE_LOGIN_SOURCE = 'STORE_LOGIN_SOURCE';
 
 
 export const loginAction = data => (dispatch) => {
@@ -28,6 +31,11 @@ export const loginAction = data => (dispatch) => {
     dispatch({ type: LOGIN_REJECTED });
   });
 };
+
+export const storeLoginSource = sourcePath => ({
+  type: STORE_LOGIN_SOURCE,
+  payload: { sourcePath },
+});
 
 export const logoutAction = () => (dispatch) => {
   dispatch({ type: LOGOUT_PENDING });
@@ -52,6 +60,7 @@ export const logoutAction = () => (dispatch) => {
 const loginReducer = (state = {
   fetching: false,
   failed: false,
+  from: '',
   data: null,
 }, action) => {
   switch (action.type) {
@@ -73,6 +82,11 @@ const loginReducer = (state = {
         ...state,
         failed: true,
         fetching: false,
+      };
+    case STORE_LOGIN_SOURCE:
+      return {
+        ...state,
+        from: action.payload.sourcePath,
       };
     default:
       return state;

@@ -37,7 +37,16 @@ class Login extends React.Component {
     const { login: cLogin } = this.props;
     const { login: nLogin } = nextProps;
     if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
-      history.replace('/my');
+      let target = '/my';
+      const { from } = nLogin;
+
+      console.log(nLogin);
+
+      // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
+      if (from) {
+        target = from;
+      }
+      history.replace(target);
     }
   }
 
@@ -93,6 +102,7 @@ Login.propTypes = {
   login: PropTypes.shape({
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
+    from: PropTypes.string,
     data: PropTypes.shape({
       // TODO:接收回来
       token: PropTypes.string,
