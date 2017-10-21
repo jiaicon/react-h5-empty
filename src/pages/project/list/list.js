@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
 import './list.css';
+import history from '../../history';
 import Link from '../../../components/link/link';
 import Filter from '../../../components/filter/filter';
 import Projects from '../../../components/projects/projects';
@@ -35,7 +36,18 @@ class ProjectListPage extends React.Component {
   }
 
   componentWillMount() {
+    let { type, category, target } = this.props.route.params;
+    type = parseInt(type, 10);
+    category = parseInt(category, 10);
+    target = parseInt(target, 10);
+
     const isRecommend = /recommend/i.test(this.props.route.path);
+
+    this.selectedOption = {
+      sort: type === 0 ? 'time' : 'distance',
+      service_object: window.serviceTarget[target],
+      service_category: window.serviceCategory[category],
+    };
     this.requestList(false, !!isRecommend);
   }
 
@@ -43,7 +55,26 @@ class ProjectListPage extends React.Component {
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    let { type, category, target } = this.props.route.params;
+    const { type: ntype, category: ncategory, target: ntarget } = nextProps.route.params;
+
+    if ((type === ntype) &&
+        (category === ncategory) &&
+        (target === ntarget)) {
+      return;
+    }
+
+    type = parseInt(ntype, 10);
+    category = parseInt(ncategory, 10);
+    target = parseInt(ntarget, 10);
+
+    this.selectedOption = {
+      sort: type === 0 ? 'time' : 'distance',
+      service_object: window.serviceTarget[target],
+      service_category: window.serviceCategory[category],
+    };
+    this.requestList(false, false);
   }
 
   componentWillUnmount() {
@@ -51,13 +82,16 @@ class ProjectListPage extends React.Component {
   }
 
   onFilterChange(selectedOption) {
-    this.selectedOption = {
-      service_object: selectedOption.objects,
-      service_category: selectedOption.categories,
-      sort: selectedOption.types === '距离最近' ? 'distance' : 'time',
-    };
+    // this.selectedOption = {
+    //   service_object: selectedOption.objects,
+    //   service_category: selectedOption.categories,
+    //   sort: selectedOption.types === '距离最近' ? 'distance' : 'time',
+    // };
 
-    this.requestList();
+    // this.requestList();
+    const { type, category, target } = selectedOption;
+
+    history.push(`/project/list/type/${type}/category/${category}/target/${target}`);
   }
 
   onFilterShow() {
@@ -100,7 +134,11 @@ class ProjectListPage extends React.Component {
     const { list: { data: listData } } = this.props;
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
-    const params = queryString.parse(location.search);
+
+    let { type, category, target } = this.props.route.params;
+    type = parseInt(type, 10);
+    category = parseInt(category, 10);
+    target = parseInt(target, 10);
 
     return (
       <div className="page-project-list">
@@ -117,7 +155,9 @@ class ProjectListPage extends React.Component {
               onFilterChange={this.onFilterChange}
               onFilterShow={this.onFilterShow}
               onFilterHide={this.onFilterHide}
-              types={params.types === 'time' ? '最新发布' : (params.types === 'distance' ? '距离最近' : '')}
+              type={type}
+              category={category}
+              target={target}
             />
           </div>
           <div className="project-list">

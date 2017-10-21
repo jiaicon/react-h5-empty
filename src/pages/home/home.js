@@ -132,10 +132,10 @@ class HomePage extends React.Component {
           {window.orgInfo ?
             <Menus menus={window.orgInfo.module_settings} /> : null}
           <div className="menus-activity">
-            <Link to="/project/list?types=distance">
+            <Link to="/project/list/type/1/category/1000/target/1000">
               <img src="/images/activities_nearby.png" alt="附近" />
             </Link>
-            <Link to="/project/list?types=time">
+            <Link to="/project/list/type/0/category/1000/target/1000">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
             <Link to="/project/list/recommend">
