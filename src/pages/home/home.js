@@ -92,7 +92,7 @@ class HomePage extends React.Component {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
       }
       { user.avatars ?
-        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }}  /></Link>
+        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
         :
         null
       }
@@ -138,7 +138,7 @@ class HomePage extends React.Component {
             <Link to="/project/list?types=time">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
-            <Link to="/project/list?recommend=1">
+            <Link to="/project/list/recommend">
               <img src="/images/activities_hot.png" alt="最热" />
             </Link>
           </div>

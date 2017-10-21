@@ -35,8 +35,8 @@ class ProjectListPage extends React.Component {
   }
 
   componentWillMount() {
-    const params = queryString.parse(location.search);
-    this.requestList(false, !!params.recommend);
+    const isRecommend = /recommend/i.test(this.props.route.path);
+    this.requestList(false, !!isRecommend);
   }
 
   componentDidMount() {
@@ -147,6 +147,14 @@ ProjectListPage.propTypes = {
         current_page: PropTypes.number,
         total_page: PropTypes.number,
       }),
+    }),
+  }),
+  route: PropTypes.shape({
+    path: PropTypes.string,
+    params: PropTypes.shape({
+      type: PropTypes.string,
+      category: PropTypes.string,
+      target: PropTypes.string,
     }),
   }),
 };
