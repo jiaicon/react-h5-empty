@@ -20,6 +20,7 @@
   height: 220px;
   background: url(/images/default_banner.png) no-repeat top left;
   background-size: cover;
+  background-position: center;
 }
 
 .page-project-detail .slick-container img{
