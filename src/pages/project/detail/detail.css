@@ -154,6 +154,11 @@
   font-size: 14px;
   color: #333333;
   line-height: 18px;
+  /* overflow: hidden; */
+  display: -webkit-box;
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
 
