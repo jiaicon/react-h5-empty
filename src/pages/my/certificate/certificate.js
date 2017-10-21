@@ -4,20 +4,21 @@
 
 /* global wx:false */
 /* eslint  "class-methods-use-this":"off",
-"no-alert":"off",
  */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { Dialog } from 'react-weui';
+import 'weui/dist/style/weui.css';
+import 'react-weui/build/packages/react-weui.css';
 
 import history from '../../history';
 import Avatar from '../../../components/avatar/avatar';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';
 
-const BussinessInfo = window.orgInfo.title || '和众泽益志愿者服务中心';
 
 function year(data) {
   return data.split('-');
@@ -27,6 +28,7 @@ class Certificate extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.BussinessInfo = window.orgInfo.title || '和众泽益志愿者服务中心';
     const { user: listData } = this.props;
     const registerTime = listData.regitser_time;
     const nowTime = listData.server_time;
@@ -34,6 +36,7 @@ class Certificate extends React.Component {
     const nowArr = year(nowTime);
     const registerDay = registerArr[2].split(' ');
     const nowDay = nowArr[2].split(' ');
+
     this.state = {
       registerArr,
       nowArr,
@@ -41,6 +44,7 @@ class Certificate extends React.Component {
       nowDay,
     };
   }
+
 
   componentWillMount() {
     this.props.requestUserInfo();
@@ -55,13 +59,20 @@ class Certificate extends React.Component {
   }
 
   componentWillUnmount() {}
-  popToast() {
-    const r = confirm('您还未实名注册，请先完成实名认证，获取个人志愿证书');
-    if (r === true) {
-      history.replace('/my/profile/detail/user');
-    } else {
-      history.replace('/my');
-    }
+  // popToast() {
+  //   this.setState({ ...this.state, showDialog: true });
+  // }
+  initialization() {
+    return () => {
+      const { user: { isLogin, id_number: idNumber } } = this.props;
+
+
+      if (isLogin && !idNumber) {
+        this.setState({ ...this.state, showDialog: true });
+      } else {
+        this.renderCertificate();
+      }
+    };
   }
   renderCertificate() {
     const { user: listData } = this.props;
@@ -92,20 +103,25 @@ class Certificate extends React.Component {
               <div className="page-certificate-container-hours-item">累计服务时长</div>
             </div>
           </div>
-          <div className="page-certificate-container-bussiness">认证机构：{BussinessInfo}</div>
+          <div className="page-certificate-container-bussiness">  认证机构：{this.BussinessInfo}</div>
         </div>
       </div>
     );
   }
+
+  // { !this.props.user.id_number ? this.renderCertificate() : this.popToast()}
+  // {this.popToast()}
+  //
+    // this.setState({ ...this.state, showDialog: true });
   render() {
     const { user: listData } = this.props;
     if (listData == null) {
       return <div>加载中</div>;
     }
     return (
-      <div>
-        { this.props.user.id_number ? this.renderCertificate() : this.popToast()}
-
+      <div className="page-certificate-main-container">
+        {/** TODO: */}
+        {this.renderCertificate()}
       </div>
     );
   }
@@ -126,6 +142,7 @@ Certificate.propTypes = {
     real_name: PropTypes.string,
     nation: PropTypes.string,
     sex: PropTypes.number,
+    isLogin: PropTypes.bool,
     birthday: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
