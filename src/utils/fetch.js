@@ -43,7 +43,7 @@ export default function request(requestUrl, requestOptions = {}) {
     // 授权 token
     'X-auth-token': getToken() || '',
     // 机构代码
-    'X-org-code': window.ortCode || 'XKdwpfgegW',
+    'X-org-code': window.orgCode,
     // 经纬度 经度-纬度
     'X-location': location ?
       `${location.lng}-${location.lat}` : '116.314820-40.065560',
