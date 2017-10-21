@@ -50,6 +50,14 @@ class Verify extends React.Component {
 
   componentWillMount() {
     this.props.addressDataAction(0);
+    console.log(this.props.route);
+    const params = this.props.route.params;
+    if (params.projectId && !isNaN(Number(params.projectId))) {
+      const projectId = params.projectId;
+      this.setState({
+        projectId,
+      });
+    }
   }
 
   componentDidMount() {
@@ -59,10 +67,16 @@ class Verify extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { check: Ccheck } = this.props;
     const { check: Ncheck } = nextProps;
+    const projectId = this.state.projectId;
     if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
       this.props.requestUserInfo();
+
       // TODO 如果从项目跳过来的需要跳回去
-      history.replace('/my/profile');
+      if (projectId) {
+        history.replace(`/project/detail/${projectId}`);
+      } else {
+        history.replace('/my/profile/detail/user');
+      }
     }
   }
 
@@ -263,6 +277,11 @@ Verify.propTypes = {
   check: PropTypes.shape({
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
+  }),
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      userId: PropTypes.string,
+    }),
   }),
 };
 

@@ -6,7 +6,9 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import '../messages.css';
-import Image from '../../../../components/image/image';
+
+import Avatar from '../../../../components/avatar/avatar';
+
 
 class MessagesItem extends React.Component {
 
@@ -33,16 +35,22 @@ class MessagesItem extends React.Component {
     if (!data) {
       return <div />;
     }
+    const time = data.publish_time;
+    const timeArr = time.split('-');
+    const year = timeArr[0];
+    const month = timeArr[1];
+    const day = timeArr[2].split(' ')[0];
     return (
       <div className="page-messagesitem">
         <div className="page-messagesitem-header">
-          <Image src={data.avatars} />
+          <Avatar src={data.avatars} size={{ width: 30, height: 30, radius: 4 }} />
+
           <div className="page-messagesitem-header-title-container">
             <div className="page-messagesitem-header-title-container-bussiness">{data.username}</div>
-            <div className="page-messagesitem-header-title-container-date">{data.publish_time}</div>
+            <div className="page-messagesitem-header-title-container-date">{year}.{month}.{day}</div>
           </div>
         </div>
-        <div className="page-messagesitem-messagestitle">备注还没标题字段</div>
+        <div className="page-messagesitem-messagestitle">{data.title}</div>
         <div className="page-messagesitem-content">{data.content}</div>
         <div className="line1px" />
 

@@ -82,8 +82,9 @@ class DurationProjects extends React.Component {
                   <Link to={`/team/detail/${project.team.id}`}>
                     <div className="component-duration-projects-footer-logo">
                       <div className="component-duration-projects-footer-logo-right">
-                        <Avatar src={team.logo} size={{ width: 30, radius: 1 }} />
+                        <Avatar src={team.logo} size={{ width: 30, radius: 4 }} />
                       </div>
+                      {team.name}
                     </div>
                     <div className="component-duration-projects-footer-date-box">已获得志愿时长：<span>{project.my_reward_time}小时</span></div>
                   </Link>
@@ -125,7 +126,7 @@ class DurationProjects extends React.Component {
                   <a>
                     <div className="component-duration-projects-footer-logo">
                       <div className="component-duration-projects-footer-logo-right">
-                        <Avatar src={team.logo} size={{ width: 30, radius: 1 }} />
+                        <Avatar src={team.logo} size={{ width: 30, radius: 4 }} />
                       </div>
                       {team.name}
                     </div>
