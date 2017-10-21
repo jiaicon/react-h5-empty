@@ -40,8 +40,6 @@ class Login extends React.Component {
       let target = '/my';
       const { from } = nLogin;
 
-      console.log(nLogin);
-
       // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
       if (from) {
         target = from;
