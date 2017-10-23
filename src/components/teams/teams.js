@@ -49,9 +49,8 @@ class Teams extends React.Component {
                       <div
                         className={cx({
                           'team-main-top-state': true,
-                          'team-main-top-state-visiblehidden': team.join_status === 0,
-                        })
-                    }
+                          'team-main-top-state-visiblehidden': team.join_status === 1,
+                        })}
                       >审核中</div> : null
                   }
                 </div>
