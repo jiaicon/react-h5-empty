@@ -1,16 +1,27 @@
+import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
 
 /**
  * 项目详情 Action
  * @param {string} projectId
  */
-export const requestProjectDetail = projectId => ({
-  type: 'PROJECT_DETAIL',
-  meta: {
-    id: projectId,
-  },
-  payload: fetch(`/project/${projectId}`, { method: 'GET' }),
-});
+export const requestProjectDetail = (projectId) => {
+  const params = queryString.parse(location.search);
+  const preview = params.preview;
+  const data = {};
+
+  if (preview === '1') {
+    data.preview = 1;
+  }
+
+  return {
+    type: 'PROJECT_DETAIL',
+    meta: {
+      id: projectId,
+    },
+    payload: fetch(`/project/${projectId}`, { method: 'GET', data }),
+  };
+};
 
 
 /**
