@@ -28,10 +28,11 @@ import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import './components/layout/global.css';
 
 import router from './pages/router';
-import history from './pages/history';
+import history, { USING_HISTORY_HASH } from './pages/history';
 
 import store from './stores';
 import WXShare from './components/share';
+
 
 if (wx) {
   wx.ready(() => WXShare());
@@ -72,14 +73,23 @@ function render(location) {
     }).then(renderComponent));
 }
 
+
+/**
+ * 如果需要使用 hash 的 history 方案，但是 URL 是 path 方案则需要跳转到 hash 方案
+ */
+
+if (USING_HISTORY_HASH && location.pathname !== '/') {
+  location.href = `${location.protocol}//${location.host}/#${location.pathname}`;
+} else {
 // Handle client-side navigation by using HTML5 History API For more information
 // visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
-history.listen(render);
-render(history.location);
+  history.listen(render);
+  render(history.location);
 
 // Eliminates the 300ms delay between a physical tap and the firing of a click
 // event on mobile browsers https://github.com/ftlabs/fastclick
-FastClick.attach(document.body);
+  FastClick.attach(document.body);
+}
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
