@@ -90,12 +90,12 @@ class Certificate extends React.Component {
             {this.state.nowArr[0]}年{this.state.nowArr[1]}月{this.state.nowDay[0]}日截止</div>
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item"><span>{this.props.user.join_project_count}</span>次</div>
-              <div className="page-certificate-container-hours-item">累计服务次数</div>
+              <div className="page-certificate-container-hours-item"><span>{this.props.user.join_project_count}</span>个</div>
+              <div className="page-certificate-container-hours-item">志愿服务项目</div>
             </div>
             <div className="page-certificate-container-hours">
               <div className="page-certificate-container-hours-item"><span>{this.props.user.reward_time}</span>小时</div>
-              <div className="page-certificate-container-hours-item">累计服务时长</div>
+              <div className="page-certificate-container-hours-item">志愿服务时长</div>
             </div>
           </div>
           <div className="page-certificate-container-bussiness">  认证机构：{this.BussinessInfo}</div>

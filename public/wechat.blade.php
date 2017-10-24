@@ -69,7 +69,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-  <script src="/dist/main.0cd3ff7f666d10641cbf.js"></script>
+  <script src="/dist/main.99caaf18e4b1ff84f215.js"></script>
 </body>
 
 </html>
