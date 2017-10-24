@@ -67,13 +67,12 @@ class Verify extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { check: Ccheck } = this.props;
     const { check: Ncheck } = nextProps;
-    const projectId = this.state.projectId;
     if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
       this.props.requestUserInfo();
 
       // TODO 如果从项目跳过来的需要跳回去
-      if (projectId) {
-        history.replace(`/project/detail/${projectId}`);
+      if (this.state.projectId) {
+        history.replace(`/project/detail/${this.state.projectId}`);
       } else {
         history.replace('/my/profile/detail/user');
       }

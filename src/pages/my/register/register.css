@@ -51,12 +51,7 @@
   color: #333333;
   outline: none;
 }
-.page-register-code{
-  font-size: 13px;
-  color: #6AC6F8;
-  width: 65px;
-  text-align: center;
-}
+
 .page-register-submmit{
   width: 300px;
   height: 50px;
@@ -100,4 +95,8 @@
 .page-register-code{
   height: 30px;
   line-height: 30px;
+  font-size: 10px;
+  color: #6AC6F8;
+  width: 65px;
+  text-align: center;
 }

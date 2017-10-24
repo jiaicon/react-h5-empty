@@ -28,7 +28,7 @@ class Certificate extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.BussinessInfo = window.orgInfo.title || '和众泽益志愿者服务中心';
+    this.BussinessInfo = window.orgInfo.name || '和众泽益志愿者服务中心';
     const { user: listData } = this.props;
     const registerTime = listData.regitser_time;
     const nowTime = listData.server_time;

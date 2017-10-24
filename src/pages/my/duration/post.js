@@ -146,16 +146,18 @@ class Post extends React.Component {
     return (
       <div className="page-post-bg">
         <div className="page-post-container">
-          <div className="page-post-container-item" onClick={this.onPop}>
-            <div
-              className={classnames({
-                'page-post-font-color': data.name,
-              })}
-            >{data.name ? data.name : '补录时长项目'}</div>
-            <div className="page-post-container-item-more" />
+          <div className="page-post-container-top">
+            <div className="page-post-container-item" onClick={this.onPop}>
+              <div
+                className={classnames({
+                  'page-post-font-color': data.name,
+                })}
+              >{data.name ? data.name : '补录时长项目'}</div>
+              <div className="page-post-container-item-more" />
+            </div>
+            <input type="tel" maxLength="2" className="page-post-container-text" placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }} onKeyUp={this.onTextChanged} />
+            <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
           </div>
-          <input type="tel" maxLength="2" className="page-post-container-text" placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }} onKeyUp={this.onTextChanged} />
-          <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
           <div>
             <div className="page-post-container-photo-text" >工作证明图片(选填)</div>
             <div className="page-post-container-photo-container">
