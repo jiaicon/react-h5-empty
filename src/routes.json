@@ -20,6 +20,16 @@
     "chunk": "main"
   },
   {
+    "path": "/project/list/recommend",
+    "page": "./pages/project/list/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/project/list/type/:type/category/:category/target/:target",
+    "page": "./pages/project/list/list",
+    "chunk": "main"
+  },
+  {
     "path": "/project/search",
     "page": "./pages/project/search/search",
     "chunk": "main"

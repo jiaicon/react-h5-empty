@@ -22,6 +22,7 @@ class Image extends React.Component {
 
     this.state = {
       src: this.configSrc(props),
+      error: false,
     };
   }
 
@@ -48,6 +49,7 @@ class Image extends React.Component {
     this.setState({
       ...this.state,
       src: this.props.defaultSrc || this.defaultSrc,
+      error: true,
     });
   }
 
@@ -60,7 +62,18 @@ class Image extends React.Component {
     delete props.defaultSrc;
     delete props.resize;
 
-    return <img {...props} onError={this.handleError} alt=" " />;
+    const useDefault = !this.props.src || this.state.error;
+
+    return useDefault ? <div
+      {...props}
+      style={{
+        ...props.style,
+        backgroundImage: `url(${this.state.src})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+      }}
+    />
+      : <img {...props} onError={this.handleError} alt=" " />;
   }
 
 }

@@ -1,11 +1,22 @@
 import Alert from 'react-s-alert';
 import { API_PREFIX } from './config';
 import { addAysncTask, removeAysncTask } from '../stores/common';
+import { storeLoginSource } from '../pages/my/login/login.store';
 import store from '../stores';
-import history from '../pages/history';
+import history, { USING_HISTORY_HASH } from '../pages/history';
 import { getToken } from './funcs';
 
 
+/**
+ *
+ * @param {string} requestUrl
+ * @param {object} requestOptions
+ *    @param {string}   method
+ *    @param {object}   headers
+ *    @param {boolean}  loading       是否显示默认 loading
+ *    @param {boolean}  noRedirect    接口返回未登录(token失效)是否自动跳转登录页
+ *    @param {string}   successWords  接口调用成功后的提示语
+ */
 export default function request(requestUrl, requestOptions = {}) {
   let url = requestUrl;
   const options = { ...requestOptions };
@@ -32,7 +43,7 @@ export default function request(requestUrl, requestOptions = {}) {
     // 授权 token
     'X-auth-token': getToken() || '',
     // 机构代码
-    'X-org-code': window.ortCode || 'XKdwpfgegW',
+    'X-org-code': window.orgCode,
     // 经纬度 经度-纬度
     'X-location': location ?
       `${location.lng}-${location.lat}` : '116.314820-40.065560',
@@ -92,6 +103,13 @@ export default function request(requestUrl, requestOptions = {}) {
         console.log('请求成功-', url, json);
         resolve(json);
       } else if (json.error_code === 9999 && options.noRedirect !== true) {
+        let from = window.location.pathname;
+
+        if (USING_HISTORY_HASH) {
+          from = window.location.hash.replace('#', '');
+        }
+
+        store.dispatch(storeLoginSource(from));
         history.replace('/my/entry');
       } else {
         console.log('请求返回失败-', url, json);

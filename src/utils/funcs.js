@@ -112,7 +112,11 @@ export function getToken() {
 
 export function setToken(token) {
   if (window.dev) {
-    localStorage.setItem('token', token);
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
   } else {
     window.token = token;
   }

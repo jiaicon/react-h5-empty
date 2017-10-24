@@ -92,7 +92,7 @@ class HomePage extends React.Component {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
       }
       { user.avatars ?
-        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }}  /></Link>
+        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
         :
         null
       }
@@ -109,11 +109,25 @@ class HomePage extends React.Component {
       { home.data.banner && home.data.banner.length ?
         <Slick {...this.slickSettings}>
           {home.data.banner
-              .map(item => (
-                <Link key={item.id} to="/">
+              .map((item) => {
+                let url = '';
+                const mode = item.jump_mode;
+
+                if (mode === 1) {
+                  // 第三方
+                  url = item.href;
+                } else if (mode === 2) {
+                  // 项目
+                  url = `/project/detail/${item.jump_id}`;
+                } else if (mode === 3) {
+                  // 团队
+                  url = `/team/detail/${item.jump_id}`;
+                }
+
+                return (<Link key={item.id} to={url}>
                   <Image src={item.photo} resize={{ width: 1500 }} />
-                </Link>
-              ))}
+                </Link>);
+              })}
         </Slick> : null
       }
     </div>);
@@ -132,13 +146,13 @@ class HomePage extends React.Component {
           {window.orgInfo ?
             <Menus menus={window.orgInfo.module_settings} /> : null}
           <div className="menus-activity">
-            <Link to="/project/list?types=distance">
+            <Link to="/project/list/type/1/category/1000/target/1000">
               <img src="/images/activities_nearby.png" alt="附近" />
             </Link>
-            <Link to="/project/list?types=time">
+            <Link to="/project/list/type/0/category/1000/target/1000">
               <img src="/images/activities_new.png" alt="最新" />
             </Link>
-            <Link to="/project/list?recommend=1">
+            <Link to="/project/list/recommend">
               <img src="/images/activities_hot.png" alt="最热" />
             </Link>
           </div>

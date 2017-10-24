@@ -81,7 +81,7 @@ class SigninPage extends React.Component {
                   <div className="project-title">{next.project && next.project.name}</div>
                   <div className="project-duration">
                     <span>可获得志愿者时长</span>
-                    <span>{next.project && parseInt(next.project.reward_time, 10)}小时</span>
+                    <span>{parseInt(next.reward_time, 10)}小时</span>
                   </div>
                 </div>
               </li>

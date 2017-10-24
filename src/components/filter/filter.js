@@ -12,16 +12,16 @@ class Filter extends React.Component {
 
     this.filterConfig = {
       types: ['最新发布', '距离最近'],
-      categories: window.serviceCategory || ['赛事服务', '应急救援', '城市运⾏', '⽂化教育', '关爱服务', '社区服务', '医疗卫⽣', '绿⾊环保', '在线志愿服务', '国际服务', '其他'],
-      objects: window.serviceTarget || ['⼉童', '⻘少年', '孤寡⽼⼈', '残障⼈⼠', '优抚对象', '特困群体', '其他'],
+      categories: window.serviceCategory,
+      objects: window.serviceTarget,
     };
 
     this.state = {
       showOptionsType: '',
       selectedOption: {
-        types: props.types || '',
-        categories: '',
-        objects: '',
+        types: this.filterConfig.types[props.type] || '',
+        categories: window.serviceCategory[props.category] || '',
+        objects: window.serviceTarget[props.target] || '',
       },
     };
   }
@@ -62,7 +62,12 @@ class Filter extends React.Component {
           [optionType]: option === this.state.selectedOption[optionType] ? '' : option,
         },
       }, () => {
-        this.props.onFilterChange(this.state.selectedOption);
+        const { types, categories, objects } = this.state.selectedOption;
+        this.props.onFilterChange({
+          type: types ? this.filterConfig.types.indexOf(types) : 1000,
+          category: categories ? this.filterConfig.categories.indexOf(categories) : 1000,
+          target: objects ? this.filterConfig.objects.indexOf(objects) : 1000,
+        });
         this.props.onFilterHide();
       });
     };
@@ -128,7 +133,9 @@ Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   onFilterShow: PropTypes.func,
   onFilterHide: PropTypes.func,
-  types: PropTypes.string,
+  type: PropTypes.number,
+  category: PropTypes.number,
+  target: PropTypes.number,
 };
 
 export default Filter;
