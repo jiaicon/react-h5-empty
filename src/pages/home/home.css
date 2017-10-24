@@ -12,8 +12,8 @@
   position: relative;
   width: 100%;
   height: 264px;
-  background: url(/images/default_banner.png) no-repeat top left;
-  background-size: cover;
+  /* background: url(/images/default_banner.png) no-repeat top left; */
+  /* background-size: cover; */
 }
 
 .page-home .slick-container img{
