@@ -12,6 +12,6 @@ export const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.co
 export const ADMIN_HOST = 'http://alpha.api.admin.volunteer.tmallwo.com';
 
 // 线上接口
-// export const API_PREFIX = 'http://api.volunteerzhiduoxing.com';
+// export const API_PREFIX = 'http://api.volunteerzhiduoxing.com/api/v1';
 // export const API_HOST = window.apiHost || 'http://api.volunteerzhiduoxing.com';
 // export const ADMIN_HOST = 'http://admin.volunteerzhiduoxing.com';
