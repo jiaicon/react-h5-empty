@@ -17,13 +17,11 @@ import { requestVerifyCode, register } from './register.store';
 
 
 import Avatar from '../../../components/avatar/avatar';
-
-import Image from '../../../components/image/image';
+import { API_HOST } from '../../../utils/config';
 
 import './register.css';
 import uploadToWX from '../../../utils/wxupload';
 
-const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {

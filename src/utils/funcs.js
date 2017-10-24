@@ -81,15 +81,21 @@ export function getLocation(success, fail, noCache) {
 
 export function getCity(success, fail) {
   if (window.dev) {
-    success('北京市');
+    success('北京');
     return;
   }
 
   getLocation((loc) => {
     const geocoder = new qq.maps.Geocoder({
       complete: (result) => {
-        if (success) {
-          success(result.detail.addressComponents.city);
+        if (result.detail.addressComponents
+          && result.detail.addressComponents.city) {
+          if (!success) {
+            return;
+          }
+          success(result.detail.addressComponents.city.replace('市', ''));
+        } else if (fail) {
+          fail({});
         }
       },
     });
