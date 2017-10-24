@@ -5,12 +5,13 @@ export const HOST = SERVER_HOST;
 // export const API_PREFIX = 'https://api.github.com';
 // export const API_PREFIX = 'https://www.easy-mock.com/mock/59ca36bee0dc663341bbe24a/smart';
 
-// export const API_PREFIX = 'http://alpha.api.volunteer.tmallwo.com/api/v1';
-export const API_PREFIX = 'http://api.volunteerzhiduoxing.com';
 
-// 通用接口
-// export const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
-export const API_HOST = window.apiHost || 'http://api.volunteerzhiduoxing.com';
+// 测试接口
+export const API_PREFIX = 'http://alpha.api.volunteer.tmallwo.com/api/v1';
+export const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
+export const ADMIN_HOST = 'http://alpha.api.admin.volunteer.tmallwo.com';
 
-// export const ADMIN_HOST = 'http://alpha.api.admin.volunteer.tmallwo.com';
-export const ADMIN_HOST = 'http://admin.volunteerzhiduoxing.com';
+// 线上接口
+// export const API_PREFIX = 'http://api.volunteerzhiduoxing.com';
+// export const API_HOST = window.apiHost || 'http://api.volunteerzhiduoxing.com';
+// export const ADMIN_HOST = 'http://admin.volunteerzhiduoxing.com';
