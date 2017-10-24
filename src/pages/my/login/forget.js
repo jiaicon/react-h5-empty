@@ -19,7 +19,7 @@ class Forget extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      buttonString: '获取验证码',
+      buttonString: '获取',
       timer: null,
       countDownTrigger: true,
     };
@@ -53,7 +53,7 @@ class Forget extends React.Component {
     const timer = this.state.timer;
     clearInterval(timer);
     this.setState({
-      buttonString: '获取验证码',
+      buttonString: '获取',
       timer: null,
     });
   }
@@ -76,7 +76,7 @@ class Forget extends React.Component {
         clearInterval(timer);
         that.setState({
           ...this.state,
-          buttonString: '获取验证码',
+          buttonString: '获取',
           timer: null,
           countDownTrigger: true,
         });

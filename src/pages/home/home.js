@@ -133,6 +133,7 @@ class HomePage extends React.Component {
     </div>);
   }
 
+
   render() {
     const { home } = this.props;
 
@@ -145,9 +146,10 @@ class HomePage extends React.Component {
         <div className="page-home-body">
           {window.orgInfo ?
             <Menus menus={window.orgInfo.module_settings} /> : null}
-          <div style={{ width: '100%', height: '10px' }} />
+
           {
             home.data && home.data.sanlitun ? <div>
+              <div style={{ width: '100%', height: '10px' }} />
               <div className="project-list">
                 <div className="list-header">
                   <div className="main-label">
@@ -169,19 +171,25 @@ class HomePage extends React.Component {
                   <img src="/images/feedback3.png" alt="回馈展示" />
                 </Link>
               </div>
+              <div style={{ width: '100%', height: '10px' }} />
             </div> : null
           }
-          <div className="menus-activity">
-            <Link to="/project/list/type/1/category/1000/target/1000">
-              <img src="/images/activities_nearby.png" alt="附近" />
-            </Link>
-            <Link to="/project/list/type/0/category/1000/target/1000">
-              <img src="/images/activities_new.png" alt="最新" />
-            </Link>
-            <Link to="/project/list/recommend">
-              <img src="/images/activities_hot.png" alt="最热" />
-            </Link>
-          </div>
+          {
+          home.data && home.data.sanlitun ?
+            null
+          :
+            <div className="menus-activity">
+              <Link to="/project/list/type/1/category/1000/target/1000">
+                <img src="/images/activities_nearby.png" alt="附近" />
+              </Link>
+              <Link to="/project/list/type/0/category/1000/target/1000">
+                <img src="/images/activities_new.png" alt="最新" />
+              </Link>
+              <Link to="/project/list/recommend">
+                <img src="/images/activities_hot.png" alt="最热" />
+              </Link>
+            </div>
+        }
           <div className="project-list">
             <div className="list-header">
               <div className="main-label">
