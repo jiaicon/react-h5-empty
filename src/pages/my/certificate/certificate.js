@@ -10,11 +10,7 @@ import autoBind from 'react-autobind';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Dialog } from 'react-weui';
-import 'weui/dist/style/weui.css';
-import 'react-weui/build/packages/react-weui.css';
 
-import history from '../../history';
 import Avatar from '../../../components/avatar/avatar';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';

@@ -33,7 +33,7 @@ class FamilyItem extends React.Component {
       <div className="page-family-item-container">
         <div className="page-family-item-main">
           <div className="page-family-item-main-photo-bg">
-            <Avatar src={item.avatars} size={{ width: 60, radius: 1 }} defaultSrc="/images/my/register.png" />
+            <Avatar src={item.avatars} size={{ width: 60, radius: 8 }} defaultSrc="/images/my/register.png" />
           </div>
           <div className="page-family-item-name-container">
             <div className="page-family-item-name">{item.real_name ? item.real_name : '未绑定个人名字'}</div>
