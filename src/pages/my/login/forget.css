@@ -29,7 +29,7 @@
   outline: none;
   display: block;
   height: 49px;
-  line-height: 49px;
+  display: block;
 }
 .page-forget-code{
   font-size: 13px;

@@ -105,51 +105,26 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <div className="page-my-record-container">
-        {
-        !user.isLogin ?
-          <Link to="/my/entry">
-            <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count}</b>个</p>
-              <p className="page-my-record-item-bottom">我的团队</p>
-            </div>
-          </Link> :
-          <Link to="/my/teams">
-            <div className="page-my-record-item">
+
+        <Link to="/my/teams">
+          <div className="page-my-record-item">
               <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count }</b>个</p>
               <p className="page-my-record-item-bottom">我的团队</p>
             </div>
-          </Link>
-      }
-        {
-        !user.isLogin ?
-          <Link to="/my/entry">
-            <div className="page-my-record-item">
+        </Link>
+
+        <Link to="/my/projects">
+          <div className="page-my-record-item">
               <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
               <p className="page-my-record-item-bottom">我的项目</p>
             </div>
-          </Link> :
-          <Link to="/my/projects">
-            <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
-              <p className="page-my-record-item-bottom">我的项目</p>
-            </div>
-          </Link>
-      }
-        {
-        !user.isLogin ?
-          <Link to="/my/entry">
-            <div className="page-my-record-item">
+        </Link>
+        <Link to="/my/duration">
+          <div className="page-my-record-item">
               <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
               <p className="page-my-record-item-bottom">志愿时长</p>
             </div>
-          </Link> :
-          <Link to="/my/duration">
-            <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
-              <p className="page-my-record-item-bottom">志愿时长</p>
-            </div>
-          </Link>
-      }
+        </Link>
 
       </div>
     );
@@ -159,34 +134,20 @@ class MyPage extends React.Component {
     return (
       <div>
         <div className="page-my-header">
-          {
-            !user.isLogin ?
-              <Link to="/my/entry">
-                <div className="page-my-header-setting" />
-              </Link> :
-              <Link to="/my/setting">
-                <div className="page-my-header-setting" />
-              </Link>
-          }
-          {
-            !user.isLogin ?
-              <Link to="/my/entry">
-                {this.renderPageMymessagesTemplate()}
-              </Link> :
-              <Link to="/my/messages">
-                {this.renderPageMymessagesTemplate()}
-              </Link>
-          }
+
+          <Link to="/my/setting">
+            <div className="page-my-header-setting" />
+          </Link>
+
+          <Link to="/my/messages">
+            {this.renderPageMymessagesTemplate()}
+          </Link>
+
         </div>
-        {
-          !user.isLogin ?
-            <Link to="/my/entry">
-              {this.renderPageMyphotoTemplate()}
-            </Link> :
-            <div>
-              {this.renderPageMyphotoTemplate()}
-            </div>
-        }
+
+        <div>
+          {this.renderPageMyphotoTemplate()}
+        </div>
         {this.renderPageMyRecordTemplate()}
       </div>
     );
@@ -196,18 +157,6 @@ class MyPage extends React.Component {
     return (
       <ul className="page-my-item-container">
         <li>
-          {
-        !user.isLogin ?
-          <div>
-            <Link to="/my/entry">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-data" />个人资料
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-          :
           <div>
             <Link to="/my/profile/detail/user">
               <div className="page-my-item-box">
@@ -217,21 +166,8 @@ class MyPage extends React.Component {
             </Link>
             <div className="line1px" />
           </div>
-        }
         </li>
         <li>
-          {
-        !user.isLogin ?
-          <div>
-            <Link to="/my/entry">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-certificate" />我的证书
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-          :
           <div onClick={this.hasntIdnumber}>
             <a>
               <div className="page-my-item-box">
@@ -241,21 +177,9 @@ class MyPage extends React.Component {
             </a>
             <div className="line1px" />
           </div>
-        }
         </li>
         <li>
-          {
-        !user.isLogin ?
-          <div>
-            <Link to="/my/entry">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-family" />我的家庭
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-          :
+
           <div>
             <Link to="/my/family">
               <div className="page-my-item-box">
@@ -265,21 +189,8 @@ class MyPage extends React.Component {
             </Link>
             <div className="line1px" />
           </div>
-        }
         </li>
         <li>
-          {
-        !user.isLogin ?
-          <div>
-            <Link to="/my/entry">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-like" />我的收藏
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-          :
           <div>
             <Link to="/my/collects">
               <div className="page-my-item-box">
@@ -289,45 +200,19 @@ class MyPage extends React.Component {
             </Link>
             <div className="line1px" />
           </div>
-        }
         </li>
         <li>
-          {
-      !user.isLogin ?
-        <div>
-          <Link to="/my/entry">
-            <div className="page-my-item-box">
-              <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
-            </div>
-            <span className="page-my-item-big" />
-          </Link>
-          <div className="line1px" />
-        </div>
-        :
-        <div>
-          <Link to="/my/duration/applys">
-            <div className="page-my-item-box">
-              <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
-            </div>
-            <span className="page-my-item-big" />
-          </Link>
-          <div className="line1px" />
-        </div>
-      }
-        </li>
-        <li>
-          {
-        !user.isLogin ?
           <div>
-            <Link to="/my/entry">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-service" />服务中心
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
+            <Link to="/my/duration/applys">
+            <div className="page-my-item-box">
+              <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
+            </div>
+            <span className="page-my-item-big" />
+          </Link>
             <div className="line1px" />
           </div>
-          :
+        </li>
+        <li>
           <div>
             <Link to="/my/service">
               <div className="page-my-item-box">
@@ -336,7 +221,6 @@ class MyPage extends React.Component {
               <span className="page-my-item-big" />
             </Link>
           </div>
-        }
         </li>
       </ul>
     );

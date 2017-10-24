@@ -52,6 +52,7 @@ select {
   text-align: right;
   width: 280px;
   line-height: 50px;
+  display: block;
 }
 .page-my-profile-verify-icon{
   width: 20px;

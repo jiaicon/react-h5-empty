@@ -27,13 +27,7 @@ class DurationProjects extends React.Component {
   }
 
   componentWillUnmount() {}
-  onHandleClick(project) {
-    console.log(project);
-    if (this.props.onHandleClick) {
-      this.props.onHandleClick(project);
-    }
-    return false;
-  }
+
   onClick(e) {
     const id = e.currentTarget.id;
     const name = e.currentTarget.getAttribute('data-name');
@@ -42,8 +36,6 @@ class DurationProjects extends React.Component {
       name,
     };
     this.props.HandleClick(data);
-    console.log(id);
-    console.log(name);
   }
   render() {
     const { durationProject } = this.props;
@@ -62,7 +54,7 @@ class DurationProjects extends React.Component {
             durationProject.map((project) => {
               const { team } = project;
 
-              return (<li key={project.id} onClick={this.onHandleClick(project)}>
+              return (<li key={project.id} >
                 <div className="component-duration-projects-take-up" />
                 <div className="component-duration-projects-main">
                   <Link to={`/project/detail/${project.id}`}>

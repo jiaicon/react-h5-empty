@@ -91,8 +91,7 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>
           <div className="page-certificate-container-content">{this.state.registerArr[0]}年{this.state.registerArr[1]}月{this.state.registerDay[0]}日注册成为志多星志愿者</div>
           <div className="page-certificate-container-content">
-            {this.state.nowArr[0]}年{this.state.nowArr[1]}月{this.state.nowDay[0]}日
-          截止</div>
+            {this.state.nowArr[0]}年{this.state.nowArr[1]}月{this.state.nowDay[0]}日截止</div>
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
               <div className="page-certificate-container-hours-item"><span>{this.props.user.join_project_count}</span>次</div>

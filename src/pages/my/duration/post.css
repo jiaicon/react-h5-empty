@@ -72,6 +72,7 @@
 .page-post-container-text{
   width: 345px;
   height: 50px;
+  display: block;
   background: #FFFFFF;
   border-radius: 4px;
   margin-top: 15px;
@@ -83,6 +84,7 @@
   margin-top: 15px;
   width: 345px;
   height: 125px;
+  display: block;
   background: #FFFFFF;
   border-radius: 4px;
   resize: none;

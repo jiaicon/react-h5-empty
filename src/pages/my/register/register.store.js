@@ -1,7 +1,6 @@
-import Alert from 'react-s-alert';
+
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
-import { USERINFO_FULFILLED } from '../../../stores/common';
 import { API_HOST } from '../../../utils/config';
 
 

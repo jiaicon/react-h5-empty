@@ -145,6 +145,28 @@ class HomePage extends React.Component {
         <div className="page-home-body">
           {window.orgInfo ?
             <Menus menus={window.orgInfo.module_settings} /> : null}
+          <div style={{ width: '100%', height: '10px' }} />
+          <div className="project-list">
+            <div className="list-header">
+              <div className="main-label">
+                <div className="label-line" />
+                <span>回馈展示</span>
+                <div className="label-line" />
+              </div>
+              <div className="sub-label">Feedback To Show</div>
+            </div>
+          </div>
+          <div className="page-home-feedback-show-container">
+            <Link to="/building">
+              <img src="/images/feedback1.png" alt="回馈展示" />
+            </Link>
+            <Link to="/building">
+              <img src="/images/feedback2.png" alt="回馈展示" />
+            </Link>
+            <Link to="/building">
+              <img src="/images/feedback3.png" alt="回馈展示" />
+            </Link>
+          </div>
           <div className="menus-activity">
             <Link to="/project/list/type/1/category/1000/target/1000">
               <img src="/images/activities_nearby.png" alt="附近" />
@@ -160,7 +182,7 @@ class HomePage extends React.Component {
             <div className="list-header">
               <div className="main-label">
                 <div className="label-line" />
-                <span>精品活动</span>
+                <span>联盟活动</span>
                 <div className="label-line" />
               </div>
               <div className="sub-label">Awesome Activity</div>

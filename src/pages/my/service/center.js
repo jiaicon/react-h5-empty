@@ -38,11 +38,7 @@ class Center extends React.Component {
 
   render() {
     return (
-      <div className="page-center" >
-        {/** 1.jpg 正方  2.jpg 竖长  3.jpg 横长 */}
-        <Avatar src="/images/3.jpg" resize={{ width: 200, height: 200, radius: 10 }} />
-
-      </div>
+      <div className="page-center" />
     );
   }
 }
