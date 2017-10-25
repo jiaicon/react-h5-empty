@@ -63,7 +63,8 @@
   padding-bottom:2px;
 }
 .page-entry-bottom-line{
-  width: 3px;
+  width: 1px;
   height: 19px;
   background-color: #e5e5e5;
+  transform: scaleX(.5);
 }

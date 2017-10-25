@@ -217,9 +217,9 @@ class Verify extends React.Component {
             <input type="text" ref={(c) => { this.address = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
           </div>
         </div>
-        <div className="page-my-profile-verify-bottom">
-          <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
-        </div>
+
+        <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
+
 
       </div>
     );

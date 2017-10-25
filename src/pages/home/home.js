@@ -146,62 +146,71 @@ class HomePage extends React.Component {
         <div className="page-home-body">
           {window.orgInfo ?
             <Menus menus={window.orgInfo.module_settings} /> : null}
-
           {
-            home.data && home.data.sanlitun ? <div>
-              <div style={{ width: '100%', height: '10px' }} />
+            !home.data
+            ?
+            null
+            :
+            <div>
+              {
+              home.data && home.data.sanlitun ? <div>
+                <div style={{ width: '100%', height: '10px' }} />
+                <div className="project-list">
+                  <div className="list-header">
+                    <div className="main-label">
+                      <div className="label-line" />
+                      <span>回馈展示</span>
+                      <div className="label-line" />
+                    </div>
+                    <div className="sub-label">Feedback To Show</div>
+                  </div>
+                </div>
+                <div className="page-home-feedback-show-container">
+                  <Link to="/building">
+                    <img src="/images/feedback1.png" alt="回馈展示" />
+                  </Link>
+                  <Link to="/building">
+                    <img src="/images/feedback2.png" alt="回馈展示" />
+                  </Link>
+                  <Link to="/building">
+                    <img src="/images/feedback3.png" alt="回馈展示" />
+                  </Link>
+                </div>
+                <div style={{ width: '100%', height: '10px' }} />
+              </div> : null
+            }
+              {
+            home.data && home.data.sanlitun ?
+              null
+            :
+              <div className="menus-activity">
+                <Link to="/project/list/type/1/category/1000/target/1000">
+                  <img src="/images/activities_nearby.png" alt="附近" />
+                </Link>
+                <Link to="/project/list/type/0/category/1000/target/1000">
+                  <img src="/images/activities_new.png" alt="最新" />
+                </Link>
+                <Link to="/project/list/recommend">
+                  <img src="/images/activities_hot.png" alt="最热" />
+                </Link>
+              </div>
+            }
               <div className="project-list">
                 <div className="list-header">
                   <div className="main-label">
                     <div className="label-line" />
-                    <span>回馈展示</span>
+                    <span>{home.data && home.data.sanlitun ? '联盟活动' : '精品活动'}</span>
                     <div className="label-line" />
                   </div>
-                  <div className="sub-label">Feedback To Show</div>
+                  <div className="sub-label">Awesome Activity</div>
                 </div>
+                <div className="line1px" />
+                <Projects projects={(home.data && home.data.project) || []} />
               </div>
-              <div className="page-home-feedback-show-container">
-                <Link to="/building">
-                  <img src="/images/feedback1.png" alt="回馈展示" />
-                </Link>
-                <Link to="/building">
-                  <img src="/images/feedback2.png" alt="回馈展示" />
-                </Link>
-                <Link to="/building">
-                  <img src="/images/feedback3.png" alt="回馈展示" />
-                </Link>
-              </div>
-              <div style={{ width: '100%', height: '10px' }} />
-            </div> : null
+            </div>
+
           }
-          {
-          home.data && home.data.sanlitun ?
-            null
-          :
-            <div className="menus-activity">
-              <Link to="/project/list/type/1/category/1000/target/1000">
-                <img src="/images/activities_nearby.png" alt="附近" />
-              </Link>
-              <Link to="/project/list/type/0/category/1000/target/1000">
-                <img src="/images/activities_new.png" alt="最新" />
-              </Link>
-              <Link to="/project/list/recommend">
-                <img src="/images/activities_hot.png" alt="最热" />
-              </Link>
-            </div>
-        }
-          <div className="project-list">
-            <div className="list-header">
-              <div className="main-label">
-                <div className="label-line" />
-                <span>{home.data && home.data.sanlitun ? '联盟活动' : '精品活动'}</span>
-                <div className="label-line" />
-              </div>
-              <div className="sub-label">Awesome Activity</div>
-            </div>
-            <div className="line1px" />
-            <Projects projects={(home.data && home.data.project) || []} />
-          </div>
+
         </div>
       </div>
     );
