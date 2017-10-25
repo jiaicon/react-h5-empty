@@ -81,12 +81,9 @@ class HomePage extends React.Component {
         <input className="input" placeholder="搜索项目" />
       </Link>
       {
-        !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
-      }
-      { user.avatars ?
-        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
+        !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link>
         :
-        null
+        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
       }
     </div>);
   }
