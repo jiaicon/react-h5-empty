@@ -109,7 +109,7 @@ class Checkbox extends React.Component {
 }
 
 
-Checkbox.title = '多选列表';
+Checkbox.title = '个人擅长';
 Checkbox.propTypes = {
   imporvePersonInfo: PropTypes.func,
   person: PropTypes.shape({

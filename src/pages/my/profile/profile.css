@@ -129,3 +129,12 @@
 .page-profile-bottom-real-info-container{
   background: #fff;
 }
+
+.page-profile-renview-container{
+  display: flex;
+  flex-direction: reverse;
+  align-items: center;
+}
+.page-profile-fonts{
+  width: 80px;
+}

@@ -108,22 +108,22 @@ class MyPage extends React.Component {
 
         <Link to="/my/teams">
           <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count }</b>个</p>
-              <p className="page-my-record-item-bottom">我的团队</p>
-            </div>
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count }</b>个</p>
+            <p className="page-my-record-item-bottom">我的团队</p>
+          </div>
         </Link>
 
         <Link to="/my/projects">
           <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
-              <p className="page-my-record-item-bottom">我的项目</p>
-            </div>
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
+            <p className="page-my-record-item-bottom">我的项目</p>
+          </div>
         </Link>
         <Link to="/my/duration">
           <div className="page-my-record-item">
-              <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
-              <p className="page-my-record-item-bottom">志愿时长</p>
-            </div>
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
+            <p className="page-my-record-item-bottom">志愿时长</p>
+          </div>
         </Link>
 
       </div>
@@ -204,11 +204,11 @@ class MyPage extends React.Component {
         <li>
           <div>
             <Link to="/my/duration/applys">
-            <div className="page-my-item-box">
-              <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
+              <div className="page-my-item-box">
+                <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
             </div>
-            <span className="page-my-item-big" />
-          </Link>
+              <span className="page-my-item-big" />
+            </Link>
             <div className="line1px" />
           </div>
         </li>

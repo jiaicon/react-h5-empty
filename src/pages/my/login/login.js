@@ -72,9 +72,10 @@ class Login extends React.Component {
     this.props.loginAction(data);
   }
   render() {
+    const logo = window.orgInfo.logo || '/images/my/logo.png';
     return (
       <div className="page-login">
-        <Avatar size={{ width: 80 }} defaultSrc="/images/my/logo.png" />
+        <Avatar size={{ width: 80 }} defaultSrc={logo} />
 
         <div className="page-login-item">
           <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} placeholder="用户名或手机号" className="page-login-item-input" />
