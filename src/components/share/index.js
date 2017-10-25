@@ -23,7 +23,7 @@ const WXS = (option = {}) => {
   const host = `${location.protocol}//${location.hostname}`;
   const newOption = {
     title: `${option.title || orgInfo.name}`,
-    desc: option.desc || '',
+    desc: option.desc || '文明点亮你我，志愿感动社会',
     // link: `${host}${option.link || ''}`,
     link: location.href.indexOf('?') > -1
           ? `${location.href}&orgcode=${window.orgCode}` : `${location.href}?orgcode=${window.orgCode}`,

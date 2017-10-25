@@ -1,4 +1,3 @@
-/* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import Slick from 'react-slick';
@@ -7,7 +6,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
-import WXShare from '../../components/share';
 import './home.css';
 import Link from '../../components/link/link';
 import Image from '../../components/image/image';
@@ -69,12 +67,6 @@ class HomePage extends React.Component {
     // EM.on('location', () => this.props.requestHomeData());
   }
 
-  componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
-  }
-
   componentWillReceiveProps() {
   }
 
@@ -89,12 +81,9 @@ class HomePage extends React.Component {
         <input className="input" placeholder="搜索项目" />
       </Link>
       {
-        !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link> : null
-      }
-      { user.avatars ?
-        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
+        !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link>
         :
-        null
+        <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
       }
     </div>);
   }

@@ -19,7 +19,7 @@ class Avatar extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.logoSrc = '/images/default_avatar.png';
+    this.logoSrc = '/images/my/register.png';
 
     this.state = {
       src: this.configSrc(props),
