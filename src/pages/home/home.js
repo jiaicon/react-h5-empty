@@ -1,4 +1,3 @@
-/* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import Slick from 'react-slick';
@@ -7,7 +6,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
-import WXShare from '../../components/share';
 import './home.css';
 import Link from '../../components/link/link';
 import Image from '../../components/image/image';
@@ -67,12 +65,6 @@ class HomePage extends React.Component {
 
     // 地理位置重新获取后需要刷新首页数据
     // EM.on('location', () => this.props.requestHomeData());
-  }
-
-  componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
   }
 
   componentWillReceiveProps() {

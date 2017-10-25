@@ -1,3 +1,5 @@
+/* global wx:false */
+
 /**
  * @file 首页 TABS 页面统一入口，负责 URL 到 TAB  以及页面的映射
  */
@@ -11,6 +13,7 @@ import Link from '../../components/link/link';
 import './launch.css';
 import HomePage from '../home/home';
 import SigninPage from '../signin/signin';
+import WXShare from '../../components/share';
 import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
 
@@ -38,7 +41,9 @@ class LaunchPage extends React.Component {
   }
 
   componentDidMount() {
-
+    wx.ready(() => {
+      WXShare();
+    });
   }
 
   componentWillReceiveProps(nextProps) {
