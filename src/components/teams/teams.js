@@ -31,7 +31,7 @@ class Teams extends React.Component {
     if (!teams) {
       return null;
     } else if (teams && !teams.length) {
-      return <div className="teams-empty-tip">目前还没有活动哦</div>;
+      return <div className="teams-empty-tip">{showLabel ? '目前还没有您已加入的团队哦' : '目前还没有团队哦'}</div>;
     }
     return (
       <ul className="component-teams">

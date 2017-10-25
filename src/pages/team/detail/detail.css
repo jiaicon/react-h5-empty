@@ -49,16 +49,16 @@
   height: 80px;
   background: #F8F8F8;
   border-radius: 8px;
-  padding: 18px 0;
   display: flex;
   justify-content: space-around;
-  align-items: stretch;
+  align-items: center;
   font-size: 13px;
   color: #666666;
 }
 
 .page-team-detail .body .team-member .line1px-v {
   background: #666666;
+  height: 44px;
 }
 
 .page-team-detail .body .team-member .team-member-item {
