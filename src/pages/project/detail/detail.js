@@ -77,14 +77,16 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.detail && nextProps.detail.data && !this.wxRegistered) {
-      const detailData = nextProps.detail.data;
+    const detailData = nextProps.detail.data;
 
+    if (detailData
+        && detailData.id === parseInt(this.projectId, 10)
+        && !this.wxRegistered) {
       wx.ready(() => {
         WXShare({
           title: detailData.name,
           desc: detailData.content,
-          image: detailData.photo,
+          image: detailData.photo && detailData.photo[0],
           success: () => this.hideShareTip(),
         });
       });
@@ -145,7 +147,7 @@ class ProjectDetailPage extends React.Component {
   renderSlick() {
     const { detail: { data: detailData } } = this.props;
     if (!detailData.photo || !detailData.photo.length) {
-      return <div className="slick-container" />;
+      return <div className="slick-container slick-container-empty" />;
     }
 
     return (<div className="slick-container">

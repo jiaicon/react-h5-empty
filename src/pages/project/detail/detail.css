@@ -18,6 +18,9 @@
   position: relative;
   width: 100%;
   height: 220px;
+}
+
+.page-project-detail .slick-container-empty {
   background: url(/images/default_banner.png) no-repeat top left;
   background-size: cover;
   background-position: center;
