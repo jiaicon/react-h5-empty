@@ -166,6 +166,7 @@ class Register extends React.Component {
   }
   // 上传照片
   onAvatarClick() {
+    console.log('11111111111111111111111111')
     uploadToWX({
       success: (urls) => {
         console.log('图片上传成功:', urls);
