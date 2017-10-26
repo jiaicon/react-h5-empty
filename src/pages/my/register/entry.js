@@ -19,10 +19,7 @@ class Entry extends React.Component {
   }
 
   componentWillMount() {
-    const { user } = this.props;
-    if ( !user.isLogin ) {
-      history.replace('/');
-    }
+
 
   }
 
