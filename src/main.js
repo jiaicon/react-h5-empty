@@ -80,6 +80,11 @@ function render(location) {
 
 if (USING_HISTORY_HASH && location.pathname !== '/') {
   location.href = `${location.protocol}//${location.host}/#${location.pathname}`;
+} else if (!USING_HISTORY_HASH
+  && location.pathname === '/'
+  && location.hash.length > 2
+  && location.hash.indexOf('#/') === 0) {
+  location.href = `${location.protocol}//${location.host}/${location.hash.replace(/^#\//g, '')}`;
 } else {
 // Handle client-side navigation by using HTML5 History API For more information
 // visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
