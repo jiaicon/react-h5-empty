@@ -57,7 +57,6 @@ class Projects extends React.Component {
     return TAB_URL_MAPS[(props || this.props).route.path];
   }
   render() {
-    const { project: { data: listData } } = this.props;
     const { page } = this.state;
     const { path } = this.props.route;
     return (
@@ -104,7 +103,8 @@ class Projects extends React.Component {
                 >已结束</div>
               </Link>
             </li>
-          </ul><div className="line1px" style={{ width: '100%' }} />
+          </ul>
+          <div className="line1px" style={{ width: '100%' }} />
         </div>
         <div className="page-projects-content-main">
           {page}
@@ -126,7 +126,7 @@ Projects.propTypes = {
         PropTypes.shape({
           id: PropTypes.number,
           name: PropTypes.string,
-          photo: PropTypes.string,
+          photo: PropTypes.array,
           content: PropTypes.string,
           identifier: PropTypes.string,
           province_id: PropTypes.number,

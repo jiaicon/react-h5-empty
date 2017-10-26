@@ -58,7 +58,8 @@ Projects.propTypes = {
         PropTypes.shape({
           id: PropTypes.number,
           name: PropTypes.string,
-          photo: PropTypes.string,
+          photo: PropTypes.array,
+          list_photo: PropTypes.string,
           content: PropTypes.string,
           identifier: PropTypes.string,
           province_id: PropTypes.number,

@@ -36,6 +36,7 @@ class Login extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { login: cLogin } = this.props;
     const { login: nLogin } = nextProps;
+    console.log(nLogin);
     if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
       let target = '/my';
       const { from } = nLogin;
