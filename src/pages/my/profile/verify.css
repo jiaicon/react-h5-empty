@@ -1,5 +1,5 @@
 
-select {
+.page-my-profile-verify-container select {
 
   /*很关键：将默认的select选择框样式清除*/
   -moz-appearance:none;
@@ -14,19 +14,19 @@ select {
   padding-left: 15px;
   flex: 1;
 }
-label{
+.page-my-profile-verify-container label{
   flex: 1;
   display: flex;
 }
 .page-my-profile-verify-container{
   /* width: 100%;
   height: 100%; */
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  left: 0; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
 }
 .page-my-profile-verify-title{
   width: 100%;
