@@ -2,7 +2,6 @@
 select {
 
   /*很关键：将默认的select选择框样式清除*/
-  appearance:none;
   -moz-appearance:none;
   -webkit-appearance:none;
 
@@ -11,16 +10,14 @@ select {
   background-size: 20px 20px;
   padding-right: 14px;
   outline: none;
-  width: 275px;
-  height: 50px;
-  line-height: 50px;
   text-align: left;
+  padding-left: 15px;
+  flex: 1;
 }
-.page-my-profile-verify-header-box label{
-  width: 275px;
-  height: 50px;
+label{
+  flex: 1;
+  display: flex;
 }
-
 .page-my-profile-verify-container{
   /* width: 100%;
   height: 100%; */
@@ -55,7 +52,6 @@ select {
   font-size: 15px;
   color: #333333;
   width: 70px;
-  padding-right: 10px;
   text-align: justify;
   text-align-last:justify;
 }
@@ -65,15 +61,16 @@ select {
   text-align: left;
   width: 275px;
   display: block;
+  padding-left: 15px;
 }
-.page-my-profile-verify-icon{
+/* .page-my-profile-verify-icon{
   width: 20px;
   height: 20px;
   background-image: url(/images/my/more.png);
   background-repeat: no-repeat;
   background-size: contain;
   margin-left: 5px;
-}
+} */
 .page-my-profile-verify-bottom{
   /* width: 100%;
   flex: 1;

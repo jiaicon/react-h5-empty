@@ -1,12 +1,14 @@
 /**
  * @file 入口页，登陆注册
  */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import { ADMIN_HOST } from '../../../utils/config';
+import { requestUserInfo } from '../../../stores/common';
+import history from '../../history';
 import './entry.css';
 
 class Entry extends React.Component {
@@ -17,6 +19,10 @@ class Entry extends React.Component {
   }
 
   componentWillMount() {
+    const { user } = this.props;
+    if ( !user.isLogin ) {
+      history.replace('/');
+    }
 
   }
 
@@ -70,9 +76,45 @@ class Entry extends React.Component {
 Entry.title = '登录';
 
 Entry.propTypes = {
+  requestUserInfo: PropTypes.func,
+  user: PropTypes.shape({
+    data: PropTypes.shape({
+      isLogin: PropTypes.bool,
+      token: PropTypes.string,
+      id: PropTypes.number,
+      username: PropTypes.string,
+      phone: PropTypes.string,
+      avatars: PropTypes.string,
+      real_name: PropTypes.string,
+      nation: PropTypes.string,
+      sex: PropTypes.number,
+      birthday: PropTypes.string,
+      identifier: PropTypes.string,
+      slogan: PropTypes.string,
+      reward_time: PropTypes.string,
+      id_number: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
+      province_id: PropTypes.number,
+      province_name: PropTypes.string,
+      city_id: PropTypes.number,
+      city_name: PropTypes.string,
+      county_id: PropTypes.number,
+      county_name: PropTypes.string,
+      addr: PropTypes.string,
+      family_id: PropTypes.number,
+      join_family_time: PropTypes.string,
+      good_at: PropTypes.arrayOf(PropTypes.shape({
+
+      })),
+    }),
+  }),
 };
 
 export default connect(
-  state => state.my || {},
-  dispatch => bindActionCreators({}, dispatch),
+  state=> ({
+    user: state.user,
+  }),
+  dispatch => bindActionCreators({requestUserInfo}, dispatch),
 )(Entry);

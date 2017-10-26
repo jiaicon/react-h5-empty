@@ -211,7 +211,7 @@ class Register extends React.Component {
       <div className="page-register">
         <div className="page-register-photo">
           <div className="page-register-photo-container" onClick={this.onAvatarClick}>
-            <Avatar src={this.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
+            <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           </div>
         </div>
         <div className="page-register-photo-fonts">上传头像(选填)</div>
