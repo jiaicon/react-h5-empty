@@ -84,7 +84,7 @@ class ProjectDetailPage extends React.Component {
         WXShare({
           title: detailData.name,
           desc: detailData.content,
-          image: detailData.photo,
+          image: detailData.photo && detailData.photo[0],
           success: () => this.hideShareTip(),
         });
       });
