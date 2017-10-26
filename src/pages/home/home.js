@@ -91,7 +91,7 @@ class HomePage extends React.Component {
   renderSlick() {
     const { home } = this.props;
     if (!home.data || !home.data.banner) {
-      return <div className="slick-container" />;
+      return <div className="slick-container slick-container-empty" />;
     }
 
     return (<div className="slick-container">

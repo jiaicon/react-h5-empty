@@ -145,7 +145,7 @@ class ProjectDetailPage extends React.Component {
   renderSlick() {
     const { detail: { data: detailData } } = this.props;
     if (!detailData.photo || !detailData.photo.length) {
-      return <div className="slick-container" />;
+      return <div className="slick-container slick-container-empty" />;
     }
 
     return (<div className="slick-container">
