@@ -73,6 +73,7 @@ class Profile extends React.Component {
         const data = {
           avatars: urls[0],
         };
+        this.photo = urls[0];
         this.props.imporvePersonInfo(data);
         this.props.requestUserInfo();
       },
@@ -174,7 +175,7 @@ class Profile extends React.Component {
             <div className="page-profile-fonts">头像</div>
             <div className="page-profile-header-uploade-box">
               <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
-                <Avatar src={user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
+                <Avatar src={this.photo ? this.photo : user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
               </div>
               <div className="page-profile-edit-icon" />
             </div>

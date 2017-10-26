@@ -116,7 +116,7 @@ class Addmember extends React.Component {
             className="page-add-photo-container" onClick={this.onAvatarClick}
           >
 
-            <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
+            <Avatar src={this.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           </div>
         </div>
         <div className="page-add-photo-fonts">上传头像(选填)</div>
