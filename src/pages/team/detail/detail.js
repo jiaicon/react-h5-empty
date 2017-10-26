@@ -52,9 +52,9 @@ class TeamDetailPage extends React.Component {
       this.props.requestTeamProjectList(this.teamId);
     }
 
-    if (nextProps.detail && nextProps.detail.team && !this.wxRegistered) {
-      const detailData = nextProps.detail.team;
+    const detailData = nextProps.detail.team;
 
+    if (detailData && detailData.id === parseInt(this.teamId, 10) && !this.wxRegistered) {
       wx.ready(() => {
         WXShare({
           title: detailData.name,

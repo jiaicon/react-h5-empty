@@ -77,9 +77,11 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.detail && nextProps.detail.data && !this.wxRegistered) {
-      const detailData = nextProps.detail.data;
+    const detailData = nextProps.detail.data;
 
+    if (detailData
+        && detailData.id === parseInt(this.projectId, 10)
+        && !this.wxRegistered) {
       wx.ready(() => {
         WXShare({
           title: detailData.name,
