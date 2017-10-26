@@ -37,7 +37,7 @@ class Edit extends React.Component {
     const { info: cInfo } = this.props;
     const { info: nInfo } = nextProps;
     if (cInfo.fetching && !cInfo.failed && !nInfo.fetching && !nInfo.failed) {
-      history.replace('/my/profile');
+      history.replace('/my/profile/detail/user');
     }
   }
 
@@ -56,7 +56,7 @@ class Edit extends React.Component {
       };
       this.props.imporvePersonInfo(data);
     } else {
-      Alert.warning('请输入个人口号');
+      history.replace('/my/profile/detail/user');
     }
   }
   render() {

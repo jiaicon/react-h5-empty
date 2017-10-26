@@ -83,7 +83,59 @@ class Profile extends React.Component {
     Alert.warning('如需修改请登录账号');
   }
 
-
+  renderOtherRealInfo() {
+    const otherfamily = this.props.otherfamily;
+    if (!otherfamily.data) {
+      return null;
+    }
+    return (
+      <div className="page-profile-bottom-real-info-container">
+        <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
+        <div className="page-profile-header-box">
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">用户名</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
+          </div>
+        </div>
+        <div className="line1px" />
+        <div className="page-profile-header-box">
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">身份证号</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
+          </div>
+        </div>
+        <div className="line1px" />
+        <div className="page-profile-header-box">
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">性别</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
+          </div>
+        </div>
+        <div className="line1px" />
+        <div className="page-profile-header-box">
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">民族</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
+          </div>
+        </div>
+        <div className="line1px" />
+        <div className="page-profile-header-box">
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">现住地址</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.county_name : ''}</div>
+          </div>
+        </div>
+        <div className="line1px" />
+        <div className="page-profile-header-box">
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">详细地址</div>
+            <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
+          </div>
+        </div>
+        <div className="page-profile-realinfo-takeup" />
+      </div>
+    );
+  }
   renderRealInfo() {
     const user = this.props.user;
 
@@ -91,33 +143,45 @@ class Profile extends React.Component {
       <div className="page-profile-bottom-real-info-container">
         <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">用户名</div>
-          <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">用户名</div>
+            <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
+          </div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">身份证号</div>
-          <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">身份证号</div>
+            <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
+          </div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">性别</div>
-          <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">性别</div>
+            <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
+          </div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">民族</div>
-          <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">民族</div>
+            <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
+          </div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">现住地址</div>
-          <div className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">现住地址</div>
+            <div className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
+          </div>
         </div>
         <div className="line1px" />
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">详细地址</div>
-          <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
+          <div className="page-profile-renview-container">
+            <div className="page-profile-fonts">详细地址</div>
+            <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
+          </div>
         </div>
         <div className="page-profile-realinfo-takeup" />
       </div>
@@ -131,45 +195,42 @@ class Profile extends React.Component {
         <div>
           <div className="page-profile-title">基本信息</div>
           <div className="page-profile-header-box">
-            <div className="page-profile-fonts">头像</div>
-            <div className="page-profile-header-uploade-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">头像</div>
               <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
                 <Avatar src={user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
               </div>
-              <div className="page-profile-edit-icon" />
             </div>
+            <div className="page-profile-edit-icon" />
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box">
-            <div className="page-profile-fonts">用户名</div>
-            <div className="page-profile-edit-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">用户名</div>
               <div className="page-profile-initial-fonts">{user.username}</div>
-              <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box">
-            <div className="page-profile-fonts">志愿者编号</div>
-            <div className="page-profile-edit-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">志愿者编号</div>
               <div className="page-profile-initial-fonts">{user.identifier}</div>
-              <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
           <div className="line1px" />
           <Link to="/my/profile/checkbox">
             <div className="page-profile-header-box">
-              <div className="page-profile-fonts">个人擅长</div>
-              <div className="page-profile-edit-box">
+              <div className="page-profile-renview-container">
+                <div className="page-profile-fonts">个人擅长</div>
                 {user.good_at != null ?
-                  user.good_at.map((item, index) =>
-                    <span key={index} className="page-profile-initial-fonts" >
-                      {item.good_at_name}{index < user.good_at.length - 1 ? '、' : ''}
-                    </span>)
-                  : <span />
-                }
-                <div className="page-profile-edit-icon" />
+                user.good_at.map((item, index) =>
+                  <span key={index} className="page-profile-initial-fonts" >
+                    {item.good_at_name}{index < user.good_at.length - 1 ? '、' : ''}
+                  </span>)
+                : <span />
+              }
               </div>
-
+              <div className="page-profile-edit-icon" />
             </div>
           </Link>
           <div className="line1px" />
@@ -220,35 +281,34 @@ class Profile extends React.Component {
         <div>
           <div className="page-profile-title">基本信息</div>
           <div className="page-profile-header-box">
-            <div className="page-profile-fonts">头像</div>
-            <div className="page-profile-header-uploade-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">头像</div>
               <div className="page-profile-header-img-container" onClick={this.onOtherHandleClick}>
                 <Avatar src={otherfamily.data.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
               </div>
+            </div>
 
-              <div className="page-profile-edit-icon" />
-            </div>
+            <div className="page-profile-edit-icon" />
+
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box">
-            <div className="page-profile-fonts">用户名</div>
-            <div className="page-profile-edit-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">用户名</div>
               <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
-              <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box">
-            <div className="page-profile-fonts">志愿者编号</div>
-            <div className="page-profile-edit-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">志愿者编号</div>
               <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
-              <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
           <div className="line1px" />
           <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
-            <div className="page-profile-fonts">个人擅长</div>
-            <div className="page-profile-edit-box">
+            <div className="page-profile-renview-container">
+              <div className="page-profile-fonts">个人擅长</div>
               {otherfamily.data.good_at != null ?
               otherfamily.data.good_at.map((item, index) =>
                 <span key={index} className="page-profile-initial-fonts" >
@@ -256,9 +316,9 @@ class Profile extends React.Component {
                 </span>)
               : <span />
             }
-              <div className="page-profile-edit-icon" />
-            </div>
 
+            </div>
+            <div className="page-profile-edit-icon" />
           </div>
           <div className="line1px" />
 
@@ -271,10 +331,26 @@ class Profile extends React.Component {
           </div>
           <div className="page-profile-take-up" />
         </div>
-        <div className="page-profile-bottom">
-
-          <div className="page-profile-bottom-btn" onClick={this.onOtherHandleClick}>申请成为实名注册志愿者</div>
-
+        {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
+        <div
+          className={cx({
+            'page-profile-bottom': true,
+            'page-profile-display-block': !otherfamily.data.id_number,
+            'page-profile-display-none': otherfamily.data.id_number,
+          })}
+        >
+          <Link to="/my/profile/verify">
+            <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
+          </Link>
+        </div>
+        <div
+          className={cx({
+            'page-profile-bottom': true,
+            'page-profile-display-block': otherfamily.data.id_number,
+            'page-profile-display-none': !otherfamily.data.id_number,
+          })}
+        >
+          {this.renderOtherRealInfo()}
         </div>
 
       </div>
