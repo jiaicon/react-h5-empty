@@ -86,7 +86,8 @@ const loginReducer = (state = {
     case STORE_LOGIN_SOURCE:
       return {
         ...state,
-        from: action.payload.sourcePath,
+        // 一定概率会定向到 /my/entry，临时处理，原因待查
+        from: action.payload.sourcePath === '/my/entry' ? '' : action.payload.sourcePath,
       };
     default:
       return state;
