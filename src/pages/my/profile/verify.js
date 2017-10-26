@@ -178,7 +178,7 @@ class Verify extends React.Component {
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
-            <div className="page-my-profile-verify-fonts">省份</div>
+            <div className="page-my-profile-verify-fonts" onClick={this.handleProvinceClick}>省份</div>
             <label htmlFor="province">
               <select id="province" onChange={this.handleProvinceClick} ref={(c) => { this.province = c; }}>
                 <option value="-1" />

@@ -34,7 +34,7 @@ class Avatar extends React.Component {
   }
 
   configSrc(props) {
-    let src = this.props.src || this.props.defaultSrc || this.logoSrc;
+    let src = props.src || props.defaultSrc || this.logoSrc;
     const size = (props.size || []);
     const { width, height } = size;
     const resizeWidth = width || height;
