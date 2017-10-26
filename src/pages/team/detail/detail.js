@@ -38,6 +38,7 @@ class TeamDetailPage extends React.Component {
   componentWillMount() {
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
+    this.props.saveTabIndex(0);
   }
 
   componentDidMount() {
