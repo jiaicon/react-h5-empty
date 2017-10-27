@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top:20px;
 }
 .page-profile-checkbox-ground{
   display: flex;

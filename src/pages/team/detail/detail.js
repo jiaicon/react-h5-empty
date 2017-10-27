@@ -142,9 +142,7 @@ class TeamDetailPage extends React.Component {
             <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
             <span>{detailData.name}</span>
           </div>
-          <div className="team-number">
-          团队编号：{detailData.identifier}
-          </div>
+
         </div>
       </div>
       <div className="body">

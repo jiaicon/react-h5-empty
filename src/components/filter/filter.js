@@ -98,7 +98,7 @@ class Filter extends React.Component {
 
   render() {
     const { showOptionsType, selectedOption } = this.state;
-    const selectedType = selectedOption.types || '项目类型';
+    const selectedType = selectedOption.types || '智能排序';
     const selectedCategory = selectedOption.categories || '服务类型';
     const selectedObject = selectedOption.objects || '服务对象';
 
