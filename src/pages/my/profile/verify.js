@@ -4,6 +4,7 @@
 
 /* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
+import FastClick from 'fastclick';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -12,6 +13,8 @@ import history from '../../history';
 import { requestUserInfo } from '../../../stores/common';
 import { checkUser, addressDataAction } from './profile.store';
 import './verify.css';
+
+const isAndroid = /android/i.test(navigator.userAgent);
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
@@ -61,7 +64,11 @@ class Verify extends React.Component {
   }
 
   componentDidMount() {
-
+    // Android 下 fastclick 影响 select 点击
+    if (window.fastclick && isAndroid) {
+      window.fastclick.destroy();
+      window.fastclick = null;
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -79,7 +86,11 @@ class Verify extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    if (!window.fastclick && isAndroid) {
+      window.fastclick = FastClick.attach(document.body);
+    }
+  }
 
   onTextChanged() {
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -163,7 +174,7 @@ class Verify extends React.Component {
           <div className="page-my-profile-verify-title">实名认证信息</div>
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">姓名</div>
-            <input type="text" maxLength="5" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" maxLength="6" onChange={this.onTextChanged} />
+            <input type="text" maxLength="5" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">

@@ -93,7 +93,7 @@ if (USING_HISTORY_HASH && location.pathname !== '/') {
 
 // Eliminates the 300ms delay between a physical tap and the firing of a click
 // event on mobile browsers https://github.com/ftlabs/fastclick
-  FastClick.attach(document.body);
+  window.fastclick = FastClick.attach(document.body);
 }
 
 // Enable Hot Module Replacement (HMR)
