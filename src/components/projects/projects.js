@@ -73,9 +73,10 @@ class Projects extends React.Component {
                       <div
                         className={classnames({
                           'project-status': true,
-                          'project-status-recruit': project.activity_status === 1,
-                          'project-status-progress': project.activity_status === 2,
-                          'project-status-end': project.activity_status === 3,
+                          'project-status-recruit': project.project_status === 1,
+                          'project-status-progress': project.project_status === 2,
+                          'project-status-end': project.project_status === 5 || project.project_status === 4,
+                          'project-status-full': project.project_status === 3,
                         })}
                       />
                   }
