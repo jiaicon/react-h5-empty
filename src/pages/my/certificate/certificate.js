@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 
 
 import Avatar from '../../../components/avatar/avatar';
+import { dateTextToDateText } from '../../../utils/funcs';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';
 
@@ -26,18 +27,15 @@ class Certificate extends React.Component {
     autoBind(this);
     this.BussinessInfo = window.orgInfo.name || '和众泽益志愿者服务中心';
     const { user: listData } = this.props;
-    const registerTime = listData.regitser_time;
-    const nowTime = listData.server_time;
-    const registerArr = year(registerTime);
-    const nowArr = year(nowTime);
-    const registerDay = registerArr[2].split(' ');
-    const nowDay = nowArr[2].split(' ');
+    const register = dateTextToDateText(listData.regitser_time.split(' ')[0]);
+
+    const now = dateTextToDateText(listData.server_time.split(' ')[0]);
+
 
     this.state = {
-      registerArr,
-      nowArr,
-      registerDay,
-      nowDay,
+
+      register,
+      now,
     };
   }
 
@@ -55,28 +53,12 @@ class Certificate extends React.Component {
   }
 
   componentWillUnmount() {}
-  // popToast() {
-  //   this.setState({ ...this.state, showDialog: true });
-  // }
-  initialization() {
-    return () => {
-      const { user: { isLogin, id_number: idNumber } } = this.props;
 
-
-      if (isLogin && !idNumber) {
-        this.setState({ ...this.state, showDialog: true });
-      } else {
-        this.renderCertificate();
-      }
-    };
-  }
   renderCertificate() {
     const { user: listData } = this.props;
     if (listData == null) {
       return <div>加载中</div>;
     }
-
-
     return (
       <div className="page-certificate-bg">
         <div className="page-certificate-container-border">
@@ -85,9 +67,8 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-certificate" />
           <div className="page-certificate-container-name">{this.props.user.real_name}</div>
           <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>
-          <div className="page-certificate-container-content">{this.state.registerArr[0]}年{this.state.registerArr[1]}月{this.state.registerDay[0]}日注册成为志多星志愿者</div>
-          <div className="page-certificate-container-content">
-            {this.state.nowArr[0]}年{this.state.nowArr[1]}月{this.state.nowDay[0]}日截止</div>
+          <div className="page-certificate-container-content">{this.state.register}注册成为志多星志愿者</div>
+          <div className="page-certificate-container-content">{this.state.now}截止</div>
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
               <div className="page-certificate-container-hours-item"><span>{this.props.user.join_project_count}</span>个</div>

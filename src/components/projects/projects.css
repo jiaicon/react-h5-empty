@@ -93,11 +93,18 @@
 .component-projects .project-main .project-name {
   font-size: 18px;
   color: #333333;
-  background: url(/images/icon_safeguard.png) no-repeat right center;
+  /* background: url(/images/icon_safeguard.png) no-repeat right center;
   background-size: 24px;
-  padding-right: 30px;
+  padding-right: 30px; */
+  display: flex;
+  justify-content: space-between;
 }
-
+.component-projects .project-main .project-name .project-name-logo{
+  background: url(/images/icon_safeguard.png) no-repeat right center;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+}
 .component-projects .project-main .project-date {
   font-size: 13px;
   color: #666666;

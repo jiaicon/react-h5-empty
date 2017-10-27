@@ -8,7 +8,7 @@ import './projects.css';
 import Link from '../link/link';
 import Image from '../image/image';
 import Avatar from '../avatar/avatar';
-import { parseTimeStringToDateString, parseDistance } from '../../utils/funcs';
+import { parseTimeStringToDateString, parseDistance, isVolunteerInsure } from '../../utils/funcs';
 
 class Projects extends React.Component {
 
@@ -44,7 +44,7 @@ class Projects extends React.Component {
         {
           projects.map((project) => {
             const { team } = project;
-
+            const volunteer = isVolunteerInsure(project.volunteer_security);
             return (<li key={project.id}>
               <div>
                 <Link to={`/team/detail/${project.team.id}`} className="project-header">
@@ -57,7 +57,15 @@ class Projects extends React.Component {
                     src={project.list_photo}
                     defaultSrc="/images/default_banner.png" alt="项目图片"
                   />
-                  <div className="project-name">{project.name}</div>
+                  <div className="project-name">
+                    {project.name}
+
+                    <div
+                      className={classnames({
+                        'project-name-logo': volunteer,
+                      })}
+                    />
+                  </div>
                   <div className="project-date">活动日期：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}</div>
                   {
                     showLabel ?

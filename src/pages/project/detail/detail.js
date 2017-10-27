@@ -264,7 +264,7 @@ class ProjectDetailPage extends React.Component {
               <span>志愿保障</span>
               <div className="line1px-v" />
               <div className="guard-detail">
-                {detailData.volunteer_security}
+                {detailData.volunteer_security ? detailData.volunteer_security : '无'}
               </div>
             </div>
           </div>

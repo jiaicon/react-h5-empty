@@ -159,3 +159,10 @@ export function dateTextToDateText(dateText) {
 
   return '';
 }
+
+export function isVolunteerInsure(str) {
+  if (str.indexOf('志愿者保险') !== -1) {
+    return true;
+  }
+  return false;
+}
