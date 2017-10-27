@@ -11,9 +11,6 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Dialog } from 'react-weui';
-import 'weui/dist/style/weui.css';
-import 'react-weui/build/packages/react-weui.css';
 import history from '../history';
 
 import { userCenterAction } from './my.store';
@@ -27,30 +24,6 @@ class MyPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = {
-      showDialog: false,
-    };
-    this.dialog = {
-      title: '提示',
-      buttons: [
-        {
-          type: 'default',
-          label: '取消',
-          onClick: () => {
-            this.setState({ ...this.state, showDialog: false });
-            history.replace('/my');
-          },
-        },
-        {
-          type: 'primary',
-          label: '确认',
-          onClick: () => {
-            this.setState({ ...this.state, showDialog: false });
-            history.push('/my/profile/detail/user');
-          },
-        },
-      ],
-    };
   }
 
   componentWillMount() {
@@ -65,14 +38,7 @@ class MyPage extends React.Component {
   componentWillReceiveProps() {}
 
   componentWillUnmount() {}
-  hasntIdnumber() {
-    const { user } = this.props;
-    if (user.id_number) {
-      history.push('my/certificate');
-    } else {
-      this.setState({ ...this.state, showDialog: true });
-    }
-  }
+
   renderPageMymessagesTemplate() {
     return (
       <div className="page-my-header-messages-container">
@@ -169,12 +135,12 @@ class MyPage extends React.Component {
         </li>
         <li>
           <div onClick={this.hasntIdnumber}>
-            <a>
+            <Link to="/my/certificate">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-certificate" />我的证书
               </div>
               <span className="page-my-item-big" />
-            </a>
+            </Link>
             <div className="line1px" />
           </div>
         </li>
@@ -234,9 +200,7 @@ class MyPage extends React.Component {
         <div className="page-my-line" />
         <div className="page-my-item-container-padding" >
           {this.renderPageMyContainer()}
-          <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-          您还未实名注册，请先完成实名认证，获取个人志愿证书
-          </Dialog>
+
         </div>
 
       </div>

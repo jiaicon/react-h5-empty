@@ -104,10 +104,7 @@ class Certificate extends React.Component {
     );
   }
 
-  // { !this.props.user.id_number ? this.renderCertificate() : this.popToast()}
-  // {this.popToast()}
-  //
-    // this.setState({ ...this.state, showDialog: true });
+
   render() {
     const { user: listData } = this.props;
     if (listData == null) {
