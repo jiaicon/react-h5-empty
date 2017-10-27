@@ -211,9 +211,7 @@ class ProjectDetailPage extends React.Component {
               <Image src={detailData.team.logo} alt="头像" />
               <span>{detailData.team.name}</span>
             </div>
-            <div className="project-number">
-              项目编号：{detailData.identifier}
-            </div>
+
           </Link>
         </div>
         <div className="body">

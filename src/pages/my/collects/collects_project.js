@@ -41,7 +41,7 @@ class ProjectPage extends React.Component {
 
       <div className="page-collects">
         <ProjectsItem
-          projects={listData && type === 'project' ? listData.list : null} showLabel
+          projects={listData && type === 'project' ? listData.list : null} showLabel={false}
         />
 
       </div>
