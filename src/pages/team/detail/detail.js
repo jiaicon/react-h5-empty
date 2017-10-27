@@ -101,10 +101,11 @@ class TeamDetailPage extends React.Component {
 
   handleActionClick(action) {
     const { teamId } = this;
+    const { detail: { team: detailData } } = this.props;
 
     return () => {
       if (action === 'join') {
-        this.props.joinTeam(teamId);
+        this.props.joinTeam(teamId, detailData);
       } else if (action === 'quit' && window.confirm('确定要退出吗？')) {
         this.props.quitTeam(teamId);
       }
