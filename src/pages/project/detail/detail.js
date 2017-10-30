@@ -12,7 +12,7 @@ import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
 
-import Alert from 'react-s-alert';
+// import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -22,7 +22,7 @@ import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
 import ShareTip from '../../../components/sharetip/sharetip';
-import history from '../../history';
+// import history from '../../history';
 
 import {
   requestProjectDetail,
@@ -127,15 +127,15 @@ class ProjectDetailPage extends React.Component {
     const { projectId } = this;
 
     return () => {
-      const { user: { isLogin, id_number: idNumber } } = this.props;
+      // const { user: { isLogin, id_number: idNumber } } = this.props;
 
       if (action === 'join') {
         // 未实名认证需要跳实名认证页面
-        if (isLogin && !idNumber) {
-          Alert.warning('请先完成实名认证');
-          history.push(`/my/profile/verify/project/${this.projectId}`);
-          return;
-        }
+        // if (isLogin && !idNumber) {
+        //   Alert.warning('请先完成实名认证');
+        //   history.push(`/my/profile/verify/project/${this.projectId}`);
+        //   return;
+        // }
 
         this.props.joinProject(projectId);
       } else if (action === 'quit') {

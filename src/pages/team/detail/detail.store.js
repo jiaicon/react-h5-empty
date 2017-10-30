@@ -49,14 +49,17 @@ export const unCollectTeam = teamId => ({
 /**
  * 团队加入/退出 Action
  */
-export const joinTeam = teamId => ({
+export const joinTeam = (teamId, detailData) => ({
   type: 'TEAM_JOIN',
+  meta: {
+    joinType: detailData.join_type,
+  },
   payload: fetch(`/team/join/${teamId}`, {
     data: {
       id: teamId,
       type: 1, // 0-退出, 1-加入
     },
-    successWords: '已成功申请，请耐心等待审核',
+    successWords: detailData.join_type === 1 ? '您已加入该团队' : '已成功申请，请耐心等待审核',
   }),
 });
 
@@ -138,8 +141,9 @@ export default (state = {
         ...state,
         team: {
           ...state.team,
+          team_size: action.meta.joinType === 1 ? state.team.team_size + 1 : state.team.team_size,
           // -1未加入 0审核中 1通过 2驳回
-          join_status: 0,
+          join_status: action.meta.joinType === 1 ? 1 : 0,
         },
       };
     case 'TEAM_QUIT_FULFILLED':
@@ -147,6 +151,7 @@ export default (state = {
         ...state,
         team: {
           ...state.team,
+          team_size: state.team.team_size - 1,
           // -1未加入 0审核中 1通过 2驳回
           join_status: -1,
         },
