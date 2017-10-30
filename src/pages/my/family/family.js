@@ -89,7 +89,7 @@ class Family extends React.Component {
           </div>
         </div>
         <div className="page-family-take-up" />
-        <div>
+        <div className="page-family-member-list">
           { listData && listData.data && listData.data.family ?
             listData.data.family.map(item => this.familyMember(item))
             : <div />
