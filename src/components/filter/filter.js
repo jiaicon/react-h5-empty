@@ -4,6 +4,9 @@ import autoBind from 'react-autobind';
 import classnames from 'classnames';
 import './filter.css';
 
+export const TYPES = ['最新发布', '距离最近', '热门活动'];
+export const TYPES_VALUE = ['time', 'distance', 'recommend'];
+
 class Filter extends React.Component {
 
   constructor(props) {
@@ -11,7 +14,7 @@ class Filter extends React.Component {
     autoBind(this);
 
     this.filterConfig = {
-      types: ['最新发布', '距离最近'],
+      types: TYPES,
       categories: window.serviceCategory,
       objects: window.serviceTarget,
     };

@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import './list.css';
 import history from '../../history';
 import Link from '../../../components/link/link';
-import Filter from '../../../components/filter/filter';
+import Filter, { TYPES_VALUE } from '../../../components/filter/filter';
 import Projects from '../../../components/projects/projects';
 import { isWindowReachBottom } from '../../../utils/funcs';
 
@@ -44,7 +44,7 @@ class ProjectListPage extends React.Component {
     const isRecommend = /recommend/i.test(this.props.route.path);
 
     this.selectedOption = {
-      sort: type === 0 ? 'time' : 'distance',
+      sort: TYPES_VALUE[type],
       service_object: window.serviceTarget[target],
       service_category: window.serviceCategory[category],
     };
@@ -70,7 +70,7 @@ class ProjectListPage extends React.Component {
     target = parseInt(ntarget, 10);
 
     this.selectedOption = {
-      sort: type === 0 ? 'time' : 'distance',
+      sort: TYPES_VALUE[type],
       service_object: window.serviceTarget[target],
       service_category: window.serviceCategory[category],
     };
