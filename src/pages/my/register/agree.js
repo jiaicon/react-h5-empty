@@ -49,11 +49,12 @@ class Agree extends React.Component {
         <h5 className="page-introduce-title">一、账号注册</h5>
         <div className="page-introduce-content page-introduce-take-up">
 
-          <div className="page-introduce-content">1、用户在使用本服务前需要注册一个本软件账号。本软件账号应当使用用户本人经实名认证的手机号码绑定注册，用户应使用尚未与本软件账号绑定的手机号码，以及未被本软件根据本协议封禁的手机号码注册本软件账号。本软件可以根据用户需求或产品需要对账号注册和绑定的方式进行变更，而无须事先通知用户。</div>
+          <div className="page-introduce-content">1、用户在使用本服务前需要注册一个本软件帐号。本软件帐号应当使用用户本人经实名认证的手机号码绑定注册，用户应使用尚未与本软件帐号绑定的手机号码，以及未被本软件根据本协议封禁的手机号码注册本软件帐号。本软件可以根据用户需求或产品需要对帐号注册和绑定的方式进行变更，而无须事先通知用户。</div>
 
-          <div className="page-introduce-content">2、鉴于本软件账号的绑定注册方式，用户同意本软件在注册时将使用用户提供的手机号码及/或自动提取用户的手机号码及自动提取用户的手机设备识别码等信息用于注册。</div>
+          <div className="page-introduce-content">2、鉴于本软件帐号的绑定注册方式，用户同意本软件在注册时将使用用户提供的手机号码及/或自动提取用户的手机号码及自动提取用户的手机设备识别码等信息用于注册。</div>
 
           <div className="page-introduce-content">3、在用户注册及使用本服务时，本软件需要搜集能识别用户身份的个人信息以便本软件可以在必要时联系用户，或为用户提供更好的使用体验。本软件搜集的信息包括但不限于用户的姓名、性别、年龄、出生日期、地址；用户在使用本软件个别服务时，须提供其本人身份证信息，若填写的信息不完整，则无法使用本服务或在使用过程中受到限制。本软件同意对这些信息的使用将受限于第三条用户个人隐私信息保护的约束。</div>
+          <div className="page-introduce-content">4、若用户为一个团体的，在注册时需要提供团体全体成员的身份信息，方得以以团队的形式进行注册。违反本条规定，以个人用户名义进行注册并参加的活动，由已注册的个人承担所有责任。且其他的团队成员无法享受本软件中的积分激励等奖励。</div>
         </div>
         <h5 className="page-introduce-title">二、软件服务</h5>
         <div className="page-introduce-content page-introduce-take-up">
