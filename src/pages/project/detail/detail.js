@@ -169,6 +169,8 @@ class ProjectDetailPage extends React.Component {
       return null;
     }
 
+    const content = detailData.content;
+
     // join_status: [integer] 0审核中 1通过 2驳回, 详情页下发，登陆后如加入项目才有此字段
     // activity_status: [integer] 活动状态 1 招募中，2进行中 3已结束
     const joined = isLogin && (detailData.join_status === 0 || detailData.join_status === 1);
@@ -278,9 +280,11 @@ class ProjectDetailPage extends React.Component {
           </div>
           <div className="project-description">
             <div>项目介绍</div>
-            <p>
-              {detailData.content}
-            </p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: content ?
+                      content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+            />
           </div>
         </div>
         <div className="foot">

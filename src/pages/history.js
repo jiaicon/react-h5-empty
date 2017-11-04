@@ -14,8 +14,8 @@ import createHashHistory from 'history/createHashHistory';
 // 微信 Android 下需要使用 hash 实现前端路由，否则会影响 JSSDK 授权
 // 如果 query 中有 preview=1 则为后台预览链接，不考虑平台兼容性（否则
 export const USING_HISTORY_HASH =
-  /Android/.test(navigator.userAgent)
-  && /MicroMessenger/.test(navigator.userAgent)
+  /Android/i.test(navigator.userAgent)
+  // && /MicroMessenger/i.test(navigator.userAgent)
   && !/preview=1/.test(location.href);
 
 export default USING_HISTORY_HASH ? createHashHistory() : createHistory();
