@@ -58,13 +58,15 @@
   margin-bottom: 21px;
 }
 .page-certificate-container-content{
-  width: 280px;
+  width: 100%;
   margin-top: 11px;
   font-size: 14px;
   color: #333333;
   letter-spacing: 0;
   line-height: 17px;
   font-weight: 200;
+  padding-left: 15px;
+  padding-right:15px;
 }
 .page-certificate-container-hours-box{
   width: 100%;
@@ -72,6 +74,7 @@
   display: flex;
   justify-content: space-around;
   margin-top: 49px;
+  margin-bottom: 34px;
 
 }
 .page-certificate-container-hours-box div{
@@ -99,5 +102,19 @@
   color: #333333;
   letter-spacing: 0;
   font-weight: 200;
-  margin-top: 69px;
+}
+.page-certificate-container-teachsupport{
+  font-size: 14px;
+  color: #333333;
+  letter-spacing: 0;
+  font-weight: 200;
+  margin-top: 10px;
+}
+.page-certificate-container-bottom-infobox{
+  position: relative;
+}
+.page-certificate-container-bottom-infobox .component-avatar{
+  position: absolute;
+  top: -30px;
+  right: 0px;
 }

@@ -16,16 +16,16 @@ import { dateTextToDateText } from '../../../utils/funcs';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';
 
-
-function year(data) {
-  return data.split('-');
-}
 class Certificate extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
     this.BussinessInfo = window.orgInfo.name || '和众泽益志愿者服务中心';
+    this.certTitle = window.orgInfo.cert_title || '志多星';
+    this.certOrg = window.orgInfo.cert_org || '志多星';
+    this.certCachet = window.orgInfo.cert_cachet;
+    this.certAuthOrg = window.orgInfo.cert_auth_org || '志多星';
     const { user: listData } = this.props;
     const register = dateTextToDateText(listData.regitser_time.split(' ')[0]);
 
@@ -62,12 +62,12 @@ class Certificate extends React.Component {
     return (
       <div className="page-certificate-bg">
         <div className="page-certificate-container-border">
-          <h5 className="page-certificate-container-title">志多星注册志愿服务证书</h5>
+          <h5 className="page-certificate-container-title">{this.certTitle}注册志愿服务证书</h5>
           <Avatar src={this.props.user.avatars} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           <div className="page-certificate-container-certificate" />
           <div className="page-certificate-container-name">{this.props.user.real_name}</div>
           <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>
-          <div className="page-certificate-container-content">{this.state.register}注册成为志多星志愿者</div>
+          <div className="page-certificate-container-content">{this.state.register}注册成为{this.certOrg}志愿者</div>
           <div className="page-certificate-container-content">{this.state.now}截止</div>
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
@@ -79,7 +79,11 @@ class Certificate extends React.Component {
               <div className="page-certificate-container-hours-item">志愿服务时长</div>
             </div>
           </div>
-          <div className="page-certificate-container-bussiness">  认证机构：{this.BussinessInfo}</div>
+          <div className="page-certificate-container-bottom-infobox">
+            <div className="page-certificate-container-bussiness">认证机构：{this.certAuthOrg}</div>
+            <div className="page-certificate-container-teachsupport">技术支持：志多星</div>
+            {this.certCachet ? <Avatar src={this.certCachet} size={{ width: 80 }} /> : <div />}
+          </div>
         </div>
       </div>
     );
