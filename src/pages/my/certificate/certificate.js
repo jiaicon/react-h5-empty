@@ -24,7 +24,7 @@ class Certificate extends React.Component {
     this.BussinessInfo = window.orgInfo.name || '和众泽益志愿者服务中心';
     this.certTitle = window.orgInfo.cert_title || '志多星';
     this.certOrg = window.orgInfo.cert_org || '志多星';
-    this.certCachet = window.orgInfo.cert_cachet || 'http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-11/957251509852803.png';
+    this.certCachet = window.orgInfo.cert_cachet;
     this.certAuthOrg = window.orgInfo.cert_auth_org || '志多星';
     const { user: listData } = this.props;
     const register = dateTextToDateText(listData.regitser_time.split(' ')[0]);

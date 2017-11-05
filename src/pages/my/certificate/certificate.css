@@ -74,7 +74,7 @@
   display: flex;
   justify-content: space-around;
   margin-top: 49px;
-  margin-bottom: 34px;
+  margin-bottom: 58px;
 
 }
 .page-certificate-container-hours-box div{
@@ -109,8 +109,6 @@
   letter-spacing: 0;
   font-weight: 200;
   margin-top: 10px;
-  width: 100%;
-  text-align: center;
 }
 .page-certificate-container-bottom-infobox{
   position: relative;
