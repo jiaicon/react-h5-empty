@@ -24,7 +24,7 @@ class Certificate extends React.Component {
     this.BussinessInfo = window.orgInfo.name || '和众泽益志愿者服务中心';
     this.certTitle = window.orgInfo.cert_title || '志多星';
     this.certOrg = window.orgInfo.cert_org || '志多星';
-    this.certCachet = window.orgInfo.cert_cachet;
+    this.certCachet = window.orgInfo.cert_cachet || 'http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-11/957251509852803.png';
     this.certAuthOrg = window.orgInfo.cert_auth_org || '志多星';
     const { user: listData } = this.props;
     const register = dateTextToDateText(listData.regitser_time.split(' ')[0]);
@@ -62,7 +62,7 @@ class Certificate extends React.Component {
     return (
       <div className="page-certificate-bg">
         <div className="page-certificate-container-border">
-          <h5 className="page-certificate-container-title">{this.certTitle}注册志愿服务证书</h5>
+          <h5 className="page-certificate-container-title">{this.certTitle}志愿服务证书</h5>
           <Avatar src={this.props.user.avatars} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           <div className="page-certificate-container-certificate" />
           <div className="page-certificate-container-name">{this.props.user.real_name}</div>
@@ -82,7 +82,7 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-bottom-infobox">
             <div className="page-certificate-container-bussiness">认证机构：{this.certAuthOrg}</div>
             <div className="page-certificate-container-teachsupport">技术支持：志多星</div>
-            {this.certCachet ? <Avatar src={this.certCachet} size={{ width: 80 }} /> : <div />}
+            {this.certCachet ? <img src={this.certCachet} alt="" /> : <div />}
           </div>
         </div>
       </div>

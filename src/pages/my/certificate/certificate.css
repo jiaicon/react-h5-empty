@@ -109,12 +109,15 @@
   letter-spacing: 0;
   font-weight: 200;
   margin-top: 10px;
+  width: 100%;
+  text-align: center;
 }
 .page-certificate-container-bottom-infobox{
   position: relative;
 }
-.page-certificate-container-bottom-infobox .component-avatar{
+.page-certificate-container-bottom-infobox img{
+  width: 80px;
   position: absolute;
-  top: -30px;
+  top: -22px;
   right: 0px;
 }
