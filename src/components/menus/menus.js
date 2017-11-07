@@ -6,7 +6,8 @@ import Link from '../link/link';
 import './menus.css';
 
 const DEFAULT_LINK = '/building';
-
+// https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat
+// /project/list
 const MODULE_LINK = {
   volunteer_project: '/project/list',
   volunteer_team: '/team/list',
@@ -15,7 +16,7 @@ const MODULE_LINK = {
   // volunteer_ensure: '/building',
   // volunteer_feedback: '/building',
   // volunteer_strategy: '/building',
-  // community_interact: '/building',
+  community_interact: 'https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat',
 };
 
 class Menus extends React.Component {

@@ -22,10 +22,10 @@ class Certificate extends React.Component {
     super(props);
     autoBind(this);
     this.BussinessInfo = window.orgInfo.name || '和众泽益志愿者服务中心';
-    this.certTitle = window.orgInfo.cert_title || '志多星';
-    this.certOrg = window.orgInfo.cert_org || '志多星';
-    this.certCachet = window.orgInfo.cert_cachet;
-    this.certAuthOrg = window.orgInfo.cert_auth_org || '志多星';
+    this.certTitle = window.orgInfo.cert_title || '和众泽益';
+    this.certOrg = window.orgInfo.cert_org || '和众泽益';
+    this.certCachet = window.orgInfo.cert_cachet || '/images/my/zdx.png';
+    this.certAuthOrg = window.orgInfo.cert_auth_org || '和众泽益志愿者服务中心';
     const { user: listData } = this.props;
     const register = dateTextToDateText(listData.regitser_time.split(' ')[0]);
 
