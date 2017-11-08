@@ -19,6 +19,10 @@ import Link from '../../components/link/link';
 import './my.css';
 import Avatar from '../../components/avatar/avatar';
 
+// 机构码
+const orgCode = window.orgCode;
+
+
 class MyPage extends React.Component {
 
   constructor(props) {
@@ -178,16 +182,21 @@ class MyPage extends React.Component {
             <div className="line1px" />
           </div>
         </li>
-        <li>
-          <div>
-            <Link to="/my/service">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-service" />服务中心
+        {
+          orgCode === 'wMvbmOeYAl' ?
+            <li /> :
+            <li>
+              <div>
+                <Link to="/my/service">
+                  <div className="page-my-item-box">
+                    <i className="page-my-item-icon page-my-item-icon-service" />服务中心
+               </div>
+                  <span className="page-my-item-big" />
+                </Link>
               </div>
-              <span className="page-my-item-big" />
-            </Link>
-          </div>
-        </li>
+            </li>
+        }
+
       </ul>
     );
   }
