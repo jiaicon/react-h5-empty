@@ -20,8 +20,9 @@
   background-position: center;
 }
 
-.page-home .slick-container img{
+.page-home .slick-container .image{
   width: 100%;
+  height: 264px;
 }
 
 .page-home .slick-dots {

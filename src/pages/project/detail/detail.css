@@ -26,7 +26,7 @@
   background-position: center;
 }
 
-.page-project-detail .slick-container img{
+.page-project-detail .slick-container .image{
   width: 100%;
   height: 220px;
 }

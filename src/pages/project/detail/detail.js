@@ -155,9 +155,7 @@ class ProjectDetailPage extends React.Component {
       <Slick {...this.slickSettings}>
         {detailData.photo
               .map((item, index) => (
-                <Image key={index} src={item} defaultSrc="/images/default_banner.png" />
-
-
+                <Image key={index} src={item} className="image" defaultSrc="/images/default_banner.png" />
               ))}
       </Slick>
     </div>);

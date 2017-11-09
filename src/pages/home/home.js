@@ -114,7 +114,7 @@ class HomePage extends React.Component {
                 }
 
                 return (<Link key={item.id} to={url}>
-                  <Image src={item.photo} resize={{ width: 1500 }} />
+                  <Image src={item.photo} className="image" resize={{ width: 1500 }} />
                 </Link>);
               })}
         </Slick> : null

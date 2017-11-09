@@ -62,9 +62,9 @@ class Image extends React.Component {
     delete props.defaultSrc;
     delete props.resize;
 
-    const useDefault = !this.props.src || this.state.error;
+    // const useDefault = !this.props.src || this.state.error;
 
-    return useDefault ? <div
+    return (<div
       {...props}
       style={{
         ...props.style,
@@ -72,8 +72,7 @@ class Image extends React.Component {
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}
-    />
-      : <img {...props} onError={this.handleError} alt=" " />;
+    />);
   }
 
 }
