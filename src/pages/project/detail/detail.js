@@ -21,6 +21,7 @@ import { parseTimeStringToDateString } from '../../../utils/funcs';
 import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
+import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
 // import history from '../../history';
 
@@ -155,6 +156,8 @@ class ProjectDetailPage extends React.Component {
         {detailData.photo
               .map((item, index) => (
                 <Image key={index} src={item} defaultSrc="/images/default_banner.png" />
+
+
               ))}
       </Slick>
     </div>);
@@ -210,8 +213,8 @@ class ProjectDetailPage extends React.Component {
           {this.renderSlick()}
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
-              <Image src={detailData.team.logo} alt="头像" />
-              <span>{detailData.team.name}</span>
+              <Avatar src={detailData.team.logo} size={{ width: 30, radius: 4 }} />
+              <span style={{ marginLeft: '10px' }}>{detailData.team.name}</span>
             </div>
 
           </Link>
