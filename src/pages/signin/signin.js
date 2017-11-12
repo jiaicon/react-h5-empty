@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import { requestCheckinList, checkin } from '../signin/signin.store';
+import { DateTextDelSeconds, DateTextDelSliceEnd } from '../../utils/funcs';
 import './signin.css';
 
 
@@ -73,7 +74,7 @@ class SigninPage extends React.Component {
                 <div className="signin-header">
                   <div className="signin-time">
                     <span>下次签到时间</span>
-                    <span>{next.begin}</span>
+                    <span>{DateTextDelSeconds(next.begin)}-{DateTextDelSliceEnd(next.end)}</span>
                   </div>
                 </div>
                 <div className="line1px" />

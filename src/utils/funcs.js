@@ -144,7 +144,41 @@ export function timestampToDateText(timestamp) {
 
   return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
 }
+/**
+ *  * 日期转时间戳再转回来（精确到分）
+* 2017-10-18 11:01:11 转 2017年10月18日 11:01
+* @param {string} dateText
+*/
+export function DateTextDelSeconds(str) {
+  let date = str;
+  date = new Date(date);
+  date = new Date(Date.parse(date));
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
 
+  return `${year}年${month <= 10 ? `0${month}` : month}月${day <= 10 ? `0${day}` : day}日 ${hour <= 10 ? `0${hour}` : hour}:${minute <= 10 ? `0${minute}` : minute}`;
+}
+
+/**
+ *  *取截止时间
+* 2017-10-18 11:01:11 转 2017年10月18日 11:01-12:00
+* @param {string} dateText
+*/
+export function DateTextDelSliceEnd(str) {
+  let date = str;
+  date = new Date(date);
+  date = new Date(Date.parse(date));
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+
+  return ` ${hour <= 10 ? `0${hour}` : hour}:${minute <= 10 ? `0${minute}` : minute}`;
+}
 /**
 * 2017-10-18 转 2017年10月18日
 * @param {string} dateText
