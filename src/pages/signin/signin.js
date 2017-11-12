@@ -48,10 +48,54 @@ class SigninPage extends React.Component {
     });
   }
 
+
+    // const data = {
+    //   list: [{
+    //     id: 123,
+    //     reward_time: 3.5123,
+    //     clock_in_time: '2019-08-03 11:11:11',
+    //   }],
+
+    //   next: { begin: '2017-10-11 11:01:11',
+    //     end: '2017-1-11 11:11:11',
+    //     reward_time: 2.0,
+    //     project: {
+    //       id: 123,
+    //       name: '程序员慰问团',
+    //       list_photo: 'http://image.com/1.jpg',
+    //       province_id: '100100',
+    //       province_name: '河北',
+    //       city_id: 11,
+    //       city_name: '保定',
+    //       county_id: 11,
+    //       county_name: '望都',
+    //       addr: 'ssss',
+    //       content: '富文本',
+    //       join_end: '2017-10-10',
+    //       begin: '2013-03-03 12:12:12',
+    //       end: '2013-03-03 12:12:12',
+    //       people_count: 133,
+    //       join_people_count: 13,
+    //       lng: 123.123433,
+    //       lat: 40.984,
+    //       reward_time: 13.5,
+    //       created_at: '2017-11-11 11:11:11',
+    //       project_status: 2,
+    //       distance: 2554.5801072666,
+    //       join_status: 1,
+    //       my_reward_time: 10,
+    //       collection_status: 1,
+    //     },
+    //   },
+
+    // };
+    // const records = data && data.list ? data.list : [];
+    // const next = data && data.next && data.next.project ? data.next : null;
   render() {
     const { data } = this.props;
     const records = data && data.list ? data.list : [];
     const next = data && data.next && data.next.project ? data.next : null;
+
 
     return (
       <div className="page-signin">
@@ -82,7 +126,7 @@ class SigninPage extends React.Component {
                   <div className="project-title">{next.project && next.project.name}</div>
                   <div className="project-duration">
                     <span>可获得志愿者时长</span>
-                    <span>{next.reward_time.toPrecision(1)}小时</span>
+                    <span>{next.reward_time.toPrecision(2)}小时</span>
                   </div>
                 </div>
               </li>
@@ -94,7 +138,7 @@ class SigninPage extends React.Component {
                 <div className="signin-header">
                   <div className="signin-time">
                     <span>签到时间</span>
-                    <span>{record.clock_in_time}</span>
+                    <span>{DateTextDelSliceEnd(record.clock_in_time)}</span>
                   </div>
                   <div>已签到</div>
                 </div>
@@ -103,7 +147,7 @@ class SigninPage extends React.Component {
                   <div className="project-title">{record.project && record.project.name}</div>
                   <div className="project-duration">
                     <span>获得志愿者时长</span>
-                    <span>{record.reward_time.toPrecision(1)}小时</span>
+                    <span>{record.reward_time.toPrecision(2)}小时</span>
                   </div>
                 </div>
               </li>)

@@ -159,7 +159,7 @@ export function DateTextDelSeconds(str) {
   const hour = date.getHours();
   const minute = date.getMinutes();
 
-  return `${year}年${month <= 10 ? `0${month}` : month}月${day <= 10 ? `0${day}` : day}日 ${hour <= 10 ? `0${hour}` : hour}:${minute <= 10 ? `0${minute}` : minute}`;
+  return `${year}.${month < 10 ? `0${month}` : month}.${day < 10 ? `0${day}` : day} ${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute}`;
 }
 
 /**
@@ -177,7 +177,7 @@ export function DateTextDelSliceEnd(str) {
   const hour = date.getHours();
   const minute = date.getMinutes();
 
-  return ` ${hour <= 10 ? `0${hour}` : hour}:${minute <= 10 ? `0${minute}` : minute}`;
+  return ` ${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute}`;
 }
 /**
 * 2017-10-18 转 2017年10月18日
