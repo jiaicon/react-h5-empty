@@ -14,12 +14,9 @@ const MODULE_LINK = {
   reward_history: '/my/duration/applys',
   help_center: '/my/service',
   联盟互动: 'https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat',
-
-  // volunteer_ensure: '/building',
-  // volunteer_feedback: '/building',
-  // volunteer_strategy: '/building',
-  // community_interact: 'https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat',
-
+  volunteer_strategy: 'http://m.guide.volunteerzhiduoxing.com',
+  1234: 'http://sanlitunweb.parkingkj.com/showhtml/sayvillage.html',
+  volunteer_feedback:'/tmall'
 };
 
 class Menus extends React.Component {
