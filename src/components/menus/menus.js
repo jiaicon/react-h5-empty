@@ -16,7 +16,7 @@ const MODULE_LINK = {
   联盟互动: 'https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat',
   volunteer_strategy: 'http://m.guide.volunteerzhiduoxing.com',
   1234: 'http://sanlitunweb.parkingkj.com/showhtml/sayvillage.html',
-  volunteer_feedback:'/tmall'
+  volunteer_feedback: 'http://wx44eece2138568aef.alpha.volunteerzhiduoxing.com/tmall',
 };
 
 class Menus extends React.Component {
