@@ -9,7 +9,7 @@ const DEFAULT_LINK = '/building';
 // https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat
 // /project/list
 // http://wx44eece2138568aef.alpha.volunteerzhiduoxing.com/tmall 志愿回馈测试地址（兑吧）
-
+const feedback = `${location.host}/tmall`;
 const MODULE_LINK = {
   volunteer_project: '/project/list',
   volunteer_team: '/team/list',
