@@ -14,6 +14,10 @@ import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
 import { dateTextToDateText } from '../../../utils/funcs';
 
+import { Dialog } from 'react-weui';
+import 'weui/dist/style/weui.css';
+import 'react-weui/build/packages/react-weui.css';
+
 import {
   requestTeamDetail,
   requestTeamProjectList,
@@ -32,6 +36,24 @@ class TeamDetailPage extends React.Component {
     this.teamId = props.route.params.teamId;
     this.state = {
       showShareTip: false,
+    };
+    this.dialog = {
+      title: '提示',
+      buttons: [
+        {
+          type: 'default',
+          label: '取消',
+          onClick: () => this.setState({ ...this.state, showDialog: false }),
+        },
+        {
+          type: 'primary',
+          label: '确认',
+          onClick: () => {
+            this.setState({ ...this.state, showDialog: false });
+            this.props.quitTeam(this.teamId);
+          },
+        },
+      ],
     };
   }
 
@@ -106,8 +128,8 @@ class TeamDetailPage extends React.Component {
     return () => {
       if (action === 'join') {
         this.props.joinTeam(teamId, detailData);
-      } else if (action === 'quit' && window.confirm('确定要退出吗？')) {
-        this.props.quitTeam(teamId);
+      } else if (action === 'quit') {
+        this.setState({ ...this.state, showDialog: true });
       }
     };
   }
@@ -216,6 +238,9 @@ class TeamDetailPage extends React.Component {
             {detailData.abstract}
           </p>
         </div>
+        <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+        确定要退出项目吗？
+        </Dialog>
       </div>
       <div className="foot">
         <div className="line1px" />
