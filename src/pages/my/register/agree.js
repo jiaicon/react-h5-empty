@@ -32,7 +32,7 @@ class Agree extends React.Component {
   render() {
     return (
       <div className="page-introduce">
-        <h5 className="page-introduce-title page-introduce-take-up">志多星软件用户使用协议</h5>
+        <h5 className="page-introduce-subtitle page-introduce-take-up">志多星软件用户使用协议</h5>
 
 
         <h5 className="page-introduce-title">导言</h5>
