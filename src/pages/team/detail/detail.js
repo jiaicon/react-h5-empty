@@ -1,6 +1,11 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+
+import Slick from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -33,6 +38,17 @@ class TeamDetailPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+
+    this.slickSettings = {
+      dots: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 6000,
+    };
+
     this.teamId = props.route.params.teamId;
     this.state = {
       showShareTip: false,
@@ -133,7 +149,24 @@ class TeamDetailPage extends React.Component {
       }
     };
   }
+  renderSlick() {
+    const { detail: { team: detailData } } = this.props;
+    if (!detailData || !detailData.team_photo) {
+      return <Image className="team-photo" src={detailData.logo} alt="团队图片" defaultSrc="/images/default_banner.png" />;
+    }
 
+    return (<div className="slick-container">
+      { detailData.team_photo && detailData.team_photo.length ?
+        <Slick {...this.slickSettings}>
+          {detailData.team_photo
+              .map(item => (
+                <Image src={item} className="team-photo" resize={{ width: 1500 }} />
+                ))}
+        </Slick> : null
+      }
+    </div>);
+  }
+  // <Image className="team-photo" src={detailData.logo} alt="团队图片" defaultSrc="/images/default_banner.png" />
   renderBasic() {
     const { detail: { team: detailData }, user: { isLogin } } = this.props;
     // join_status: [integer] -1未提交 0审核中 1通过 2驳回, 详情页下发，登陆后如加入团队才有此字段
@@ -159,7 +192,7 @@ class TeamDetailPage extends React.Component {
 
     return (<div>
       <div className="header">
-        <Image className="team-photo" src={detailData.logo} alt="团队图片" defaultSrc="/images/default_banner.png" />
+        {this.renderSlick()}
         <div className="header-addition">
           <div className="team-info">
             <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
@@ -264,6 +297,7 @@ class TeamDetailPage extends React.Component {
 
     return <Projects projects={projects ? projects.list : null} />;
   }
+
 
   render() {
     const { detail: { team: detailData, tabIndex } } = this.props;
