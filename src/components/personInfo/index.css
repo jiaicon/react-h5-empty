@@ -1,0 +1,25 @@
+.component-page-starmodel-top-avatar{
+  margin-right: 15px;
+}
+.component-page-starmodel-top-info-title{
+  font-size: 18px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+.component-page-starmodel-top-info-status{
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 12px;
+}
+.component-page-starmodel-top-main{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.component-page-starmodel-top{
+  display: flex;
+  padding: 15px 0;
+}

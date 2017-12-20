@@ -61,13 +61,13 @@ class Avatar extends React.Component {
 
     return (<div
       {...props}
-      className={classnames({
-        'component-avatar': true,
-      })}
       style={{ backgroundImage: `url(${src})`,
         width: `${width || height || 20}px`,
         height: `${height || width || 20}px`,
-        borderRadius: `${radius || (width || height) / 2}px` }}
+        borderRadius: `${radius || (width || height) / 2}px`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover' }}
     />);
   }
 

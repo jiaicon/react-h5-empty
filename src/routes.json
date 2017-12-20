@@ -208,5 +208,15 @@
     "path": "/building",
     "page": "./pages/building/building",
     "chunk": "main"
+  },
+  {
+    "path": "/sanlitun/starModel",
+    "page": "./pages/sanlitun/starModel/index",
+    "chunk": "main"
+  },
+  {
+    "path": "/sanlitun/starModel/detail/:Id",
+    "page": "./pages/sanlitun/starModel/detail/detail",
+    "chunk": "main"
   }
 ]

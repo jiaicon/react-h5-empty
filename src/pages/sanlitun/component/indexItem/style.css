@@ -1,0 +1,54 @@
+.component-page-starmodel{
+  display: flex;
+  flex-direction: column;
+}
+.component-page-starmodel-takeup{
+  height: 10px;
+  background: #F8F8F8;
+}
+.component-page-starmodel-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 15px;
+}
+.component-page-starmodel-top{
+  display: flex;
+  padding: 15px 0;
+}
+.component-page-starmodel-top-avatar{
+  margin-right: 15px;
+}
+.component-page-starmodel-top-info-title{
+  font-size: 18px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+.component-page-starmodel-top-info-status{
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 12px;
+}
+.component-page-starmodel-top-main{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.component-page-starmodel-bottom{
+  padding: 10px 0 15px;
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 21px;
+  text-indent: 2em;
+}
+.component-page-starmodel-empty-tip{
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  font-weight: 200;
+}
