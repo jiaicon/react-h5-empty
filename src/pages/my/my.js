@@ -95,6 +95,15 @@ class MyPage extends React.Component {
             <p className="page-my-record-item-bottom">志愿时长</p>
           </div>
         </Link>
+        {/* <!-- 积分入口 --> */}
+        {/* <!-- <Link to="/my/point">
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">000</b>星币</p>
+            <p className="page-my-record-item-bottom">志愿星币</p>
+          </div>
+        </Link>
+        --> */}
+
 
       </div>
     );

@@ -51,7 +51,12 @@ class starModelDetail extends React.Component {
       <div className="page-starmodel-detail">
         <div><PERSONINFO data={data} /></div>
         <div className="line1px" />
-        <div>暂无</div>
+        <div
+          className="page-starmodel-detail-descript"
+          dangerouslySetInnerHTML={{
+            __html: data.description,
+          }}
+        />
       </div>
     );
   }

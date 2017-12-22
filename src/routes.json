@@ -218,5 +218,15 @@
     "path": "/sanlitun/starModel/detail/:Id",
     "page": "./pages/sanlitun/starModel/detail/detail",
     "chunk": "main"
+  },
+  {
+    "path": "/my/point",
+    "page": "./pages/my/point/point",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/point/pay",
+    "page": "./pages/my/point/point",
+    "chunk": "main"
   }
 ]

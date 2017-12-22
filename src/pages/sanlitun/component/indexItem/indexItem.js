@@ -48,7 +48,7 @@ class IndexItem extends React.Component {
 
                   <PERSONINFO className="component-page-starmodel-top" data={item} />
                   <div className="line1px" />
-                  <div className="component-page-starmodel-bottom">{item.description}</div>
+                  <div className="component-page-starmodel-bottom">{item.abstracts}</div>
                 </div>
               </Link>
             </div>

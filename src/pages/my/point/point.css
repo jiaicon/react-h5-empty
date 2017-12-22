@@ -1,0 +1,117 @@
+.page-ponit{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.page-ponit-pic-container{
+  position: relative;
+  width: 100%;
+  height: 160px;
+
+}
+.page-ponit-pic{
+  width: 100%;
+  height: 160px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.page-ponit-pic-title{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 115px;
+  height: 82px;
+  margin: auto;
+}
+.page-ponit-pic-title span:nth-child(1){
+  font-size: 15px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  display: block;
+}
+.page-ponit-pic-title span:nth-child(2){
+  font-size: 36px;
+  color: #FFFFFF;
+  line-height: 36px;
+  display: block;
+  margin-top: 25px;
+  text-align: center;
+}
+
+
+.page-ponit-tab-container{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  overflow: hidden;
+}
+
+.page-ponit-tab-container-li{
+  flex:1;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-ponit-tab-container-line-v{
+  height: 30px;
+  margin-top: 10px;
+}
+.page-ponit-tab-container-li-current{
+  height: 50px;
+  line-height: 50px;
+  font-size: 15px;
+  color: #666666;
+}
+.page-ponit-tab-container-li-current.active{
+  height: 50px;
+  line-height: 50px;
+  font-size: 15px;
+  color: #6AC6F8;
+}
+.page-point-income-pay-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.page-point-income-pay-title{
+  padding:0 20px;
+  height: 28px;
+  background: #F8F8F8;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-ponit-content{
+  flex: 1;
+  overflow:hidden;
+}
+.page-point-income-pay-title span{
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+}
+
+.page-point-income-pay-main-contain{
+  flex: 1;
+  padding: 0 20px;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+}
+.page-point-income-pay-main-contain div{
+  width: 100%;
+  height: 20px;
+  background: red;
+  margin: 10px 0;
+}
