@@ -49,8 +49,11 @@ class starModelDetail extends React.Component {
     console.log(data);
     return (
       <div className="page-starmodel-detail">
-        <div><PERSONINFO data={data} /></div>
+        <PERSONINFO data={data} />
         <div className="line1px" />
+        {
+          /* <div className="page-starmodel-detail-info">个人事迹</div> */
+        }
         <div
           className="page-starmodel-detail-descript"
           dangerouslySetInnerHTML={{

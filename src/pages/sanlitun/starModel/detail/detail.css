@@ -1,7 +1,5 @@
 .page-starmodel-detail{
-  position: absolute;
-  top: 0;
-  left: 0;
+
   width: 100%;
   height: 100%;
   display: flex;
@@ -10,4 +8,12 @@
 }
 .page-starmodel-detail-descript{
   padding-top: 5px;
+}
+.page-starmodel-detail-info{
+  font-size: 15px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 15px;
+  padding: 10px 0;
+  font-weight: 500;
 }

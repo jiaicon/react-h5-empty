@@ -104,14 +104,8 @@
 
 .page-point-income-pay-main-contain{
   flex: 1;
-  padding: 0 20px;
   overflow-y: scroll;
   width: 100%;
   height: 100%;
 }
-.page-point-income-pay-main-contain div{
-  width: 100%;
-  height: 20px;
-  background: red;
-  margin: 10px 0;
-}
+

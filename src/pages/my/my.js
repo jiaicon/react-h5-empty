@@ -103,8 +103,6 @@ class MyPage extends React.Component {
           </div>
         </Link>
         --> */}
-
-
       </div>
     );
   }

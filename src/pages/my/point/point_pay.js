@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './point.css';
 import { } from '../my.store';
-
+import POINTITEM from './component/pointItem';
 
 class PointPay extends React.Component {
 
@@ -46,7 +46,7 @@ class PointPay extends React.Component {
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
-          123123
+          <POINTITEM isPay />
         </div>
       </div>
     );

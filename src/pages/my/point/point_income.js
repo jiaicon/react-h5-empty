@@ -13,6 +13,8 @@ import { bindActionCreators } from 'redux';
 import './point.css';
 import { } from '../my.store';
 
+import POINTITEM from './component/pointItem';
+
 
 class PointIncome extends React.Component {
 
@@ -47,25 +49,7 @@ class PointIncome extends React.Component {
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div /> <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
-          <div />
+          <POINTITEM />
         </div>
       </div>
     );
