@@ -46,7 +46,7 @@ class IndexItem extends React.Component {
                 <div className="component-page-starmodel-takeup" />
                 <div className="component-page-starmodel-container">
 
-                  <PERSONINFO className="component-page-starmodel-top" data={item} />
+                  <PERSONINFO className="component-page-starmodel-top" data={item} isEntry />
                   <div className="line1px" />
                   <div className="component-page-starmodel-bottom">{item.abstracts}</div>
                 </div>

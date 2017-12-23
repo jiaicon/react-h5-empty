@@ -34,9 +34,9 @@ class personInfo extends React.Component {
       <div className="component-page-starmodel-top">
         <Avatar src={data.avatars} size={{ width: 60, height: 60, radius: 4 }} className="component-page-starmodel-top-avatar" />
         <div className="component-page-starmodel-top-main">
-          <div className="component-page-starmodel-top-info-title">{data.name}</div>
-          <div className="component-page-starmodel-top-info-status">政治面貌:{data.political_affiliation}</div>
-          <div className="component-page-starmodel-top-info-status">单位名称:{data.workplace}</div>
+          <div className="component-page-starmodel-top-info-title">{data.name}{this.props.isEntry ? <i className="component-page-starmodel-top-info-more" /> : null}</div>
+          <div className="component-page-starmodel-top-info-status">政治面貌:&nbsp;&nbsp;{data.political_affiliation}</div>
+          <div className="component-page-starmodel-top-info-status">单位名称:&nbsp;&nbsp;{data.workplace}</div>
         </div>
       </div>
 
@@ -46,6 +46,7 @@ class personInfo extends React.Component {
 
 personInfo.propTypes = {
   data: PropTypes.shape({}),
+  isEntry: PropTypes.bool,
 };
 
 export default personInfo;

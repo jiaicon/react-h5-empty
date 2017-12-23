@@ -48,7 +48,7 @@ class starModelPage extends React.Component {
     console.log(starModel.data);
     return (
       <div className="page-starmodel">
-        <IMAGE src="http://v1.qzone.cc/pic/201303/28/14/53/5153e8d33a1dc493.jpg!600x600.jpg" className="page-starmodel-header-pic" />
+        <IMAGE src="/images/model.png" className="page-starmodel-header-pic" />
 
         <IndexItem data={starModel.data} />
 
