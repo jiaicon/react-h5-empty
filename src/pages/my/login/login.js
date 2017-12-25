@@ -79,7 +79,7 @@ class Login extends React.Component {
         <Avatar size={{ width: 80 }} defaultSrc={logo} />
 
         <div className="page-login-item">
-          <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} placeholder="用户名或手机号" className="page-login-item-input" />
+          <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} placeholder="账号或手机号" className="page-login-item-input" />
         </div>
         <div className="page-login-item">
           <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged} placeholder="输入密码" className="page-login-item-input" />

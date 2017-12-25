@@ -1,5 +1,5 @@
 /**
- * @file 项目认领列表详情
+ * @file 志愿保障
  */
 
 /* eslint  "class-methods-use-this":"off",
@@ -11,15 +11,16 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import history from '../../../history';
+import history from '../history';
 
-import Link from '../../../../components/link/link';
+import Link from '../../components/link/link';
 import './index.css';
-import IMAGE from '../../../../components/image/image';
+import IMAGE from '../../components/image/image';
+import ENSUREITEM from '../../components/ensure_item/index';
 
 // import { starModelAction } from './starModel.store';
 
-class projectClaimDetail extends React.Component {
+class ensurePage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -40,18 +41,18 @@ class projectClaimDetail extends React.Component {
 
   render() {
     return (
-      <div className="page-claim-detail">
-        11
-
+      <div className="page-ensure">
+        <IMAGE src="/images/model.png" className="page-ensure-header-pic" />
+        <ENSUREITEM />
       </div>
     );
   }
 }
 
 
-projectClaimDetail.title = '项目详情';
+ensurePage.title = '志愿保障';
 
-projectClaimDetail.propTypes = {
+ensurePage.propTypes = {
 
 
 };
@@ -62,4 +63,4 @@ export default connect(
   }),
   dispatch => bindActionCreators({ },
     dispatch),
-)(projectClaimDetail);
+)(ensurePage);

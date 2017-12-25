@@ -84,7 +84,7 @@ class Register extends React.Component {
       return;
     }
     if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
-      Alert.warning('请输入正确的用户名');
+      Alert.warning('请输入正确的账号');
       return;
     }
     if (password.length <= 5) {
@@ -166,7 +166,7 @@ class Register extends React.Component {
   }
   // 上传照片
   onAvatarClick() {
-    console.log('11111111111111111111111111')
+    console.log('11111111111111111111111111');
     uploadToWX({
       success: (urls) => {
         console.log('图片上传成功:', urls);
@@ -219,7 +219,7 @@ class Register extends React.Component {
         <ul>
           <li>
             <div className="page-register-item">
-              <span className="page-register-fonts">用户名</span>
+              <span className="page-register-fonts">账号</span>
               <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
             </div>
             <div className="line1px" />

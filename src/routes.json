@@ -228,5 +228,25 @@
     "path": "/my/point/pay",
     "page": "./pages/my/point/point",
     "chunk": "main"
+  },
+  {
+    "path": "/sanlitun/projectClaim/list",
+    "page": "./pages/sanlitun/projectClaim/list/index",
+    "chunk": "main"
+  },
+  {
+    "path": "/sanlitun/projectClaim/search",
+    "page": "./pages/sanlitun/projectClaim/search/index",
+    "chunk": "main"
+  },
+  {
+    "path": "/sanlitun/projectClaim/detail/:Id",
+    "page": "./pages/sanlitun/projectClaim/detail/index",
+    "chunk": "main"
+  },
+  {
+    "path": "/ensure",
+    "page": "./pages/ensure/index",
+    "chunk": "main"
   }
 ]

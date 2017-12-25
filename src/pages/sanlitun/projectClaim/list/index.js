@@ -11,7 +11,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import history from '../../history';
+import history from '../../../history';
 
 import Link from '../../../../components/link/link';
 import './index.css';
@@ -40,9 +40,16 @@ class projectClaim extends React.Component {
 
   render() {
     return (
-      <div className="page-starmodel">
-        11
+      <div className="page-projectclaim">
+        <div className="page-projectclaim-header">
+          <div className="search-bar-container">
+            <Link className="component-search-bar" to="/sanlitun/projectClaim/search">
+              <input className="input" placeholder="搜索项目" />
+            </Link>
+          </div>
 
+        </div>
+        <div className="line1px" />
       </div>
     );
   }
