@@ -17,3 +17,6 @@
   padding: 10px 0;
   font-weight: 500;
 }
+.page-starmodel-detail-descript p , .page-starmodel-detail-descript p strong{
+  line-height: 1.5em;
+}
