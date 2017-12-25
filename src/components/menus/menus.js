@@ -6,11 +6,6 @@ import Link from '../link/link';
 import './menus.css';
 
 const DEFAULT_LINK = '/building';
-// https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat
-// /project/list
-// http://wx44eece2138568aef.alpha.volunteerzhiduoxing.com/tmall 志愿回馈测试地址（兑吧）
-// http://api.zybailian.com/index.php?s=/insurance/home/activity_zyzm/index 支援保障
-const feedback = `${location.host}/tmall`;
 const MODULE_LINK = {
   volunteer_project: '/project/list',
   volunteer_team: '/team/list',
@@ -21,6 +16,7 @@ const MODULE_LINK = {
   1234: 'http://sanlitunweb.parkingkj.com/showhtml/sayvillage.html',
   volunteer_feedback: `http://${location.host}/tmall`,
   volunteer_ensure: 'http://api.zybailian.com/index.php?s=/insurance/home/activity_zyzm/index',
+  good_example: '/sanlitun/starModel',
 };
 
 class Menus extends React.Component {
