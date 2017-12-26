@@ -45,7 +45,6 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.route);
     const userId = this.props.route.params.userId;
     this.setState({
       ...this.state,
@@ -167,6 +166,7 @@ class Profile extends React.Component {
 
   renderHost() {
     const user = this.props.user;
+    const phone = 123;
     return (
       <div className="page-profile">
         <div>
@@ -188,6 +188,29 @@ class Profile extends React.Component {
               <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
+          <div className="line1px" />
+          {/** 111 */}
+          <Link to="/my/profile/bind/phone">
+            <div className="page-profile-header-box">
+              <div className="page-profile-fonts">*手机号</div>
+              <div className="page-profile-edit-box">
+                <div className="page-profile-initial-fonts">{user.phone || ''}</div>
+                <div className="page-profile-edit-icon" />
+              </div>
+            </div>
+          </Link>
+          <div className="line1px" />
+          <Link to="/my/profile/bind/mail">
+            <div className="page-profile-header-box">
+              <div className="page-profile-fonts">*邮箱</div>
+              <div className="page-profile-edit-box">
+                <div className="page-profile-initial-fonts">{user.mail || ''}</div>
+                <div className="page-profile-edit-icon" />
+              </div>
+            </div>
+          </Link>
+
+          {/** 111 */}
           <div className="line1px" />
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">志愿者编号</div>

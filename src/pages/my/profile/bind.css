@@ -1,0 +1,69 @@
+.page-profile-bind-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 36px;
+  overflow-y: scroll;
+}
+.page-profile-bind-container{
+  padding: 30px 37px 0;
+  display: flex;
+  flex-direction: column;
+}
+.page-profile-bind-info-container-item{
+  width: 295px;
+  height: 49px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.page-profile-bind-info-container-fonts{
+  display: block;
+  width: 62px;
+  font-size: 15px;
+  color: #999999;
+  margin-right: 15px;
+}
+.page-profile-bind-info-container-input{
+  width: 151px;
+  height: 49px;
+  display: block;
+  font-size: 15px;
+  color: #333333;
+  outline: none;
+}
+
+.page-profile-bind-info-container-submmit{
+  width: 300px;
+  height: 50px;
+  background: #C7EAFD;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 16px;
+  color: #666666;
+  margin-top: 41px;
+}
+.page-profile-bind-info-container-code{
+  height: 30px;
+  line-height: 30px;
+  font-size: 10px;
+  color: #6AC6F8;
+  width: 65px;
+  text-align: center;
+}
+.page-profile-bind-info-container-submmit{
+  width: 300px;
+  height: 50px;
+  background: #C7EAFD;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 16px;
+  color: #666666;
+  margin-top: 41px;
+}

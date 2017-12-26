@@ -125,6 +125,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/bind/:type",
+    "page": "./pages/my/profile/bind",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/verify",
     "page": "./pages/my/profile/verify",
     "chunk": "main"

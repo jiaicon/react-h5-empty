@@ -15,7 +15,25 @@ import { checkUser, addressDataAction } from './profile.store';
 import './verify.css';
 
 const isAndroid = /android/i.test(navigator.userAgent);
-
+const people = [{ id: '01', name: '汉族' }, { id: '02', name: '蒙古族' }, { id: '03', name: '回族' },
+{ id: '04', name: '藏族' }, { id: '05', name: '维吾尔族' }, { id: '06', name: '苗族' },
+{ id: '07', name: '彝族' }, { id: '08', name: '壮族' }, { id: '09', name: '布依族' },
+{ id: '10', name: '朝鲜族' }, { id: '11', name: '满族' }, { id: '12', name: '侗族' },
+{ id: '13', name: '瑶族' }, { id: '14', name: '白族' }, { id: '15', name: '土家族' },
+{ id: '16', name: '哈尼族' }, { id: '17', name: '哈萨克族' }, { id: '18', name: '傣族' },
+{ id: '19', name: '黎族' }, { id: '20', name: '傈僳族' }, { id: '21', name: '佤族' },
+{ id: '22', name: '畲族' }, { id: '23', name: '高山族' }, { id: '24', name: '拉祜族' },
+{ id: '25', name: '水族' }, { id: '26', name: '东乡族' }, { id: '27', name: '纳西族' },
+{ id: '28', name: '景颇族' }, { id: '29', name: '柯尔克孜族' }, { id: '30', name: '土族' },
+{ id: '31', name: '达斡尔族' }, { id: '32', name: '仫佬族' }, { id: '33', name: '羌族' },
+{ id: '34', name: '布朗族' }, { id: '35', name: '撒拉族' }, { id: '36', name: '毛难族' },
+{ id: '37', name: '仡佬族' }, { id: '38', name: '锡伯族' }, { id: '39', name: '阿昌族' },
+{ id: '40', name: '普米族' }, { id: '41', name: '塔吉克族' }, { id: '42', name: '怒族' },
+{ id: '43', name: '乌孜别克族' }, { id: '44', name: '俄罗斯族' }, { id: '45', name: '鄂温克族' },
+{ id: '46', name: '崩龙族' }, { id: '47', name: '保安族' }, { id: '48', name: '裕固族' },
+{ id: '49', name: '京族' }, { id: '50', name: '塔塔尔族' }, { id: '51', name: '独龙族' },
+{ id: '52', name: '鄂伦春族' }, { id: '53', name: '赫哲族' }, { id: '54', name: '门巴族' },
+{ id: '55', name: '珞巴族' }, { id: '56', name: '基诺族' }];
 function checkEmpty(value, label) {
   if (!value || !value.length) {
     Alert.warning(`请填写${label}`);
@@ -96,22 +114,26 @@ class Verify extends React.Component {
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
 
-    const people = this.people.value.replace(/(^\s+)|(\s+$)/g, '');
+
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
+    const nowaddress = this.nowaddress.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       address,
-
+      nowaddress,
       realname,
       idcard,
-      people,
     });
   }
+
 
   onSubmit() {
     const realname = this.state.realname;
     const idcard = this.state.idcard;
-
     const people = this.state.people;
+
+    const nowaddress = this.state.nowaddress;
+
+
     const address = this.state.address;
     const province = this.state.province;
     const city = this.state.city;
@@ -120,6 +142,7 @@ class Verify extends React.Component {
       checkEmpty(realname, '姓名')
       || checkEmpty(idcard, '身份证号码')
       || checkEmpty(people, '民族')
+      || checkEmpty(nowaddress, '现居地址')
       || checkEmpty(province, '省份')
       || checkEmpty(city, '城市')
       || checkEmpty(county, '区县')
@@ -129,6 +152,7 @@ class Verify extends React.Component {
     ) {
       return;
     }
+    // nowaddress未定义字段
     const data = {
       real_name: realname,
       id_number: idcard,
@@ -140,7 +164,12 @@ class Verify extends React.Component {
     };
     this.props.checkUser(data);
   }
-
+  handlePeopleClick() {
+    this.setState({
+      ...this.state,
+      people: this.people.value,
+    });
+  }
   handleProvinceClick() {
     this.setState({
       ...this.state,
@@ -185,7 +214,18 @@ class Verify extends React.Component {
 
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">民族</div>
-            <input type="text" ref={(c) => { this.people = c; }} className="page-my-profile-verify-text" maxLength="1" onChange={this.onTextChanged} />
+            <label htmlFor="people">
+              <select id="people" onChange={this.handlePeopleClick} ref={(c) => { this.people = c; }}>
+                <option value="-1" />
+                { people && people.map((item, keys) =>
+                  <option value={item.name} key={keys}>{item.name}</option>)}
+              </select>
+            </label>
+          </div>
+          <div className="line1px" />
+          <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">现住地址</div>
+            <input type="text" ref={(c) => { this.nowaddress = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">

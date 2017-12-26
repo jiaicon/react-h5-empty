@@ -61,11 +61,12 @@ class MyPage extends React.Component {
 
   renderPageMyphotoTemplate() {
     const { user } = this.props;
+    console.log(user);
     return (
       <div className="page-my-photo-container">
         <Avatar src={user.avatars ? user.avatars : ''} size={{ width: 80, radius: 8 }} defaultSrc="/images/my/register.png" />
         <div className="page-my-user-info">
-          <p className="page-my-user-info-nick">{user.username ? user.username : '未设置昵称'}</p>
+          <p className="page-my-user-info-nick">{user.real_name ? user.real_name : user.real_name || '未设置昵称'}</p>
           <p className="page-my-user-info-signature">{user.slogan ? user.slogan : '未设置口号'}</p>
         </div>
       </div>
