@@ -190,7 +190,7 @@ class Profile extends React.Component {
           </div>
           <div className="line1px" />
           {/** 111 */}
-          <Link to="/my/profile/bind/phone">
+          {/** <Link to="/my/profile/bind/phone">
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*手机号</div>
               <div className="page-profile-edit-box">
@@ -208,7 +208,8 @@ class Profile extends React.Component {
                 <div className="page-profile-edit-icon" />
               </div>
             </div>
-          </Link>
+          </Link> */}
+
 
           {/** 111 */}
           <div className="line1px" />
