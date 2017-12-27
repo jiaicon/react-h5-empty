@@ -208,11 +208,12 @@ class Profile extends React.Component {
                 <div className="page-profile-edit-icon" />
               </div>
             </div>
-          </Link> */}
+          </Link>
+           <div className="line1px" /> */}
 
 
           {/** 111 */}
-          <div className="line1px" />
+
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">志愿者编号</div>
             <div className="page-profile-edit-box">
@@ -311,6 +312,30 @@ class Profile extends React.Component {
             </div>
           </div>
           <div className="line1px" />
+          {/** 111 */}
+          {/** <a   onClick={this.onOtherHandleClick}>
+            <div className="page-profile-header-box">
+              <div className="page-profile-fonts">*手机号</div>
+              <div className="page-profile-edit-box">
+                <div className="page-profile-initial-fonts">{user.phone || ''}</div>
+                <div className="page-profile-edit-icon" />
+              </div>
+            </div>
+          </a>
+          <div className="line1px" />
+          <a  onClick={this.onOtherHandleClick}>
+            <div className="page-profile-header-box">
+              <div className="page-profile-fonts">*邮箱</div>
+              <div className="page-profile-edit-box">
+                <div className="page-profile-initial-fonts">{user.mail || ''}</div>
+                <div className="page-profile-edit-icon" />
+              </div>
+            </div>
+          </a>
+           <div className="line1px" /> */}
+
+
+          {/** 111 */}
           <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
             <div className="page-profile-fonts">个人擅长</div>
             <div className="page-profile-edit-box">

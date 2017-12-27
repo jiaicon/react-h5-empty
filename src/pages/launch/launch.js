@@ -13,6 +13,7 @@ import Link from '../../components/link/link';
 import './launch.css';
 import HomePage from '../home/home';
 import SigninPage from '../signin/signin';
+import PasswordPage from '../signin/subpage/password_signin';
 import WXShare from '../../components/share';
 import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
@@ -21,6 +22,7 @@ const TAB_URL_MAPS = {
   '/': <HomePage />,
   '/signin': <SigninPage />,
   '/my': <MyPage />,
+  '/signin/password': <PasswordPage />,
 };
 
 class LaunchPage extends React.Component {

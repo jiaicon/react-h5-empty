@@ -10,6 +10,11 @@
     "chunk": "main"
   },
   {
+    "path": "/signin/password",
+    "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
     "path": "/project/detail/:projectId",
     "page": "./pages/project/detail/detail",
     "chunk": "main"

@@ -97,7 +97,7 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillUnmount() {
-
+    // document.title = '标题';
   }
 
   handleFavoriteClick() {

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
+import Link from '../../components/link/link';
 import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
 
@@ -109,8 +110,11 @@ class SigninPage extends React.Component {
           }
         </ul>
         <div className="signin-btn-container">
+          <Link to="/signin/password" className="signin-btn" >
+            密令签到
+          </Link>
           <a className="signin-btn" onClick={this.handleSignin}>
-            点击签到
+            扫码签到
           </a>
         </div>
       </div>
