@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../../components/share';
+import ReactCodeInput from '../../../components/code_input/ReactCodeInput';
 import { } from '../../signin/signin.store';
 import './password_signin.css';
 
@@ -32,21 +33,39 @@ class PasswordSigninPage extends React.Component {
   }
 
   componentWillUnmount() {}
-
-
+  onUserInput(e) {
+    console.log(e);
+    const key = e;
+    console.log(key);
+    this.setState({
+      key,
+    });
+  }
   render() {
     return (
       <div className="page-password-container">
         <div className="page-password-title">输入团队提供的数字，即可完成签到</div>
-
-        <div className="page-password-input-container">
-          <input type="number" min="0" max="9" className="page-password-input" ref={(c) => { this.passwordA = c; }} onKeyUp={this.onTextChanged} />
-          <input type="number" min="0" max="9" className="page-password-input" ref={(c) => { this.passwordB = c; }} onKeyUp={this.onTextChanged} />
-          <input type="number" min="0" max="9"className="page-password-input" ref={(c) => { this.passwordC = c; }} onKeyUp={this.onTextChanged} />
-          <input type="number" min="0" max="9" className="page-password-input" ref={(c) => { this.passwordD = c; }} onKeyUp={this.onTextChanged} />
-          <input type="number" min="0" max="9" className="page-password-input" ref={(c) => { this.passwordE = c; }} onKeyUp={this.onTextChanged} />
-          <input type="number" min="0" max="9" className="page-password-input" ref={(c) => { this.passwordD = c; }} onKeyUp={this.onTextChanged} />
-        </div>
+        <ReactCodeInput
+          onChange={this.onUserInput}
+          value=""
+          isValid
+          fields={6}
+          type="number"
+          disabled={false}
+          inputStyle={{
+            borderBottom: '1px solid #E5E5E5',
+            marginRight: '10px',
+            paddingLeft: '6px',
+            paddingRight: '6px',
+            paddingTop: '15px',
+            paddingBottom: '15px',
+            textAlign: 'center',
+            fontSize: '24px',
+            boxSizing: 'border-box',
+            color: 'black',
+            backgroundColor: 'white',
+            borderColor: 'lightgrey' }}
+        />
       </div>
     );
   }

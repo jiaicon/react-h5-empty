@@ -117,6 +117,7 @@ export default connect(
   state => ({
     user: state.user,
     info: state.info.person,
+    address: state.info.address,
   }),
   dispatch => bindActionCreators({ imporvePersonInfo }, dispatch),
 )(Edit);

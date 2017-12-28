@@ -10,6 +10,11 @@
     "chunk": "main"
   },
   {
+    "path": "/selectcity",
+    "page": "./pages/home/subpage/city_page",
+    "chunk": "main"
+  },
+  {
     "path": "/signin/password",
     "page": "./pages/launch/launch",
     "chunk": "main"

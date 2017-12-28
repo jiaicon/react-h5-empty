@@ -110,6 +110,9 @@ class SigninPage extends React.Component {
           }
         </ul>
         <div className="signin-btn-container">
+          {/**  <Link to="/signin/password" className="signin-btn" >
+            密令签到
+          </Link> */}
           <Link to="/signin/password" className="signin-btn" >
             密令签到
           </Link>
