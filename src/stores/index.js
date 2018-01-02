@@ -18,6 +18,7 @@ import registerReducer from '../pages/my/register/register.store';
 import infoReducer from '../pages/my/profile/profile.store';
 
 import sanlitunReducer from '../pages/sanlitun/starModel/starModel.store';
+import insuranceReducer from '../pages/ensure/ensure.store';
 
 import { userReducer } from './common';
 
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   login: loginReducer,
   register: registerReducer,
   sanlitun: sanlitunReducer,
+  insurance: insuranceReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];

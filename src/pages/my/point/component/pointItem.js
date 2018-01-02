@@ -27,6 +27,8 @@ class PointItem extends React.Component {
 
   render() {
     const isPay = this.props.isPay;
+    const data = this.props.data;
+    console.log(data);
     return (
       <div className="component-point-item-container">
         {
@@ -49,6 +51,10 @@ class PointItem extends React.Component {
 
 PointItem.propTypes = {
   isPay: PropTypes.bool,
+  data: PropTypes.arrayOf(PropTypes.shape({
+
+  })),
+
 };
 
 export default PointItem;

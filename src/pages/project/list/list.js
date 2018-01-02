@@ -42,7 +42,7 @@ class ProjectListPage extends React.Component {
     target = parseInt(target, 10);
 
     const isRecommend = /recommend/i.test(this.props.route.path);
-
+    console.log(isRecommend);
     this.selectedOption = {
       sort: TYPES_VALUE[type],
       service_object: window.serviceTarget[target],

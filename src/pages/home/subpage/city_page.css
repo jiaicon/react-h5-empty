@@ -8,6 +8,12 @@
   letter-spacing: 0;
   line-height: 14px;
 }
+.page-select-city-container-header span:nth-child(1){
+  padding: 0 5px;
+}
+.page-select-city-container-header span:nth-child(2){
+  padding: 0 5px;
+}
 .page-select-city-container-style{
   height: 44px;
   display: flex;

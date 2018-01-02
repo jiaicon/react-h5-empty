@@ -1,6 +1,168 @@
 
 import { combineReducers } from 'redux';
+import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
+
+
+// 项目认领详情
+export const requestClaimDetail = (projectId) => {
+  const params = queryString.parse(location.search);
+  const preview = params.preview;
+  const data = {};
+
+  if (preview === '1') {
+    data.preview = 1;
+  }
+
+  return {
+    type: 'CLAIM_DETAIL',
+    meta: {
+      id: projectId,
+    },
+    payload: fetch(`/claim/${projectId}`, { method: 'GET', data }),
+  };
+};
+const ClaimDetailReducer = (state = {
+  fetching: false,
+  failed: false,
+  fetchingId: null,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'CLAIM_DETAIL_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        fetchingId: action.meta.id,
+        failed: false,
+      };
+    case 'CLAIM_DETAIL_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        fetchingId: action.meta.id,
+        failed: false,
+        data: action.payload && action.payload.data,
+      };
+    case 'CLAIM_DETAIL_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetchingId: action.meta.id,
+        fetching: false,
+      };
+
+    default:
+      return state;
+  }
+};
+// 搜素项目认领
+export const requestSearch = data => ({
+  type: 'CLAIM_LIST_SEARCH',
+  meta: {
+    more: data.more,
+    keyword: data.name,
+  },
+  payload: fetch('/claim', { method: 'GET', data, loading: !data.more }),
+});
+
+const SearchListReducer = (state = {
+  fetching: false,
+  failed: false,
+  keyword: null,
+  data: null,
+}, action) => {
+  let data;
+  const { more } = action.meta || {};
+  const { data: payloadData } = action.payload || {};
+
+  switch (action.type) {
+    case 'CLAIM_LIST_SEARCH_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'CLAIM_LIST_SEARCH_FULFILLED':
+      if (!more || !state.data) {
+        data = payloadData;
+      } else {
+        data = {
+          list: state.data.list.concat(payloadData.list),
+          page: payloadData.page,
+        };
+      }
+
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+        keyword: action.meta.keyword,
+      };
+    case 'CLAIM_LIST_SEARCH_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+        keyword: action.meta.keyword,
+      };
+    default:
+      return state;
+  }
+};
+
+// 项目认领列表
+export const requestClaimProjectList = data => ({
+  type: 'CLAIM_LIST',
+  meta: {
+    more: data.more,
+  },
+  payload: fetch('/claim', { method: 'GET', data, loading: !data.more }),
+});
+
+const ClaimListReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  let data;
+  const { more } = action.meta || {};
+  const { data: payloadData } = action.payload || {};
+
+  switch (action.type) {
+    case 'CLAIM_LIST_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'CLAIM_LIST_FULFILLED':
+      if (!more || !state.data) {
+        data = payloadData;
+      } else {
+        data = {
+          list: state.data.list.concat(payloadData.list),
+          page: payloadData.page,
+        };
+      }
+
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+      };
+    case 'CLAIM_LIST_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 // 星级榜样列表接口
 
 export const starModelAction = () => ({
@@ -75,5 +237,8 @@ const starDetailReducer = (state = {
 const reducer = combineReducers({
   starModel: starModelReducer,
   starDetail: starDetailReducer,
+  claimList: ClaimListReducer,
+  search: SearchListReducer,
+  detail: ClaimDetailReducer,
 });
 export default reducer;

@@ -1,6 +1,48 @@
 
 import { combineReducers } from 'redux';
 import fetch from '../../utils/fetch';
+import { API_HOST } from '../../utils/config';
+// score
+
+export const scoreAction = num => ({
+  type: 'SCORE_DATA',
+  meta: {
+    type: num === 0 ? 'income' : 'pay',
+  },
+  payload: fetch(`${API_HOST}/api/user/score`, { method: 'GET', data: { type: num } }),
+});
+const scoreReducer = (state = {
+  fetching: false,
+  failed: false,
+  type: 'income',
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'SCORE_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'SCORE_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        type: action.meta.type,
+        data: action.payload.data,
+      };
+    case 'SCORE_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
 // 收藏数据
 
 export const collectAction = num => ({
@@ -521,5 +563,6 @@ const reducer = combineReducers({
   postapply: postApplyReducer,
   projectapply: projectapplyReducer,
   deletefamily: deleteFamilyReducer,
+  score: scoreReducer,
 });
 export default reducer;

@@ -81,7 +81,14 @@ export function getLocation(success, fail, noCache) {
 
 export function getCity(success, fail) {
   if (window.dev) {
-    success('北京');
+    const city = '北京市';
+    const province = '北京';
+    localStorage.setItem('provinceAndCityName', JSON.stringify({
+      city,
+      province,
+    }));
+
+    success(JSON.parse(localStorage.getItem('provinceAndCityName')).city || '北京');
     return;
   }
 
@@ -91,8 +98,16 @@ export function getCity(success, fail) {
         if (result.detail.addressComponents
           && result.detail.addressComponents.city) {
           if (!success) {
+            console.log(result);
             return;
           }
+          // result.detail.addressComponents.province
+          const city = result.detail.addressComponents.city;
+          const province = result.detail.addressComponents.province;
+          localStorage.setItem('provinceAndCityName', JSON.stringify({
+            city,
+            province,
+          }));
           success(result.detail.addressComponents.city.replace('市', ''));
         } else if (fail) {
           fail({});

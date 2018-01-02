@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import history from '../../history';
-import { } from '../my.store';
+import { userCenterAction } from '../my.store';
 import './point.css';
 
 import Link from '../../../components/link/link';
@@ -35,6 +35,7 @@ class PointPage extends React.Component {
   }
 
   componentWillMount() {
+    this.props.userCenterAction();
   }
 
   componentDidMount() {
@@ -58,10 +59,10 @@ class PointPage extends React.Component {
     return (
       <div className="page-ponit">
         <div className="page-ponit-pic-container">
-          <IMAGE className="page-ponit-pic" src="http://pic.sc.chinaz.com/files/pic/pic9/201712/zzpic8996.jpg" />
+          <IMAGE className="page-ponit-pic" src="/images/collectibles.png" />
           <div className="page-ponit-pic-title">
             <span>我的星币明细(个)</span>
-            <span>0000</span>
+            <span>{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</span>
           </div>
         </div>
         <ul className="page-ponit-tab-container">
@@ -100,10 +101,48 @@ class PointPage extends React.Component {
 
 PointPage.title = '我的星币明细';
 PointPage.propTypes = {
+  usercenter: PropTypes.shape({
+    data: PropTypes.shape({
+      msg_count: PropTypes.number,
+      project_count: PropTypes.number,
+      team_count: PropTypes.number,
+      user: PropTypes.shape({
+        addr: PropTypes.string,
+        avatars: PropTypes.string,
+        birthday: PropTypes.string,
+        province_id: PropTypes.number,
+        province_name: PropTypes.string,
+        city_id: PropTypes.number,
+        city_name: PropTypes.string,
+        county_id: PropTypes.number,
+        county_name: PropTypes.string,
+        token: PropTypes.string,
+        good_at: PropTypes.arrayOf(PropTypes.shape({
+
+        })),
+        family_id: PropTypes.number,
+        id: PropTypes.number,
+        id_number: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+        ]),
+        identifier: PropTypes.string,
+        join_family_time: PropTypes.string,
+        nation: PropTypes.string,
+        phone: PropTypes.string,
+        real_name: PropTypes.string,
+        reward_time: PropTypes.string,
+        sex: PropTypes.number,
+        slogan: PropTypes.string,
+        username: PropTypes.string,
+      }),
+    }),
+  }),
 };
 
 export default connect(
   state => ({
+    usercenter: state.my.usercenter,
   }),
-  dispatch => bindActionCreators({ }, dispatch),
+  dispatch => bindActionCreators({ userCenterAction }, dispatch),
 )(PointPage);

@@ -11,7 +11,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './point.css';
-import { } from '../my.store';
+import { scoreAction } from '../my.store';
 
 import POINTITEM from './component/pointItem';
 
@@ -24,7 +24,7 @@ class PointIncome extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.collectAction(0);
+    this.props.scoreAction(0);
   }
 
   componentDidMount() {
@@ -37,7 +37,6 @@ class PointIncome extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    // const { collect: { data: listData, type } } = this.props;
     return (
 
       <div className="page-point-income-pay-container">
@@ -64,7 +63,7 @@ PointIncome.propTypes = {
 
 export default connect(
   state => ({
-
+    score: state.score,
   }),
-  dispatch => bindActionCreators({ }, dispatch),
+  dispatch => bindActionCreators({ scoreAction }, dispatch),
 )(PointIncome);

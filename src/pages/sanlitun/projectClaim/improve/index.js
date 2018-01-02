@@ -11,7 +11,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import history from '../../history';
+import history from '../../../history';
 
 import Link from '../../../../components/link/link';
 import './index.css';

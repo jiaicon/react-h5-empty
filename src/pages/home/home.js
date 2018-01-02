@@ -47,21 +47,33 @@ class HomePage extends React.Component {
     if (home.data) {
       return;
     }
+    // JSON.parse(localStorage.getItem('provinceAndCityName')).city;
+    // const locInfo = JSON.parse(localStorage.getItem('provinceAndCityName')).city;
 
-    getCity((city) => {
+    if (localStorage.getItem('provinceAndCityName') != null) {
+      this.props.requestHomeData();
       this.setState({
         ...this.state,
-        city,
+        city: JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''),
       });
-      this.props.requestHomeData();
-      this.props.saveCity(city);
-    }, () => {
-      Alert.error('定位失败，请确认同意微信定位授权');
-      this.state = {
-        city: '未定位',
-      };
-      this.props.requestHomeData();
-    });
+      this.props.saveCity(JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''));
+    } else {
+      getCity((city) => {
+        this.setState({
+          ...this.state,
+          city,
+        });
+        this.props.requestHomeData();
+        this.props.saveCity(city);
+      }, () => {
+        Alert.error('定位失败，请确认同意微信定位授权');
+        this.state = {
+          city: '未定位',
+        };
+        this.props.requestHomeData();
+      });
+    }
+
 
     // 地理位置重新获取后需要刷新首页数据
     // EM.on('location', () => this.props.requestHomeData());
@@ -228,7 +240,7 @@ HomePage.propTypes = {
 
 export default connect(
   state => ({
-    home: state.home,
+    home: state.home.home,
     user: state.user,
   }),
   dispatch => bindActionCreators({ requestHomeData, saveCity }, dispatch),

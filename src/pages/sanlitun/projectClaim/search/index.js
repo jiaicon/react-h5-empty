@@ -7,7 +7,6 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -16,8 +15,10 @@ import history from '../../../history';
 import Link from '../../../../components/link/link';
 import './index.css';
 import IMAGE from '../../../../components/image/image';
+import Projects from '../../component/projects/projects';
+import { isWindowReachBottom } from '../../../../utils/funcs';
 
-// import { starModelAction } from './starModel.store';
+import { requestSearch } from '../../starModel/starModel.store';
 
 class projectClaimSearch extends React.Component {
 
@@ -36,7 +37,15 @@ class projectClaimSearch extends React.Component {
 
   componentWillReceiveProps() {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    if (isWindowReachBottom(50)) {
+      this.search(true);
+    }
+  }
   handleSearch(evt) {
     evt.preventDefault();
     const newKeyword = this.searchInput.value;
@@ -50,24 +59,26 @@ class projectClaimSearch extends React.Component {
     this.search();
   }
   search(more) {
-    console.log(111);
-    // const { list: { data: listData, fetching } } = this.props;
+    const { list: { data: listData, fetching } } = this.props;
 
-    // if (fetching ||
-    //   (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
-    //   return;
-    // }
+    if (fetching ||
+      (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
+      return;
+    }
 
-    // this.props.requestSearch({
-    //   name: this.keyword,
-    //   current_page: more ? listData.page.current_page + 1 : 1,
-    //   more,
-    // });
+    this.props.requestSearch({
+      name: this.keyword,
+      current_page: more ? listData.page.current_page + 1 : 1,
+      more,
+    });
   }
   handleCancelSearch() {
     history.goBack();
   }
   render() {
+    const { list: { data: listData, keyword } } = this.props;
+    const showLoadingMore = listData && (keyword === this.keyword) &&
+    listData.page && (listData.page.current_page < listData.page.total_page);
     return (
       <div className="page-projectclaimsearch">
         <div className="header">
@@ -79,24 +90,38 @@ class projectClaimSearch extends React.Component {
           </div>
         </div>
         <div className="line1px" />
-
+        <div className="body">
+          <div className="project-list">
+            <Projects projects={listData ? listData.list : null} />
+          </div>
+          {
+      showLoadingMore
+      ?
+        <div className="component-loading-more">
+          <img src="/images/icon_loading.png" alt="loading" />
+        正在加载
+        </div>
+      : null
+    }
+        </div>
       </div>
     );
   }
 }
 
 
-projectClaimSearch.title = '搜索认领项目';
-
 projectClaimSearch.propTypes = {
 
 
 };
 
+projectClaimSearch.title = '搜索认领项目';
+
 export default connect(
   state => ({
-
+    list: state.sanlitun.search,
   }),
-  dispatch => bindActionCreators({ },
-    dispatch),
+  dispatch => bindActionCreators({
+    requestSearch,
+  }, dispatch),
 )(projectClaimSearch);

@@ -7,7 +7,8 @@ import Alert from 'react-s-alert';
 import './city_page.css';
 import Link from '../../../components/link/link';
 import { getCity } from '../../../utils/funcs';
-import { requestHomeData, saveCity } from '../home.store';
+import history from '../../history';
+import { requestHomeData, saveCity, getAreaCity } from '../home.store';
 import { addressDataAction } from '../../my/profile/profile.store';
 
 class CityPage extends React.Component {
@@ -15,10 +16,9 @@ class CityPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-
-
     this.state = {
-      city: props.home.city || '定位中',
+      province: JSON.parse(localStorage.getItem('provinceAndCityName')).province,
+      city: JSON.parse(localStorage.getItem('provinceAndCityName')).city,
       renderTrigger: true,
     };
   }
@@ -33,42 +33,84 @@ class CityPage extends React.Component {
 
   componentWillUnmount() {}
   handleProvinceClick(event) {
-    console.log(event.target.getAttribute('value'));
-    console.log(event.target.getAttribute('name'));
-    this.props.addressDataAction(event.target.getAttribute('value'));
+    const data = JSON.parse(event.target.getAttribute('data')).item;
+    const lat = data.lat;
+    const lng = data.lon;
+    const expires = Date.now() + (5 * 60 * 1000);
+    localStorage.setItem('location', JSON.stringify({
+      lat,
+      lng,
+      expires,
+    }));
+    const province = data.name;
+    localStorage.setItem('provinceAndCityName', JSON.stringify({
+      province,
+      city: null,
+    }));
+    const id = data.id;
+    this.setState({
+      ...this.state,
+      province,
+      city: null,
+    });
+    this.props.saveCity();
+    this.props.addressDataAction(id);
+
     this.setState({
       renderTrigger: false,
     });
   }
+  // <li>
+  //         <div className="page-select-city-container-style">全国</div>
+  //         <div className="line1px" />
+  //       </li>
   proviceRender() {
     const province = this.props.address.data.province;
     return (
       <ul>
-        <li>
-          <div className="page-select-city-container-style">xxxxx</div>
-          <div className="line1px" />
-        </li>
+
         { province && province.map((item, keys) =>
           <li >
-            <div className="page-select-city-container-style" key={keys} value={item.id} name={item.name} onClick={this.handleProvinceClick}>{item.name}</div>
+            <div className="page-select-city-container-style" key={keys} data={JSON.stringify({ item })} onClick={this.handleProvinceClick}>{item.name}</div>
             <div className="line1px" />
           </li>)
         }
       </ul>
     );
   }
+  handleCityClick(event) {
+    const data = JSON.parse(event.target.getAttribute('data')).item;
+    const lat = data.lat;
+    const lng = data.lon;
+    const expires = Date.now() + (5 * 60 * 1000);
+    localStorage.setItem('location', JSON.stringify({
+      lat,
+      lng,
+      expires,
+    }));
+    const city = data.name.replace('市', '');
+    const province = this.state.province;
+    localStorage.setItem('provinceAndCityName', JSON.stringify({
+      province,
+      city,
+    }));
+    this.props.saveCity(city);
+    const id = data.id;
+    this.setState({
+      ...this.state,
+      city,
+    });
+    this.props.getAreaCity(city);
+    history.replace('/');
+  }
   cityRender() {
     console.log(this.props.address.data);
     const city = this.props.address.data.city;
     return (
       <ul>
-        <li>
-          <div className="page-select-city-container-style">xxxxx</div>
-          <div className="line1px" />
-        </li>
         { city && city.map((item, keys) =>
           <li >
-            <div className="page-select-city-container-style" key={keys} value={item.id} name={item.name} onClick={this.handleProvinceClick}>{item.name}</div>
+            <div className="page-select-city-container-style" key={keys} data={JSON.stringify({ item })}onClick={this.handleCityClick}>{item.name}</div>
             <div className="line1px" />
           </li>)
         }
@@ -78,7 +120,8 @@ class CityPage extends React.Component {
   render() {
     return (
       <div className="page-select-city-container">
-        <div className="page-select-city-container-header">当前城市：xx-xx</div>
+        <div className="page-select-city-container-header">当前城市:
+        <span>{this.state.province || null}</span>{this.state.city ? ' - ' : null}<span>{this.state.city === '克孜勒苏柯尔克孜自治州' ? '克孜勒苏柯尔克孜' : this.state.city || null}</span></div>
         <div className="line1px" />
         {this.state.renderTrigger ? this.proviceRender() : this.cityRender()}
       </div>
@@ -104,6 +147,7 @@ CityPage.propTypes = {
     city: PropTypes.string,
   }),
   user: PropTypes.shape({}),
+  getAreaCity: PropTypes.func,
   addressDataAction: PropTypes.func,
   address: PropTypes.shape({
     data: PropTypes.shape({
@@ -143,5 +187,5 @@ export default connect(
     user: state.user,
     address: state.info.address,
   }),
-  dispatch => bindActionCreators({ requestHomeData, saveCity, addressDataAction }, dispatch),
+  dispatch => bindActionCreators({ requestHomeData, saveCity, addressDataAction, getAreaCity }, dispatch),
 )(CityPage);

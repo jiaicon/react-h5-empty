@@ -260,6 +260,11 @@
     "chunk": "main"
   },
   {
+    "path": "/sanlitun/projectClaim/improve/:Id",
+    "page": "./pages/sanlitun/projectClaim/improve/index",
+    "chunk": "main"
+  },
+  {
     "path": "/ensure",
     "page": "./pages/ensure/index",
     "chunk": "main"
