@@ -6,11 +6,12 @@ export const requestCheckinList = () => ({
 });
 
 // TODO: 打卡成功是否将新打卡记录返回
-export const checkin = code => ({
+export const checkin = (code, type) => ({
   type: 'PROJECT_CHECKIN',
   payload: fetch('/clock/in', {
     data: {
       code,
+      type: type === 1 ? '1' : '2',
     },
     successWords: '打卡成功',
   }),

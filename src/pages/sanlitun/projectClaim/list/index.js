@@ -28,23 +28,25 @@ class projectClaim extends React.Component {
   }
 
   componentWillMount() {
-    this.requestList(false, false);
+    this.requestList(false);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
+  componentWillReceiveProps(nextProps) {
 
-  componentWillReceiveProps() {}
+  }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
   handleScroll() {
     if (isWindowReachBottom(50)) {
       this.requestList(true);
-      console.log('加载');
     }
   }
-  requestList(more, recommend) {
+  requestList(more) {
     const { claimList: { data: listData, fetching } } = this.props;
 
     if (fetching ||

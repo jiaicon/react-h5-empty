@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './point.css';
 import { scoreAction } from '../my.store';
+
 import POINTITEM from './component/pointItem';
 
 class PointPay extends React.Component {
@@ -35,6 +36,7 @@ class PointPay extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const listData = this.props.score.data;
     return (
 
       <div className="page-point-income-pay-container">
@@ -45,7 +47,9 @@ class PointPay extends React.Component {
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
-          <POINTITEM isPay />
+          {listData && listData.list.length >= 1 ?
+            <POINTITEM data={listData.list} isPay /> : <span className="page-point-income-pay-main-empty">暂无记录</span>}
+
         </div>
       </div>
     );
@@ -60,7 +64,7 @@ PointPay.propTypes = {
 
 export default connect(
   state => ({
-    score: state.score,
+    score: state.my.score,
   }),
   dispatch => bindActionCreators({ scoreAction }, dispatch),
 )(PointPay);

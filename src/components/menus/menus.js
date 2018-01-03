@@ -17,6 +17,7 @@ const MODULE_LINK = {
   volunteer_feedback: `http://${location.host}/tmall`,
   volunteer_ensure: 'http://api.zybailian.com/index.php?s=/insurance/home/activity_zyzm/index',
   good_example: '/sanlitun/starModel',
+  claim_project: '/sanlitun/projectClaim/list',
 };
 
 class Menus extends React.Component {

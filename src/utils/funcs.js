@@ -146,6 +146,22 @@ export function setToken(token) {
 /**
  * 时间戳转日期
  * @param {int} timestamp 时间戳
+ * @return {string} 例如 2017.7.27
+ */
+export function timestampToDatePoint(timestamp) {
+  let ts = timestamp;
+
+  if ((`${ts}`).length === 10) {
+    ts *= 1000;
+  }
+
+  const date = new Date(ts);
+
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+}
+/**
+ * 时间戳转日期
+ * @param {int} timestamp 时间戳
  * @return {string} 例如 2017年7月27日
  */
 export function timestampToDateText(timestamp) {

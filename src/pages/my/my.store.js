@@ -9,7 +9,7 @@ export const scoreAction = num => ({
   meta: {
     type: num === 0 ? 'income' : 'pay',
   },
-  payload: fetch(`${API_HOST}/api/user/score`, { method: 'GET', data: { type: num } }),
+  payload: fetch(`${API_HOST}/api/v1/user/score/${num}`, { method: 'GET' }),
 });
 const scoreReducer = (state = {
   fetching: false,

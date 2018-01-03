@@ -32,7 +32,6 @@ class Projects extends React.Component {
 
   render() {
     const { projects } = this.props;
-    console.log(projects);
     const showLabel = this.props.showLabel;
     if (!projects) {
       return null;

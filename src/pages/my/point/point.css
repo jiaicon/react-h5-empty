@@ -109,3 +109,10 @@
   height: 100%;
 }
 
+.page-point-income-pay-main-empty{
+  display: flex;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #666;
+  justify-content: center;
+}

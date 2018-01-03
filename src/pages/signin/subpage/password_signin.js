@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../../components/share';
 import ReactCodeInput from '../../../components/code_input/ReactCodeInput';
-import { } from '../../signin/signin.store';
+import { checkin } from '../../signin/signin.store';
 import './password_signin.css';
 
 
@@ -20,7 +20,6 @@ class PasswordSigninPage extends React.Component {
   }
 
   componentWillMount() {
-
   }
 
   componentDidMount() {
@@ -29,17 +28,23 @@ class PasswordSigninPage extends React.Component {
     });
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { signin: Lsignin } = this.props;
+    const { signin: Nsignin } = nextProps;
+    if (Lsignin.fetching && !Nsignin.fetching && !Nsignin.failed) {
+      history.replace('/signin');
+    }
   }
 
   componentWillUnmount() {}
   onUserInput(e) {
-    console.log(e);
     const key = e;
-    console.log(key);
     this.setState({
       key,
     });
+    if (key.length === 6) {
+      this.props.checkin(key, 2);
+    }
   }
   render() {
     return (
@@ -78,11 +83,17 @@ PasswordSigninPage.propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
   }),
+  signin: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.shape({})),
+    next: PropTypes.shape({}),
+  }),
   checkin: PropTypes.func,
   requestCheckinList: PropTypes.func,
 };
 
 export default connect(
-  state => state.signin || {},
-  dispatch => bindActionCreators({ }, dispatch),
+  state => ({
+    signin: state.signin,
+  }),
+  dispatch => bindActionCreators({ checkin }, dispatch),
 )(PasswordSigninPage);

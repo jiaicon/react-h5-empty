@@ -3,6 +3,48 @@ import { combineReducers } from 'redux';
 import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
 
+// 项目认领提交信息
+export const improveClaim = data => ({
+  type: 'IMPROVECLAIM_DATA',
+  meta: {
+    id: `${data.id}`,
+
+  },
+  payload: fetch(`/claim/${data.id}`, { method: 'POST',
+    data: { team_name: `${data.name}`,
+      contact_name: `${data.people}`,
+      contact_phone: `${data.phone} `,
+      contact_email: `${data.email} ` } }),
+});
+const ImproveClaimReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'IMPROVECLAIM_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'IMPROVECLAIM_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'IMPROVECLAIM_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 
 // 项目认领详情
 export const requestClaimDetail = (projectId) => {
@@ -240,5 +282,6 @@ const reducer = combineReducers({
   claimList: ClaimListReducer,
   search: SearchListReducer,
   detail: ClaimDetailReducer,
+  improve: ImproveClaimReducer,
 });
 export default reducer;

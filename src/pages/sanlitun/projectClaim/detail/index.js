@@ -21,7 +21,7 @@ import history from '../../../history';
 
 
 import './index.css';
-import { parseTimeStringToDateString } from '../../../../utils/funcs';
+import { parseTimeStringToDateString, timestampToDatePoint } from '../../../../utils/funcs';
 
 import Image from '../../../../components/image/image';
 import Link from '../../../../components/link/link';
@@ -38,7 +38,6 @@ class projectClaimDetail extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.Id;
-    console.log(this.projectId);
     this.state = ({
       descript: false,
     });
@@ -135,13 +134,16 @@ class projectClaimDetail extends React.Component {
     if (detailData.claim_status === 3) {
       actionLabel = '认领结束';
       actionClassName = 'claim-project-action-end';
-    } else if (!joined && detailData.claim_status === 2) {
+    } else if (detailData.claim_status === 2 && detailData.join_status === 1) {
       actionLabel = '已认领';
       actionClassName = 'claim-project-action-full';
-    } else if (joined && detailData.join_status === 0) {
+    } else if (detailData.claim_status === 2 && detailData.join_status === 0) {
       actionLabel = '我要认领';
       actionClassName = 'claim-project-action-available';
       action = 'join';
+    } else if (!joined && detailData.activity_status === 2) {
+      actionLabel = '进行中';
+      actionClassName = 'claim-project-action-full';
     }
 
     // if (detailData.activity_status === 3) {
@@ -216,7 +218,20 @@ class projectClaimDetail extends React.Component {
           <div className="project-teamlist">
             <div>已认领团队</div>
             <div className="project-claimlist">
-              {detailData && detailData.claim_list.length && detailData.claim_list.length >= 1 ? 'you' : 'wu'}
+              {detailData && detailData.claim_list.length && detailData.claim_list.length >= 1 ?
+                <ul>
+                  {detailData.claim_list.map(item => (
+                    <li>
+                      <div>
+                        <span>{item.team_name }</span>
+                        <span>{ timestampToDatePoint(Date.parse(new Date(item.created_at))) }</span>
+                      </div>
+                    </li>
+                  ))
+                  }
+                </ul>
+                : '暂无团队认领'
+              }
             </div>
           </div>
           <footer>
@@ -231,8 +246,6 @@ class projectClaimDetail extends React.Component {
     );
   }
 }
-
-
 projectClaimDetail.title = '认领项目详情';
 
 projectClaimDetail.propTypes = {
