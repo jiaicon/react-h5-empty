@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_HOST } from '../../../utils/config';
 import history from '../../history';
-import { } from './profile.store';
+import { updatePhone } from './profile.store';
 import './bind.css';
 
 function checkEmpty(value, label) {
@@ -28,9 +28,8 @@ class BindInfo extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    const type = this.props.route.params.type;
+    this.type = this.props.route.params.type;
     this.state = ({
-      type,
       captchaUrl: `${API_HOST}/api/captcha`,
       buttonString: '获取验证码',
       timer: null,
@@ -49,10 +48,19 @@ class BindInfo extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    // if (Cperson.fetching && !Nperson.fetching && !Nperson.failed) {
-    //   history.replace('/my/profile/detail/user');
-    // }
+    if (this.type === phone) {
+      const { phone: Lphone } = this.props;
+      const { phone: Nphone } = nextProps;
+      if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
+        history.replace('/my/profile/detail/user');
+      }
+    } else if (this.type === mail) {
+      const { mail: Lmail } = this.props;
+      const { mail: Nmail } = nextProps;
+      if (Lmail.fetching && !Nmail.fetching && !Nmail.failed) {
+        history.replace('/my/profile/detail/user');
+      }
+    }
   }
   componentWillUnmount() {
     const timer = this.state.timer;
@@ -198,7 +206,7 @@ class BindInfo extends React.Component {
     // const data = this.state.data;
     return (
       <div className="page-profile-bind-container">
-        {this.state.type == 'phone' ? this.bindPhoneview() : this.bindMailview()}
+        {this.type === 'phone' ? this.bindPhoneview() : this.bindMailview()}
       </div>
     );
   }
@@ -212,7 +220,7 @@ BindInfo.propTypes = {
 
 export default connect(
   state => ({
-
+    phone: state.my.updatePhone,
   }),
-  dispatch => bindActionCreators({ }, dispatch),
+  dispatch => bindActionCreators({ updatePhone }, dispatch),
 )(BindInfo);

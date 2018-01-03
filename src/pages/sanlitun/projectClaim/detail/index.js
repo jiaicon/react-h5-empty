@@ -7,6 +7,7 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import Alert from 'react-s-alert';
 
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -83,11 +84,14 @@ class projectClaimDetail extends React.Component {
     const { projectId } = this;
 
     return () => {
-      // const { user: { isLogin, id_number: idNumber } } = this.props;
+      const { user: { isLogin, id_number: idNumber } } = this.props;
 
       if (action === 'join') {
-        // 填写信息
-        history.push(`/sanlitun/projectClaim/improve/${this.projectId}`);
+        if (isLogin) {
+          history.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
+        } else {
+          Alert.warning('请先登录');
+        }
       }
     };
   }

@@ -190,7 +190,7 @@ class Profile extends React.Component {
           </div>
           <div className="line1px" />
           {/** 111 */}
-          {/** <Link to="/my/profile/bind/phone">
+          <Link to="/my/profile/bind/phone">
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*手机号</div>
               <div className="page-profile-edit-box">
@@ -204,12 +204,12 @@ class Profile extends React.Component {
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*邮箱</div>
               <div className="page-profile-edit-box">
-                <div className="page-profile-initial-fonts">{user.mail || ''}</div>
+                <div className="page-profile-initial-fonts">{user.email || ''}</div>
                 <div className="page-profile-edit-icon" />
               </div>
             </div>
           </Link>
-           <div className="line1px" /> */}
+          <div className="line1px" />
 
 
           {/** 111 */}
@@ -313,26 +313,26 @@ class Profile extends React.Component {
           </div>
           <div className="line1px" />
           {/** 111 */}
-          {/** <a   onClick={this.onOtherHandleClick}>
+          <a onClick={this.onOtherHandleClick}>
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*手机号</div>
               <div className="page-profile-edit-box">
-                <div className="page-profile-initial-fonts">{user.phone || ''}</div>
+                <div className="page-profile-initial-fonts">{otherfamily.data.phone || ''}</div>
                 <div className="page-profile-edit-icon" />
               </div>
             </div>
           </a>
           <div className="line1px" />
-          <a  onClick={this.onOtherHandleClick}>
+          <a onClick={this.onOtherHandleClick}>
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*邮箱</div>
               <div className="page-profile-edit-box">
-                <div className="page-profile-initial-fonts">{user.mail || ''}</div>
+                <div className="page-profile-initial-fonts">{otherfamily.data.email || ''}</div>
                 <div className="page-profile-edit-icon" />
               </div>
             </div>
           </a>
-           <div className="line1px" /> */}
+          <div className="line1px" />
 
 
           {/** 111 */}

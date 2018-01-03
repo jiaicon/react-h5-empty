@@ -38,6 +38,7 @@ export default function request(requestUrl, requestOptions = {}) {
   // 需要服务端进行设置，参考https://stackoverflow.com/questions/40900977/custom-request-headers-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
   const location = localStorage.location ? JSON.parse(localStorage.location) : null;
+  const city = localStorage.provinceAndCityName ? JSON.parse(localStorage.provinceAndCityName).city : null;
   options.headers = {
     ...headers,
     // 授权 token
@@ -48,6 +49,7 @@ export default function request(requestUrl, requestOptions = {}) {
     'X-location': location ?
       `${location.lng}-${location.lat}` : '116.314820-40.065560',
     'X-unique-key': window.uniqueKey || 'demo',
+    'X-city': city || '北京',
   };
   // 自定义头必须设置 mode 为 cors
   options.mode = 'cors';

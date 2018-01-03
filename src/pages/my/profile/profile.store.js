@@ -2,6 +2,43 @@
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 import { API_HOST } from '../../../utils/config';
+// x修改手机号
+export const updatePhone = data => ({
+  type: 'USER_PHONE',
+  payload: fetch('/user/phone', {
+    data,
+  }),
+});
+const updataPhoneReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'USER_PHONE_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'USER_PHONE_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+      };
+    case 'USER_PHONE_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
 // 实名
 export const checkUser = data => ({
   type: 'CHECK',
@@ -210,5 +247,6 @@ const reducer = combineReducers({
   address: addressReducer,
   register: registerReducer,
   otherfamily: otherFamilReducer,
+  updatePhone: updataPhoneReducer,
 });
 export default reducer;
