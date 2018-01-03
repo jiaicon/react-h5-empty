@@ -55,6 +55,7 @@
   border-radius: 14px;
   color: #fff;
   font-size: 14px;
+  overflow: hidden;
 }
 
 .page-home .header-bar .login-button {

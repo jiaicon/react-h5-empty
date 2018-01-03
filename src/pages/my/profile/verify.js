@@ -116,10 +116,9 @@ class Verify extends React.Component {
 
 
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
-    const nowaddress = this.nowaddress.value.replace(/(^\s+)|(\s+$)/g, '');
+    // const nowaddress = this.nowaddress.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       address,
-      nowaddress,
       realname,
       idcard,
     });
@@ -131,7 +130,7 @@ class Verify extends React.Component {
     const idcard = this.state.idcard;
     const people = this.state.people;
 
-    const nowaddress = this.state.nowaddress;
+    // const nowaddress = this.state.nowaddress;
 
 
     const address = this.state.address;
@@ -142,7 +141,6 @@ class Verify extends React.Component {
       checkEmpty(realname, '姓名')
       || checkEmpty(idcard, '身份证号码')
       || checkEmpty(people, '民族')
-      || checkEmpty(nowaddress, '现居地址')
       || checkEmpty(province, '省份')
       || checkEmpty(city, '城市')
       || checkEmpty(county, '区县')
@@ -192,7 +190,10 @@ class Verify extends React.Component {
       county: this.county.value,
     });
   }
-
+//   <div className="page-my-profile-verify-header-box">
+//   <div className="page-my-profile-verify-fonts">现住地址</div>
+//   <input type="text" ref={(c) => { this.nowaddress = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+// </div>
   render() {
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
@@ -223,9 +224,8 @@ class Verify extends React.Component {
             </label>
           </div>
           <div className="line1px" />
-          <div className="page-my-profile-verify-header-box">
-            <div className="page-my-profile-verify-fonts">现住地址</div>
-            <input type="text" ref={(c) => { this.nowaddress = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+          <div className="page-my-profile-verify-header-box-nowaddress">
+            现住地址
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">

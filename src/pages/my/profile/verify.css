@@ -97,3 +97,12 @@
 .page-my-profile-none{
   display: none;
 }
+.page-my-profile-verify-header-box-nowaddress{
+  width: 100%;
+  height: 30px;
+  background: #F8F8F8;
+  font-size: 13px;
+  color: #666666;
+  line-height: 30px;
+  padding-left: 15px;
+}

@@ -6,7 +6,13 @@ import store from '../stores';
 import history, { USING_HISTORY_HASH } from '../pages/history';
 import { getToken } from './funcs';
 
-
+function encodeUnicode(str) {
+  const res = [];
+  for (let i = 0; i < str.length; i++) {
+    res[i] = (`00${str.charCodeAt(i).toString(16)}`).slice(-4);
+  }
+  return `\\u${res.join('\\u')}`;
+}
 /**
  *
  * @param {string} requestUrl
@@ -38,7 +44,8 @@ export default function request(requestUrl, requestOptions = {}) {
   // 需要服务端进行设置，参考https://stackoverflow.com/questions/40900977/custom-request-headers-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
   const location = localStorage.location ? JSON.parse(localStorage.location) : null;
-  const city = localStorage.provinceAndCityName ? JSON.parse(localStorage.provinceAndCityName).city : null;
+  const city = localStorage.provinceAndCityName ? JSON.parse(localStorage.provinceAndCityName).city : '北京';
+  // ${encodeURI(city)}
   options.headers = {
     ...headers,
     // 授权 token
@@ -49,7 +56,7 @@ export default function request(requestUrl, requestOptions = {}) {
     'X-location': location ?
       `${location.lng}-${location.lat}` : '116.314820-40.065560',
     'X-unique-key': window.uniqueKey || 'demo',
-    'X-city': city || '北京',
+    'X-city': `${encodeURI(city)}`,
   };
   // 自定义头必须设置 mode 为 cors
   options.mode = 'cors';

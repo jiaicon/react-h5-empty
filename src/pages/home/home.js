@@ -30,9 +30,9 @@ class HomePage extends React.Component {
       autoplay: true,
       autoplaySpeed: 6000,
     };
-
+    this.city = JSON.parse(localStorage.getItem('provinceAndCityName')).city;
     this.state = {
-      city: props.home.city || '定位中',
+      city: props.home.city || this.city,
     };
   }
 
@@ -44,12 +44,13 @@ class HomePage extends React.Component {
     // }
     // getLocation(loc=>{}, error=>);
 
-    if (home.data) {
-      return;
-    }
+    // if (home.data) {
+    //   return;
+    // }
     // JSON.parse(localStorage.getItem('provinceAndCityName')).city;
     // const locInfo = JSON.parse(localStorage.getItem('provinceAndCityName')).city;
 
+    // this.props.requestHomeData();
     if (localStorage.getItem('provinceAndCityName') != null) {
       this.props.requestHomeData();
       this.setState({

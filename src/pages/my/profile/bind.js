@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import { API_HOST } from '../../../utils/config';
 import history from '../../history';
 import { updatePhone } from './profile.store';
+import { requestVerifyCode } from '../register/register.store';
 import './bind.css';
 
 function checkEmpty(value, label) {
@@ -39,28 +40,43 @@ class BindInfo extends React.Component {
 
 
   componentWillMount() {
-    console.log(this.props.route);
-    console.log(this.state.type);
-  }
 
+  }
   componentDidMount() {
 
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.type === phone) {
-      const { phone: Lphone } = this.props;
-      const { phone: Nphone } = nextProps;
+    const { code: cCode, phone: Lphone, mail: Lmail } = this.props;
+    const { code: nCode, phone: Nphone, mail: Nmail } = nextProps;
+    const phone = this.state.phone;
+    const mail = this.state.mail;
+    const verifyCode = this.state.verifyCode;
+    if (cCode.fetching && !nCode.fetching && !nCode.failed) {
+      this.setState({
+        countDownTrigger: false,
+      });
+      this.onStartCountDown();
+    }
+    if (phone && verifyCode) {
       if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
         history.replace('/my/profile/detail/user');
       }
-    } else if (this.type === mail) {
-      const { mail: Lmail } = this.props;
-      const { mail: Nmail } = nextProps;
+    }
+    if (mail) {
       if (Lmail.fetching && !Nmail.fetching && !Nmail.failed) {
         history.replace('/my/profile/detail/user');
       }
     }
+    // if (this.type === 'phone') {
+    //   if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
+    //     history.replace('/my/profile/detail/user');
+    //   }
+    // } else if (this.type === 'mail') {
+      // if (Lmail.fetching && !Nmail.fetching && !Nmail.failed) {
+      //   history.replace('/my/profile/detail/user');
+      // }
+    // }
   }
   componentWillUnmount() {
     const timer = this.state.timer;
@@ -83,6 +99,7 @@ class BindInfo extends React.Component {
     });
   }
   onSubmit() {
+    console.log('asd32');
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     if (checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码')) {
@@ -91,7 +108,7 @@ class BindInfo extends React.Component {
     const data = {};
     data.phone = phone;
     data.verify_code = verifyCode;
-    // this.props.register(data);
+    this.props.updatePhone(data);
   }
   onSend() {
     const phone = this.state.phone;
@@ -105,7 +122,7 @@ class BindInfo extends React.Component {
       if (countDownTrigger === true) {
         data.phone = phone;
         data.captcha_code = captcha;
-        // this.props.requestVerifyCode(data);
+        this.props.requestVerifyCode(data);
       } else {
         Alert.warning('同一时间内不能多次点击');
       }
@@ -215,12 +232,32 @@ class BindInfo extends React.Component {
 
 BindInfo.title = '个人信息绑定';
 BindInfo.propTypes = {
-
+  updatePhone: PropTypes.func,
+  requestVerifyCode: PropTypes.func,
+  phone: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+    data: PropTypes.shape({
+    }),
+  }),
+  code: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+    data: PropTypes.shape({
+    }),
+  }),
+  mail: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+    data: PropTypes.shape({
+    }),
+  }),
 };
 
 export default connect(
   state => ({
     phone: state.my.updatePhone,
+    code: state.register.code,
   }),
-  dispatch => bindActionCreators({ updatePhone }, dispatch),
+  dispatch => bindActionCreators({ updatePhone, requestVerifyCode }, dispatch),
 )(BindInfo);

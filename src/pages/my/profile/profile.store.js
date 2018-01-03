@@ -5,7 +5,7 @@ import { API_HOST } from '../../../utils/config';
 // x修改手机号
 export const updatePhone = data => ({
   type: 'USER_PHONE',
-  payload: fetch('/user/phone', {
+  payload: fetch(`${API_HOST}/api/user/phone`, {
     data,
   }),
 });

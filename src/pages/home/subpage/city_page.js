@@ -43,15 +43,11 @@ class CityPage extends React.Component {
       expires,
     }));
     const province = data.name;
-    localStorage.setItem('provinceAndCityName', JSON.stringify({
-      province,
-      city: null,
-    }));
+
     const id = data.id;
     this.setState({
       ...this.state,
       province,
-      city: null,
     });
     this.props.saveCity();
     this.props.addressDataAction(id);
@@ -88,10 +84,11 @@ class CityPage extends React.Component {
       lng,
       expires,
     }));
+
     const city = data.name.replace('市', '');
     const province = this.state.province;
     localStorage.setItem('provinceAndCityName', JSON.stringify({
-      province,
+      province: this.state.province,
       city,
     }));
     this.props.saveCity(city);
