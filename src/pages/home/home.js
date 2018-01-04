@@ -30,9 +30,8 @@ class HomePage extends React.Component {
       autoplay: true,
       autoplaySpeed: 6000,
     };
-    this.city = JSON.parse(localStorage.getItem('provinceAndCityName')).city;
     this.state = {
-      city: props.home.city || this.city,
+      city: props.home.city || '定位中',
     };
   }
 
@@ -52,11 +51,11 @@ class HomePage extends React.Component {
 
     // this.props.requestHomeData();
     if (localStorage.getItem('provinceAndCityName') != null) {
-      this.props.requestHomeData();
       this.setState({
         ...this.state,
         city: JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''),
       });
+      this.props.requestHomeData();
       this.props.saveCity(JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''));
     } else {
       getCity((city) => {
