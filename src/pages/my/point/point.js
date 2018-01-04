@@ -59,7 +59,6 @@ class PointPage extends React.Component {
     return (
       <div className="page-ponit">
         <div className="page-ponit-pic-container">
-          <IMAGE className="page-ponit-pic" src="/images/collectibles.png" />
           <div className="page-ponit-pic-title">
             <span>我的星币明细(个)</span>
             <span>{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</span>
