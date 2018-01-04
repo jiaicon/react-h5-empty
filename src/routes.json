@@ -50,6 +50,11 @@
     "chunk": "main"
   },
   {
+    "path": "/team/list/type/:type/category/:category/target/:target",
+    "page": "./pages/team/list/list",
+    "chunk": "main"
+  },
+  {
     "path": "/team/detail/:teamId",
     "page": "./pages/team/detail/detail",
     "chunk": "main"

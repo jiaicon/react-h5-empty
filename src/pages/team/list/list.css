@@ -1,11 +1,23 @@
 .page-team-list {
-
+  position: relative;
 }
-
+.page-team-list .project-filter-container {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
 .page-team-list .search-bar-container {
   height: 44px;
   padding: 6px 15px;
   display: flex;
   justify-content: center;
   align-items: stretch;
+}
+.page-team-list .body{
+  width: 100%;
+  position: absolute;
+  top: 90px;
+  left: 0;
 }

@@ -1,5 +1,4 @@
 /* eslint  "no-nested-ternary":"off" */
-
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -42,8 +41,6 @@ class ProjectListPage extends React.Component {
     target = parseInt(target, 10);
 
     const isRecommend = /recommend/i.test(this.props.route.path);
-    console.log(this.props.route.path);
-    console.log(isRecommend);
     this.selectedOption = {
       sort: TYPES_VALUE[type],
       service_object: window.serviceTarget[target],
@@ -69,7 +66,7 @@ class ProjectListPage extends React.Component {
     type = parseInt(ntype, 10);
     category = parseInt(ncategory, 10);
     target = parseInt(ntarget, 10);
-
+    console.log(type, category, target);
     this.selectedOption = {
       sort: TYPES_VALUE[type],
       service_object: window.serviceTarget[target],

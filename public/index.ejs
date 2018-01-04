@@ -31,7 +31,7 @@
     // server 端下发 token
     window.token = null;
     window.orgInfo = {
-        "name": "机构1",
+        "name": "本地测试",
         "logo": "",
         "module_settings": [
             [
@@ -73,9 +73,12 @@
 
     window.orgCode = 'XKdwpfgegW';
 
-    window.serviceCategory = ['赛事服务', '应急救援', '城市运⾏', '⽂化教育', '关爱服务', '社区服务', '医疗卫⽣', '绿⾊环保', '在线志愿服务', '国际服务', '其他'];
+    window.serviceCategory = ['赛事服务', '应急救援', '城市运⾏', '文化教育', '关爱服务', '社区服务', '医疗卫⽣', '绿⾊环保', '在线志愿服务', '国际服务', '其他'];
     window.serviceTarget = ['⼉童', '⻘少年', '孤寡⽼⼈', '残障⼈⼠', '优抚对象', '特困群体', '其他'];
-
+    // server 下发的个人擅长, 用于用户资料填写
+    window.goodAt = ["关爱服务","国际服务","社区服务","应急救援","赛事服务","医疗卫生","绿色环保","文化倡导","教育","助残","助老","其他"];
+    // server 下发的服务类型,可用于过滤等
+    window.teamCategory = ["党政机关","教育事业单位","卫生事业单位","科技事业单位","文化事业单位","社会福利利事业单位","其他事业单位","群团组织","居委会或村委会","国有企业","民营企业","社会团体","社会服务机构","基金会"];
     if (window.wxConfig) {
       try{
         if (typeof window.wxConfig === 'string') {

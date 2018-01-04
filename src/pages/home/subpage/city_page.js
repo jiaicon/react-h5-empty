@@ -113,7 +113,7 @@ class CityPage extends React.Component {
       ...this.state,
       city,
     });
-    // this.props.getAreaCity(city);
+    this.props.getAreaCity(city);
     history.replace('/');
   }
   cityRender() {

@@ -13,7 +13,7 @@ import Avatar from '../../components/avatar/avatar';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
 import { getCity } from '../../utils/funcs';
-import { requestHomeData, saveCity } from './home.store';
+import { requestHomeData, saveCity, getAreaCity } from './home.store';
 
 class HomePage extends React.Component {
 
@@ -37,19 +37,6 @@ class HomePage extends React.Component {
 
   componentWillMount() {
     const { home } = this.props;
-
-    // if (!home.data) {
-    // this.props.requestHomeData();
-    // }
-    // getLocation(loc=>{}, error=>);
-
-    // if (home.data) {
-    //   return;
-    // }
-    // JSON.parse(localStorage.getItem('provinceAndCityName')).city;
-    // const locInfo = JSON.parse(localStorage.getItem('provinceAndCityName')).city;
-
-    // this.props.requestHomeData();
     if (localStorage.getItem('provinceAndCityName') != null) {
       this.setState({
         ...this.state,
@@ -57,6 +44,7 @@ class HomePage extends React.Component {
       });
       this.props.requestHomeData();
       this.props.saveCity(JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''));
+      this.props.getAreaCity(JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''));
     } else {
       getCity((city) => {
         this.setState({
@@ -65,6 +53,7 @@ class HomePage extends React.Component {
         });
         this.props.requestHomeData();
         this.props.saveCity(city);
+        this.props.getAreaCity(city);
       }, () => {
         Alert.error('定位失败，请确认同意微信定位授权');
         this.state = {
@@ -242,6 +231,7 @@ export default connect(
   state => ({
     home: state.home.home,
     user: state.user,
+    area: state.home.getAreaCity,
   }),
-  dispatch => bindActionCreators({ requestHomeData, saveCity }, dispatch),
+  dispatch => bindActionCreators({ requestHomeData, saveCity, getAreaCity }, dispatch),
 )(HomePage);

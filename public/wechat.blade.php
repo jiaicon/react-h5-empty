@@ -40,6 +40,9 @@
     // server 下发的服务类型,可用于过滤等
     window.serviceCategory = {!! $serviceCategory !!};
 
+    // server 下发的服务类型,可用于过滤等
+    window.teamCategory = {!! $teamCategory !!};
+
     // server 下发的个人擅长, 用于用户资料填写
     window.goodAt = {!! $gootAt !!};
 

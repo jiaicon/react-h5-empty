@@ -1,12 +1,16 @@
+/* eslint  "no-nested-ternary":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
+import queryString from 'query-string';
 import './list.css';
+import history from '../../history';
 import Link from '../../../components/link/link';
+import Filter from '../component/filter/filter';
 import Teams from '../../../components/teams/teams';
 import { isWindowReachBottom } from '../../../utils/funcs';
+import { getAreaCity } from '../../home/home.store';
 
 import {
   requestTeamList,
@@ -17,23 +21,92 @@ class TeamListPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+
+    this.state = {
+      isFilterShow: false,
+      countyNames: [],
+    };
+
+    const params = queryString.parse(location.search);
+
+    this.selectedOption = {
+      service_object: '',
+      service_category: '',
+      sort: '',
+    };
   }
 
   componentWillMount() {
     this.requestList();
+    this.props.getAreaCity(JSON.parse(localStorage.provinceAndCityName).city);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextprops) {
+    const { area: Larea } = this.props;
+    const { area: Narea } = nextprops;
+    const countyNames = [];
+    const countyId = [];
+    if (Narea.data) {
+      for (const i in Narea.data.list) {
+        countyNames.push(Narea.data.list[i].name);
+        countyId.push(Narea.data.list[i].id);
+      }
+      this.setState({
+        countyNames,
+        countyId,
+      });
+    }
+
+    let { type, category, target } = this.props.route.params;
+    const { type: ntype, category: ncategory, target: ntarget } = nextprops.route.params;
+
+    if ((type === ntype) &&
+        (category === ncategory) &&
+        (target === ntarget)) {
+      return;
+    }
+
+    type = parseInt(ntype, 10);
+    category = parseInt(ncategory, 10);
+    target = parseInt(ntarget, 10);
+    const countyIdArr = this.state.countyId;
+    this.selectedOption = {
+      sort: window.teamCategory[type],
+      service_category: window.serviceCategory[category],
+      service_object: countyIdArr[target],
+
+    };
+    console.log(this.selectedOption);
+    this.requestList(false, false);
   }
+
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
   }
+  onFilterChange(selectedOption) {
+    const { type, category, target } = selectedOption;
 
+    history.push(`/team/list/type/${type}/category/${category}/target/${target}`);
+  }
+
+  onFilterShow() {
+    this.setState({
+      ...this.state,
+      isFilterShow: true,
+    });
+  }
+
+  onFilterHide() {
+    this.setState({
+      ...this.state,
+      isFilterShow: false,
+    });
+  }
   handleScroll() {
     if (isWindowReachBottom(50)) {
       this.requestList(true);
@@ -56,10 +129,16 @@ class TeamListPage extends React.Component {
 
   render() {
     const { list: { data: listData } } = this.props;
-
+    const { area: { data: areaData } } = this.props;
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
 
+    let { type, category, target } = this.props.route.params;
+
+
+    type = parseInt(type, 10);
+    category = parseInt(category, 10);
+    target = parseInt(target, 10);
     return (
       <div className="page-team-list">
         <div className="header">
@@ -69,7 +148,18 @@ class TeamListPage extends React.Component {
             </Link>
           </div>
         </div>
-        <div className="line1px" />
+        <div className="project-filter-container" style={{ height: this.state.isFilterShow ? '100%' : 'auto' }}>
+          <Filter
+            onFilterChange={this.onFilterChange}
+            onFilterShow={this.onFilterShow}
+            onFilterHide={this.onFilterHide}
+            type={type}
+            category={category}
+            target={target}
+            countyNames={this.state.countyNames}
+            data={areaData}
+          />
+        </div>
         <div className="body">
           <div className="team-list">
             <Teams teams={listData ? listData.list : null} />
@@ -108,8 +198,10 @@ export default connect(
   state => ({
     list: state.team.list,
     user: state.user,
+    getAreaCity: PropTypes.func,
+    area: state.home.getAreaCity,
   }),
   dispatch => bindActionCreators({
-    requestTeamList,
+    requestTeamList, getAreaCity,
   }, dispatch),
 )(TeamListPage);
