@@ -214,6 +214,7 @@ class ProjectDetailPage extends React.Component {
               <Avatar src={detailData.team.logo} size={{ width: 30, radius: 4 }} />
               <span style={{ marginLeft: '10px' }}>{detailData.team.name}</span>
             </div>
+            <img src="/images/my/more.png" />
 
           </Link>
         </div>
@@ -256,6 +257,22 @@ class ProjectDetailPage extends React.Component {
                 <div className="detail-title">志愿时长</div>
                 <div className="detail-content">{detailData.reward_time} 小时</div>
               </li>
+              <li>
+                <div className="item-point" />
+                <div className="line1px-v" />
+                <div className="detail-title">联系人姓名</div>
+                <div className="detail-content">{detailData.contact_name}</div>
+              </li>
+              {
+                detailData.contact_phone_public ?
+                  <li>
+                    <div className="item-point" />
+                    <div className="line1px-v" />
+                    <div className="detail-title">联系人电话</div>
+                    <a href={`tel:${detailData.contact_phone}`} className="detail-content">{detailData.contact_phone}</a>
+                  </li>
+              : null
+              }
               <li>
                 <div className="item-point" />
                 <div className="detail-title">项目地址</div>

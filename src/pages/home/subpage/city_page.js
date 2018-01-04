@@ -17,15 +17,14 @@ class CityPage extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      province: JSON.parse(localStorage.getItem('provinceAndCityName')).province,
-      city: JSON.parse(localStorage.getItem('provinceAndCityName')).city,
+      province: JSON.parse(localStorage.getItem('provinceAndCityName')).province || '全国',
+      city: JSON.parse(localStorage.getItem('provinceAndCityName')).city === '全国' ? null : JSON.parse(localStorage.getItem('provinceAndCityName')).city,
       renderTrigger: true,
     };
   }
 
   componentWillMount() {
     this.props.addressDataAction(0);
-    console.log(this.props);
   }
 
   componentWillReceiveProps() {
@@ -33,6 +32,20 @@ class CityPage extends React.Component {
 
   componentWillUnmount() {}
   handleProvinceClick(event) {
+    if (event.target.getAttribute('data') === '全国') {
+      this.setState({
+        ...this.state,
+        province: '全国',
+        city: '全国',
+      });
+      localStorage.setItem('provinceAndCityName', JSON.stringify({
+        province: '全国',
+        city: '全国',
+      }));
+      this.props.saveCity('全国');
+      history.replace('/');
+      return;
+    }
     const data = JSON.parse(event.target.getAttribute('data')).item;
     const lat = data.lat;
     const lng = data.lon;
@@ -64,7 +77,10 @@ class CityPage extends React.Component {
     const province = this.props.address.data.province;
     return (
       <ul>
-
+        <li >
+          <div className="page-select-city-container-style" key="全国" data="全国" onClick={this.handleProvinceClick}>全国</div>
+          <div className="line1px" />
+        </li>
         { province && province.map((item, keys) =>
           <li >
             <div className="page-select-city-container-style" key={keys} data={JSON.stringify({ item })} onClick={this.handleProvinceClick}>{item.name}</div>
@@ -97,7 +113,7 @@ class CityPage extends React.Component {
       ...this.state,
       city,
     });
-    this.props.getAreaCity(city);
+    // this.props.getAreaCity(city);
     history.replace('/');
   }
   cityRender() {
@@ -118,7 +134,9 @@ class CityPage extends React.Component {
     return (
       <div className="page-select-city-container">
         <div className="page-select-city-container-header">当前城市:
-        <span>{this.state.province || null}</span>{this.state.city ? ' - ' : null}<span>{this.state.city === '克孜勒苏柯尔克孜自治州' ? '克孜勒苏柯尔克孜' : this.state.city || null}</span></div>
+        <span>{this.state.province || null}</span>
+          {this.state.city ? this.state.city === '全国' ? null : ' - ' : null}
+          <span>{this.state.city === '克孜勒苏柯尔克孜自治州' ? '克孜勒苏柯尔克孜' : this.state.city === '全国' ? null : this.state.city}</span></div>
         <div className="line1px" />
         {this.state.renderTrigger ? this.proviceRender() : this.cityRender()}
       </div>

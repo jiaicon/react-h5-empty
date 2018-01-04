@@ -6,6 +6,9 @@
 
 .page-project-detail .header {
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /*
 .page-project-detail .header .project-photo {
@@ -37,10 +40,20 @@
 }
 
 .page-project-detail .header .header-addition {
-  padding: 20px;
+  width: 345px;
+  height: 50px;
+  margin-top: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);
+  border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.page-project-detail .header .header-addition  img{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 
 .page-project-detail .header .header-addition .team-info{
@@ -48,6 +61,8 @@
   align-items: center;
   font-size: 15px;
   color: #333333;
+  padding-left: 10px;
+
 }
 
 .page-project-detail .header .header-addition .team-info img {
@@ -66,7 +81,7 @@
   font-size: 22px;
   color: #333333;
   line-height: 30px;
-  padding: 0 20px 10px;
+  padding: 15px 20px 10px;
   background: #fff;
 }
 
