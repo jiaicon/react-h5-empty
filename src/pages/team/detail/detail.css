@@ -215,3 +215,86 @@
   color: #ffffff;
 }
 
+.page-team-detail-render-project-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.page-team-detail-render-project-container .component-projects{
+  width: 100%;
+  flex:1;
+}
+.page-team-detail-render-project-container-main{
+  width: 100%;
+  overflow-y: scroll;
+}
+.page-team-detail-render-project-container   .takeup{
+  width: 100%;
+  height: 50px;
+}
+
+.page-team-detail-render-project-container .tabs-container{
+  height: 49px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.page-team-detail-render-project-container .tabs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  height: 49px;
+
+}
+.page-team-detail-render-project-container .tabs li{
+  flex: 1;
+  list-style: none;
+  text-align: center;
+}
+
+.page-team-detail-render-project-container .tabs li a{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-decoration: none;
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon {
+  height: 25px;
+  width: 25px;
+  background-size: contain;
+  background-position: center;
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon-home {
+  background-image: url(/images/tab_home.png);
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon-home.active {
+  background-image: url(/images/tab_home_active.png);
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon-signin {
+  background-image: url(/images/tab_signin.png);
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon-signin.active {
+  background-image: url(/images/tab_signin_active.png);
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon-me {
+  background-image: url(/images/tab_me.png);
+}
+
+.page-team-detail-render-project-container .tabs li .tab-icon-me.active {
+  background-image: url(/images/tab_me_active.png);
+}
+
+
+.page-team-detail-render-project-container .tabs li a span {
+  font-size: 10px;
+  color: #333333;
+}
