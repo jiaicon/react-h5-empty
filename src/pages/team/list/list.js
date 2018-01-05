@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import classnames from 'classnames';
 import queryString from 'query-string';
 import './list.css';
 import history from '../../history';
@@ -173,6 +174,7 @@ class TeamListPage extends React.Component {
         <div className="body">
           <div className="team-list">
             <Teams teams={listData ? listData.list : null} />
+            <div className="takeup" />
           </div>
           {
             showLoadingMore
@@ -184,6 +186,45 @@ class TeamListPage extends React.Component {
             : null
           }
         </div>
+        <div className="tabs-container">
+          <div className="line1px" />
+          <ul className="tabs">
+            <li>
+              <Link to="/">
+                <div
+                  className={classnames({
+                    'tab-icon': true,
+                    'tab-icon-home': true,
+                  })}
+                />
+                <span>首页</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/signin">
+                <div
+                  className={classnames({
+                    'tab-icon': true,
+                    'tab-icon-signin': true,
+                  })}
+                />
+                <span>签到打卡</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/my">
+                <div
+                  className={classnames({
+                    'tab-icon': true,
+                    'tab-icon-me': true,
+                  })}
+                />
+                <span>个人中心</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
       </div>
     );
   }
