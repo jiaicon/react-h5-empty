@@ -23,3 +23,13 @@
   font-size: 14px;
   margin-top: 50px;
 }
+.page-center-style{
+  width: 100%;
+  padding: 40px 15px 18px;
+  text-align: center;
+}
+.page-center-phone{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}

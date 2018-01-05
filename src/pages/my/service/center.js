@@ -31,14 +31,20 @@ class Center extends React.Component {
   }
 
   componentWillUnmount() {}
-  // <div className="page-center-code">二维码</div>
-  // <div className="page-center-info">请长按二维码，关注服务号，在服务号内留言。</div>
-  // <div className="page-center-info">或直接拨打下方热线</div>
-  // <a href="tel:010 - 26002600">客服热线</a>
+
 
   render() {
+    const content = window.orgInfo.org_service;
+    const phone = window.orgInfo.org_service_tel;
     return (
-      <div className="page-center" />
+      <div>
+        <div
+          className="page-center-style" dangerouslySetInnerHTML={{
+            __html: content ?
+          content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+        />
+        <a href={`tel:${phone}`} className="page-center-phone">客服电话</a>
+      </div>
     );
   }
 }

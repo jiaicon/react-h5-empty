@@ -28,3 +28,9 @@
 .page-intoduce-bussiness{
  text-align: right;
 }
+
+.page-introduce-style{
+  width: 100%;
+  text-align: center;
+  padding: 40px 15px 18px;
+}

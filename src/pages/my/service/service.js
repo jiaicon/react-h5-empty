@@ -30,7 +30,7 @@ class Service extends React.Component {
   }
 
   componentWillUnmount() {}
-
+  // <a href="tel:13240208305">
   render() {
     return (
       <div className="page-service">
@@ -56,7 +56,8 @@ class Service extends React.Component {
           </div>
           <div className="line1px" />
         </Link>
-        <a href="tel:13240208305">
+        <Link to="/my/service/center">
+
           <div className="page-service-item">
             <div className="page-service-item-fonts-box">
               <h3>客服中心</h3>
@@ -64,7 +65,7 @@ class Service extends React.Component {
             </div>
             <div className="page-service-item-bg page-service-item-bg3" />
           </div>
-        </a>
+        </Link>
 
       </div>
     );
