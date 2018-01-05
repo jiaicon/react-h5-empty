@@ -30,14 +30,24 @@ class TeamListPage extends React.Component {
     const params = queryString.parse(location.search);
 
     this.selectedOption = {
-      service_object: '',
+      county_id: '',
       service_category: '',
-      sort: '',
+      team_type: '',
     };
   }
 
   componentWillMount() {
-    this.requestList();
+    let { type, category, target } = this.props.route.params;
+    type = parseInt(type, 10);
+    category = parseInt(category, 10);
+    target = parseInt(target, 10);
+
+    this.selectedOption = {
+      team_type: window.teamCategory[type],
+      county_id: '',
+      service_category: window.serviceCategory[category],
+    };
+    this.requestList(false);
     this.props.getAreaCity(JSON.parse(localStorage.provinceAndCityName).city);
   }
 
@@ -75,13 +85,12 @@ class TeamListPage extends React.Component {
     target = parseInt(ntarget, 10);
     const countyIdArr = this.state.countyId;
     this.selectedOption = {
-      sort: window.teamCategory[type],
+      team_type: window.teamCategory[type],
       service_category: window.serviceCategory[category],
-      service_object: countyIdArr[target],
+      county_id: countyIdArr[target],
 
     };
-    console.log(this.selectedOption);
-    this.requestList(false, false);
+    this.requestList(false);
   }
 
 
@@ -122,6 +131,7 @@ class TeamListPage extends React.Component {
     }
 
     this.props.requestTeamList({
+      ...this.selectedOption,
       current_page: more ? listData.page.current_page + 1 : 1,
       more,
     });

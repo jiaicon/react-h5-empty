@@ -15,7 +15,7 @@ const MODULE_LINK = {
   volunteer_strategy: 'http://m.guide.volunteerzhiduoxing.com',
   1234: 'http://sanlitunweb.parkingkj.com/showhtml/sayvillage.html',
   volunteer_feedback: `http://${location.host}/tmall`,
-  volunteer_ensure: 'http://api.zybailian.com/index.php?s=/insurance/home/activity_zyzm/index',
+  volunteer_ensure: '/ensure',
   good_example: '/sanlitun/starModel',
   claim_project: '/sanlitun/projectClaim/list',
 };
