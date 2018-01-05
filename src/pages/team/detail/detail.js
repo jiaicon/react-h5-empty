@@ -94,6 +94,7 @@ class TeamDetailPage extends React.Component {
     const detailData = nextProps.detail.team;
 
     if (detailData && detailData.id === parseInt(this.teamId, 10) && !this.wxRegistered) {
+      document.title = detailData.name;
       wx.ready(() => {
         WXShare({
           title: detailData.name,
