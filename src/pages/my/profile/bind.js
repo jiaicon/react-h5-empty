@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_HOST } from '../../../utils/config';
 import history from '../../history';
-import { updatePhone } from './profile.store';
+import { updatePhone, imporvePersonInfo } from './profile.store';
 import { requestVerifyCode } from '../register/register.store';
 import './bind.css';
 
@@ -47,40 +47,32 @@ class BindInfo extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { code: cCode, phone: Lphone, mail: Lmail } = this.props;
-    const { code: nCode, phone: Nphone, mail: Nmail } = nextProps;
+    const { code: cCode, phone: Lphone, person: Lperson } = this.props;
+    const { code: nCode, phone: Nphone, person: Nperson } = nextProps;
     const phone = this.state.phone;
     const mail = this.state.mail;
     const verifyCode = this.state.verifyCode;
-    console.log(phone);
-    console.log(verifyCode);
-    if (cCode.fetching && !nCode.fetching && !nCode.failed) {
-      this.setState({
-        countDownTrigger: false,
-      });
-      this.onStartCountDown();
-    }
-    if (phone && verifyCode) {
-      console.log(22222);
-      if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
-        console.log(111);
-        history.replace('/my/profile/detail/user');
+
+
+    if (this.type === 'phone') {
+      if (cCode.fetching && !nCode.fetching && !nCode.failed) {
+        this.setState({
+          countDownTrigger: false,
+        });
+        this.onStartCountDown();
+      }
+      if (phone && verifyCode) {
+        if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
+          history.replace('/my/profile/detail/user');
+        }
+      }
+    } else if (this.type === 'mail') {
+      if (mail) {
+        if (Lperson.fetching && !Nperson.fetching && !Nperson.failed) {
+          history.replace('/my/profile/detail/user');
+        }
       }
     }
-    if (mail) {
-      if (Lmail.fetching && !Nmail.fetching && !Nmail.failed) {
-        history.replace('/my/profile/detail/user');
-      }
-    }
-    // if (this.type === 'phone') {
-    //   if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
-    //     history.replace('/my/profile/detail/user');
-    //   }
-    // } else if (this.type === 'mail') {
-      // if (Lmail.fetching && !Nmail.fetching && !Nmail.failed) {
-      //   history.replace('/my/profile/detail/user');
-      // }
-    // }
   }
   componentWillUnmount() {
     const timer = this.state.timer;
@@ -200,13 +192,16 @@ class BindInfo extends React.Component {
     });
   }
   onMailSubmit() {
-    const mail = this.state.mail;
-    const data = {};
-    if (mail && !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(mail)) {
+    const email = this.state.mail;
+
+    if (email && !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(email)) {
       Alert.warning('请输入合法的邮箱地址');
       return;
     }
-    console.log(11);
+    const data = {
+      email,
+    };
+    this.props.imporvePersonInfo(data);
   }
   bindMailview() {
     return (
@@ -235,6 +230,7 @@ class BindInfo extends React.Component {
 
 BindInfo.title = '个人信息绑定';
 BindInfo.propTypes = {
+  imporvePersonInfo: PropTypes.func,
   updatePhone: PropTypes.func,
   requestVerifyCode: PropTypes.func,
   phone: PropTypes.shape({
@@ -261,6 +257,7 @@ export default connect(
   state => ({
     phone: state.info.updatePhone,
     code: state.register.code,
+    person: state.info.person,
   }),
-  dispatch => bindActionCreators({ updatePhone, requestVerifyCode }, dispatch),
+  dispatch => bindActionCreators({ updatePhone, requestVerifyCode, imporvePersonInfo }, dispatch),
 )(BindInfo);

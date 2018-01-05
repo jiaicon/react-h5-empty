@@ -219,16 +219,18 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: absolute;
 }
-.page-team-detail-render-project-container .component-projects{
+..page-team-detail-render-project-container-main .component-projects{
   width: 100%;
   flex:1;
+  overflow-y: scroll;
 }
 .page-team-detail-render-project-container-main{
   width: 100%;
-  overflow-y: scroll;
+  flex:1
 }
-.page-team-detail-render-project-container   .takeup{
+.page-team-detail-render-project-container  .takeup{
   width: 100%;
   height: 50px;
 }
