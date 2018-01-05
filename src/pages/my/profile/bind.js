@@ -52,6 +52,8 @@ class BindInfo extends React.Component {
     const phone = this.state.phone;
     const mail = this.state.mail;
     const verifyCode = this.state.verifyCode;
+    console.log(phone);
+    console.log(verifyCode);
     if (cCode.fetching && !nCode.fetching && !nCode.failed) {
       this.setState({
         countDownTrigger: false,
@@ -59,7 +61,9 @@ class BindInfo extends React.Component {
       this.onStartCountDown();
     }
     if (phone && verifyCode) {
+      console.log(22222);
       if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
+        console.log(111);
         history.replace('/my/profile/detail/user');
       }
     }
@@ -99,7 +103,6 @@ class BindInfo extends React.Component {
     });
   }
   onSubmit() {
-    console.log('asd32');
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     if (checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码')) {
@@ -256,7 +259,7 @@ BindInfo.propTypes = {
 
 export default connect(
   state => ({
-    phone: state.my.updatePhone,
+    phone: state.info.updatePhone,
     code: state.register.code,
   }),
   dispatch => bindActionCreators({ updatePhone, requestVerifyCode }, dispatch),

@@ -192,7 +192,7 @@ class Profile extends React.Component {
           {/** 111 */}
           <Link to="/my/profile/bind/phone">
             <div className="page-profile-header-box">
-              <div className="page-profile-fonts">*手机号</div>
+              <div className="page-profile-fonts">手机号</div>
               <div className="page-profile-edit-box">
                 <div className="page-profile-initial-fonts">{user.phone || ''}</div>
                 <div className="page-profile-edit-icon" />
@@ -200,7 +200,8 @@ class Profile extends React.Component {
             </div>
           </Link>
           <div className="line1px" />
-          <Link to="/my/profile/bind/mail">
+          {/**
+            <Link to="/my/profile/bind/mail">
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*邮箱</div>
               <div className="page-profile-edit-box">
@@ -210,6 +211,7 @@ class Profile extends React.Component {
             </div>
           </Link>
           <div className="line1px" />
+          */}
 
 
           {/** 111 */}
@@ -323,7 +325,8 @@ class Profile extends React.Component {
             </div>
           </a>
           <div className="line1px" />
-          <a onClick={this.onOtherHandleClick}>
+          {/**
+            <a onClick={this.onOtherHandleClick}>
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">*邮箱</div>
               <div className="page-profile-edit-box">
@@ -333,6 +336,7 @@ class Profile extends React.Component {
             </div>
           </a>
           <div className="line1px" />
+          */}
 
 
           {/** 111 */}
