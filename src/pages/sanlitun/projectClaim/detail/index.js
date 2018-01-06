@@ -97,13 +97,13 @@ class projectClaimDetail extends React.Component {
   }
   renderSlick() {
     const { detail: { data: detailData } } = this.props;
-    if (!detailData.photo || !detailData.photo.length) {
+    if (!detailData.banner || !detailData.banner.length) {
       return <div className="slick-container slick-container-empty" />;
     }
 
     return (<div className="slick-container">
       <Slick {...this.slickSettings}>
-        {detailData.photo
+        {detailData.banner
               .map((item, index) => (
                 <Image key={index} src={item} className="image" defaultSrc="/images/default_banner.png" />
               ))}

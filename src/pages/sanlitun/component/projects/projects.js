@@ -51,7 +51,7 @@ class Projects extends React.Component {
               <Link to={`/sanlitun/projectClaim/detail/${project.id}`} className="project-sanlitun-main">
                 <Image
                   className="sanlitun-image"
-                  src={project.banner}
+                  src={project.cover}
                   defaultSrc="/images/default_banner.png" alt="项目图片"
                 />
                 <div className="project-sanlitun-name">
