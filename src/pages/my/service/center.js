@@ -43,7 +43,8 @@ class Center extends React.Component {
             __html: content ?
           content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
         />
-        <a href={`tel:${phone}`} className="page-center-phone">客服电话</a>
+        {phone ? <a href={`tel:${phone}`} className="page-center-phone">客服电话</a> : null}
+
       </div>
     );
   }

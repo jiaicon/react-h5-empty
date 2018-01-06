@@ -34,7 +34,7 @@ class EnsureItem extends React.Component {
       <div >
         {
           data.map(item => (<div className="component-ensure-container">
-            <IMAGE src="/images/model.png" className="component-ensure-container-pic" />
+            <IMAGE src={item.photo} className="component-ensure-container-pic" />
             <div className="component-ensure-info-container">
               <div className="component-ensure-info-container-main">
                 <div className="component-ensure-info-title">{item.name}</div>
