@@ -37,7 +37,7 @@ class projectClaimInfo extends React.Component {
   }
 
   componentWillMount() {
-    this.props.userCenterAction();
+
   }
 
   componentDidMount() {

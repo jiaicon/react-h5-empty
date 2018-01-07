@@ -31,14 +31,8 @@ import Avatar from '../../../../components/avatar/avatar';
 
 
 import { requestClaimDetail } from '../../starModel/starModel.store';
+import { userCenterAction } from '../../../my/my.store';
 
-function removeHTMLTag(str) {
-  str = str.replace(/<\/?[^>]*>/g, ''); // 去除HTML tag
-  // str = str.replace(/[ | ]*\n/g, '\n'); // 去除行尾空白
-  // str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
-  // str = str.replace(/ /ig, '');// 去掉
-  return str;
-}
 class projectClaimDetail extends React.Component {
 
   constructor(props) {
@@ -62,6 +56,7 @@ class projectClaimDetail extends React.Component {
 
   componentWillMount() {
     this.props.requestClaimDetail(this.projectId);
+    this.props.userCenterAction();
   }
 
 
@@ -131,20 +126,6 @@ class projectClaimDetail extends React.Component {
       ...this.state,
       descript: !this.state.descript,
     });
-    // console.log(this.contentHeight);
-    // if (!this.state.descript) {
-    //   this.setState({
-    //     ...this.state,
-    //     descHeight: this.contentHeight,
-    //     descript: !this.state.descript,
-    //   });
-    // } else {
-    //   this.setState({
-    //     ...this.state,
-    //     descHeight: 60,
-    //     descript: !this.state.descript,
-    //   });
-    // }
   }
   render() {
     const { detail: { data: detailData }, user: { isLogin } } = this.props;
@@ -176,9 +157,6 @@ class projectClaimDetail extends React.Component {
       actionLabel = '我要认领';
       actionClassName = 'claim-project-action-available';
       action = 'join';
-    } else if (!joined && detailData.activity_status === 2) {
-      actionLabel = '进行中';
-      actionClassName = 'claim-project-action-full';
     }
 
     // if (detailData.activity_status === 3) {
@@ -197,43 +175,6 @@ class projectClaimDetail extends React.Component {
     // }
 
 
-  //   <p
-  //   className={classnames({
-  //     active: this.state.descript,
-  //     initail: !this.state.descript,
-  //   })}
-  //   dangerouslySetInnerHTML={{
-  //     __html: content ?
-  //       content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
-  // />
-  // <div onClick={this.descripBtn}>展开详情<p
-  //   className={classnames({
-  //     activebtn: this.state.descript,
-  //     initailbtn: !this.state.descript,
-  //   })}
-  // /></div>
-
-  // descHeight
-
-//   <p
-//   className={classnames({
-//     active: this.state.descript,
-//     initail: !this.state.descript,
-//   })}
-//   id="project-claim-detail-content"
-//   ref={(dom) => { this.contentDom = dom; }}
-//   dangerouslySetInnerHTML={{
-//     __html: content ?
-//       content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
-// />
-// {
-//       this.state.contentHeight >= 60 ? <div onClick={this.descripBtn}>展开详情<p
-//         className={classnames({
-//           activebtn: this.state.descript,
-//           initailbtn: !this.state.descript,
-//         })}
-//       /></div> : null
-// }
     return (
       <div className="page-claim-detail">
         <div className="header">
@@ -352,7 +293,7 @@ export default connect(
     user: state.user,
   }),
   dispatch => bindActionCreators({
-    requestClaimDetail,
+    requestClaimDetail, userCenterAction,
   },
     dispatch),
 )(projectClaimDetail);
