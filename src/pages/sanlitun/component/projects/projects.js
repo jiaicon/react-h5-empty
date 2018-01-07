@@ -39,6 +39,7 @@ class Projects extends React.Component {
       return <div className="projects-empty-tip">目前还没有活动哦</div>;
     }
     // <Avatar src={team.logo} size={{ width: 30, radius: 4 }} />
+    // claim_status: [integer] 认领项目状态 1未开始 2认领中 3已结束
     return (
       <ul className="component-sanlitun-projects">
         {

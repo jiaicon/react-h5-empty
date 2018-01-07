@@ -19,6 +19,7 @@ import './index.css';
 import IMAGE from '../../../../components/image/image';
 
 import { improveClaim } from '../../starModel/starModel.store';
+import { userCenterAction } from '../../../my/my.store';
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
@@ -36,7 +37,7 @@ class projectClaimInfo extends React.Component {
   }
 
   componentWillMount() {
-
+    this.props.userCenterAction();
   }
 
   componentDidMount() {
@@ -71,6 +72,7 @@ class projectClaimInfo extends React.Component {
     const people = this.state.people;
     const phone = this.state.phone;
     const email = this.state.email;
+    const { user: { isLogin } } = this.props;
     if (
       checkEmpty(name, '团队名称')
       || checkEmpty(people, '团队联系人')
@@ -94,6 +96,7 @@ class projectClaimInfo extends React.Component {
       phone,
       email,
     };
+
     this.props.improveClaim(data);
   }
   render() {
@@ -135,12 +138,17 @@ projectClaimInfo.propTypes = {
       projectId: PropTypes.string,
     }),
   }),
+  user: PropTypes.shape({
+    isLogin: PropTypes.bool,
+  }),
+  userCenterAction: PropTypes.func,
 };
 
 export default connect(
   state => ({
     improve: state.sanlitun.improve,
+    user: state.user,
   }),
-  dispatch => bindActionCreators({ improveClaim },
+  dispatch => bindActionCreators({ improveClaim, userCenterAction },
     dispatch),
 )(projectClaimInfo);

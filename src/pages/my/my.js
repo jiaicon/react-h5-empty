@@ -61,7 +61,6 @@ class MyPage extends React.Component {
 
   renderPageMyphotoTemplate() {
     const { user } = this.props;
-    console.log(user);
     return (
       <div className="page-my-photo-container">
         <Avatar src={user.avatars ? user.avatars : ''} size={{ width: 80, radius: 8 }} defaultSrc="/images/my/register.png" />

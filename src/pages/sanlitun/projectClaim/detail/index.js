@@ -32,7 +32,13 @@ import Avatar from '../../../../components/avatar/avatar';
 
 import { requestClaimDetail } from '../../starModel/starModel.store';
 
-
+function removeHTMLTag(str) {
+  str = str.replace(/<\/?[^>]*>/g, ''); // 去除HTML tag
+  // str = str.replace(/[ | ]*\n/g, '\n'); // 去除行尾空白
+  // str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+  // str = str.replace(/ /ig, '');// 去掉
+  return str;
+}
 class projectClaimDetail extends React.Component {
 
   constructor(props) {
@@ -41,6 +47,7 @@ class projectClaimDetail extends React.Component {
     this.projectId = props.route.params.Id;
     this.state = ({
       descript: false,
+      descHeight: null,
     });
     this.slickSettings = {
       dots: true,
@@ -78,7 +85,20 @@ class projectClaimDetail extends React.Component {
   }
 
   componentWillUnmount() {}
+  componentDidUpdate() {
+    const content = this.contentDom;
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 60) {
+      this.contentHeight = content.offsetHeight;
+      this.setState({
+        ...this.state,
+        descHeight: content.offsetHeight,
+        descTrigger: true,
+      });
+    }
+  }
+  componentDidMount() {
 
+  }
 
   handleActionClick(action) {
     const { projectId } = this;
@@ -87,11 +107,7 @@ class projectClaimDetail extends React.Component {
       const { user: { isLogin, id_number: idNumber } } = this.props;
 
       if (action === 'join') {
-        if (isLogin) {
-          history.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
-        } else {
-          Alert.warning('请先登录');
-        }
+        history.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
       }
     };
   }
@@ -112,8 +128,23 @@ class projectClaimDetail extends React.Component {
   }
   descripBtn() {
     this.setState({
+      ...this.state,
       descript: !this.state.descript,
     });
+    // console.log(this.contentHeight);
+    // if (!this.state.descript) {
+    //   this.setState({
+    //     ...this.state,
+    //     descHeight: this.contentHeight,
+    //     descript: !this.state.descript,
+    //   });
+    // } else {
+    //   this.setState({
+    //     ...this.state,
+    //     descHeight: 60,
+    //     descript: !this.state.descript,
+    //   });
+    // }
   }
   render() {
     const { detail: { data: detailData }, user: { isLogin } } = this.props;
@@ -165,6 +196,44 @@ class projectClaimDetail extends React.Component {
     //   actionClassName = 'project-action-audit';
     // }
 
+
+  //   <p
+  //   className={classnames({
+  //     active: this.state.descript,
+  //     initail: !this.state.descript,
+  //   })}
+  //   dangerouslySetInnerHTML={{
+  //     __html: content ?
+  //       content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+  // />
+  // <div onClick={this.descripBtn}>展开详情<p
+  //   className={classnames({
+  //     activebtn: this.state.descript,
+  //     initailbtn: !this.state.descript,
+  //   })}
+  // /></div>
+
+  // descHeight
+
+//   <p
+//   className={classnames({
+//     active: this.state.descript,
+//     initail: !this.state.descript,
+//   })}
+//   id="project-claim-detail-content"
+//   ref={(dom) => { this.contentDom = dom; }}
+//   dangerouslySetInnerHTML={{
+//     __html: content ?
+//       content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+// />
+// {
+//       this.state.contentHeight >= 60 ? <div onClick={this.descripBtn}>展开详情<p
+//         className={classnames({
+//           activebtn: this.state.descript,
+//           initailbtn: !this.state.descript,
+//         })}
+//       /></div> : null
+// }
     return (
       <div className="page-claim-detail">
         <div className="header">
@@ -202,21 +271,25 @@ class projectClaimDetail extends React.Component {
           <div className="project-takeup" />
           <div className="project-description">
             <div>项目介绍</div>
+
             <p
               className={classnames({
                 active: this.state.descript,
                 initail: !this.state.descript,
               })}
+              ref={(dom) => { this.contentDom = dom; }}
               dangerouslySetInnerHTML={{
                 __html: content ?
-                  content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+              content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
             />
-            <div onClick={this.descripBtn}>展开详情<p
+            {this.state.descTrigger ? <div onClick={this.descripBtn}>展开详情<p
               className={classnames({
                 activebtn: this.state.descript,
                 initailbtn: !this.state.descript,
               })}
-            /></div>
+            /></div> : null}
+
+
           </div>
           <div className="project-takeup" />
           <div className="project-teamlist">
