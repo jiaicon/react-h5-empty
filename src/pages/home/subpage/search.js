@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import Alert from 'react-s-alert';
 import classnames from 'classnames';
+import cx from 'classnames';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,13 +11,13 @@ import './search.css';
 
 import Link from '../../../components/link/link';
 import history from '../../history';
-
+import TabItem from '../components/tab';
 import TEAMPAGE from '../../team/search/search';
 import PROJECTPAGE from '../../project/search/search';
 
 const TAB_URL_MAPS = {
-  '/homesearch/team': <TEAMPAGE />,
-  '/homesearch/project': <PROJECTPAGE />,
+  team: <TEAMPAGE />,
+  project: <PROJECTPAGE />,
 };
 class homesearch extends React.Component {
 
@@ -24,59 +25,49 @@ class homesearch extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      page: this.getTabName(this.props),
+      title: ['项目搜索', '团队项目'],
+      current: 0,
     };
   }
-
-  componentWillMount() {
-  }
-
-  componentWillReceiveProps(nextProps) {
+  handleClick(index) {
     this.setState({
       ...this.state,
-      page: this.getTabName(nextProps),
+      current: index,
     });
   }
-
-  componentWillUnmount() {}
-  getTabName(props) {
-    return TAB_URL_MAPS[(props || this.props).route.path];
+  currentClass(index) {
+    return this.state.current === index ? 'page-homesearch-tab-current-li' : '';
   }
-
   render() {
-    const { page } = this.state;
-    const { path } = this.props.route;
     return (
       <div className="page-homesearch-container">
-        <div style={{ width: '100%', height: '50px' }}>
-          <ul className="page-homesearch-tab-container">
-            <li>
-              <Link to="/homesearch/team">
-                <div
-                  className={classnames({
-                    'page-homesearch-li-a-div-style': true,
-                    active: path === '/homesearch/team',
-                  })}
-                >团队搜索</div>
-              </Link>
-            </li>
-            <li>
-              <Link to="/homesearch/project">
-                <div
-                  className={classnames({
-                    'page-homesearch-li-a-div-style': true,
-                    active: path === '/homesearch/project',
-                  })}
-                >项目搜索</div>
-              </Link>
-            </li>
-          </ul>
-          <div className="line1px" style={{ width: '100%' }} />
-        </div>
-        <div className="page-homesearch-content-main">
-          {page}
-        </div>
+        <ul className="page-homesearch-tab-container">
+          { this.state.title.map((val, index) =>
+          (<TabItem
+            currentClass={this.currentClass}
+            handleClick={this.handleClick} val={val} index={index} key={val.name}
+          />)) }
+        </ul>
+        <div className="line1px" />
+        <div className="page-homesearch-content">
+          <div
+            className={cx({
+              'page-homesearch-content-main': this.state.current,
+              'page-homesearch-content-main-current': !this.state.current,
+            })}
+          >
+            <PROJECTPAGE />
 
+          </div>
+          <div
+            className={cx({
+              'page-homesearch-content-main': !this.state.current,
+              'page-homesearch-content-main-current': this.state.current,
+            })}
+          >
+            <TEAMPAGE />
+          </div>
+        </div>
       </div>
     );
   }

@@ -15,12 +15,7 @@
     "chunk": "main"
   },
   {
-    "path": "/homesearch/team",
-    "page": "./pages/home/subpage/search",
-    "chunk": "main"
-  },
-  {
-    "path": "/homesearch/project",
+    "path": "/homesearch",
     "page": "./pages/home/subpage/search",
     "chunk": "main"
   },
