@@ -78,7 +78,7 @@ class HomePage extends React.Component {
 
     return (<div className="header-bar">
       <Link to="/selectcity"><div className="city-name">{this.state.city}</div></Link>
-      <Link className="component-search-bar" to="/project/search">
+      <Link className="component-search-bar" to="/homesearch/team">
         <input className="input" placeholder="搜索项目" />
       </Link>
       {

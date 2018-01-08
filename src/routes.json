@@ -15,6 +15,16 @@
     "chunk": "main"
   },
   {
+    "path": "/homesearch/team",
+    "page": "./pages/home/subpage/search",
+    "chunk": "main"
+  },
+  {
+    "path": "/homesearch/project",
+    "page": "./pages/home/subpage/search",
+    "chunk": "main"
+  },
+  {
     "path": "/signin/password",
     "page": "./pages/launch/launch",
     "chunk": "main"
