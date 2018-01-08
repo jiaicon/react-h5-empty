@@ -260,6 +260,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/circle",
+    "page": "./pages/my/circle/index",
+    "chunk": "main"
+  },
+  {
     "path": "/sanlitun/projectClaim/list",
     "page": "./pages/sanlitun/projectClaim/list/index",
     "chunk": "main"

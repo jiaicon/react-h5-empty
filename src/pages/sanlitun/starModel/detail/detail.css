@@ -8,6 +8,7 @@
 }
 .page-starmodel-detail-descript{
   padding-top: 5px;
+  overflow-x: hidden;
 }
 .page-starmodel-detail-info{
   font-size: 15px;

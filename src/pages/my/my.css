@@ -170,3 +170,17 @@
 .page-my-item-icon-applys{
   background-image: url(/images/my/applys.png)
 }
+.page-my-item-icon-circle{
+  background-image: url(/images/my/circle.png);
+  position: relative;
+}
+.page-my-item-icon-circle-red-point{
+  display:block;
+  width: 8px;
+  height: 8px;
+  background-color: #fa3434;
+  border-radius: 50%;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+}

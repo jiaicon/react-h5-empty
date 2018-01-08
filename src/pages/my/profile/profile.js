@@ -92,7 +92,7 @@ class Profile extends React.Component {
       <div className="page-profile-bottom-real-info-container">
         <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">账号</div>
+          <div className="page-profile-fonts">姓名</div>
           <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
         </div>
         <div className="line1px" />
@@ -131,7 +131,7 @@ class Profile extends React.Component {
       <div className="page-profile-bottom-real-info-container">
         <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
         <div className="page-profile-header-box">
-          <div className="page-profile-fonts">账号</div>
+          <div className="page-profile-fonts">姓名</div>
           <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
         </div>
         <div className="line1px" />

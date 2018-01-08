@@ -22,7 +22,7 @@ import history from '../../../history';
 
 
 import './index.css';
-import { parseTimeStringToDateString, timestampToDatePoint } from '../../../../utils/funcs';
+import { parseTimeStringToDateString } from '../../../../utils/funcs';
 
 import Image from '../../../../components/image/image';
 import Link from '../../../../components/link/link';
@@ -242,7 +242,7 @@ class projectClaimDetail extends React.Component {
                     <li>
                       <div>
                         <span>{item.team_name }</span>
-                        <span>{ timestampToDatePoint(Date.parse(new Date(item.created_at))) }</span>
+                        <span>{item.created_at.split(' ')[0] }</span>
                       </div>
                     </li>
                   ))

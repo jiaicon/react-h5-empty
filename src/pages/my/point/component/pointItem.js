@@ -3,7 +3,6 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import { timestampToDatePoint } from '../../../../utils/funcs';
 import './pointItem.css';
 
 class PointItem extends React.Component {
@@ -36,7 +35,7 @@ class PointItem extends React.Component {
           isPay ?
             data.map(item => (
               <div className="component-point-item">
-                <span>{timestampToDatePoint(Date.parse(new Date(item.created_at)))}</span>
+                <span>{item.created_at.split(' ')[0]}</span>
                 <span>-{item.score}</span>
               </div>
               ))
@@ -44,7 +43,7 @@ class PointItem extends React.Component {
             data.map(item => (
               <div className="component-point-item-income">
                 <span>{item.remark}</span>
-                <span>{timestampToDatePoint(Date.parse(new Date(item.created_at)))}</span>
+                <span>{item.created_at.split(' ')[0]}</span>
                 <span>+{item.score}</span>
               </div>
               ))
