@@ -72,9 +72,11 @@ class projectClaimSearch extends React.Component {
       more,
     });
   }
+  /* eslint-disable */
   handleCancelSearch() {
     history.goBack();
   }
+  /* eslint-enable */
   render() {
     const { list: { data: listData, keyword } } = this.props;
     const showLoadingMore = listData && (keyword === this.keyword) &&
@@ -92,7 +94,7 @@ class projectClaimSearch extends React.Component {
         <div className="line1px" />
         <div className="body">
           <div className="project-list">
-            <Projects projects={listData ? listData.list : null} />
+            <Projects projects={listData && keyword === this.keyword ? listData.list : null} />
           </div>
           {
       showLoadingMore
