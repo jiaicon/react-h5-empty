@@ -56,7 +56,6 @@ class projectClaimDetail extends React.Component {
 
   componentWillMount() {
     this.props.requestClaimDetail(this.projectId);
-    this.props.userCenterAction();
   }
 
 
@@ -103,6 +102,8 @@ class projectClaimDetail extends React.Component {
 
       if (action === 'join') {
         history.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
+      } else if (action === 'login') {
+        this.props.userCenterAction();
       }
     };
   }
@@ -153,26 +154,15 @@ class projectClaimDetail extends React.Component {
     } else if (detailData.claim_status === 2 && detailData.join_status === 1) {
       actionLabel = '已认领';
       actionClassName = 'claim-project-action-full';
-    } else if (detailData.claim_status === 2 && detailData.join_status === 0) {
+    } else if (isLogin && detailData.claim_status === 2 && detailData.join_status === 0) {
       actionLabel = '我要认领';
       actionClassName = 'claim-project-action-available';
       action = 'join';
+    } else if (!isLogin) {
+      actionLabel = '我要认领';
+      actionClassName = 'claim-project-action-available';
+      action = 'login';
     }
-
-    // if (detailData.activity_status === 3) {
-    //   actionLabel = '已结束';
-    //   actionClassName = 'project-action-end';
-    // }else if (!joined && detailData.activity_status === 2) {
-    //   actionLabel = '进行中';
-    //   actionClassName = 'project-action-full';
-    // } else if (!joined) {
-    //   actionLabel = '我要报名';
-    //   actionClassName = 'project-action-available';
-    //   action = 'join';
-    // } else if (joined && detailData.join_status === 0) {
-    //   actionLabel = '等待审核';
-    //   actionClassName = 'project-action-audit';
-    // }
 
 
     return (
@@ -223,7 +213,7 @@ class projectClaimDetail extends React.Component {
                 __html: content ?
               content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
             />
-            {this.state.descTrigger ? <div onClick={this.descripBtn}>展开详情<p
+            {this.state.descTrigger ? <div onClick={this.descripBtn}>{this.state.descript ? '收起' : ' 展开详情'}<p
               className={classnames({
                 activebtn: this.state.descript,
                 initailbtn: !this.state.descript,
