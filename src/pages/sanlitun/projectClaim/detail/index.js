@@ -22,7 +22,7 @@ import history from '../../../history';
 
 
 import './index.css';
-import { parseTimeStringToDateString } from '../../../../utils/funcs';
+import { parseTimeStringToDateString, timestampToDatePoint } from '../../../../utils/funcs';
 
 import Image from '../../../../components/image/image';
 import Link from '../../../../components/link/link';
@@ -56,7 +56,6 @@ class projectClaimDetail extends React.Component {
 
   componentWillMount() {
     this.props.requestClaimDetail(this.projectId);
-    this.props.userCenterAction();
   }
 
 
@@ -103,6 +102,8 @@ class projectClaimDetail extends React.Component {
 
       if (action === 'join') {
         history.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
+      } else if (action === 'login') {
+        this.props.userCenterAction();
       }
     };
   }
@@ -150,13 +151,17 @@ class projectClaimDetail extends React.Component {
     if (detailData.claim_status === 3) {
       actionLabel = '认领结束';
       actionClassName = 'claim-project-action-end';
-    } else if (detailData.claim_status === 2 && detailData.join_status === 1) {
+    } else if (isLogin && detailData.claim_status === 2 && detailData.join_status === 1) {
       actionLabel = '已认领';
       actionClassName = 'claim-project-action-full';
-    } else if (detailData.claim_status === 2 && detailData.join_status === 0) {
+    } else if (isLogin && detailData.claim_status === 2 && detailData.join_status === 0) {
       actionLabel = '我要认领';
       actionClassName = 'claim-project-action-available';
       action = 'join';
+    } else if (!isLogin) {
+      actionLabel = '我要认领';
+      actionClassName = 'claim-project-action-available';
+      action = 'login';
     }
 
     // if (detailData.activity_status === 3) {
@@ -223,7 +228,7 @@ class projectClaimDetail extends React.Component {
                 __html: content ?
               content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
             />
-            {this.state.descTrigger ? <div onClick={this.descripBtn}>展开详情<p
+            {this.state.descTrigger ? <div onClick={this.descripBtn}>{this.state.descript ? '收起' : ' 展开详情'}<p
               className={classnames({
                 activebtn: this.state.descript,
                 initailbtn: !this.state.descript,
@@ -242,7 +247,7 @@ class projectClaimDetail extends React.Component {
                     <li>
                       <div>
                         <span>{item.team_name }</span>
-                        <span>{item.created_at.split(' ')[0] }</span>
+                        <span>{ timestampToDatePoint(Date.parse(new Date(item.created_at))) }</span>
                       </div>
                     </li>
                   ))
