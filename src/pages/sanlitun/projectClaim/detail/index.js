@@ -22,7 +22,7 @@ import history from '../../../history';
 
 
 import './index.css';
-import { parseTimeStringToDateString } from '../../../../utils/funcs';
+import { parseTimeStringToDateString, timestampToDatePoint } from '../../../../utils/funcs';
 
 import Image from '../../../../components/image/image';
 import Link from '../../../../components/link/link';
@@ -151,7 +151,7 @@ class projectClaimDetail extends React.Component {
     if (detailData.claim_status === 3) {
       actionLabel = '认领结束';
       actionClassName = 'claim-project-action-end';
-    } else if (detailData.claim_status === 2 && detailData.join_status === 1) {
+    } else if (isLogin && detailData.claim_status === 2 && detailData.join_status === 1) {
       actionLabel = '已认领';
       actionClassName = 'claim-project-action-full';
     } else if (isLogin && detailData.claim_status === 2 && detailData.join_status === 0) {
@@ -232,7 +232,7 @@ class projectClaimDetail extends React.Component {
                     <li>
                       <div>
                         <span>{item.team_name }</span>
-                        <span>{item.created_at.split(' ')[0] }</span>
+                        <span>{ timestampToDatePoint(Date.parse(new Date(item.created_at))) }</span>
                       </div>
                     </li>
                   ))
