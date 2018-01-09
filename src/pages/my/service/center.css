@@ -27,6 +27,9 @@
   width: 100%;
   padding: 40px 15px 18px;
 }
+.page-center-style img{
+  width: 100%;
+}
 .page-center-phone{
   display: block;
   margin: 0 auto;

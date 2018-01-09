@@ -332,3 +332,6 @@ color: #666666;;
   background: #666666;
   color: #FFFFFF;
 }
+.project-description > p img{
+  width: 100%;
+}
