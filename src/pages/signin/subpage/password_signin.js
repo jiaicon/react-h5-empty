@@ -10,7 +10,7 @@ import WXShare from '../../../components/share';
 import ReactCodeInput from '../../../components/code_input/ReactCodeInput';
 import { checkin } from '../../signin/signin.store';
 import './password_signin.css';
-
+import history from '../../history';
 import { getCity, getLocation } from '../../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../../home/home.store';
 
