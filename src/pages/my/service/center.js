@@ -37,12 +37,13 @@ class Center extends React.Component {
     const content = window.orgInfo.org_service;
     const phone = window.orgInfo.org_service_tel;
     return (
-      <div>
+      <div className="page-center-container">
         <div
           className="page-center-style" dangerouslySetInnerHTML={{
             __html: content ?
           content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
         />
+        {phone ? <div className="page-center-phone-take" /> : null}
         {phone ? <a href={`tel:${phone}`} className="page-center-phone">客服电话</a> : null}
 
       </div>

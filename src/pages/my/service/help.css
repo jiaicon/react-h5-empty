@@ -32,4 +32,6 @@
 }
 .page-help-style img{
   width: 100%;
+  display: block;
+  margin: auto;
 }

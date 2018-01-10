@@ -133,7 +133,8 @@ class MyPage extends React.Component {
     return (
       <ul className="page-my-item-container">
 
-        <li>
+        {/**
+         <li>
           <div>
             <Link to="/my/circle">
               <div className="page-my-item-box">
@@ -151,6 +152,7 @@ class MyPage extends React.Component {
             <div className="line1px" />
           </div>
         </li>
+      */}
 
         <li>
           <div>
