@@ -37,7 +37,7 @@ class PointIncome extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const listData = this.props.score.data;
+    const { data: listData, type } = this.props.score;
     return (
       <div className="page-point-income-pay-container">
         <div className="line1px" />
@@ -48,8 +48,8 @@ class PointIncome extends React.Component {
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
-          {listData && listData.list.length >= 1 ?
-            <POINTITEM data={listData.list} /> : <span className="page-point-income-pay-main-empty">null</span>}
+          {listData && listData.list.length >= 1 && type === 'income' ?
+            <POINTITEM data={listData.list} /> : <span className="page-point-income-pay-main-empty">暂无记录</span>}
 
         </div>
       </div>

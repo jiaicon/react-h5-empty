@@ -11,7 +11,7 @@ import ReactCodeInput from '../../../components/code_input/ReactCodeInput';
 import { checkin } from '../../signin/signin.store';
 import './password_signin.css';
 
-import { getCity } from '../../../utils/funcs';
+import { getCity, getLocation } from '../../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../../home/home.store';
 
 
@@ -23,19 +23,6 @@ class PasswordSigninPage extends React.Component {
   }
 
   componentWillMount() {
-    getCity((city) => {
-      this.setState({
-        ...this.state,
-        city,
-      });
-      this.props.saveCity(city);
-      this.props.getAreaCity(city);
-    }, () => {
-      Alert.error('定位失败，请确认同意微信定位授权');
-      this.state = {
-        city: '未定位',
-      };
-    });
   }
 
   componentDidMount() {

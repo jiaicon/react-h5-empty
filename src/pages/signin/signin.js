@@ -11,7 +11,7 @@ import Link from '../../components/link/link';
 import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
 
-import { getCity } from '../../utils/funcs';
+import { getCity, getLocation } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 Date.prototype.Format = function (fmt) { // author: meizz
@@ -37,18 +37,41 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
-    getCity((city) => {
-      this.setState({
-        ...this.state,
-        city,
+    console.log('开始获取新位置');
+    window.wx.ready(() => {
+      console.log('获取新位置');
+      wx.getLocation({
+        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: (res) => {
+          const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+          const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180
+          const expires = Date.now() + (5 * 60 * 1000); // 5分钟过期
+
+          console.log('获取新位置成功', res);
+
+          localStorage.setItem('location', JSON.stringify({
+            lat,
+            lng,
+            expires,
+          }));
+
+          if (success) {
+            success({
+              lat,
+              lng,
+            });
+            getCity((city) => {
+              this.props.saveCity(city);
+              this.props.getAreaCity(city);
+            });
+          }
+        },
+        fail: (error) => {
+          if (fail) {
+            Alert.error('定位失败，请确认同意微信定位授权');
+          }
+        },
       });
-      this.props.saveCity(city);
-      this.props.getAreaCity(city);
-    }, () => {
-      Alert.error('定位失败，请确认同意微信定位授权');
-      this.state = {
-        city: '未定位',
-      };
     });
   }
 

@@ -14,7 +14,7 @@ export const scoreAction = num => ({
 const scoreReducer = (state = {
   fetching: false,
   failed: false,
-  type: 'income',
+  type: null,
   data: null,
 }, action) => {
   switch (action.type) {
