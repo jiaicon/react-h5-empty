@@ -38,7 +38,7 @@ class SigninPage extends React.Component {
   componentWillMount() {
     this.props.requestCheckinList();
     console.log('开始获取新位置');
-    window.wx.ready(() => {
+    wx.ready(() => {
       console.log('获取新位置');
       wx.getLocation({
         type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -62,9 +62,7 @@ class SigninPage extends React.Component {
           });
         },
         fail: (error) => {
-          if (fail) {
-            Alert.error('定位失败，请确认同意微信定位授权');
-          }
+          Alert.error('定位失败，请确认同意微信定位授权');
         },
       });
     });
