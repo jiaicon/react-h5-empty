@@ -11,7 +11,23 @@ import Link from '../../components/link/link';
 import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
 
+import { getCity } from '../../utils/funcs';
+import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
+Date.prototype.Format = function (fmt) { // author: meizz
+  const o = {
+    'M+': this.getMonth() + 1, // 月份
+    'd+': this.getDate(), // 日
+    'h+': this.getHours(), // 小时
+    'm+': this.getMinutes(), // 分
+    's+': this.getSeconds(), // 秒
+    'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+    S: this.getMilliseconds(), // 毫秒
+  };
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (`${this.getFullYear()}`).substr(4 - RegExp.$1.length));
+  for (const k in o) { if (new RegExp(`(${k})`).test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length))); }
+  return fmt;
+};
 class SigninPage extends React.Component {
 
   constructor(props) {
@@ -21,6 +37,19 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
+    getCity((city) => {
+      this.setState({
+        ...this.state,
+        city,
+      });
+      this.props.saveCity(city);
+      this.props.getAreaCity(city);
+    }, () => {
+      Alert.error('定位失败，请确认同意微信定位授权');
+      this.state = {
+        city: '未定位',
+      };
+    });
   }
 
   componentDidMount() {
@@ -74,7 +103,7 @@ class SigninPage extends React.Component {
                 <div className="signin-header">
                   <div className="signin-time">
                     <span>下次签到时间</span>
-                    <span>{next.begin}</span>
+                    <span>{new Date(Date.parse(next.begin.replace(/-/g, '/'))).Format('yyyy-MM-dd hh:mm')} - {new Date(Date.parse(next.end.replace(/-/g, '/'))).Format('hh:mm')}</span>
                   </div>
                 </div>
                 <div className="line1px" />
@@ -138,5 +167,5 @@ SigninPage.propTypes = {
 
 export default connect(
   state => state.signin || {},
-  dispatch => bindActionCreators({ requestCheckinList, checkin }, dispatch),
+  dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(SigninPage);
