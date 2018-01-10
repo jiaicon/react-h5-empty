@@ -55,16 +55,11 @@ class SigninPage extends React.Component {
             expires,
           }));
 
-          if (success) {
-            success({
-              lat,
-              lng,
-            });
-            getCity((city) => {
-              this.props.saveCity(city);
-              this.props.getAreaCity(city);
-            });
-          }
+
+          getCity((city) => {
+            this.props.saveCity(city);
+            this.props.getAreaCity(city);
+          });
         },
         fail: (error) => {
           if (fail) {
