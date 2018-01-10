@@ -17,6 +17,7 @@ import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
 import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
+import CommunityItem from '../../../components/community_item/index';
 import { dateTextToDateText } from '../../../utils/funcs';
 
 import { Dialog } from 'react-weui';
@@ -343,7 +344,11 @@ class TeamDetailPage extends React.Component {
       </div>
     );
   }
-
+  renderCommunity() {
+    return (
+      <CommunityItem />
+    );
+  }
 
   render() {
     const { detail: { team: detailData, tabIndex } } = this.props;
@@ -359,12 +364,16 @@ class TeamDetailPage extends React.Component {
         <Tab
           tabs={[
             {
-              label: '基本信息',
+              label: '团队详情',
               component: this.renderBasic(),
             },
             {
               label: '团队项目',
               component: this.renderProjects(),
+            },
+            {
+              label: '团队社区',
+              component: this.renderCommunity(),
             },
           ]}
           onChange={this.onTabChange}
