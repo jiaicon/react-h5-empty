@@ -21,3 +21,7 @@
 .page-starmodel-detail-descript p , .page-starmodel-detail-descript p strong{
   line-height: 1.5em;
 }
+.page-starmodel-detail-descript img{
+  width: 100%;
+  margin: auto;
+}

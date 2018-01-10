@@ -1,8 +1,19 @@
-
-.page-claim-detail {
+.page-claim-detail-container{
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
+  display: flex;
   background: #FAFAFA;
+  flex-direction: column;
+}
+.page-claim-detail {
+  flex: 1;
+  display: flex;
+  background: #FAFAFA;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
 .page-claim-detail .header {
@@ -305,14 +316,20 @@ color: #333333;
   font-size: 13px;
 color: #666666;;
 }
-.page-claim-detail .body footer{
+.page-claim-detail  .project-footertakeup{
+  height: 80px;
+  width: 100%;
+}
+.page-claim-detail-container  footer{
+
+  width: 100%;
+  height: 50px;
   display: flex;
-  padding: 10px 0 20px;
   background: #fff;
   justify-content: center;
   align-items: center;
 }
-.page-claim-detail .body footer div{
+.page-claim-detail-container  footer div{
   width: 160px;
   height: 50px;
   border-radius: 100px;

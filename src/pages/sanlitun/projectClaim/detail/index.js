@@ -166,90 +166,91 @@ class projectClaimDetail extends React.Component {
 
 
     return (
-      <div className="page-claim-detail">
-        <div className="header">
-          {this.renderSlick()}
-          <a className="header-addition">
-            <div className="team-info">
-              <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
-              <span style={{ marginLeft: '10px' }}>{detailData.team_name}</span>
+      <div className="page-claim-detail-container">
+        <div className="page-claim-detail">
+          <div className="header">
+            {this.renderSlick()}
+            <a className="header-addition">
+              <div className="team-info">
+                <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
+                <span style={{ marginLeft: '10px' }}>{detailData.team_name}</span>
+              </div>
+
+            </a>
+          </div>
+          <div className="body">
+            <div className="project-name">
+              {detailData.name}
+            </div>
+            <div className="project-detail-list">
+              <ul>
+
+                <li>
+                  <div className="item-point" />
+                  <div className="line1px-v" />
+                  <div className="detail-title">项目日期</div>
+                  <div className="detail-content">{parseTimeStringToDateString(detailData.begin)}-{parseTimeStringToDateString(detailData.end)}</div>
+                </li>
+
+                <li>
+                  <div className="item-point" />
+                  <div className="detail-title">项目地址</div>
+                  <div className="detail-content">{detailData.address}</div>
+                </li>
+              </ul>
+
+            </div>
+            <div className="project-takeup" />
+            <div className="project-description">
+              <div>项目介绍</div>
+
+              <p
+                className={classnames({
+                  active: this.state.descript,
+                  initail: !this.state.descript,
+                })}
+                ref={(dom) => { this.contentDom = dom; }}
+                dangerouslySetInnerHTML={{
+                  __html: content ?
+                content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+              />
+              {this.state.descTrigger ? <div onClick={this.descripBtn}>{this.state.descript ? '收起' : ' 展开详情'}<p
+                className={classnames({
+                  activebtn: this.state.descript,
+                  initailbtn: !this.state.descript,
+                })}
+              /></div> : null}
+
+
+            </div>
+            <div className="project-takeup" />
+            <div className="project-teamlist">
+              <div>已认领团队</div>
+              <div className="project-claimlist">
+                {detailData && detailData.claim_list.length && detailData.claim_list.length >= 1 ?
+                  <ul>
+                    {detailData.claim_list.map(item => (
+                      <li>
+                        <div>
+                          <span>{item.team_name }</span>
+                          <span>{item.created_at.split(' ')[0]}</span>
+                        </div>
+                      </li>
+                    ))
+                    }
+                  </ul>
+                  : '暂无团队认领'
+                }
+              </div>
             </div>
 
-          </a>
+          </div>
         </div>
-        <div className="body">
-          <div className="project-name">
-            {detailData.name}
+        <footer>
+          <div onClick={this.handleActionClick(action)} className={`${actionClassName}`}>
+            {actionLabel}
           </div>
-          <div className="project-detail-list">
-            <ul>
-
-              <li>
-                <div className="item-point" />
-                <div className="line1px-v" />
-                <div className="detail-title">项目日期</div>
-                <div className="detail-content">{parseTimeStringToDateString(detailData.begin)}-{parseTimeStringToDateString(detailData.end)}</div>
-              </li>
-
-              <li>
-                <div className="item-point" />
-                <div className="detail-title">项目地址</div>
-                <div className="detail-content">{detailData.address}</div>
-              </li>
-            </ul>
-
-          </div>
-          <div className="project-takeup" />
-          <div className="project-description">
-            <div>项目介绍</div>
-
-            <p
-              className={classnames({
-                active: this.state.descript,
-                initail: !this.state.descript,
-              })}
-              ref={(dom) => { this.contentDom = dom; }}
-              dangerouslySetInnerHTML={{
-                __html: content ?
-              content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
-            />
-            {this.state.descTrigger ? <div onClick={this.descripBtn}>{this.state.descript ? '收起' : ' 展开详情'}<p
-              className={classnames({
-                activebtn: this.state.descript,
-                initailbtn: !this.state.descript,
-              })}
-            /></div> : null}
-
-
-          </div>
-          <div className="project-takeup" />
-          <div className="project-teamlist">
-            <div>已认领团队</div>
-            <div className="project-claimlist">
-              {detailData && detailData.claim_list.length && detailData.claim_list.length >= 1 ?
-                <ul>
-                  {detailData.claim_list.map(item => (
-                    <li>
-                      <div>
-                        <span>{item.team_name }</span>
-                        <span>{item.created_at.split(' ')[0]}</span>
-                      </div>
-                    </li>
-                  ))
-                  }
-                </ul>
-                : '暂无团队认领'
-              }
-            </div>
-          </div>
-          <footer>
-            <div onClick={this.handleActionClick(action)} className={`${actionClassName}`}>
-              {actionLabel}
-            </div>
-          </footer>
-        </div>
-
-
+        </footer>
       </div>
     );
   }
