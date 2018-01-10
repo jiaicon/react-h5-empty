@@ -48,7 +48,7 @@ class PointPay extends React.Component {
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
           {listData && listData.list.length >= 1 ?
-            <POINTITEM data={listData.list} isPay /> : <span className="page-point-income-pay-main-empty">暂无记录</span>}
+            <POINTITEM data={listData.list} isPay /> : <span className="page-point-income-pay-main-empty">null</span>}
 
         </div>
       </div>
