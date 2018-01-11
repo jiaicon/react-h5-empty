@@ -10,6 +10,7 @@ import WXShare from '../../components/share';
 import Link from '../../components/link/link';
 import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
+import history from '../history';
 
 import { getCity, getLocation } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
@@ -74,7 +75,12 @@ class SigninPage extends React.Component {
     });
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { checkinData: Lcheckin } = this.props;
+    const { checkinData: Ncheckin } = nextProps;
+    if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
+      history.replace('/signin');
+    }
   }
 
   componentWillUnmount() {}
@@ -183,7 +189,7 @@ SigninPage.propTypes = {
 export default connect(
   state => ({
     data: state.signin.ckeckinList.data,
-    checkin: state.signin.checkin,
+    checkinData: state.signin.checkin,
   }),
   dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(SigninPage);
