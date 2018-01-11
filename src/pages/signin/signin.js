@@ -38,9 +38,7 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
-    console.log('开始获取新位置');
     wx.ready(() => {
-      console.log('获取新位置');
       wx.getLocation({
         type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
         success: (res) => {
@@ -76,10 +74,10 @@ class SigninPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { checkinData: Lcheckin } = this.props;
-    const { checkinData: Ncheckin } = nextProps;
-    if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
-      history.replace('/signin');
+    const { checkinData: LcheckinData } = this.props;
+    const { checkinData: NcheckinData } = nextProps;
+    if (LcheckinData.fetching && !NcheckinData.fetching && !NcheckinData.failed) {
+      this.props.requestCheckinList();
     }
   }
 
