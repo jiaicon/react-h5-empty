@@ -156,13 +156,13 @@ class HomePage extends React.Component {
                   </div>
                 </div>
                 <div className="page-home-feedback-show-container">
-                  <Link to="/building">
+                  <Link to={`http://${location.host}/tmall`}>
                     <img src="/images/feedback1.png" alt="回馈展示" />
                   </Link>
-                  <Link to="/building">
+                  <Link to={`http://${location.host}/tmall`}>
                     <img src="/images/feedback2.png" alt="回馈展示" />
                   </Link>
-                  <Link to="/building">
+                  <Link to={`http://${location.host}/tmall`}>
                     <img src="/images/feedback3.png" alt="回馈展示" />
                   </Link>
                 </div>
