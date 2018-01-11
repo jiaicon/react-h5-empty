@@ -48,21 +48,27 @@ class PointItem extends React.Component {
         {
           isPay ?
             data.map(item => (
-              <div className="component-point-item">
-                <span>{new Date(Date.parse(item.created_at.replace(/-/g, '/'))).Format('yyyy-MM-dd')}</span>
-                <span>-{item.score}</span>
+              <div>
+                <div className="component-point-item">
+                  <span>{new Date(Date.parse(item.created_at.replace(/-/g, '/'))).Format('yyyy-MM-dd')}</span>
+                  <span>-{item.score}</span>
+                </div>
+
+                <div className="line1px" />
               </div>
               ))
             :
             data.map(item => (
-              <div className="component-point-item-income">
-                <span>{item.remark}</span>
-                <span>{new Date(Date.parse(item.created_at.replace(/-/g, '/'))).Format('yyyy-MM-dd')}</span>
-                <span>+{item.score}</span>
+              <div>
+                <div className="component-point-item-income">
+                  <span>{item.remark}</span>
+                  <span>{new Date(Date.parse(item.created_at.replace(/-/g, '/'))).Format('yyyy-MM-dd')}</span>
+                  <span>+{item.score}</span>
+                </div>
+                <div className="line1px" />
               </div>
               ))
         }
-        <div className="line1px" />
       </div>
     );
   }

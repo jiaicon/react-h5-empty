@@ -98,7 +98,7 @@ PasswordSigninPage.propTypes = {
 
 export default connect(
   state => ({
-    signin: state.signin,
+    checkin: state.signin.checkin,
   }),
   dispatch => bindActionCreators({ checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(PasswordSigninPage);

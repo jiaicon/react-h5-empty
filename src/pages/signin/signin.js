@@ -180,8 +180,10 @@ SigninPage.propTypes = {
   checkin: PropTypes.func,
   requestCheckinList: PropTypes.func,
 };
-
 export default connect(
-  state => state.signin || {},
+  state => ({
+    data: state.signin.ckeckinList.data,
+    checkin: state.signin.checkin,
+  }),
   dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(SigninPage);
