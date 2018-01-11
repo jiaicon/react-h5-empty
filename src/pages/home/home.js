@@ -149,10 +149,10 @@ class HomePage extends React.Component {
                   <div className="list-header">
                     <div className="main-label">
                       <div className="label-line" />
-                      <span>回馈展示</span>
+                      <span>回馈激励</span>
                       <div className="label-line" />
                     </div>
-                    <div className="sub-label">Feedback To Show</div>
+                    <div className="sub-label">Feedback incentive</div>
                   </div>
                 </div>
                 <div className="page-home-feedback-show-container">
