@@ -58,8 +58,8 @@
   display: flex;
 }
 .components-community-item-photo-area-li-single{
-  width: 200px;
-  height: 200px;
+  width: 208px;
+  height: 208px;
 }
 .components-community-item-photo-area-single{
   width: 200px;
@@ -87,6 +87,12 @@
   line-height: 13px;
 }
 .components-community-item-footer-del{
+  font-size: 13px;
+  color: #6AC6F8;
+  letter-spacing: 0;
+  line-height: 13px;
+}
+.components-community-item-business-container{
   font-size: 13px;
   color: #6AC6F8;
   letter-spacing: 0;

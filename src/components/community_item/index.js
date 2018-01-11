@@ -56,6 +56,7 @@ class COMMUNITYITEM extends React.Component {
               : null
             }
             </ul>
+            <div className="components-community-item-business-container"># 光盈创新团队</div>
             <div className="components-community-item-footer">
               <div className="components-community-item-footer-time">5分钟前 </div>
               <div className="components-community-item-footer-del">删除 </div>
