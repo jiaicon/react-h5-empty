@@ -32,9 +32,9 @@ class PasswordSigninPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { signin: Lsignin } = this.props;
-    const { signin: Nsignin } = nextProps;
-    if (Lsignin.fetching && !Nsignin.fetching && !Nsignin.failed) {
+    const { checkin: Lcheckin } = this.props;
+    const { checkin: Ncheckin } = nextProps;
+    if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
       history.replace('/signin');
     }
   }
@@ -89,6 +89,8 @@ PasswordSigninPage.propTypes = {
   signin: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
   }),
   checkin: PropTypes.func,
   requestCheckinList: PropTypes.func,
