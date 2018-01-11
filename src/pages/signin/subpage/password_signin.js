@@ -32,8 +32,8 @@ class PasswordSigninPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { checkin: Lcheckin } = this.props;
-    const { checkin: Ncheckin } = nextProps;
+    const { checkinData: Lcheckin } = this.props;
+    const { checkinData: Ncheckin } = nextProps;
     if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
       history.replace('/signin');
     }
@@ -86,6 +86,10 @@ PasswordSigninPage.propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
   }),
+  checkinData: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
   signin: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
@@ -98,7 +102,7 @@ PasswordSigninPage.propTypes = {
 
 export default connect(
   state => ({
-    checkin: state.signin.checkin,
+    checkinData: state.signin.checkin,
   }),
   dispatch => bindActionCreators({ checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(PasswordSigninPage);
