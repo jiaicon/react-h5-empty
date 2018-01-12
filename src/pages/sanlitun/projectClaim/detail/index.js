@@ -81,7 +81,7 @@ class projectClaimDetail extends React.Component {
   componentWillUnmount() {}
   componentDidUpdate() {
     const content = this.contentDom;
-    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight > 60) {
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
       this.contentHeight = content.offsetHeight;
       this.setState({
         ...this.state,
