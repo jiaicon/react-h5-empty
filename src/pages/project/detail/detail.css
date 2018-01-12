@@ -217,8 +217,10 @@
   letter-spacing: 0;
   line-height: 20px;
 }
-.page-project-detail .body .project-description > p  img {
+.page-project-detail .body .project-description   img {
   width: 100%;
+  display: block;
+  margin: auto;
 }
 
 .page-project-detail .foot {

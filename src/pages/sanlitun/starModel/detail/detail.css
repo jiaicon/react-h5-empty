@@ -23,5 +23,6 @@
 }
 .page-starmodel-detail-descript img{
   width: 100%;
+  display:block;
   margin: auto;
 }
