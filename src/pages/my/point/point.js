@@ -64,8 +64,8 @@ class PointPage extends React.Component {
             <span>{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</span>
           </div>
         </div>
-        <ul className="page-ponit-tab-container">
-          <li className="page-ponit-tab-container-li">
+        <div className="page-ponit-tab-container">
+          <div className="page-ponit-tab-container-li">
             <Link to="/my/point">
               <div
                 className={classnames({
@@ -74,9 +74,9 @@ class PointPage extends React.Component {
                 })}
               >星币获取</div>
             </Link>
-          </li>
-          <li><div className="line1px-v page-ponit-tab-container-line-v" /></li>
-          <li className="page-ponit-tab-container-li">
+          </div>
+          <div><div className="line1px-v page-ponit-tab-container-line-v" /></div>
+          <div className="page-ponit-tab-container-li">
             <Link to="/my/point/pay">
               <div
                 className={classnames({
@@ -85,8 +85,8 @@ class PointPage extends React.Component {
                 })}
               >星币支出</div>
             </Link>
-          </li>
-        </ul>
+          </div>
+        </div>
         <div className="page-ponit-content">
           {page}
         </div>

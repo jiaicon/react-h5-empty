@@ -10,6 +10,9 @@ import WXShare from '../../../components/share';
 import ReactCodeInput from '../../../components/code_input/ReactCodeInput';
 import { checkin } from '../../signin/signin.store';
 import './password_signin.css';
+import history from '../../history';
+import { getCity, getLocation } from '../../../utils/funcs';
+import { requestHomeData, saveCity, getAreaCity } from '../../home/home.store';
 
 
 class PasswordSigninPage extends React.Component {
@@ -29,9 +32,9 @@ class PasswordSigninPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { signin: Lsignin } = this.props;
-    const { signin: Nsignin } = nextProps;
-    if (Lsignin.fetching && !Nsignin.fetching && !Nsignin.failed) {
+    const { checkinData: Lcheckin } = this.props;
+    const { checkinData: Ncheckin } = nextProps;
+    if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
       history.replace('/signin');
     }
   }
@@ -83,9 +86,15 @@ PasswordSigninPage.propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
   }),
+  checkinData: PropTypes.shape({
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
+  }),
   signin: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
+    fetching: PropTypes.bool,
+    failed: PropTypes.bool,
   }),
   checkin: PropTypes.func,
   requestCheckinList: PropTypes.func,
@@ -93,7 +102,7 @@ PasswordSigninPage.propTypes = {
 
 export default connect(
   state => ({
-    signin: state.signin,
+    checkinData: state.signin.checkin,
   }),
-  dispatch => bindActionCreators({ checkin }, dispatch),
+  dispatch => bindActionCreators({ checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(PasswordSigninPage);

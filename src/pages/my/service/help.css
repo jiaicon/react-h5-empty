@@ -30,3 +30,8 @@
   width: 100%;
   padding: 40px 15px 18px;
 }
+.page-help-style img{
+  width: 100%;
+  display: block;
+  margin: auto;
+}

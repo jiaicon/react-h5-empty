@@ -10,8 +10,25 @@ import WXShare from '../../components/share';
 import Link from '../../components/link/link';
 import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
+import history from '../history';
 
+import { getCity, getLocation } from '../../utils/funcs';
+import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
+Date.prototype.Format = function (fmt) { // author: meizz
+  const o = {
+    'M+': this.getMonth() + 1, // 月份
+    'd+': this.getDate(), // 日
+    'h+': this.getHours(), // 小时
+    'm+': this.getMinutes(), // 分
+    's+': this.getSeconds(), // 秒
+    'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+    S: this.getMilliseconds(), // 毫秒
+  };
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (`${this.getFullYear()}`).substr(4 - RegExp.$1.length));
+  for (const k in o) { if (new RegExp(`(${k})`).test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length))); }
+  return fmt;
+};
 class SigninPage extends React.Component {
 
   constructor(props) {
@@ -21,6 +38,33 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
+    wx.ready(() => {
+      wx.getLocation({
+        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: (res) => {
+          const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+          const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180
+          const expires = Date.now() + (5 * 60 * 1000); // 5分钟过期
+
+          console.log('获取新位置成功', res);
+
+          localStorage.setItem('location', JSON.stringify({
+            lat,
+            lng,
+            expires,
+          }));
+
+
+          getCity((city) => {
+            this.props.saveCity(city);
+            this.props.getAreaCity(city);
+          });
+        },
+        fail: (error) => {
+          Alert.error('定位失败，请确认同意微信定位授权');
+        },
+      });
+    });
   }
 
   componentDidMount() {
@@ -29,7 +73,12 @@ class SigninPage extends React.Component {
     });
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { checkinData: LcheckinData } = this.props;
+    const { checkinData: NcheckinData } = nextProps;
+    if (LcheckinData.fetching && !NcheckinData.fetching && !NcheckinData.failed) {
+      this.props.requestCheckinList();
+    }
   }
 
   componentWillUnmount() {}
@@ -74,7 +123,7 @@ class SigninPage extends React.Component {
                 <div className="signin-header">
                   <div className="signin-time">
                     <span>下次签到时间</span>
-                    <span>{next.begin}</span>
+                    <span>{new Date(Date.parse(next.begin.replace(/-/g, '/'))).Format('yyyy-MM-dd hh:mm')} - {new Date(Date.parse(next.end.replace(/-/g, '/'))).Format('hh:mm')}</span>
                   </div>
                 </div>
                 <div className="line1px" />
@@ -135,8 +184,10 @@ SigninPage.propTypes = {
   checkin: PropTypes.func,
   requestCheckinList: PropTypes.func,
 };
-
 export default connect(
-  state => state.signin || {},
-  dispatch => bindActionCreators({ requestCheckinList, checkin }, dispatch),
+  state => ({
+    data: state.signin.ckeckinList.data,
+    checkinData: state.signin.checkin,
+  }),
+  dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
 )(SigninPage);

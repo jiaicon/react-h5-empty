@@ -40,8 +40,8 @@
     // server 下发的服务类型,可用于过滤等
     window.serviceCategory = {!! $serviceCategory !!};
 
-    // server 下发的服务类型,可用于过滤等
-    window.teamCategory = {!! $teamCategory !!};
+     // server 下发的服务类型,可用于过滤等
+     window.teamCategory = {!! $teamCategory !!};
 
     // server 下发的个人擅长, 用于用户资料填写
     window.goodAt = {!! $gootAt !!};
@@ -66,13 +66,24 @@
 
     window.orgInfo && (document.title = window.orgInfo.name);
   </script>
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?a09aed27d797ec85ef89a5f15c0d32a1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+
+
 </head>
 
 <body>
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-  <script src="/dist/main.3ded3826d042bda72235.js"></script>
+  <script src="/dist/main.84d557ccfd37fd04b837.js"></script>
 </body>
 
 </html>

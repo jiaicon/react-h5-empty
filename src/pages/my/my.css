@@ -6,6 +6,7 @@
   background-color: #fff;
 }
 .page-my-top{
+  width: 100%;
   padding: 15px 15px 0;
 }
 .page-my-item-container li{
@@ -78,6 +79,7 @@
 }
 
 .page-my-record-container{
+  width: 100%;
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
