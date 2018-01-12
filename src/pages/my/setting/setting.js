@@ -35,7 +35,7 @@ class Setting extends React.Component {
       <div className="page-setting">
         <Link to="/my/forget">
           <div className="page-setting-forget">
-            <div> 修改密码</div>
+            <div className="page-setting-fonts">修改密码</div>
             <div className="page-setting-icon" />
           </div>
 
