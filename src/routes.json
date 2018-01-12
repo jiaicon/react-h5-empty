@@ -261,7 +261,27 @@
   },
   {
     "path": "/my/circle",
-    "page": "./pages/my/circle/index",
+    "page": "./pages/my/circle/circle",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/circlevisits",
+    "page": "./pages/my/circle/visits",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/circlelist",
+    "page": "./pages/my/circle/subpage/circlelist",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/circlepublish",
+    "page": "./pages/my/circle/subpage/publish",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/circledetail",
+    "page": "./pages/my/circle/subpage/detail",
     "chunk": "main"
   },
   {

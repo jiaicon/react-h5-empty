@@ -346,7 +346,10 @@ class TeamDetailPage extends React.Component {
   }
   renderCommunity() {
     return (
-      <CommunityItem />
+      <div>
+        <CommunityItem />
+        <Link to="" className="page-team-detail-community-link" />
+      </div>
     );
   }
 

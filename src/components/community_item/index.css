@@ -3,9 +3,12 @@
   display: flex;
   flex-direction: column;
 }
+.components-community-item-main{
+  padding:16px 15px 0;
+}
 .components-community-item{
   display: flex;
-  padding:16px 15px 0;
+
 }
 .components-community-item-avatar{
   margin-right: 10px;
@@ -78,6 +81,12 @@
 
 .components-community-item-footer{
   margin-top: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.components-community-item-footer-container{
   display: flex;
 }
 .components-community-item-footer-time{
@@ -85,6 +94,7 @@
   color: #666666;
   letter-spacing: 0;
   line-height: 13px;
+  padding-right: 20px;
 }
 .components-community-item-footer-del{
   font-size: 13px;
@@ -95,6 +105,39 @@
 .components-community-item-business-container{
   font-size: 13px;
   color: #6AC6F8;
+  letter-spacing: 0;
+  line-height: 13px;
+}
+.components-community-item-footer-like-n{
+  padding-left: 24px;
+  padding-right: 26px;
+  background-image: url('/images/my/praise_n.png');
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 13px;
+
+}
+.components-community-item-footer-like-h{
+  padding-left: 24px;
+  padding-right: 26px;
+  background-image: url('/images/my/praise_h.png');
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 13px;
+}
+.components-community-item-footer-comment{
+  padding-left: 24px;
+  background-image: url('/images/my/comments.png');
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  font-size: 13px;
+  color: #666666;
   letter-spacing: 0;
   line-height: 13px;
 }

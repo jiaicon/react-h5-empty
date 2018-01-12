@@ -132,13 +132,11 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <ul className="page-my-item-container">
-
-        {/**
-         <li>
+        <li>
           <div>
             <Link to="/my/circle">
               <div className="page-my-item-box">
-                 <i className="page-my-item-icon page-my-item-icon-circle" >
+                <i className="page-my-item-icon page-my-item-icon-circle" >
                   <span
                     className={classnames({
                       'page-my-item-icon-circle-red-point': true,
@@ -152,7 +150,6 @@ class MyPage extends React.Component {
             <div className="line1px" />
           </div>
         </li>
-      */}
 
         <li>
           <div>
