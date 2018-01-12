@@ -162,6 +162,10 @@ class projectClaimDetail extends React.Component {
       actionLabel = '我要认领';
       actionClassName = 'claim-project-action-available';
       action = 'login';
+    } else if (isLogin && detailData.claim_status === 1 && detailData.join_status === 0) {
+      actionLabel = '我要认领';
+      actionClassName = 'claim-project-action-available';
+      action = 'join';
     }
 
 
