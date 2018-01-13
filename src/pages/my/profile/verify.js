@@ -204,7 +204,7 @@ class Verify extends React.Component {
           <div className="page-my-profile-verify-title">实名认证信息</div>
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">姓名</div>
-            <input type="text" maxLength="5" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
+            <input type="text" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
           </div>
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
