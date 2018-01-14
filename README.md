@@ -114,10 +114,21 @@ $ yarn build                    # Compiles the app into the /public/dist folder
 
 ### 部署测试服务器
 
+#### 测试服务器发布
+
+windows 开发机本地发布可能不变，可以 ssh 到测试服务器上发布，步骤如下
+
 ```
-在 src 目录执行：
-1. yarn build
-2. sh /tools/deploy-testserver.sh
+1. ssh miller@60.205.182.2 密码:miller
+2. cd /home/miller/volunteer-h5
+3. sh tools/deploy-testserver.sh
+```
+
+#### 本地发布
+```
+在项目根目录执行：
+sh tools/deploy-testserver.sh
+注意：如果本地有修改会进入 stash 列表，所以发布后如果发现本地修改没了不要紧张，执行 git stash apply 就可以恢复；
 
 60.205.182.2 miller/miller
 静态资源 /data/webapp/volunteer/Volunteer_wechat/public
