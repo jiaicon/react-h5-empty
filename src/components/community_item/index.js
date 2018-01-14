@@ -30,7 +30,7 @@ class COMMUNITYITEM extends React.Component {
       <ul className="components-community-item-container">
         <li className="components-community-item-main">
           <div className="components-community-item">
-            <AVATAR size={{ width: 40, radius: 4 }} className="components-community-item-avatar" />
+            <AVATAR size={{ width: 40, height: 40, radius: 4 }} className="components-community-item-avatar" />
             <div className="components-community-item-main">
               <p className="components-community-item-name">Joseph Elliott</p>
               <div
