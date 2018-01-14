@@ -5,16 +5,17 @@
 }
 .components-community-item-main{
   padding:16px 15px 0;
+  width: 100%;
 }
 .components-community-item{
   display: flex;
 
 }
 .components-community-item-avatar{
-  /* margin-right: 10px; */
+  margin-right: 10px;
 }
-.components-community-item-main{
-  width: 100%;
+.components-community-item-main-right{
+  width: 295px;
 }
 .components-community-item-name{
   font-size: 16px;

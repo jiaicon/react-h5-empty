@@ -12,7 +12,7 @@ export const feelingAction = data => ({
   meta: {
     type: data.type === 1 ? 'all' : data.type === 2 ? 'project' : 'team',
   },
-  payload: fetch('/feeling', { data }, { method: 'GET' }),
+  payload: fetch(`/feeling?type=${data.type}&&relation_id=${data.relation_id}&&&page_size=${data.page_size}`, { method: 'GET' }),
 });
 const feelingReducer = (state = {
   fetching: false,
@@ -346,7 +346,7 @@ const newCommentReducer = (state = {
 const reducer = combineReducers({
   feeling: feelingReducer,
   upFeeling: upFeelingReducer,
-  deleteFeeling: deleteFeelingAction,
+  deleteFeeling: deleteFeelingReducer,
   myFeeling: myFeelingReducer,
   observe: observeReducer,
   unObserve: unObserveReducer,
