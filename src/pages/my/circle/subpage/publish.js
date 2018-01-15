@@ -22,9 +22,12 @@ class CirclePublish extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.typeId = props.route.params.typeId;
+    this.relationId = props.route.params.relationId;
   }
 
   componentWillMount() {
+
   }
 
   componentDidMount() {
@@ -37,12 +40,17 @@ class CirclePublish extends React.Component {
   componentWillUnmount() {
 
   }
-  1
+  onTextChanged() {
+    const editsthink = this.editsthink.value.replace(/(^\s+)|(\s+$)/g, '');
+    this.setState({
+      editsthink,
+    });
+  }
   render() {
     return (
-      <div className="page-teams-container">
-        社区发布
-
+      <div className="page-circlepublish-container">
+        <textarea placeholder="这一刻的想法…（最多200字）"className="page-circlepublish-edit-text" maxLength="200" ref={(c) => { this.editsthink = c; }} onKeyUp={this.onTextChanged} />
+        <div>z </div>
       </div>
     );
   }
@@ -81,8 +89,12 @@ CirclePublish.propTypes = {
       })),
     }),
   }),
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      projectId: PropTypes.string,
+    }),
+  }),
 };
-// team: state.my.team,
 
 export default connect(
   state => ({

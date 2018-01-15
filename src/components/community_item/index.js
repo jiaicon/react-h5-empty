@@ -12,84 +12,114 @@ import IMAGE from '../image/image';
 import './index.css';
 
 class COMMUNITYITEM extends React.Component {
+  static propTypes = {
+    data: PropTypes.shape({ }),
 
+    isDetailEntry: PropTypes.bool,
+
+  }
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = ({
+      descHeight: null,
+      descTrigger: false,
+    });
   }
 
+  componentWillMount() {
+    this.setState({
+      descHeight: null,
+      descTrigger: false,
+    });
+  }
+  componentDidMount() {
+    const content = this.contentDom;
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 120) {
+      this.setState({
+        ...this.state,
+        descHeight: content.offsetHeight,
+        descTrigger: true,
+      });
+    }
+  }
+  componentDidUpdate() {
+    const content = this.contentDom;
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 120) {
+      this.setState({
+        ...this.state,
+        descHeight: content.offsetHeight,
+        descTrigger: true,
+      });
+    }
+  }
   render() {
-    // const photo = ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg'];
-    const photo = ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515572149241&di=31b69e9b3ef12edc0d43505164b7f809&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F018d4e554967920000019ae9df1533.jpg%40900w_1l_2o_100sh.jpg',
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515572149240&di=d74e0d98db641f5b47365973f2383c77&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01b52855dc4b6932f875a13252f0e4.jpg%401280w_1l_2o_100sh.jpg',
-      'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-    ];
     const data = this.props.data;
-    console.log(data);
     return (
 
       <ul className="components-community-item-container">
-        {
-        data.map(item => (
-          <li className="components-community-item-main">
-            <div className="components-community-item">
-              <AVATAR size={{ width: 40, height: 40, radius: 4 }} className="components-community-item-avatar" src={item.user_info.avatars} />
-              <div className="components-community-item-main-right">
-                <p className="components-community-item-name">{item.user_info.username}</p>
+
+        <li className="components-community-item-main">
+          <div className="components-community-item">
+            <AVATAR size={{ width: 40, height: 40, radius: 4 }} className="components-community-item-avatar" src={data.user_info.avatars} />
+            <div className="components-community-item-main-right">
+              <p className="components-community-item-name">{data.user_info.username}</p>
+              <Link to={'/my/circledetail'}>
                 <div
+                  ref={(dom) => { this.contentDom = dom; }}
                   className={classnames({
                     ' components-community-item-content-style': true,
-                    'components-community-item-content-style-off': true,
-                    'components-community-item-content-style-on': false,
+                    'components-community-item-content-style-off': this.state.descTrigger,
                   })}
-                >{item.content}</div>
-                <div className="components-community-item-content-btn">查看全文</div>
-                <ul className="components-community-item-photo-area">
-                  {
-                    item.photo.length && photo.length >= 1 ?
-                    item.photo.length === 1 ?
-                      <li className="components-community-item-photo-area-li-single">
-                        <IMAGE src={item.photo} className="components-community-item-photo-area-single" />
-                      </li> :
-                      item.photo.map(itm => (
+                >{data.content}</div>
 
-                        <li className="components-community-item-photo-area-li-several">
-                          <IMAGE src={itm} className="components-community-item-photo-area-several" />
-                        </li>
-                      ))
-                  : null
+                {this.state.descTrigger ? <div className="components-community-item-content-btn">查看全文</div> : null}
+              </Link>
+              <ul className="components-community-item-photo-area">
+                {
+              data.photo.length && data.photo.length >= 1 ?
+              data.photo.length === 1 ?
+                <li className="components-community-item-photo-area-li-single">
+                  <IMAGE src={data.photo} className="components-community-item-photo-area-single" />
+                </li> :
+                data.photo.map((itm, index) => (
+
+                  <li className="components-community-item-photo-area-li-several" key={index}>
+                    <IMAGE src={itm} className="components-community-item-photo-area-several" />
+                  </li>
+                ))
+            : null
               }
-                </ul>
-                <div className="components-community-item-business-container"># {item.team_info.name}</div>
-                <div className="components-community-item-footer">
-                  <div className="components-community-item-footer-container">
-                    <div className="components-community-item-footer-time">{item.created_at} </div>
-                    <div className="components-community-item-footer-del">删除</div>
-                  </div>
-                  <div className="components-community-item-footer-container">
-                    <Link to="" className={'components-community-item-footer-like-n'}>{item.like_count}</Link>
-                    <Link to="" className={'components-community-item-footer-comment'}>{item.comment_count}</Link>
-                  </div>
+              </ul>
+              {
+                this.props.isDetailEntry && data.team_info && data.team_info.name ? <Link to={`/team/detail/${data.team_info.id}`}><div className="components-community-item-business-container"># {data.team_info.name }</div></Link> : null
+              }
+
+
+              {
+                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                   </Link> : null
+              }
+
+
+              <div className="components-community-item-footer">
+                <div className="components-community-item-footer-container">
+                  <div className="components-community-item-footer-time">{data.created_at}</div>
+                  <div className="components-community-item-footer-del">删除</div>
+                </div>
+                <div className="components-community-item-footer-container">
+                  <Link to="" className={'components-community-item-footer-like-n'}>{data.like_count}</Link>
+                  <Link to="" className={'components-community-item-footer-comment'}>{data.comment_count}</Link>
                 </div>
               </div>
             </div>
-            <div className="line1px" />
+          </div>
+          <div className="line1px" />
 
-          </li>
-          ))
-      }
-
+        </li>
       </ul >
     );
   }
 }
 
-
-COMMUNITYITEM.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-
-  })),
-};
 
 export default COMMUNITYITEM;

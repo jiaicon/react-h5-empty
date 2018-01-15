@@ -1,5 +1,13 @@
 import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
+/**
+ * 切换 TAB 记录 TAB 状态，在后退操作后需要记录
+ */
+
+export const saveTabIndex = tabIndex => ({
+  type: 'SWITCH_PROJECT_TAB',
+  payload: { tabIndex },
+});
 
 /**
  * 项目详情 Action
@@ -138,6 +146,11 @@ export default (state = {
           // 0审核中 1通过 2驳回
           join_status: -1,
         },
+      };
+    case 'SWITCH_PROJECT_TAB':
+      return {
+        ...state,
+        tabIndex: action.payload.tabIndex,
       };
     default:
       return state;

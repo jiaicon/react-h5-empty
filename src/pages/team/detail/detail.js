@@ -374,7 +374,7 @@ class TeamDetailPage extends React.Component {
 
           },
           comment_list: {
-            id: 1,
+            id: 2,
             comment: '挺好的',
             created_at: '2017-12-15 17:04:50',
             feeling_id: 11,
@@ -386,7 +386,7 @@ class TeamDetailPage extends React.Component {
           },
         },
         {
-          id: 1,
+          id: 2,
           type: 2,
           content: '这次志愿者活动',
           photo: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
@@ -421,9 +421,14 @@ class TeamDetailPage extends React.Component {
     };
     return (
       <div>
-        <CommunityItem data={data ? data.list : null} />
+        {
+        data ? data.list.map(listData => (
+          <CommunityItem data={listData} isDetailEntry={false} key={listData.id} />
+          )) : null
 
-        <Link to="" className="page-team-detail-community-link" />
+        }
+
+        <Link to={`/my/circlepublish/3/${this.teamId}`} className="page-team-detail-community-link" />
       </div>
     );
   }

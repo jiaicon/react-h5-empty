@@ -32,9 +32,7 @@
   line-height: 20px;
   width: 100%;
 }
-.components-community-item-content-on{
 
-}
 .components-community-item-content-style-off{
   overflow: hidden;
   text-overflow:ellipsis;
@@ -57,6 +55,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
+  margin-top:10px;
 }
 .components-community-item-photo-area li{
   display: flex;

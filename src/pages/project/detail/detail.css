@@ -311,3 +311,17 @@
   color: #666666;
 }
 
+
+.page-project-detail .component-tab > div.tab-panel:nth-last-child(1){
+  position: relative;
+}
+.page-project-detail-community-link{
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  background-image: url(/images/my/release.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}

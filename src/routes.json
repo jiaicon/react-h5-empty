@@ -275,12 +275,22 @@
     "chunk": "main"
   },
   {
-    "path": "/my/circlepublish",
+    "path": "/my/circlepublish/:typeId",
+    "page": "./pages/my/circle/subpage/publish",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/circlepublish/:typeId/:relationId",
     "page": "./pages/my/circle/subpage/publish",
     "chunk": "main"
   },
   {
     "path": "/my/circledetail",
+    "page": "./pages/my/circle/subpage/detail",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/circledetail/:typeId/:relationId",
     "page": "./pages/my/circle/subpage/detail",
     "chunk": "main"
   },

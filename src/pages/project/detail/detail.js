@@ -22,8 +22,9 @@ import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
 import Avatar from '../../../components/avatar/avatar';
+import Tab from '../../../components/tab/tab';
+import CommunityItem from '../../../components/community_item/index';
 import ShareTip from '../../../components/sharetip/sharetip';
-// import history from '../../history';
 
 import {
   requestProjectDetail,
@@ -31,6 +32,7 @@ import {
   unCollectProject,
   joinProject,
   quitProject,
+  saveTabIndex,
 } from './detail.store';
 
 class ProjectDetailPage extends React.Component {
@@ -75,8 +77,11 @@ class ProjectDetailPage extends React.Component {
 
   componentWillMount() {
     this.props.requestProjectDetail(this.projectId);
+    this.props.saveTabIndex(0);
   }
-
+  onTabChange(idx) {
+    this.props.saveTabIndex(idx);
+  }
   componentWillReceiveProps(nextProps) {
     const detailData = nextProps.detail.data;
 
@@ -160,9 +165,8 @@ class ProjectDetailPage extends React.Component {
       </Slick>
     </div>);
   }
-
-  render() {
-    const { detail: { data: detailData }, user: { isLogin } } = this.props;
+  renderBasic() {
+    const { detail: { data: detailData }, user: { isLogin }, tabIndex } = this.props;
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -171,7 +175,6 @@ class ProjectDetailPage extends React.Component {
     }
 
     const content = detailData.content;
-
     // join_status: [integer] 0审核中 1通过 2驳回, 详情页下发，登陆后如加入项目才有此字段
     // activity_status: [integer] 活动状态 1 招募中，2进行中 3已结束
     const joined = isLogin && (detailData.join_status === 0 || detailData.join_status === 1);
@@ -204,9 +207,8 @@ class ProjectDetailPage extends React.Component {
       actionClassName = 'project-action-quit';
       action = 'quit';
     }
-
     return (
-      <div className="page-project-detail">
+      <div>
         <div className="header">
           {this.renderSlick()}
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
@@ -223,7 +225,7 @@ class ProjectDetailPage extends React.Component {
             {detailData.name}
           </div>
           <div className="project-category">
-            #&nbsp;{serviceCategories.join('、')}
+        #&nbsp;{serviceCategories.join('、')}
           </div>
           <div className="project-detail-list">
             <ul>
@@ -264,15 +266,15 @@ class ProjectDetailPage extends React.Component {
                 <div className="detail-content">{detailData.contact_name}</div>
               </li>
               {
-                detailData.contact_phone_public ?
-                  <li>
-                    <div className="item-point" />
-                    <div className="line1px-v" />
-                    <div className="detail-title">联系人电话</div>
-                    <a href={`tel:${detailData.contact_phone}`} className="detail-content">{detailData.contact_phone}</a>
-                  </li>
-              : null
-              }
+            detailData.contact_phone_public ?
+              <li>
+                <div className="item-point" />
+                <div className="line1px-v" />
+                <div className="detail-title">联系人电话</div>
+                <a href={`tel:${detailData.contact_phone}`} className="detail-content">{detailData.contact_phone}</a>
+              </li>
+          : null
+          }
               <li>
                 <div className="item-point" />
                 <div className="detail-title">项目地址</div>
@@ -292,8 +294,8 @@ class ProjectDetailPage extends React.Component {
             <span>已报名人数</span>
             <div>
               <span>{detailData.join_people_count}</span>
-              /
-              <span>{detailData.people_count}</span>
+          /
+          <span>{detailData.people_count}</span>
             </div>
           </div>
           <div className="project-description">
@@ -301,7 +303,7 @@ class ProjectDetailPage extends React.Component {
             <p
               dangerouslySetInnerHTML={{
                 __html: content ?
-                      content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+                  content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
             />
           </div>
         </div>
@@ -320,8 +322,125 @@ class ProjectDetailPage extends React.Component {
           </Link>
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-            确定要退出项目吗？
-        </Dialog>
+        确定要退出项目吗？
+    </Dialog>
+
+      </div>
+    );
+  }
+  renderCommunity() {
+    const data = {
+      list: [
+        {
+          id: 1,
+          type: 2,
+          content: '公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应该公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应该',
+          photo: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515572149241&di=31b69e9b3ef12edc0d43505164b7f809&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F018d4e554967920000019ae9df1533.jpg%40900w_1l_2o_100sh.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515572149240&di=d74e0d98db641f5b47365973f2383c77&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01b52855dc4b6932f875a13252f0e4.jpg%401280w_1l_2o_100sh.jpg',
+            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
+          ],
+          like_count: 2,
+          comment_count: 999,
+          created_at: '5分钟前',
+          user_info: {
+            id: 111,
+            username: 'zzy9528',
+            avatars: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
+            real_name: '郑',
+          },
+          team_info: {
+            id: 123,
+            name: '服务远征1号队',
+
+          },
+          comment_list: {
+            id: 1,
+            comment: '挺好的',
+            created_at: '2017-12-15 17:04:50',
+            feeling_id: 11,
+            is_display: 1,
+            feeling_is_display: 1,
+            user_info: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
+            comment_to: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
+
+          },
+        },
+        {
+          id: 2,
+          type: 2,
+          content: '这次志愿者活动',
+          photo: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
+          ],
+          like_count: 2,
+          comment_count: 999,
+          created_at: '5分钟前',
+          user_info: {
+            id: 123,
+            username: '梦里花落知多少',
+            avatars: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
+          },
+          team_info: {
+            id: 123,
+            name: '服务远征1号队',
+
+          },
+          comment_list: {
+            id: 1,
+            comment: '挺好的',
+            created_at: '2017-12-15 17:04:50',
+            feeling_id: 11,
+            is_display: 1,
+            feeling_is_display: 1,
+            user_info: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
+            comment_to: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
+
+          },
+        },
+
+      ],
+    };
+    return (
+      <div>
+        {
+        data ? data.list.map(listData => (
+          <CommunityItem data={listData} isDetailEntry={false} key={listData.id} />
+          )) : null
+
+        }
+
+        <Link to={`/my/circlepublish/2/${this.projectId}`} className="page-project-detail-community-link" />
+      </div>
+    );
+  }
+  render() {
+    const { detail: { data: detailData }, user: { isLogin }, tabIndex } = this.props;
+    const currentProjectId = parseInt(this.projectId, 10);
+    const dataProjectId = detailData ? detailData.id : '';
+
+    if (currentProjectId !== dataProjectId) {
+      return null;
+    }
+
+    const content = detailData.content;
+
+
+    return (
+      <div className="page-project-detail">
+        <Tab
+          tabs={[
+            {
+              label: '项目详情',
+              component: this.renderBasic(),
+            },
+            {
+              label: '项目社区',
+              component: this.renderCommunity(),
+            },
+          ]}
+          onChange={this.onTabChange}
+          selectedIndex={tabIndex}
+        />
         {
           this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
         }
@@ -363,5 +482,6 @@ export default connect(
     unCollectProject,
     joinProject,
     quitProject,
+    saveTabIndex,
   }, dispatch),
 )(ProjectDetailPage);

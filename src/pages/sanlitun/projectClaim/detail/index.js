@@ -78,11 +78,26 @@ class projectClaimDetail extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.setState({
+      descript: false,
+      descHeight: null,
+      descTrigger: false,
+    });
+  }
+  componentDidMount() {
+    const content = this.contentDom;
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
+      this.setState({
+        ...this.state,
+        descHeight: content.offsetHeight,
+        descTrigger: true,
+      });
+    }
+  }
   componentDidUpdate() {
     const content = this.contentDom;
     if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
-      this.contentHeight = content.offsetHeight;
       this.setState({
         ...this.state,
         descHeight: content.offsetHeight,
