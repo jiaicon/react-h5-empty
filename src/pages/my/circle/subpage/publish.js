@@ -15,7 +15,9 @@ import { bindActionCreators } from 'redux';
 
 import './publish.css';
 import Link from '../../../../components/link/link';
-// import TeamsItem from '../../../components/teams/teams';
+
+import Avatar from '../../../../components/avatar/avatar';
+import uploadToWX from '../../../../utils/wxupload';
 
 class CirclePublish extends React.Component {
 
@@ -24,6 +26,9 @@ class CirclePublish extends React.Component {
     autoBind(this);
     this.typeId = props.route.params.typeId;
     this.relationId = props.route.params.relationId;
+    this.state = ({
+      imagesArr: [],
+    });
   }
 
   componentWillMount() {
@@ -40,6 +45,18 @@ class CirclePublish extends React.Component {
   componentWillUnmount() {
 
   }
+  onAvatarClick() {
+    const imagesArr = this.state.imagesArr;
+    uploadToWX({
+      success: (urls) => {
+        imagesArr.push(urls[0]);
+        this.setState({
+          ...this.state,
+          imagesArr,
+        });
+      },
+    });
+  }
   onTextChanged() {
     const editsthink = this.editsthink.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
@@ -50,7 +67,20 @@ class CirclePublish extends React.Component {
     return (
       <div className="page-circlepublish-container">
         <textarea placeholder="这一刻的想法…（最多200字）"className="page-circlepublish-edit-text" maxLength="200" ref={(c) => { this.editsthink = c; }} onKeyUp={this.onTextChanged} />
-        <div>z </div>
+        <div className="page-circlepublish-images-container">
+          <div className="page-circlepublish-images-container-view"><div className="page-circlepublish-images-container-view-x" /><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
+          <div className="page-circlepublish-images-container-up-images" onClick={this.onAvatarClick} />
+
+        </div>
+        <div className="page-circlepublish-btn">发表</div>
       </div>
     );
   }
