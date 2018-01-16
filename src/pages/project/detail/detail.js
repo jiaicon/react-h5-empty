@@ -25,7 +25,7 @@ import Avatar from '../../../components/avatar/avatar';
 import Tab from '../../../components/tab/tab';
 import CommunityItem from '../../../components/community_item/index';
 import ShareTip from '../../../components/sharetip/sharetip';
-
+import { feelingAction, observeAction, unObserveAction } from '../../my/circle/circle.store';
 import {
   requestProjectDetail,
   collectProject,
@@ -78,6 +78,7 @@ class ProjectDetailPage extends React.Component {
   componentWillMount() {
     this.props.requestProjectDetail(this.projectId);
     this.props.saveTabIndex(0);
+    this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
   }
   onTabChange(idx) {
     this.props.saveTabIndex(idx);
@@ -329,81 +330,10 @@ class ProjectDetailPage extends React.Component {
     );
   }
   renderCommunity() {
-    const data = {
-      list: [
-        {
-          id: 1,
-          type: 2,
-          content: '公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应该公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应该',
-          photo: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515572149241&di=31b69e9b3ef12edc0d43505164b7f809&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F018d4e554967920000019ae9df1533.jpg%40900w_1l_2o_100sh.jpg',
-            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515572149240&di=d74e0d98db641f5b47365973f2383c77&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01b52855dc4b6932f875a13252f0e4.jpg%401280w_1l_2o_100sh.jpg',
-            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-          ],
-          like_count: 2,
-          comment_count: 999,
-          created_at: '5分钟前',
-          user_info: {
-            id: 111,
-            username: 'zzy9528',
-            avatars: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-            real_name: '郑',
-          },
-          team_info: {
-            id: 123,
-            name: '服务远征1号队',
-
-          },
-          comment_list: {
-            id: 1,
-            comment: '挺好的',
-            created_at: '2017-12-15 17:04:50',
-            feeling_id: 11,
-            is_display: 1,
-            feeling_is_display: 1,
-            user_info: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
-            comment_to: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
-
-          },
-        },
-        {
-          id: 2,
-          type: 2,
-          content: '这次志愿者活动',
-          photo: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-          ],
-          like_count: 2,
-          comment_count: 999,
-          created_at: '5分钟前',
-          user_info: {
-            id: 123,
-            username: '梦里花落知多少',
-            avatars: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4166721891,1503444760&fm=27&gp=0.jpg',
-          },
-          team_info: {
-            id: 123,
-            name: '服务远征1号队',
-
-          },
-          comment_list: {
-            id: 1,
-            comment: '挺好的',
-            created_at: '2017-12-15 17:04:50',
-            feeling_id: 11,
-            is_display: 1,
-            feeling_is_display: 1,
-            user_info: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
-            comment_to: { avatar: '评论的用户信息（仅有头像和昵称', username: '11' },
-
-          },
-        },
-
-      ],
-    };
     return (
       <div>
-        {
-        data ? data.list.map(listData => (
+        {this.props.feeling.data && this.props.feeling.data.list &&
+          this.props.feeling.type == 'project'  ? this.props.feeling.data.list.map(listData => (
           <CommunityItem data={listData} isDetailEntry={false} key={listData.id} />
           )) : null
 
@@ -475,6 +405,9 @@ export default connect(
   state => ({
     detail: state.project.detail,
     user: state.user,
+    feeling: state.circle.feeling,
+    observe: state.circle.observe,
+    unObserve: state.circle.unObserve,
   }),
   dispatch => bindActionCreators({
     requestProjectDetail,
@@ -483,5 +416,8 @@ export default connect(
     joinProject,
     quitProject,
     saveTabIndex,
+    feelingAction,
+    observeAction,
+    unObserveAction
   }, dispatch),
 )(ProjectDetailPage);

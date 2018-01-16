@@ -13,11 +13,11 @@ import { bindActionCreators } from 'redux';
 
 import CommunityItem from '../../../components/community_item/index';
 
-// import { teamAction } from '../my.store';
+import { isWindowReachBottom } from '../../../utils/funcs';
 
 import './circle.css';
 import Link from '../../../components/link/link';
-
+import { moreFeelingAction } from './circle.store'
 class Circle extends React.Component {
 
   constructor(props) {
@@ -26,9 +26,11 @@ class Circle extends React.Component {
   }
 
   componentWillMount() {
+    this.requestList(false);
   }
 
   componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillReceiveProps() {
@@ -38,7 +40,28 @@ class Circle extends React.Component {
   componentWillUnmount() {
 
   }
+  handleScroll() {
+    console.log(111)
+    if (isWindowReachBottom(50)) {
+      this.requestList(true);
+    }
+  }
+  requestList(more) {
+    const { moreFeeling : { data: listData, fetching } } = this.props;
+
+    if (fetching ||
+      (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
+      return;
+    }
+
+    this.props.moreFeelingAction({
+      type: 1,
+      current_page: more ? listData.page.current_page + 1 : 1,
+      more,
+    });
+  }
   renderCommunity() {
+    console.log(this.props.moreFeeling)
     const data = {
       list: [
         {
@@ -113,7 +136,7 @@ class Circle extends React.Component {
     return (
       <div>
         {
-        data ? data.list.map(listData => (
+          this.props.moreFeeling.data && this.props.moreFeeling.data.list?  this.props.moreFeeling.data.list.map(listData => (
           <CommunityItem data={listData} isDetailEntry key={listData.id} />
           )) : null
 
@@ -149,44 +172,16 @@ class Circle extends React.Component {
 Circle.title = '我的志愿圈';
 
 Circle.propTypes = {
-  teamAction: PropTypes.func,
-  team: PropTypes.shape({
-    data: PropTypes.shape({
-      list: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-        slogan: PropTypes.string,
-        logo: PropTypes.string,
-        type: PropTypes.string,
-        team_size: PropTypes.number,
-        identifier: PropTypes.string,
-        contact_name: PropTypes.string,
-        contact_phone: PropTypes.string,
-        contact_addr: PropTypes.string,
-        parent_id: PropTypes.number,
-        province_id: PropTypes.number,
-        province_name: PropTypes.string,
-        city_id: PropTypes.number,
-        city_name: PropTypes.string,
-        county_id: PropTypes.number,
-        county_name: PropTypes.string,
-        time_long: PropTypes.number,
-        abstract: PropTypes.string,
-        created_at: PropTypes.string,
-        category: PropTypes.string,
-        join_status: PropTypes.number,
-      })),
-    }),
-  }),
+
 };
 // team: state.my.team,
 
 export default connect(
   state => ({
-
+    moreFeeling:state.circle.moreFeeling,
 
   }),
-  dispatch => bindActionCreators({ },
+  dispatch => bindActionCreators({ moreFeelingAction },
     dispatch),
 )(Circle);
 

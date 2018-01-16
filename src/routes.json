@@ -285,12 +285,7 @@
     "chunk": "main"
   },
   {
-    "path": "/my/circledetail",
-    "page": "./pages/my/circle/subpage/detail",
-    "chunk": "main"
-  },
-  {
-    "path": "/my/circledetail/:typeId/:relationId",
+    "path": "/my/circledetail/:Id",
     "page": "./pages/my/circle/subpage/detail",
     "chunk": "main"
   },

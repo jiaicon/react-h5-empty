@@ -1,23 +1,23 @@
 /**
  * @file 我的志愿圈-发布
  */
-/* eslint  "class-methods-use-this":"off",
-"jsx-a11y/no-static-element-interactions":"off",
-"react/no-array-index-key":"off" */
+/* global wx:false */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "class-methods-use-this":"off" */
 
 
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-// import { teamAction } from '../my.store';
+import Alert from 'react-s-alert';
 
 import './publish.css';
 import Link from '../../../../components/link/link';
 
 import Avatar from '../../../../components/avatar/avatar';
 import uploadToWX from '../../../../utils/wxupload';
+import { upFeelingAction } from '../circle.store';
+import history from '../../../history';
 
 class CirclePublish extends React.Component {
 
@@ -38,8 +38,12 @@ class CirclePublish extends React.Component {
   componentDidMount() {
   }
 
-  componentWillReceiveProps() {
-
+  componentWillReceiveProps(nextProps) {
+    const { upFeeling: LupFeeling } = this.props;
+    const { upFeeling: NupFeeling } = nextProps;
+    if (LupFeeling.fetching && !NupFeeling.fetching && !NupFeeling.failed) {
+      history.replace('/my/circle');
+    }
   }
 
   componentWillUnmount() {
@@ -60,27 +64,59 @@ class CirclePublish extends React.Component {
   onTextChanged() {
     const editsthink = this.editsthink.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
+      ...this.state,
       editsthink,
     });
+  }
+  onDelete(e) {
+    const index = e.target.getAttribute('data-index');
+    const imagesArr = this.state.imagesArr;
+
+    imagesArr.splice(index, 1);
+    this.setState({
+      ...this.state,
+      imagesArr,
+    });
+  }
+  onPreview(e) {
+    const index = e.target.getAttribute('data-index');
+    const imagesArr = this.state.imagesArr;
+    wx.ready(() => {
+      wx.previewImage({
+        current: imagesArr[index], // 当前显示图片的http链接
+        urls: imagesArr, // 需要预览的图片http链接列表
+      });
+    });
+  }
+  onPublish() {
+    const editsthink = this.state.editsthink;
+    const imagesArr = this.state.imagesArr;
+    // if (!editsthink) {
+    //   Alert.warning('请写下这一刻的想法');
+    // }
+
+    this.props.upFeelingAction({ type: this.typeId, relation_id: this.relationId, content: editsthink, photo: imagesArr });
   }
   render() {
     return (
       <div className="page-circlepublish-container">
         <textarea placeholder="这一刻的想法…（最多200字）"className="page-circlepublish-edit-text" maxLength="200" ref={(c) => { this.editsthink = c; }} onKeyUp={this.onTextChanged} />
         <div className="page-circlepublish-images-container">
-          <div className="page-circlepublish-images-container-view"><div className="page-circlepublish-images-container-view-x" /><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-view"><Avatar size={{ width: 80, height: 80, radius: 1 }} src={'http://inews.gtimg.com/newsapp_match/0/2709490253/0'} /></div>
-          <div className="page-circlepublish-images-container-up-images" onClick={this.onAvatarClick} />
+          {
+          this.state.imagesArr.map((item, index) => (
+            <div className="page-circlepublish-images-container-view" >
+              <div className="page-circlepublish-images-container-view-x" data-index={index} onClick={this.onDelete} />
+              <Avatar size={{ width: 80, height: 80, radius: 1 }} src={item} data-index={index} onClick={this.onPreview} />
+            </div>
+            ))
+          }
+          {
+            this.state.imagesArr.length === 9 ? null : <div className="page-circlepublish-images-container-up-images" onClick={this.onAvatarClick} />
+          }
+
 
         </div>
-        <div className="page-circlepublish-btn">发表</div>
+        <div className="page-circlepublish-btn" onClick={this.onPublish}>发表</div>
       </div>
     );
   }
@@ -90,35 +126,7 @@ class CirclePublish extends React.Component {
 CirclePublish.title = '动态发布';
 
 CirclePublish.propTypes = {
-  teamAction: PropTypes.func,
-  team: PropTypes.shape({
-    data: PropTypes.shape({
-      list: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-        slogan: PropTypes.string,
-        logo: PropTypes.string,
-        type: PropTypes.string,
-        team_size: PropTypes.number,
-        identifier: PropTypes.string,
-        contact_name: PropTypes.string,
-        contact_phone: PropTypes.string,
-        contact_addr: PropTypes.string,
-        parent_id: PropTypes.number,
-        province_id: PropTypes.number,
-        province_name: PropTypes.string,
-        city_id: PropTypes.number,
-        city_name: PropTypes.string,
-        county_id: PropTypes.number,
-        county_name: PropTypes.string,
-        time_long: PropTypes.number,
-        abstract: PropTypes.string,
-        created_at: PropTypes.string,
-        category: PropTypes.string,
-        join_status: PropTypes.number,
-      })),
-    }),
-  }),
+
   route: PropTypes.shape({
     params: PropTypes.shape({
       projectId: PropTypes.string,
@@ -128,10 +136,10 @@ CirclePublish.propTypes = {
 
 export default connect(
   state => ({
-
-
+    upFeeling: state.circle.upFeeling,
+    upFeelingAction: PropTypes.func,
   }),
-  dispatch => bindActionCreators({ },
+  dispatch => bindActionCreators({ upFeelingAction },
     dispatch),
 )(CirclePublish);
 

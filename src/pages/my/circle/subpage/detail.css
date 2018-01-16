@@ -1,0 +1,105 @@
+.page-circleDetail-container{
+  position: relative;
+}
+.page-circleDetail-remark-container{
+  width: 100%;
+  padding: 15px;
+}
+.page-circleDetail-remark-main{
+  width: 100%;
+  position: relative;
+  background: #F8F8F8;
+  display: flex;
+  flex-direction: column;
+}
+.page-circleDetail-remark-main-tri{
+  display:block;
+    width:0;
+    height:0;
+    border-width:0 10px 10px;
+    border-style:solid;
+    border-color:transparent transparent #F8F8F8;
+    position:absolute;
+    top:-10px;
+    left:3%;
+}
+.page-circleDetail-remark-send-message-container{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+}
+.page-circleDetail-remark-main-like-icon{
+  width: 16px;
+  height: 16px;
+  margin:19px 14px;
+  background-image: url(/images/my/praise_n.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.page-circleDetail-remark-main-comment-icon{
+  width: 16px;
+  height: 16px;
+  margin:19px 14px;
+  background-image: url(/images/my/comments.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.page-circleDetail-remark-main-like-container{
+  display: flex;
+  flex-direction: reverse;
+  padding-bottom: 10px;
+}
+.page-circleDetail-remark-main-like-people{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+.page-circleDetail-remark-main-like-people-item{
+  margin-top: 10px;
+  margin-right: 6px;
+}
+.page-circleDetail-remark-main-comment{
+  width: 100%;
+  flex-direction: column;
+}
+.page-circleDetail-remark-components-container{
+  display: flex;
+
+}
+.page-circleDetail-remark-components-avatar{
+  margin: 10px 8px;
+}
+.page-circleDetail-remark-components-right{
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.page-circleDetail-remark-components-name{
+  font-size: 14px;
+color: #6AC6F8;
+letter-spacing: 0;
+line-height: 14px;
+}
+.page-circleDetail-remark-components-name-container{
+  display: flex;
+  justify-content: space-between;
+}
+.page-circleDetail-remark-components-time{
+  font-size: 13px;
+color: #666666;
+letter-spacing: 0;
+line-height: 13px;
+}
+
+.page-circleDetail-remark-components-comment{
+  font-size: 14px;
+color: #333333;
+letter-spacing: 0;
+line-height: 18px;
+margin-top: 8px;
+}
