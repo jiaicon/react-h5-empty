@@ -25,7 +25,7 @@ import Avatar from '../../../components/avatar/avatar';
 import Tab from '../../../components/tab/tab';
 import CommunityItem from '../../../components/community_item/index';
 import ShareTip from '../../../components/sharetip/sharetip';
-import { feelingAction, observeAction, unObserveAction } from '../../my/circle/circle.store';
+import { feelingAction, observeAction, unObserveAction , deleteFeelingAction } from '../../my/circle/circle.store';
 import {
   requestProjectDetail,
   collectProject,
@@ -34,7 +34,8 @@ import {
   quitProject,
   saveTabIndex,
 } from './detail.store';
-
+import history from '../../history';
+import { userCenterAction } from '../../my/my.store';
 class ProjectDetailPage extends React.Component {
 
   constructor(props) {
@@ -73,6 +74,24 @@ class ProjectDetailPage extends React.Component {
         },
       ],
     };
+    this.dialogA = {
+      title: '登录提示',
+      buttons: [
+        {
+          type: 'default',
+          label: '取消',
+          onClick: () => this.setState({ ...this.state, showDialogA: false }),
+        },
+        {
+          type: 'primary',
+          label: '确认',
+          onClick: () => {
+            this.setState({ ...this.state, showDialogA: false });
+            this.props.userCenterAction();
+          },
+        },
+      ],
+    };
   }
 
   componentWillMount() {
@@ -99,6 +118,11 @@ class ProjectDetailPage extends React.Component {
       });
 
       this.wxRegistered = true;
+    }
+    const { deleteFeeling: LdeleteFeeling } = this.props;
+    const { deleteFeeling: NdeleteFeeling } = nextProps;
+    if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
+      history.replace(`/team/detail/${this.teamId}`);
     }
   }
 
@@ -324,22 +348,37 @@ class ProjectDetailPage extends React.Component {
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         确定要退出项目吗？
-    </Dialog>
+        </Dialog>
+        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
+        只有登录的用户才能点赞和评论哦～
+        </Dialog>
 
       </div>
     );
+  }
+  onPublish(){
+    const { user: { isLogin } } = this.props;
+    if (isLogin){
+      history.push(`/my/circlepublish/2/${this.projectId}`)
+    } else {
+      this.setState({ ...this.state, showDialogA: true });
+    }
+  }
+  delete(id) {
+    this.props.deleteFeelingAction(id);
   }
   renderCommunity() {
     return (
       <div>
         {this.props.feeling.data && this.props.feeling.data.list &&
-          this.props.feeling.type == 'project'  ? this.props.feeling.data.list.map(listData => (
-          <CommunityItem data={listData} isDetailEntry={false} key={listData.id} />
+          this.props.feeling.type == 'project' ? this.props.feeling.data.list.map(listData => (
+            <CommunityItem data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
+            onDeleteClick={this.delete}/>
           )) : null
 
         }
 
-        <Link to={`/my/circlepublish/2/${this.projectId}`} className="page-project-detail-community-link" />
+        <div className="page-project-detail-community-link" onClick={this.onPublish} />
       </div>
     );
   }
@@ -408,6 +447,7 @@ export default connect(
     feeling: state.circle.feeling,
     observe: state.circle.observe,
     unObserve: state.circle.unObserve,
+    deleteFeeling: state.circle.deleteFeeling,
   }),
   dispatch => bindActionCreators({
     requestProjectDetail,
@@ -418,6 +458,8 @@ export default connect(
     saveTabIndex,
     feelingAction,
     observeAction,
-    unObserveAction
+    unObserveAction,
+    userCenterAction,
+    deleteFeelingAction,
   }, dispatch),
 )(ProjectDetailPage);

@@ -326,15 +326,14 @@ const unObserveReducer = (state = {
 // •comment: 内容【必填】
 // •parent_id: 如是回复评论，传被评论的内容id【非必填】
 
-export const postCommentAction = id => ({
+export const postCommentAction = data => ({
   type: 'POSTCOMMENT_DATA',
-  payload: fetch(`/feeling/comment/${id}`, { data }, { method: 'POST' }),
+  payload: fetch(`/feeling/comment/${data.id}`, { data }, { method: 'POST' }),
 });
 const postCommentReducer = (state = {
   fetching: false,
   failed: false,
   data: null,
-  type: null,
 }, action) => {
   switch (action.type) {
     case 'POSTCOMMENT_DATA_PENDING':

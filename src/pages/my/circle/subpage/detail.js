@@ -10,13 +10,25 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Alert from 'react-s-alert';
 
 
 import './detail.css';
 import Link from '../../../../components/link/link';
+
 import CommunityItem from '../../../../components/community_item/index';
-import { feelingDetailAction } from '../circle.store';
+import { feelingDetailAction, postCommentAction, deleteCommentAction, deleteFeelingAction } from '../circle.store';
+import { requestUserInfo } from '../../../../stores/common';
 import AVATAR from '../../../../components/avatar/avatar';
+import history from '../../../history';
+
+function isTrue(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      return true;
+    }
+  }
+}
 
 class CircleDetail extends React.Component {
 
@@ -24,86 +36,193 @@ class CircleDetail extends React.Component {
     super(props);
     autoBind(this);
     this.Id = props.route.params.Id;
+    this.state = ({
+      user: null,
+      feelId: null,
+      trigger: false,
+    });
   }
 
   componentWillMount() {
     this.props.feelingDetailAction(this.Id);
+    this.props.requestUserInfo();
   }
 
   componentDidMount() {
   }
 
-  componentWillReceiveProps() {
-
+  componentWillReceiveProps(nextProps) {
+    const { postComment: LpostComment } = this.props;
+    const { postComment: NpostComment } = nextProps;
+    if (LpostComment.fetching && !NpostComment.fetching && !NpostComment.failed) {
+      this.props.feelingDetailAction(this.Id);
+      this.comment.value = '';
+      this.setState({
+        ...this.state,
+        comment: '',
+      });
+    }
+    const { deleteComment: LdeleteComment } = this.props;
+    const { deleteComment: NdeleteComment } = nextProps;
+    if (LdeleteComment.fetching && !NdeleteComment.fetching && !NdeleteComment.failed) {
+      this.props.feelingDetailAction(this.Id);
+    }
+    const { deleteFeeling: LdeleteFeeling } = this.props;
+    const { deleteFeeling: NdeleteFeeling } = nextProps;
+    if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
+      history.replace('/my/circle');
+    }
   }
 
   componentWillUnmount() {
 
   }
-  renderRemark() {
-    const likelist = [{ avatars: 'http://alpha.api.volunteer.tmallwo.com:8000/image/2018-01-16/IvtdVQcl79wsRdwYcm0fXKykp3G-_0tw17vSXn3AuDvJDOggab6XX8A7Vsdhexkz.jpg', username: '梦里花落知多少' },
-    { avatars: 'http://alpha.api.volunteer.tmallwo.com:8000/image/2018-01-16/IvtdVQcl79wsRdwYcm0fXKykp3G-_0tw17vSXn3AuDvJDOggab6XX8A7Vsdhexkz.jpg', username: '梦里花落知多少' }];
-    const commentlist = [
-      {
-        id: 1,
-        comment: '公益活动是现代社会条件下的产物，是公民参与精神的表征。',
-        created_at: '2017-12-15 17:04:50',
-        feeling_id: 11,
-        is_display: 1,
-        feeling_is_display: 1,
-        user_info: { avatars: 'http://alpha.api.volunteer.tmallwo.com:8000/image/2018-01-16/IvtdVQcl79wsRdwYcm0fXKykp3G-_0tw17vSXn3AuDvJDOggab6XX8A7Vsdhexkz.jpg', username: '梦里花落知多少' },
-        comment_to: { },
-      },
-      {
-        id: 1,
-        comment: '公益活动是现代社会条件下的产物，是公民参与精神的表征。',
-        created_at: '2017-12-15 17:04:50',
-        feeling_id: 11,
-        is_display: 1,
-        feeling_is_display: 1,
-        user_info: { avatars: 'http://alpha.api.volunteer.tmallwo.com:8000/image/2018-01-16/m9nvUgNC0b6A2DUADnYqerqFrAymFJUJy57Uxvg3CBVu_w0KuUzwTRJ1AQ6W-N_m.jpg', username: '梦里花落知多少' },
-        comment_to: { avatars: 'http://alpha.api.volunteer.tmallwo.com:8000/image/2018-01-16/m9nvUgNC0b6A2DUADnYqerqFrAymFJUJy57Uxvg3CBVu_w0KuUzwTRJ1AQ6W-N_m.jpg', username: '马云' },
-      },
 
-    ];
+  selected(e) {
+    const info = JSON.parse(e.currentTarget.getAttribute('data-info'));
+    const userInfo = info.user_info;
+    const feelId = info.feeling_id;
+    this.setState({
+      ...this.state,
+      user: userInfo.username,
+      feelId,
+    });
+  }
+  onClearUser() {
+    this.setState({ ...this.state, user: null, feelId: null });
+  }
+  onTextChanged() {
+    const comment = this.comment.value.replace(/(^\s+)|(\s+$)/g, '');
+
+    this.setState({
+      ...this.state,
+      comment,
+    });
+  }
+  delete(id) {
+    this.props.deleteFeelingAction(id);
+  }
+  deleteComment(e) {
+    const id = JSON.parse(e.target.getAttribute('data-info')).id;
+    console.log(1111);
+    this.props.deleteCommentAction(id);
+  }
+  submit() {
+    const feelId = this.state.feelId;
+    const comment = this.state.comment;
+    if (!comment) {
+      Alert.warning('请输入评论');
+      return;
+    }
+    if (feelId) {
+      this.props.postCommentAction({ id: this.Id, comment, parent_id: feelId });
+    } else {
+      this.props.postCommentAction({ id: this.Id, comment });
+    }
+  }
+  renderRemark() {
     return (
       <div className="page-circleDetail-remark-container">
         <div className="page-circleDetail-remark-main">
-          <span className="page-circleDetail-remark-main-tri" />
-          <div className="page-circleDetail-remark-main-like-container">
-            <div className="page-circleDetail-remark-main-like-icon" />
-            <div className="page-circleDetail-remark-main-like-people" >
-              {
-                  likelist.length >= 1 ? likelist.map((item, index) => (<AVATAR className="page-circleDetail-remark-main-like-people-item" src={item.avatars} size={{ width: 35, height: 35, radius: 1 }} />)) : null
-                }
+          {
+            (this.props.feelingDetail && this.props.feelingDetail.data && this.props.feelingDetail.data.like_list.length >= 1) ||
+           (this.props.feelingDetail && this.props.feelingDetail.data && this.props.feelingDetail.data.comment_list.length >= 1
+            && isTrue(this.props.feelingDetail.data.comment_list.map(item => (
+                Boolean(item.is_display)
+              ))))
+            ? <span className="page-circleDetail-remark-main-tri" />
+            : null
+          }
+          {this.props.feelingDetail && this.props.feelingDetail.data && this.props.feelingDetail.data.like_list.length >= 1 ?
+            <div>
+              <div className="page-circleDetail-remark-main-like-container" onClick={this.onClearUser}>
+                <div className="page-circleDetail-remark-main-like-icon" />
+                <div className="page-circleDetail-remark-main-like-people" >
+                  {this.props.feelingDetail && this.props.feelingDetail.data && this.props.feelingDetail.data.like_list.length >= 1 ?
+                    this.props.feelingDetail.data.like_list.map((item, index) =>
+                  (<AVATAR className="page-circleDetail-remark-main-like-people-item" src={item.avatars} size={{ width: 35, height: 35, radius: 1 }} />)) : null
+                  }
+                </div>
+              </div>
+              <div className="line1px" />
             </div>
-          </div>
-          <div className="line1px" />
-          <div className="page-circleDetail-remark-main-like-container">
-            <div className="page-circleDetail-remark-main-comment-icon" />
-            <div className="page-circleDetail-remark-main-comment" >
-              <div style={{ paddingRight: '10px' }}>
-                <div className="page-circleDetail-remark-components-container">
-                  <AVATAR className="page-circleDetail-remark-components-avatar" src={11} size={{ width: 35, height: 35, radius: 1 }} />
-                  <div className="page-circleDetail-remark-components-right">
-                    <div className="page-circleDetail-remark-components-name-container">
-                      <div className="page-circleDetail-remark-components-name">罗永浩</div>
-                      <div className="page-circleDetail-remark-components-time">2017-11-16</div>
+            : null
+          }
+          {
+            this.props.feelingDetail && this.props.feelingDetail.data
+            && this.props.feelingDetail.data.comment_list.length >= 1
+            && isTrue(this.props.feelingDetail.data.comment_list.map(item => (
+                Boolean(item.is_display)
+              ))) ?
+                <div>
+                  <div className="page-circleDetail-remark-main-like-container">
+                    <div className="page-circleDetail-remark-main-comment-icon-container" onClick={this.onClearUser} > <div className="page-circleDetail-remark-main-comment-icon" /></div>
+                    <div className="page-circleDetail-remark-main-comment" >
+                      {
+                      this.props.feelingDetail &&
+                      this.props.feelingDetail.data && this.props.feelingDetail.data.comment_list.length >= 1
+                      && isTrue(this.props.feelingDetail.data.comment_list.map(item => (
+                        Boolean(item.is_display)
+                      ))) ?
+                      this.props.feelingDetail.data.comment_list.map((item) => {
+                        const isDispaly = item.is_display;
+                        return (
+                          <div>
+                            {
+                              isDispaly ?
+                                <div style={{ paddingRight: '10px' }}>
+                                  <div className="page-circleDetail-remark-components-container" data-info={JSON.stringify(item)} onClick={this.selected}>
+                                    <AVATAR className="page-circleDetail-remark-components-avatar" src={item.user_info.avatars} size={{ width: 35, height: 35, radius: 1 }} />
+                                    <div className="page-circleDetail-remark-components-right">
+                                      <div className="page-circleDetail-remark-components-name-container">
+                                        <div className="page-circleDetail-remark-components-name">{item.user_info.real_name || item.user_info.username}</div>
+                                        <div className="page-circleDetail-remark-components-time">{item.created_at}</div>
+                                      </div>
+                                      <div className="page-circleDetail-remark-components-comment">
+                                        {
+                                          !item.comment_to ? null : '回复'
+                                        }
+                                        {
+                                          item.comment_to ? <span className="page-circleDetail-remark-components-comment-to-name">{item.comment_to.username}</span> : null
+                                        }
+                                        {
+                                          !item.comment_to ? null : '：'
+                                          }
+                                        {item.comment}
+
+                                      </div>
+                                      <div className="page-circleDetail-remark-components-comment-delete" >
+                                        {
+                                        this.props.user.id === item.user_info.id ? <a onClick={this.deleteComment} data-info={JSON.stringify(item)}>删除</a> : null
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="line1px" />
+                                </div> : null
+                            }
+                          </div>
+
+                        );
+                      }) : null
+               }
+
                     </div>
-                    <div className="page-circleDetail-remark-components-comment">公益活动是现代社会条件下的产物，是公民参与精神的表征。</div>
                   </div>
                 </div>
-                <div className="line1px" />
-              </div>
-
-            </div>
-          </div>
+            : null
+          }
 
 
         </div>
+        <div className="page-circleDetail-takeup" />
         <div className="page-circleDetail-remark-send-message-container">
           <div className="line1px" />
-          发送
+          <div className="page-circleDetail-remark-send-message-main">
+            <textarea placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`} className="page-circleDetail-remark-send-message-main-text" maxLength="200" ref={(c) => { this.comment = c; }} onKeyUp={this.onTextChanged} />
+            <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>发表</div>
+
+          </div>
         </div>
       </div>
     );
@@ -115,7 +234,10 @@ class CircleDetail extends React.Component {
         {
           this.props.feelingDetail && this.props.feelingDetail.data ?
             <div>
-              <CommunityItem data={this.props.feelingDetail.data} isDetailEntry isDescTrigger isDisplayLine />
+              <CommunityItem
+                data={this.props.feelingDetail.data} isDetailEntry isDescTrigger isDisplayLine
+                routeData={this.props.route} onDeleteClick={this.delete}
+              />
               {this.renderRemark()}
             </div>
           : null
@@ -134,14 +256,23 @@ CircleDetail.propTypes = {
       projectId: PropTypes.string,
     }),
   }),
+  deleteCommentAction: PropTypes.func,
 };
-// team: state.my.team,
 
 export default connect(
   state => ({
     feelingDetail: state.circle.feelingDetail,
+    postComment: state.circle.postComment,
+    deleteComment: state.circle.deleteComment,
+    deleteFeeling: state.circle.deleteFeeling,
+    user: state.user,
   }),
-  dispatch => bindActionCreators({ feelingDetailAction },
+  dispatch => bindActionCreators({
+    feelingDetailAction,
+    postCommentAction,
+    deleteCommentAction,
+    requestUserInfo,
+    deleteFeelingAction },
     dispatch),
 )(CircleDetail);
 
