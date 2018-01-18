@@ -137,6 +137,15 @@ class TeamDetailPage extends React.Component {
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
       history.replace(`/team/detail/${this.teamId}`);
     }
+
+    const { observe: Lobserve, unObserve: LunObserve } = this.props;
+    const { observe: Nobserve, unObserve: NunObserve } = nextProps;
+    if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
+      this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
+    }
+    if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
+      this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
+    }
   }
 
   componentWillUnmount() {}
@@ -387,6 +396,12 @@ class TeamDetailPage extends React.Component {
   delete(id) {
     this.props.deleteFeelingAction(id);
   }
+  onParse(id) {
+    this.props.observeAction(id);
+  }
+  unOnParse(id) {
+    this.props.unObserveAction(id);
+  }
   renderCommunity() {
     return (
       <div>
@@ -394,7 +409,7 @@ class TeamDetailPage extends React.Component {
           this.props.feeling.data && this.props.feeling.data.list && this.props.feeling.type == 'team' ? this.props.feeling.data.list.map(listData => (
             <CommunityItem
               data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
-              onDeleteClick={this.delete}
+              onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
             />
           )) : null
 

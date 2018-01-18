@@ -17,7 +17,10 @@ import { isWindowReachBottom } from '../../../utils/funcs';
 
 import './circle.css';
 import Link from '../../../components/link/link';
-import { moreFeelingAction } from './circle.store';
+import { moreFeelingAction,
+        deleteFeelingAction,
+        unObserveAction,
+        observeAction } from './circle.store';
 import { userCenterAction } from '../my.store';
 
 
@@ -65,8 +68,23 @@ class Circle extends React.Component {
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillReceiveProps() {
-
+  componentWillReceiveProps(nextProps) {
+    const { deleteFeeling: LdeleteFeeling } = this.props;
+    const { deleteFeeling: NdeleteFeeling } = nextProps;
+    if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
+      this.requestList(false);
+      this.props.requestUserInfo();
+    }
+    const { observe: Lobserve, unObserve: LunObserve } = this.props;
+    const { observe: Nobserve, unObserve: NunObserve } = nextProps;
+    if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
+      this.requestList(false);
+      this.props.requestUserInfo();
+    }
+    if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
+      this.requestList(false);
+      this.props.requestUserInfo();
+    }
   }
 
   componentWillUnmount() {
@@ -91,12 +109,21 @@ class Circle extends React.Component {
       more,
     });
   }
+  onParse(id) {
+    this.props.observeAction(id);
+  }
+  unOnParse(id) {
+    this.props.unObserveAction(id);
+  }
   renderCommunity() {
     return (
       <div>
         {
           this.props.moreFeeling.data && this.props.moreFeeling.data.list ? this.props.moreFeeling.data.list.map(listData => (
-            <CommunityItem data={listData} isDetailEntry key={listData.id} />
+            <CommunityItem
+              data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
+              onParseClick={this.onParse} onUnParseClick={this.unOnParse}
+            />
           )) : null
 
         }
@@ -110,6 +137,9 @@ class Circle extends React.Component {
     } else {
       this.setState({ ...this.state, showDialogA: true });
     }
+  }
+  delete(id) {
+    this.props.deleteFeelingAction(id);
   }
   render() {
     return (
@@ -151,9 +181,18 @@ export default connect(
   state => ({
     moreFeeling: state.circle.moreFeeling,
     user: state.user,
+    deleteFeeling: state.circle.deleteFeeling,
+    observe: state.circle.observe,
+    unObserve: state.circle.unObserve,
 
   }),
-  dispatch => bindActionCreators({ moreFeelingAction, userCenterAction, requestUserInfo },
+  dispatch => bindActionCreators({
+    moreFeelingAction,
+    userCenterAction,
+    requestUserInfo,
+    deleteFeelingAction,
+    unObserveAction,
+    observeAction },
     dispatch),
 )(Circle);
 

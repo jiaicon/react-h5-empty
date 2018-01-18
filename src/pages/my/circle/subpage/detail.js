@@ -17,7 +17,7 @@ import './detail.css';
 import Link from '../../../../components/link/link';
 
 import CommunityItem from '../../../../components/community_item/index';
-import { feelingDetailAction, postCommentAction, deleteCommentAction, deleteFeelingAction } from '../circle.store';
+import { feelingDetailAction, postCommentAction, deleteCommentAction, deleteFeelingAction, unObserveAction, observeAction } from '../circle.store';
 import { requestUserInfo } from '../../../../stores/common';
 import AVATAR from '../../../../components/avatar/avatar';
 import history from '../../../history';
@@ -52,6 +52,12 @@ class CircleDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const nextId = nextProps.route.params.Id;
+    if (nextId !== this.Id) {
+      this.props.feelingDetailAction(nextId);
+      this.props.requestUserInfo();
+      this.Id = nextId;
+    }
     const { postComment: LpostComment } = this.props;
     const { postComment: NpostComment } = nextProps;
     if (LpostComment.fetching && !NpostComment.fetching && !NpostComment.failed) {
@@ -71,6 +77,17 @@ class CircleDetail extends React.Component {
     const { deleteFeeling: NdeleteFeeling } = nextProps;
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
       history.replace('/my/circle');
+    }
+
+    const { observe: Lobserve, unObserve: LunObserve } = this.props;
+    const { observe: Nobserve, unObserve: NunObserve } = nextProps;
+    if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
+      this.props.feelingDetailAction(nextId);
+      this.props.requestUserInfo();
+    }
+    if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
+      this.props.feelingDetailAction(nextId);
+      this.props.requestUserInfo();
     }
   }
 
@@ -227,8 +244,13 @@ class CircleDetail extends React.Component {
       </div>
     );
   }
+  onParse(id) {
+    this.props.observeAction(id);
+  }
+  unOnParse(id) {
+    this.props.unObserveAction(id);
+  }
   render() {
-    console.log(this.props.feelingDetail);
     return (
       <div className="page-circleDetail-container">
         {
@@ -236,7 +258,8 @@ class CircleDetail extends React.Component {
             <div>
               <CommunityItem
                 data={this.props.feelingDetail.data} isDetailEntry isDescTrigger isDisplayLine
-                routeData={this.props.route} onDeleteClick={this.delete}
+                routeData={this.props.route} onDeleteClick={this.delete} onParseClick={this.onParse}
+                onUnParseClick={this.unOnParse}
               />
               {this.renderRemark()}
             </div>
@@ -266,13 +289,17 @@ export default connect(
     deleteComment: state.circle.deleteComment,
     deleteFeeling: state.circle.deleteFeeling,
     user: state.user,
+    observe: state.circle.observe,
+    unObserve: state.circle.unObserve,
   }),
   dispatch => bindActionCreators({
     feelingDetailAction,
     postCommentAction,
     deleteCommentAction,
     requestUserInfo,
-    deleteFeelingAction },
+    deleteFeelingAction,
+    unObserveAction,
+    observeAction },
     dispatch),
 )(CircleDetail);
 

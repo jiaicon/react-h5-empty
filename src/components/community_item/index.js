@@ -30,6 +30,7 @@ class COMMUNITYITEM extends React.Component {
     isDisplayLine: PropTypes.bool,
 
     onParseClick: PropTypes.func,
+    onUnParseClick: PropTypes.func,
     onCommentClick: PropTypes.func,
     onDeleteClick: PropTypes.func,
   }
@@ -111,8 +112,6 @@ class COMMUNITYITEM extends React.Component {
       return;
     }
     history.push(`/my/circledetail/${info.id}`);
-
-    console.log(this.props.routeData);
   }
 
   handleDelete(e) {
@@ -127,11 +126,12 @@ class COMMUNITYITEM extends React.Component {
     }
   }
   handleActionClick(action) {
+    const id = this.commentId;
     return () => {
       if (action === 'join') {
-        //
+        this.props.onParseClick(id);
       } else if (action === 'quit') {
-        //
+        this.props.onUnParseClick(id);
       } else if (action === 'login') {
         this.setState({ ...this.state, showDialog: true });
       }
@@ -146,6 +146,8 @@ class COMMUNITYITEM extends React.Component {
 
     let actionClassName = '';
     let action = '';
+    this.commentId = data.id ;
+
 
     if (!joined && !auditing) {
       // 未登陆，点赞
@@ -203,7 +205,7 @@ class COMMUNITYITEM extends React.Component {
 
 
               {
-                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                            </Link> : null
+                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                            </Link> : null
               }
 
 

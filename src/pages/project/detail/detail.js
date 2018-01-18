@@ -25,7 +25,7 @@ import Avatar from '../../../components/avatar/avatar';
 import Tab from '../../../components/tab/tab';
 import CommunityItem from '../../../components/community_item/index';
 import ShareTip from '../../../components/sharetip/sharetip';
-import { feelingAction, observeAction, unObserveAction , deleteFeelingAction } from '../../my/circle/circle.store';
+import { feelingAction, observeAction, unObserveAction, deleteFeelingAction } from '../../my/circle/circle.store';
 import {
   requestProjectDetail,
   collectProject,
@@ -36,6 +36,7 @@ import {
 } from './detail.store';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
+
 class ProjectDetailPage extends React.Component {
 
   constructor(props) {
@@ -123,6 +124,17 @@ class ProjectDetailPage extends React.Component {
     const { deleteFeeling: NdeleteFeeling } = nextProps;
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
       history.replace(`/team/detail/${this.teamId}`);
+    }
+
+    const { observe: Lobserve, unObserve: LunObserve } = this.props;
+    const { observe: Nobserve, unObserve: NunObserve } = nextProps;
+    if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
+      this.props.requestProjectDetail(this.projectId);
+      this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
+    }
+    if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
+      this.props.requestProjectDetail(this.projectId);
+      this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
     }
   }
 
@@ -356,10 +368,10 @@ class ProjectDetailPage extends React.Component {
       </div>
     );
   }
-  onPublish(){
+  onPublish() {
     const { user: { isLogin } } = this.props;
-    if (isLogin){
-      history.push(`/my/circlepublish/2/${this.projectId}`)
+    if (isLogin) {
+      history.push(`/my/circlepublish/2/${this.projectId}`);
     } else {
       this.setState({ ...this.state, showDialogA: true });
     }
@@ -367,13 +379,21 @@ class ProjectDetailPage extends React.Component {
   delete(id) {
     this.props.deleteFeelingAction(id);
   }
+  onParse(id) {
+    this.props.observeAction(id);
+  }
+  unOnParse(id) {
+    this.props.unObserveAction(id);
+  }
   renderCommunity() {
     return (
       <div>
         {this.props.feeling.data && this.props.feeling.data.list &&
           this.props.feeling.type == 'project' ? this.props.feeling.data.list.map(listData => (
-            <CommunityItem data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
-            onDeleteClick={this.delete}/>
+            <CommunityItem
+              data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
+              onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
+            />
           )) : null
 
         }
@@ -461,5 +481,6 @@ export default connect(
     unObserveAction,
     userCenterAction,
     deleteFeelingAction,
+
   }, dispatch),
 )(ProjectDetailPage);
