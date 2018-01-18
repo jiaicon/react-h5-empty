@@ -42,7 +42,13 @@ class CirclePublish extends React.Component {
     const { upFeeling: LupFeeling } = this.props;
     const { upFeeling: NupFeeling } = nextProps;
     if (LupFeeling.fetching && !NupFeeling.fetching && !NupFeeling.failed) {
-      history.replace('/my/circle');
+      if (this.typeId === 1) {
+        history.replace('/my/circle');
+      } else if (this.typeId === 2) {
+        history.replace(`/project/detail/${this.relationId}`);
+      } else if (this.typeId === 3) {
+        history.replace(`/team/detail/${this.relationId}`);
+      }
     }
   }
 
