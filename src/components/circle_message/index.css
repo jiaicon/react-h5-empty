@@ -24,6 +24,16 @@
 }
 .components-circle-message-item-info{
   width: 60px;
+  height: 80px;
+  font-size: 16px;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 20px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:4;
 }
 .components-circle-message-item-content-name{
   font-size: 16px;

@@ -59,7 +59,11 @@ class CircleMessage extends React.Component {
                     <div className="components-circle-message-item-content-date">{item.created_at}</div>
                   </div>
                   <div className="components-circle-message-item-info">
-                    <IMAGE src={item.feeling.photo[0]} resize={{ width: 60, height: 60 }} className="components-circle-message-item-info-img" />
+                    {
+                      item.feeling.photo.length >= 1 ?
+                        <IMAGE src={item.feeling.photo[0]} resize={{ width: 60, height: 60 }} className="components-circle-message-item-info-img" />
+                      : item.comment
+                    }
                   </div>
                 </div>
                 <div className="line1px" />
