@@ -18,6 +18,7 @@ const MODULE_LINK = {
   volunteer_ensure: '/ensure',
   good_example: '/sanlitun/starModel',
   claim_project: '/sanlitun/projectClaim/list',
+  community_interact: '/my/circlevisits',
 };
 
 class Menus extends React.Component {

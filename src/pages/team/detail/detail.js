@@ -314,9 +314,7 @@ class TeamDetailPage extends React.Component {
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         确定要退出项目吗？
         </Dialog>
-        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-        只有登录的用户才能点赞和评论哦～
-        </Dialog>
+
       </div>
       <div className="foot">
         <div className="line1px" />
@@ -390,7 +388,10 @@ class TeamDetailPage extends React.Component {
     if (isLogin) {
       history.push(`/my/circlepublish/3/${this.teamId}`);
     } else {
-      this.setState({ ...this.state, showDialogA: true });
+      this.setState({
+        ...this.state,
+        showDialogA: true,
+      });
     }
   }
   delete(id) {
@@ -416,6 +417,9 @@ class TeamDetailPage extends React.Component {
         }
 
         <div className="page-team-detail-community-link" onClick={this.onPublish} />
+        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
+        只有登录的用户才能点赞和评论哦～
+        </Dialog>
       </div>
     );
   }

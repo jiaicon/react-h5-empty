@@ -361,9 +361,6 @@ class ProjectDetailPage extends React.Component {
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         确定要退出项目吗？
         </Dialog>
-        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-        只有登录的用户才能点赞和评论哦～
-        </Dialog>
 
       </div>
     );
@@ -399,6 +396,9 @@ class ProjectDetailPage extends React.Component {
         }
 
         <div className="page-project-detail-community-link" onClick={this.onPublish} />
+        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
+        只有登录的用户才能点赞和评论哦～
+        </Dialog>
       </div>
     );
   }
