@@ -17,10 +17,11 @@ import { isWindowReachBottom } from '../../../utils/funcs';
 
 import './circle.css';
 import Link from '../../../components/link/link';
-import { moreFeelingAction,
+import { myFeelingAction,
         deleteFeelingAction,
         unObserveAction,
-        observeAction } from './circle.store';
+        observeAction,
+         } from './circle.store';
 import { userCenterAction } from '../my.store';
 
 
@@ -96,15 +97,14 @@ class Circle extends React.Component {
     }
   }
   requestList(more) {
-    const { moreFeeling: { data: listData, fetching } } = this.props;
+    const { myFeeling: { data: listData, fetching } } = this.props;
 
     if (fetching ||
       (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
       return;
     }
 
-    this.props.moreFeelingAction({
-      type: 1,
+    this.props.myFeelingAction({
       current_page: more ? listData.page.current_page + 1 : 1,
       more,
     });
@@ -119,7 +119,7 @@ class Circle extends React.Component {
     return (
       <div>
         {
-          this.props.moreFeeling.data && this.props.moreFeeling.data.list ? this.props.moreFeeling.data.list.map(listData => (
+          this.props.myFeeling.data && this.props.myFeeling.data.list ? this.props.myFeeling.data.list.map(listData => (
             <CommunityItem
               data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
               onParseClick={this.onParse} onUnParseClick={this.unOnParse}
@@ -179,20 +179,20 @@ Circle.propTypes = {
 
 export default connect(
   state => ({
-    moreFeeling: state.circle.moreFeeling,
     user: state.user,
     deleteFeeling: state.circle.deleteFeeling,
     observe: state.circle.observe,
     unObserve: state.circle.unObserve,
-
+    myFeeling: state.circle.myFeeling,
   }),
   dispatch => bindActionCreators({
-    moreFeelingAction,
+
     userCenterAction,
     requestUserInfo,
     deleteFeelingAction,
     unObserveAction,
-    observeAction },
+    observeAction,
+    myFeelingAction },
     dispatch),
 )(Circle);
 

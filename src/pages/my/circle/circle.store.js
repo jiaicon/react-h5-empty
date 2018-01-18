@@ -2,6 +2,60 @@
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 import { API_HOST } from '../../../utils/config';
+// 我的话题列表接口
+// current_page: 页码【非必填】默认1
+// •page_size: 页长【非必填】 默认10
+
+export const myFeelingAction = data => ({
+  type: 'MYFEElING_DATA',
+  meta: {
+    more: data.more,
+  },
+  payload: fetch('/feeling/my', { method: 'GET', data, loading: !data.more }),
+});
+const myFeelingReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+
+}, action) => {
+  let data;
+  const { more } = action.meta || {};
+  const { data: payloadData } = action.payload || {};
+  switch (action.type) {
+    case 'MYFEElING_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'MYFEElING_DATA_FULFILLED':
+      if (!more || !state.data) {
+        data = payloadData;
+      } else {
+        data = {
+          list: state.data.list.concat(payloadData.list),
+          page: payloadData.page,
+        };
+      }
+
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+      };
+    case 'MYFEElING_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
 // 分页话题列表接口
 export const moreFeelingAction = data => ({
   type: 'MORE_FEElING_DATA',
@@ -212,44 +266,6 @@ const deleteFeelingReducer = (state = {
       return state;
   }
 };
-// 我的话题列表接口
-// current_page: 页码【非必填】默认1
-// •page_size: 页长【非必填】 默认10
-
-export const myFeelingAction = data => ({
-  type: 'MYFEElING_DATA',
-  payload: fetch('/feeling/my', { data }, { method: 'GET' }),
-});
-const myFeelingReducer = (state = {
-  fetching: false,
-  failed: false,
-  data: null,
-  type: null,
-}, action) => {
-  switch (action.type) {
-    case 'MYFEElING_DATA_PENDING':
-      return {
-        ...state,
-        fetching: true,
-        failed: false,
-      };
-    case 'MYFEElING_DATA_FULFILLED':
-      return {
-        ...state,
-        fetching: false,
-        failed: false,
-        data: action.payload,
-      };
-    case 'MYFEElING_DATA_REJECTED':
-      return {
-        ...state,
-        failed: true,
-        fetching: false,
-      };
-    default:
-      return state;
-  }
-};
 
 // 点赞话题接口
 export const observeAction = id => ({
@@ -396,7 +412,7 @@ const deleteCommentReducer = (state = {
 // 我的话题评论消息接口
 export const newCommentAction = () => ({
   type: 'NEWCOMMENT_DATA',
-  payload: fetch('/comment/new', { method: 'GET' }),
+  payload: fetch(`/comment/new?page_size=${1000}`, { method: 'GET' }),
 });
 const newCommentReducer = (state = {
   fetching: false,
@@ -415,7 +431,7 @@ const newCommentReducer = (state = {
         ...state,
         fetching: false,
         failed: false,
-        data: action.payload,
+        data: action.payload.data,
       };
     case 'NEWCOMMENT_DATA_REJECTED':
       return {
