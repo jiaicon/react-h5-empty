@@ -147,7 +147,10 @@ class Circle extends React.Component {
         <div className="page-circle-header-container">
           <div className="page-circle-header-top">
             <Link className="page-circle-header-top-link-container" to="/my/circlelist">
-              <div className="page-circle-header-top-link-icon page-circle-header-top-link-icon-ld" ><span className="page-circle-header-top-link-icon-ld-ponit">16</span></div>
+              <div className="page-circle-header-top-link-icon page-circle-header-top-link-icon-ld" >
+                {/** <span className="page-circle-header-top-link-icon-ld-ponit">16</span> */}
+
+              </div>
               消息列表
             </Link>
             <div className="line1px-v page-circle-header-top-line" />
