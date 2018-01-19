@@ -48,6 +48,8 @@ class CirclePublish extends React.Component {
         history.replace(`/project/detail/${this.relationId}`);
       } else if (this.typeId === 3) {
         history.replace(`/team/detail/${this.relationId}`);
+      } else if (this.typeId === 4) {
+        history.replace('/my/circle');
       }
     }
   }
@@ -97,9 +99,9 @@ class CirclePublish extends React.Component {
   onPublish() {
     const editsthink = this.state.editsthink;
     const imagesArr = this.state.imagesArr;
-    // if (!editsthink) {
-    //   Alert.warning('请写下这一刻的想法');
-    // }
+    if (!editsthink && imagesArr.length === 0) {
+      Alert.warning('不能发表空的话题信息');
+    }
 
     this.props.upFeelingAction({ type: this.typeId, relation_id: this.relationId, content: editsthink, photo: imagesArr });
   }

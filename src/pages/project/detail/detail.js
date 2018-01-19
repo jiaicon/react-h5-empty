@@ -368,7 +368,7 @@ class ProjectDetailPage extends React.Component {
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      history.push(`/my/circlepublish/2/${this.projectId}`);
+      history.replace(`/my/circlepublish/2/${this.projectId}`);
     } else {
       this.setState({ ...this.state, showDialogA: true });
     }

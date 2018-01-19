@@ -386,7 +386,7 @@ class TeamDetailPage extends React.Component {
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      history.push(`/my/circlepublish/3/${this.teamId}`);
+      history.replace(`/my/circlepublish/3/${this.teamId}`);
     } else {
       this.setState({
         ...this.state,
