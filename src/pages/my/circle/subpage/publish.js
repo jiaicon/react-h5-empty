@@ -102,8 +102,11 @@ class CirclePublish extends React.Component {
     if (!editsthink && imagesArr.length === 0) {
       Alert.warning('不能发表空的话题信息');
     }
-
-    this.props.upFeelingAction({ type: this.typeId, relation_id: this.relationId, content: editsthink, photo: imagesArr });
+    if (this.typeId == 4 || this.typeId == 1) {
+      this.props.upFeelingAction({ type: 1, content: editsthink, photo: imagesArr });
+    } else {
+      this.props.upFeelingAction({ type: this.typeId, relation_id: this.relationId, content: editsthink, photo: imagesArr });
+    }
   }
   render() {
     return (
@@ -145,7 +148,6 @@ CirclePublish.propTypes = {
 export default connect(
   state => ({
     upFeeling: state.circle.upFeeling,
-    upFeelingAction: PropTypes.func,
   }),
   dispatch => bindActionCreators({ upFeelingAction },
     dispatch),
