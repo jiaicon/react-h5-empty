@@ -115,10 +115,9 @@ class COMMUNITYITEM extends React.Component {
   }
 
   handleDelete(e) {
-    const { user: { isLogin } } = this.props;
     const info = JSON.parse(e.target.getAttribute('data-info'));
     const id = info.id;
-
+    const { user: { isLogin } } = this.props;
     if (isLogin) {
       this.props.onDeleteClick(id);
     } else {

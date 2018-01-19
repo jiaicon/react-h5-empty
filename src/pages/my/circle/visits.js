@@ -157,7 +157,7 @@ class CircleVists extends React.Component {
 }
 
 
-CircleVists.title = '我的志愿圈';
+CircleVists.title = '社区互动';
 
 CircleVists.propTypes = {
 

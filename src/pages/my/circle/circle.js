@@ -173,7 +173,7 @@ class Circle extends React.Component {
 }
 
 
-Circle.title = '我的志愿圈';
+Circle.title = '志愿社区';
 
 Circle.propTypes = {
 

@@ -41,6 +41,24 @@ class CircleDetail extends React.Component {
       feelId: null,
       trigger: false,
     });
+    this.dialog = {
+      title: '登录提示',
+      buttons: [
+        {
+          type: 'default',
+          label: '取消',
+          onClick: () => this.setState({ ...this.state, showDialog: false }),
+        },
+        {
+          type: 'primary',
+          label: '确认',
+          onClick: () => {
+            this.setState({ ...this.state, showDialog: false });
+            this.props.userCenterAction();
+          },
+        },
+      ],
+    };
   }
 
   componentWillMount() {
@@ -99,32 +117,49 @@ class CircleDetail extends React.Component {
     const info = JSON.parse(e.currentTarget.getAttribute('data-info'));
     const userInfo = info.user_info;
     const feelId = info.feeling_id;
-    this.setState({
-      ...this.state,
-      user: userInfo.username,
-      feelId,
-    });
+    const { user: { isLogin } } = this.props;
+    if (isLogin) {
+      this.comment.focus();
+      this.setState({
+        ...this.state,
+        user: userInfo.username,
+        feelId,
+      });
+    } else {
+      this.setState({ ...this.state, showDialog: true });
+    }
+
   }
   onClearUser() {
     this.setState({ ...this.state, user: null, feelId: null });
   }
-  onTextChanged() {
+  onTextChanged(evt) {
+    evt.preventDefault();
+    const { user: { isLogin } } = this.props;
     const comment = this.comment.value.replace(/(^\s+)|(\s+$)/g, '');
+    if (isLogin) {
+      this.setState({
+        ...this.state,
+        comment,
+      });
+    } else {
+      this.setState({ ...this.state, showDialog: true });
+    }
 
-    this.setState({
-      ...this.state,
-      comment,
-    });
   }
   delete(id) {
     this.props.deleteFeelingAction(id);
   }
   deleteComment(e) {
     const id = JSON.parse(e.target.getAttribute('data-info')).id;
-    console.log(1111);
+    this.setState({
+      ...this.state,
+      user: null,
+    });
     this.props.deleteCommentAction(id);
   }
-  submit() {
+  submit(evt) {
+    evt.preventDefault();
     const feelId = this.state.feelId;
     const comment = this.state.comment;
     if (!comment) {
@@ -236,11 +271,18 @@ class CircleDetail extends React.Component {
         <div className="page-circleDetail-remark-send-message-container">
           <div className="line1px" />
           <div className="page-circleDetail-remark-send-message-main">
-            <textarea placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`} className="page-circleDetail-remark-send-message-main-text" maxLength="200" ref={(c) => { this.comment = c; }} onKeyUp={this.onTextChanged} />
+            <textarea
+              placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`}
+              className="page-circleDetail-remark-send-message-main-text" maxLength="200"
+              ref={(c) => { this.comment = c; }} onBlur={this.onTextChanged}
+            />
             <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>发表</div>
 
           </div>
         </div>
+        <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+        只有登录的用户才能点赞和评论哦～
+        </Dialog>
       </div>
     );
   }
