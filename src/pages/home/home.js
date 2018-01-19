@@ -90,11 +90,41 @@ class HomePage extends React.Component {
   }
 
   renderSlick() {
-    const { home } = this.props;
+    const { home, user } = this.props;
+    const orgCode = window.orgCode;
     if (!home.data || !home.data.banner) {
       return <div className="slick-container slick-container-empty" />;
     }
 
+    if (orgCode === 'XKdwpfgegW' && !user.isLogin) {
+      return (<div className="slick-container">
+        { home.data.banner && home.data.banner.length ?
+          <Slick {...this.slickSettings}>
+            {home.data.banner
+              .map((item) => {
+                let url = '';
+                const mode = item.jump_mode;
+
+                if (mode === 1) {
+                  // 第三方
+                  // url = item.href;
+                  url = '/my/entry';
+                } else if (mode === 2) {
+                  // 项目
+                  url = `/project/detail/${item.jump_id}`;
+                } else if (mode === 3) {
+                  // 团队
+                  url = `/team/detail/${item.jump_id}`;
+                }
+
+                return (<Link key={item.id} to={url}>
+                  <Image src={item.photo} className="image" resize={{ width: 1500 }} />
+                </Link>);
+              })}
+          </Slick> : null
+      }
+      </div>);
+    }
     return (<div className="slick-container">
       { home.data.banner && home.data.banner.length ?
         <Slick {...this.slickSettings}>
