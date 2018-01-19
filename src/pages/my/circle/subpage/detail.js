@@ -22,6 +22,10 @@ import { requestUserInfo } from '../../../../stores/common';
 import AVATAR from '../../../../components/avatar/avatar';
 import history from '../../../history';
 
+import { Dialog } from 'react-weui';
+import 'weui/dist/style/weui.css';
+import 'react-weui/build/packages/react-weui.css';
+
 function isTrue(arr) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i]) {
