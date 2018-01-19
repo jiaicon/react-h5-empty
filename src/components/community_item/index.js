@@ -99,6 +99,7 @@ class COMMUNITYITEM extends React.Component {
   onPreview(e) {
     const index = e.target.getAttribute('data-index');
     const imagesArr = this.props.data.photo;
+
     wx.ready(() => {
       wx.previewImage({
         current: imagesArr[index], // 当前显示图片的http链接
@@ -145,7 +146,7 @@ class COMMUNITYITEM extends React.Component {
 
     let actionClassName = '';
     let action = '';
-    this.commentId = data.id ;
+    this.commentId = data.id;
 
 
     if (!joined && !auditing) {
@@ -204,7 +205,7 @@ class COMMUNITYITEM extends React.Component {
 
 
               {
-                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                            </Link> : null
+                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                              </Link> : null
               }
 
 

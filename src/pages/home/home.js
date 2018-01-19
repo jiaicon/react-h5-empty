@@ -79,7 +79,7 @@ class HomePage extends React.Component {
     return (<div className="header-bar">
       <Link to="/selectcity"><div className="city-name">{this.state.city}</div></Link>
       <Link className="component-search-bar" to="/homesearch">
-        <input className="input" placeholder="搜索项目/团队" />
+        <input className="input" placeholder="搜索项目/团队1111" />
       </Link>
       {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link>
@@ -95,7 +95,7 @@ class HomePage extends React.Component {
     if (!home.data || !home.data.banner) {
       return <div className="slick-container slick-container-empty" />;
     }
-    if (!user.isLogin) {
+    if (!user.isLogin && orgCode == 'wMvbmOeYAl') {
       return (<div className="slick-container">
         { home.data.banner && home.data.banner.length ?
           <Slick {...this.slickSettings}>
