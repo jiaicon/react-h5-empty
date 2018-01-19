@@ -41,14 +41,15 @@ class CirclePublish extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { upFeeling: LupFeeling } = this.props;
     const { upFeeling: NupFeeling } = nextProps;
+
     if (LupFeeling.fetching && !NupFeeling.fetching && !NupFeeling.failed) {
-      if (this.typeId === 1) {
+      if (this.typeId == 1) {
         history.replace('/my/circlevisits');
-      } else if (this.typeId === 2) {
+      } else if (this.typeId == 2) {
         history.replace(`/project/detail/${this.relationId}`);
-      } else if (this.typeId === 3) {
+      } else if (this.typeId == 3) {
         history.replace(`/team/detail/${this.relationId}`);
-      } else if (this.typeId === 4) {
+      } else if (this.typeId == 4) {
         history.replace('/my/circle');
       }
     }
@@ -99,13 +100,27 @@ class CirclePublish extends React.Component {
   onPublish() {
     const editsthink = this.state.editsthink;
     const imagesArr = this.state.imagesArr;
-    if (!editsthink && imagesArr.length === 0) {
-      Alert.warning('不能发表空的话题信息');
-    }
+    const data = {};
+
     if (this.typeId == 4 || this.typeId == 1) {
-      this.props.upFeelingAction({ type: 1, content: editsthink, photo: imagesArr });
+      data.type = 1;
+      if (editsthink) {
+        data.content = editsthink;
+      }
+      if (imagesArr.length >= 1) {
+        data.photo = imagesArr;
+      }
+      this.props.upFeelingAction(data);
     } else {
-      this.props.upFeelingAction({ type: this.typeId, relation_id: this.relationId, content: editsthink, photo: imagesArr });
+      data.type = this.typeId;
+      data.relation_id = this.relationId;
+      if (editsthink) {
+        data.content = editsthink;
+      }
+      if (imagesArr.length >= 1) {
+        data.photo = imagesArr;
+      }
+      this.props.upFeelingAction(data);
     }
   }
   render() {
