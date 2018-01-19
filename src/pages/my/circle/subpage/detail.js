@@ -76,7 +76,7 @@ class CircleDetail extends React.Component {
     const { deleteFeeling: LdeleteFeeling } = this.props;
     const { deleteFeeling: NdeleteFeeling } = nextProps;
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
-      history.replace('/my/circle');
+      history.replace('/my/circlevisits');
     }
 
     const { observe: Lobserve, unObserve: LunObserve } = this.props;
