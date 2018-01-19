@@ -95,7 +95,6 @@ class HomePage extends React.Component {
     if (!home.data || !home.data.banner) {
       return <div className="slick-container slick-container-empty" />;
     }
-
     if (!user.isLogin) {
       return (<div className="slick-container">
         { home.data.banner && home.data.banner.length ?
@@ -106,9 +105,9 @@ class HomePage extends React.Component {
                 const mode = item.jump_mode;
 
                 if (mode === 1) {
-                  // 第三方
-                  // url = item.href;
                   url = '/my/entry';
+
+                  // 第三方
                 } else if (mode === 2) {
                   // 项目
                   url = `/project/detail/${item.jump_id}`;
@@ -125,6 +124,36 @@ class HomePage extends React.Component {
       }
       </div>);
     }
+
+    return (<div className="slick-container">
+      { home.data.banner && home.data.banner.length ?
+        <Slick {...this.slickSettings}>
+          {home.data.banner
+              .map((item) => {
+                let url = '';
+                const mode = item.jump_mode;
+
+                if (mode === 1) {
+                  if (!user.isLogin) {
+                    url = '/my/entry';
+                  }
+                  // 第三方
+                  url = item.href;
+                } else if (mode === 2) {
+                  // 项目
+                  url = `/project/detail/${item.jump_id}`;
+                } else if (mode === 3) {
+                  // 团队
+                  url = `/team/detail/${item.jump_id}`;
+                }
+
+                return (<Link key={item.id} to={url}>
+                  <Image src={item.photo} className="image" resize={{ width: 1500 }} />
+                </Link>);
+              })}
+        </Slick> : null
+      }
+    </div>);
   }
 
 
