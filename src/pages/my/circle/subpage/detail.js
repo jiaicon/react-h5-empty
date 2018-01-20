@@ -19,6 +19,7 @@ import Link from '../../../../components/link/link';
 import CommunityItem from '../../../../components/community_item/index';
 import { feelingDetailAction, postCommentAction, deleteCommentAction, deleteFeelingAction, unObserveAction, observeAction } from '../circle.store';
 import { requestUserInfo } from '../../../../stores/common';
+import { userCenterAction } from '../../my.store';
 import AVATAR from '../../../../components/avatar/avatar';
 import history from '../../../history';
 
@@ -132,7 +133,6 @@ class CircleDetail extends React.Component {
     } else {
       this.setState({ ...this.state, showDialog: true });
     }
-
   }
   onClearUser() {
     this.setState({ ...this.state, user: null, feelId: null });
@@ -146,10 +146,16 @@ class CircleDetail extends React.Component {
         ...this.state,
         comment,
       });
-    } else {
+    }
+  }
+  isLogin(evt) {
+    evt.preventDefault();
+    const { user: { isLogin } } = this.props;
+    if (!isLogin) {
+      // 未登录屏蔽软键盘
+      document.activeElement.blur();
       this.setState({ ...this.state, showDialog: true });
     }
-
   }
   delete(id) {
     this.props.deleteFeelingAction(id);
@@ -274,11 +280,11 @@ class CircleDetail extends React.Component {
         <div className="page-circleDetail-takeup" />
         <div className="page-circleDetail-remark-send-message-container">
           <div className="line1px" />
-          <div className="page-circleDetail-remark-send-message-main">
+          <div className="page-circleDetail-remark-send-message-main" >
             <textarea
               placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`}
               className="page-circleDetail-remark-send-message-main-text" maxLength="200"
-              ref={(c) => { this.comment = c; }} onBlur={this.onTextChanged}
+              ref={(c) => { this.comment = c; }} onBlur={this.onTextChanged} onFocus={this.isLogin}
             />
             <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>发表</div>
 
@@ -345,7 +351,9 @@ export default connect(
     requestUserInfo,
     deleteFeelingAction,
     unObserveAction,
-    observeAction },
+    observeAction,
+    userCenterAction,
+  },
     dispatch),
 )(CircleDetail);
 

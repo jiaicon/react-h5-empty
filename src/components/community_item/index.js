@@ -97,7 +97,7 @@ class COMMUNITYITEM extends React.Component {
     }
   }
   onPreview(e) {
-    const index = e.target.getAttribute('data-index');
+    const index = e.currentTarget.getAttribute('data-index');
     const imagesArr = this.props.data.photo;
 
     wx.ready(() => {
@@ -109,7 +109,11 @@ class COMMUNITYITEM extends React.Component {
   }
   entry(e) {
     const info = JSON.parse(e.target.getAttribute('data-info'));
+    const { user: { isLogin } } = this.props;
     if (this.props.routeData.path === '/my/circledetail/:Id') {
+      if (!isLogin) {
+        this.setState({ ...this.state, showDialog: true });
+      }
       return;
     }
     history.push(`/my/circledetail/${info.id}`);
@@ -205,7 +209,7 @@ class COMMUNITYITEM extends React.Component {
 
 
               {
-                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                              </Link> : null
+                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                                                       </Link> : null
               }
 
 
