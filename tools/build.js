@@ -23,7 +23,7 @@ const html = task('html', () => {
   const assets = JSON.parse(fs.readFileSync('./public/dist/assets.json', 'utf8'));
   const template = fs.readFileSync('./public/index.ejs', 'utf8');
   const render = ejs.compile(template, { filename: './public/index.ejs' });
-  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config });
+  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config, lastBuild: new Date() });
   fs.writeFileSync('./public/index.html', output, 'utf8');
 });
 
@@ -33,7 +33,7 @@ const blade = task('blade', () => {
   const assets = JSON.parse(fs.readFileSync('./public/dist/assets.json', 'utf8'));
   const template = fs.readFileSync('./public/wechat.blade.ejs', 'utf8');
   const render = ejs.compile(template, { filename: './public/wechat.blade.ejs' });
-  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config });
+  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config, lastBuild: new Date() });
   fs.writeFileSync('./public/wechat.blade.php', output, 'utf8');
 });
 

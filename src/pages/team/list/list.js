@@ -54,6 +54,7 @@ class TeamListPage extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    console.log(54646);
   }
 
   componentWillReceiveProps(nextprops) {
@@ -118,7 +119,8 @@ class TeamListPage extends React.Component {
     });
   }
   handleScroll() {
-    if (isWindowReachBottom(50)) {
+    if (isWindowReachBottom(80)) {
+      console.log('滚动');
       this.requestList(true);
     }
   }
@@ -141,9 +143,10 @@ class TeamListPage extends React.Component {
   render() {
     const { list: { data: listData } } = this.props;
     const { area: { data: areaData } } = this.props;
+
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
-
+    console.log(showLoadingMore);
     let { type, category, target } = this.props.route.params;
 
 
@@ -172,9 +175,9 @@ class TeamListPage extends React.Component {
           />
         </div>
         <div className="body">
+
           <div className="team-list">
             <Teams teams={listData ? listData.list : null} />
-            <div className="takeup" />
           </div>
           {
             showLoadingMore
@@ -185,7 +188,9 @@ class TeamListPage extends React.Component {
             </div>
             : null
           }
+          <div className="takeup" />
         </div>
+
         <div className="tabs-container">
           <div className="line1px" />
           <ul className="tabs">
@@ -225,6 +230,7 @@ class TeamListPage extends React.Component {
           </ul>
         </div>
 
+
       </div>
     );
   }
@@ -239,6 +245,14 @@ TeamListPage.propTypes = {
         current_page: PropTypes.number,
         total_page: PropTypes.number,
       }),
+    }),
+  }),
+  route: PropTypes.shape({
+    path: PropTypes.string,
+    params: PropTypes.shape({
+      type: PropTypes.string,
+      category: PropTypes.string,
+      target: PropTypes.string,
     }),
   }),
 };

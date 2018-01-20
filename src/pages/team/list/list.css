@@ -1,18 +1,18 @@
 .page-team-list {
-  position: absolute;
+  /* position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
 }
 .page-team-list .project-filter-container {
-  /* position: absolute;
+  position: absolute;
   top: 45px;
   left: 0;
   right: 0;
-  z-index: 1; */
+  z-index: 1;
 }
 .page-team-list .search-bar-container {
   height: 44px;
@@ -23,11 +23,11 @@
 }
 .page-team-list  .takeup{
   width: 100%;
-  height: 60px;
+  height: 50px;
 }
 .page-team-list .body{
-  flex:1;
-  overflow-y: scroll;
+  position: relative;
+  padding-top: 45px;
 
 }
 
