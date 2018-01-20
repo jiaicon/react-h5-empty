@@ -7,7 +7,7 @@ app.listen(3000);
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
   // res.send('hello world')
-  exec('sh ./tools/deploy-testserver.sh', { cwd: '..' }, (error, stdout, stderr) => {
+  exec('sh ./tools/deploy-testserver.sh', (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
       res.send(`deploy error: ${error} `);
