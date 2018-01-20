@@ -119,7 +119,8 @@ class TeamListPage extends React.Component {
     });
   }
   handleScroll() {
-    if (isWindowReachBottom(50)) {
+    if (isWindowReachBottom(80)) {
+      console.log('滚动');
       this.requestList(true);
     }
   }
@@ -196,33 +197,33 @@ class TeamListPage extends React.Component {
             <li>
               <Link to="/">
                 <div
-                      className={classnames({
+                  className={classnames({
                     'tab-icon': true,
                     'tab-icon-home': true,
                   })}
-                    />
+                />
                 <span>首页</span>
               </Link>
             </li>
             <li>
               <Link to="/signin">
                 <div
-                      className={classnames({
+                  className={classnames({
                     'tab-icon': true,
                     'tab-icon-signin': true,
                   })}
-                    />
+                />
                 <span>签到打卡</span>
               </Link>
             </li>
             <li>
               <Link to="/my">
                 <div
-                      className={classnames({
+                  className={classnames({
                     'tab-icon': true,
                     'tab-icon-me': true,
                   })}
-                    />
+                />
                 <span>个人中心</span>
               </Link>
             </li>
