@@ -105,7 +105,6 @@ class CircleVists extends React.Component {
     }
 
     this.props.moreFeelingAction({
-      type: 1,
       current_page: more ? listData.page.current_page + 1 : 1,
       more,
     });
