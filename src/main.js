@@ -88,6 +88,10 @@ if (USING_HISTORY_HASH && location.pathname !== '/') {
 } else {
 // Handle client-side navigation by using HTML5 History API For more information
 // visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
+  // 微信 config 验证完成后再初始化界面
+  // 否则当首页验证未完成时用户切换到其他页面如打卡页，如果也注册了 ready 事件则在慢网速下容易出现验证失败的问题
+  // 测试发现，如果在首页验证完成后再跳转或者打开的直接是打卡页均不会出现类似问题
+  // 因此做此修改
   wx.ready(() => {
     history.listen(render);
     render(history.location);
