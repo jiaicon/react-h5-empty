@@ -137,12 +137,16 @@ class MyPage extends React.Component {
             <Link to="/my/circle">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-circle" >
-                  <span
-                    className={classnames({
-                      'page-my-item-icon-circle-red-point': true,
-                    })
+                  {this.props.usercenter.data === null ?
+                    <span /> :
+                    <span
+                      className={classnames({
+                        'page-my-item-icon-circle-red-point': this.props.usercenter.data.comment_count >= 1,
+                      })
+                  }
+                    />
                 }
-                  />
+
                 </i>我的志愿圈
           </div>
               <span className="page-my-item-big" />
