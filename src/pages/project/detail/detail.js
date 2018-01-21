@@ -22,20 +22,16 @@ import './detail.css';
 import Link from '../../../components/link/link';
 import Image from '../../../components/image/image';
 import Avatar from '../../../components/avatar/avatar';
-import Tab from '../../../components/tab/tab';
-import CommunityItem from '../../../components/community_item/index';
 import ShareTip from '../../../components/sharetip/sharetip';
-import { feelingAction, observeAction, unObserveAction, deleteFeelingAction } from '../../my/circle/circle.store';
+// import history from '../../history';
+
 import {
   requestProjectDetail,
   collectProject,
   unCollectProject,
   joinProject,
   quitProject,
-  saveTabIndex,
 } from './detail.store';
-import history from '../../history';
-import { userCenterAction } from '../../my/my.store';
 
 class ProjectDetailPage extends React.Component {
 
@@ -75,40 +71,18 @@ class ProjectDetailPage extends React.Component {
         },
       ],
     };
-    this.dialogA = {
-      title: '登录提示',
-      buttons: [
-        {
-          type: 'default',
-          label: '取消',
-          onClick: () => this.setState({ ...this.state, showDialogA: false }),
-        },
-        {
-          type: 'primary',
-          label: '确认',
-          onClick: () => {
-            this.setState({ ...this.state, showDialogA: false });
-            this.props.userCenterAction();
-          },
-        },
-      ],
-    };
   }
 
   componentWillMount() {
     this.props.requestProjectDetail(this.projectId);
-    this.props.saveTabIndex(0);
-    this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
   }
-  onTabChange(idx) {
-    this.props.saveTabIndex(idx);
-  }
+
   componentWillReceiveProps(nextProps) {
     const detailData = nextProps.detail.data;
+
     if (detailData
         && detailData.id === parseInt(this.projectId, 10)
         && !this.wxRegistered) {
-      document.title = detailData.name;
       wx.ready(() => {
         WXShare({
           title: detailData.name,
@@ -119,22 +93,6 @@ class ProjectDetailPage extends React.Component {
       });
 
       this.wxRegistered = true;
-    }
-    const { deleteFeeling: LdeleteFeeling } = this.props;
-    const { deleteFeeling: NdeleteFeeling } = nextProps;
-    if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
-      history.replace(`/team/detail/${this.teamId}`);
-    }
-
-    const { observe: Lobserve, unObserve: LunObserve } = this.props;
-    const { observe: Nobserve, unObserve: NunObserve } = nextProps;
-    if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
-      this.props.requestProjectDetail(this.projectId);
-      this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
-    }
-    if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
-      this.props.requestProjectDetail(this.projectId);
-      this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
     }
   }
 
@@ -202,8 +160,9 @@ class ProjectDetailPage extends React.Component {
       </Slick>
     </div>);
   }
-  renderBasic() {
-    const { detail: { data: detailData }, user: { isLogin }, tabIndex } = this.props;
+
+  render() {
+    const { detail: { data: detailData }, user: { isLogin } } = this.props;
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -212,6 +171,7 @@ class ProjectDetailPage extends React.Component {
     }
 
     const content = detailData.content;
+
     // join_status: [integer] 0审核中 1通过 2驳回, 详情页下发，登陆后如加入项目才有此字段
     // activity_status: [integer] 活动状态 1 招募中，2进行中 3已结束
     const joined = isLogin && (detailData.join_status === 0 || detailData.join_status === 1);
@@ -244,8 +204,9 @@ class ProjectDetailPage extends React.Component {
       actionClassName = 'project-action-quit';
       action = 'quit';
     }
+
     return (
-      <div>
+      <div className="page-project-detail">
         <div className="header">
           {this.renderSlick()}
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
@@ -262,7 +223,7 @@ class ProjectDetailPage extends React.Component {
             {detailData.name}
           </div>
           <div className="project-category">
-        #&nbsp;{serviceCategories.join('、')}
+            #&nbsp;{serviceCategories.join('、')}
           </div>
           <div className="project-detail-list">
             <ul>
@@ -303,15 +264,15 @@ class ProjectDetailPage extends React.Component {
                 <div className="detail-content">{detailData.contact_name}</div>
               </li>
               {
-            detailData.contact_phone_public ?
-              <li>
-                <div className="item-point" />
-                <div className="line1px-v" />
-                <div className="detail-title">联系人电话</div>
-                <a href={`tel:${detailData.contact_phone}`} className="detail-content">{detailData.contact_phone}</a>
-              </li>
-          : null
-          }
+                detailData.contact_phone_public ?
+                  <li>
+                    <div className="item-point" />
+                    <div className="line1px-v" />
+                    <div className="detail-title">联系人电话</div>
+                    <a href={`tel:${detailData.contact_phone}`} className="detail-content">{detailData.contact_phone}</a>
+                  </li>
+              : null
+              }
               <li>
                 <div className="item-point" />
                 <div className="detail-title">项目地址</div>
@@ -331,8 +292,8 @@ class ProjectDetailPage extends React.Component {
             <span>已报名人数</span>
             <div>
               <span>{detailData.join_people_count}</span>
-          /
-          <span>{detailData.people_count}</span>
+              /
+              <span>{detailData.people_count}</span>
             </div>
           </div>
           <div className="project-description">
@@ -340,7 +301,7 @@ class ProjectDetailPage extends React.Component {
             <p
               dangerouslySetInnerHTML={{
                 __html: content ?
-                  content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+                      content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
             />
           </div>
         </div>
@@ -359,77 +320,8 @@ class ProjectDetailPage extends React.Component {
           </Link>
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-        确定要退出项目吗？
+            确定要退出项目吗？
         </Dialog>
-
-      </div>
-    );
-  }
-  onPublish() {
-    const { user: { isLogin } } = this.props;
-    if (isLogin) {
-      history.replace(`/my/circlepublish/2/${this.projectId}`);
-    } else {
-      this.setState({ ...this.state, showDialogA: true });
-    }
-  }
-  delete(id) {
-    this.props.deleteFeelingAction(id);
-  }
-  onParse(id) {
-    this.props.observeAction(id);
-  }
-  unOnParse(id) {
-    this.props.unObserveAction(id);
-  }
-  renderCommunity() {
-    return (
-      <div>
-        {this.props.feeling.data && this.props.feeling.data.list &&
-          this.props.feeling.type == 'project' ? this.props.feeling.data.list.map(listData => (
-            <CommunityItem
-              data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
-              onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
-            />
-          )) : null
-
-        }
-
-        <div className="page-project-detail-community-link" onClick={this.onPublish} />
-        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-        只有登录的用户才能点赞和评论哦～
-        </Dialog>
-      </div>
-    );
-  }
-  render() {
-    const { detail: { data: detailData }, user: { isLogin }, tabIndex } = this.props;
-    const currentProjectId = parseInt(this.projectId, 10);
-    const dataProjectId = detailData ? detailData.id : '';
-
-    if (currentProjectId !== dataProjectId) {
-      return null;
-    }
-
-    const content = detailData.content;
-
-
-    return (
-      <div className="page-project-detail">
-        <Tab
-          tabs={[
-            {
-              label: '项目详情',
-              component: this.renderBasic(),
-            },
-            {
-              label: '项目社区',
-              component: this.renderCommunity(),
-            },
-          ]}
-          onChange={this.onTabChange}
-          selectedIndex={tabIndex}
-        />
         {
           this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
         }
@@ -464,10 +356,6 @@ export default connect(
   state => ({
     detail: state.project.detail,
     user: state.user,
-    feeling: state.circle.feeling,
-    observe: state.circle.observe,
-    unObserve: state.circle.unObserve,
-    deleteFeeling: state.circle.deleteFeeling,
   }),
   dispatch => bindActionCreators({
     requestProjectDetail,
@@ -475,12 +363,5 @@ export default connect(
     unCollectProject,
     joinProject,
     quitProject,
-    saveTabIndex,
-    feelingAction,
-    observeAction,
-    unObserveAction,
-    userCenterAction,
-    deleteFeelingAction,
-
   }, dispatch),
 )(ProjectDetailPage);
