@@ -16,8 +16,10 @@ import Link from '../../../../components/link/link';
 
 import Avatar from '../../../../components/avatar/avatar';
 import uploadToWX from '../../../../utils/wxupload';
+import uploadToWXMany from '../../../../utils/wxuploadMany';
 import { upFeelingAction } from '../circle.store';
 import history from '../../../history';
+
 
 class CirclePublish extends React.Component {
 
@@ -58,11 +60,20 @@ class CirclePublish extends React.Component {
   componentWillUnmount() {
 
   }
+
   onAvatarClick() {
     const imagesArr = this.state.imagesArr;
-    uploadToWX({
+    uploadToWXMany({
       success: (urls) => {
-        imagesArr.push(urls[0]);
+        // imagesArr = urls;
+        if (urls.length === 1) {
+          imagesArr.push(urls[0]);
+        } else {
+          for (let i = 0; i < urls.length; i++) {
+            imagesArr.push(urls[i]);
+          }
+        }
+
         this.setState({
           ...this.state,
           imagesArr,
