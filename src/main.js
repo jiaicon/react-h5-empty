@@ -88,8 +88,10 @@ if (USING_HISTORY_HASH && location.pathname !== '/') {
 } else {
 // Handle client-side navigation by using HTML5 History API For more information
 // visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
-  history.listen(render);
-  render(history.location);
+  wx.ready(() => {
+    history.listen(render);
+    render(history.location);
+  });
 
 // Eliminates the 300ms delay between a physical tap and the firing of a click
 // event on mobile browsers https://github.com/ftlabs/fastclick
