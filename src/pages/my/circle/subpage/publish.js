@@ -16,11 +16,39 @@ import Link from '../../../../components/link/link';
 
 import Avatar from '../../../../components/avatar/avatar';
 import uploadToWX from '../../../../utils/wxupload';
-import uploadToWXMany from '../../../../utils/wxuploadMany';
 import { upFeelingAction } from '../circle.store';
 import history from '../../../history';
 
+function upload(localIds, success, fail, index = 0, serverUrls = []) {
+  if (!localIds.length) {
+    return;
+  }
 
+  if (index < localIds.length) {
+    wx.uploadImage({
+      localId: localIds[index], // 需要上传的图片的本地ID，由chooseImage接口获得
+      isShowProgressTips: 1, // 默认为1，显示进度提示
+      success: (res) => {
+        fetch('/weixin/media', { method: 'GET', data: { media_id: res.serverId } })
+        .then((json) => {
+          if (json.error_code === 0) {
+            serverUrls[index] = json.data.url;
+            index += 1;
+            upload(localIds, success, fail, index, serverUrls);
+          }
+        });
+      },
+      fail: (error) => {
+        Alert.error(`上传失败：${error && error.errMsg}`);
+        if (fail) {
+          fail(error);
+        }
+      },
+    });
+  } else if (success) {
+    success(serverUrls);
+  }
+}
 class CirclePublish extends React.Component {
 
   constructor(props) {
@@ -63,7 +91,9 @@ class CirclePublish extends React.Component {
 
   onAvatarClick() {
     const imagesArr = this.state.imagesArr;
-    uploadToWXMany({
+    const num = 9 - imagesArr.length;
+    uploadToWX({
+      count: `${num}`,
       success: (urls) => {
         // imagesArr = urls;
         if (urls.length === 1) {
@@ -148,7 +178,7 @@ class CirclePublish extends React.Component {
             ))
           }
           {
-            this.state.imagesArr.length === 9 ? null : <div className="page-circlepublish-images-container-up-images" onClick={this.onAvatarClick} />
+            this.state.imagesArr.length >= 9 ? null : <div className="page-circlepublish-images-container-up-images" onClick={this.onAvatarClick} />
           }
 
 
