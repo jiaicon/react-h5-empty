@@ -122,9 +122,13 @@ class CircleDetail extends React.Component {
     const info = JSON.parse(e.currentTarget.getAttribute('data-info'));
     const userInfo = info.user_info;
     const feelId = info.feeling_id;
+    const host = this.state.user;
     const { user: { isLogin } } = this.props;
     if (isLogin) {
       this.comment.focus();
+      if (userInfo.id === host.id) {
+        return;
+      }
       this.setState({
         ...this.state,
         user: userInfo.username,
