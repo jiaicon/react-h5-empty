@@ -19,14 +19,17 @@
   display: flex;
 }
 .page-my-profile-verify-container{
-  /* width: 100%;
-  height: 100%; */
+  width: 100%;
+   /* height: 100%; */
   position: absolute;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.page-my-profile-verify-main{
+  width: 100%;
 }
 .page-my-profile-verify-title{
   width: 100%;
