@@ -149,7 +149,9 @@ class Circle extends React.Component {
             <Link className="page-circle-header-top-link-container" to="/my/circlelist">
               <div className="page-circle-header-top-link-icon page-circle-header-top-link-icon-ld" >
                 {this.props.myFeeling.data && this.props.myFeeling.data.new_comment && this.props.myFeeling.data.new_comment >= 0 ?
-                  <span className="page-circle-header-top-link-icon-ld-ponit">{this.props.myFeeling.data && this.props.myFeeling.data.new_comment ? this.props.myFeeling.data.new_comment : null}</span> :
+                  <span className="page-circle-header-top-link-icon-ld-ponit">
+                    {this.props.myFeeling.data && this.props.myFeeling.data.new_comment ? this.props.myFeeling.data.new_comment : null}
+                  </span> :
                   null
                 }
 

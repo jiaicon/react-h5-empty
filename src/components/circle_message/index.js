@@ -43,17 +43,18 @@ class CircleMessage extends React.Component {
             <div className="components-circle-message-item-container" data-info={JSON.stringify(item)} onClick={this.entry}>
               <div className="components-circle-message-item">
                 <div className="components-circle-message-item-main">
-                  <AVATAR className="components-circle-message-item-avatar" src={item.user_info.avatars} size={{ width: 40, height: 40, border: 4 }} />
+                  <AVATAR className="components-circle-message-item-avatar" src={item.user_info.avatars} size={{ width: 40, height: 40, radius: 4 }} />
                   <div className="components-circle-message-item-content">
                     <div className="components-circle-message-item-content-name">{item.user_info.real_name || item.user_info.username}</div>
                     {
                       item.is_display && item.feeling_is_display ?
                         <div className="components-circle-message-item-content-comment">{item.comment}</div> :
+                      item.is_like ? <div className="components-circle-message-item-none-content" /> :
                       !item.feeling_is_display ? <div className="components-circle-message-item-content-comment">
                         <div className="components-circle-message-item-content-comment-delete">该话题已删除</div>
                       </div> : !item.is_display ? <div className="components-circle-message-item-content-comment">
                         <div className="components-circle-message-item-content-comment-delete">该评论已删除</div>
-                      </div> : item.is_like ? <div className="components-circle-message-item-none-content" /> : null
+                      </div> : null
                     }
 
                     <div className="components-circle-message-item-content-date">{item.created_at}</div>

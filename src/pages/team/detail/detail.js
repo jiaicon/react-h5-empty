@@ -17,15 +17,11 @@ import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
 import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
-import CommunityItem from '../../../components/community_item/index';
 import { dateTextToDateText } from '../../../utils/funcs';
-
-import history from '../../history';
 
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
-
 
 import {
   requestTeamDetail,
@@ -36,10 +32,6 @@ import {
   quitTeam,
   saveTabIndex,
 } from './detail.store';
-
-import { feelingAction, observeAction, unObserveAction, deleteFeelingAction } from '../../my/circle/circle.store';
-import { userCenterAction } from '../../my/my.store';
-
 
 class TeamDetailPage extends React.Component {
 
@@ -79,30 +71,12 @@ class TeamDetailPage extends React.Component {
         },
       ],
     };
-    this.dialogA = {
-      title: '登录提示',
-      buttons: [
-        {
-          type: 'default',
-          label: '取消',
-          onClick: () => this.setState({ ...this.state, showDialogA: false }),
-        },
-        {
-          type: 'primary',
-          label: '确认',
-          onClick: () => {
-            this.setState({ ...this.state, showDialogA: false });
-            this.props.userCenterAction();
-          },
-        },
-      ],
-    };
   }
+
   componentWillMount() {
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
     this.props.saveTabIndex(0);
-    this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
   }
 
   componentDidMount() {
@@ -131,20 +105,6 @@ class TeamDetailPage extends React.Component {
       });
 
       this.wxRegistered = true;
-    }
-    const { deleteFeeling: LdeleteFeeling } = this.props;
-    const { deleteFeeling: NdeleteFeeling } = nextProps;
-    if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
-      history.replace(`/team/detail/${this.teamId}`);
-    }
-
-    const { observe: Lobserve, unObserve: LunObserve } = this.props;
-    const { observe: Nobserve, unObserve: NunObserve } = nextProps;
-    if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
-      this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
-    }
-    if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
-      this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
     }
   }
 
@@ -207,6 +167,7 @@ class TeamDetailPage extends React.Component {
       }
     </div>);
   }
+  // <Image className="team-photo" src={detailData.logo} alt="团队图片" defaultSrc="/images/default_banner.png" />
   renderBasic() {
     const { detail: { team: detailData }, user: { isLogin } } = this.props;
     // join_status: [integer] -1未提交 0审核中 1通过 2驳回, 详情页下发，登陆后如加入团队才有此字段
@@ -314,7 +275,6 @@ class TeamDetailPage extends React.Component {
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         确定要退出项目吗？
         </Dialog>
-
       </div>
       <div className="foot">
         <div className="line1px" />
@@ -383,46 +343,7 @@ class TeamDetailPage extends React.Component {
       </div>
     );
   }
-  onPublish() {
-    const { user: { isLogin } } = this.props;
-    if (isLogin) {
-      history.replace(`/my/circlepublish/3/${this.teamId}`);
-    } else {
-      this.setState({
-        ...this.state,
-        showDialogA: true,
-      });
-    }
-  }
-  delete(id) {
-    this.props.deleteFeelingAction(id);
-  }
-  onParse(id) {
-    this.props.observeAction(id);
-  }
-  unOnParse(id) {
-    this.props.unObserveAction(id);
-  }
-  renderCommunity() {
-    return (
-      <div>
-        {
-          this.props.feeling.data && this.props.feeling.data.list && this.props.feeling.type == 'team' ? this.props.feeling.data.list.map(listData => (
-            <CommunityItem
-              data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
-              onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
-            />
-          )) : null
 
-        }
-
-        <div className="page-team-detail-community-link" onClick={this.onPublish} />
-        <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-        只有登录的用户才能点赞和评论哦～
-        </Dialog>
-      </div>
-    );
-  }
 
   render() {
     const { detail: { team: detailData, tabIndex } } = this.props;
@@ -438,16 +359,12 @@ class TeamDetailPage extends React.Component {
         <Tab
           tabs={[
             {
-              label: '团队详情',
+              label: '基本信息',
               component: this.renderBasic(),
             },
             {
               label: '团队项目',
               component: this.renderProjects(),
-            },
-            {
-              label: '团队社区',
-              component: this.renderCommunity(),
             },
           ]}
           onChange={this.onTabChange}
@@ -497,10 +414,6 @@ export default connect(
   state => ({
     detail: state.team.detail,
     user: state.user,
-    feeling: state.circle.feeling,
-    observe: state.circle.observe,
-    unObserve: state.circle.unObserve,
-    deleteFeeling: state.circle.deleteFeeling,
   }),
   dispatch => bindActionCreators({
     requestTeamDetail,
@@ -510,10 +423,5 @@ export default connect(
     joinTeam,
     quitTeam,
     saveTabIndex,
-    feelingAction,
-    observeAction,
-    unObserveAction,
-    userCenterAction,
-    deleteFeelingAction,
   }, dispatch),
 )(TeamDetailPage);
