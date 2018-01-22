@@ -89,7 +89,7 @@ class Circle extends React.Component {
   }
 
   componentWillUnmount() {
-
+    window.removeEventListener('scroll', this.handleScroll);
   }
   handleScroll() {
     if (isWindowReachBottom(50)) {
@@ -199,7 +199,8 @@ export default connect(
     deleteFeelingAction,
     unObserveAction,
     observeAction,
-    myFeelingAction },
+    myFeelingAction,
+  },
     dispatch),
 )(Circle);
 

@@ -68,6 +68,9 @@ class CircleVists extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
 
   componentWillReceiveProps(nextProps) {
     const { deleteFeeling: LdeleteFeeling } = this.props;
@@ -86,10 +89,6 @@ class CircleVists extends React.Component {
       this.requestList(false);
       this.props.requestUserInfo();
     }
-  }
-
-  componentWillUnmount() {
-
   }
   handleScroll() {
     if (isWindowReachBottom(50)) {
