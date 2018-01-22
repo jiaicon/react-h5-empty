@@ -200,7 +200,7 @@ class Verify extends React.Component {
     const county = this.props.address.data.county;
     return (
       <div className="page-my-profile-verify-container">
-        <div>
+        <div className="page-my-profile-verify-main">
           <div className="page-my-profile-verify-title">实名认证信息</div>
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">姓名</div>
