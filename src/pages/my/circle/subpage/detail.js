@@ -134,6 +134,9 @@ class CircleDetail extends React.Component {
       this.setState({ ...this.state, showDialog: true });
     }
   }
+  onHandleFocus() {
+    this.comment.focus();
+  }
   onClearUser() {
     this.setState({ ...this.state, user: null, feelId: null });
   }
@@ -311,7 +314,7 @@ class CircleDetail extends React.Component {
               <CommunityItem
                 data={this.props.feelingDetail.data} isDetailEntry isDescTrigger isDisplayLine
                 routeData={this.props.route} onDeleteClick={this.delete} onParseClick={this.onParse}
-                onUnParseClick={this.unOnParse}
+                onUnParseClick={this.unOnParse} onFocusClick={this.onHandleFocus}
               />
               {this.renderRemark()}
             </div>

@@ -33,6 +33,7 @@ class COMMUNITYITEM extends React.Component {
     onUnParseClick: PropTypes.func,
     onCommentClick: PropTypes.func,
     onDeleteClick: PropTypes.func,
+    onFocusClick: PropTypes.func,
   }
   constructor(props) {
     super(props);
@@ -113,7 +114,10 @@ class COMMUNITYITEM extends React.Component {
     if (this.props.routeData.path === '/my/circledetail/:Id') {
       if (!isLogin) {
         this.setState({ ...this.state, showDialog: true });
+      } else {
+        this.props.onFocusClick();
       }
+
       return;
     }
     history.push(`/my/circledetail/${info.id}`);
@@ -209,7 +213,7 @@ class COMMUNITYITEM extends React.Component {
 
 
               {
-                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                                                                 </Link> : null
+                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                                                                           </Link> : null
               }
 
 
