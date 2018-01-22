@@ -53,7 +53,7 @@ class CircleMessage extends React.Component {
                         <div className="components-circle-message-item-content-comment-delete">该话题已删除</div>
                       </div> : !item.is_display ? <div className="components-circle-message-item-content-comment">
                         <div className="components-circle-message-item-content-comment-delete">该评论已删除</div>
-                      </div> : null
+                      </div> : item.is_like ? <div className="components-circle-message-item-none-content" /> : null
                     }
 
                     <div className="components-circle-message-item-content-date">{item.created_at}</div>

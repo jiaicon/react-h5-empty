@@ -310,6 +310,14 @@ class CircleDetail extends React.Component {
     this.props.unObserveAction(id);
   }
   render() {
+    const { feelingDetail: feelingData } = this.props;
+    const currentId = parseInt(this.Id, 10);
+    const nowId = feelingData.data ? feelingData.data.id : '';
+    console.log(currentId);
+    console.log(nowId);
+    if (currentId !== nowId) {
+      return null;
+    }
     return (
       <div className="page-circleDetail-container">
         {

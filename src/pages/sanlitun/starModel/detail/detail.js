@@ -37,16 +37,25 @@ class starModelDetail extends React.Component {
 
   }
 
-  componentWillReceiveProps() {}
+  componentWillReceiveProps(nextProps) {
+    const newTeamId = nextProps.route.params.teamId;
+
+    if (newTeamId !== this.teamId) {
+      this.Id = newTeamId;
+      this.props.starDetailAction(this.Id);
+    }
+
+  }
 
   componentWillUnmount() {}
 
   render() {
     const data = this.props.starDetail.data;
-    if (!data) {
-      return <div>加载中</div>;
+    const currentId = parseInt(this.Id, 10);
+    const nowId = data ? data.id : ' ';
+    if(currentId !== nowId){
+      return null;
     }
-    console.log(data);
     return (
       <div className="page-starmodel-detail">
         <PERSONINFO data={data} />
