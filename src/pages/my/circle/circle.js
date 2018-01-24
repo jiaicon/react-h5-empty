@@ -119,17 +119,21 @@ class Circle extends React.Component {
     return (
       <div>
         {
-          this.props.myFeeling.data && this.props.myFeeling.data.list ? this.props.myFeeling.data.list.map(listData => (
-            <CommunityItem
-              data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
-              onParseClick={this.onParse} onUnParseClick={this.unOnParse}
-            />
-          )) : null
-
+        this.props.myFeeling.data && this.props.myFeeling.data.list ? this.props.myFeeling.data.list.map(listData => (
+          <CommunityItem
+            data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
+            onParseClick={this.onParse} onUnParseClick={this.unOnParse}
+          />
+        )) :
+        <div className="page-circle-rendercommunity-container">
+          <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
+          <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+        </div>
         }
       </div>
     );
   }
+
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
@@ -149,7 +153,8 @@ class Circle extends React.Component {
             <Link className="page-circle-header-top-link-container" to="/my/circlelist">
               <div className="page-circle-header-top-link-icon page-circle-header-top-link-icon-ld" >
                 {this.props.myFeeling.data && this.props.myFeeling.data.new_comment && this.props.myFeeling.data.new_comment >= 0 ?
-                  <span className="page-circle-header-top-link-icon-ld-ponit">{this.props.myFeeling.data && this.props.myFeeling.data.new_comment ? this.props.myFeeling.data.new_comment : null}</span> :
+                  <span className="page-circle-header-top-link-icon-ld-ponit">{
+                    this.props.myFeeling.data && this.props.myFeeling.data.new_comment ? this.props.myFeeling.data.new_comment : null}</span> :
                   null
                 }
 
