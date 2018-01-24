@@ -38,8 +38,8 @@ class CircleMessage extends React.Component {
     const data = this.props.data;
     return (
       <div>
-        {data && data.list.length >= 1 ?
-          data.list.map(item => (
+        {data.data && data.data.list.length >= 1 ?
+          data.data.list.map(item => (
             <div className="components-circle-message-item-container" data-info={JSON.stringify(item)} onClick={this.entry}>
               <div className="components-circle-message-item">
                 <div className="components-circle-message-item-main">

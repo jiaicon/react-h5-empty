@@ -42,10 +42,13 @@ class CircleList extends React.Component {
   }
 
   render() {
-    const { newComment: { data: listData } } = this.props;
+    const { newComment: data } = this.props;
+    if (!data.data) {
+      return null;
+    }
     return (
       <div className="page-teams-container">
-        <MessageItem data={listData} />
+        <MessageItem data={data} />
 
       </div>
     );
