@@ -43,7 +43,7 @@ class starModelPage extends React.Component {
   render() {
     const starModel = this.props.starModel;
     if (!starModel.data) {
-      return <div>加载中</div>;
+      return null;
     }
     console.log(starModel.data);
     return (
