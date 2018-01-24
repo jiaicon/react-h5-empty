@@ -141,6 +141,9 @@ class CircleVists extends React.Component {
     this.props.deleteFeelingAction(id);
   }
   render() {
+    if (!this.props.moreFeeling.data) {
+      return null;
+    }
     return (
       <div className="page-circlevisits-container">
         {this.renderCommunity()}

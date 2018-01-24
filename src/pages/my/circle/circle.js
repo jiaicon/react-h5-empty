@@ -146,6 +146,9 @@ class Circle extends React.Component {
     this.props.deleteFeelingAction(id);
   }
   render() {
+    if (!this.props.myFeeling.data) {
+      return null;
+    }
     return (
       <div className="page-circle-container">
         <div className="page-circle-header-container">

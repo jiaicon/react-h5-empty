@@ -314,8 +314,7 @@ class CircleDetail extends React.Component {
     const { feelingDetail: feelingData } = this.props;
     const currentId = parseInt(this.Id, 10);
     const nowId = feelingData.data ? feelingData.data.id : '';
-    console.log(currentId);
-    console.log(nowId);
+
     if (currentId !== nowId) {
       return null;
     }
