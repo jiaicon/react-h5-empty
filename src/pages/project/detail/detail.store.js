@@ -4,7 +4,7 @@ import fetch from '../../../utils/fetch';
  * 切换 TAB 记录 TAB 状态，在后退操作后需要记录
  */
 
-export const saveTabIndex = tabIndex => ({
+export const saveProjectTabIndex = tabIndex => ({
   type: 'SWITCH_PROJECT_TAB',
   payload: { tabIndex },
 });

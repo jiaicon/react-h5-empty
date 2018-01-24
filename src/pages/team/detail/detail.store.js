@@ -78,7 +78,7 @@ export const quitTeam = teamId => ({
  * 切换 TAB 记录 TAB 状态，在后退操作后需要记录
  */
 
-export const saveTabIndex = tabIndex => ({
+export const saveTeamTabIndex = tabIndex => ({
   type: 'SWITCH_TEAM_TAB',
   payload: { tabIndex },
 });

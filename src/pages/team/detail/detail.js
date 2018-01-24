@@ -34,7 +34,7 @@ import {
   unCollectTeam,
   joinTeam,
   quitTeam,
-  saveTabIndex,
+  saveTeamTabIndex,
 } from './detail.store';
 
 import { feelingAction, observeAction, unObserveAction, deleteFeelingAction } from '../../my/circle/circle.store';
@@ -101,7 +101,7 @@ class TeamDetailPage extends React.Component {
   componentWillMount() {
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
-    this.props.saveTabIndex(0);
+    this.props.saveTeamTabIndex(0);
     this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
   }
 
@@ -151,7 +151,7 @@ class TeamDetailPage extends React.Component {
   componentWillUnmount() {}
 
   onTabChange(idx) {
-    this.props.saveTabIndex(idx);
+    this.props.saveTeamTabIndex(idx);
   }
 
   handleFavoriteClick() {
@@ -468,7 +468,7 @@ TeamDetailPage.propTypes = {
   unCollectTeam: PropTypes.func,
   joinTeam: PropTypes.func,
   quitTeam: PropTypes.func,
-  saveTabIndex: PropTypes.func,
+  saveTeamTabIndex: PropTypes.func,
   detail: PropTypes.shape({
     fetchingId: PropTypes.string,
     tabIndex: PropTypes.number,
@@ -509,7 +509,7 @@ export default connect(
     unCollectTeam,
     joinTeam,
     quitTeam,
-    saveTabIndex,
+    saveTeamTabIndex,
     feelingAction,
     observeAction,
     unObserveAction,

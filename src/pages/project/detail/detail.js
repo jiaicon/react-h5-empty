@@ -32,7 +32,7 @@ import {
   unCollectProject,
   joinProject,
   quitProject,
-  saveTabIndex,
+  saveProjectTabIndex,
 } from './detail.store';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
@@ -97,11 +97,11 @@ class ProjectDetailPage extends React.Component {
 
   componentWillMount() {
     this.props.requestProjectDetail(this.projectId);
-    this.props.saveTabIndex(0);
+    this.props.saveProjectTabIndex(0);
     this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
   }
   onTabChange(idx) {
-    this.props.saveTabIndex(idx);
+    this.props.saveProjectTabIndex(idx);
   }
   componentWillReceiveProps(nextProps) {
     const detailData = nextProps.detail.data;
@@ -475,7 +475,7 @@ export default connect(
     unCollectProject,
     joinProject,
     quitProject,
-    saveTabIndex,
+    saveProjectTabIndex,
     feelingAction,
     observeAction,
     unObserveAction,

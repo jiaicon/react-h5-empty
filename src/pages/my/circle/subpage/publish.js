@@ -11,13 +11,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 
+
 import './publish.css';
 import Link from '../../../../components/link/link';
 
 import Avatar from '../../../../components/avatar/avatar';
 import uploadToWX from '../../../../utils/wxupload';
 import { upFeelingAction } from '../circle.store';
+import { saveProjectTabIndex } from '../../../project/detail/detail.store';
+import { saveTeamTabIndex } from '../../../team/detail/detail.store';
 import history from '../../../history';
+
 
 class CirclePublish extends React.Component {
 
@@ -36,6 +40,7 @@ class CirclePublish extends React.Component {
   }
 
   componentDidMount() {
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,8 +51,10 @@ class CirclePublish extends React.Component {
       if (this.typeId == 1) {
         history.replace('/my/circlevisits');
       } else if (this.typeId == 2) {
+        // this.props.saveProjectTabIndex(2);
         history.replace(`/project/detail/${this.relationId}`);
       } else if (this.typeId == 3) {
+        // this.props.saveTeamTabIndex(3);
         history.replace(`/team/detail/${this.relationId}`);
       } else if (this.typeId == 4) {
         history.replace('/my/circle');
@@ -83,6 +90,7 @@ class CirclePublish extends React.Component {
   }
   onTextChanged() {
     const editsthink = this.editsthink.value.replace(/(^\s+)|(\s+$)/g, '');
+
     this.setState({
       ...this.state,
       editsthink,
@@ -112,8 +120,7 @@ class CirclePublish extends React.Component {
     const editsthink = this.state.editsthink;
     const imagesArr = this.state.imagesArr;
     const data = {};
-
-    if (this.typeId == 4 || this.typeId == 1) {
+    if (this.typeId === 4 || this.typeId === 1) {
       data.type = 1;
       if (editsthink) {
         data.content = editsthink;
@@ -137,7 +144,11 @@ class CirclePublish extends React.Component {
   render() {
     return (
       <div className="page-circlepublish-container">
-        <textarea placeholder="这一刻的想法…（最多200字）"className="page-circlepublish-edit-text" maxLength="200" ref={(c) => { this.editsthink = c; }} onKeyUp={this.onTextChanged} />
+        <textarea
+          placeholder="这一刻的想法…（最多200字）"
+          className="page-circlepublish-edit-text" maxLength="200"
+          ref={(c) => { this.editsthink = c; }} onBlur={this.onTextChanged}
+        />
         <div className="page-circlepublish-images-container">
           {
           this.state.imagesArr.map((item, index) => (
@@ -175,7 +186,7 @@ export default connect(
   state => ({
     upFeeling: state.circle.upFeeling,
   }),
-  dispatch => bindActionCreators({ upFeelingAction },
+  dispatch => bindActionCreators({ upFeelingAction, saveTeamTabIndex, saveProjectTabIndex },
     dispatch),
 )(CirclePublish);
 
