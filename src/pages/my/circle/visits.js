@@ -115,15 +115,32 @@ class CircleVists extends React.Component {
     this.props.unObserveAction(id);
   }
   renderCommunity() {
+    const { moreFeeling: { data: listData } } = this.props;
+    const showLoadingMore = listData &&
+        listData.page && (listData.page.current_page < listData.page.total_page);
     return (
       <div>
         {
-          this.props.moreFeeling.data && this.props.moreFeeling.data.list ? this.props.moreFeeling.data.list.map(listData => (
+          this.props.moreFeeling.data && this.props.moreFeeling.data.list ?
+            <div>{
+          this.props.moreFeeling.data.list.map(itm => (
             <CommunityItem
-              data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
+              data={itm} isDetailEntry key={itm.id} onDeleteClick={this.delete} routeData={this.props.route}
               onParseClick={this.onParse} onUnParseClick={this.unOnParse}
             />
-          )) : null
+
+
+          ))
+        }
+              {
+          showLoadingMore
+          ?
+            <div className="component-loading-more">
+              <img src="/images/icon_loading.png" alt="loading" />
+            正在加载
+          </div> : null
+        }
+            </div> : null
 
         }
       </div>

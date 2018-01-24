@@ -116,20 +116,42 @@ class Circle extends React.Component {
     this.props.unObserveAction(id);
   }
   renderCommunity() {
+    const showLoadingMore = this.props.myFeeling.data &&
+    this.props.myFeeling.data.page && (this.props.myFeeling.data.page.current_page < this.props.myFeeling.data.page.total_page);
+    console.log(showLoadingMore);
     return (
       <div>
         {
-        this.props.myFeeling.data && this.props.myFeeling.data.list ? this.props.myFeeling.data.list.map(listData => (
-          <CommunityItem
-            data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
-            onParseClick={this.onParse} onUnParseClick={this.unOnParse}
-          />
-        )) :
-        <div className="page-circle-rendercommunity-container">
-          <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
-          <div className="page-circle-rendercommunity-info">还没有动态信息</div>
-        </div>
+
+        this.props.myFeeling.data && this.props.myFeeling.data.list ?
+          <div>{
+            this.props.myFeeling.data.list.map(listData => (
+
+              <CommunityItem
+                data={listData} isDetailEntry key={listData.id} onDeleteClick={this.delete} routeData={this.props.route}
+                onParseClick={this.onParse} onUnParseClick={this.unOnParse}
+              />
+            ))
+          }
+
+            {
+            showLoadingMore
+            ?
+              <div className="component-loading-more">
+                <img src="/images/icon_loading.png" alt="loading" />
+              正在加载
+            </div>
+            : null
+          }
+
+          </div>
+        :
+          <div className="page-circle-rendercommunity-container">
+            <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
+            <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+          </div>
         }
+
       </div>
     );
   }
@@ -185,7 +207,7 @@ class Circle extends React.Component {
 }
 
 
-Circle.title = '志愿社区';
+Circle.title = '我的志愿圈';
 
 Circle.propTypes = {
 
