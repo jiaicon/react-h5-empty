@@ -32,7 +32,7 @@ class CircleList extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
-  componentWillReceiveProps() {
+  componentWillReceiveProps( ) {
   
   }
   componentWillUnmount() {

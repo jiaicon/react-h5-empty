@@ -98,19 +98,28 @@ class ProjectDetailPage extends React.Component {
 
   componentWillMount() {
     const { detail: { data: detailData ,tabIndex }, user: { isLogin } } = this.props;
-    this.props.requestProjectDetail(this.projectId);
-    if(this.props.tabIndex){
-      this.props.saveProjectTabIndex(tabIndex);
-    }else{
-      this.props.saveProjectTabIndex(0);
-    }
-    
-    this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
+
+      this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
+      this.props.requestProjectDetail(this.projectId);
+      if(tabIndex){
+        this.props.saveProjectTabIndex(tabIndex);
+      }else{
+        this.props.saveProjectTabIndex(0);
+      }
   }
+    
+
+    
+  
   onTabChange(idx) {
     this.props.saveProjectTabIndex(idx);
   }
   componentWillReceiveProps(nextProps) {
+    const newProjectId = nextProps.route.params.projectId;
+    if (newProjectId!== this.projectId) {
+      this.teamId = newProjectId;
+      this.props.requestProjectDetail(this.projectId);
+    }
     const detailData = nextProps.detail.data;
     if (detailData
         && detailData.id === parseInt(this.projectId, 10)
@@ -136,15 +145,15 @@ class ProjectDetailPage extends React.Component {
     const { observe: Lobserve, unObserve: LunObserve } = this.props;
     const { observe: Nobserve, unObserve: NunObserve } = nextProps;
     if (Lobserve.fetching && !Nobserve.fetching && !Nobserve.failed) {
-      this.props.requestProjectDetail(this.projectId);
       this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
     }
     if (LunObserve.fetching && !NunObserve.fetching && !NunObserve.failed) {
-      this.props.requestProjectDetail(this.projectId);
       this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
     }
   }
-
+  componentWillDidmount(){
+    
+  }
   componentWillUnmount() {
     // document.title = '标题';
   }
@@ -411,7 +420,7 @@ class ProjectDetailPage extends React.Component {
   }
   render() {
     const { detail: { data: detailData, tabIndex }, user: { isLogin } } = this.props;
-    console.log(tabIndex)
+  
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -421,7 +430,7 @@ class ProjectDetailPage extends React.Component {
 
     const content = detailData.content;
 
-
+    
     return (
       <div className="page-project-detail">
         <Tab

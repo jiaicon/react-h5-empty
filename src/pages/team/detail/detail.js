@@ -100,6 +100,8 @@ class TeamDetailPage extends React.Component {
   }
   componentWillMount() {
     const { detail: { team: detailData, tabTeamIndex } } = this.props;
+   
+ 
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
     if(tabTeamIndex){
@@ -109,6 +111,7 @@ class TeamDetailPage extends React.Component {
     }
     
     this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
+  
   }
 
   componentDidMount() {
