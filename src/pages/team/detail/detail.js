@@ -58,7 +58,6 @@ class TeamDetailPage extends React.Component {
     };
 
     this.teamId = props.route.params.teamId;
-    this.lastId = props.route.params.lastId;
     this.state = {
       showShareTip: false,
     };
@@ -100,11 +99,11 @@ class TeamDetailPage extends React.Component {
     };
   }
   componentWillMount() {
-    console.log(this.lastId)
+    const { detail: { team: detailData, tabTeamIndex } } = this.props;
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
-    if(this.lastId){
-      this.props.saveTeamTabIndex(2);
+    if(tabTeamIndex){
+      this.props.saveTeamTabIndex(tabTeamIndex);
     }else{
       this.props.saveTeamTabIndex(0);
     }
@@ -432,7 +431,8 @@ class TeamDetailPage extends React.Component {
   }
 
   render() {
-    const { detail: { team: detailData, tabIndex } } = this.props;
+    const { detail: { team: detailData, tabTeamIndex } } = this.props;
+    console.log(tabTeamIndex)
     const currentTeamId = parseInt(this.teamId, 10);
     const dataTeamId = detailData ? detailData.id : '';
 
@@ -458,7 +458,7 @@ class TeamDetailPage extends React.Component {
             },
           ]}
           onChange={this.onTabChange}
-          selectedIndex={tabIndex}
+          selectedIndex={tabTeamIndex}
         />
         {
           this.state.showShareTip ? <ShareTip onClick={this.hideShareTip} /> : null
@@ -478,7 +478,7 @@ TeamDetailPage.propTypes = {
   saveTeamTabIndex: PropTypes.func,
   detail: PropTypes.shape({
     fetchingId: PropTypes.string,
-    tabIndex: PropTypes.number,
+    tabTeamIndex: PropTypes.number,
     team: PropTypes.shape({}),
     projects: PropTypes.shape({
       list: PropTypes.arrayOf(PropTypes.shape({})),

@@ -78,9 +78,9 @@ export const quitTeam = teamId => ({
  * 切换 TAB 记录 TAB 状态，在后退操作后需要记录
  */
 
-export const saveTeamTabIndex = tabIndex => ({
+export const saveTeamTabIndex = tabTeamIndex => ({
   type: 'SWITCH_TEAM_TAB',
-  payload: { tabIndex },
+  payload: { tabTeamIndex },
 });
 
 
@@ -88,7 +88,7 @@ export default (state = {
   fetching: false,
   failed: false,
   fetchingId: null,
-  tabIndex: 0,
+  tabTeamIndex: 0,
   team: null,
   projects: null,
 }, action) => {
@@ -159,7 +159,7 @@ export default (state = {
     case 'SWITCH_TEAM_TAB':
       return {
         ...state,
-        tabIndex: action.payload.tabIndex,
+        tabTeamIndex: action.payload.tabTeamIndex,
       };
     default:
       return state;

@@ -43,7 +43,7 @@ class ProjectDetailPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
-    this.lastId = props.route.params.lastId;
+    // this.lastId = props.route.params.lastId;
     this.state = {
       showShareTip: false,
     };
@@ -97,9 +97,10 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillMount() {
+    const { detail: { data: detailData ,tabIndex }, user: { isLogin } } = this.props;
     this.props.requestProjectDetail(this.projectId);
-    if(this.lastId){
-      this.props.saveProjectTabIndex(1);
+    if(this.props.tabIndex){
+      this.props.saveProjectTabIndex(tabIndex);
     }else{
       this.props.saveProjectTabIndex(0);
     }
@@ -209,7 +210,7 @@ class ProjectDetailPage extends React.Component {
     </div>);
   }
   renderBasic() {
-    const { detail: { data: detailData }, user: { isLogin }, tabIndex } = this.props;
+    const { detail: { data: detailData ,tabIndex }, user: { isLogin } } = this.props;
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -409,7 +410,8 @@ class ProjectDetailPage extends React.Component {
     );
   }
   render() {
-    const { detail: { data: detailData }, user: { isLogin }, tabIndex } = this.props;
+    const { detail: { data: detailData, tabIndex }, user: { isLogin } } = this.props;
+    console.log(tabIndex)
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -453,6 +455,7 @@ ProjectDetailPage.propTypes = {
   detail: PropTypes.shape({
     fetchingId: PropTypes.string,
     data: PropTypes.shape({}),
+    tabIndex: PropTypes.number,
   }),
   user: PropTypes.shape({
     isLogin: PropTypes.bool,
