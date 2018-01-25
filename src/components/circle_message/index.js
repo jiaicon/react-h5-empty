@@ -35,11 +35,18 @@ class CircleMessage extends React.Component {
   }
 
   render() {
-    const data = this.props.data;
+    const { data } = this.props;
+
+    if (!data) {
+      return null;
+    } else if (data && !data.length) {
+      return <div className="teams-empty-tip">目前还没有消息</div>;
+    }
+
     return (
       <div>
-        {data.data && data.data.list.length >= 1 ?
-          data.data.list.map(item => (
+        {
+          data.map(item => (
             <div className="components-circle-message-item-container" data-info={JSON.stringify(item)} onClick={this.entry}>
               <div className="components-circle-message-item">
                 <div className="components-circle-message-item-main">
@@ -60,9 +67,9 @@ class CircleMessage extends React.Component {
                   </div>
                   <div className="components-circle-message-item-info">
                     {
-                      item.feeling.photo.length >= 1 ?
+                      item.feeling.photo && item.feeling.photo.length >= 0 ?
                         <IMAGE src={item.feeling.photo[0]} resize={{ width: 60, height: 60 }} className="components-circle-message-item-info-img" />
-                      : item.comment
+                      : item.feeling.content
                     }
                   </div>
                 </div>
@@ -71,7 +78,7 @@ class CircleMessage extends React.Component {
             </div >
             ))
 
-          : null}
+          }
       </div>
 
     );

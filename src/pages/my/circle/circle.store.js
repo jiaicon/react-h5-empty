@@ -2,6 +2,56 @@
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 import { API_HOST } from '../../../utils/config';
+// 我的话题评论消息接口
+export const newCommentAction = data => ({
+  type: 'NEWCOMMENT_DATA',
+  meta: {
+    more: data.more,
+  },
+  payload: fetch(`/comment/new`, { method: 'GET', data, loading: !data.more }),
+});
+const newCommentReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  let data;
+  const { more } = action.meta || {};
+  const { data: payloadData } = action.payload || {};
+  switch (action.type) {
+    case 'NEWCOMMENT_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'NEWCOMMENT_DATA_FULFILLED':
+      if (!more || !state.data) {
+        data = payloadData;
+      } else {
+        data = {
+          list: state.data.list.concat(payloadData.list),
+          page: payloadData.page,
+        };
+      }
+
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+      };
+    case 'NEWCOMMENT_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
 // 我的话题列表接口
 // current_page: 页码【非必填】默认1
 // •page_size: 页长【非必填】 默认10
@@ -400,40 +450,6 @@ const deleteCommentReducer = (state = {
         data: action.payload.data,
       };
     case 'DELETECOMMENT_DATA_REJECTED':
-      return {
-        ...state,
-        failed: true,
-        fetching: false,
-      };
-    default:
-      return state;
-  }
-};
-// 我的话题评论消息接口
-export const newCommentAction = () => ({
-  type: 'NEWCOMMENT_DATA',
-  payload: fetch(`/comment/new?page_size=${1000}`, { method: 'GET' }),
-});
-const newCommentReducer = (state = {
-  fetching: false,
-  failed: false,
-  data: null,
-}, action) => {
-  switch (action.type) {
-    case 'NEWCOMMENT_DATA_PENDING':
-      return {
-        ...state,
-        fetching: true,
-        failed: false,
-      };
-    case 'NEWCOMMENT_DATA_FULFILLED':
-      return {
-        ...state,
-        fetching: false,
-        failed: false,
-        data: action.payload.data,
-      };
-    case 'NEWCOMMENT_DATA_REJECTED':
       return {
         ...state,
         failed: true,

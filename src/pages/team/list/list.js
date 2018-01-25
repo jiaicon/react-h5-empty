@@ -54,7 +54,6 @@ class TeamListPage extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
-    console.log(54646);
   }
 
   componentWillReceiveProps(nextprops) {
@@ -120,7 +119,6 @@ class TeamListPage extends React.Component {
   }
   handleScroll() {
     if (isWindowReachBottom(80)) {
-      console.log('滚动');
       this.requestList(true);
     }
   }
@@ -146,7 +144,6 @@ class TeamListPage extends React.Component {
 
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
-    console.log(showLoadingMore);
     let { type, category, target } = this.props.route.params;
 
 

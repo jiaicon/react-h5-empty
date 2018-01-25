@@ -14,7 +14,7 @@ import { bindActionCreators } from 'redux';
 import './circlelist.css';
 import MessageItem from '../../../../components/circle_message/index';
 import Link from '../../../../components/link/link';
-
+import { isWindowReachBottom } from '../../../../utils/funcs';
 
 import { newCommentAction } from '../circle.store';
 
@@ -27,29 +27,56 @@ class CircleList extends React.Component {
   }
 
   componentWillMount() {
-    this.props.newCommentAction();
+    this.requestList(false);
   }
-
   componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
   }
-
   componentWillReceiveProps() {
-
+  
   }
-
   componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+  handleScroll() {
+    if (isWindowReachBottom(50)) {
+      console.log('滚蛋了')
+      this.requestList(true);
+    }
+  }
+  requestList(more) {
+    const { newComment: { data: listData, fetching } } = this.props;
 
+    if (fetching ||
+      (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
+      return;
+    }
+
+    this.props.newCommentAction({
+      current_page: more ? listData.page.current_page + 1 : 1,
+      more,
+    });
   }
 
   render() {
-    const { newComment: data } = this.props;
-    if (!data.data) {
-      return null;
-    }
+    const { newComment:  { data: listData } } = this.props;
+    const showLoadingMore = listData &&
+    listData.page && (listData.page.current_page < listData.page.total_page);
+    console.log(showLoadingMore)
     return (
       <div className="page-teams-container">
-        <MessageItem data={data} />
 
+          <MessageItem data={listData ? listData.list : null} />
+        
+          {
+            showLoadingMore
+            ?
+              <div className="component-loading-more">
+                <img src="/images/icon_loading.png" alt="loading" />
+              正在加载
+            </div>
+            : null
+          }
       </div>
     );
   }
