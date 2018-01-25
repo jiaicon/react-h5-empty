@@ -30,6 +30,11 @@
     "chunk": "main"
   },
   {
+    "path": "/project/detail/:projectId/:lastId",
+    "page": "./pages/project/detail/detail",
+    "chunk": "main"
+  },
+  {
     "path": "/project/list",
     "page": "./pages/project/list/list",
     "chunk": "main"
@@ -61,6 +66,11 @@
   },
   {
     "path": "/team/detail/:teamId",
+    "page": "./pages/team/detail/detail",
+    "chunk": "main"
+  },
+  {
+    "path": "/team/detail/:teamId/:lastId",
     "page": "./pages/team/detail/detail",
     "chunk": "main"
   },

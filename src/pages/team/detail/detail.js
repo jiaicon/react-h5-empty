@@ -58,6 +58,7 @@ class TeamDetailPage extends React.Component {
     };
 
     this.teamId = props.route.params.teamId;
+    this.lastId = props.route.params.lastId;
     this.state = {
       showShareTip: false,
     };
@@ -99,9 +100,15 @@ class TeamDetailPage extends React.Component {
     };
   }
   componentWillMount() {
+    console.log(this.lastId)
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
-    this.props.saveTeamTabIndex(0);
+    if(this.lastId){
+      this.props.saveTeamTabIndex(2);
+    }else{
+      this.props.saveTeamTabIndex(0);
+    }
+    
     this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
   }
 

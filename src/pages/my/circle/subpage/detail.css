@@ -1,9 +1,20 @@
 .page-circleDetail-container{
-  position: relative;
+ 
+} 
+.page-circleDetail-last-container{
+  position: absolute;/* 绝对定位，进行内部滚动 */
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: atuo;/* 或者scroll */
+  -webkit-overflow-scrolling: touch;
+  
 }
 .page-circleDetail-remark-container{
   width: 100%;
   padding: 15px;
+  
 }
 .page-circleDetail-remark-main{
   width: 100%;

@@ -43,6 +43,7 @@ class ProjectDetailPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
+    this.lastId = props.route.params.lastId;
     this.state = {
       showShareTip: false,
     };
@@ -97,7 +98,12 @@ class ProjectDetailPage extends React.Component {
 
   componentWillMount() {
     this.props.requestProjectDetail(this.projectId);
-    this.props.saveProjectTabIndex(0);
+    if(this.lastId){
+      this.props.saveProjectTabIndex(1);
+    }else{
+      this.props.saveProjectTabIndex(0);
+    }
+    
     this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
   }
   onTabChange(idx) {

@@ -122,17 +122,23 @@ class CircleDetail extends React.Component {
   selected(e) {
     const info = JSON.parse(e.currentTarget.getAttribute('data-info'));
     const userInfo = info.user_info;
-    const feelId = info.feeling_id;
+    const feelId = info.id;
     const host = this.props.user;
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      this.comment.focus();
-      if (userInfo.id !== host.id) {
-        this.setState({
-          ...this.state,
-          user: userInfo.username,
-          feelId,
-        });
+      if(!this.state.user && !this.state.feelId ){
+        this.comment.focus();
+        if (userInfo.id !== host.id) {
+          this.setState({
+            ...this.state,
+            user: userInfo.username,
+            feelId,
+          });
+        }
+      }else if(this.state.user != userInfo.username || this.state.feelId != feelId ){
+        document.activeElement.blur();
+        this.comment.value = '';
+        this.setState({ ...this.state, user: null, feelId: null });
       }
     } else {
       this.setState({ ...this.state, showDialog: true });
@@ -146,6 +152,7 @@ class CircleDetail extends React.Component {
   }
   onTextChanged(evt) {
     evt.preventDefault();
+    this.setState({ ...this.state, user: null, feelId: null });
     const { user: { isLogin } } = this.props;
     const comment = this.comment.value.replace(/(^\s+)|(\s+$)/g, '');
     if (isLogin) {
@@ -225,7 +232,7 @@ class CircleDetail extends React.Component {
               ))) ?
                 <div>
                   <div className="page-circleDetail-remark-main-like-container">
-                    <div className="page-circleDetail-remark-main-comment-icon-container" onClick={this.onClearUser} > <div className="page-circleDetail-remark-main-comment-icon" /></div>
+                    <div className="page-circleDetail-remark-main-comment-icon-container" > <div className="page-circleDetail-remark-main-comment-icon" /></div>
                     <div className="page-circleDetail-remark-main-comment" >
                       {
                       this.props.feelingDetail &&
@@ -285,18 +292,7 @@ class CircleDetail extends React.Component {
 
         </div>
         <div className="page-circleDetail-takeup" />
-        <div className="page-circleDetail-remark-send-message-container">
-          <div className="line1px" />
-          <div className="page-circleDetail-remark-send-message-main" >
-            <textarea
-              placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`}
-              className="page-circleDetail-remark-send-message-main-text" maxLength="200"
-              ref={(c) => { this.comment = c; }} onBlur={this.onTextChanged} onFocus={this.isLogin}
-            />
-            <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>发表</div>
-
-          </div>
-        </div>
+       
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         只有登录的用户才能点赞和评论哦～
         </Dialog>
@@ -309,6 +305,7 @@ class CircleDetail extends React.Component {
   unOnParse(id) {
     this.props.unObserveAction(id);
   }
+  
   render() {
     const { feelingDetail: feelingData } = this.props;
     const currentId = parseInt(this.Id, 10);
@@ -319,6 +316,7 @@ class CircleDetail extends React.Component {
     }
     return (
       <div className="page-circleDetail-container">
+        <div className="page-circleDetail-last-container">
         {
           this.props.feelingDetail && this.props.feelingDetail.data ?
             <div>
@@ -331,6 +329,19 @@ class CircleDetail extends React.Component {
             </div>
           : null
         }
+        </div>
+        <div className="page-circleDetail-remark-send-message-container">
+          <div className="line1px" />
+          <div className="page-circleDetail-remark-send-message-main" >
+            <textarea
+              placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`}
+              className="page-circleDetail-remark-send-message-main-text" maxLength="200"
+              ref={(c) => { this.comment = c; }} onBlur={this.onTextChanged}  onFocus={this.isLogin}  
+            />
+            <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>发表</div>
+
+          </div>
+        </div>
       </div>
     );
   }

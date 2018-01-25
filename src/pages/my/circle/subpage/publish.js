@@ -52,10 +52,10 @@ class CirclePublish extends React.Component {
         history.replace('/my/circlevisits');
       } else if (this.typeId == 2) {
         // this.props.saveProjectTabIndex(2);
-        history.replace(`/project/detail/${this.relationId}`);
+        history.replace(`/project/detail/${this.relationId}/1`);
       } else if (this.typeId == 3) {
         // this.props.saveTeamTabIndex(3);
-        history.replace(`/team/detail/${this.relationId}`);
+        history.replace(`/team/detail/${this.relationId}/1`);
       } else if (this.typeId == 4) {
         history.replace('/my/circle');
       }
