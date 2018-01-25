@@ -118,12 +118,11 @@ class Circle extends React.Component {
   renderCommunity() {
     const showLoadingMore = this.props.myFeeling.data &&
     this.props.myFeeling.data.page && (this.props.myFeeling.data.page.current_page < this.props.myFeeling.data.page.total_page);
-    console.log(showLoadingMore);
     return (
       <div>
         {
 
-        this.props.myFeeling.data && this.props.myFeeling.data.list ?
+        this.props.myFeeling.data && this.props.myFeeling.data.list && this.props.myFeeling.data.list.length >0 ?
           <div>{
             this.props.myFeeling.data.list.map(listData => (
 

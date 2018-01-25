@@ -121,7 +121,7 @@ class CircleVists extends React.Component {
     return (
       <div>
         {
-          this.props.moreFeeling.data && this.props.moreFeeling.data.list ?
+          this.props.moreFeeling.data && this.props.moreFeeling.data.list && this.props.moreFeeling.data.list.length >0 ?
             <div>{
           this.props.moreFeeling.data.list.map(itm => (
             <CommunityItem
@@ -140,7 +140,11 @@ class CircleVists extends React.Component {
             正在加载
           </div> : null
         }
-            </div> : null
+            </div> : 
+            <div className="page-circle-rendercommunity-container">
+            <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
+            <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+          </div>
 
         }
       </div>

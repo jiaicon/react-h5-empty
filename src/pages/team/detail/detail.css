@@ -1,4 +1,7 @@
 .page-team-detail {
+  position: absolute;
+  top: 0;
+  left:0;
   width: 100%;
   height: 100%;
   background: #FAFAFA;
@@ -315,4 +318,23 @@
   background-image: url(/images/my/release.png);
   background-repeat: no-repeat;
   background-size: contain;
+}
+.page-circle-rendercommunity-container{
+  width: 150px;
+  height: 180px;
+
+  margin:110px auto;
+}
+.page-circle-rendercommunity-img{
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin-bottom: 10px;
+}
+.page-circle-rendercommunity-info{
+  font-size: 13px;
+  color: #666666;
+  letter-spacing: 0;
+  line-height: 20px;
+  text-align: center;
 }
