@@ -87,6 +87,7 @@ export default (state = {
   fetching: false,
   failed: false,
   fetchingId: null,
+  tabIndex: 0,
   data: null,
 }, action) => {
   switch (action.type) {

@@ -31,14 +31,16 @@ class Entry extends React.Component {
   }
 
   componentWillUnmount() {}
-
+  onLogin(){
+    history.replace('/my/login')
+  }
   render() {
     return (
       <div className="page-entry">
         <div className="page-entry-person" />
-        <Link to="/my/login">
+        <a onClick={this.onLogin}>
           <div className="page-entry-person-btn" />
-        </Link>
+        </a>
         <div className="page-line-box">
           <div className="line1px" style={{ width: '56px' }} />
           <p className="page-fonts">OR</p>
