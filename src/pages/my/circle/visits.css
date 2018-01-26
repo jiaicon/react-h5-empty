@@ -62,19 +62,19 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-.page-circle-rendercommunity-container{
+.page-circlevisits-container .page-circle-rendercommunity-container{
   width: 150px;
   height: 180px;
 
   margin:110px auto;
 }
-.page-circle-rendercommunity-img{
+.page-circlevisits-container .page-circle-rendercommunity-img{
   width: 150px;
   height: 150px;
   display: block;
   margin-bottom: 10px;
 }
-.page-circle-rendercommunity-info{
+.page-circlevisits-container .page-circle-rendercommunity-info{
   font-size: 13px;
   color: #666666;
   letter-spacing: 0;
