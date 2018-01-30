@@ -133,7 +133,7 @@ class SigninPage extends React.Component {
                   <div className="project-title">{next.project && next.project.name}</div>
                   <div className="project-duration">
                     <span>可获得志愿者时长</span>
-                    <span>{parseInt(next.reward_time, 10)}小时</span>
+                    <span>{parseFloat(next.reward_time)}小时</span>
                   </div>
                 </div>
               </li>
@@ -154,7 +154,7 @@ class SigninPage extends React.Component {
                   <div className="project-title">{record.project && record.project.name}</div>
                   <div className="project-duration">
                     <span>获得志愿者时长</span>
-                    <span>{parseInt(record.reward_time, 10)}小时</span>
+                    <span>{parseFloat(record.reward_time)}小时</span>
                   </div>
                 </div>
               </li>)
