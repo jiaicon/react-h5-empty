@@ -120,7 +120,7 @@ class CirclePublish extends React.Component {
     const editsthink = this.state.editsthink;
     const imagesArr = this.state.imagesArr;
     const data = {};
-    if (this.typeId === 4 || this.typeId === 1) {
+    if (this.typeId == 4 || this.typeId == 1) {
       data.type = 1;
       if (editsthink) {
         data.content = editsthink;
@@ -129,7 +129,7 @@ class CirclePublish extends React.Component {
         data.photo = imagesArr;
       }
       this.props.upFeelingAction(data);
-    } else {
+    } else if(this.typeId == 2 || this.typeId == 3){
       data.type = this.typeId;
       data.relation_id = this.relationId;
       if (editsthink) {
