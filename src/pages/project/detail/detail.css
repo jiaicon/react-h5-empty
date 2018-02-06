@@ -328,19 +328,18 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-.page-project-detail .page-circle-rendercommunity-container{
+/* .page-project-detail > .page-circle-rendercommunity-container-main{
   width: 150px;
   height: 180px;
-
   margin:110px auto;
-}
+} */
 .page-project-detail .page-circle-rendercommunity-img{
   width: 150px;
   height: 150px;
   display: block;
-  margin-bottom: 10px;
+  margin: 110px auto 10px;
 }
-.page-project-detail .page-circle-rendercommunity-info{
+.page-project-detail  .page-circle-rendercommunity-info{
   font-size: 13px;
   color: #666666;
   letter-spacing: 0;

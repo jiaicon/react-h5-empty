@@ -422,7 +422,7 @@ class TeamDetailPage extends React.Component {
               onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
             />
           )) : 
-          <div className="page-circle-rendercommunity-container">
+          <div className="page-circle-rendercommunity-no-info-container">
             <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
             <div className="page-circle-rendercommunity-info">还没有动态信息</div>
           </div>
@@ -439,7 +439,6 @@ class TeamDetailPage extends React.Component {
 
   render() {
     const { detail: { team: detailData, tabTeamIndex } } = this.props;
-    console.log(tabTeamIndex)
     const currentTeamId = parseInt(this.teamId, 10);
     const dataTeamId = detailData ? detailData.id : '';
 
