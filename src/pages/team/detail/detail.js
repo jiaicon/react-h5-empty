@@ -99,19 +99,22 @@ class TeamDetailPage extends React.Component {
     };
   }
   componentWillMount() {
-    const { detail: { team: detailData, tabTeamIndex } } = this.props;
-   
- 
+    const { detail: { team: detailData, tabTeamIndex, lastTeamId } } = this.props;
+
+
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
-    if(tabTeamIndex){
-      this.props.saveTeamTabIndex(tabTeamIndex);
-    }else{
-      this.props.saveTeamTabIndex(0);
+    if (lastTeamId === 0) {
+      this.props.saveTeamTabIndex(0, this.teamId);
+    } else if (lastTeamId !== this.teamId) {
+      this.props.saveTeamTabIndex(0, this.teamId);
+    } else if (lastTeamId === this.teamId) {
+      this.props.saveTeamTabIndex(tabTeamIndex, this.teamId);
     }
-    
+
+
     this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
-  
+
   }
 
   componentDidMount() {
@@ -416,12 +419,12 @@ class TeamDetailPage extends React.Component {
     return (
       <div>
         {
-          this.props.feeling.data && this.props.feeling.data.list && this.props.feeling.data.list.length>0 && this.props.feeling.type == 'team' ? this.props.feeling.data.list.map(listData => (
+          this.props.feeling.data && this.props.feeling.data.list && this.props.feeling.data.list.length > 0 && this.props.feeling.type == 'team' ? this.props.feeling.data.list.map(listData => (
             <CommunityItem
               data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
               onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
             />
-          )) : 
+          )) :
           <div className="page-circle-rendercommunity-no-info-container">
             <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
             <div className="page-circle-rendercommunity-info">还没有动态信息</div>

@@ -97,15 +97,22 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillMount() {
-    const { detail: { data: detailData ,tabIndex }, user: { isLogin } } = this.props;
+    const { detail: { data: detailData ,tabIndex,lastProjectId }, user: { isLogin } } = this.props;
 
       this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
       this.props.requestProjectDetail(this.projectId);
-      if(tabIndex){
-        this.props.saveProjectTabIndex(tabIndex);
-      }else{
-        this.props.saveProjectTabIndex(0);
+      if (lastProjectId === 0) {
+        this.props.saveProjectTabIndex(0, this.projectId);
+      } else if (lastProjectId !== this.projectId) {
+        this.props.saveProjectTabIndex(0, this.projectId);
+      } else if (lastProjectId === this.projectId) {
+        this.props.saveProjectTabIndex(tabIndex, this.projectId);
       }
+      // if(tabIndex){
+      //   this.props.saveProjectTabIndex(tabIndex);
+      // }else{
+      //   this.props.saveProjectTabIndex(0);
+      // }
   }
     
 
@@ -117,7 +124,7 @@ class ProjectDetailPage extends React.Component {
   componentWillReceiveProps(nextProps) {
     const newProjectId = nextProps.route.params.projectId;
     if (newProjectId!== this.projectId) {
-      this.teamId = newProjectId;
+      this.projectId= newProjectId;
       this.props.requestProjectDetail(this.projectId);
     }
     const detailData = nextProps.detail.data;
@@ -139,7 +146,7 @@ class ProjectDetailPage extends React.Component {
     const { deleteFeeling: LdeleteFeeling } = this.props;
     const { deleteFeeling: NdeleteFeeling } = nextProps;
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
-      history.replace(`/team/detail/${this.teamId}`);
+      history.replace(`/project/detail/${this.projectId}`);
     }
 
     const { observe: Lobserve, unObserve: LunObserve } = this.props;
