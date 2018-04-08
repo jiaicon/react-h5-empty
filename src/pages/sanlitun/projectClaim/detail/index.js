@@ -189,13 +189,15 @@ class projectClaimDetail extends React.Component {
         <div className="page-claim-detail">
           <div className="header">
             {this.renderSlick()}
-            <a className="header-addition">
-              <div className="team-info">
-                <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
-                <span style={{ marginLeft: '10px' }}>{detailData.team_name}</span>
-              </div>
+            <div>
+              <a className="header-addition">
+                <div className="team-info">
+                  <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
+                  <span style={{ marginLeft: '10px' }}>{detailData.team_name}</span>
+                </div>
 
-            </a>
+              </a>
+            </div>
           </div>
           <div className="body">
             <div className="project-name">

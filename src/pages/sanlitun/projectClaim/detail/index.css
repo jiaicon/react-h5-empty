@@ -18,6 +18,9 @@
 
 .page-claim-detail .header {
   background: #fff;
+
+  width: 100%;
+  height: 290px;
 }
 /*
 .page-claim-detail .header .project-photo {
@@ -33,6 +36,8 @@
 }
 
 .page-claim-detail .slick-container-empty {
+  width: 100%;
+  height: 220px;
   background: url(/images/default_banner.png) no-repeat top left;
   background-size: cover;
   background-position: center;
@@ -53,6 +58,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  height: 70px;
 }
 
 .page-claim-detail .header .header-addition .team-info{
