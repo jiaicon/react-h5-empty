@@ -87,7 +87,7 @@ class projectClaimDetail extends React.Component {
   }
   componentDidMount() {
     const content = this.contentDom;
-    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 58) {
       this.setState({
         ...this.state,
         descHeight: content.offsetHeight,
@@ -97,7 +97,7 @@ class projectClaimDetail extends React.Component {
   }
   componentDidUpdate() {
     const content = this.contentDom;
-    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 58) {
       this.setState({
         ...this.state,
         descHeight: content.offsetHeight,
