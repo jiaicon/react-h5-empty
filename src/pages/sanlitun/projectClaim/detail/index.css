@@ -53,8 +53,8 @@
 .page-claim-detail .body {
   display: block;
 }
-.page-claim-detail .body  .header-addition {
-  padding: 20px;
+.page-claim-detail .body .header-addition {
+  padding: 20px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -271,8 +271,8 @@
   color: #333333;
   letter-spacing: 0;
   line-height: 20px;
-
   width: 100%;
+  text-indent: 2em;
 }
 .page-claim-detail .body .project-description > p:nth-of-type(1).initail{
   font-size: 14px;
@@ -294,9 +294,9 @@
   font-size: 14px;
   color: #333333;
   letter-spacing: 0;
-
+  line-height: 20px;
   width: 100%;
-
+  text-indent: 2em;
 }
 .page-claim-detail .body .project-teamlist{
   background: #fff;
