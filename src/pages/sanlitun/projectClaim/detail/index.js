@@ -87,7 +87,7 @@ class projectClaimDetail extends React.Component {
   }
   componentDidMount() {
     const content = this.contentDom;
-    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 58) {
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
       this.setState({
         ...this.state,
         descHeight: content.offsetHeight,
@@ -97,7 +97,7 @@ class projectClaimDetail extends React.Component {
   }
   componentDidUpdate() {
     const content = this.contentDom;
-    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 58) {
+    if (content && content.offsetHeight !== this.state.descHeight && content.offsetHeight >= 62) {
       this.setState({
         ...this.state,
         descHeight: content.offsetHeight,
@@ -189,17 +189,15 @@ class projectClaimDetail extends React.Component {
         <div className="page-claim-detail">
           <div className="header">
             {this.renderSlick()}
-            <div>
-              <a className="header-addition">
-                <div className="team-info">
-                  <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
-                  <span style={{ marginLeft: '10px' }}>{detailData.team_name}</span>
-                </div>
-
-              </a>
-            </div>
           </div>
           <div className="body">
+            <div className="header-addition">
+              <div className="team-info">
+                <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
+                <span style={{ marginLeft: '10px' }}>{detailData.team_name}</span>
+              </div>
+
+            </div>
             <div className="project-name">
               {detailData.name}
             </div>
