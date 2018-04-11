@@ -1,7 +1,7 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-
+import Alert from 'react-s-alert';
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -192,12 +192,19 @@ class TeamDetailPage extends React.Component {
   handleActionClick(action) {
     const { teamId } = this;
     const { detail: { team: detailData }, user } = this.props;
+    // in_blacklist:[int]
 
+    // 0: 不在
+    // 1: 在
     return () => {
-      if (action === 'join') {
-        this.props.joinTeam(teamId, detailData);
-      } else if (action === 'quit') {
-        this.setState({ ...this.state, showDialog: true });
+      if (user.in_blacklist === 1) {
+        Alert.warning('对不起，您已被列入黑名单，不能参加项目请联系客服');
+      } else if (user.in_blacklist === 0) {
+        if (action === 'join') {
+          this.props.joinTeam(teamId, detailData);
+        } else if (action === 'quit') {
+          this.setState({ ...this.state, showDialog: true });
+        }
       }
     };
   }
