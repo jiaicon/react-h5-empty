@@ -114,7 +114,6 @@ class TeamDetailPage extends React.Component {
 
 
     this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
-
   }
 
   componentDidMount() {
@@ -192,7 +191,7 @@ class TeamDetailPage extends React.Component {
 
   handleActionClick(action) {
     const { teamId } = this;
-    const { detail: { team: detailData } } = this.props;
+    const { detail: { team: detailData }, user } = this.props;
 
     return () => {
       if (action === 'join') {
