@@ -73,10 +73,19 @@ class Verify extends React.Component {
     this.props.addressDataAction(0);
     console.log(this.props.route);
     const params = this.props.route.params;
+    console.log(params);
     if (params.projectId && !isNaN(Number(params.projectId))) {
       const projectId = params.projectId;
       this.setState({
+        ...this.state,
         projectId,
+      });
+    }
+    if (params.teamId && !isNaN(Number(params.teamId))) {
+      const teamId = params.teamId;
+      this.setState({
+        ...this.state,
+        teamId,
       });
     }
   }
@@ -98,6 +107,8 @@ class Verify extends React.Component {
       // TODO 如果从项目跳过来的需要跳回去
       if (this.state.projectId) {
         history.replace(`/project/detail/${this.state.projectId}`);
+      } else if (this.state.teamId) {
+        history.replace(`/team/detail/${this.state.projectId}`);
       } else {
         history.replace('/my/profile/detail/user');
       }

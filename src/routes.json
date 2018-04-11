@@ -170,6 +170,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/verify/team/:teamId",
+    "page": "./pages/my/profile/verify",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/edit",
     "page": "./pages/my/profile/edit",
     "chunk": "main"
