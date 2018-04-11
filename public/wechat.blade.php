@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Tue Apr 10 2018 18:15:00 GMT+0800 (中国标准时间)">
+  <meta name="last-build-time" content="Wed Apr 11 2018 11:21:18 GMT+0800 (中国标准时间)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -28,6 +28,9 @@
   <script>
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {!! $jsConfig !!}; // 或者 '{}'
+
+
+    window.apiHost={!! $apiHost !!};
 
     // server 端下发 token 以及 uniqueKey
     window.token = '{{$token}}';
@@ -84,7 +87,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-  <script src="/dist/main.0e5b3afa56b244495c65.js"></script>
+  <script src="/dist/main.2b767bc77e5a0c25ff56.js"></script>
 </body>
 
 </html>
