@@ -212,7 +212,7 @@ class TeamDetailPage extends React.Component {
             this.setState({ ...this.state, showDialog: true });
           }
         // 要求实名切用户未实名过，通过ID判断
-        } else if (realRegister == 1 && user.isLogin && user.id_number) {
+        } else if (realRegister == 1 && user.isLogin && !user.id_number) {
           history.replace(`/my/profile/verify/team/${this.teamId}`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {
