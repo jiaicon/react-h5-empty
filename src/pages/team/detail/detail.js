@@ -5,7 +5,7 @@ import autoBind from 'react-autobind';
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -192,12 +192,30 @@ class TeamDetailPage extends React.Component {
   handleActionClick(action) {
     const { teamId } = this;
     const { detail: { team: detailData }, user } = this.props;
-
+    const realRegister = window.orgInfo.real_name_register;
+    console.log(realRegister);
+    console.log(user.isLogin);
+    console.log(user.in_blacklist);
+    // 0不在，1在
     return () => {
-      if (action === 'join') {
-        this.props.joinTeam(teamId, detailData);
-      } else if (action === 'quit') {
-        this.setState({ ...this.state, showDialog: true });
+      if (!user.isLogin) {
+        if (action === 'join') {
+          this.props.joinTeam(teamId, detailData);
+        } else if (action === 'quit') {
+          this.setState({ ...this.state, showDialog: true });
+        }
+      } else if (user.isLogin && user.in_blacklist == 0) {
+        if (realRegister == 0) {
+          if (action === 'join') {
+            this.props.joinTeam(teamId, detailData);
+          } else if (action === 'quit') {
+            this.setState({ ...this.state, showDialog: true });
+          }
+        } else if (realRegister == 1) {
+          history.replace('/my/profile/verify');
+        }
+      } else if (user.isLogin && user.in_blacklist == 1) {
+        Alert.warning('您已被添加到黑名单，请联系客服');
       }
     };
   }
