@@ -6,7 +6,7 @@ import {
 
 import fetch from '../utils/fetch';
 import { setToken, getToken } from '../utils/funcs';
-
+import history from '../pages/history';
 // 添加异步任务，会触发 loading
 export const addAysncTask = () => ({ type: 'ADD_ASYNC_TASK', [pendingTask]: begin });
 
@@ -52,7 +52,8 @@ export const requestUserInfo = noRedirect => (dispatch) => {
 export function userReducer(state = { isLogin: !!getToken() }, action) {
   const payload = action.payload;
   const data = payload && payload.data;
-
+  const realRegister = window.orgInfo.real_name_register;
+   // realRegister 机构实名 1 要求  0 否
   switch (action.type) {
     case USERINFO_FULFILLED:
       if (payload.error_code) {
@@ -62,9 +63,14 @@ export function userReducer(state = { isLogin: !!getToken() }, action) {
       if (data.token) {
         setToken(data.token);
       }
-
+      if (realRegister && !action.payload.data.id_number) {
+        history.replace('/my/profile/verify');
+      }
       return { ...action.payload.data, isLogin: true };
     case USERINFO_UPDATED:
+      if (realRegister && !action.payload.userInfo.id_number) {
+        history.replace('/my/profile/verify');
+      }
       return {
         ...state,
         ...action.payload.userInfo,
