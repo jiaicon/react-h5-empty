@@ -196,7 +196,7 @@ class HomePage extends React.Component {
                     <img src="/images/sanlitun/feedback2.jpg" alt="回馈展示" />
                   </Link>
                   <Link to={`http://${location.host}/tmall`}>
-                    <img src="/images/sanlitun/feedback3.jpg" alt="回馈展示" />
+                    <img src="/images/sanlitun/feedback4.png" alt="回馈展示" />
                   </Link>
                 </div>
                 <div style={{ width: '100%', height: '10px' }} />
