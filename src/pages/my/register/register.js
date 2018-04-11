@@ -38,6 +38,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.realRegister = window.orgInfo.real_name_register;
     this.state = {
       captchaUrl: `${API_HOST}/api/captcha`,
       buttonString: '获取验证码',
@@ -75,15 +76,23 @@ class Register extends React.Component {
     });
   }
   onSubmit() {
-    const name = this.state.name;
+    // realRegister 机构实名 1 要求  0 否
+    if (!this.realRegister) {
+      const name = this.state.name;
+    }
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const password = this.state.password;
     const photo = this.state.photo;
-    if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
+    if (!this.realRegister) {
+      if (checkEmpty(name, '姓名')) {
+        return;
+      }
+    }
+    if (checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
       return;
     }
-    if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
+    if (!this.realRegister && !/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
       Alert.warning('请输入正确的账号');
       return;
     }
@@ -92,7 +101,10 @@ class Register extends React.Component {
       return;
     }
     const data = {};
-    data.username = name;
+    if (!this.realRegister) {
+      data.username = name;
+    }
+
     data.pwd = password;
     data.phone = phone;
     data.verify_code = verifyCode;
@@ -217,13 +229,16 @@ class Register extends React.Component {
         </div>
         <div className="page-register-photo-fonts">上传头像(选填)</div>
         <ul>
-          <li>
-            <div className="page-register-item">
-              <span className="page-register-fonts">账号</span>
-              <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
-            </div>
-            <div className="line1px" />
-          </li>
+          {this.realRegister
+            ? null :
+            <li>
+              <div className="page-register-item">
+                <span className="page-register-fonts">账号</span>
+                <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
+              </div>
+              <div className="line1px" />
+            </li>
+          }
           <li>
             <div className="page-register-item">
               <span className="page-register-fonts">手机号</span>
