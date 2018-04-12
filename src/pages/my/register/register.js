@@ -178,10 +178,8 @@ class Register extends React.Component {
   }
   // 上传照片
   onAvatarClick() {
-    console.log('11111111111111111111111111');
     uploadToWX({
       success: (urls) => {
-        console.log('图片上传成功:', urls);
         this.setState({
           ...this.state,
           photo: urls[0],
@@ -190,29 +188,6 @@ class Register extends React.Component {
       },
     });
   }
-  // onFileSelect(evt) {
-  //   const file = evt.target.files[0];
-  //   if (file) {
-  //     const fd = new FormData();
-  //     fd.append('file', file);
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.onreadystatechange = () => {
-  //       if (xhr.readyState === 4 && xhr.status === 200) {
-  //         const res = JSON.parse(xhr.responseText);
-  //         if (!res.error_code) {
-  //           this.setState({
-  //             ...this.state,
-  //             test: res.data.url,
-  //           });
-  //         } else {
-  //           Alert.warning(`图片上传失败：${res.error_message}`);
-  //         }
-  //       }
-  //     };
-  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-  //     xhr.send(fd);
-  //   }
-  // }
   refreshCaptcha() {
     this.setState({
       ...this.state,
