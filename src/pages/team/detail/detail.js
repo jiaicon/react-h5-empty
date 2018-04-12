@@ -1,7 +1,7 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-
+import Alert from 'react-s-alert';
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -114,7 +114,6 @@ class TeamDetailPage extends React.Component {
 
 
     this.props.feelingAction({ type: 3, relation_id: this.teamId, page_size: 1000 });
-
   }
 
   componentDidMount() {
@@ -192,14 +191,19 @@ class TeamDetailPage extends React.Component {
 
   handleActionClick(action) {
     const { teamId } = this;
-    const { detail: { team: detailData } } = this.props;
+    const { detail: { team: detailData }, user } = this.props;
+    // in_blacklist:[int]
 
+    // 0: 不在
+    // 1: 在
     return () => {
-      if (action === 'join') {
-        this.props.joinTeam(teamId, detailData);
-      } else if (action === 'quit') {
-        this.setState({ ...this.state, showDialog: true });
-      }
+      
+        if (action === 'join') {
+          this.props.joinTeam(teamId, detailData);
+        } else if (action === 'quit') {
+          this.setState({ ...this.state, showDialog: true });
+        }
+      
     };
   }
   renderSlick() {
