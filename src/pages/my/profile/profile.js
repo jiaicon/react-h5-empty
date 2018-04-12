@@ -38,6 +38,7 @@ class Profile extends React.Component {
     super(props);
     autoBind(this);
     this.userId = props.route.params.userId;
+    this.realRegister = window.orgInfo.real_name_register;
     this.state = ({
       photo: '',
 
@@ -166,7 +167,6 @@ class Profile extends React.Component {
 
   renderHost() {
     const user = this.props.user;
-    const phone = 123;
     return (
       <div className="page-profile">
         <div>
@@ -181,6 +181,7 @@ class Profile extends React.Component {
             </div>
           </div>
           <div className="line1px" />
+          {this.realRegister ? null :
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">账号</div>
             <div className="page-profile-edit-box">
@@ -188,7 +189,11 @@ class Profile extends React.Component {
               <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
-          <div className="line1px" />
+          }
+          {
+           this.realRegister ? null : <div className="line1px" />
+          }
+
           <Link to="/my/profile/bind/phone">
             <div className="page-profile-header-box">
               <div className="page-profile-fonts">手机号</div>
@@ -293,6 +298,7 @@ class Profile extends React.Component {
             </div>
           </div>
           <div className="line1px" />
+          {this.realRegister ? null :
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">账号</div>
             <div className="page-profile-edit-box">
@@ -300,7 +306,11 @@ class Profile extends React.Component {
               <div className="page-profile-initial-fonts-take-up" />
             </div>
           </div>
-          <div className="line1px" />
+          }
+          {
+            this.realRegister ? null : <div className="line1px" />
+          }
+
           <div className="page-profile-header-box">
             <div className="page-profile-fonts">志愿者编号</div>
             <div className="page-profile-edit-box">
