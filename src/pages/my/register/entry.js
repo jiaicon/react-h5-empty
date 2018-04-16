@@ -20,7 +20,6 @@ class Entry extends React.Component {
 
   componentWillMount() {
 
-
   }
 
   componentDidMount() {

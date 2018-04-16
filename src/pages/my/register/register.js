@@ -46,7 +46,12 @@ class Register extends React.Component {
     };
   }
 
-
+  componentWillMount() {
+    console.log(window.orgInfo.real_name_register)
+    if(window.orgInfo.real_name_register && window.orgInfo.real_name_register) {
+      
+    }
+  }
   componentDidMount() {
 
   }
