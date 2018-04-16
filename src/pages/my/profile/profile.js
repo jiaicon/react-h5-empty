@@ -398,67 +398,6 @@ class Profile extends React.Component {
         );
     }
 
-    renderNewView() {
-        const otherFamily = this.props.otherfamily;
-        if (!otherFamily.data) {
-            return null;
-        }
-        return (
-            <div className="page-profile-header-detail">
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">姓名</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.real_name}</div>
-                </div>
-                <div className="line1px"/>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">身份证号</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.id_number}</div>
-                </div>
-                <div className="line1px"/>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">民族</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.nation}</div>
-                </div>
-                <div className="page-profile-header-line">现居住地址</div>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">省份</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.province_name}</div>
-                </div>
-                <div className="line1px"/>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">城市</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.city_name}</div>
-                </div>
-                <div className="line1px"/>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">区县</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.county_name}</div>
-                </div>
-                <div className="line1px"/>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">详细地址</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.addr}</div>
-                </div>
-                <div className="page-profile-header-cut"></div>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">密码</div>
-                    <div className="page-profile-edit-right-box">
-                        <div>{otherFamily.data.pwd?otherFamily.data.pwd:''}</div>
-                    </div>
-                </div>
-                <div className="line1px"/>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">关系</div>
-                    <div className="page-profile-edit-right-box">
-                        <div>{otherFamily.data.relation}</div>
-                        <div className="page-profile-edit-icon"/>
-                    </div>
-                </div>
-                <div className="page-profile-edit-btn">修改</div>
-            </div>
-        )
-    }
-
     render() {
         const userId = this.userId;
 
@@ -466,7 +405,6 @@ class Profile extends React.Component {
             <div>
                 {
                     userId === 'user' ? this.renderHost() : this.renderOther()
-                    // this.renderNewView()
                 }
             </div>
         );
