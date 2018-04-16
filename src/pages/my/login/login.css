@@ -49,3 +49,8 @@
   font-size: 16px;
   color: #666666;
 }
+.page-login-register-btn {
+  background-color: #ffffff;
+  border: 1px solid #C7EAFD;
+  margin-top: 20px;
+}

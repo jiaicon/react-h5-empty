@@ -1,0 +1,44 @@
+.pages-add-bind-family {
+    padding: 40px 40px 0;
+    box-sizing: border-box;
+}
+.pages-add-bind-family-box {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: #999999;
+    font-size: 15px;
+}
+.pages-add-bind-family-ipt {
+    margin-left: 17px;
+    flex: 1;
+}
+.pages-add-bind-family-ipt input {
+    width: 100%;
+    outline: none;
+    border: none;
+}
+.pages-add-bind-family-ipt label{
+    width: 100%;
+}
+.pages-add-bind-family-ipt select {
+    width: 100%;
+    background: url('/images/my/more.png') no-repeat scroll right center transparent;
+    background-size: 20px 20px;
+    padding-right: 14px;
+    outline: none;
+    text-align: left;
+    padding-left: 15px;
+}
+.pages-add-bind-family-btn {
+    width: 300px;
+    height: 50px;
+    background-color: #C7EAFD;
+    border-radius: 200px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    color: #666666;
+    margin-top: 40px;
+}

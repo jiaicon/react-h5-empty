@@ -256,6 +256,9 @@ class Register extends React.Component {
           </li>
         </ul>
         <div className="page-register-submmit" onClick={this.onSubmit}>确认提交</div>
+        <Link to="/my/login">
+          <div className="page-register-login">已有账号，前往登录</div>
+        </Link>
         <div className="page-register-agree">
           提交代表已阅读
           <Link to="/my/agree">

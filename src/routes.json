@@ -145,6 +145,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/family/add/newfamily",
+    "page": "./pages/my/family/add",
+    "chunk": "main"
+  },
+  {
     "path": "/my/messages",
     "page": "./pages/my/messages/messages",
     "chunk": "main"

@@ -99,3 +99,14 @@
   width: 65px;
   text-align: center;
 }
+.page-register-login {
+  width: 300px;
+  height: 50px;
+  border: 1px solid #C7EAFD;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 16px;
+  color: #666666;
+  margin-top: 20px;
+}

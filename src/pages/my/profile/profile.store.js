@@ -146,6 +146,11 @@ const personInfoReducer = (state = {
   }
 };
 // 3级
+const a = function (id) {
+  return ({
+
+  })
+}
 export const addressDataAction = id => ({
   type: 'ADDRESS_DATA',
   payload: fetch(`${API_HOST}/api/city?parent_id=${id}`, { method: 'GET' }),

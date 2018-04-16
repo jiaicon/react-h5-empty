@@ -1,4 +1,6 @@
-
+body {
+  background-color: #F9F9FB;
+}
 .page-profile{
   position: absolute;
   top: 0;
@@ -24,6 +26,7 @@
   padding: 0 15px;
   display: flex;
   flex-direction: reverse;
+  background-color: #FFFFFF;
   justify-content: space-between;
   align-items: center;
 }
@@ -137,4 +140,35 @@
 }
 .page-profile-fonts{
   width: 80px;
+}
+.page-profile-edit-right-box {
+  flex: 1;
+  text-align: left;
+  color: #999999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-profile-header-line {
+  height: 30px;
+  color: #666666;
+  font-size: 13px;
+  padding: 0 15px;
+  line-height: 30px;
+  background-color: #F8F8F8;
+}
+.page-profile-header-cut {
+  height: 10px;
+  background-color: #F8F8F8;
+}
+.page-profile-edit-btn {
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  margin: 40px auto 69px;
+  border-radius: 200px;
+  background-color: #C7EAFD;
+}
+.page-profile-header-detail {
 }

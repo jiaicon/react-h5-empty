@@ -261,10 +261,10 @@ HomePage.propTypes = {
 };
 
 export default connect(
-  state => ({
+  state => ({   //store根节点
     home: state.home.home,
     user: state.user,
     area: state.home.getAreaCity,
-  }),
+  }),    //
   dispatch => bindActionCreators({ requestHomeData, saveCity, getAreaCity }, dispatch),
 )(HomePage);

@@ -90,3 +90,29 @@
 .page-add-checkbox{
   outline: none;
 }
+
+.page-add-family-tab-ul-container {
+  width: 100%;
+}
+.page-add-family-tab-ul-container {
+  height: 53px;
+  width: 100%;
+  display: flex;
+}
+.page-add-family-tab-ul-container li {
+  flex: 1;
+  text-align: center;
+  line-height: 53px;
+  color: #A1A1A1;
+  font-size: 15px;
+  border-bottom: 3px solid #EBEBEB;
+}
+.page-add-family-tab-ul-container li.active{
+  border-bottom: 3px solid #6AC6F8!important;
+}
+.active a {
+  color: #6AC6F8;
+}
+.page-add-family-tab-content {
+
+}

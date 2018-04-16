@@ -15,9 +15,12 @@ import history from '../../history';
 import Link from '../../../components/link/link';
 import './login.css';
 import { loginAction } from './login.store';
+import Register from './../register/register';
 import Avatar from '../../../components/avatar/avatar';
 
-
+const TAB_URL_MAPS = {
+  '/my/register': <Register />
+};
 class Login extends React.Component {
 
   constructor(props) {
@@ -89,6 +92,11 @@ class Login extends React.Component {
           </Link>
         </div>
         <div className="page-login-entry " onClick={this.submit}>登录</div>
+        {
+            <Link to="/my/register">
+              <div className="page-login-entry page-login-register-btn">没有账号，前往注册</div>
+            </Link>
+        }
       </div>
     );
   }

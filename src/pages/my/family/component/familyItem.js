@@ -37,7 +37,7 @@ class FamilyItem extends React.Component {
           </div>
           <div className="page-family-item-name-container">
             <div className="page-family-item-name">{item.real_name ? item.real_name : '未绑定个人名字'}</div>
-            <div className="page-family-item-account">账号：{item.username}</div>
+            <div className="page-family-item-account">关系：{item.relation}</div>
           </div>
           <div className="page-family-item-time-container">
             <p>志愿时长：<span>{item.reward_time}小时</span></p>

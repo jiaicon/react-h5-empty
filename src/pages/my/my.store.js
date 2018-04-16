@@ -298,6 +298,74 @@ const addFamilyReducer = (state = {
       return state;
   }
 };
+// 增加家庭成员  新的addFamilyAction
+export const addFamilyPeople = data => ({
+  type: 'ADDFAMILY_PEOPLE',
+  payload: fetch('/myfamily', { data }, { method: 'POST' })
+});
+const addFamilyPeopleReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'ADDFAMILY_PEOPLE_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'ADDFAMILY_PEOPLE_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+      };
+    case 'ADDFAMILY_PEOPLE_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+//绑定家庭成员
+export const bindFamilyFun = (data) => ({
+  type: 'BIND_FAMILY',
+  payload: fetch('/myfamily/bind',{data}, {method: 'POST'})
+});
+const bindFamilyReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'BIND_FAMILY_PENDING': 
+          return {
+            ...state,
+            fetching: true,
+            failed: false,
+          }
+    case 'BIND_FAMILY_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload
+      };
+    case 'ADDFAMILY_PEOPLE_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false
+      };
+    default:
+      return state;
+  }
+};
 // 我的消息
 export const messagesAction = () => ({
   type: 'MESSAGES_DATA',
@@ -558,11 +626,13 @@ const reducer = combineReducers({
   correct: correctUserInfoReducer,
   family: familyReducer,
   addFamily: addFamilyReducer,
+  addPeople: addFamilyPeopleReducer,
+  bindFamily: bindFamilyReducer,
   collect: collectReducer,
   apply: applyReducer,
   postapply: postApplyReducer,
   projectapply: projectapplyReducer,
   deletefamily: deleteFamilyReducer,
-  score: scoreReducer,
+  score: scoreReducer
 });
 export default reducer;
