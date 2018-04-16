@@ -197,15 +197,13 @@ class TeamDetailPage extends React.Component {
     // 0: 不在
     // 1: 在
     return () => {
-      if (user.in_blacklist === 1) {
-        Alert.warning('对不起，您已被列入黑名单，不能参加项目请联系客服');
-      } else if (user.in_blacklist === 0) {
+      
         if (action === 'join') {
           this.props.joinTeam(teamId, detailData);
         } else if (action === 'quit') {
           this.setState({ ...this.state, showDialog: true });
         }
-      }
+      
     };
   }
   renderSlick() {
