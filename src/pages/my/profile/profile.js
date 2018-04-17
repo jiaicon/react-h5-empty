@@ -12,10 +12,14 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cx from 'classnames';
+import { Dialog } from 'react-weui';
+import history from '../../history';
+import 'weui/dist/style/weui.css';
+import 'react-weui/build/packages/react-weui.css';
 import Alert from 'react-s-alert';
 import { requestUserInfo } from '../../../stores/common';
 import { imporvePersonInfo, otherFamilyAction } from './profile.store';
-import {} from '../my.store';
+import { alertFamilyPeopleInfo } from './../my.store';
 import Link from '../../../components/link/link';
 import Avatar from '../../../components/avatar/avatar';
 import uploadToWX from '../../../utils/wxupload';
@@ -31,7 +35,22 @@ function sexName(sex) {
 
     return '未知';
 }
+const relations = [{name: '兄弟', id: 0},{name: '姐妹',id: 1},{name: '父子',id: 2},{name: '母女',id: 3}];
+function isChoose(value, label) {
+    if (!value || !value.length) {
+        Alert.warning(`请选择${label}`);
+        return true;
+    }
 
+    return false;
+}
+function checkEmpty(value, label) {
+    if (!value || !value.length) {
+        Alert.warning(`请填写${label}`);
+        return true;
+    }
+    return false;
+}
 class Profile extends React.Component {
 
     constructor(props) {
@@ -41,8 +60,27 @@ class Profile extends React.Component {
         this.realRegister = window.orgInfo.real_name_register;
         this.state = ({
             photo: '',
-
+            // relations: this.props.,
+            showDialog: false
         });
+        this.dialog = {
+            title: '提示',
+            buttons: [
+                {
+                    type: 'default',
+                    label: '取消',
+                    onClick: () => this.setState({ ...this.state, showDialog: false })
+                },
+                {
+                    type: 'primary',
+                    label: '确认',
+                    onClick: () => {
+                        this.setState({ ...this.state, showDialog: false });
+                        this.alertFamilyPeopleProfile();
+                    }
+                }
+            ]
+        };
     }
 
     componentWillMount() {
@@ -59,10 +97,6 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-    }
-
-    componentWillReceiveProps() {
-
     }
 
     componentWillUnmount() {}
@@ -251,7 +285,6 @@ class Profile extends React.Component {
                             <div className="page-profile-fonts-view">{user.slogan}</div>
                         </Link>
                     </div>
-                    <div className="page-profile-take-up" />
                 </div>
                 {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
                 <div
@@ -395,6 +428,52 @@ class Profile extends React.Component {
             </div>
         );
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(this.props, nextProps)
+        const {failed: tFailed, fetching: tFetch} = this.props.alertPeopleInfo;
+        const {failed: nFailed, fetching: nFetch} = nextProps.alertPeopleInfo;
+        if (tFetch && !nFetch && !nFailed) {
+            history.replace('/my/family');
+        }
+    }
+
+    onTextChange() {
+        this.alertPassword = true;
+        const userPassword = this.userPassword.value.replace(/(^\s+)|(\s+$)/g, '');
+        this.setState({
+            userPassword: userPassword
+        })
+    }
+    handlePeopleClick() {
+        this.alertRelations = true;
+        const relations = this.relations.value.replace(/(^\s+)|(\s+$)/g, '');
+        this.setState({
+            ...this.state,
+            relations: relations
+        })
+    }
+    alertFamilyPeopleProfile() {
+        const data = {};
+        let userPassword;
+        let relations;
+        if(this.alertPassword) {
+            userPassword = this.state.userPassword;
+            if(userPassword.length <= 5) {
+                Alert.warning('密码最少6位');
+                return;
+            }
+            data.pwd = userPassword;
+        }
+        if(this.alertRelations) {
+            relations = this.state.relations;
+            data.relation = relations;
+        }
+        if(!this.state.userPassword && !this.state.relations) {
+            return;
+        }
+        alertFamilyPeopleInfo(this.props.otherfamily.data.id, data)
+    }
     renderNewView() {
         const otherFamily = this.props.otherfamily;
         if (!otherFamily.data) {
@@ -438,20 +517,27 @@ class Profile extends React.Component {
                 </div>
                 <div className="page-profile-header-cut"></div>
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">密码</div>
+                    <div className="page-profile-fonts page-profile-fonts-main">密码</div>
                     <div className="page-profile-edit-right-box">
-                        <div>******</div>
+                        <input type="password" defaultValue="123456" onKeyUp={this.onTextChange} ref={c=>{this.userPassword = c}}/>
                     </div>
                 </div>
                 <div className="line1px"/>
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">关系</div>
+                    <div className="page-profile-fonts page-profile-fonts-main">关系</div>
                     <div className="page-profile-edit-right-box">
-                        <div>{otherFamily.data.relation}</div>
-                        <div className="page-profile-edit-icon"/>
+                        <label htmlFor="relations">
+                            <select id="relations" onChange={this.handlePeopleClick} ref={(c) => { this.relations = c; }}>
+                                { relations && relations.map((item, keys) =>
+                                    <option value={item.name} selected={otherFamily.data.relation === item.name?'selected' : ''} key={keys}>{item.name}</option>)}
+                            </select>
+                        </label>
                     </div>
                 </div>
-                <div className="page-profile-edit-btn">修改</div>
+                <div className="page-profile-edit-btn" onClick={()=>{this.setState({...this.state,showDialog: true})}}>修改</div>
+                <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+                    确定要修改成员信息吗？
+                </Dialog>
             </div>
         )
     }
@@ -476,6 +562,7 @@ Profile.propTypes = {
     requestUserInfo: PropTypes.func,
     imporvePersonInfo: PropTypes.func,
     otherFamilyAction: PropTypes.func,
+    alertFamilyPeopleInfo: PropTypes.func,
     otherfamily: PropTypes.shape({
         token: PropTypes.string,
         id: PropTypes.number,
@@ -546,23 +633,30 @@ Profile.propTypes = {
         join_family_time: PropTypes.string,
         good_at: PropTypes.arrayOf(PropTypes.shape({
 
-        })),
+        }))
 
+    }),
+    alertPeopleInfo: PropTypes.shape({
+        fetching: PropTypes.bool,
+        failed: PropTypes.bool
     }),
     route: PropTypes.shape({
         params: PropTypes.shape({
             userId: PropTypes.string,
         }),
-    }),
+    })
 };
 
 export default connect(
     state => ({
         user: state.user,
         info: state.info.person,
+        alertPeopleInfo: state.my.alertFamilyPeopleInfo,
         otherfamily: state.info.otherfamily,
     }),
     dispatch => bindActionCreators({ requestUserInfo,
         imporvePersonInfo,
-        otherFamilyAction }, dispatch),
+        otherFamilyAction,
+        alertFamilyPeopleInfo
+    }, dispatch),
 )(Profile);

@@ -298,6 +298,7 @@ const addFamilyReducer = (state = {
       return state;
   }
 };
+
 // 增加家庭成员  新的addFamilyAction
 export const addFamilyPeople = data => ({
   type: 'ADDFAMILY_PEOPLE',
@@ -615,7 +616,47 @@ const deleteFamilyReducer = (state = {
       return state;
   }
 };
-
+// 修改家庭成员信息
+export const alertFamilyPeopleInfo = (id , data)=> ({
+  type: 'ALERT_FAMILY',
+  payload: fetch(`/myfamily/${id}`, {method: 'PUT',data})
+});
+// export const alertFamilyPeopleInfo = (id , data)=> {
+//     return{
+//       type: 'ALERT_PEOPLE_INFO',
+//       payload: fetch(`/myfamily/${id}`, {method: 'PUT',data})
+//     }
+// };
+const alertFamilyPeopleInfoReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  console.log(action)
+  switch (action.type) {
+    case 'ALERT_FAMILY_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'ALERT_FAMILY_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload,
+      };
+    case 'ALERT_FAMILY_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 const reducer = combineReducers({
   usercenter: userCenterReducer,
   team: teamReducer,
@@ -633,6 +674,7 @@ const reducer = combineReducers({
   postapply: postApplyReducer,
   projectapply: projectapplyReducer,
   deletefamily: deleteFamilyReducer,
+  alertFamilyPeopleInfo: alertFamilyPeopleInfoReducer,
   score: scoreReducer
 });
 export default reducer;

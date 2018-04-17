@@ -99,7 +99,6 @@ class NewFamily extends React.Component {
         this.props.addressDataAction(this.county.value);
     }
     handlePeopleClick() {
-        console.log(this.people.value)
         this.setState({
             ...this.state,
             nation: this.people.value,
@@ -112,11 +111,10 @@ class NewFamily extends React.Component {
         }
     }
     onTextChanged() {
-        const username = this.username.value;
-        console.log(username)
-        const userpassword = this.userpassword.value;
-        const idNumber = this.idNumber.value;
-        const addressDetail = this.addressDetail.value;
+        const username = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
+        const userpassword = this.userpassword.value.replace(/(^\s+)|(\s+$)/g, '');
+        const idNumber = this.idNumber.value.replace(/(^\s+)|(\s+$)/g, '');
+        const addressDetail = this.addressDetail.value.replace(/(^\s+)|(\s+$)/g, '');
         this.setState({
             ...this.state,
             username,
@@ -127,13 +125,11 @@ class NewFamily extends React.Component {
     }
     addFamilyPeople() {
         const username = this.state.username;
-        console.log(this.state.username)
         const userpassword = this.state.userpassword;
         const idNumber = this.state.idNumber;
         const nation = this.state.nation;
         const relations = this.state.relations;
         const province = this.state.province;
-        console.log(province)
         const city = this.state.city;
         const county = this.state.county;
         const addressDetail = this.state.addressDetail;

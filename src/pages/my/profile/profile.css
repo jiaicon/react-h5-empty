@@ -70,6 +70,8 @@ body {
 .page-profile-fonts-view{
   width: 100%;
   height: 57px;
+  line-height: 57px!important;
+  text-align: center;
   padding: 0 15px;
   font-size: 15px;
   color: #333;
@@ -170,5 +172,24 @@ body {
   border-radius: 200px;
   background-color: #C7EAFD;
 }
-.page-profile-header-detail {
+.page-profile-fonts-main {
+  color: #282828;
+}
+.page-profile-header-box input {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.page-profile-edit-right-box label {
+   width: 100%;
+}
+.page-profile-edit-right-box select {
+  width: 100%;
+  color: #282828;
+  background: url('/images/my/more.png') no-repeat scroll right center transparent;
+  background-size: 20px 20px;
+  padding-right: 14px;
+  outline: none;
+  height: 24px;
+  text-align: left;
 }

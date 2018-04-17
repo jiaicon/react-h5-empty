@@ -246,6 +246,7 @@ const otherFamilReducer = (state = {
       return state;
   }
 };
+
 const reducer = combineReducers({
   person: personInfoReducer,
   checkUser: checkUserReducer,

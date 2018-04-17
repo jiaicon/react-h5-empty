@@ -16,6 +16,7 @@
 }
 .pages-add-new-family-ipt input {
     width: 100%;
+    color: #999999;
     outline: none;
 }
 .pages-add-new-family-ipt label{
@@ -28,6 +29,7 @@
     padding-right: 14px;
     outline: none;
     text-align: left;
+    height: 24px;
 }
 .pages-add-new-family-address {
     width: 100%;

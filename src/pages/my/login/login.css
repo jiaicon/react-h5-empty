@@ -54,3 +54,8 @@
   border: 1px solid #C7EAFD;
   margin-top: 20px;
 }
+.page-login-box {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}

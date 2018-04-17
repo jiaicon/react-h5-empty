@@ -179,7 +179,7 @@ class Addmember extends React.Component {
         const {path} = this.props.route;
         return (
             <div className="page-add-family-tab-container">
-                <div style={{ width: '100%', height: '53px' }}>
+                <div className="page-add-family-tab-top" style={{ width: '100%', height: '53px' }}>
                     <ul className="page-add-family-tab-ul-container">
                         <li className={classnames({
                     active: path==='/my/family/add'
