@@ -5,7 +5,6 @@ import Alert from 'react-s-alert';
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -36,7 +35,7 @@ import {
   quitTeam,
   saveTeamTabIndex,
 } from './detail.store';
-
+import { requestUserInfo } from '../../../stores/common';
 import { feelingAction, observeAction, unObserveAction, deleteFeelingAction } from '../../my/circle/circle.store';
 import { userCenterAction } from '../../my/my.store';
 
@@ -99,8 +98,10 @@ class TeamDetailPage extends React.Component {
     };
   }
   componentWillMount() {
-    const { detail: { team: detailData, tabTeamIndex, lastTeamId } } = this.props;
-
+    const { detail: { team: detailData, tabTeamIndex, lastTeamId }, user } = this.props;
+    if (user.isLogin) {
+      this.props.requestUserInfo();
+    }
 
     this.props.requestTeamDetail(this.teamId);
     this.props.requestTeamProjectList(this.teamId);
@@ -192,18 +193,37 @@ class TeamDetailPage extends React.Component {
   handleActionClick(action) {
     const { teamId } = this;
     const { detail: { team: detailData }, user } = this.props;
-    // in_blacklist:[int]
-
-    // 0: 不在
-    // 1: 在
+    const realRegister = window.orgInfo.real_name_register;
+    // in_blacklist 黑名单 0不在，1在
+    // realRegister 机构实名 1 要求  0 否
     return () => {
-      
+      if (!user.isLogin) {
         if (action === 'join') {
           this.props.joinTeam(teamId, detailData);
         } else if (action === 'quit') {
           this.setState({ ...this.state, showDialog: true });
         }
-      
+      } else if (user.isLogin && !user.in_blacklist) {
+        // 不要求实名
+        if (realRegister == 0) {
+          if (action === 'join') {
+            this.props.joinTeam(teamId, detailData);
+          } else if (action === 'quit') {
+            this.setState({ ...this.state, showDialog: true });
+          }
+        // 要求实名切用户未实名过，通过ID判断
+        } else if (realRegister == 1 && user.isLogin && !user.id_number) {
+          history.replace(`/my/profile/verify/team/${this.teamId}`);
+        } else if (realRegister == 1 && user.isLogin && user.id_number) {
+          if (action === 'join') {
+            this.props.joinTeam(teamId, detailData);
+          } else if (action === 'quit') {
+            this.setState({ ...this.state, showDialog: true });
+          }
+        }
+      } else if (user.isLogin && user.in_blacklist) {
+        Alert.warning('您已被添加到黑名单，请联系客服');
+      }
     };
   }
   renderSlick() {
@@ -484,6 +504,7 @@ class TeamDetailPage extends React.Component {
 TeamDetailPage.propTypes = {
   requestTeamDetail: PropTypes.func,
   requestTeamProjectList: PropTypes.func,
+  requestUserInfo: PropTypes.func,
   collectTeam: PropTypes.func,
   unCollectTeam: PropTypes.func,
   joinTeam: PropTypes.func,
@@ -523,6 +544,7 @@ export default connect(
     deleteFeeling: state.circle.deleteFeeling,
   }),
   dispatch => bindActionCreators({
+    requestUserInfo,
     requestTeamDetail,
     requestTeamProjectList,
     collectTeam,

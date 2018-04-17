@@ -28,7 +28,9 @@
   <script>
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {}; // 或者 '{}'
+
     window.apiHost='http://alpha.api.volunteer.tmallwo.com:8000';
+
     // server 端下发 token
     window.token = null;
     window.orgInfo = {
@@ -73,8 +75,9 @@
         'org_info':"<p>Test 123</p>",
         'org_manual':"<p>Test 234</p>",
         'org_service':"<p>Test 567</p>",
-        'org_service_tel':"13111111111"
-        'real_name_register'："1"
+        'org_service_tel':"13111111111",
+        'real_name_register':1
+
     }
 
     window.orgCode = 'XKdwpfgegW';

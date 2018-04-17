@@ -71,12 +71,19 @@ class Verify extends React.Component {
 
   componentWillMount() {
     this.props.addressDataAction(0);
-    console.log(this.props.route);
     const params = this.props.route.params;
     if (params.projectId && !isNaN(Number(params.projectId))) {
       const projectId = params.projectId;
       this.setState({
+        ...this.state,
         projectId,
+      });
+    }
+    if (params.teamId && !isNaN(Number(params.teamId))) {
+      const teamId = params.teamId;
+      this.setState({
+        ...this.state,
+        teamId,
       });
     }
   }
@@ -98,6 +105,8 @@ class Verify extends React.Component {
       // TODO 如果从项目跳过来的需要跳回去
       if (this.state.projectId) {
         history.replace(`/project/detail/${this.state.projectId}`);
+      } else if (this.state.teamId) {
+        history.replace(`/team/detail/${this.state.projectId}`);
       } else {
         history.replace('/my/profile/detail/user');
       }
@@ -116,7 +125,6 @@ class Verify extends React.Component {
 
 
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
-    // const nowaddress = this.nowaddress.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       address,
       realname,
@@ -150,7 +158,6 @@ class Verify extends React.Component {
     ) {
       return;
     }
-    // nowaddress未定义字段
     const data = {
       real_name: realname,
       id_number: idcard,
@@ -190,10 +197,7 @@ class Verify extends React.Component {
       county: this.county.value,
     });
   }
-//   <div className="page-my-profile-verify-header-box">
-//   <div className="page-my-profile-verify-fonts">现住地址</div>
-//   <input type="text" ref={(c) => { this.nowaddress = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
-// </div>
+
   render() {
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;

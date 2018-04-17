@@ -7,14 +7,14 @@
  "class-methods-use-this": "off"
  */
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import Alert from 'react-s-alert';
-import {requestUserInfo} from '../../../stores/common';
-import {imporvePersonInfo, otherFamilyAction} from './profile.store';
+import { requestUserInfo } from '../../../stores/common';
+import { imporvePersonInfo, otherFamilyAction } from './profile.store';
 import {} from '../my.store';
 import Link from '../../../components/link/link';
 import Avatar from '../../../components/avatar/avatar';
@@ -38,6 +38,7 @@ class Profile extends React.Component {
         super(props);
         autoBind(this);
         this.userId = props.route.params.userId;
+        this.realRegister = window.orgInfo.real_name_register;
         this.state = ({
             photo: '',
 
@@ -60,12 +61,11 @@ class Profile extends React.Component {
     componentDidMount() {
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(this.nextProps)
+    componentWillReceiveProps() {
+
     }
 
-    componentWillUnmount() {
-    }
+    componentWillUnmount() {}
 
     onAvatarClick() {
         uploadToWX({
@@ -94,44 +94,37 @@ class Profile extends React.Component {
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">姓名</div>
-                    <div
-                        className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
+                    <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">身份证号</div>
-                    <div
-                        className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
+                    <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">性别</div>
-                    <div
-                        className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
+                    <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">民族</div>
-                    <div
-                        className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
+                    <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">现住地址</div>
-                    <div
-                        className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
+                    <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">详细地址</div>
-                    <div
-                        className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
+                    <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
                 </div>
-                <div className="page-profile-realinfo-takeup"/>
+                <div className="page-profile-realinfo-takeup" />
             </div>
         );
     }
-
     renderRealInfo() {
         const user = this.props.user;
 
@@ -142,40 +135,38 @@ class Profile extends React.Component {
                     <div className="page-profile-fonts">姓名</div>
                     <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">身份证号</div>
                     <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">性别</div>
                     <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">民族</div>
                     <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">现住地址</div>
-                    <div
-                        className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
+                    <div className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">详细地址</div>
                     <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
                 </div>
-                <div className="page-profile-realinfo-takeup"/>
+                <div className="page-profile-realinfo-takeup" />
             </div>
         );
     }
 
     renderHost() {
         const user = this.props.user;
-        const phone = 123;
         return (
             <div className="page-profile">
                 <div>
@@ -184,79 +175,83 @@ class Profile extends React.Component {
                         <div className="page-profile-fonts">头像</div>
                         <div className="page-profile-header-uploade-box">
                             <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
-                                <Avatar src={this.photo ? this.photo : user.avatars} size={{ width: 40, radius: 4 }}
-                                        defaultSrc="/images/my/register.png"/>
+                                <Avatar src={this.photo ? this.photo : user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
                             </div>
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
                     </div>
-                    <div className="line1px"/>
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">账号</div>
-                        <div className="page-profile-edit-box">
-                            <div className="page-profile-initial-fonts">{user.username}</div>
-                            <div className="page-profile-initial-fonts-take-up"/>
+                    <div className="line1px" />
+                    {this.realRegister ? null :
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">账号</div>
+                            <div className="page-profile-edit-box">
+                                <div className="page-profile-initial-fonts">{user.username}</div>
+                                <div className="page-profile-initial-fonts-take-up" />
+                            </div>
                         </div>
-                    </div>
-                    <div className="line1px"/>
+                    }
+                    {
+                        this.realRegister ? null : <div className="line1px" />
+                    }
+
                     <Link to="/my/profile/bind/phone">
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">手机号</div>
                             <div className="page-profile-edit-box">
                                 <div className="page-profile-initial-fonts">{user.phone || ''}</div>
-                                <div className="page-profile-edit-icon"/>
+                                <div className="page-profile-edit-icon" />
                             </div>
                         </div>
                     </Link>
-                    <div className="line1px"/>
+                    <div className="line1px" />
 
                     <Link to="/my/profile/bind/mail">
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">邮箱</div>
                             <div className="page-profile-edit-box">
                                 <div className="page-profile-initial-fonts">{user.email || ''}</div>
-                                <div className="page-profile-edit-icon"/>
+                                <div className="page-profile-edit-icon" />
                             </div>
                         </div>
                     </Link>
-                    <div className="line1px"/>
+                    <div className="line1px" />
 
                     <div className="page-profile-header-box">
                         <div className="page-profile-fonts">志愿者编号</div>
                         <div className="page-profile-edit-box">
                             <div className="page-profile-initial-fonts">{user.identifier}</div>
-                            <div className="page-profile-initial-fonts-take-up"/>
+                            <div className="page-profile-initial-fonts-take-up" />
                         </div>
                     </div>
-                    <div className="line1px"/>
+                    <div className="line1px" />
                     <Link to="/my/profile/checkbox">
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">个人擅长</div>
                             <div className="page-profile-edit-box">
                                 {user.good_at != null ?
                                     user.good_at.map((item, index) =>
-                                        <span key={index} className="page-profile-initial-fonts">
+                                        <span key={index} className="page-profile-initial-fonts" >
                       {item.good_at_name}{index < user.good_at.length - 1 ? '、' : ''}
                     </span>)
                                     : <span />
                                 }
-                                <div className="page-profile-edit-icon"/>
+                                <div className="page-profile-edit-icon" />
                             </div>
 
                         </div>
                     </Link>
-                    <div className="line1px"/>
+                    <div className="line1px" />
 
                     <div>
                         <Link to="/my/profile/edit">
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">志愿者口号</div>
-                                <div className="page-profile-edit-icon"/>
+                                <div className="page-profile-edit-icon" />
                             </div>
                             <div className="page-profile-fonts-view">{user.slogan}</div>
                         </Link>
                     </div>
-                    <div className="page-profile-take-up"/>
+                    <div className="page-profile-take-up" />
                 </div>
                 {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
                 <div
@@ -283,7 +278,6 @@ class Profile extends React.Component {
             </div>
         );
     }
-
     renderOther() {
         const otherfamily = this.props.otherfamily;
         if (!otherfamily.data) {
@@ -297,52 +291,56 @@ class Profile extends React.Component {
                         <div className="page-profile-fonts">头像</div>
                         <div className="page-profile-header-uploade-box">
                             <div className="page-profile-header-img-container" onClick={this.onOtherHandleClick}>
-                                <Avatar src={otherfamily.data.avatars} size={{ width: 40, radius: 4 }}
-                                        defaultSrc="/images/my/register.png"/>
+                                <Avatar src={otherfamily.data.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
                             </div>
 
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
                     </div>
-                    <div className="line1px"/>
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">账号</div>
-                        <div className="page-profile-edit-box">
-                            <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
-                            <div className="page-profile-initial-fonts-take-up"/>
+                    <div className="line1px" />
+                    {this.realRegister ? null :
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">账号</div>
+                            <div className="page-profile-edit-box">
+                                <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
+                                <div className="page-profile-initial-fonts-take-up" />
+                            </div>
                         </div>
-                    </div>
-                    <div className="line1px"/>
+                    }
+                    {
+                        this.realRegister ? null : <div className="line1px" />
+                    }
+
                     <div className="page-profile-header-box">
                         <div className="page-profile-fonts">志愿者编号</div>
                         <div className="page-profile-edit-box">
                             <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
-                            <div className="page-profile-initial-fonts-take-up"/>
+                            <div className="page-profile-initial-fonts-take-up" />
                         </div>
                     </div>
-                    <div className="line1px"/>
+                    <div className="line1px" />
                     {/** 111 */}
                     <a onClick={this.onOtherHandleClick}>
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">*手机号</div>
                             <div className="page-profile-edit-box">
                                 <div className="page-profile-initial-fonts">{otherfamily.data.phone || ''}</div>
-                                <div className="page-profile-edit-icon"/>
+                                <div className="page-profile-edit-icon" />
                             </div>
                         </div>
                     </a>
-                    <div className="line1px"/>
+                    <div className="line1px" />
 
                     <a onClick={this.onOtherHandleClick}>
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">邮箱</div>
                             <div className="page-profile-edit-box">
                                 <div className="page-profile-initial-fonts">{otherfamily.data.email || ''}</div>
-                                <div className="page-profile-edit-icon"/>
+                                <div className="page-profile-edit-icon" />
                             </div>
                         </div>
                     </a>
-                    <div className="line1px"/>
+                    <div className="line1px" />
 
 
                     {/** 111 */}
@@ -351,25 +349,25 @@ class Profile extends React.Component {
                         <div className="page-profile-edit-box">
                             {otherfamily.data.good_at != null ?
                                 otherfamily.data.good_at.map((item, index) =>
-                                    <span key={index} className="page-profile-initial-fonts">
+                                    <span key={index} className="page-profile-initial-fonts" >
                 {item.good_at_name}{index < otherfamily.data.good_at.length - 1 ? '、' : ''}
               </span>)
                                 : <span />
                             }
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
 
                     </div>
-                    <div className="line1px"/>
+                    <div className="line1px" />
 
                     <div>
                         <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
                             <div className="page-profile-fonts">志愿者口号</div>
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
                         <div className="page-profile-fonts-view">{otherfamily.data.slogan}</div>
                     </div>
-                    <div className="page-profile-take-up"/>
+                    <div className="page-profile-take-up" />
                 </div>
                 {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
                 <div
@@ -397,7 +395,6 @@ class Profile extends React.Component {
             </div>
         );
     }
-
     renderNewView() {
         const otherFamily = this.props.otherfamily;
         if (!otherFamily.data) {
@@ -412,7 +409,7 @@ class Profile extends React.Component {
                 <div className="line1px"/>
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">身份证号</div>
-                    <div className="page-profile-edit-right-box">{otherFamily.data.id_number}</div>
+                    <div className="page-profile-edit-right-box">{otherFamily.data.id_number.substring(0,1)}***************{otherFamily.data.id_number.substring(17,18)}</div>
                 </div>
                 <div className="line1px"/>
                 <div className="page-profile-header-box">
@@ -443,7 +440,7 @@ class Profile extends React.Component {
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">密码</div>
                     <div className="page-profile-edit-right-box">
-                        <div>{otherFamily.data.pwd?otherFamily.data.pwd:''}</div>
+                        <div>******</div>
                     </div>
                 </div>
                 <div className="line1px"/>
@@ -458,15 +455,14 @@ class Profile extends React.Component {
             </div>
         )
     }
-    
     render() {
         const userId = this.userId;
 
         return (
             <div>
                 {
-                    // userId === 'user' ? this.renderHost() : this.renderOther()
-                    this.renderNewView()
+                    userId === 'user' ? this.renderHost() : this.renderNewView()
+                    // this.renderNewView()
                 }
             </div>
         );
@@ -474,7 +470,7 @@ class Profile extends React.Component {
 }
 
 
-Profile.title = '家庭成员详情';
+Profile.title = '个人资料';
 
 Profile.propTypes = {
     requestUserInfo: PropTypes.func,
@@ -512,7 +508,9 @@ Profile.propTypes = {
         addr: PropTypes.string,
         family_id: PropTypes.number,
         join_family_time: PropTypes.string,
-        good_at: PropTypes.arrayOf(PropTypes.shape({})),
+        good_at: PropTypes.arrayOf(PropTypes.shape({
+
+        })),
     }),
     user: PropTypes.shape({
         token: PropTypes.string,
@@ -546,7 +544,9 @@ Profile.propTypes = {
         addr: PropTypes.string,
         family_id: PropTypes.number,
         join_family_time: PropTypes.string,
-        good_at: PropTypes.arrayOf(PropTypes.shape({})),
+        good_at: PropTypes.arrayOf(PropTypes.shape({
+
+        })),
 
     }),
     route: PropTypes.shape({
@@ -562,9 +562,7 @@ export default connect(
         info: state.info.person,
         otherfamily: state.info.otherfamily,
     }),
-    dispatch => bindActionCreators({
-        requestUserInfo,
+    dispatch => bindActionCreators({ requestUserInfo,
         imporvePersonInfo,
-        otherFamilyAction
-    }, dispatch),
+        otherFamilyAction }, dispatch),
 )(Profile);

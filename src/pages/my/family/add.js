@@ -176,8 +176,6 @@ class Addmember extends React.Component {
         //   </div>
         // );
         const {pages} = this.state;
-        console.log(pages)
-        console.log(this.state)
         const {path} = this.props.route;
         return (
             <div className="page-add-family-tab-container">

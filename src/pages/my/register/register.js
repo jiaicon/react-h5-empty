@@ -38,6 +38,8 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    //realRegister: 1  实名注册， 0  非实名注册
+    this.realRegister = window.orgInfo.real_name_register;
     this.state = {
       captchaUrl: `${API_HOST}/api/captcha`,
       buttonString: '获取验证码',
@@ -47,10 +49,7 @@ class Register extends React.Component {
   }
 
   componentWillMount() {
-    console.log(window.orgInfo.real_name_register)
-    if(window.orgInfo.real_name_register && window.orgInfo.real_name_register) {
-      
-    }
+
   }
   componentDidMount() {
 
@@ -66,7 +65,9 @@ class Register extends React.Component {
       });
       this.onStartCountDown();
     }
-    if (cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
+    if(this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
+      history.replace('/my/profile/verify');
+    }else if(!this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
       history.replace('/my/login');
     }
   }
@@ -80,15 +81,24 @@ class Register extends React.Component {
     });
   }
   onSubmit() {
-    const name = this.state.name;
+    // realRegister 机构实名 1 要求  0 否
+    let name,photo;
+    if (!this.realRegister) {   //非实名
+      name = this.state.name;
+      photo = this.state.photo;
+    }
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const password = this.state.password;
-    const photo = this.state.photo;
-    if (checkEmpty(name, '姓名') || checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
+    if (!this.realRegister) {
+      if (checkEmpty(name, '姓名')) {
+        return;
+      }
+    }
+    if (checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
       return;
     }
-    if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
+    if (!this.realRegister && !/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
       Alert.warning('请输入正确的账号');
       return;
     }
@@ -97,11 +107,15 @@ class Register extends React.Component {
       return;
     }
     const data = {};
-    data.username = name;
+    if (!this.realRegister) {
+      data.username = name;
+    }
+
     data.pwd = password;
     data.phone = phone;
     data.verify_code = verifyCode;
-    if (photo) {
+    if (photo!=undefined && photo != '') {
+      console.log('photo: '+photo);
       data.avatars = photo;
     }
     this.props.register(data);
@@ -153,7 +167,13 @@ class Register extends React.Component {
     }, 1000);
   }
   onTextChanged() {
-    const name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
+    let name = '';
+    if(!this.realRegister) {
+      name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
+      this.setState({
+        name
+      })
+    }
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
     const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
     const captcha = this.captcha.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -163,18 +183,15 @@ class Register extends React.Component {
       ...this.state,
 
       captcha,
-      name,
       phone,
       verifyCode,
-      password,
+      password
     });
   }
   // 上传照片
   onAvatarClick() {
-    console.log('11111111111111111111111111');
     uploadToWX({
       success: (urls) => {
-        console.log('图片上传成功:', urls);
         this.setState({
           ...this.state,
           photo: urls[0],
@@ -183,29 +200,6 @@ class Register extends React.Component {
       },
     });
   }
-  // onFileSelect(evt) {
-  //   const file = evt.target.files[0];
-  //   if (file) {
-  //     const fd = new FormData();
-  //     fd.append('file', file);
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.onreadystatechange = () => {
-  //       if (xhr.readyState === 4 && xhr.status === 200) {
-  //         const res = JSON.parse(xhr.responseText);
-  //         if (!res.error_code) {
-  //           this.setState({
-  //             ...this.state,
-  //             test: res.data.url,
-  //           });
-  //         } else {
-  //           Alert.warning(`图片上传失败：${res.error_message}`);
-  //         }
-  //       }
-  //     };
-  //     xhr.open('POST', `${API_HOST}/api/imgupload`, true);
-  //     xhr.send(fd);
-  //   }
-  // }
   refreshCaptcha() {
     this.setState({
       ...this.state,
@@ -215,20 +209,30 @@ class Register extends React.Component {
   render() {
     return (
       <div className="page-register">
-        <div className="page-register-photo">
-          <div className="page-register-photo-container" onClick={this.onAvatarClick}>
-            <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
-          </div>
-        </div>
-        <div className="page-register-photo-fonts">上传头像(选填)</div>
-        <ul>
-          <li>
-            <div className="page-register-item">
-              <span className="page-register-fonts">账号</span>
-              <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
+        {
+          this.realRegister && this.realRegister === 1 ?  null:
+          <div className="page-register-photo">
+            <div className="page-register-photo-container" onClick={this.onAvatarClick}>
+              <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
             </div>
-            <div className="line1px" />
-          </li>
+          </div>
+        }
+        {
+          this.realRegister && this.realRegister === 1 ?  '':
+            <div className="page-register-photo-fonts">上传头像(选填)</div>
+        }
+
+        <ul className={this.realRegister?'realRegisterUl': ''}>
+          {this.realRegister
+            ? null :
+            <li>
+              <div className="page-register-item">
+                <span className="page-register-fonts">昵称</span>
+                <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
+              </div>
+              <div className="line1px" />
+            </li>
+          }
           <li>
             <div className="page-register-item">
               <span className="page-register-fonts">手机号</span>
@@ -260,7 +264,7 @@ class Register extends React.Component {
             <div className="line1px" />
           </li>
         </ul>
-        <div className="page-register-submmit" onClick={this.onSubmit}>确认提交</div>
+        <div className="page-register-submmit" onClick={this.onSubmit}>注册</div>
         <Link to="/my/login">
           <div className="page-register-login">已有账号，前往登录</div>
         </Link>

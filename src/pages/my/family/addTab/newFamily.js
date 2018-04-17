@@ -248,7 +248,7 @@ class NewFamily extends React.Component {
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">密码</div>
                     <div className="pages-add-new-family-ipt">
-                        <input type="text" ref={(c)=>{this.userpassword = c}} onKeyUp={this.onTextChanged}/>
+                        <input type="password" ref={(c)=>{this.userpassword = c}} onKeyUp={this.onTextChanged}/>
                     </div>
                 </div>
                 <div className="line1px"></div>
@@ -274,6 +274,26 @@ NewFamily.title= '新建家庭成员';
 NewFamily.PropTypes = {
     addressDataAction: PropTypes.func,
     addFamilyPeople: PropTypes.func,
+    addPeople: PropTypes.shape({
+        fetching: PropTypes.bool,
+        failed: PropTypes.bool,
+        data: PropTypes.shape({
+            username: PropTypes.string,
+            id: PropTypes.number,
+            real_name: PropTypes.string,
+            nation: PropTypes.string,
+            id_number: PropTypes.string,
+            province_id: PropTypes.number,
+            province_name: PropTypes.string,
+            city_id: PropTypes.number,
+            city_name: PropTypes.string,
+            county_id: PropTypes.number,
+            county_name: PropTypes.string,
+            addr: PropTypes.string,
+            relation: PropTypes.string,
+            token: PropTypes.string
+        })
+    })
 };
 
 export default connect(

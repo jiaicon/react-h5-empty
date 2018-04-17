@@ -3,7 +3,7 @@
 
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-
+import Alert from 'react-s-alert';
 import Slick from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -34,8 +34,10 @@ import {
   quitProject,
   saveProjectTabIndex,
 } from './detail.store';
+import { requestUserInfo } from '../../../stores/common';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
+import { SIGABRT } from 'constants';
 
 class ProjectDetailPage extends React.Component {
 
@@ -97,34 +99,34 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillMount() {
-    const { detail: { data: detailData ,tabIndex,lastProjectId }, user: { isLogin } } = this.props;
-
-      this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
-      this.props.requestProjectDetail(this.projectId);
-      if (lastProjectId === 0) {
-        this.props.saveProjectTabIndex(0, this.projectId);
-      } else if (lastProjectId !== this.projectId) {
-        this.props.saveProjectTabIndex(0, this.projectId);
-      } else if (lastProjectId === this.projectId) {
-        this.props.saveProjectTabIndex(tabIndex, this.projectId);
-      }
+    const { detail: { data: detailData, tabIndex, lastProjectId }, user } = this.props;
+    if (user.isLogin) {
+      this.props.requestUserInfo();
+    }
+    this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
+    this.props.requestProjectDetail(this.projectId);
+    if (lastProjectId === 0) {
+      this.props.saveProjectTabIndex(0, this.projectId);
+    } else if (lastProjectId !== this.projectId) {
+      this.props.saveProjectTabIndex(0, this.projectId);
+    } else if (lastProjectId === this.projectId) {
+      this.props.saveProjectTabIndex(tabIndex, this.projectId);
+    }
       // if(tabIndex){
       //   this.props.saveProjectTabIndex(tabIndex);
       // }else{
       //   this.props.saveProjectTabIndex(0);
       // }
   }
-    
 
-    
-  
+
   onTabChange(idx) {
     this.props.saveProjectTabIndex(idx);
   }
   componentWillReceiveProps(nextProps) {
     const newProjectId = nextProps.route.params.projectId;
-    if (newProjectId!== this.projectId) {
-      this.projectId= newProjectId;
+    if (newProjectId !== this.projectId) {
+      this.projectId = newProjectId;
       this.props.requestProjectDetail(this.projectId);
     }
     const detailData = nextProps.detail.data;
@@ -158,8 +160,8 @@ class ProjectDetailPage extends React.Component {
       this.props.feelingAction({ type: 2, relation_id: this.projectId, page_size: 1000 });
     }
   }
-  componentWillDidmount(){
-    
+  componentWillDidmount() {
+
   }
   componentWillUnmount() {
     // document.title = '标题';
@@ -191,21 +193,37 @@ class ProjectDetailPage extends React.Component {
 
   handleActionClick(action) {
     const { projectId } = this;
-
+    const realRegister = window.orgInfo.real_name_register;
+    const { user } = this.props;
     return () => {
-      // const { user: { isLogin, id_number: idNumber } } = this.props;
-
-      if (action === 'join') {
-        // 未实名认证需要跳实名认证页面
-        // if (isLogin && !idNumber) {
-        //   Alert.warning('请先完成实名认证');
-        //   history.push(`/my/profile/verify/project/${this.projectId}`);
-        //   return;
-        // }
-
-        this.props.joinProject(projectId);
-      } else if (action === 'quit') {
-        this.setState({ ...this.state, showDialog: true });
+       // in_blacklist 黑名单 0不在，1在
+      // realRegister 机构实名 1 要求  0 否
+      if (!user.isLogin) {
+        if (action === 'join') {
+          this.props.joinProject(projectId);
+        } else if (action === 'quit') {
+          this.setState({ ...this.state, showDialog: true });
+        }
+      } else if (user.isLogin && !user.in_blacklist) {
+        // 不要求实名
+        if (realRegister == 0) {
+          if (action === 'join') {
+            this.props.joinProject(projectId);
+          } else if (action === 'quit') {
+            this.setState({ ...this.state, showDialog: true });
+          }
+        // 要求实名切用户未实名过，通过ID判断
+        } else if (realRegister == 1 && user.isLogin && !user.id_number) {
+          history.replace(`/my/profile/verify/project/${this.projectId}`);
+        } else if (realRegister == 1 && user.isLogin && user.id_number) {
+          if (action === 'join') {
+            this.props.joinProject(projectId);
+          } else if (action === 'quit') {
+            this.setState({ ...this.state, showDialog: true });
+          }
+        }
+      } else if (user.isLogin && user.in_blacklist) {
+        Alert.warning('您已被添加到黑名单，请联系客服');
       }
     };
   }
@@ -226,7 +244,7 @@ class ProjectDetailPage extends React.Component {
     </div>);
   }
   renderBasic() {
-    const { detail: { data: detailData ,tabIndex }, user: { isLogin } } = this.props;
+    const { detail: { data: detailData, tabIndex }, user: { isLogin } } = this.props;
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -408,17 +426,17 @@ class ProjectDetailPage extends React.Component {
   renderCommunity() {
     return (
       <div>
-        {this.props.feeling.data && this.props.feeling.data.list && this.props.feeling.data.list.length>0 &&
+        {this.props.feeling.data && this.props.feeling.data.list && this.props.feeling.data.list.length > 0 &&
           this.props.feeling.type == 'project' ? this.props.feeling.data.list.map(listData => (
             <CommunityItem
               data={listData} isDetailEntry={false} key={listData.id} routeData={this.props.route} isDescTrigger={false}
               onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
             />
-          )) :   
+          )) :
           <div className="page-circle-rendercommunity-container">
-          <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
-          <div className="page-circle-rendercommunity-info">还没有动态信息</div>
-        </div>
+            <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
+            <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+          </div>
 
         }
 
@@ -431,7 +449,7 @@ class ProjectDetailPage extends React.Component {
   }
   render() {
     const { detail: { data: detailData, tabIndex }, user: { isLogin } } = this.props;
-  
+
     const currentProjectId = parseInt(this.projectId, 10);
     const dataProjectId = detailData ? detailData.id : '';
 
@@ -441,7 +459,7 @@ class ProjectDetailPage extends React.Component {
 
     const content = detailData.content;
 
-    
+
     return (
       <div className="page-project-detail">
         <Tab
@@ -468,9 +486,12 @@ class ProjectDetailPage extends React.Component {
 
 ProjectDetailPage.propTypes = {
   requestProjectDetail: PropTypes.func,
+  feelingAction: PropTypes.func,
   collectProject: PropTypes.func,
   unCollectProject: PropTypes.func,
   joinProject: PropTypes.func,
+  saveProjectTabIndex: PropTypes.func,
+  requestUserInfo: PropTypes.func,
   quitProject: PropTypes.func,
   detail: PropTypes.shape({
     fetchingId: PropTypes.string,
@@ -510,6 +531,6 @@ export default connect(
     unObserveAction,
     userCenterAction,
     deleteFeelingAction,
-
+    requestUserInfo,
   }, dispatch),
 )(ProjectDetailPage);

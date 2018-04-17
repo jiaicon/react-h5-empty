@@ -4,6 +4,7 @@
 import React, {PropTypes} from 'react';
 import autoBind from 'react-autobind';
 import Alert from 'react-s-alert';
+import history from '../../../history';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -34,6 +35,11 @@ class BindFamily extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         console.log(this.props, nextProps)
+        const { failed: tFailed, fetching: tFetch } = this.props.bindFamily;
+        const { failed: nFailed, fetching: nFetch } = nextProps.bindFamily;
+        if(tFetch && !nFetch && !nFailed) {
+            history.replace('/my/family');
+        }
     }
     bindFamily(){
         const userAccount = this.state.userAccount;
@@ -107,8 +113,7 @@ BindFamily.PropTypes = {
     bindFamilyFun: PropTypes.func,
     bindFamily: PropTypes.shape({
         username: PropTypes.string,
-        id: PropTypes.number,
-        id: PropTypes.number,
+        id: PropTypes.number
     })
 };
 export default connect(
