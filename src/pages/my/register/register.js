@@ -65,9 +65,12 @@ class Register extends React.Component {
       });
       this.onStartCountDown();
     }
-    if(this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
-      history.replace('/my/profile/verify');
-    }else if(!this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
+    // if(this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
+    //   history.replace('/my/profile/verify');
+    // }else if(!this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
+    //   history.replace('/my/login');
+    // }
+    if(!this.realRegister && cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
       history.replace('/my/login');
     }
   }

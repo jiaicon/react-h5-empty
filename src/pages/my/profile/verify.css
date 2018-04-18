@@ -110,3 +110,20 @@
   line-height: 30px;
   padding-left: 15px;
 }
+.page-my-profile-verify-photo-box {
+  justify-content: space-between;
+}
+.page-my-profile-verify-photo {
+  display: flex;
+  align-items: center;
+}
+.page-my-profile-verify-photo:last-child {
+  margin-left: 10px;
+}
+.page-my-profile-verify-photo i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url('/images/my/more.png') no-repeat scroll right center transparent;
+  background-size: 20px 20px;
+}

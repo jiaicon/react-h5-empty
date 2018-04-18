@@ -632,7 +632,6 @@ const alertFamilyPeopleInfoReducer = (state = {
   failed: false,
   data: null,
 }, action) => {
-  console.log(action)
   switch (action.type) {
     case 'ALERT_FAMILY_PENDING':
       return {

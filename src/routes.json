@@ -160,6 +160,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/applyAlert",
+    "page": "./pages/my/profile/applyAlert/applyAlert",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/bind/:type",
     "page": "./pages/my/profile/bind",
     "chunk": "main"

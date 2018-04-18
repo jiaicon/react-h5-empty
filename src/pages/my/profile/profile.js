@@ -36,21 +36,6 @@ function sexName(sex) {
     return '未知';
 }
 const relations = [{name: '兄弟', id: 0},{name: '姐妹',id: 1},{name: '父子',id: 2},{name: '母女',id: 3}];
-function isChoose(value, label) {
-    if (!value || !value.length) {
-        Alert.warning(`请选择${label}`);
-        return true;
-    }
-
-    return false;
-}
-function checkEmpty(value, label) {
-    if (!value || !value.length) {
-        Alert.warning(`请填写${label}`);
-        return true;
-    }
-    return false;
-}
 class Profile extends React.Component {
 
     constructor(props) {
@@ -60,7 +45,6 @@ class Profile extends React.Component {
         this.realRegister = window.orgInfo.real_name_register;
         this.state = ({
             photo: '',
-            // relations: this.props.,
             showDialog: false
         });
         this.dialog = {
@@ -194,7 +178,9 @@ class Profile extends React.Component {
                     <div className="page-profile-fonts">详细地址</div>
                     <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
                 </div>
-                <div className="page-profile-realinfo-takeup" />
+                <Link to="/my/profile/applyAlert">
+                    <div className="page-profile-apply-alert" onClick={this.applyAlert}>申请修改</div>
+                </Link>
             </div>
         );
     }
@@ -430,7 +416,6 @@ class Profile extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.props, nextProps)
         const {failed: tFailed, fetching: tFetch} = this.props.alertPeopleInfo;
         const {failed: nFailed, fetching: nFetch} = nextProps.alertPeopleInfo;
         if (tFetch && !nFetch && !nFailed) {
@@ -472,7 +457,7 @@ class Profile extends React.Component {
         if(!this.state.userPassword && !this.state.relations) {
             return;
         }
-        alertFamilyPeopleInfo(this.props.otherfamily.data.id, data)
+        this.props.alertFamilyPeopleInfo(this.props.otherfamily.data.id, data)
     }
     renderNewView() {
         const otherFamily = this.props.otherfamily;

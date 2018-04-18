@@ -9,8 +9,10 @@ import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import uploadToWX from '../../../utils/wxupload';
 import history from '../../history';
 import { requestUserInfo } from '../../../stores/common';
+import Avatar from '../../../components/avatar/avatar';
 import { checkUser, addressDataAction } from './profile.store';
 import './verify.css';
 
@@ -131,9 +133,24 @@ class Verify extends React.Component {
       idcard,
     });
   }
-
+  // 上传照片
+  onAvatarClick() {
+    uploadToWX({
+      success: (urls) => {
+        this.setState({
+          ...this.state,
+          photo: urls[0],
+        });
+        this.photo = urls[0];
+      },
+    });
+  }
 
   onSubmit() {
+    let photo;
+    if (!this.realRegister) {   //非实名
+      photo = this.state.photo;
+    }
     const realname = this.state.realname;
     const idcard = this.state.idcard;
     const people = this.state.people;
@@ -158,6 +175,7 @@ class Verify extends React.Component {
     ) {
       return;
     }
+
     const data = {
       real_name: realname,
       id_number: idcard,
@@ -167,6 +185,11 @@ class Verify extends React.Component {
       county_id: county,
       addr: address,
     };
+    if (photo!=undefined && photo != '') {
+      console.log('photo: '+photo);
+      data.avatars = photo;
+    }
+    console.log('data'+data)
     this.props.checkUser(data);
   }
   handlePeopleClick() {
@@ -206,6 +229,18 @@ class Verify extends React.Component {
       <div className="page-my-profile-verify-container">
         <div className="page-my-profile-verify-main">
           <div className="page-my-profile-verify-title">实名认证信息</div>
+          <div className="page-my-profile-verify-header-box page-my-profile-verify-photo-box">
+            <div className="page-my-profile-verify-fonts">头像</div>
+            <div className="page-my-profile-verify-photo" onClick={this.onAvatarClick}>
+              <div>
+                <Avatar src={this.state.photo} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
+              </div>
+              <div>
+                <i className=""></i>
+              </div>
+            </div>
+          </div>
+          <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
             <div className="page-my-profile-verify-fonts">姓名</div>
             <input type="text" ref={(c) => { this.realname = c; }} className="page-my-profile-verify-text" onChange={this.onTextChanged} />
