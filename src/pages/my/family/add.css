@@ -94,6 +94,9 @@
 .page-add-family-tab-ul-container {
   width: 100%;
 }
+.page-add-family-tab-ul-container a {
+  color: #A1A1A1;
+}
 .page-add-family-tab-ul-container {
   height: 53px;
   width: 100%;
@@ -116,3 +119,4 @@
 .page-add-family-tab-top {
   background-color: #fff;
 }
+
