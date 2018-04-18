@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import history from '../../../history';
 import { bindActionCreators } from 'redux';
 import { addFamilyPeople } from './../../my.store';
-
+import FastClick from 'fastclick';
 import {addressDataAction} from './../../profile/profile.store';
 
 import './newFamily.css';

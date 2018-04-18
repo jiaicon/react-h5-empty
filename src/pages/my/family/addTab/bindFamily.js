@@ -7,7 +7,8 @@ import Alert from 'react-s-alert';
 import history from '../../../history';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-
+import FastClick from 'fastclick';
+const isAndroid = /android/i.test(navigator.userAgent);
 import {bindFamilyFun} from './../../my.store';
 import './bindFamily.css';
 
@@ -33,6 +34,14 @@ class BindFamily extends React.Component {
             return true;
         }
         return false;
+    }
+
+    componentDidMount() {
+// Android 下 fastclick 影响 select 点击
+        if (window.fastclick && isAndroid) {
+            window.fastclick.destroy();
+            window.fastclick = null;
+        }
     }
 
     componentWillReceiveProps(nextProps) {
