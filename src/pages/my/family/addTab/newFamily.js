@@ -50,6 +50,22 @@ function isChoose(value, label) {
 
     return false;
 }
+function checkStr(str) {
+    const reg = new RegExp('^([\u4E00-\uFA29]|[\uE7C7-\uE7F3])*$');
+    if (!reg.test(str)) {
+        Alert.warning('请输入中文姓名');
+        return true;
+    }
+    return false;
+}
+function isCard(card) {
+    const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    if (!reg.test(card)) {
+        Alert.warning('身份证输入不合法');
+        return true;
+    }
+    return false;
+}
 class NewFamily extends React.Component {
     constructor(props) {
         super(props);
@@ -134,7 +150,8 @@ class NewFamily extends React.Component {
         const county = this.state.county;
         const addressDetail = this.state.addressDetail;
         if (checkEmpty(username, '姓名') || checkEmpty(userpassword, '密码')
-            || checkEmpty(idNumber, '身份证号') || checkEmpty(addressDetail, '详细地址')) {
+            || checkEmpty(idNumber, '身份证号') || checkEmpty(addressDetail, '详细地址')
+            || checkStr(username, '姓名') || isCard(idNumber, '身份证号')) {
             return;
         }
         if(isChoose(province, '省份')|| isChoose(relations, '关系') || isChoose(nation, '民族')
