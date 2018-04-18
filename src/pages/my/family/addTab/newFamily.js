@@ -241,8 +241,8 @@ class NewFamily extends React.Component {
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">区县</div>
                     <div className="pages-add-new-family-ipt">
-                        <label htmlFor="people">
-                            <select id="people" onChange={this.handleCountyClick} ref={(c) => { this.county = c; }}>
+                        <label htmlFor="county">
+                            <select id="county" onChange={this.handleCountyClick} ref={(c) => { this.county = c; }}>
                                 <option value="-1" />
                                 { county && county.map((item, keys) =>
                                     <option value={item.id} key={keys}>{item.name}</option>)}
