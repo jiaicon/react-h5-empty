@@ -68,10 +68,20 @@ body {
   align-items: center;
 }
 .page-profile-fonts-view{
-  width: 100%;
+  /* width: 100%;
   height: 57px;
   line-height: 57px!important;
   text-align: center;
+  padding: 0 15px;
+  font-size: 15px;
+  color: #333;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  text-overflow: clip;
+  white-space:nowrap; */
+  width: 100%;
+  height: 57px;
   padding: 0 15px;
   font-size: 15px;
   color: #333;
