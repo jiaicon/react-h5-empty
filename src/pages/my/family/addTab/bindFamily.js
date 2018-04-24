@@ -12,7 +12,8 @@ const isAndroid = /android/i.test(navigator.userAgent);
 import {bindFamilyFun} from './../../my.store';
 import './bindFamily.css';
 
-const relations = [{name: '兄弟', id: 0}, {name: '姐妹', id: 1}, {name: '父子', id: 2}, {name: '母女', id: 3}];
+const relations = [{name: '儿子', id: 0},{name: '女儿',id: 1},{name: '丈夫',id: 2},{name: '妻子',id: 3}
+    ,{name: '母亲',id: 4},{name: '父亲',id: 5},{name: '爷爷',id: 6},{name: '奶奶',id: 7},{name: '其他',id: 8}];
 function isChoose(value, label) {
     if (!value || !value.length) {
         Alert.warning(`请选择${label}`);
@@ -89,6 +90,7 @@ class BindFamily extends React.Component {
     }
 
     render() {
+        // console.log(relations);
         return (
             <div className="pages-add-bind-family">
                 <div className="pages-add-bind-family-top">
