@@ -10,7 +10,7 @@ export const improveClaim = data => ({
     id: `${data.id}`,
 
   },
-  payload: fetch(`/claim/${data.id}`, { method: 'POST',
+  payload: fetch(`/claim/${data.id}`, { 
     data: { team_name: `${data.name}`,
       contact_name: `${data.people}`,
       contact_phone: `${data.phone} `,

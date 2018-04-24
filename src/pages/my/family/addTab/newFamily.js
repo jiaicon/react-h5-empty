@@ -13,7 +13,8 @@ import {addressDataAction} from './../../profile/profile.store';
 
 import './newFamily.css';
 const isAndroid = /android/i.test(navigator.userAgent);
-const relations = [{name: '兄弟', id: 0},{name: '姐妹',id: 1},{name: '父子',id: 2},{name: '母女',id: 3}];
+const relations = [{name: '儿子', id: 0},{name: '女儿',id: 1},{name: '丈夫',id: 2},{name: '妻子',id: 3}
+    ,{name: '母亲',id: 4},{name: '父亲',id: 5},{name: '爷爷',id: 6},{name: '奶奶',id: 7},{name: '其他',id: 8}];
 
 const people = [{ id: '01', name: '汉族' }, { id: '02', name: '蒙古族' }, { id: '03', name: '回族' },
     { id: '04', name: '藏族' }, { id: '05', name: '维吾尔族' }, { id: '06', name: '苗族' },

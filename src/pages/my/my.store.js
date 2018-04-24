@@ -267,7 +267,7 @@ const familyReducer = (state = {
 // 增加家庭成员
 export const addFamilyAction = data => ({
   type: 'ADDFAMILY_DATA',
-  payload: fetch('/myfamily', { data }, { method: 'POST' }),
+  payload: fetch('/myfamily', { data }),
 });
 const addFamilyReducer = (state = {
   fetching: false,
@@ -302,7 +302,7 @@ const addFamilyReducer = (state = {
 // 增加家庭成员  新的addFamilyAction
 export const addFamilyPeople = data => ({
   type: 'ADDFAMILY_PEOPLE',
-  payload: fetch('/myfamily', { data }, { method: 'POST' })
+  payload: fetch('/myfamily', { data })
 });
 const addFamilyPeopleReducer = (state = {
   fetching: false,
@@ -336,7 +336,7 @@ const addFamilyPeopleReducer = (state = {
 //绑定家庭成员
 export const bindFamilyFun = (data) => ({
   type: 'BIND_FAMILY',
-  payload: fetch('/myfamily/bind',{data}, {method: 'POST'})
+  payload: fetch('/myfamily/bind',{data})
 });
 const bindFamilyReducer = (state = {
   fetching: false,
@@ -407,7 +407,7 @@ export const correctUserInfo = data => ({
   meta: {
     data,
   },
-  payload: fetch('/user', { method: 'POST' }),
+  payload: fetch('/user'),
 });
 const correctUserInfoReducer = (state = {
   fetching: false,
@@ -517,7 +517,7 @@ const projectapplyReducer = (state = {
 // attachment: [array] 申请附件【非必填】
 export const postapplyAction = data => ({
   type: 'POSTAPPLY_DATA',
-  payload: fetch('/user/apply', { data }, { method: 'POST' }),
+  payload: fetch('/user/apply', { data }),
 });
 const postApplyReducer = (state = {
   fetching: false,
