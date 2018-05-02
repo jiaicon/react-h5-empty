@@ -25,7 +25,6 @@ import Tab from '../../../components/tab/tab';
 import BindFamily from './addTab/bindFamily';
 import NewFamily from './addTab/newFamily';
 
-const relations = [{name: '兄弟', id: 0},{name: '姐妹',id: 1},{name: '父子',id: 2},{name: '母女',id: 3}];
 function checkEmpty(value, label) {
     if (!value || !value.length) {
         Alert.warning(`请填写${label}`);
