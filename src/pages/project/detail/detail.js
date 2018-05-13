@@ -61,7 +61,7 @@ class ProjectDetailPage extends React.Component {
     };
 
     this.dialog = {
-      title: '确认退出',
+      title: '退出报名',
       buttons: [
         {
           type: 'default',
