@@ -61,7 +61,7 @@ class ProjectDetailPage extends React.Component {
     };
 
     this.dialog = {
-      title: '确认预约挂号',
+      title: '退出报名',
       buttons: [
         {
           type: 'default',
