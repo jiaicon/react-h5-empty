@@ -102,7 +102,7 @@ class Register extends React.Component {
       return;
     }
     if (!this.realRegister && !/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
-      Alert.warning('请输入正确的账号');
+      Alert.warning('请输入字母数字中文格式昵称');
       return;
     }
     if (password.length <= 5) {
