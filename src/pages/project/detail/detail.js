@@ -200,10 +200,13 @@ class ProjectDetailPage extends React.Component {
       // realRegister 机构实名 1 要求  0 否
       if (!user.isLogin) {
         if (action === 'join') {
-          if(projectId == 1035){
-            window.location.href='http://lxi.me/17i1a';
+          if (projectId == 1035) {
+            window.location.href = 'http://lxi.me/17i1a';
             // history.push('http://lxi.me/17i1a');
-            return
+            return;
+          } else if (projectId == 1043) {
+            window.location.href = 'http://lxi.me/4hwr6';
+            return;
           }
           this.props.joinProject(projectId);
         } else if (action === 'quit') {
@@ -213,9 +216,12 @@ class ProjectDetailPage extends React.Component {
         // 不要求实名
         if (realRegister == 0) {
           if (action === 'join') {
-            if(projectId == 1035){
-              window.location.href='http://lxi.me/17i1a';
-              return
+            if (projectId == 1035) {
+              window.location.href = 'http://lxi.me/17i1a';
+              return;
+            } else if (projectId == 1043) {
+              window.location.href = 'http://lxi.me/4hwr6';
+              return;
             }
             this.props.joinProject(projectId);
           } else if (action === 'quit') {
@@ -226,9 +232,12 @@ class ProjectDetailPage extends React.Component {
           history.replace(`/my/profile/verify/project/${this.projectId}`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {
-            if(projectId == 1035){
-              window.location.href='http://lxi.me/17i1a';
-              return
+            if (projectId == 1035) {
+              window.location.href = 'http://lxi.me/17i1a';
+              return;
+            } else if (projectId == 1043) {
+              window.location.href = 'http://lxi.me/4hwr6';
+              return;
             }
             this.props.joinProject(projectId);
           } else if (action === 'quit') {
