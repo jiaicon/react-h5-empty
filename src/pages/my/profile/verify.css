@@ -52,11 +52,16 @@
   flex-direction: reverse;
   justify-content: flex-start;
   align-items: center;
-  background: #fff;
+}
+.page-my-profile-verify-header-box-pic-fonts{
+  font-size: 15px;
+  color: #666;
+  text-align: justify;
+  padding:15px;
 }
 .page-my-profile-verify-fonts{
   font-size: 15px;
-  color: #333333;
+  color: #666;
   width: 70px;
   text-align: justify;
   text-align-last:justify;
@@ -132,24 +137,59 @@
 
 
 .am-checkbox-item {
-  display: flex;
+  position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 40px;
+    background-color: #fff;
+    vertical-align: middle;
+    overflow: hidden;
+    -webkit-transition: background-color .2s;
+    transition: background-color .2s;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
-.am-list-header {
+/* .page-my-profile-verify-container .am-list-header {
   height: 50px;
   color: #666666;
   font-size: 15px;
   line-height: 50px;
 }
-.am-list {
+.page-my-profile-verify-container .am-list-body::before{
+  background-color: transparent;
+} */
+/* .am-list {
   margin-left: 15px;
   color: #282828;
   font-size: 15px;
 }
 .am-list-thumb {
   margin-right: 10px;
+  width: 24px;
+  height: 24px;
+}
+.am-checkbox-wrapper{
+  cursor: default;
+}
+.am-list .am-list-item.am-checkbox-item .am-list-thumb .am-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 44px;
 }
 .am-checkbox-input {
-  /*border: none;*/
+  position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 21px;
+    height: 21px;
 }
 .ant-checkbox-input:focus + .ant-checkbox-inner{
   border: 1px solid #1BBA79 !important;
@@ -159,7 +199,7 @@
 .ant-checkbox-inner{
   border: 1px solid red!important;
   background-color: transparent;
-}
+} */
 
 .page-my-profile-edit-text{
   width: 345px;
@@ -176,4 +216,17 @@
 }
 .page-my-profile-verify-text-lineheight{
   line-height: 40px;
+}
+.am-checkbox-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border: 0 none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
