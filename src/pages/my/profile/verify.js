@@ -413,7 +413,7 @@ class Verify extends React.Component {
                       {//单项选择
                         case 1:
                         return(
-                          <div>
+                          <div key={index}>
                             {this.renderOtherInfoSelect(item)}
                           </div>
                         )
