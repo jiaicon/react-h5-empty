@@ -72,6 +72,7 @@ class Verify extends React.Component {
             province: 0,
             city: 0,
             county: 0,
+            extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
         console.log(window.orgInfo.custom_config);
@@ -380,7 +381,44 @@ class Verify extends React.Component {
             </div>
         )
     }
+    handleOtherInfoSelectClick(e){
+      console.log(this.state)
+      const key =e.target.id;
+      const value =e.target.value;
+      let flag = false;
+      const extendsArray =this.state.extendsArray;
+      extendsArray.length?
+      extendsArray.map((item,index)=>{
+        for(var i in item){
+            if(i === key){
+              item[key]=value;
+              flag = true;
+              break;
+            }else{
+              flag = false;
+            }
+        }
+        console.log(flag)
+       
+        // if(item[key]){
+        //   item[key]=value;
+        // }else{
+        //   extendsArray.push({[key]:value})
+        // }
+      }):
+      extendsArray.push({[key]:value})
+      if(!flag) {
+        extendsArray.push({[key]:value});
+      }
 
+      this.setState({
+        ...this.state,
+        extendsArray,
+        
+      })
+      // this.state[key] = value;
+      console.log(this.state)
+    }
     renderOtherInfoSelect(item){
       const data =item;
       const key =data.key;
@@ -390,9 +428,8 @@ class Verify extends React.Component {
             <div className="page-my-profile-verify-header-box">
                 <div className="page-my-profile-verify-fonts">{data.label}</div>
                 <label htmlFor={`${key}`}>
-                    <select id={`${key}`} onChange={this.handlePeopleClick} ref={(c) => {
-                        this.key = c;
-                    }}>
+                    <select id={`${key}`} onChange={this.handleOtherInfoSelectClick} 
+                    >
                     <option value="-1"/>
                     {options.map((item1, keys) =>
                         <option value={item1} key={keys}>{item1}</option>)}
