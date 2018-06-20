@@ -658,7 +658,6 @@ class Verify extends React.Component {
                                 )
                                 break;
                             //多行输
-
                             case 4:
                                 return (
                                   <div key={index}>
