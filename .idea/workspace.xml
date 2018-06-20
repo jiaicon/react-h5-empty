@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="673f1116-2321-4048-b1ad-35e0e4a65ac4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.ejs" afterPath="$PROJECT_DIR$/public/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/verify.css" afterPath="$PROJECT_DIR$/src/pages/my/profile/verify.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/verify.js" afterPath="$PROJECT_DIR$/src/pages/my/profile/verify.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
@@ -50,8 +48,8 @@
       <file leaf-file-name="verify.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="721" column="40" lean-forward="true" selection-start-line="721" selection-start-column="40" selection-end-line="721" selection-end-column="40" />
+            <state relative-caret-position="233">
+              <caret line="247" column="40" lean-forward="true" selection-start-line="247" selection-start-column="40" selection-end-line="247" selection-end-column="40" />
               <folding>
                 <element signature="e#119#158#0" expanded="true" />
               </folding>
@@ -75,7 +73,7 @@
             <state relative-caret-position="317">
               <caret line="111" column="51" lean-forward="false" selection-start-line="111" selection-start-column="51" selection-end-line="111" selection-end-column="51" />
               <folding>
-                <marker date="1529489482613" expanded="true" signature="9204:9222" ph="..." />
+                <marker date="1529491179909" expanded="true" signature="9204:9222" ph="..." />
               </folding>
             </state>
           </provider>
@@ -116,10 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TAB_URL_MAPS</find>
-      <find>bindActionCreators</find>
-      <find>onChange</find>
-      <find>project/de</find>
       <find>Tab</find>
       <find>onTabChange</find>
       <find>saveProjectTabIndex</find>
@@ -146,6 +140,10 @@
       <find>limitArr</find>
       <find>console</find>
       <find>page-profile-fonts-view</find>
+      <find>onSubmit</find>
+      <find>checkEmpty</find>
+      <find>winOrgInfo</find>
+      <find>isRequired</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -409,7 +407,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153890000" />
+    <option name="totallyTimeSpent" value="155469000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -853,7 +851,7 @@
         <state relative-caret-position="317">
           <caret line="111" column="51" lean-forward="false" selection-start-line="111" selection-start-column="51" selection-end-line="111" selection-end-column="51" />
           <folding>
-            <marker date="1529489482613" expanded="true" signature="9204:9222" ph="..." />
+            <marker date="1529491179909" expanded="true" signature="9204:9222" ph="..." />
           </folding>
         </state>
       </provider>
@@ -919,8 +917,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="721" column="40" lean-forward="true" selection-start-line="721" selection-start-column="40" selection-end-line="721" selection-end-column="40" />
+        <state relative-caret-position="233">
+          <caret line="247" column="40" lean-forward="true" selection-start-line="247" selection-start-column="40" selection-end-line="247" selection-end-column="40" />
           <folding>
             <element signature="e#119#158#0" expanded="true" />
           </folding>

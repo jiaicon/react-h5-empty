@@ -17,7 +17,7 @@ import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
 
 import '../duration/post.css';
 import './verify.css';
-import { List, Checkbox,DatePicker, Flex } from 'antd-mobile';
+import {List, Checkbox, DatePicker, Flex} from 'antd-mobile';
 
 
 import 'antd-mobile/lib/date-picker/style/css';
@@ -51,6 +51,28 @@ function checkEmpty(value, label) {
     return false;
 }
 
+function isRequired(arr, stateData) {
+    arr.map((item, index) => {
+        if (item.is_required && item.is_required === 1) {
+            // stateData.map((item1, index1)=>{
+            //     console.log(111)
+            //     if(item.key === item1.key) {
+            //         console.log(item[key])
+            //         checkEmpty(item1[item[key]],item[key]);
+            //     }
+            // })
+            console.log(stateData)
+            for (let i = 0; i < stateData.length; i++) {
+                console.log(111)
+                if (item.key === stateData[i].key) {
+                    console.log(item[key])
+                    checkEmpty(stateData[i][item[key]], item[key]);
+                }
+            }
+        }
+    })
+}
+
 function checkStr(str) {
     const reg = new RegExp('^([\u4E00-\uFA29]|[\uE7C7-\uE7F3])*$');
     if (!reg.test(str)) {
@@ -68,17 +90,18 @@ function iscard(card) {
     }
     return false;
 }
-function formatDate(x,y) {
-  /* eslint no-confusing-arrow: 0 */
-  const pad = n => n < 10 ? `0${n}` : n;
-  const date = new Date(x);
-  const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-  const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
- if(y){
-  return `${dateStr} ${timeStr}`;
- }else{
-  return `${dateStr}`;
- }
+
+function formatDate(x, y) {
+    /* eslint no-confusing-arrow: 0 */
+    const pad = n => n < 10 ? `0${n}` : n;
+    const date = new Date(x);
+    const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+    const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    if (y) {
+        return `${dateStr} ${timeStr}`;
+    } else {
+        return `${dateStr}`;
+    }
 }
 
 class Verify extends React.Component {
@@ -93,18 +116,18 @@ class Verify extends React.Component {
             extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
-        this.CustomChildren = ({ extra, onClick }) => (
+        this.CustomChildren = ({extra, onClick}) => (
 
-          <div
-            onClick={onClick}
-            style={{ height: '40px', lineHeight: '40px', color: '#565656' }}
-          >
+            <div
+                onClick={onClick}
+                style={{height: '40px', lineHeight: '40px', color: '#565656'}}
+            >
             <span
-              className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
+                className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
             >
               {extra}</span>
-    
-          </div>
+
+            </div>
         );
     }
 
@@ -158,15 +181,17 @@ class Verify extends React.Component {
             window.fastclick = FastClick.attach(document.body);
         }
     }
+
     // 初始化上传照片
-    initialPic(data){
-      data.map((item,index)=>{
-        if(item.type ==5){
-          this.state[item.key]=[];
-        }
-      })
+    initialPic(data) {
+        data.map((item, index) => {
+            if (item.type == 5) {
+                this.state[item.key] = [];
+            }
+        })
 
     }
+
     onTextChanged() {
         const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
         const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -207,20 +232,22 @@ class Verify extends React.Component {
         const province = this.state.province;
         const city = this.state.city;
         const county = this.state.county;
-        if (
-            checkEmpty(realname, '姓名')
-            || checkEmpty(idcard, '身份证号码')
-            || checkEmpty(people, '民族')
-            || checkEmpty(province, '省份')
-            || checkEmpty(city, '城市')
-            || checkEmpty(county, '区县')
-            || checkEmpty(address, '详细地址')
-            || checkStr(realname)
-            || iscard(idcard)
-        ) {
+        // if (
+        //     checkEmpty(realname, '姓名')
+        //     || checkEmpty(idcard, '身份证号码')
+        //     || checkEmpty(people, '民族')
+        //     || checkEmpty(province, '省份')
+        //     || checkEmpty(city, '城市')
+        //     || checkEmpty(county, '区县')
+        //     || checkEmpty(address, '详细地址')
+        //     || checkStr(realname)
+        //     || iscard(idcard)
+        // ) {
+        //     return;
+        // }
+        if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
             return;
         }
-
         const data = {
             real_name: realname,
             id_number: idcard,
@@ -426,8 +453,9 @@ class Verify extends React.Component {
     handleOtherInfoSelectClick(e) {
         const key = e.target.id;
         const value = e.target.value;
-        this.pushExtendsArray(key,value);
+        this.pushExtendsArray(key, value);
     }
+
     //单选控件
     renderOtherInfoSelect(item) {
         const data = item;
@@ -450,16 +478,18 @@ class Verify extends React.Component {
             </div>
         )
     }
+
     //多选控件
-    onChange = (key,val) => {
+    onChange = (key, val) => {
         this.pushExtendsArray(key, val, true)
     };
+
     renderOtherInfoCheckbox(item1) {
         const CheckboxItem = Checkbox.CheckboxItem;
         const AgreeItem = Checkbox.AgreeItem;
         let labels = item1.options.split(',');
         let data = [];
-        labels.map((item, index)=> {
+        labels.map((item, index) => {
             let obj = {};
             obj.value = index;
             obj.label = item;
@@ -469,7 +499,7 @@ class Verify extends React.Component {
             <div className="">
                 <List renderHeader={() => item1.label}>
                     {data.map(i => (
-                        <CheckboxItem key={i.value} onChange={() => this.onChange(item1.key,i.label)}>
+                        <CheckboxItem key={`${item1.key}${i.value}`} onChange={() => this.onChange(item1.key, i.label)}>
                             {i.label}
                         </CheckboxItem>
                     ))}
@@ -477,192 +507,204 @@ class Verify extends React.Component {
             </div>
         )
     }
+
     //单行
-    renderOtherInfoInput(item){
-      const data =item;
-      const key = data.key;
-      return (
-        <div>
-         <div>
-          <div className="page-my-profile-verify-header-box">
-              <div className="page-my-profile-verify-fonts">{data.label}</div>
-              <input  id={`${key}`} className="page-my-profile-verify-text" onChange={this.handleOtherInfoInputClick}/>
-          </div>
-          <div className="line1px"/>
-          </div>
-        </div>
-      )
-    }
-    handleOtherInfoInputClick(e){
-      const key = e.target.id;
-      const value = e.target.value;
-      this.pushExtendsArray(key,value);
-    }
-    // 多行
-    renderOtherInfoManyInput(item){
-      const data =item;
-      const key = data.key;
-      return (
-     
-         <div>
-          <div className="page-my-profile-verify-header-box">
-              <div className="page-my-profile-verify-fonts">{data.label}</div>
-          </div>
-      
-            <textarea placeholder={`请输入${data.label}`} 
-            id={`${key}`}
-            className="page-my-profile-edit-text" maxLength="200" 
-            onKeyUp={this.handleOtherInfoManyInputClick} 
-            />
-     
-          <div className="line1px"/>
-          </div>
-      )
-    }
-    handleOtherInfoManyInputClick(e){
-      const key = e.target.id;
-      const value = e.target.value;
-      this.pushExtendsArray(key,value);
-    }
-    // 选择时间
-    renderOtherInfoDate(item){
-      const data =item;
-      const key = data.key;
-      return(
-        <div>
-          <div className="page-my-profile-verify-header-box">
-              <div className="page-my-profile-verify-fonts">{data.label}</div>
-              
-              <DatePicker
-                mode="date"
-                format="YYYY-MM-DD"
-                value={this.state[key]}
-                extra={`请选择${data.label}`}
-                onOk={v => (this.pushExtendsArray(key,formatDate(v)),this.state[key]=v, console.log(v))}
-                onDismiss={v => (this.pushExtendsArray(key,null),this.state[key]=null, console.log(v))}
-
-              >
-              
-                <this.CustomChildren /> 
-
-            </DatePicker>
-              
-          </div>
-          <div className="line1px"/>
-          </div>
-      )
-    }
-    renderOtherInfoDateTime(item){
-      const data =item;
-      const key = data.key;
-      return(
-        <div>
-        <div className="page-my-profile-verify-header-box">
-            <div className="page-my-profile-verify-fonts">{data.label}</div>
-            <DatePicker
-                mode="datetime"
-                format="YYYY-MM-DD HH:mm"
-                value={this.state[key]}
-                extra={`请选择${data.label}`}
-                onOk={v => (this.pushExtendsArray(key,formatDate(v,true)),this.state[key]=v, console.log(v))}
-                onDismiss={v => (this.pushExtendsArray(key,null),this.state[key]=null, console.log(v))}
-
-              >
-              
-                <this.CustomChildren /> 
-              </DatePicker>
-          </div>
-        <div className="line1px"/>
-        </div>
-      )
-    }
-    // 上传图片
-  onPicClick(e) {
-    var key = e.target.id;
-    const attachment = this.state[key];
-    uploadToWX({
-      success: (urls) => {
-        console.log('图片上传成功:', urls);
-        attachment.push(urls[0]);
-        this.state[key]=attachment;
-        
-        this.pushExtendsArray(key,attachment)
-      },
-    });
-  }
-
-  onPicDel(e) {
-    const num = e.target.id;
-    var key = e.target.name;
-    const attachment =  this.state[key];
-    attachment.splice(num, 1);
-    this.state[key]=attachment;
-    this.pushExtendsArray(key,attachment)
-  }
-    renderOtherPic(item){
-      const data =item;
-      const key = data.key;
-      return(
-        <div>
-            <div className="page-my-profile-verify-header-box" >{data.label}</div>
-            <div className="page-post-container-photo-container">
-              {
-             this.state[key].map((item, key) => (
-               <div className="page-applys-item-render-container">
-                 <div className="page-applys-item-view" >
-                   <Avatar src={item} size={{ width: 100, radius: 1 }} />
-                 </div>
-                 <div className="page-applys-item-render-del" onClick={this.onPicDel} id={key} key={item} name={`${key}`}/>
-               </div>
-             ))
-           }
-              {
-              this.state[key].length === 3 ?
-               <div /> :
-               <div
-                 className="page-post-item-upload-container"  id={`${key}`} onClick={this.onPicClick}
-               />
-           }
+    renderOtherInfoInput(item) {
+        const data = item;
+        const key = data.key;
+        return (
+            <div>
+                <div>
+                    <div className="page-my-profile-verify-header-box">
+                        <div className="page-my-profile-verify-fonts">{data.label}</div>
+                        <input id={`${key}`} className="page-my-profile-verify-text"
+                               onChange={this.handleOtherInfoInputClick}/>
+                    </div>
+                    <div className="line1px"/>
+                </div>
             </div>
-          </div>
-      )
+        )
     }
+
+    handleOtherInfoInputClick(e) {
+        const key = e.target.id;
+        const value = e.target.value;
+        this.pushExtendsArray(key, value);
+    }
+
+    // 多行
+    renderOtherInfoManyInput(item) {
+        const data = item;
+        const key = data.key;
+        return (
+
+            <div>
+                <div className="page-my-profile-verify-header-box">
+                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+                </div>
+
+                <textarea placeholder={`请输入${data.label}`}
+                          id={`${key}`}
+                          className="page-my-profile-edit-text" maxLength="200"
+                          onKeyUp={this.handleOtherInfoManyInputClick}
+                />
+
+                <div className="line1px"/>
+            </div>
+        )
+    }
+
+    handleOtherInfoManyInputClick(e) {
+        const key = e.target.id;
+        const value = e.target.value;
+        this.pushExtendsArray(key, value);
+    }
+
+    // 选择时间
+    renderOtherInfoDate(item) {
+        const data = item;
+        const key = data.key;
+        return (
+            <div>
+                <div className="page-my-profile-verify-header-box">
+                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+
+                    <DatePicker
+                        mode="date"
+                        format="YYYY-MM-DD"
+                        value={this.state[key]}
+                        extra={`请选择${data.label}`}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.state[key] = v, console.log(v))}
+                        onDismiss={v => (this.pushExtendsArray(key, null), this.state[key] = null, console.log(v))}
+
+                    >
+
+                        <this.CustomChildren/>
+
+                    </DatePicker>
+
+                </div>
+                <div className="line1px"/>
+            </div>
+        )
+    }
+
+    renderOtherInfoDateTime(item) {
+        const data = item;
+        const key = data.key;
+        return (
+            <div>
+                <div className="page-my-profile-verify-header-box">
+                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+                    <DatePicker
+                        mode="datetime"
+                        format="YYYY-MM-DD HH:mm"
+                        value={this.state[key]}
+                        extra={`请选择${data.label}`}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.state[key] = v, console.log(v))}
+                        onDismiss={v => (this.pushExtendsArray(key, null), this.state[key] = null, console.log(v))}
+
+                    >
+
+                        <this.CustomChildren/>
+                    </DatePicker>
+                </div>
+                <div className="line1px"/>
+            </div>
+        )
+    }
+
+    // 上传图片
+    onPicClick(e) {
+        var key = e.target.id;
+        const attachment = this.state[key];
+        uploadToWX({
+            success: (urls) => {
+                console.log('图片上传成功:', urls);
+                attachment.push(urls[0]);
+                this.state[key] = attachment;
+
+                this.pushExtendsArray(key, attachment)
+            },
+        });
+    }
+
+    onPicDel(e) {
+        const num = e.target.id;
+        var key = e.target.name;
+        const attachment = this.state[key];
+        attachment.splice(num, 1);
+        this.state[key] = attachment;
+        this.pushExtendsArray(key, attachment)
+    }
+
+    renderOtherPic(item) {
+        const data = item;
+        const key = data.key;
+        return (
+            <div>
+                <div className="page-my-profile-verify-header-box">{data.label}</div>
+                <div className="page-post-container-photo-container">
+                    {
+                        this.state[key].map((item, key) => (
+                            <div className="page-applys-item-render-container">
+                                <div className="page-applys-item-view">
+                                    <Avatar src={item} size={{width: 100, radius: 1}}/>
+                                </div>
+                                <div className="page-applys-item-render-del" onClick={this.onPicDel} id={key} key={item}
+                                     name={`${key}`}/>
+                            </div>
+                        ))
+                    }
+                    {
+                        this.state[key].length === 3 ?
+                            <div/> :
+                            <div
+                                className="page-post-item-upload-container" id={`${key}`} onClick={this.onPicClick}
+                            />
+                    }
+                </div>
+            </div>
+        )
+    }
+
     // push 数组
     /*
     * key 键
     * value 值
     * isMany 是否多选 true是 false否
     * */
-    pushExtendsArray(key,value, isMany){
-      let mapInit = false;
-      let objInit = false;
-      const extendsArray = this.state.extendsArray;
-      extendsArray.map((item, index) => {
-          for (var i in item) {
-              if (i === key) {
-                  if(isMany) {
-                      item[key] = String(item[key])+','+String(value);
-                  }else {
-                      item[key] = value;
-                  }
-                  mapInit = true;
-                  objInit = true;
-                  break;
-              } else {
-                  mapInit = false;
-              }
-          }
-      });
-      if (!mapInit && !objInit) {
-          extendsArray.push({[key]: value});
-      }
-      console.log(extendsArray)
-      this.setState({
-          ...this.state,
-          extendsArray,
+    pushExtendsArray(key, value, isMany) {
+        let mapInit = false;
+        let objInit = false;
+        const extendsArray = this.state.extendsArray;
+        extendsArray.map((item, index) => {
+            for (var i in item) {
+                if (i === key) {
+                    if (isMany) {
+                        item[key] = String(item[key]) + ',' + String(value);
+                    } else {
+                        item[key] = value;
+                    }
+                    mapInit = true;
+                    objInit = true;
+                    break;
+                } else {
+                    mapInit = false;
+                }
+            }
+        });
+        if (!mapInit && !objInit) {
+            extendsArray.push({[key]: value});
+        }
+        console.log(extendsArray);
+        this.setState({
+            ...this.state,
+            extendsArray,
 
-      })
+        })
     }
+
     renderOtherInfo() {
         return (
             <div>
@@ -678,8 +720,8 @@ class Verify extends React.Component {
                                 break;
                             //多项选择
                             case 2:
-                                return(
-                                    <div>
+                                return (
+                                    <div key={index}>
                                         {this.renderOtherInfoCheckbox(item)}
                                     </div>
                                 );
@@ -687,39 +729,43 @@ class Verify extends React.Component {
                             //单行输入
                             case 3:
                                 return (
-                                  <div key={index}>
-                                      {this.renderOtherInfoInput(item)}
-                                  </div>
-                                )
+                                    <div key={index}>
+                                        {this.renderOtherInfoInput(item)}
+                                    </div>
+                                );
                                 break;
                             //多行输
                             case 4:
-                                // console.log(4);
+                                return (
+                                    <div key={index}>
+                                        {this.renderOtherInfoManyInput(item)}
+                                    </div>
+                                );
                                 break;
 
                             //上传图片
                             case 5:
                                 return (
-                                  <div key={index}>
-                                      {this.renderOtherPic(item)}
-                                  </div>
-                                )
+                                    <div key={index}>
+                                        {this.renderOtherPic(item)}
+                                    </div>
+                                );
                                 break;
                             //日期空间
                             case 6:
                                 return (
-                                  <div key={index}>
-                                      {this.renderOtherInfoDate(item)}
-                                  </div>
-                                )
+                                    <div key={index}>
+                                        {this.renderOtherInfoDate(item)}
+                                    </div>
+                                );
                                 break;
                             //日期时间空间
                             case 7:
                                 return (
-                                  <div key={index}>
-                                      {this.renderOtherInfoDateTime(item)}
-                                  </div>
-                                )
+                                    <div key={index}>
+                                        {this.renderOtherInfoDateTime(item)}
+                                    </div>
+                                );
                                 break;
                             default:
                                 return
