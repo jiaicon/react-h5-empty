@@ -131,8 +131,6 @@ class Verify extends React.Component {
     onTextChanged() {
         const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
         const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
-
-
         const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
         this.setState({
             address,
@@ -389,30 +387,7 @@ class Verify extends React.Component {
     handleOtherInfoSelectClick(e) {
         const key = e.target.id;
         const value = e.target.value;
-        let mapInit = false;
-        let objInit = false;
-        const extendsArray = this.state.extendsArray;
-        extendsArray.map((item, index) => {
-            for (var i in item) {
-                if (i === key) {
-                    item[key] = value;
-                    mapInit = true;
-                    objInit = true;
-                    break;
-                } else {
-                    mapInit = false;
-                }
-            }
-        });
-        if (!mapInit && !objInit) {
-            extendsArray.push({[key]: value});
-        }
-
-        this.setState({
-            ...this.state,
-            extendsArray,
-
-        })
+        this.pushExtendsArray(key,value);
     }
     //单选控件
     renderOtherInfoSelect(item) {
@@ -440,6 +415,57 @@ class Verify extends React.Component {
     //多选控件
     renderOtherInfoOptions() {
 
+    } 
+    //单行
+    renderOtherInfoInput(item){
+      const data =item;
+      const key = data.key;
+      return (
+        <div>
+         <div>
+          <div className="page-my-profile-verify-header-box">
+              <div className="page-my-profile-verify-fonts">{data.label}</div>
+              <input  id={`${key}`} type="text" ref={(c) => {
+                  this.realname = c;
+              }} className="page-my-profile-verify-text" onChange={this.handleOtherInfoInputClick}/>
+          </div>
+          <div className="line1px"/>
+          </div>
+        </div>
+      )
+    }
+    handleOtherInfoInputClick(e){
+      const key = e.target.id;
+      const value = e.target.value;
+      this.pushExtendsArray(key,value);
+    }
+    // push 数组
+    pushExtendsArray(key,value){
+      let mapInit = false;
+      let objInit = false;
+      const extendsArray = this.state.extendsArray;
+      extendsArray.map((item, index) => {
+          for (var i in item) {
+              if (i === key) {
+                  item[key] = value;
+                  mapInit = true;
+                  objInit = true;
+                  break;
+              } else {
+                  mapInit = false;
+              }
+          }
+      });
+      if (!mapInit && !objInit) {
+          extendsArray.push({[key]: value});
+      }
+
+      this.setState({
+          ...this.state,
+          extendsArray,
+
+      })
+      console.log(extendsArray)
     }
     renderOtherInfo() {
         return (
@@ -460,7 +486,11 @@ class Verify extends React.Component {
                                 break;
                             //单行输入
                             case 3:
-                                console.log(3);
+                            return (
+                              <div key={index}>
+                                  {this.renderOtherInfoInput(item)}
+                              </div>
+                            )
                                 break;
                             //多行输
 
