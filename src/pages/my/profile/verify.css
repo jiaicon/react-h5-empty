@@ -161,3 +161,19 @@
   background-color: transparent;
 }
 
+.page-my-profile-edit-text{
+  width: 345px;
+  height: 100px;
+  margin-bottom:20px;
+  margin: 0 15px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 21px;
+  color: #282828;
+  resize:none;
+  outline: none;
+}
+.page-my-profile-verify-text-lineheight{
+  line-height: 40px;
+}
