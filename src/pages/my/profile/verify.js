@@ -14,6 +14,7 @@ import history from '../../history';
 import {requestUserInfo} from '../../../stores/common';
 import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
+import '../duration/post.css';
 import './verify.css';
 
 import { DatePicker, List } from 'antd-mobile';
@@ -77,6 +78,7 @@ function formatDate(x,y) {
   return `${dateStr}`;
  }
 }
+
 class Verify extends React.Component {
 
     constructor(props) {
@@ -108,6 +110,7 @@ class Verify extends React.Component {
     componentWillMount() {
         this.props.addressDataAction(0);
         const params = this.props.route.params;
+        this.initialPic(this.state.winOrgInfo.extends);
         if (params.projectId && !isNaN(Number(params.projectId))) {
             const projectId = params.projectId;
             this.setState({
@@ -154,7 +157,15 @@ class Verify extends React.Component {
             window.fastclick = FastClick.attach(document.body);
         }
     }
+    // 初始化上传照片
+    initialPic(data){
+      data.map((item,index)=>{
+        if(item.type ==5){
+          this.state[item.key]=[];
+        }
+      })
 
+    }
     onTextChanged() {
         const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
         const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -542,6 +553,57 @@ class Verify extends React.Component {
         </div>
       )
     }
+    // 上传图片
+  onPicClick(e) {
+    var key = e.target.id;
+    const attachment = this.state[key];
+    uploadToWX({
+      success: (urls) => {
+        console.log('图片上传成功:', urls);
+        attachment.push(urls[0]);
+        this.state[key]=attachment;
+        
+        this.pushExtendsArray(key,attachment)
+      },
+    });
+  }
+
+  onPicDel(e) {
+    const num = e.target.id;
+    var key = e.target.name;
+    const attachment =  this.state[key];
+    attachment.splice(num, 1);
+    this.state[key]=attachment;
+    this.pushExtendsArray(key,attachment)
+  }
+    renderOtherPic(item){
+      const data =item;
+      const key = data.key;
+      return(
+        <div>
+            <div className="page-my-profile-verify-header-box" >{data.label}</div>
+            <div className="page-post-container-photo-container">
+              {
+             this.state[key].map((item, key) => (
+               <div className="page-applys-item-render-container">
+                 <div className="page-applys-item-view" >
+                   <Avatar src={item} size={{ width: 100, radius: 1 }} />
+                 </div>
+                 <div className="page-applys-item-render-del" onClick={this.onPicDel} id={key} key={item} name={`${key}`}/>
+               </div>
+             ))
+           }
+              {
+              this.state[key].length === 3 ?
+               <div /> :
+               <div
+                 className="page-post-item-upload-container"  id={`${key}`} onClick={this.onPicClick}
+               />
+           }
+            </div>
+          </div>
+      )
+    }
     // push 数组
     pushExtendsArray(key,value){
       let mapInit = false;
@@ -606,7 +668,11 @@ class Verify extends React.Component {
                                 break;
                             //上传图片
                             case 5:
-                                console.log(5);
+                                return (
+                                  <div key={index}>
+                                      {this.renderOtherPic(item)}
+                                  </div>
+                                )
                                 break;
                             //日期空间
                             case 6:
