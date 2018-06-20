@@ -43,34 +43,50 @@ const people = [{id: '01', name: '汉族'}, {id: '02', name: '蒙古族'}, {id: 
     {id: '52', name: '鄂伦春族'}, {id: '53', name: '赫哲族'}, {id: '54', name: '门巴族'},
     {id: '55', name: '珞巴族'}, {id: '56', name: '基诺族'}];
 
+let isEmpty = false;
+
 function checkEmpty(value, label) {
     if (!value || !value.length) {
         Alert.warning(`请填写${label}`);
+        isEmpty = true;
         return true;
+    } else {
+        isEmpty = false;
     }
     return false;
 }
 
 function isRequired(arr, stateData) {
-    arr.map((item, index) => {
-        if (item.is_required && item.is_required === 1) {
-            // stateData.map((item1, index1)=>{
-            //     console.log(111)
-            //     if(item.key === item1.key) {
-            //         console.log(item[key])
-            //         checkEmpty(item1[item[key]],item[key]);
-            //     }
-            // })
-            console.log(stateData)
-            for (let i = 0; i < stateData.length; i++) {
-                console.log(111)
-                if (item.key === stateData[i].key) {
-                    console.log(item[key])
-                    checkEmpty(stateData[i][item[key]], item[key]);
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].is_required && arr[i].is_required === 1) {
+            if (stateData.length != 0) {
+                let isInArr = false;
+                for(let j = 0; j < stateData.length;j++) {
+                    console.log(arr[i].key, stateData[j])
+                    if (arr[i].key in stateData[j]) {
+                        isInArr = false;
+                        // checkEmpty(item1[arr[i].key], arr[i].key);
+                        break;
+                    } else {
+                        isInArr = true;
+                    }
+                    console.log(isInArr)
                 }
+                if (isInArr) {
+                    checkEmpty(null, arr[i].key);
+                    return true;
+                }
+            } else {
+                Alert.warning(`请填写${arr[i].key}`);
+                isEmpty = true;
+                break;
             }
         }
-    })
+    }
+    if (isEmpty) {
+        return true;
+    }
+    return false;
 }
 
 function checkStr(str) {
@@ -218,6 +234,7 @@ class Verify extends React.Component {
 
     onSubmit() {
         let photo;
+        const stateOrgData = this.state.winOrgInfo;
         if (!this.realRegister) {   //非实名
             photo = this.state.photo;
         }
@@ -232,19 +249,19 @@ class Verify extends React.Component {
         const province = this.state.province;
         const city = this.state.city;
         const county = this.state.county;
-        // if (
-        //     checkEmpty(realname, '姓名')
-        //     || checkEmpty(idcard, '身份证号码')
-        //     || checkEmpty(people, '民族')
-        //     || checkEmpty(province, '省份')
-        //     || checkEmpty(city, '城市')
-        //     || checkEmpty(county, '区县')
-        //     || checkEmpty(address, '详细地址')
-        //     || checkStr(realname)
-        //     || iscard(idcard)
-        // ) {
-        //     return;
-        // }
+        if (
+            (stateOrgData.open_real_name && checkEmpty(realname, '姓名'))
+            || (stateOrgData.open_id_number && checkEmpty(idcard, '身份证号码'))
+            || (stateOrgData.open_nation && checkEmpty(people, '民族'))
+            || (stateOrgData.open_addr && checkEmpty(province, '省份'))
+            || (stateOrgData.open_addr && checkEmpty(city, '城市'))
+            || (stateOrgData.open_addr && checkEmpty(county, '区县'))
+            || (stateOrgData.open_addr && checkEmpty(address, '详细地址'))
+            || (stateOrgData.open_real_name && checkStr(realname))
+            || (stateOrgData.open_id_number && iscard(idcard))
+        ) {
+            return;
+        }
         if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
             return;
         }
