@@ -109,17 +109,17 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <div>
-        <div className="page-my-header">
+        {/*<div className="page-my-header">*/}
 
-          <Link to="/my/setting">
-            <div className="page-my-header-setting" />
-          </Link>
+          {/*<Link to="/my/setting">*/}
+            {/*<div className="page-my-header-setting" />*/}
+          {/*</Link>*/}
 
-          <Link to="/my/messages">
-            {this.renderPageMymessagesTemplate()}
-          </Link>
+          {/*<Link to="/my/messages">*/}
+            {/*{this.renderPageMymessagesTemplate()}*/}
+          {/*</Link>*/}
 
-        </div>
+        {/*</div>*/}
 
         <div>
           {this.renderPageMyphotoTemplate()}
@@ -149,6 +149,20 @@ class MyPage extends React.Component {
 
                 </i>我的志愿圈
           </div>
+              <span className="page-my-item-big" />
+            </Link>
+            <div className="line1px" />
+          </div>
+        </li>
+
+        <li>
+          <div>
+            <Link to="/my/messages">
+              <div className="page-my-item-box">
+                  {this.renderPageMymessagesTemplate()}
+                我的消息
+                {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
+              </div>
               <span className="page-my-item-big" />
             </Link>
             <div className="line1px" />
@@ -224,7 +238,17 @@ class MyPage extends React.Component {
               </div>
             </li>
         }
-
+        <li>
+          <div>
+            <Link to="/my/setting">
+              <div className="page-my-item-box">
+                <i className="page-my-item-icon page-my-item-icon-setting" />设置
+              </div>
+              <span className="page-my-item-big" />
+            </Link>
+            <div className="line1px" />
+          </div>
+        </li>
       </ul>
     );
   }

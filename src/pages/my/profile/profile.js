@@ -66,6 +66,7 @@ class Profile extends React.Component {
                 }
             ]
         };
+
     }
 
     componentWillMount() {
@@ -639,6 +640,7 @@ export default connect(
         info: state.info.person,
         alertPeopleInfo: state.my.alertFamilyPeopleInfo,
         otherfamily: state.info.otherfamily,
+        userDefinedInfo: state
     }),
     dispatch => bindActionCreators({ requestUserInfo,
         imporvePersonInfo,

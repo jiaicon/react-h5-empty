@@ -76,7 +76,30 @@
         'org_manual':"<p>Test 234</p>",
         'org_service':"<p>Test 567</p>",
         'org_service_tel':"13111111111",
-        'real_name_register':1
+        'real_name_register':1,
+        'custom_config': {
+                             "open_real_name": 1,
+                             "open_avatars": 1,
+                             "open_id_number": 1,
+                             "open_nation": 1,
+                             "open_addr": 1,
+                             "extends":[
+                                 {
+                                     "key": "字段名",
+                                     "label":"职业",
+                                     "type":1,
+                                     "options":"老师,医生,律师",
+                                     "is_required": 1,
+                                 },
+                                 {
+                                     "key": "字段名",
+                                     "label":"职业",
+                                     "type":1,
+                                     "options":"老师,医生,律师",
+                                     "is_required": 1,
+                                 },
+                             ],
+                         }
 
     }
 

@@ -247,12 +247,49 @@ const otherFamilReducer = (state = {
   }
 };
 
+//自定义的实名信息字段获取
+export const userDefinedInfo = ()=>({
+      type: 'USERDEFINEDINFO',
+      payload: fetch('/user/check', {method: 'POST'})
+});
+const userDefinedInfoReducer = (
+    state={
+        fetching: false,
+        failed: false,
+        data: null
+    },action
+)=>{
+    switch (action.type) {
+        case 'USERDEFINEDINFO_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'USERDEFINEDINFO_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data,
+            };
+        case 'USERDEFINEDINFO_REJECTED':
+            return {
+                ...state,
+                failed: true,
+                fetching: false,
+            };
+        default:
+            return state;
+    }
+};
 const reducer = combineReducers({
-  person: personInfoReducer,
-  checkUser: checkUserReducer,
-  address: addressReducer,
-  register: registerReducer,
-  otherfamily: otherFamilReducer,
-  updatePhone: updataPhoneReducer,
+    person: personInfoReducer,
+    checkUser: checkUserReducer,
+    address: addressReducer,
+    register: registerReducer,
+    otherfamily: otherFamilReducer,
+    updatePhone: updataPhoneReducer,
+    userDefinedInfo: userDefinedInfoReducer
 });
 export default reducer;
