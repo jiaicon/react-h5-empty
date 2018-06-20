@@ -15,13 +15,14 @@ import {requestUserInfo} from '../../../stores/common';
 import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
 
-import '../duration/post.css';
+
 import './verify.css';
 import {List, Checkbox, DatePicker, Flex} from 'antd-mobile';
 
 
 import 'antd-mobile/lib/date-picker/style/css';
-
+import 'antd-mobile/lib/checkbox/style/css';
+import './verifyAntd.css';
 const isAndroid = /android/i.test(navigator.userAgent);
 const people = [{id: '01', name: '汉族'}, {id: '02', name: '蒙古族'}, {id: '03', name: '回族'},
     {id: '04', name: '藏族'}, {id: '05', name: '维吾尔族'}, {id: '06', name: '苗族'},
@@ -460,6 +461,7 @@ class Verify extends React.Component {
                                     this.address = c;
                                 }} className="page-my-profile-verify-text" onChange={this.onTextChanged}/>
                             </div>
+                              <div className="line1px"/>
                         </div>
                         : null
                 }
@@ -660,7 +662,7 @@ class Verify extends React.Component {
         const key = data.key;
         return (
             <div>
-                <div className="page-my-profile-verify-header-box">{data.label}</div>
+                <div className="page-my-profile-verify-header-box-pic-fonts">{data.label}</div>
                 <div className="page-post-container-photo-container">
                     {
                         this.state[key].map((item, key) => (
@@ -681,6 +683,7 @@ class Verify extends React.Component {
                             />
                     }
                 </div>
+                <div className="line1px"/>
             </div>
         )
     }
