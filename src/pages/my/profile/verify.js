@@ -381,27 +381,72 @@ class Verify extends React.Component {
         )
     }
 
+    renderOtherInfoSelect(item){
+      const data =item;
+      const key =data.key;
+      const options =data.options.split(",");
+      return(
+        <div>
+            <div className="page-my-profile-verify-header-box">
+                <div className="page-my-profile-verify-fonts">{data.label}</div>
+                <label htmlFor={`${key}`}>
+                    <select id={`${key}`} onChange={this.handlePeopleClick} ref={(c) => {
+                        this.key = c;
+                    }}>
+                    <option value="-1"/>
+                    {options.map((item1, keys) =>
+                        <option value={item1} key={keys}>{item1}</option>)}
+                    </select>
+                </label>
+            </div>
+            <div className="line1px"/>
+        </div>
+      )
+    }
 
     renderOtherInfo() {
         return(
             <div>
                 {
-                    this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.map((item, index)=>{
-                        if(item.type === 1) {
-                            //单项选择
-                        }else if(item.type === 2) {
-                            //多项选择
-                        }else if(item.type === 3) {
-                            //单行输入
-                        }else if(item.type === 4) {
-                            //多行输入
-                        }else if(item.type === 5) {
-                            //上传图片
-                        }else if(item.type === 6) {
-                            //日期空间
-                        }else if(item.type === 7) {
-                            //日期时间空间
-                        }
+                    this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index)=>{
+                      switch(item.type)
+                      {//单项选择
+                        case 1:
+                        return(
+                          <div>
+                            {this.renderOtherInfoSelect(item)}
+                          </div>
+                        )
+                          break;
+                        //多项选择
+                        case 2:
+                          console.log(2);
+                          break;
+                        //单行输入
+                        case 3:
+                          console.log(3);
+                          break;
+                        //多行输
+
+                        case 4:
+                          console.log(4);
+                          break;
+                        //上传图片  
+                        case 5:
+                          console.log(5);
+                          break;
+                        //日期空间
+                        case 6:
+                          console.log(6);
+                          break;
+                        //日期时间空间
+                        case 7:
+                          console.log(7);
+                          break;
+                        default:
+                          return
+                      }
+                  
                     })
                 }
             </div>
