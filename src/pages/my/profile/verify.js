@@ -266,20 +266,43 @@ class Verify extends React.Component {
         if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
             return;
         }
-        const data = {
-            real_name: realname,
-            id_number: idcard,
-            nation: people,
-            province_id: province,
-            city_id: city,
-            county_id: county,
-            addr: address,
-        };
+        let data = {};
+        if(realname) {
+            data.real_name = realname;
+        }
+        if(idcard) {
+            data.id_number = idcard;
+        }
+        if(people) {
+            data.nation = people;
+        }
+        if(province) {
+            data.province_id = province_id;
+        }
+        if(city) {
+            data.city_id = city;
+        }
+        if(county) {
+            data.county_id = county;
+        }
+        if(address) {
+            data.addr = address;
+        }
+        // const data = {
+        //     real_name: realname,
+        //     id_number: idcard,
+        //     nation: people,
+        //     province_id: province,
+        //     city_id: city,
+        //     county_id: county,
+        //     addr: address,
+        // };
         if (photo != undefined && photo != '') {
             console.log('photo: ' + photo);
             data.avatars = photo;
         }
-        console.log('data' + data)
+        data.extends = this.state.extendsArray;
+        console.log('data' + data);
         this.props.checkUser(data);
     }
 
