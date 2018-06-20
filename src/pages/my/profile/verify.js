@@ -14,8 +14,10 @@ import history from '../../history';
 import {requestUserInfo} from '../../../stores/common';
 import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
-import './checkbox.css';
+
 import './verify.css';
+import { List, Checkbox, Flex } from 'antd-mobile';
+
 
 const isAndroid = /android/i.test(navigator.userAgent);
 const people = [{id: '01', name: '汉族'}, {id: '02', name: '蒙古族'}, {id: '03', name: '回族'},
@@ -76,7 +78,6 @@ class Verify extends React.Component {
             extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
-        console.log(window.orgInfo.custom_config);
     }
 
     componentWillMount() {
@@ -132,8 +133,6 @@ class Verify extends React.Component {
     onTextChanged() {
         const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
         const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
-
-
         const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
         this.setState({
             address,
@@ -390,30 +389,7 @@ class Verify extends React.Component {
     handleOtherInfoSelectClick(e) {
         const key = e.target.id;
         const value = e.target.value;
-        let mapInit = false;
-        let objInit = false;
-        const extendsArray = this.state.extendsArray;
-        extendsArray.map((item, index) => {
-            for (var i in item) {
-                if (i === key) {
-                    item[key] = value;
-                    mapInit = true;
-                    objInit = true;
-                    break;
-                } else {
-                    mapInit = false;
-                }
-            }
-        });
-        if (!mapInit && !objInit) {
-            extendsArray.push({[key]: value});
-        }
-
-        this.setState({
-            ...this.state,
-            extendsArray,
-
-        })
+        this.pushExtendsArray(key,value);
     }
     //单选控件
     renderOtherInfoSelect(item) {
@@ -437,39 +413,91 @@ class Verify extends React.Component {
             </div>
         )
     }
-
     //多选控件
-    renderOtherInfoCheckbox(item) {
-        const checkOptions = item.options.split(',');
-        console.log(checkOptions);
-        const data = [];
-        for (let i = 0; i < checkOptions.length; i += 1) {
-            const obj = {};
-            obj.name = checkOptions[i];
-            obj.num = i + 1;
-            obj.toggle = false;
-            Object.assign({}, obj);
+    onChange = (key,val) => {
+        this.pushExtendsArray(key, val, true)
+    };
+    renderOtherInfoCheckbox(item1) {
+        const CheckboxItem = Checkbox.CheckboxItem;
+        const AgreeItem = Checkbox.AgreeItem;
+        let labels = item1.options.split(',');
+        let data = [];
+        labels.map((item, index)=> {
+            let obj = {};
+            obj.value = index;
+            obj.label = item;
             data.push(obj);
-            // this.setState({
-            //     ...this.state,
-            //     data,
-            // });
-        }
-        return(
-            <div className="page-profile-checkbox-container">
-                <ul className="page-profile-checkbox-ground">
-                    {
-                        data.map(item =>
-                        <li>
-                            <label htmlFor={item.num}>
-                                <input id={item.num} checked={item.toggle} type="checkbox" key={item.name} ref={c => this.checkbox = c} onChange={this.checkNumCLick} /><i>✓</i>{item.name}
-                            </label>
-                        </li>,
-                    )
-                    }
-                </ul>
+        });
+        return (
+            <div className="">
+                <List renderHeader={() => item1.label}>
+                    {data.map(i => (
+                        <CheckboxItem key={i.value} onChange={() => this.onChange(item1.key,i.label)}>
+                            {i.label}
+                        </CheckboxItem>
+                    ))}
+                </List>
             </div>
         )
+    }
+    //单行
+    renderOtherInfoInput(item){
+      const data =item;
+      const key = data.key;
+      return (
+        <div>
+         <div>
+          <div className="page-my-profile-verify-header-box">
+              <div className="page-my-profile-verify-fonts">{data.label}</div>
+              <input  id={`${key}`} type="text" ref={(c) => {
+                  this.realname = c;
+              }} className="page-my-profile-verify-text" onChange={this.handleOtherInfoInputClick}/>
+          </div>
+          <div className="line1px"/>
+          </div>
+        </div>
+      )
+    }
+    handleOtherInfoInputClick(e){
+      const key = e.target.id;
+      const value = e.target.value;
+      this.pushExtendsArray(key,value);
+    }
+    // push 数组
+    /*
+    * key 键
+    * value 值
+    * isMany 是否多选 true是 false否
+    * */
+    pushExtendsArray(key,value, isMany){
+      let mapInit = false;
+      let objInit = false;
+      const extendsArray = this.state.extendsArray;
+      extendsArray.map((item, index) => {
+          for (var i in item) {
+              if (i === key) {
+                  if(isMany) {
+                      item[key] = String(item[key])+','+String(value);
+                  }else {
+                      item[key] = value;
+                  }
+                  mapInit = true;
+                  objInit = true;
+                  break;
+              } else {
+                  mapInit = false;
+              }
+          }
+      });
+      if (!mapInit && !objInit) {
+          extendsArray.push({[key]: value});
+      }
+      console.log(extendsArray)
+      this.setState({
+          ...this.state,
+          extendsArray,
+
+      })
     }
     renderOtherInfo() {
         return (
@@ -494,24 +522,28 @@ class Verify extends React.Component {
                                 break;
                             //单行输入
                             case 3:
-                                console.log(3);
+                            return (
+                              <div key={index}>
+                                  {this.renderOtherInfoInput(item)}
+                              </div>
+                            )
                                 break;
                             //多行输
 
                             case 4:
-                                console.log(4);
+                                // console.log(4);
                                 break;
                             //上传图片
                             case 5:
-                                console.log(5);
+                                // console.log(5);
                                 break;
                             //日期空间
                             case 6:
-                                console.log(6);
+                                // console.log(6);
                                 break;
                             //日期时间空间
                             case 7:
-                                console.log(7);
+                                // console.log(7);
                                 break;
                             default:
                                 return

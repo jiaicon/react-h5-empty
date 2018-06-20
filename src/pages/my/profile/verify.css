@@ -131,7 +131,33 @@
 }
 
 
-.page-profile-checkbox-container {
-  position: static;
-  height: auto;
+.am-checkbox-item {
+  display: flex;
 }
+.am-list-header {
+  height: 50px;
+  color: #666666;
+  font-size: 15px;
+  line-height: 50px;
+}
+.am-list {
+  margin-left: 15px;
+  color: #282828;
+  font-size: 15px;
+}
+.am-list-thumb {
+  margin-right: 10px;
+}
+.am-checkbox-input {
+  /*border: none;*/
+}
+.ant-checkbox-input:focus + .ant-checkbox-inner{
+  border: 1px solid #1BBA79 !important;
+  width: 24px!important;
+}
+
+.ant-checkbox-inner{
+  border: 1px solid red!important;
+  background-color: transparent;
+}
+
