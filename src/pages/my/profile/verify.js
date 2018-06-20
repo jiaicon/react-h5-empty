@@ -14,6 +14,7 @@ import history from '../../history';
 import {requestUserInfo} from '../../../stores/common';
 import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
+import './checkbox.css';
 import './verify.css';
 
 const isAndroid = /android/i.test(navigator.userAgent);
@@ -438,8 +439,37 @@ class Verify extends React.Component {
     }
 
     //多选控件
-    renderOtherInfoOptions() {
-
+    renderOtherInfoCheckbox(item) {
+        const checkOptions = item.options.split(',');
+        console.log(checkOptions);
+        const data = [];
+        for (let i = 0; i < checkOptions.length; i += 1) {
+            const obj = {};
+            obj.name = checkOptions[i];
+            obj.num = i + 1;
+            obj.toggle = false;
+            Object.assign({}, obj);
+            data.push(obj);
+            // this.setState({
+            //     ...this.state,
+            //     data,
+            // });
+        }
+        return(
+            <div className="page-profile-checkbox-container">
+                <ul className="page-profile-checkbox-ground">
+                    {
+                        data.map(item =>
+                        <li>
+                            <label htmlFor={item.num}>
+                                <input id={item.num} checked={item.toggle} type="checkbox" key={item.name} ref={c => this.checkbox = c} onChange={this.checkNumCLick} /><i>✓</i>{item.name}
+                            </label>
+                        </li>,
+                    )
+                    }
+                </ul>
+            </div>
+        )
     }
     renderOtherInfo() {
         return (
@@ -452,11 +482,15 @@ class Verify extends React.Component {
                                     <div key={index}>
                                         {this.renderOtherInfoSelect(item)}
                                     </div>
-                                )
+                                );
                                 break;
                             //多项选择
                             case 2:
-                                console.log(2);
+                                return(
+                                    <div>
+                                        {this.renderOtherInfoCheckbox(item)}
+                                    </div>
+                                );
                                 break;
                             //单行输入
                             case 3:

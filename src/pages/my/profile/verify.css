@@ -129,3 +129,9 @@
   background: url('/images/my/more.png') no-repeat scroll right center transparent;
   background-size: 20px 20px;
 }
+
+
+.page-profile-checkbox-container {
+  position: static;
+  height: auto;
+}
