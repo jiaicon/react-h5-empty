@@ -72,6 +72,7 @@ class Verify extends React.Component {
             province: 0,
             city: 0,
             county: 0,
+            extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
         console.log(window.orgInfo.custom_config);
@@ -255,8 +256,9 @@ class Verify extends React.Component {
             </div>
         )
     }
+
     renderName() {
-        return(
+        return (
             <div>
                 {
                     this.state.winOrgInfo.open_real_name === 1 ?
@@ -274,8 +276,9 @@ class Verify extends React.Component {
             </div>
         )
     }
+
     renderIdCard() {
-        return(
+        return (
             <div>
                 {
                     this.state.winOrgInfo.open_id_number === 1 ?
@@ -293,8 +296,9 @@ class Verify extends React.Component {
             </div>
         )
     }
+
     renderNation() {
-        return(
+        return (
             <div>
                 {
                     this.state.winOrgInfo.open_nation === 1 ?
@@ -318,11 +322,12 @@ class Verify extends React.Component {
             </div>
         )
     }
+
     renderAddr() {
         const province = this.props.address.data.province;
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
-        return(
+        return (
             <div>
                 {
                     this.state.winOrgInfo.open_addr === 1 ?
@@ -381,77 +386,109 @@ class Verify extends React.Component {
         )
     }
 
-    renderOtherInfoSelect(item){
-      const data =item;
-      const key =data.key;
-      const options =data.options.split(",");
-      return(
-        <div>
-            <div className="page-my-profile-verify-header-box">
-                <div className="page-my-profile-verify-fonts">{data.label}</div>
-                <label htmlFor={`${key}`}>
-                    <select id={`${key}`} onChange={this.handlePeopleClick} ref={(c) => {
-                        this.key = c;
-                    }}>
-                    <option value="-1"/>
-                    {options.map((item1, keys) =>
-                        <option value={item1} key={keys}>{item1}</option>)}
-                    </select>
-                </label>
+    handleOtherInfoSelectClick(e) {
+        const key = e.target.id;
+        const value = e.target.value;
+        let mapInit = false;
+        let objInit = false;
+        const extendsArray = this.state.extendsArray;
+        extendsArray.map((item, index) => {
+            for (var i in item) {
+                if (i === key) {
+                    item[key] = value;
+                    mapInit = true;
+                    objInit = true;
+                    break;
+                } else {
+                    mapInit = false;
+                }
+            }
+        });
+        if (!mapInit && !objInit) {
+            extendsArray.push({[key]: value});
+        }
+
+        this.setState({
+            ...this.state,
+            extendsArray,
+
+        })
+    }
+    //单选控件
+    renderOtherInfoSelect(item) {
+        const data = item;
+        const key = data.key;
+        const options = data.options.split(",");
+        return (
+            <div>
+                <div className="page-my-profile-verify-header-box">
+                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+                    <label htmlFor={`${key}`}>
+                        <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}
+                        >
+                            <option value="-1"/>
+                            {options.map((item1, keys) =>
+                                <option value={item1} key={keys}>{item1}</option>)}
+                        </select>
+                    </label>
+                </div>
+                <div className="line1px"/>
             </div>
-            <div className="line1px"/>
-        </div>
-      )
+        )
     }
 
+    //多选控件
+    renderOtherInfoOptions() {
+
+    }
     renderOtherInfo() {
-        return(
+        return (
             <div>
                 {
-                    this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index)=>{
-                      switch(item.type)
-                      {//单项选择
-                        case 1:
-                        return(
-                          <div key={index}>
-                            {this.renderOtherInfoSelect(item)}
-                          </div>
-                        )
-                          break;
-                        //多项选择
-                        case 2:
-                          console.log(2);
-                          break;
-                        //单行输入
-                        case 3:
-                          console.log(3);
-                          break;
-                        //多行输
+                    this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index) => {
+                        switch (item.type) {//单项选择
+                            case 1:
+                                return (
+                                    <div key={index}>
+                                        {this.renderOtherInfoSelect(item)}
+                                    </div>
+                                )
+                                break;
+                            //多项选择
+                            case 2:
+                                console.log(2);
+                                break;
+                            //单行输入
+                            case 3:
+                                console.log(3);
+                                break;
+                            //多行输
 
-                        case 4:
-                          console.log(4);
-                          break;
-                        //上传图片  
-                        case 5:
-                          console.log(5);
-                          break;
-                        //日期空间
-                        case 6:
-                          console.log(6);
-                          break;
-                        //日期时间空间
-                        case 7:
-                          console.log(7);
-                          break;
-                        default:
-                          return
-                      }
-                  
+                            case 4:
+                                console.log(4);
+                                break;
+                            //上传图片
+                            case 5:
+                                console.log(5);
+                                break;
+                            //日期空间
+                            case 6:
+                                console.log(6);
+                                break;
+                            //日期时间空间
+                            case 7:
+                                console.log(7);
+                                break;
+                            default:
+                                return
+                        }
+
                     })
                 }
             </div>
         )
     }
+
     render() {
         return (
             <div className="page-my-profile-verify-container">
