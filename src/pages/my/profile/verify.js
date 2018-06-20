@@ -660,7 +660,7 @@ class Verify extends React.Component {
                             //多行输
                             case 4:
                                 return (
-                                  <div key={index}>
+                                  <div key={index}>12312
                                       {this.renderOtherInfoManyInput(item)}
                                   </div>
                                 )
