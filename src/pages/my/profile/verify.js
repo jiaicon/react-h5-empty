@@ -16,6 +16,9 @@ import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
 import './verify.css';
 
+import { DatePicker, List } from 'antd-mobile';
+import 'antd-mobile/lib/date-picker/style/css';
+
 const isAndroid = /android/i.test(navigator.userAgent);
 const people = [{id: '01', name: '汉族'}, {id: '02', name: '蒙古族'}, {id: '03', name: '回族'},
     {id: '04', name: '藏族'}, {id: '05', name: '维吾尔族'}, {id: '06', name: '苗族'},
@@ -62,7 +65,18 @@ function iscard(card) {
     }
     return false;
 }
-
+function formatDate(x,y) {
+  /* eslint no-confusing-arrow: 0 */
+  const pad = n => n < 10 ? `0${n}` : n;
+  const date = new Date(x);
+  const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+ if(y){
+  return `${dateStr} ${timeStr}`;
+ }else{
+  return `${dateStr}`;
+ }
+}
 class Verify extends React.Component {
 
     constructor(props) {
@@ -75,6 +89,19 @@ class Verify extends React.Component {
             extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
+        this.CustomChildren = ({ extra, onClick }) => (
+
+          <div
+            onClick={onClick}
+            style={{ height: '40px', lineHeight: '40px', color: '#565656' }}
+          >
+            <span
+              className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
+            >
+              {extra}</span>
+    
+          </div>
+        );
         console.log(window.orgInfo.custom_config);
     }
 
@@ -425,9 +452,7 @@ class Verify extends React.Component {
          <div>
           <div className="page-my-profile-verify-header-box">
               <div className="page-my-profile-verify-fonts">{data.label}</div>
-              <input  id={`${key}`} type="text" ref={(c) => {
-                  this.realname = c;
-              }} className="page-my-profile-verify-text" onChange={this.handleOtherInfoInputClick}/>
+              <input  id={`${key}`} className="page-my-profile-verify-text" onChange={this.handleOtherInfoInputClick}/>
           </div>
           <div className="line1px"/>
           </div>
@@ -438,6 +463,84 @@ class Verify extends React.Component {
       const key = e.target.id;
       const value = e.target.value;
       this.pushExtendsArray(key,value);
+    }
+    // 多行
+    renderOtherInfoManyInput(item){
+      const data =item;
+      const key = data.key;
+      return (
+     
+         <div>
+          <div className="page-my-profile-verify-header-box">
+              <div className="page-my-profile-verify-fonts">{data.label}</div>
+          </div>
+      
+            <textarea placeholder={`请输入${data.label}`} 
+            id={`${key}`}
+            className="page-my-profile-edit-text" maxLength="200" 
+            onKeyUp={this.handleOtherInfoManyInputClick} 
+            />
+     
+          <div className="line1px"/>
+          </div>
+      )
+    }
+    handleOtherInfoManyInputClick(e){
+      const key = e.target.id;
+      const value = e.target.value;
+      this.pushExtendsArray(key,value);
+    }
+    // 选择时间
+    renderOtherInfoDate(item){
+      const data =item;
+      const key = data.key;
+      return(
+        <div>
+          <div className="page-my-profile-verify-header-box">
+              <div className="page-my-profile-verify-fonts">{data.label}</div>
+              
+              <DatePicker
+                mode="date"
+                format="YYYY-MM-DD"
+                value={this.state[key]}
+                extra={`请选择${data.label}`}
+                onOk={v => (this.pushExtendsArray(key,formatDate(v)),this.state[key]=v, console.log(v))}
+                onDismiss={v => (this.pushExtendsArray(key,null),this.state[key]=null, console.log(v))}
+
+              >
+              
+                <this.CustomChildren /> 
+
+            </DatePicker>
+              
+          </div>
+          <div className="line1px"/>
+          </div>
+      )
+    }
+    renderOtherInfoDateTime(item){
+      const data =item;
+      const key = data.key;
+      return(
+        <div>
+        <div className="page-my-profile-verify-header-box">
+            <div className="page-my-profile-verify-fonts">{data.label}</div>
+            <DatePicker
+                mode="datetime"
+                format="YYYY-MM-DD HH:mm"
+                value={this.state[key]}
+                extra={`请选择${data.label}`}
+                onOk={v => (this.pushExtendsArray(key,formatDate(v,true)),this.state[key]=v, console.log(v))}
+                onDismiss={v => (this.pushExtendsArray(key,null),this.state[key]=null, console.log(v))}
+
+              >
+              
+                <this.CustomChildren /> 
+              </DatePicker>
+          </div>
+        <div className="line1px"/>
+        </div>
+      )
     }
     // push 数组
     pushExtendsArray(key,value){
@@ -486,16 +589,20 @@ class Verify extends React.Component {
                                 break;
                             //单行输入
                             case 3:
-                            return (
-                              <div key={index}>
-                                  {this.renderOtherInfoInput(item)}
-                              </div>
-                            )
+                                return (
+                                  <div key={index}>
+                                      {this.renderOtherInfoInput(item)}
+                                  </div>
+                                )
                                 break;
                             //多行输
 
                             case 4:
-                                console.log(4);
+                                return (
+                                  <div key={index}>
+                                      {this.renderOtherInfoManyInput(item)}
+                                  </div>
+                                )
                                 break;
                             //上传图片
                             case 5:
@@ -503,11 +610,19 @@ class Verify extends React.Component {
                                 break;
                             //日期空间
                             case 6:
-                                console.log(6);
+                                return (
+                                  <div key={index}>
+                                      {this.renderOtherInfoDate(item)}
+                                  </div>
+                                )
                                 break;
                             //日期时间空间
                             case 7:
-                                console.log(7);
+                                return (
+                                  <div key={index}>
+                                      {this.renderOtherInfoDateTime(item)}
+                                  </div>
+                                )
                                 break;
                             default:
                                 return
