@@ -748,13 +748,13 @@ class Verify extends React.Component {
     }
 
     renderOtherInfo() {
-        console.log(this.state.winOrgInfo.extends)
+        const winOrgStateInfo = this.state.winOrgInfo.extends;
         return (
             <div>
                 {
                     // this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0 ?
-                    this.state.winOrgInfo.extends.map((item, index) => {
-                        console.log(item.map)
+                    winOrgStateInfo.map((item, index) => {
+                        console.log(item.type)
                         switch (item.type) {//单项选择
                             case 1:
                                 return (
