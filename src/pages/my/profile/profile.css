@@ -217,3 +217,7 @@ body {
   background-color: #fff;
   margin-bottom: 20px;
 }
+.page-profile-extends .page-profile-fonts-view-img{
+    width: 80px;
+    height: 80px;
+}

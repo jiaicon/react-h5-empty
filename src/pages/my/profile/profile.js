@@ -371,7 +371,7 @@ class Profile extends React.Component {
                                              <div className="page-profile-header-box">
                                                 <div className="page-profile-fonts">{item.label}</div>
                                                 </div>
-                                                <Avatar className="page-profile-fonts-view" src={item.value} size={{width: 80, radius: 1}}/>    
+                                                <Avatar className="page-profile-fonts-view-img" src={item.value} size={{width: 80, radius: 1}}/>    
                                                 <div className="line1px" />
                                             </div>
                                         );
