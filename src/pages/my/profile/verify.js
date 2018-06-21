@@ -536,6 +536,7 @@ class Verify extends React.Component {
             obj.label = item;
             data.push(obj);
         });
+        console.log("labels-"+labels);
         return (
             <div className="">
                 <List renderHeader={() => item1.label}>
@@ -749,6 +750,7 @@ class Verify extends React.Component {
 
     renderOtherInfo() {
         const winOrgStateInfo = this.state.winOrgInfo.extends;
+        console.log(winOrgStateInfo);
         return (
             <div>
                 {
