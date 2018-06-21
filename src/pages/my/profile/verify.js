@@ -73,11 +73,11 @@ function isRequired(arr, stateData) {
                     }
                 }
                 if (isInArr) {
-                    checkEmpty(null, arr[i].key);
+                    checkEmpty(null, arr[i].label);
                     return true;
                 }
             } else {
-                Alert.warning(`请填写${arr[i].key}`);
+                Alert.warning(`请填写${arr[i].label}`);
                 isEmpty = true;
                 break;
             }
