@@ -63,6 +63,14 @@ function isRequired(arr, stateData) {
         if (arr[i].is_required && arr[i].is_required === 1) {
             if (stateData.length != 0) {
                 let isInArr = false;
+                // for(let j in stateData) {
+                //     if(arr[i].key === j) {
+                //         isInArr = false;
+                //         break;
+                //     }else {
+                //         isInArr = true
+                //     }
+                // }
                 for (let j = 0; j < stateData.length; j++) {
                     if (arr[i].key in stateData[j]) {
                         isInArr = false;
@@ -180,7 +188,7 @@ class Verify extends React.Component {
         const {check: Ncheck} = nextProps;
         if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
             this.props.requestUserInfo();
-
+            // return
             // TODO 如果从项目跳过来的需要跳回去
             if (this.state.projectId) {
                 history.replace(`/project/detail/${this.state.projectId}`);
@@ -302,6 +310,7 @@ class Verify extends React.Component {
         }
         data.extends = this.state.extendsArray;
         console.log('data' + data);
+        // return;
         this.props.checkUser(data);
     }
 
@@ -535,6 +544,7 @@ class Verify extends React.Component {
 
     //多选控件
     onChange = (key, val) => {
+        console.log(val);
         this.pushExtendsArray(key, val, true)
     };
 
@@ -780,6 +790,22 @@ class Verify extends React.Component {
         let mapInit = false;
         let objInit = false;
         const extendsArray = this.state.extendsArray;
+        // if(!isMany) {
+        //     extendsArray[key] = value;
+        // }else {
+        //     if(key in extendsArray) {
+        //         if(extendsArray[key].indexOf(value) !== -1) {
+        //             let extendsArrays = extendsArray[key].split(',');
+        //             let itemIndex = extendsArrays.indexOf(value);
+        //             extendsArrays.splice(itemIndex, 1);
+        //             extendsArray[key] = extendsArrays.join(',');
+        //         }else {
+        //             extendsArray[key] = String(extendsArray[key]) + ',' + value;
+        //         }
+        //     }else {
+        //         extendsArray[key] = value;
+        //     }
+        // }
         extendsArray.map((item, index) => {
             for (var i in item) {
                 if (i === key) {
