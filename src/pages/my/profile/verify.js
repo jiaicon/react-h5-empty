@@ -368,6 +368,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo.open_real_name === 1 ?
                         <div>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">姓名</div>
                                 <input type="text" ref={(c) => {
                                     this.realname = c;
@@ -388,6 +389,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo.open_id_number === 1 ?
                         <div>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">身份证号</div>
                                 <input type="text" maxLength="18" ref={(c) => {
                                     this.idcard = c;
@@ -408,6 +410,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo.open_nation === 1 ?
                         <div>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">民族</div>
                                 <label htmlFor="people">
                                     <select id="people" onChange={this.handlePeopleClick} ref={(c) => {
@@ -437,6 +440,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo.open_addr === 1 ?
                         <div>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">省份</div>
                                 <label htmlFor="province">
                                     <select id="province" onChange={this.handleProvinceClick} ref={(c) => {
@@ -450,6 +454,7 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">城市</div>
                                 <label htmlFor="city">
                                     <select id="city" onChange={this.handleCityClick} ref={(c) => {
@@ -464,6 +469,7 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">区县</div>
                                 <label htmlFor="county">
                                     <select id="county" onChange={this.handleCountryClick} ref={(c) => {
@@ -478,6 +484,7 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                             <div className="page-my-profile-verify-header-box">
+                                <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">详细地址</div>
                                 <input type="text" ref={(c) => {
                                     this.address = c;
@@ -505,6 +512,12 @@ class Verify extends React.Component {
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
+                    {
+                        item.is_required === 1 ?
+                            <span className="page-my-profile-verify-header-start">*</span>
+                            :
+                            null
+                    }
                     <div className="page-my-profile-verify-fonts">{data.label}</div>
                     <label htmlFor={`${key}`}>
                         <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}
@@ -537,7 +550,13 @@ class Verify extends React.Component {
             data.push(obj);
         });
         return (
-            <div className="">
+            <div className="page-my-profile-other-title">
+                {
+                    item1.is_required === 1 ?
+                        <span className="page-my-profile-verify-header-start page-my-profile-verify-header-other-start">*</span>
+                        :
+                        null
+                }
                 <List renderHeader={() => item1.label}>
                     {data.map(i => (
                         <CheckboxItem key={`${item1.key}${i.value}`} onChange={() => this.onChange(item1.key, i.label)}>
@@ -557,6 +576,12 @@ class Verify extends React.Component {
             <div>
                 <div>
                     <div className="page-my-profile-verify-header-box">
+                        {
+                            item.is_required === 1 ?
+                                <span className="page-my-profile-verify-header-start">*</span>
+                                :
+                                null
+                        }
                         <div className="page-my-profile-verify-fonts">{data.label}</div>
                         <input id={`${key}`} className="page-my-profile-verify-text"
                                onChange={this.handleOtherInfoInputClick}/>
@@ -581,6 +606,12 @@ class Verify extends React.Component {
 
             <div>
                 <div className="page-my-profile-verify-header-box">
+                    {
+                        item.is_required === 1 ?
+                            <span className="page-my-profile-verify-header-start">*</span>
+                            :
+                            null
+                    }
                     <div className="page-my-profile-verify-fonts">{data.label}</div>
                 </div>
 
@@ -608,6 +639,12 @@ class Verify extends React.Component {
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
+                    {
+                        item.is_required === 1 ?
+                            <span className="page-my-profile-verify-header-start">*</span>
+                            :
+                            null
+                    }
                     <div className="page-my-profile-verify-fonts">{data.label}</div>
 
                     <DatePicker
@@ -636,6 +673,12 @@ class Verify extends React.Component {
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
+                    {
+                        item.is_required === 1 ?
+                            <span className="page-my-profile-verify-header-start">*</span>
+                            :
+                            null
+                    }
                     <div className="page-my-profile-verify-fonts">{data.label}</div>
                     <DatePicker
                         mode="datetime"
@@ -661,14 +704,14 @@ class Verify extends React.Component {
         const attachment = this.state[key];
         // count: 3 - attachment.length,
         uploadToWX({
-           
+
             success: (urls) => {
-                if(urls.length ==1){
+                if (urls.length == 1) {
                     attachment.push(urls[0]);
-                    
-                }else if(urls.length > 1){
-                    for(var i =0;i<urls.length;i++){
-                    attachment.push(urls[i]);
+
+                } else if (urls.length > 1) {
+                    for (var i = 0; i < urls.length; i++) {
+                        attachment.push(urls[i]);
                     }
                 }
                 this.state[key] = attachment;
@@ -678,7 +721,7 @@ class Verify extends React.Component {
     }
 
     onPicDel(e) {
-      
+
         const num = e.target.id;
         var key = e.target.getAttribute("data-key");
         const attachment = this.state[key];
@@ -691,7 +734,14 @@ class Verify extends React.Component {
         const data = item;
         const key = data.key;
         return (
-            <div>
+            <div className="page-my-profile-other-title">
+                {
+                    item.is_required === 1 ?
+                        <span
+                            className="page-my-profile-verify-header-start page-my-profile-verify-header-other-pic-start">*</span>
+                        :
+                        null
+                }
                 <div className="page-my-profile-verify-header-box-pic-fonts">{data.label}</div>
                 <div className="page-post-container-photo-container">
                     {
@@ -700,7 +750,8 @@ class Verify extends React.Component {
                                 <div className="page-applys-item-view">
                                     <Avatar src={item} size={{width: 80, radius: 1}}/>
                                 </div>
-                                <div className="page-applys-item-render-del" onClick={this.onPicDel} id={keys} key={item}
+                                <div className="page-applys-item-render-del" onClick={this.onPicDel} id={keys}
+                                     key={item}
                                      data-key={`${key}`}
                                 />
                             </div>
