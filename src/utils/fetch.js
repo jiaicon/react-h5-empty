@@ -72,8 +72,21 @@ export default function request(requestUrl, requestOptions = {}) {
 
         if (!Array.isArray(value)) {
             params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+
         } else {
-            value.forEach(v => params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`));
+            value.forEach(
+                v => {
+
+                  //添加if判断，只判断了object类型;  fe: data:{extends:[{'key1':'value1'},{'key2':'value2'}]}
+                  if(v instanceof Object) {
+                      for(let j in v) {
+                          return params.push(`${encodeURIComponent(key)}[${j}]=${encodeURIComponent(v[j])}`)
+                      }
+                  }else {
+                      return params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`)
+                  }
+                }
+            );
       }
     }
   });

@@ -188,7 +188,7 @@ class Verify extends React.Component {
         const {check: Ncheck} = nextProps;
         if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
             this.props.requestUserInfo();
-            return
+            // return
             // TODO 如果从项目跳过来的需要跳回去
             if (this.state.projectId) {
                 history.replace(`/project/detail/${this.state.projectId}`);
