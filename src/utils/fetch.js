@@ -65,19 +65,18 @@ export default function request(requestUrl, requestOptions = {}) {
   const data = options.data || {};
   const keys = Object.keys(data);
   const params = [];
-
   keys.forEach((key) => {
-    const value = data[key];
 
+      const value = data[key];
     if (value !== undefined) {
-      if (!Array.isArray(value)) {
-        params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-      } else {
-        value.forEach(v => params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`));
+
+        if (!Array.isArray(value)) {
+            params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+        } else {
+            value.forEach(v => params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`));
       }
     }
   });
-
   if (options.method === 'POST') {
     options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     options.body = params.join('&');
