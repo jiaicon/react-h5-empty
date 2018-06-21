@@ -661,19 +661,26 @@ class Verify extends React.Component {
         var key = e.target.id;
         const attachment = this.state[key];
         uploadToWX({
+            count: 3 - attachment.length,
             success: (urls) => {
-                console.log('图片上传成功:', urls);
-                attachment.push(urls[0]);
+                if(urls.length ==1){
+                    attachment.push(urls[0]);
+                    
+                }else if(urls.length > 1){
+                    for(var i =0;i<urls.length;i++){
+                    attachment.push(urls[i]);
+                    }
+                }
                 this.state[key] = attachment;
-
                 this.pushExtendsArray(key, attachment)
             },
         });
     }
 
     onPicDel(e) {
+      
         const num = e.target.id;
-        var key = e.target.name;
+        var key = e.target.getAttribute("data-key");
         const attachment = this.state[key];
         attachment.splice(num, 1);
         this.state[key] = attachment;
@@ -688,13 +695,14 @@ class Verify extends React.Component {
                 <div className="page-my-profile-verify-header-box-pic-fonts">{data.label}</div>
                 <div className="page-post-container-photo-container">
                     {
-                        this.state[key].map((item, key) => (
+                        this.state[key].map((item, keys) => (
                             <div className="page-applys-item-render-container">
                                 <div className="page-applys-item-view">
-                                    <Avatar src={item} size={{width: 100, radius: 1}}/>
+                                    <Avatar src={item} size={{width: 80, radius: 1}}/>
                                 </div>
-                                <div className="page-applys-item-render-del" onClick={this.onPicDel} id={key} key={item}
-                                     name={`${key}`}/>
+                                <div className="page-applys-item-render-del" onClick={this.onPicDel} id={keys} key={item}
+                                     data-key={`${key}`}
+                                />
                             </div>
                         ))
                     }
@@ -753,7 +761,7 @@ class Verify extends React.Component {
             <div>
                 {
                     this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index) => {
-                        switch (item.type) {//单项选择
+                        switch (Number(item.type)) {//单项选择
                             case 1:
                                 return (
                                     <div key={index}>
