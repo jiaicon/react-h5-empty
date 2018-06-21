@@ -13,8 +13,10 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import history from '../../history';
 import Link from '../../../components/link/link';
+import Tab from '../../../components/tab/tab';
+
 import './login.css';
-import {loginAction} from './login.store';
+import {loginAction, changeIndex} from './login.store';
 import Register from './../register/register';
 import Avatar from '../../../components/avatar/avatar';
 
@@ -29,7 +31,7 @@ class Login extends React.Component {
     }
 
     componentWillMount() {
-
+        this.props.changeIndex(0);
     }
 
     componentDidMount() {
@@ -77,13 +79,12 @@ class Login extends React.Component {
         this.props.loginAction(data);
     }
 
-    render() {
-        const logo = window.orgInfo.logo || '/images/my/logo.png';
+
+
+    renderLogin() {
         return (
             <div className="page-login-box">
                 <div className="page-login">
-                    <Avatar size={{ width: 80 }} defaultSrc={logo}/>
-
                     <div className="page-login-item">
                         <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged}
                                placeholder="手机号或身份证号" className="page-login-item-input"/>
@@ -98,14 +99,63 @@ class Login extends React.Component {
                         </Link>
                     </div>
                     <div className="page-login-entry " onClick={this.submit}>登录</div>
-                    {
-                        <Link to="/my/register">
-                            <div className="page-login-entry page-login-register-btn">没有账号，前往注册</div>
-                        </Link>
-                    }
                 </div>
             </div>
         );
+    }
+    renderQuickLogin() {
+        return(
+            <div className="page-login-box">
+                <div className="page-login">
+                    <div className="page-login-item">
+                        <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged}
+                               placeholder="请输入手机号" className="page-login-item-input"/>
+                    </div>
+                    <div className="page-login-item">
+                        <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
+                               placeholder="图形验证码" className="page-login-item-input"/>
+                        <img className="page-login-item-code" src="" alt=""/>
+                    </div>
+                    <div className="page-login-item">
+                        <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
+                               placeholder="手机验证码" className="page-login-item-input"/>
+                        <div className="page-login-item-code">获取验证码</div>
+                    </div>
+                    <div className="page-login-entry page-login-quick-login" onClick={this.submit}>登录/注册</div>
+                </div>
+                <div className="page-login-agree">
+                    提交代表已阅读
+                    <Link to="/my/agree">
+                        <span className="page-login-agreement">《志多星用户协议》</span>
+                    </Link>
+                </div>
+            </div>
+        )
+    }
+
+    onTabChange(idx) {
+        this.props.changeIndex(idx);
+    }
+    render() {
+        const tabIndex = this.props.login.idx;
+        return(
+            <div>
+                <Tab
+                    tabs={[
+                        {
+                            label: '快速登录',
+                            component: this.renderQuickLogin(),
+                        },
+                        {
+                            label: '账号登录',
+                            component: this.renderLogin(),
+                        },
+                    ]}
+                    onChange={this.onTabChange}
+                    selectedIndex={tabIndex}
+                />
+            </div>
+        )
     }
 }
 
@@ -117,6 +167,7 @@ Login.propTypes = {
         fetching: PropTypes.bool,
         failed: PropTypes.bool,
         from: PropTypes.string,
+        idx: PropTypes.number,
         data: PropTypes.shape({
             // TODO:接收回来
             token: PropTypes.string,
@@ -152,5 +203,5 @@ export default connect(
     state => ({
         login: state.login.login,
     }),
-    dispatch => bindActionCreators({loginAction}, dispatch),
+    dispatch => bindActionCreators({loginAction,changeIndex}, dispatch),
 )(Login);
