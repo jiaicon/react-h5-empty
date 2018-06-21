@@ -659,8 +659,9 @@ class Verify extends React.Component {
     onPicClick(e) {
         var key = e.target.id;
         const attachment = this.state[key];
+        // count: 3 - attachment.length,
         uploadToWX({
-            count: 3 - attachment.length,
+           
             success: (urls) => {
                 if(urls.length ==1){
                     attachment.push(urls[0]);
@@ -706,7 +707,7 @@ class Verify extends React.Component {
                         ))
                     }
                     {
-                        this.state[key].length === 3 ?
+                        this.state[key].length === 1 ?
                             <div/> :
                             <div
                                 className="page-post-item-upload-container" id={`${key}`} onClick={this.onPicClick}
