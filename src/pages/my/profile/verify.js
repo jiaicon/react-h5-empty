@@ -276,7 +276,7 @@ class Verify extends React.Component {
             data.nation = people;
         }
         if (province) {
-            data.province_id = province_id;
+            data.province_id = province;
         }
         if (city) {
             data.city_id = city;
