@@ -131,6 +131,7 @@ class Verify extends React.Component {
             extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
+        console.log(window.orgInfo.custom_config)
         this.CustomChildren = ({extra, onClick}) => (
 
             <div
