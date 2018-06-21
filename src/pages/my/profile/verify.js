@@ -760,12 +760,7 @@ class Verify extends React.Component {
         return (
             <div>
                 {
-<<<<<<< HEAD
                     this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index) => {
-=======
-                    // this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0 ?
-                    winOrgStateInfo.map((item, index) => {
->>>>>>> a6d82e5291cbc3b77c213e598de6e9ae4c65423a
                         switch (Number(item.type)) {//单项选择
                             case 1:
                                 return (
