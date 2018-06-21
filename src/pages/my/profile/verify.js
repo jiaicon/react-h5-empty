@@ -63,7 +63,6 @@ function isRequired(arr, stateData) {
             if (stateData.length != 0) {
                 let isInArr = false;
                 for(let j = 0; j < stateData.length;j++) {
-                    console.log(arr[i].key, stateData[j])
                     if (arr[i].key in stateData[j]) {
                         isInArr = false;
                         // checkEmpty(item1[arr[i].key], arr[i].key);
@@ -71,7 +70,6 @@ function isRequired(arr, stateData) {
                     } else {
                         isInArr = true;
                     }
-                    console.log(isInArr)
                 }
                 if (isInArr) {
                     checkEmpty(null, arr[i].key);
