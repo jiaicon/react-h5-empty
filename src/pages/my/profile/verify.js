@@ -766,7 +766,7 @@ class Verify extends React.Component {
                                 );
                                 break;
                             //多项选择
-                            case 2:
+                            case "2":
                                 return (
                                     <div key={index}>
                                         {this.renderOtherInfoCheckbox(item)}
