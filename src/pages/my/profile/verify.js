@@ -536,7 +536,6 @@ class Verify extends React.Component {
             obj.label = item;
             data.push(obj);
         });
-        console.log("labels-"+labels);
         return (
             <div className="">
                 <List renderHeader={() => item1.label}>
@@ -750,14 +749,12 @@ class Verify extends React.Component {
 
     renderOtherInfo() {
         const winOrgStateInfo = this.state.winOrgInfo.extends;
-        console.log(winOrgStateInfo);
         return (
             <div>
                 {
                     // this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0 ?
                     winOrgStateInfo.map((item, index) => {
-                        console.log(item.type)
-                        switch (item.type) {//单项选择
+                        switch (Number(item.type)) {//单项选择
                             case 1:
                                 return (
                                     <div key={index}>
@@ -766,7 +763,7 @@ class Verify extends React.Component {
                                 );
                                 break;
                             //多项选择
-                            case "2":
+                            case 2:
                                 return (
                                     <div key={index}>
                                         {this.renderOtherInfoCheckbox(item)}
