@@ -303,7 +303,7 @@ class Profile extends React.Component {
     }
     renderRealInfoExtends(){
         const userId= this.state.userId;
-        const user = userId === 'user' ?this.props.user:this.props.otherfamily.data;
+        const user = userId === 'user' ? this.props.user: this.props.otherfamily.data;
        
 
         return(
@@ -768,7 +768,7 @@ class Profile extends React.Component {
                     </div>
                 </div>
                 <div className="line1px"/>               
-                {this.renderRealInfoExtends()}
+                {this.renderRealInfoExtends()}  
                 <div className="page-profile-edit-btn" onClick={()=>{this.setState({...this.state,showDialog: true})}}>修改</div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
                     确定要修改成员信息吗？
