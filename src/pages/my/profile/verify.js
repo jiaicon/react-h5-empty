@@ -132,7 +132,6 @@ class Verify extends React.Component {
             extendsArray: [],
             winOrgInfo: window.orgInfo.custom_config
         });
-        console.log(window.orgInfo.custom_config)
         this.CustomChildren = ({extra, onClick}) => (
 
             <div
@@ -749,10 +748,13 @@ class Verify extends React.Component {
     }
 
     renderOtherInfo() {
+        console.log(this.state.winOrgInfo.extends)
         return (
             <div>
-                {this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0 ?
+                {
+                    // this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0 ?
                     this.state.winOrgInfo.extends.map((item, index) => {
+                        console.log(item.map)
                         switch (item.type) {//单项选择
                             case 1:
                                 return (
@@ -815,8 +817,8 @@ class Verify extends React.Component {
                         }
 
                     })
-                    :
-                    null
+                    // :
+                    // null
                 }
             </div>
         )
