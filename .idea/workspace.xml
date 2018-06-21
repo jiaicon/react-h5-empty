@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673f1116-2321-4048-b1ad-35e0e4a65ac4" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/verify.js" afterPath="$PROJECT_DIR$/src/pages/my/profile/verify.js" />
     </list>
@@ -48,8 +49,8 @@
       <file leaf-file-name="verify.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="133" column="49" lean-forward="true" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
+            <state relative-caret-position="224">
+              <caret line="753" column="50" lean-forward="false" selection-start-line="753" selection-start-column="50" selection-end-line="753" selection-end-column="50" />
               <folding>
                 <element signature="e#119#158#0" expanded="true" />
               </folding>
@@ -62,7 +63,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="336">
-                <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
+                <caret line="133" column="32" lean-forward="false" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
                 <folding>
                   <marker date="1524721654477" expanded="true" signature="121:185" ph="{...}" />
                 </folding>
@@ -132,11 +133,11 @@
       <find>limitArr</find>
       <find>onSubmit</find>
       <find>checkEmpty</find>
-      <find>winOrgInfo</find>
       <find>page-profile-fonts-view</find>
       <find>formatDate</find>
       <find>isRequired</find>
       <find>console</find>
+      <find>winOrgInfo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -333,12 +334,12 @@
       <workItem from="1524015649845" duration="858000" />
       <workItem from="1524017241940" duration="3023000" />
       <workItem from="1524546217590" duration="928000" />
-      <workItem from="1529545712058" duration="977000" />
+      <workItem from="1529545712058" duration="1646000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162073000" />
+    <option name="totallyTimeSpent" value="162742000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -755,7 +756,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="336">
-            <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
+            <caret line="133" column="32" lean-forward="false" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
             <folding>
               <marker date="1524721654477" expanded="true" signature="121:185" ph="{...}" />
             </folding>
@@ -766,8 +767,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="133" column="49" lean-forward="true" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
+        <state relative-caret-position="224">
+          <caret line="753" column="50" lean-forward="false" selection-start-line="753" selection-start-column="50" selection-end-line="753" selection-end-column="50" />
           <folding>
             <element signature="e#119#158#0" expanded="true" />
           </folding>

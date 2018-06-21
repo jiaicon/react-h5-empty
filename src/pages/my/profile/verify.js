@@ -23,6 +23,7 @@ import {List, Checkbox, DatePicker, Flex} from 'antd-mobile';
 import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/checkbox/style/css';
 import './verifyAntd.css';
+
 const isAndroid = /android/i.test(navigator.userAgent);
 const people = [{id: '01', name: '汉族'}, {id: '02', name: '蒙古族'}, {id: '03', name: '回族'},
     {id: '04', name: '藏族'}, {id: '05', name: '维吾尔族'}, {id: '06', name: '苗族'},
@@ -62,7 +63,7 @@ function isRequired(arr, stateData) {
         if (arr[i].is_required && arr[i].is_required === 1) {
             if (stateData.length != 0) {
                 let isInArr = false;
-                for(let j = 0; j < stateData.length;j++) {
+                for (let j = 0; j < stateData.length; j++) {
                     if (arr[i].key in stateData[j]) {
                         isInArr = false;
                         // checkEmpty(item1[arr[i].key], arr[i].key);
@@ -266,25 +267,25 @@ class Verify extends React.Component {
             return;
         }
         let data = {};
-        if(realname) {
+        if (realname) {
             data.real_name = realname;
         }
-        if(idcard) {
+        if (idcard) {
             data.id_number = idcard;
         }
-        if(people) {
+        if (people) {
             data.nation = people;
         }
-        if(province) {
+        if (province) {
             data.province_id = province_id;
         }
-        if(city) {
+        if (city) {
             data.city_id = city;
         }
-        if(county) {
+        if (county) {
             data.county_id = county;
         }
-        if(address) {
+        if (address) {
             data.addr = address;
         }
         // const data = {
@@ -483,7 +484,7 @@ class Verify extends React.Component {
                                     this.address = c;
                                 }} className="page-my-profile-verify-text" onChange={this.onTextChanged}/>
                             </div>
-                              <div className="line1px"/>
+                            <div className="line1px"/>
                         </div>
                         : null
                 }
@@ -750,8 +751,8 @@ class Verify extends React.Component {
     renderOtherInfo() {
         return (
             <div>
-                {
-                    this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index) => {
+                {this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0 ?
+                    this.state.winOrgInfo.extends.map((item, index) => {
                         switch (item.type) {//单项选择
                             case 1:
                                 return (
@@ -814,6 +815,8 @@ class Verify extends React.Component {
                         }
 
                     })
+                    :
+                    null
                 }
             </div>
         )
