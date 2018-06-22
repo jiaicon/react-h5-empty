@@ -195,7 +195,7 @@ class Verify extends React.Component {
             } else if (this.state.teamId) {
                 history.replace(`/team/detail/${this.state.projectId}`);
             } else {
-                history.replace('/my/profile/detail/user');
+                history.replace('/my');
             }
         }
     }
