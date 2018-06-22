@@ -210,7 +210,11 @@ class Verify extends React.Component {
     initialPic(data) {
         data.map((item, index) => {
             if (item.type == 5) {
-                this.state[item.key] = [];
+                // this.state[item.key] = [];
+                this.setState({
+                    [item.key]: [],
+                    ...this.state
+                })
             }
         })
 
@@ -550,7 +554,6 @@ class Verify extends React.Component {
 
     renderOtherInfoCheckbox(item1) {
         const CheckboxItem = Checkbox.CheckboxItem;
-        const AgreeItem = Checkbox.AgreeItem;
         let labels = item1.options.split(',');
         let data = [];
         labels.map((item, index) => {
@@ -662,8 +665,8 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.state[key] = v, console.log(v))}
-                        onDismiss={v => (this.pushExtendsArray(key, null), this.state[key] = null, console.log(v))}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({[key]: v, ...this.state}),console.log(v))}
+                        onDismiss={v => (this.pushExtendsArray(key, null), this.setState({[key]: null, ...this.state}), console.log(v))}
 
                     >
 
@@ -695,8 +698,8 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD HH:mm"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.state[key] = v, console.log(v))}
-                        onDismiss={v => (this.pushExtendsArray(key, null), this.state[key] = null, console.log(v))}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)),this.setState({[key]: v, ...this.state}), console.log(v))}
+                        onDismiss={v => (this.pushExtendsArray(key, null),this.setState({[key]: null, ...this.state}), console.log(v))}
 
                     >
 
@@ -724,7 +727,8 @@ class Verify extends React.Component {
                         attachment.push(urls[i]);
                     }
                 }
-                this.state[key] = attachment;
+                // this.state[key] = attachment;
+                this.setState({[key]: attachment, ...this.state});
                 this.pushExtendsArray(key, attachment)
             },
         });
@@ -736,7 +740,8 @@ class Verify extends React.Component {
         var key = e.target.getAttribute("data-key");
         const attachment = this.state[key];
         attachment.splice(num, 1);
-        this.state[key] = attachment;
+        // this.state[key] = attachment;
+        this.setState({[key]: attachment, ...this.state}),
         this.pushExtendsArray(key, attachment)
     }
 
