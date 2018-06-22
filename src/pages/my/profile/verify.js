@@ -221,9 +221,10 @@ class Verify extends React.Component {
     }
 
     onTextChanged() {
-        const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
-        const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
-        const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
+        const windowInfo = this.state.winOrgInfo;
+        const realname = windowInfo.open_real_name ? this.realname.value.replace(/(^\s+)|(\s+$)/g, '') : null;
+        const idcard = windowInfo.open_id_number ? this.idcard.value.replace(/(^\s+)|(\s+$)/g, '') : null;
+        const address = windowInfo.open_addr ? this.address.value.replace(/(^\s+)|(\s+$)/g, '') : null;
         this.setState({
             address,
             realname,
