@@ -312,7 +312,13 @@ class Verify extends React.Component {
             console.log('photo: ' + photo);
             data.avatars = photo;
         }
-        data.extends = this.state.extendsArray;
+        let extendsObj = {};
+        this.state.extendsArray.forEach(v => {
+            for(let k in v) {
+                extendsObj[k] = v[k];
+            }
+        });
+        data.extends = extendsObj;
         console.log('data' + data);
         // return;
         this.props.checkUser(data);

@@ -86,24 +86,12 @@ export default function request(requestUrl, requestOptions = {}) {
     if (value !== undefined && value !== null) {
       if (Array.isArray(value)) {
         value.forEach(v => {
-          //数组包含的对象
-          if(isPlainObject(v)) {
-              for(let k in v) {
-                if(v.hasOwnProperty(k)) {
-                    return params.push(`${encodeURIComponent(key)}[${encodeURIComponent(k)}]=${encodeURIComponent(v[k])}`);
-                }
-              }
-          //数组包含的数组
-          }else if(Array) {
-
-          }
-          // return params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`);
+          return params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`);
         });
       } else if (isPlainObject(value)) {
           for (let k in value) {
           if (value.hasOwnProperty(k)) {
             params.push(`${encodeURIComponent(key)}[${encodeURIComponent(k)}]=${encodeURIComponent(value[k])}`);
-              console.log(params)
             }
         }
       } else {
