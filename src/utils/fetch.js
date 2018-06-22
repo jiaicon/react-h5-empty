@@ -83,10 +83,8 @@ export default function request(requestUrl, requestOptions = {}) {
   const params = [];
   keys.forEach((key) => {
     const value = data[key];
-    console.log('aaaaaaaaaaaaaaaaa')
     if (value !== undefined && value !== null) {
       if (Array.isArray(value)) {
-        console.log(9999)
         value.forEach(v => {
           //数组包含的对象
           if(isPlainObject(v)) {
@@ -95,24 +93,20 @@ export default function request(requestUrl, requestOptions = {}) {
                     return params.push(`${encodeURIComponent(key)}[${encodeURIComponent(k)}]=${encodeURIComponent(v[k])}`);
                 }
               }
-              //数组包含的数组
+          //数组包含的数组
           }else if(Array) {
 
           }
           // return params.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(v)}`);
         });
       } else if (isPlainObject(value)) {
-          console.log(1111111);
           for (let k in value) {
-            console.log(22222)
           if (value.hasOwnProperty(k)) {
-              console.log(3333333)
             params.push(`${encodeURIComponent(key)}[${encodeURIComponent(k)}]=${encodeURIComponent(value[k])}`);
               console.log(params)
             }
         }
       } else {
-        console.log(4444444444)
         params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
       }
     }
