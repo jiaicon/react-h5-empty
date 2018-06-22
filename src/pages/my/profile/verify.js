@@ -964,7 +964,7 @@ class Verify extends React.Component {
     }
 }
 
-Verify.title = '实名认证';
+Verify.title = '完善个人资料';
 Verify.propTypes = {
     checkUser: PropTypes.func,
     requestUserInfo: PropTypes.func,
