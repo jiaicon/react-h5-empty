@@ -672,7 +672,7 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => {this.pushExtendsArray(key, formatDate(v)), this.setState({[key]: v, ...this.state}),console.log(v)}}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({[key]: v}),console.log(v),console.log(this.state))}
                         onDismiss={v => (this.pushExtendsArray(key, null), this.setState({[key]: null, ...this.state}), console.log(v))}
 
                     >
