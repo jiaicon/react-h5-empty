@@ -803,6 +803,7 @@ class Verify extends React.Component {
     pushExtendsArray(key, value, isMany) {
         let mapInit = false;
         let objInit = false;
+        let isDeleteItem = false;
         const extendsArray = this.state.extendsArray;
         // if(!isMany) {
         //     extendsArray[key] = value;
@@ -824,9 +825,38 @@ class Verify extends React.Component {
             for (var i in item) {
                 if (i === key) {
                     if (isMany) {
-                        item[key] = String(item[key]) + ',' + String(value);
+                        let newArr = item[key].split(',');
+                        let isPush = false;
+                        if(newArr.length > 0) {
+                            newArr.forEach((k, i)=>{
+                                if(k === value) {
+                                    newArr.splice(i, 1);
+                                    if(newArr.length === 0) {
+                                        isDeleteItem = true;
+                                    }else {
+                                        item[key] = newArr.join(',');
+                                    }
+                                    mapInit = true;
+                                    objInit = true;
+                                    isPush = true;
+                                }else {
+                                    isPush = false;
+                                }
+                            });
+                        }else {
+                            isPush = false;
+                        }
+                        if(!isPush) {
+                            item[key] = String(item[key]) + ',' + String(value);
+                        }
                     } else {
-                        item[key] = value;
+                        if(value.length === 0) {
+                            isDeleteItem = true;
+                            mapInit = true;
+                            objInit = true;
+                        }else {
+                            item[key] = value;
+                        }
                     }
                     mapInit = true;
                     objInit = true;
@@ -836,6 +866,16 @@ class Verify extends React.Component {
                 }
             }
         });
+        if(isDeleteItem) {
+            extendsArray.forEach((item, index)=>{
+                for(let k in item) {
+                    if(k === key) {
+                        extendsArray.splice(index, 1);
+                        break;
+                    }
+                }
+            })
+        }
         if (!mapInit && !objInit) {
             extendsArray.push({[key]: value});
         }
