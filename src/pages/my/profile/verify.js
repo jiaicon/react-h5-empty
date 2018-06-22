@@ -676,8 +676,6 @@ class Verify extends React.Component {
                             ...this.state,
                             [key]: v
                         }), console.log(v), console.log(this.state))}
-                        onDismiss={}
-
                     >
 
                         <this.CustomChildren/>
@@ -712,8 +710,6 @@ class Verify extends React.Component {
                             ...this.state,
                             [key]: v
                         }), console.log(v))}
-                        onDismiss={}
-
                     >
 
                         <this.CustomChildren/>
