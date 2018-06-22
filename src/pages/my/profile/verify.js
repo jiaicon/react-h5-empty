@@ -315,7 +315,7 @@ class Verify extends React.Component {
         }
         let extendsObj = {};
         this.state.extendsArray.forEach(v => {
-            for(let k in v) {
+            for (let k in v) {
                 extendsObj[k] = v[k];
             }
         });
@@ -672,8 +672,11 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({[key]: v}),console.log(v),console.log(this.state))}
-                        onDismiss={v => (this.pushExtendsArray(key, null), this.setState({[key]: null, ...this.state}), console.log(v))}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
+                            ...this.state,
+                            [key]: v
+                        }), console.log(v), console.log(this.state))}
+                        onDismiss={}
 
                     >
 
@@ -705,8 +708,11 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD HH:mm"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)),this.setState({[key]: v, ...this.state}), console.log(v))}
-                        onDismiss={v => (this.pushExtendsArray(key, null),this.setState({[key]: null, ...this.state}), console.log(v))}
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
+                            ...this.state,
+                            [key]: v
+                        }), console.log(v))}
+                        onDismiss={}
 
                     >
 
@@ -749,7 +755,7 @@ class Verify extends React.Component {
         attachment.splice(num, 1);
         // this.state[key] = attachment;
         this.setState({[key]: attachment, ...this.state}),
-        this.pushExtendsArray(key, attachment)
+            this.pushExtendsArray(key, attachment)
     }
 
     renderOtherPic(item) {
