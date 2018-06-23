@@ -848,6 +848,30 @@ class Verify extends React.Component {
                         }
                         if(!isPush) {
                             item[key] = String(item[key]) + ',' + String(value);
+                            // TODO:869行push 和 904行push冲突，待解决
+                            // const exTends =this.state.winOrgInfo.extends;
+                            // var result = [];
+                            // var pageIds=item[key].split(',');
+                         
+                            // exTends.map((item,index)=>{
+                            //     if(key === item.key){
+                                    
+                            //         console.log(item)
+                            //         const options =item.options.split(',');
+                            //         for (let i = 0; i < options.length; i++) {
+                            //             result = result.concat(pageIds.filter(m => m === options[i]));
+                            //             item[key]=result.join(",");
+                            //             console.log(result.join(","));
+                            //             console.log(item[key])
+                                      
+
+                            //         }
+                            //     extendsArray.push({[key]: item[key]});
+  
+                                   
+                            //     }
+                            // })
+                           
                         }
                     } else {
                         if(value.length === 0) {
