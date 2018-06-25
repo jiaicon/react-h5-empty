@@ -835,43 +835,22 @@ class Verify extends React.Component {
                                         isDeleteItem = true;
                                     }else {
                                         item[key] = newArr.join(',');
+                                        isDeleteItem = false;
                                     }
                                     mapInit = true;
                                     objInit = true;
                                     isPush = true;
                                 }else {
                                     isPush = false;
+                                    isDeleteItem = false;
                                 }
                             });
                         }else {
                             isPush = false;
+                            isDeleteItem = false;
                         }
                         if(!isPush) {
                             item[key] = String(item[key]) + ',' + String(value);
-                            // TODO:869行push 和 904行push冲突，待解决
-                            // const exTends =this.state.winOrgInfo.extends;
-                            // var result = [];
-                            // var pageIds=item[key].split(',');
-                         
-                            // exTends.map((item,index)=>{
-                            //     if(key === item.key){
-                                    
-                            //         console.log(item)
-                            //         const options =item.options.split(',');
-                            //         for (let i = 0; i < options.length; i++) {
-                            //             result = result.concat(pageIds.filter(m => m === options[i]));
-                            //             item[key]=result.join(",");
-                            //             console.log(result.join(","));
-                            //             console.log(item[key])
-                                      
-
-                            //         }
-                            //     extendsArray.push({[key]: item[key]});
-  
-                                   
-                            //     }
-                            // })
-                           
                         }
                     } else {
                         if(value.length === 0) {
@@ -890,6 +869,8 @@ class Verify extends React.Component {
                 }
             }
         });
+
+        //长度为零时删除key
         if(isDeleteItem) {
             extendsArray.forEach((item, index)=>{
                 for(let k in item) {
@@ -899,11 +880,36 @@ class Verify extends React.Component {
                     }
                 }
             })
+        }else if(!isDeleteItem && isMany) {
+            //多项选择进行排序
+            let extendsSoftArr = extendsArray;
+            this.state.winOrgInfo.extends.forEach((i, k)=>{
+                if(i.key === key) {
+                    let softArr = [];
+                    extendsSoftArr.forEach((o)=>{
+                        for(let p in o) {
+                            if(p === key) {
+                                if(o[key].split(',').length > 1) {
+                                    i.options.split(',').forEach((m, n)=>{
+                                        o[key].split(',').forEach((j, v)=>{
+                                            if(m === j) {
+                                                softArr.push(j);
+                                                return;
+                                            }
+                                        })
+                                    });
+                                    o[key] = softArr.join(',');
+                                }
+                            }
+                        }
+                    })
+                }
+            })
         }
         if (!mapInit && !objInit) {
             extendsArray.push({[key]: value});
         }
-        console.log(extendsArray);
+        console.log(extendsArray)
         this.setState({
             ...this.state,
             extendsArray,
