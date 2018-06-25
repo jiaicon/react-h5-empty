@@ -46,7 +46,8 @@ class Profile extends React.Component {
         this.realRegister = window.orgInfo.real_name_register;
         this.state = ({
             photo: '',
-            showDialog: false
+            showDialog: false,
+            winOrgInfo: window.orgInfo.custom_config.extends,
         });
         this.dialog = {
             title: '提示',
@@ -112,7 +113,67 @@ class Profile extends React.Component {
         return (
             <div className="page-profile-bottom-real-info-container">
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
-                <div className="page-profile-header-box">
+                {
+                    otherfamily.data.real_name ?
+                    <div>
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">姓名</div>
+                            <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
+                        </div>
+                        <div className="line1px" />
+                    </div>:
+                    null
+                }
+                {
+                    otherfamily.data.id_number ?
+                    <div>
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">身份证号</div>
+                            <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
+                        </div>
+                        <div className="line1px" />
+                    </div>:
+                    null
+                }
+                
+                {
+                    otherfamily.data.sex  ?
+                    <div>
+                      <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">性别</div>
+                        <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
+                    </div>
+                    <div className="line1px" />
+                    </div>:
+                    null
+                }
+                {
+                    otherfamily.data.nation  ?
+                    <div>
+                       <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">民族</div>
+                            <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
+                        </div>
+                        <div className="line1px" />
+                    </div>:
+                    null
+                }
+               {
+                   otherfamily.data.province_name?
+                   <div>
+                   <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">现住地址</div>
+                        <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
+                    </div>
+                    <div className="line1px" />
+                    <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">详细地址</div>
+                        <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
+                    </div>
+                    </div>
+                   :null
+               }
+                {/* <div className="page-profile-header-box">
                     <div className="page-profile-fonts">姓名</div>
                     <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
                 </div>
@@ -140,53 +201,224 @@ class Profile extends React.Component {
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">详细地址</div>
                     <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
-                </div>
+                </div> */}
+                 {this.renderRealInfoExtends()}
                 <div className="page-profile-realinfo-takeup" />
             </div>
         );
     }
+    addChildren(winOrgInfo, exTends) {
+        var objArray=[];
+        for (const info in exTends) {
+          for (const keys in winOrgInfo) {
+            if (info == winOrgInfo[keys].key) {
+                var obj={}
+                obj.value= exTends[info];
+                Object.assign(obj,winOrgInfo[keys])
+                objArray.push(obj)
+               
+                this.setState({
+                    ...this.state,
+                    objArray
+                })
+            }
+          }
+        }
+       
+      }
     renderRealInfo() {
         const user = this.props.user;
 
         return (
             <div className="page-profile-bottom-real-info-container">
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">姓名</div>
-                    <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">身份证号</div>
-                    <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">性别</div>
-                    <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">民族</div>
-                    <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">现住地址</div>
-                    <div className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">详细地址</div>
-                    <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
-                </div>
+                {
+                    user.real_name ?
+                    <div>
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">姓名</div>
+                            <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
+                        </div>
+                        <div className="line1px" />
+                    </div>:
+                    null
+                }
+                {
+                    user.id_number ?
+                    <div>
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">身份证号</div>
+                            <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
+                        </div>
+                        <div className="line1px" />
+                    </div>:
+                    null
+                }
+                
+                {
+                    user.sex  ?
+                    <div>
+                      <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">性别</div>
+                        <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
+                    </div>
+                    <div className="line1px" />
+                    </div>:
+                    null
+                }
+                {
+                    user.nation  ?
+                    <div>
+                       <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">民族</div>
+                            <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
+                        </div>
+                        <div className="line1px" />
+                    </div>:
+                    null
+                }
+               {
+                   user.province_name?
+                   <div>
+                   <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">现住地址</div>
+                        <div className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
+                    </div>
+                    <div className="line1px" />
+                    <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">详细地址</div>
+                        <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
+                    </div>
+                    <div className="line1px" />
+                    </div>
+                   :null
+               }
+                {this.renderRealInfoExtends()}
+              
                 <Link to="/my/profile/applyAlert">
                     <div className="page-profile-apply-alert" onClick={this.applyAlert}>申请修改</div>
                 </Link>
             </div>
         );
     }
+    renderRealInfoExtends(){
+        const userId= this.state.userId;
+        const user = userId === 'user' ? this.props.user: this.props.otherfamily.data;
+       
 
+        return(
+            <div className="page-profile-extends">
+                {
+                    user.extends !==null && this.state.objArray  ?
+                    <div>
+                        {
+                            this.state.objArray.map((item, index) => {
+                                switch (Number(item.type)) {//单项选择
+                                    case 1:
+                                        return (
+                                            <div key={index}>
+                                             <div className="page-profile-header-box">
+                                                <div className="page-profile-fonts">{item.label}</div>
+                                                <div className="page-profile-initial-fonts">{item.value}</div>
+                                             </div>
+                                            <div className="line1px" />
+                                            </div>
+                                        );
+                                        break;
+                                    //多项选择
+                                    case 2:
+                                        return (
+                                            <div key={index}>
+                                               <div className="page-profile-header-box">
+                                                <div className="page-profile-fonts">{item.label}</div>
+                                                </div>
+                                                <div className="page-profile-fonts-view">{item.value}</div>
+                                                <div className="line1px" />
+                                            </div>
+                                        );
+                                        break;
+                                    //单行输入
+                                    case 3:
+                                        return (
+                                            <div key={index}>
+                                            
+                                                    <div className="page-profile-header-box">
+                                                        <div className="page-profile-fonts">{item.label}</div>
+                                                        <div className="page-profile-initial-fonts">{item.value}</div>
+                                                    </div>
+                                                <div className="line1px" />
+                                       
+                                            </div>
+                                        );
+                                        break;
+                                    //多行输
+                                    case 4:
+                                        return (
+                                            <div key={index}>
+                                               <div className="page-profile-header-box">
+                                                <div className="page-profile-fonts">{item.label}</div>
+                                                </div>
+                                                <div className="page-profile-fonts-view">{item.value}</div>
+                                                <div className="line1px" />
+                                            </div>
+                                        );
+                                        break;
+        
+                                    //上传图片
+                                    case 5:
+                                        return (
+                                            <div key={index}>
+                                             <div className="page-profile-header-box">
+                                                <div className="page-profile-fonts">{item.label}</div>
+                                                </div>
+                                                <div className="page-profile-fonts-view-img">
+                                                    <Avatar  src={item.value} size={{width: 80, radius: 1}}/>
+
+                                                </div>
+                                                <div className="line1px" />
+                                            </div>
+                                        );
+                                        break;
+                                    //日期空间
+                                    case 6:
+                                        return (
+                                            <div key={index}>
+                                                <div className="page-profile-header-box">
+                                                    <div className="page-profile-fonts">{item.label}</div>
+                                                    <div className="page-profile-initial-fonts">{item.value}</div>
+                                                </div>
+                                                <div className="line1px" />
+                                  
+                                            </div>
+                                        );
+                                        break;
+                                    //日期时间空间
+                                    case 7:
+                                        return (
+                                            <div key={index}>
+                                             <div className="page-profile-header-box">
+                                                <div className="page-profile-fonts">{item.label}</div>
+                                                <div className="page-profile-initial-fonts">{item.value}</div>
+                                             </div>
+                                            <div className="line1px" />
+                                            </div>
+                                   
+                                        );
+                                        break;
+                                    default:
+                                        return
+                                }
+        
+                            })
+                        }
+
+
+                    </div>
+                    :null
+                }
+            </div>
+        )
+    }
     renderHost() {
         const user = this.props.user;
         return (
@@ -423,6 +655,23 @@ class Profile extends React.Component {
         if (tFetch && !nFetch && !nFailed) {
             history.replace('/my/family');
         }
+        const userId = this.state.userId;
+        
+        if (userId === 'user') {
+            const detailData = nextProps.user;
+            console.log(detailData)
+            if (detailData && detailData.id && detailData.extends !== null) {
+   
+                this.addChildren(this.state.winOrgInfo, detailData.extends);
+            }
+        } else {
+            const detailData = nextProps.otherfamily.data;
+            if (detailData && detailData.id && detailData.extends !== null) {
+                this.addChildren(this.state.winOrgInfo, detailData.extends);
+            }
+        }
+        
+        
     }
 
     onTextChange() {
@@ -521,6 +770,8 @@ class Profile extends React.Component {
                         </label>
                     </div>
                 </div>
+                <div className="line1px"/>               
+                {this.renderRealInfoExtends()}  
                 <div className="page-profile-edit-btn" onClick={()=>{this.setState({...this.state,showDialog: true})}}>修改</div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
                     确定要修改成员信息吗？

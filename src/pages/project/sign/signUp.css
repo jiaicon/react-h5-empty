@@ -1,0 +1,116 @@
+
+/* .page-project-signUp .am-list-item{
+    min-height: 79px;
+} */
+.am-list-thumb{
+    width: 18px;
+    height: 18px;
+}
+.am-list .am-list-item.am-checkbox-item .am-list-thumb .am-checkbox{
+    height: 79px;
+}
+.am-list .am-list-item.am-checkbox-item .am-list-thumb .am-checkbox-inner {
+    top: 30px;
+}
+.am-list-content{
+    height: 79px;
+}
+.am-list-item .am-list-line .am-list-content{
+    display: flex;
+    color: #282828;
+    justify-content: space-around;
+    font-size: 16px;
+    flex-direction: column;
+
+}
+.am-list .am-list-item.am-checkbox-item.am-checkbox-item-disabled .am-list-content{
+    color: #282828;
+    font-size: 16px;
+}
+.page-singnuo-checkbox-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.page-singnuo-checkbox-money{
+    color: #FB5D5D;
+    font-size: 18px;
+}
+.page-singnuo-checkbox-container .am-list {
+    width: 89px;
+    height: 24px;
+}
+.page-singnuo-checkbox-container .am-list .am-list-body{
+    width: 89px;
+    height: 24px;
+}
+.page-singnuo-checkbox-container .am-list .am-list-body .am-list-item{
+    padding: 0;
+    min-height: 24px;
+    position: relative;
+    display: -webkit-box;
+    /* display: flex; */
+    /* padding-left: 15px;
+    min-height: 44px; */
+    background-color: #fff;
+    vertical-align: middle;
+    /* overflow: hidden; */
+    transition: background-color 200ms;
+    /* -webkit-box-align: center; */
+    /* -ms-flex-align: center;
+    align-items: center; */
+}
+.page-singnuo-checkbox-container .am-list .am-list-body .am-list-item .am-list-item-middle{
+    height: 24px;
+}
+.page-singnuo-checkbox-container .am-list .am-list-body .am-list-item .am-stepper-input-wrap{
+    height: 24px;
+    line-height: 24px;
+    width: 88%;
+}
+.page-singnuo-checkbox-container .am-stepper-handler, .am-stepper-handler-up-inner, .am-stepper-handler-down-inner{
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+}
+.page-singnuo-checkbox-container .am-list .am-list-body .am-list-item .am-list-line{
+    padding: 0;
+    display:inherit;
+}
+html:not([data-scale]) .am-list-body::after{
+
+    top: 28px;
+}
+.am-stepper-handler-wrap{
+    flex: 1;
+    height: 24px;
+}
+.am-stepper{
+    padding: 0;
+    position: initial;
+}
+.am-stepper-input{
+    /* display: none; */
+    width: 60px;
+    font-size: 16px;
+    color: #000;
+    /* text-align: center; */
+    border: 0;
+    padding: 0;
+    background: none;
+
+}
+.page-singnuo-checkbox-container .am-list-item .am-list-line .am-list-extra{
+        /* flex-basis: 63%; */
+        color: #888;
+        font-size: 16px;
+        /* line-height: 1.5; */
+        /* text-align: right; */
+        /* width: auto; */
+        /* overflow: hidden; */
+        /* text-overflow: ellipsis; */
+        /* white-space: nowrap; */
+        padding-top: 0px;
+        text-align: initial;
+}

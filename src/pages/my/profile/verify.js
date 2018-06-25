@@ -57,21 +57,32 @@ function checkEmpty(value, label) {
     }
     return false;
 }
-
+//判断自定义信息必填的是否为空
 function isRequired(arr, stateData) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].is_required && arr[i].is_required === 1) {
-            if (stateData.length != 0) {
-                let isInArr = false;
-                for (let j = 0; j < stateData.length; j++) {
-                    if (arr[i].key in stateData[j]) {
+            console.log(stateData)
+            // if (stateData.length != 0) {
+            const keys = Object.keys(stateData);
+            if (keys.length != 0) {
+                let isInArr = false;    //记录自定义信息的对象中必填的key是否在存在
+                for(let j in stateData) {
+                    if(arr[i].key === j && stateData.hasOwnProperty(j)) {
                         isInArr = false;
-                        // checkEmpty(item1[arr[i].key], arr[i].key);
                         break;
-                    } else {
-                        isInArr = true;
+                    }else {
+                        isInArr = true
                     }
                 }
+                // for (let j = 0; j < stateData.length; j++) {
+                //     if (arr[i].key in stateData[j]) {
+                //         isInArr = false;
+                //         // checkEmpty(item1[arr[i].key], arr[i].key);
+                //         break;
+                //     } else {
+                //         isInArr = true;
+                //     }
+                // }
                 if (isInArr) {
                     checkEmpty(null, arr[i].label);
                     return true;
@@ -129,7 +140,7 @@ class Verify extends React.Component {
             province: 0,
             city: 0,
             county: 0,
-            extendsArray: [],
+            extendsArray: {},
             winOrgInfo: window.orgInfo.custom_config
         });
         this.CustomChildren = ({extra, onClick}) => (
@@ -180,14 +191,14 @@ class Verify extends React.Component {
         const {check: Ncheck} = nextProps;
         if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
             this.props.requestUserInfo();
-
+            // return
             // TODO 如果从项目跳过来的需要跳回去
             if (this.state.projectId) {
                 history.replace(`/project/detail/${this.state.projectId}`);
             } else if (this.state.teamId) {
                 history.replace(`/team/detail/${this.state.projectId}`);
             } else {
-                history.replace('/my/profile/detail/user');
+                history.replace('/my');
             }
         }
     }
@@ -202,16 +213,21 @@ class Verify extends React.Component {
     initialPic(data) {
         data.map((item, index) => {
             if (item.type == 5) {
-                this.state[item.key] = [];
+                // this.state[item.key] = [];
+                this.setState({
+                    [item.key]: [],
+                    ...this.state
+                })
             }
         })
 
     }
 
     onTextChanged() {
-        const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, '');
-        const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, '');
-        const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '');
+        const windowInfo = this.state.winOrgInfo;
+        const realname = windowInfo.open_real_name ? this.realname.value.replace(/(^\s+)|(\s+$)/g, '') : null;
+        const idcard = windowInfo.open_id_number ? this.idcard.value.replace(/(^\s+)|(\s+$)/g, '') : null;
+        const address = windowInfo.open_addr ? this.address.value.replace(/(^\s+)|(\s+$)/g, '') : null;
         this.setState({
             address,
             realname,
@@ -300,6 +316,12 @@ class Verify extends React.Component {
             console.log('photo: ' + photo);
             data.avatars = photo;
         }
+        // let extendsObj = {};
+        // this.state.extendsArray.forEach(v => {
+        //     for (let k in v) {
+        //         extendsObj[k] = v[k];
+        //     }
+        // });
         data.extends = this.state.extendsArray;
         console.log('data' + data);
         this.props.checkUser(data);
@@ -535,12 +557,12 @@ class Verify extends React.Component {
 
     //多选控件
     onChange = (key, val) => {
+        console.log(val);
         this.pushExtendsArray(key, val, true)
     };
 
     renderOtherInfoCheckbox(item1) {
         const CheckboxItem = Checkbox.CheckboxItem;
-        const AgreeItem = Checkbox.AgreeItem;
         let labels = item1.options.split(',');
         let data = [];
         labels.map((item, index) => {
@@ -652,9 +674,10 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.state[key] = v, console.log(v))}
-                        onDismiss={v => (this.pushExtendsArray(key, null), this.state[key] = null, console.log(v))}
-
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
+                            ...this.state,
+                            [key]: v
+                        }), console.log(v), console.log(this.state))}
                     >
 
                         <this.CustomChildren/>
@@ -685,9 +708,10 @@ class Verify extends React.Component {
                         format="YYYY-MM-DD HH:mm"
                         value={this.state[key]}
                         extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.state[key] = v, console.log(v))}
-                        onDismiss={v => (this.pushExtendsArray(key, null), this.state[key] = null, console.log(v))}
-
+                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
+                            ...this.state,
+                            [key]: v
+                        }), console.log(v))}
                     >
 
                         <this.CustomChildren/>
@@ -714,7 +738,8 @@ class Verify extends React.Component {
                         attachment.push(urls[i]);
                     }
                 }
-                this.state[key] = attachment;
+                // this.state[key] = attachment;
+                this.setState({[key]: attachment, ...this.state});
                 this.pushExtendsArray(key, attachment)
             },
         });
@@ -726,8 +751,9 @@ class Verify extends React.Component {
         var key = e.target.getAttribute("data-key");
         const attachment = this.state[key];
         attachment.splice(num, 1);
-        this.state[key] = attachment;
-        this.pushExtendsArray(key, attachment)
+        // this.state[key] = attachment;
+        this.setState({[key]: attachment, ...this.state}),
+            this.pushExtendsArray(key, attachment)
     }
 
     renderOtherPic(item) {
@@ -770,6 +796,22 @@ class Verify extends React.Component {
         )
     }
 
+    /*
+    * 数组排序
+    * oldArr   标准的数组
+    * newArr   要排序的数组
+    * */
+    softArr(oldArr, newArr) {
+        let softArr = [];
+        oldArr.map(i=>{
+            newArr.map(k=>{
+                if(i === k) {
+                    softArr.push(k);
+                }
+            })
+        });
+        return softArr;
+    }
     // push 数组
     /*
     * key 键
@@ -779,27 +821,141 @@ class Verify extends React.Component {
     pushExtendsArray(key, value, isMany) {
         let mapInit = false;
         let objInit = false;
+        let isDeleteItem = false;
         const extendsArray = this.state.extendsArray;
-        extendsArray.map((item, index) => {
-            for (var i in item) {
-                if (i === key) {
-                    if (isMany) {
-                        item[key] = String(item[key]) + ',' + String(value);
-                    } else {
-                        item[key] = value;
-                    }
-                    mapInit = true;
-                    objInit = true;
-                    break;
-                } else {
-                    mapInit = false;
+        const windowOrgConfig = this.state.winOrgInfo;
+        let isEmpty = false;    //判断是否需要清除key，当value为空时，不能传空key。
+        if(!isMany) {
+            if(value == '-1') {
+                if(key in extendsArray) {
+                    delete extendsArray[key];
+                }else {
+                   return;
                 }
+            }else {
+                extendsArray[key] = value;
             }
-        });
-        if (!mapInit && !objInit) {
-            extendsArray.push({[key]: value});
+        }else {
+            //多选
+            if(key in extendsArray) {
+                //判断多选选项是否已被选，有的话去掉
+                if(extendsArray[key].indexOf(value) !== -1) {
+                    //已存在,需要排序
+                    let extendsArrays = extendsArray[key].split(',');
+                    let itemIndex = extendsArrays.indexOf(value);
+                    extendsArrays.splice(itemIndex, 1);
+                    if(extendsArrays.length <=0 ) {
+                        delete extendsArray[key];
+                    }else {
+                        extendsArray[key] = extendsArrays.join(',');
+                    }
+                }else {
+                    //没有被选择,需要排序.
+                    extendsArray[key] = String(extendsArray[key]) + ',' + value;
+                }
+                if(key in extendsArray && extendsArray[key].split(',').length > 1) {
+                    //长度大于1时进行排序
+                    windowOrgConfig.extends.map(i => {
+                        if(i.key === key) {
+                            extendsArray[key] = this.softArr(i.options.split(','), extendsArray[key].split(',')).join(',');
+                            return;
+                        }
+                    })
+                }
+            }else {
+                //不在多extendsArray里，直接添加。
+                extendsArray[key] = value;
+            }
         }
-        console.log(extendsArray);
+        // extendsArray.map((item, index) => {
+        //     for (var i in item) {
+        //         if (i === key) {
+        //             if (isMany) {
+        //                 let newArr = item[key].split(',');
+        //                 let isPush = false;
+        //                 if(newArr.length > 0) {
+        //                     newArr.forEach((k, i)=>{
+        //                         if(k === value) {
+        //                             newArr.splice(i, 1);
+        //                             if(newArr.length === 0) {
+        //                                 isDeleteItem = true;
+        //                             }else {
+        //                                 item[key] = newArr.join(',');
+        //                                 isDeleteItem = false;
+        //                             }
+        //                             mapInit = true;
+        //                             objInit = true;
+        //                             isPush = true;
+        //                         }else {
+        //                             isPush = false;
+        //                             isDeleteItem = false;
+        //                         }
+        //                     });
+        //                 }else {
+        //                     isPush = false;
+        //                     isDeleteItem = false;
+        //                 }
+        //                 if(!isPush) {
+        //                     item[key] = String(item[key]) + ',' + String(value);
+        //                 }
+        //             } else {
+        //                 if(value.length === 0) {
+        //                     isDeleteItem = true;
+        //                     mapInit = true;
+        //                     objInit = true;
+        //                 }else {
+        //                     item[key] = value;
+        //                 }
+        //             }
+        //             mapInit = true;
+        //             objInit = true;
+        //             break;
+        //         } else {
+        //             mapInit = false;
+        //         }
+        //     }
+        // });
+        //
+        // //长度为零时删除key
+        // if(isDeleteItem) {
+        //     extendsArray.forEach((item, index)=>{
+        //         for(let k in item) {
+        //             if(k === key) {
+        //                 extendsArray.splice(index, 1);
+        //                 break;
+        //             }
+        //         }
+        //     })
+        // }else if(!isDeleteItem && isMany) {
+        //     //多项选择进行排序
+        //     let extendsSoftArr = extendsArray;
+        //     this.state.winOrgInfo.extends.forEach((i, k)=>{
+        //         if(i.key === key) {
+        //             let softArr = [];
+        //             extendsSoftArr.forEach((o)=>{
+        //                 for(let p in o) {
+        //                     if(p === key) {
+        //                         if(o[key].split(',').length > 1) {
+        //                             i.options.split(',').forEach((m, n)=>{
+        //                                 o[key].split(',').forEach((j, v)=>{
+        //                                     if(m === j) {
+        //                                         softArr.push(j);
+        //                                         return;
+        //                                     }
+        //                                 })
+        //                             });
+        //                             o[key] = softArr.join(',');
+        //                         }
+        //                     }
+        //                 }
+        //             })
+        //         }
+        //     })
+        // }
+        // if (!mapInit && !objInit) {
+        //     extendsArray.push({[key]: value});
+        // }
+        console.log(extendsArray)
         this.setState({
             ...this.state,
             extendsArray,
@@ -924,7 +1080,7 @@ class Verify extends React.Component {
     }
 }
 
-Verify.title = '实名认证';
+Verify.title = '完善个人资料';
 Verify.propTypes = {
     checkUser: PropTypes.func,
     requestUserInfo: PropTypes.func,

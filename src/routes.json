@@ -30,6 +30,16 @@
     "chunk": "main"
   },
   {
+    "path": "/project/signUp/:projectId",
+    "page": "./pages/project/sign/signUp",
+    "chunk": "main"
+  },
+  {
+    "path": "/project/success/:projectId",
+    "page": "./pages/project/sign/success",
+    "chunk": "main"
+  },
+  {
     "path": "/project/detail/:projectId/:lastId",
     "page": "./pages/project/detail/detail",
     "chunk": "main"
