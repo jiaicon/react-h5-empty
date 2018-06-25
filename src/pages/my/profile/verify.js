@@ -74,15 +74,6 @@ function isRequired(arr, stateData) {
                         isInArr = true
                     }
                 }
-                // for (let j = 0; j < stateData.length; j++) {
-                //     if (arr[i].key in stateData[j]) {
-                //         isInArr = false;
-                //         // checkEmpty(item1[arr[i].key], arr[i].key);
-                //         break;
-                //     } else {
-                //         isInArr = true;
-                //     }
-                // }
                 if (isInArr) {
                     checkEmpty(null, arr[i].label);
                     return true;
@@ -819,12 +810,8 @@ class Verify extends React.Component {
     * isMany 是否多选 true是 false否
     * */
     pushExtendsArray(key, value, isMany) {
-        let mapInit = false;
-        let objInit = false;
-        let isDeleteItem = false;
         const extendsArray = this.state.extendsArray;
         const windowOrgConfig = this.state.winOrgInfo;
-        let isEmpty = false;    //判断是否需要清除key，当value为空时，不能传空key。
         if(!isMany) {
             if(value == '-1') {
                 if(key in extendsArray) {
@@ -867,94 +854,6 @@ class Verify extends React.Component {
                 extendsArray[key] = value;
             }
         }
-        // extendsArray.map((item, index) => {
-        //     for (var i in item) {
-        //         if (i === key) {
-        //             if (isMany) {
-        //                 let newArr = item[key].split(',');
-        //                 let isPush = false;
-        //                 if(newArr.length > 0) {
-        //                     newArr.forEach((k, i)=>{
-        //                         if(k === value) {
-        //                             newArr.splice(i, 1);
-        //                             if(newArr.length === 0) {
-        //                                 isDeleteItem = true;
-        //                             }else {
-        //                                 item[key] = newArr.join(',');
-        //                                 isDeleteItem = false;
-        //                             }
-        //                             mapInit = true;
-        //                             objInit = true;
-        //                             isPush = true;
-        //                         }else {
-        //                             isPush = false;
-        //                             isDeleteItem = false;
-        //                         }
-        //                     });
-        //                 }else {
-        //                     isPush = false;
-        //                     isDeleteItem = false;
-        //                 }
-        //                 if(!isPush) {
-        //                     item[key] = String(item[key]) + ',' + String(value);
-        //                 }
-        //             } else {
-        //                 if(value.length === 0) {
-        //                     isDeleteItem = true;
-        //                     mapInit = true;
-        //                     objInit = true;
-        //                 }else {
-        //                     item[key] = value;
-        //                 }
-        //             }
-        //             mapInit = true;
-        //             objInit = true;
-        //             break;
-        //         } else {
-        //             mapInit = false;
-        //         }
-        //     }
-        // });
-        //
-        // //长度为零时删除key
-        // if(isDeleteItem) {
-        //     extendsArray.forEach((item, index)=>{
-        //         for(let k in item) {
-        //             if(k === key) {
-        //                 extendsArray.splice(index, 1);
-        //                 break;
-        //             }
-        //         }
-        //     })
-        // }else if(!isDeleteItem && isMany) {
-        //     //多项选择进行排序
-        //     let extendsSoftArr = extendsArray;
-        //     this.state.winOrgInfo.extends.forEach((i, k)=>{
-        //         if(i.key === key) {
-        //             let softArr = [];
-        //             extendsSoftArr.forEach((o)=>{
-        //                 for(let p in o) {
-        //                     if(p === key) {
-        //                         if(o[key].split(',').length > 1) {
-        //                             i.options.split(',').forEach((m, n)=>{
-        //                                 o[key].split(',').forEach((j, v)=>{
-        //                                     if(m === j) {
-        //                                         softArr.push(j);
-        //                                         return;
-        //                                     }
-        //                                 })
-        //                             });
-        //                             o[key] = softArr.join(',');
-        //                         }
-        //                     }
-        //                 }
-        //             })
-        //         }
-        //     })
-        // }
-        // if (!mapInit && !objInit) {
-        //     extendsArray.push({[key]: value});
-        // }
         console.log(extendsArray)
         this.setState({
             ...this.state,
