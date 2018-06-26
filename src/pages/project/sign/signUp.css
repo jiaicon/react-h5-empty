@@ -2,6 +2,31 @@
 /* .page-project-signUp .am-list-item{
     min-height: 79px;
 } */
+
+
+.page-project-signUp select {
+
+    /*很关键：将默认的select选择框样式清除*/
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url(/images/my/more.png) no-repeat scroll right center transparent;
+    background-size: 20px 20px;
+    padding-right: 14px;
+    outline: none;
+    text-align: left;
+    padding-left: 15px;
+    flex: 1;
+}
+
+.page-project-signUp label {
+    flex: 1;
+    display: flex;
+}
+
+
+
 .am-list-thumb{
     width: 18px;
     height: 18px;
