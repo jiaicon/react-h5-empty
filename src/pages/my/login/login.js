@@ -17,6 +17,7 @@ import './login.css';
 import {loginAction} from './login.store';
 import Register from './../register/register';
 import Avatar from '../../../components/avatar/avatar';
+import {storeLoginSource} from './login.store';
 
 const TAB_URL_MAPS = {
     '/my/register': <Register />
@@ -39,15 +40,24 @@ class Login extends React.Component {
     componentWillReceiveProps(nextProps) {
         const {login: cLogin} = this.props;
         const {login: nLogin} = nextProps;
+        const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
         if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
             let target = '/my';
             const {from} = nLogin;
-
-            // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
-            if (from) {
-                target = from;
+            if (realRegister && !nLogin.data.id_number) {
+                if(from) {
+                    target = from;
+                }
+                this.props.storeLoginSource(target);
+                history.replace('/my/profile/verify');
+            }else{
+                
+                // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
+                if (from) {
+                    target = from;
+                }
+                history.replace(target);
             }
-            history.replace(target);
         }
     }
 
@@ -152,5 +162,5 @@ export default connect(
     state => ({
         login: state.login.login,
     }),
-    dispatch => bindActionCreators({loginAction}, dispatch),
+    dispatch => bindActionCreators({loginAction,storeLoginSource}, dispatch),
 )(Login);
