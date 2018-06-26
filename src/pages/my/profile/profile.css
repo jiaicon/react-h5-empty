@@ -150,6 +150,13 @@ body {
 .page-profile-display-none {
     display: none;
 }
+.page-profile-display-extends-block {
+    display: block;
+}
+
+.page-profile-display-extends-none {
+    display: none;
+}
 
 .page-profile-bottom-real-info-container {
     background: #fff;

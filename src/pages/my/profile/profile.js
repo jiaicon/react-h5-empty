@@ -43,11 +43,11 @@ class Profile extends React.Component {
         super(props);
         autoBind(this);
         this.userId = props.route.params.userId;
-        this.realRegister = window.orgInfo.real_name_register;
+        this.realRegister = window.orgInfo.custom_config;
         this.state = ({
             photo: '',
             showDialog: false,
-            winOrgInfo: window.orgInfo.custom_config.extends,
+            winOrgInfo: window.orgInfo.custom_config,
         });
         this.dialog = {
             title: '提示',
@@ -105,108 +105,108 @@ class Profile extends React.Component {
         Alert.warning('如需修改请登录账号');
     }
 
-    renderOtherRealInfo() {
-        const otherfamily = this.props.otherfamily;
-        if (!otherfamily.data) {
-            return null;
-        }
-        return (
-            <div className="page-profile-bottom-real-info-container">
-                <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
-                {
-                    otherfamily.data.real_name ?
-                    <div>
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">姓名</div>
-                            <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
-                        </div>
-                        <div className="line1px" />
-                    </div>:
-                    null
-                }
-                {
-                    otherfamily.data.id_number ?
-                    <div>
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">身份证号</div>
-                            <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
-                        </div>
-                        <div className="line1px" />
-                    </div>:
-                    null
-                }
+    // renderOtherRealInfo() {
+    //     const otherfamily = this.props.otherfamily;
+    //     if (!otherfamily.data) {
+    //         return null;
+    //     }
+    //     return (
+    //         <div className="page-profile-bottom-real-info-container">
+    //             <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
+    //             {
+    //                 otherfamily.data.real_name ?
+    //                 <div>
+    //                     <div className="page-profile-header-box">
+    //                         <div className="page-profile-fonts">姓名</div>
+    //                         <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
+    //                     </div>
+    //                     <div className="line1px" />
+    //                 </div>:
+    //                 null
+    //             }
+    //             {
+    //                 otherfamily.data.id_number ?
+    //                 <div>
+    //                     <div className="page-profile-header-box">
+    //                         <div className="page-profile-fonts">身份证号</div>
+    //                         <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
+    //                     </div>
+    //                     <div className="line1px" />
+    //                 </div>:
+    //                 null
+    //             }
                 
-                {
-                    otherfamily.data.sex  ?
-                    <div>
-                      <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">性别</div>
-                        <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
-                    </div>
-                    <div className="line1px" />
-                    </div>:
-                    null
-                }
-                {
-                    otherfamily.data.nation  ?
-                    <div>
-                       <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">民族</div>
-                            <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
-                        </div>
-                        <div className="line1px" />
-                    </div>:
-                    null
-                }
-               {
-                   otherfamily.data.province_name?
-                   <div>
-                   <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">现住地址</div>
-                        <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
-                    </div>
-                    <div className="line1px" />
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">详细地址</div>
-                        <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
-                    </div>
-                    </div>
-                   :null
-               }
-                {/* <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">姓名</div>
-                    <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">身份证号</div>
-                    <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">性别</div>
-                    <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">民族</div>
-                    <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">现住地址</div>
-                    <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
-                </div>
-                <div className="line1px" />
-                <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">详细地址</div>
-                    <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
-                </div> */}
-                 {this.renderRealInfoExtends()}
-                <div className="page-profile-realinfo-takeup" />
-            </div>
-        );
-    }
+    //             {
+    //                 otherfamily.data.sex  ?
+    //                 <div>
+    //                   <div className="page-profile-header-box">
+    //                     <div className="page-profile-fonts">性别</div>
+    //                     <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
+    //                 </div>
+    //                 <div className="line1px" />
+    //                 </div>:
+    //                 null
+    //             }
+    //             {
+    //                 otherfamily.data.nation  ?
+    //                 <div>
+    //                    <div className="page-profile-header-box">
+    //                         <div className="page-profile-fonts">民族</div>
+    //                         <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
+    //                     </div>
+    //                     <div className="line1px" />
+    //                 </div>:
+    //                 null
+    //             }
+    //            {
+    //                otherfamily.data.province_name?
+    //                <div>
+    //                <div className="page-profile-header-box">
+    //                     <div className="page-profile-fonts">现住地址</div>
+    //                     <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
+    //                 </div>
+    //                 <div className="line1px" />
+    //                 <div className="page-profile-header-box">
+    //                     <div className="page-profile-fonts">详细地址</div>
+    //                     <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
+    //                 </div>
+    //                 </div>
+    //                :null
+    //            }
+    //             {/* <div className="page-profile-header-box">
+    //                 <div className="page-profile-fonts">姓名</div>
+    //                 <div className="page-profile-initial-fonts">{otherfamily.data.real_name ? otherfamily.data.real_name : ''}</div>
+    //             </div>
+    //             <div className="line1px" />
+    //             <div className="page-profile-header-box">
+    //                 <div className="page-profile-fonts">身份证号</div>
+    //                 <div className="page-profile-initial-fonts">{otherfamily.data.id_number ? otherfamily.data.id_number : ''}</div>
+    //             </div>
+    //             <div className="line1px" />
+    //             <div className="page-profile-header-box">
+    //                 <div className="page-profile-fonts">性别</div>
+    //                 <div className="page-profile-initial-fonts">{otherfamily.data.sex ? sexName(otherfamily.data.sex) : ''}</div>
+    //             </div>
+    //             <div className="line1px" />
+    //             <div className="page-profile-header-box">
+    //                 <div className="page-profile-fonts">民族</div>
+    //                 <div className="page-profile-initial-fonts">{otherfamily.data.nation ? otherfamily.data.nation : ''}</div>
+    //             </div>
+    //             <div className="line1px" />
+    //             <div className="page-profile-header-box">
+    //                 <div className="page-profile-fonts">现住地址</div>
+    //                 <div className="page-profile-initial-fonts">{otherfamily.data.province_name ? otherfamily.data.province_name : ''}-{otherfamily.data.city_name ? otherfamily.data.city_name : ''}-{otherfamily.data.county_name ? otherfamily.data.county_name : ''}</div>
+    //             </div>
+    //             <div className="line1px" />
+    //             <div className="page-profile-header-box">
+    //                 <div className="page-profile-fonts">详细地址</div>
+    //                 <div className="page-profile-initial-fonts">{otherfamily.data.addr ? otherfamily.data.addr : ''}</div>
+    //             </div> */}
+    //              {this.renderRealInfoExtends()}
+    //             <div className="page-profile-realinfo-takeup" />
+    //         </div>
+    //     );
+    // }
     addChildren(winOrgInfo, exTends) {
         var objArray=[];
         for (const info in exTends) {
@@ -421,6 +421,12 @@ class Profile extends React.Component {
     }
     renderHost() {
         const user = this.props.user;
+        if(user.id){
+            console.log('id_number' in user)
+            console.log(user.id_number == '')
+            console.log( this.state.winOrgInfo === null)
+        }
+    
         return (
             <div className="page-profile">
                 <div>
@@ -435,7 +441,7 @@ class Profile extends React.Component {
                         </div>
                     </div>
                     <div className="line1px" />
-                    {this.realRegister ? null :
+                    {this.realRegister !== null && this.realRegister.real_name_register ? null :
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">账号</div>
                             <div className="page-profile-edit-box">
@@ -445,7 +451,7 @@ class Profile extends React.Component {
                         </div>
                     }
                     {
-                        this.realRegister ? null : <div className="line1px" />
+                      this.realRegister !== null && this.realRegister.real_name_register ? null : <div className="line1px" />
                     }
 
                     <Link to="/my/profile/bind/phone">
@@ -509,21 +515,26 @@ class Profile extends React.Component {
                 {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
                 <div
                     className={cx({
-            'page-profile-bottom': true,
-            'page-profile-display-block': !user.id_number,
-            'page-profile-display-none': user.id_number,
-          })}
-                >
-                    <Link to="/my/profile/verify">
-                        <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
-                    </Link>
-                </div>
+                    'page-profile-bottom': true,
+                    'page-profile-display-block': this.state.winOrgInfo !== null ,
+                    'page-profile-display-none': this.state.winOrgInfo === null ,
+                    'page-profile-display-extends-none': !user.id_number,
+                    'page-profile-display-extends-none ' :user.id_number,
+                    })}
+                    >
+                        <Link to="/my/profile/verify">
+                            <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
+                        </Link>
+                    </div>
+               
+              
+                  
                 <div
                     className={cx({
-            'page-profile-bottom': true,
-            'page-profile-display-block': user.id_number,
-            'page-profile-display-none': !user.id_number,
-          })}
+                    'page-profile-bottom': true,
+                    'page-profile-display-block':  'id_number' in user && user.id_number != '' && this.state.winOrgInfo != null,
+                    'page-profile-display-none':'id_number' in user && user.id_number == '' && this.state.winOrgInfo === null,
+                })}
                 >
                     {this.renderRealInfo()}
                 </div>
@@ -531,123 +542,123 @@ class Profile extends React.Component {
             </div>
         );
     }
-    renderOther() {
-        const otherfamily = this.props.otherfamily;
-        if (!otherfamily.data) {
-            return null;
-        }
-        return (
-            <div className="page-profile">
-                <div>
-                    <div className="page-profile-title">基本信息</div>
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">头像</div>
-                        <div className="page-profile-header-uploade-box">
-                            <div className="page-profile-header-img-container" onClick={this.onOtherHandleClick}>
-                                <Avatar src={otherfamily.data.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
-                            </div>
+    // renderOther() {
+    //     const otherfamily = this.props.otherfamily;
+    //     if (!otherfamily.data) {
+    //         return null;
+    //     }
+    //     return (
+    //         <div className="page-profile">
+    //             <div>
+    //                 <div className="page-profile-title">基本信息</div>
+    //                 <div className="page-profile-header-box">
+    //                     <div className="page-profile-fonts">头像</div>
+    //                     <div className="page-profile-header-uploade-box">
+    //                         <div className="page-profile-header-img-container" onClick={this.onOtherHandleClick}>
+    //                             <Avatar src={otherfamily.data.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
+    //                         </div>
 
-                            <div className="page-profile-edit-icon" />
-                        </div>
-                    </div>
-                    <div className="line1px" />
-                    {this.realRegister ? null :
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">账号</div>
-                            <div className="page-profile-edit-box">
-                                <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
-                                <div className="page-profile-initial-fonts-take-up" />
-                            </div>
-                        </div>
-                    }
-                    {
-                        this.realRegister ? null : <div className="line1px" />
-                    }
+    //                         <div className="page-profile-edit-icon" />
+    //                     </div>
+    //                 </div>
+    //                 <div className="line1px" />
+    //                 {this.this.realRegister && this.realRegister.real_name_register ? null :
+    //                     <div className="page-profile-header-box">
+    //                         <div className="page-profile-fonts">账号</div>
+    //                         <div className="page-profile-edit-box">
+    //                             <div className="page-profile-initial-fonts">{otherfamily.data.username}</div>
+    //                             <div className="page-profile-initial-fonts-take-up" />
+    //                         </div>
+    //                     </div>
+    //                 }
+    //                 {
+    //                     this.this.realRegister && this.realRegister.real_name_register ? null : <div className="line1px" />
+    //                 }
 
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">志愿者编号</div>
-                        <div className="page-profile-edit-box">
-                            <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
-                            <div className="page-profile-initial-fonts-take-up" />
-                        </div>
-                    </div>
-                    <div className="line1px" />
-                    {/** 111 */}
-                    <a onClick={this.onOtherHandleClick}>
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">*手机号</div>
-                            <div className="page-profile-edit-box">
-                                <div className="page-profile-initial-fonts">{otherfamily.data.phone || ''}</div>
-                                <div className="page-profile-edit-icon" />
-                            </div>
-                        </div>
-                    </a>
-                    <div className="line1px" />
+    //                 <div className="page-profile-header-box">
+    //                     <div className="page-profile-fonts">志愿者编号</div>
+    //                     <div className="page-profile-edit-box">
+    //                         <div className="page-profile-initial-fonts">{otherfamily.data.identifier}</div>
+    //                         <div className="page-profile-initial-fonts-take-up" />
+    //                     </div>
+    //                 </div>
+    //                 <div className="line1px" />
+    //                 {/** 111 */}
+    //                 <a onClick={this.onOtherHandleClick}>
+    //                     <div className="page-profile-header-box">
+    //                         <div className="page-profile-fonts">*手机号</div>
+    //                         <div className="page-profile-edit-box">
+    //                             <div className="page-profile-initial-fonts">{otherfamily.data.phone || ''}</div>
+    //                             <div className="page-profile-edit-icon" />
+    //                         </div>
+    //                     </div>
+    //                 </a>
+    //                 <div className="line1px" />
 
-                    <a onClick={this.onOtherHandleClick}>
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">邮箱</div>
-                            <div className="page-profile-edit-box">
-                                <div className="page-profile-initial-fonts">{otherfamily.data.email || ''}</div>
-                                <div className="page-profile-edit-icon" />
-                            </div>
-                        </div>
-                    </a>
-                    <div className="line1px" />
+    //                 <a onClick={this.onOtherHandleClick}>
+    //                     <div className="page-profile-header-box">
+    //                         <div className="page-profile-fonts">邮箱</div>
+    //                         <div className="page-profile-edit-box">
+    //                             <div className="page-profile-initial-fonts">{otherfamily.data.email || ''}</div>
+    //                             <div className="page-profile-edit-icon" />
+    //                         </div>
+    //                     </div>
+    //                 </a>
+    //                 <div className="line1px" />
 
 
-                    {/** 111 */}
-                    <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
-                        <div className="page-profile-fonts">个人擅长</div>
-                        <div className="page-profile-edit-box">
-                            {otherfamily.data.good_at != null ?
-                                otherfamily.data.good_at.map((item, index) =>
-                                    <span key={index} className="page-profile-initial-fonts" >
-                {item.good_at_name}{index < otherfamily.data.good_at.length - 1 ? '、' : ''}
-              </span>)
-                                : <span />
-                            }
-                            <div className="page-profile-edit-icon" />
-                        </div>
+    //                 {/** 111 */}
+    //                 <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
+    //                     <div className="page-profile-fonts">个人擅长</div>
+    //                     <div className="page-profile-edit-box">
+    //                         {otherfamily.data.good_at != null ?
+    //                             otherfamily.data.good_at.map((item, index) =>
+    //                                 <span key={index} className="page-profile-initial-fonts" >
+    //             {item.good_at_name}{index < otherfamily.data.good_at.length - 1 ? '、' : ''}
+    //           </span>)
+    //                             : <span />
+    //                         }
+    //                         <div className="page-profile-edit-icon" />
+    //                     </div>
 
-                    </div>
-                    <div className="line1px" />
+    //                 </div>
+    //                 <div className="line1px" />
 
-                    <div>
-                        <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
-                            <div className="page-profile-fonts">志愿者口号</div>
-                            <div className="page-profile-edit-icon" />
-                        </div>
-                        <div className="page-profile-fonts-view">{otherfamily.data.slogan}</div>
-                    </div>
-                    <div className="page-profile-take-up" />
-                </div>
-                {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
-                <div
-                    className={cx({
-            'page-profile-bottom': true,
-            'page-profile-display-block': !otherfamily.data.id_number,
-            'page-profile-display-none': otherfamily.data.id_number,
-          })}
-                    onClick={this.onOtherHandleClick}
-                >
-                    <a>
-                        <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
-                    </a>
-                </div>
-                <div
-                    className={cx({
-            'page-profile-bottom': true,
-            'page-profile-display-block': otherfamily.data.id_number,
-            'page-profile-display-none': !otherfamily.data.id_number,
-          })}
-                >
-                    {this.renderOtherRealInfo()}
-                </div>
+    //                 <div>
+    //                     <div className="page-profile-header-box" onClick={this.onOtherHandleClick}>
+    //                         <div className="page-profile-fonts">志愿者口号</div>
+    //                         <div className="page-profile-edit-icon" />
+    //                     </div>
+    //                     <div className="page-profile-fonts-view">{otherfamily.data.slogan}</div>
+    //                 </div>
+    //                 <div className="page-profile-take-up" />
+    //             </div>
+    //             {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
+    //             <div
+    //                 className={cx({
+    //                 'page-profile-bottom': true,
+    //                 'page-profile-display-block': !otherfamily.data.id_number,
+    //                 'page-profile-display-none': otherfamily.data.id_number,
+    //             })}
+    //                 onClick={this.onOtherHandleClick}
+    //             >
+    //                 <a>
+    //                     <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
+    //                 </a>
+    //             </div>
+    //             <div
+    //                 className={cx({
+    //                     'page-profile-bottom': true,
+    //                     'page-profile-display-block': otherfamily.data.id_number,
+    //                     'page-profile-display-none': !otherfamily.data.id_number,
+    //                 })}
+    //             >
+    //                 {this.renderOtherRealInfo()}
+    //             </div>
 
-            </div>
-        );
-    }
+    //         </div>
+    //     );
+    // }
 
     componentWillReceiveProps(nextProps) {
         const {failed: tFailed, fetching: tFetch} = this.props.alertPeopleInfo;
@@ -661,13 +672,18 @@ class Profile extends React.Component {
             const detailData = nextProps.user;
             console.log(detailData)
             if (detailData && detailData.id && detailData.extends !== null) {
-   
-                this.addChildren(this.state.winOrgInfo, detailData.extends);
+                if(this.state.winOrgInfo){
+                    
+                    this.addChildren(this.state.winOrgInfo.extends, detailData.extends);
+                }
             }
         } else {
             const detailData = nextProps.otherfamily.data;
             if (detailData && detailData.id && detailData.extends !== null) {
-                this.addChildren(this.state.winOrgInfo, detailData.extends);
+                if(this.state.winOrgInfo){
+                    
+                    this.addChildren(this.state.winOrgInfo.extends, detailData.extends);
+                }
             }
         }
         
@@ -785,8 +801,10 @@ class Profile extends React.Component {
         return (
             <div>
                 {
-                    userId === 'user' ? this.renderHost() : this.renderNewView()
-                    // this.renderNewView()
+                    userId === 'user' ? 
+                    this.renderHost() 
+                    
+                    : this.renderNewView()
                 }
             </div>
         );
