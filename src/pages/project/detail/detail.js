@@ -193,7 +193,7 @@ class ProjectDetailPage extends React.Component {
 
   handleActionClick(action) {
     const { projectId } = this;
-    const realRegister = window.orgInfo.real_name_register;
+    const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
     const { user } = this.props;
     return () => {
        // in_blacklist 黑名单 0不在，1在

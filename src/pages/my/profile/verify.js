@@ -14,7 +14,7 @@ import history from '../../history';
 import {requestUserInfo} from '../../../stores/common';
 import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
-
+import {loginAction} from '../login/login.store';
 
 import './verify.css';
 import {List, Checkbox, DatePicker, Flex} from 'antd-mobile';
@@ -57,6 +57,7 @@ function checkEmpty(value, label) {
     }
     return false;
 }
+
 //判断自定义信息必填的是否为空
 function isRequired(arr, stateData) {
     for (let i = 0; i < arr.length; i++) {
@@ -66,11 +67,11 @@ function isRequired(arr, stateData) {
             const keys = Object.keys(stateData);
             if (keys.length != 0) {
                 let isInArr = false;    //记录自定义信息的对象中必填的key是否在存在
-                for(let j in stateData) {
-                    if(arr[i].key === j && stateData.hasOwnProperty(j)) {
+                for (let j in stateData) {
+                    if (arr[i].key === j && stateData.hasOwnProperty(j)) {
                         isInArr = false;
                         break;
-                    }else {
+                    } else {
                         isInArr = true
                     }
                 }
@@ -152,7 +153,9 @@ class Verify extends React.Component {
     componentWillMount() {
         this.props.addressDataAction(0);
         const params = this.props.route.params;
-        this.initialPic(this.state.winOrgInfo.extends);
+        if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
+            this.initialPic(this.state.winOrgInfo.extends);
+        }
         if (params.projectId && !isNaN(Number(params.projectId))) {
             const projectId = params.projectId;
             this.setState({
@@ -180,6 +183,10 @@ class Verify extends React.Component {
     componentWillReceiveProps(nextProps) {
         const {check: Ccheck} = this.props;
         const {check: Ncheck} = nextProps;
+        const {login: cLogin} = this.props;
+        const {login: nLogin} = nextProps;
+        let target = '/my';
+        const {from} = nLogin;
         if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
             this.props.requestUserInfo();
             // return
@@ -189,7 +196,11 @@ class Verify extends React.Component {
             } else if (this.state.teamId) {
                 history.replace(`/team/detail/${this.state.projectId}`);
             } else {
-                history.replace('/my');
+                if (from) {
+                    target = from;
+                }
+                history.replace(target);
+                // history.replace('/my');
             }
         }
     }
@@ -269,8 +280,10 @@ class Verify extends React.Component {
         ) {
             return;
         }
-        if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
-            return;
+        if (this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0) {
+            if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
+                return;
+            }
         }
         let data = {};
         if (realname) {
@@ -294,25 +307,10 @@ class Verify extends React.Component {
         if (address) {
             data.addr = address;
         }
-        // const data = {
-        //     real_name: realname,
-        //     id_number: idcard,
-        //     nation: people,
-        //     province_id: province,
-        //     city_id: city,
-        //     county_id: county,
-        //     addr: address,
-        // };
         if (photo != undefined && photo != '') {
             console.log('photo: ' + photo);
             data.avatars = photo;
         }
-        // let extendsObj = {};
-        // this.state.extendsArray.forEach(v => {
-        //     for (let k in v) {
-        //         extendsObj[k] = v[k];
-        //     }
-        // });
         data.extends = this.state.extendsArray;
         console.log('data' + data);
         this.props.checkUser(data);
@@ -794,15 +792,16 @@ class Verify extends React.Component {
     * */
     softArr(oldArr, newArr) {
         let softArr = [];
-        oldArr.map(i=>{
-            newArr.map(k=>{
-                if(i === k) {
+        oldArr.map(i => {
+            newArr.map(k => {
+                if (i === k) {
                     softArr.push(k);
                 }
             })
         });
         return softArr;
     }
+
     // push 数组
     /*
     * key 键
@@ -812,44 +811,44 @@ class Verify extends React.Component {
     pushExtendsArray(key, value, isMany) {
         const extendsArray = this.state.extendsArray;
         const windowOrgConfig = this.state.winOrgInfo;
-        if(!isMany) {
-            if(value == '-1') {
-                if(key in extendsArray) {
+        if (!isMany) {
+            if (value == '-1') {
+                if (key in extendsArray) {
                     delete extendsArray[key];
-                }else {
-                   return;
+                } else {
+                    return;
                 }
-            }else {
+            } else {
                 extendsArray[key] = value;
             }
-        }else {
+        } else {
             //多选
-            if(key in extendsArray) {
+            if (key in extendsArray) {
                 //判断多选选项是否已被选，有的话去掉
-                if(extendsArray[key].indexOf(value) !== -1) {
+                if (extendsArray[key].indexOf(value) !== -1) {
                     //已存在,需要排序
                     let extendsArrays = extendsArray[key].split(',');
                     let itemIndex = extendsArrays.indexOf(value);
                     extendsArrays.splice(itemIndex, 1);
-                    if(extendsArrays.length <=0 ) {
+                    if (extendsArrays.length <= 0) {
                         delete extendsArray[key];
-                    }else {
+                    } else {
                         extendsArray[key] = extendsArrays.join(',');
                     }
-                }else {
+                } else {
                     //没有被选择,需要排序.
                     extendsArray[key] = String(extendsArray[key]) + ',' + value;
                 }
-                if(key in extendsArray && extendsArray[key].split(',').length > 1) {
+                if (key in extendsArray && extendsArray[key].split(',').length > 1) {
                     //长度大于1时进行排序
                     windowOrgConfig.extends.map(i => {
-                        if(i.key === key) {
+                        if (i.key === key) {
                             extendsArray[key] = this.softArr(i.options.split(','), extendsArray[key].split(',')).join(',');
                             return;
                         }
                     })
                 }
-            }else {
+            } else {
                 //不在多extendsArray里，直接添加。
                 extendsArray[key] = value;
             }
@@ -863,75 +862,76 @@ class Verify extends React.Component {
     }
 
     renderOtherInfo() {
-        const winOrgStateInfo = this.state.winOrgInfo.extends;
+        const winOrgStateInfo = this.state.winOrgInfo;
         return (
             <div>
                 {
-                    this.state.winOrgInfo.extends.length && this.state.winOrgInfo.extends.map((item, index) => {
-                        switch (Number(item.type)) {//单项选择
-                            case 1:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherInfoSelect(item)}
-                                    </div>
-                                );
-                                break;
-                            //多项选择
-                            case 2:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherInfoCheckbox(item)}
-                                    </div>
-                                );
-                                break;
-                            //单行输入
-                            case 3:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherInfoInput(item)}
-                                    </div>
-                                );
-                                break;
-                            //多行输
-                            case 4:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherInfoManyInput(item)}
-                                    </div>
-                                );
-                                break;
+                    winOrgStateInfo.extends && winOrgStateInfo.extends.length ?
+                        this.state.winOrgInfo.extends.map((item, index) => {
+                            switch (Number(item.type)) {//单项选择
+                                case 1:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherInfoSelect(item)}
+                                        </div>
+                                    );
+                                    break;
+                                //多项选择
+                                case 2:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherInfoCheckbox(item)}
+                                        </div>
+                                    );
+                                    break;
+                                //单行输入
+                                case 3:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherInfoInput(item)}
+                                        </div>
+                                    );
+                                    break;
+                                //多行输
+                                case 4:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherInfoManyInput(item)}
+                                        </div>
+                                    );
+                                    break;
 
-                            //上传图片
-                            case 5:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherPic(item)}
-                                    </div>
-                                );
-                                break;
-                            //日期空间
-                            case 6:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherInfoDate(item)}
-                                    </div>
-                                );
-                                break;
-                            //日期时间空间
-                            case 7:
-                                return (
-                                    <div key={index}>
-                                        {this.renderOtherInfoDateTime(item)}
-                                    </div>
-                                );
-                                break;
-                            default:
-                                return
-                        }
+                                //上传图片
+                                case 5:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherPic(item)}
+                                        </div>
+                                    );
+                                    break;
+                                //日期空间
+                                case 6:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherInfoDate(item)}
+                                        </div>
+                                    );
+                                    break;
+                                //日期时间空间
+                                case 7:
+                                    return (
+                                        <div key={index}>
+                                            {this.renderOtherInfoDateTime(item)}
+                                        </div>
+                                    );
+                                    break;
+                                default:
+                                    return
+                            }
 
-                    })
-                    // :
-                    // null
+                        })
+                        :
+                        null
                 }
             </div>
         )
@@ -940,40 +940,42 @@ class Verify extends React.Component {
     render() {
         return (
             <div className="page-my-profile-verify-container">
-                <div className="page-my-profile-verify-main">
-                    {/*<div className="page-my-profile-verify-title">实名认证信息</div>*/}
-                    {
-                        //头像
-                        this.renderAvatars()
-                    }
-                    {
-                        //名字
-                        this.renderName()
-                    }
+                {
+                    this.state.winOrgInfo === null ?
+                        null
+                        :
+                        <div>
+                            <div className="page-my-profile-verify-main">
+                                {
+                                    //头像
+                                    this.renderAvatars()
+                                }
+                                {
+                                    //名字
+                                    this.renderName()
+                                }
 
-                    {
-                        //身份证
-                        this.renderIdCard()
-                    }
+                                {
+                                    //身份证
+                                    this.renderIdCard()
+                                }
 
-                    {
-                        //民族
-                        this.renderNation()
-                    }
-
-                    {/*<div className="page-my-profile-verify-header-box-nowaddress">*/}
-                    {/*现住地址*/}
-                    {/*</div>*/}
-                    {
-                        //地址
-                        this.renderAddr()
-                    }
-                    {
-                        this.renderOtherInfo()
-                    }
-                </div>
-
-                <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
+                                {
+                                    //民族
+                                    this.renderNation()
+                                }
+                                {
+                                    //地址
+                                    this.renderAddr()
+                                }
+                                {
+                                    //自定义信息
+                                    this.renderOtherInfo()
+                                }
+                            </div>
+                            <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
+                        </div>
+                }
             </div>
         );
     }
@@ -1043,8 +1045,9 @@ export default connect(
         user: state.user,
         address: state.info.address,
         check: state.info.checkUser,
+        login: state.login.login,
     }),
     dispatch => bindActionCreators({
-        requestUserInfo, checkUser, addressDataAction, userDefinedInfo
+        requestUserInfo, checkUser, addressDataAction, userDefinedInfo,loginAction
     }, dispatch),
 )(Verify);
