@@ -8,12 +8,14 @@ class CheckboxStepper extends React.Component {
   static propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({})),
     getData: PropTypes.func,
+    checkeAll: PropTypes.bool,
   }
   constructor(props) {
     super(props);
     autoBind(this);
     this.state=({
       data: props.data || null,
+      checkeAll:props.checkeAll,
     })
  
   }
@@ -21,16 +23,28 @@ class CheckboxStepper extends React.Component {
   componentWillMount() {
 
   }
+  componentWillUpdate(){
 
+  }
+  componentDidUpdate(){
+  
+  }
   componentDidMount() {
-   
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...this.state,
-      data:nextProps.data,
-    })
+    const data =nextProps.data;
+    if(data){
+     
+      this.setState({
+        ...this.state,
+        data
+      })
+    }
+   
+  
+  
+   
   }
 
   componentWillUnmount() {}
@@ -44,6 +58,7 @@ class CheckboxStepper extends React.Component {
           item.switch=false;
         }else{
           item.switch=true;
+          item.num = 1;
         }
       }
 
@@ -57,15 +72,26 @@ class CheckboxStepper extends React.Component {
   }
   onSub(e){
     e.nativeEvent.stopImmediatePropagation();
-    console.log(1111111111111111111)
     const data = this.state.data;
-    const keyId =e.target.id;
+    const keyId =e.currentTarget.id;
+    console.log(keyId)
     data.map((item,index)=>{
       if(item.key === keyId){
-        if(item.num === 0){
-         return
+        if(item.is_required !== '1'){
+          if(item.num === 0){
+            return
+           }else{
+             item.num = item.num-1;
+             if( item.num===0){
+              item.switch=false;
+             }
+           }
         }else{
-          item.num--;
+          if(item.num === 1){
+            item.switch=false;
+           }else{
+             item.num = item.num-1;
+           }
         }
       }
 
@@ -77,16 +103,12 @@ class CheckboxStepper extends React.Component {
    this.props.getData(data);
   }
   onAdd(e){
-    console.log(13232311111111111)
     const data = this.state.data;
     const keyId =e.target.id;
     data.map((item,index)=>{
       if(item.key === keyId){
-        if(item.num === 0){
-          return
-         }else{
-           item.num++;
-         }
+          item.switch=true;
+          item.num= item.num+1;
       }
 
     })
@@ -113,7 +135,8 @@ class CheckboxStepper extends React.Component {
                     'component-CheckboxStepper-checkbox': true,
                     'component-CheckboxStepper-checkbox-false':item.is_required === '0' && !item.switch,
                     'component-CheckboxStepper-checkbox-disable': item.is_required === '1',
-                    'component-CheckboxStepper-checkbox-true ': item.is_required === '0' && item.switch,
+                    'component-CheckboxStepper-checkbox-true': item.is_required === '0' && item.switch,
+                    'component-CheckboxStepper-checkbox-all' : item.is_required === '0' && this.state.checkeAll,
          
                   })}>
                     <label htmlFor={item.key}>
@@ -121,14 +144,14 @@ class CheckboxStepper extends React.Component {
                         <div className="labelname">{item.label}</div>
                         <div className="price">
                           <span>{item.amount}</span>
-                          <div className="container">
-                            <div className="sub" onClick={this.onSub}>-</div>
-                            <div className="view" onClick={this.onAdd}>{item.num}</div>
-                            <div className="add" onClick={this.onAdd}>+</div>
-                          </div>
                         </div>
                     </label>
-                    
+                    <div className="container">
+                            <div className="sub" onClick={this.onSub}  id={item.key}>-</div>
+                            <div className="view">{item.num}</div>
+                            <div className="add" onClick={this.onAdd}  id={item.key}>+</div>
+                        
+                    </div>
                   </div>
                   <div className="line1px"/>
                 </div>

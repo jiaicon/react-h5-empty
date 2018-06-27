@@ -2,7 +2,9 @@
 /* .page-project-signUp .am-list-item{
     min-height: 79px;
 } */
-
+.page-project-signUp{
+    background: #fff;
+}
 .page-project-signUp-bottom-btn{
     position: fixed;
     bottom: 0;
@@ -10,6 +12,33 @@
     width: 100%;
     
 }
+.page-project-signUp .am-list-header {
+    height: 50px;
+    color: #666666;
+    font-size: 15px;
+    line-height: 30px;
+  }
+  .page-project-signUp select {
+
+    /*很关键：将默认的select选择框样式清除*/
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url(/images/my/more.png) no-repeat scroll right center transparent;
+    background-size: 20px 20px;
+    padding-right: 14px;
+    outline: none;
+    text-align: left;
+    padding-left: 15px;
+    flex: 1;
+}
+
+.page-project-signUp label {
+    flex: 1;
+    display: flex;
+}
+
 .page-project-signUp-bottom-btn-contain{
     height: 49px;
     background: #fff;
@@ -66,3 +95,287 @@
     width: 100%;
     height: 50px;
 }
+
+
+.page-project-signUp-other-title {
+    position: relative;
+}
+.page-project-signUp-verify-header-start {
+    position: absolute;
+    left: 6px;
+    top: 20px;
+    color: red;
+}
+
+.page-project-signUp-verify-header-other-start {
+    top: 23px;
+}
+
+.page-project-signUp-verify-header-box-pic-fonts {
+    font-size: 15px;
+    color: #666;
+    text-align: justify;
+    padding: 15px;
+}
+
+.page-project-signUp-verify-header-other-pic-start {
+    top: 19px;
+}
+
+.page-project-signUp-verify-fonts {
+    font-size: 15px;
+    color: #666;
+    width: 70px;
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.page-project-signUp-verify-text {
+    height: 50px;
+    font-size: 15px;
+    text-align: left;
+    width: 275px;
+    display: block;
+    padding-left: 15px;
+}
+
+.page-project-signUp-photo-container{
+    width: 345px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    padding-left:12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .page-project-signUp-item-render-container{
+    width: 80px;
+    height: 80px;
+    margin-right: 12px;
+    position: relative;
+  }
+  .page-project-signUp-item-view{
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+  .page-project-signUp-item-render-del{
+    width: 20px;
+    height: 20px;
+    background: url(/images/my/delete.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+  }
+  
+.page-project-signUp-verify-container select {
+
+    /*很关键：将默认的select选择框样式清除*/
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url(/images/my/more.png) no-repeat scroll right center transparent;
+    background-size: 20px 20px;
+    padding-right: 14px;
+    outline: none;
+    text-align: left;
+    padding-left: 15px;
+    flex: 1;
+}
+
+.page-project-signUp-verify-container label {
+    flex: 1;
+    display: flex;
+}
+.page-project-signUp-item-upload-container{
+    width: 100px;
+    height: 100px;
+    background-image:url(/images/my/add.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 12px;
+    position: relative;
+  }
+.page-project-signUp-verify-container {
+    /* width: 100%;
+    height: 100%; */
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding-bottom: 50px;
+}
+
+.page-project-signUp-verify-main {
+    width: 100%;
+}
+
+.page-project-signUp-verify-title {
+    width: 100%;
+    padding-left: 15px;
+    font-size: 20px;
+    color: #333333;
+    font-weight: 600;
+    padding-bottom: 36px;
+    background-color: #ffffff;
+    padding-top: 36px;
+}
+
+.page-project-signUp-verify-header-box {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: reverse;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+.page-project-signUp-other-title {
+    position: relative;
+}
+
+.page-project-signUp-verify-header-start {
+    position: absolute;
+    left: 6px;
+    top: 20px;
+    color: red;
+}
+
+.page-project-signUp-verify-header-other-start {
+    top: 23px;
+}
+
+.page-project-signUp-verify-header-box-pic-fonts {
+    font-size: 15px;
+    color: #666;
+    text-align: justify;
+    padding: 15px;
+}
+
+.page-project-signUp-verify-header-other-pic-start {
+    top: 19px;
+}
+
+.page-project-signUp-verify-fonts {
+    font-size: 15px;
+    color: #666;
+    width: 70px;
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.page-project-signUp-verify-text {
+    height: 50px;
+    font-size: 15px;
+    text-align: left;
+    width: 275px;
+    display: block;
+    padding-left: 15px;
+}
+
+
+.page-project-signUp-verify-bottom {
+
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.page-project-signUp-verify-btn {
+    width: 300px;
+    height: 50px;
+    margin: 50px auto;
+    background: #C7EAFD;
+    border-radius: 100px;
+    font-size: 16px;
+    color: #666666;
+    line-height: 50px;
+    text-align: center;
+}
+
+.page-project-signUp-none {
+    display: none;
+}
+
+.page-project-signUp-verify-header-box-nowaddress {
+    width: 100%;
+    height: 30px;
+    background: #F8F8F8;
+    font-size: 13px;
+    color: #666666;
+    line-height: 30px;
+    padding-left: 15px;
+}
+
+.page-project-signUp-verify-photo-box {
+    justify-content: space-between;
+}
+
+.page-project-signUp-verify-photo {
+    display: flex;
+    align-items: center;
+}
+
+.page-project-signUp-verify-photo:last-child {
+    margin-left: 10px;
+}
+
+.page-project-signUp-verify-photo i {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('/images/my/more.png') no-repeat scroll right center transparent;
+    background-size: 20px 20px;
+}
+
+.am-checkbox-item {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 40px;
+    background-color: #fff;
+    vertical-align: middle;
+    overflow: hidden;
+    -webkit-transition: background-color .2s;
+    transition: background-color .2s;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+
+.page-project-signUp-edit-text {
+    width: 345px;
+    height: 100px;
+    margin-bottom: 20px;
+    margin: 0 15px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 21px;
+    color: #282828;
+    resize: none;
+    outline: none;
+}
+
+.page-project-signUp-verify-text-lineheight {
+    line-height: 40px;
+}
+
+

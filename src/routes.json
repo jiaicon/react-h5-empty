@@ -30,7 +30,7 @@
     "chunk": "main"
   },
   {
-    "path": "/project/signUp/:projectId",
+    "path": "/project/signup/:projectId",
     "page": "./pages/project/sign/signUp",
     "chunk": "main"
   },

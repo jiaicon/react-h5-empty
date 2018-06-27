@@ -16,7 +16,6 @@ import 'antd-mobile/lib/checkbox/style/css';
 import 'antd-mobile/lib/Stepper/style/css';
 import '../../my/profile/verifyAntd.css';
 import './signUp.css';
-import '../../my/profile/verify.css';
 import {
     requestProjectDetail,
   } from '../detail/detail.store';
@@ -35,6 +34,9 @@ function formatDate(x, y) {
 
 const isAndroid = /android/i.test(navigator.userAgent);
 const CheckboxItem = Checkbox.CheckboxItem;
+function getnum(num){
+    return Math.round(num*100)/100
+}
 class SignUpPage extends React.Component {
 
   constructor(props) {
@@ -44,6 +46,7 @@ class SignUpPage extends React.Component {
     // this.lastId = props.route.params.lastId;
     this.state = {
         extendsArray: {},
+        checkeAll:false,
     };
     this.CustomChildren = ({extra, onClick}) => (
 
@@ -52,7 +55,7 @@ class SignUpPage extends React.Component {
             style={{height: '40px', lineHeight: '40px', color: '#565656'}}
         >
         <span
-            className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
+            className="page-project-signUp-verify-text page-project-signUp-verify-text-lineheight"
         >
           {extra}</span>
 
@@ -76,6 +79,7 @@ class SignUpPage extends React.Component {
     }
     if(Ndetail.data && Ndetail.data.custom_payment_config){
         let data =[];
+        let total =null;
         Ndetail.data.custom_payment_config.map((item, index) => {
             let obj = {};
             obj.amount = item.amount;
@@ -85,6 +89,7 @@ class SignUpPage extends React.Component {
             if(item.is_required == '1'){
                 obj.num = 1;
                 obj.switch = true;
+                total = obj.num * getnum(obj.amount);
             }else{
                 obj.num = 0;
                 obj.switch = false;
@@ -93,7 +98,8 @@ class SignUpPage extends React.Component {
         });
         this.setState({
             ...this.state,
-            data
+            data,
+            total
         })
     }   
     
@@ -118,10 +124,10 @@ class SignUpPage extends React.Component {
     return (
         <div>
             <div>
-                <div className="page-my-profile-verify-header-box">
+                <div className="page-project-signUp-verify-header-box">
 
-                    <div className="page-my-profile-verify-fonts">单行输入标题</div>
-                    <input id='one' className="page-my-profile-verify-text"
+                    <div className="page-project-signUp-verify-fonts">单行输入标题</div>
+                    <input id='one' className="page-project-signUp-verify-text"
                     placeholder={`请输入多行输入标题`}
                            onChange={this.handleOtherInfoInputClick}/>
                 </div>
@@ -139,14 +145,14 @@ renderOtherInfoManyInput() {
     return (
 
         <div>
-            <div className="page-my-profile-verify-header-box">
+            <div className="page-project-signUp-verify-header-box">
                 
-                <div className="page-my-profile-verify-fonts">多行输入标题</div>
+                <div className="page-project-signUp-verify-fonts">多行输入标题</div>
             </div>
 
             <textarea placeholder={`请输入多行输入标题`}
                       id='double'
-                      className="page-my-profile-edit-text" maxLength="200"
+                      className="page-project-signUp-edit-text" maxLength="200"
                       onKeyUp={this.handleOtherInfoManyInputClick}
             />
 
@@ -165,9 +171,9 @@ handleOtherInfoManyInputClick(e) {
   
     return (
         <div>
-            <div className="page-my-profile-verify-header-box">
+            <div className="page-project-signUp-verify-header-box">
                
-                <div className="page-my-profile-verify-fonts">选择日期</div>
+                <div className="page-project-signUp-verify-fonts">选择日期</div>
 
                 <DatePicker
                     mode="date"
@@ -177,7 +183,7 @@ handleOtherInfoManyInputClick(e) {
                     onOk={v => ( this.setState({
                         ...this.state,
                         date: v
-                    }), console.log(v), console.log(this.state))}
+                    }))}
                 >
 
                     <this.CustomChildren/>
@@ -193,8 +199,8 @@ handleOtherInfoManyInputClick(e) {
 renderTime(){
     return(
         <div>
-            <div className="page-my-profile-verify-header-box">
-                <div className="page-my-profile-verify-fonts">选择时间</div>
+            <div className="page-project-signUp-verify-header-box">
+                <div className="page-project-signUp-verify-fonts">选择时间</div>
 
                 <DatePicker
                 mode="time"
@@ -203,7 +209,7 @@ renderTime(){
                 onOk={v => ( this.setState({
                     ...this.state,
                     begin: v
-                }), console.log(v), console.log(this.state))}
+                }))}
                 >
                 <this.CustomChildren/>
 
@@ -215,9 +221,65 @@ renderTime(){
     )
 }
 onGetData(data){
+    let  total = null;
+    let  Ltotal = null;
+    let  Ntotal = null;
+    data.map((item,index)=>{
+        if(item.is_required == '0'){
+         if(item.switch){
+           
+            Ltotal +=item.num * getnum(item.amount);
+           
+         }
+        }else if(item.is_required == '1'){
+         Ntotal += item.num * getnum(item.amount);
+        }
+  
+      })
+      total=Ltotal +Ntotal;
     this.setState({
         ...this.state,
         data,
+        total
+    })
+}
+onCheckedAll(){ 
+    const {data} =this.state;
+    let checkeAll =this.state.checkeAll;
+    let  total = null;
+    let  Ltotal = null;
+    let  Ntotal = null;
+    checkeAll = !this.state.checkeAll;
+    data.map((item,index)=>{
+        if(item.is_required == '0'){
+         if(checkeAll){
+            if(!item.switch){
+                if(item.num == 0){
+                    item.num =1;
+                    item.switch =true;
+                    Ltotal +=item.num * getnum(item.amount);
+                }
+            }else{
+                Ltotal +=item.num * getnum(item.amount);
+            }
+           
+          }else{
+            if(item.num != 0){
+              item.num = 0;
+              item.switch =false;
+            }
+          }
+        }else if(item.is_required == '1'){
+         Ntotal=item.num * getnum(item.amount);
+        }
+  
+      })
+      total=Ltotal + Ntotal;
+    this.setState({
+        ...this.state,
+        checkeAll,
+        data,
+        total,
     })
 }
 // 多选购买
@@ -225,7 +287,7 @@ renderOrder (){
     const data =this.state.data;
   
     return(
-        <CheckboxStepper data={data||null} getData={this.onGetData} />
+        <CheckboxStepper data={data||null} getData={this.onGetData}  checkeAll={this.state.checkeAll}/>
        
     )
 }
@@ -239,14 +301,14 @@ renderOtherInfoSelect(item) {
     const options = data.options.split(",");
     return (
         <div>
-            <div className="page-my-profile-verify-header-box">
+            <div className="page-project-signUp-verify-header-box">
                 {
                     item.is_required === 1 ?
-                        <span className="page-my-profile-verify-header-start">*</span>
+                        <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
                 }
-                <div className="page-my-profile-verify-fonts">{data.label}</div>
+                <div className="page-project-signUp-verify-fonts">{data.label}</div>
                 <label htmlFor={`${key}`}>
                     <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}
                     >
@@ -269,7 +331,6 @@ handleOtherInfoSelectClick(e) {
 
 //多选控件
 handleOtherInfoMoreClick = (key, val) => {
-    console.log(val);
     this.pushExtendsArray(key, val, true)
 };
 
@@ -284,10 +345,10 @@ renderOtherInfoCheckbox(item1) {
         data.push(obj);
     });
     return (
-        <div className="page-my-profile-other-title">
+        <div className="page-project-signUp-other-title">
             {
                 item1.is_required === 1 ?
-                    <span className="page-my-profile-verify-header-start page-my-profile-verify-header-other-start">*</span>
+                    <span className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-start">*</span>
                     :
                     null
             }
@@ -309,15 +370,15 @@ renderOtherInfoInput(item) {
     return (
         <div>
             <div>
-                <div className="page-my-profile-verify-header-box">
+                <div className="page-project-signUp-verify-header-box">
                     {
                         item.is_required === 1 ?
-                            <span className="page-my-profile-verify-header-start">*</span>
+                            <span className="page-project-signUp-verify-header-start">*</span>
                             :
                             null
                     }
-                    <div className="page-my-profile-verify-fonts">{data.label}</div>
-                    <input id={`${key}`} className="page-my-profile-verify-text"
+                    <div className="page-project-signUp-verify-fonts">{data.label}</div>
+                    <input id={`${key}`} className="page-project-signUp-verify-text"
                            onChange={this.handleOtherInfoInputClick}/>
                 </div>
                 <div className="line1px"/>
@@ -340,19 +401,19 @@ renderOtherInfoManyInput(item) {
     return (
 
         <div>
-            <div className="page-my-profile-verify-header-box">
+            <div className="page-project-signUp-verify-header-box">
                 {
                     item.is_required === 1 ?
-                        <span className="page-my-profile-verify-header-start">*</span>
+                        <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
                 }
-                <div className="page-my-profile-verify-fonts">{data.label}</div>
+                <div className="page-project-signUp-verify-fonts">{data.label}</div>
             </div>
 
             <textarea placeholder={`请输入${data.label}`}
                       id={`${key}`}
-                      className="page-my-profile-edit-text" maxLength="200"
+                      className="page-project-signUp-edit-text" maxLength="200"
                       onKeyUp={this.handleOtherInfoManyInputClick}
             />
 
@@ -373,14 +434,14 @@ renderOtherInfoDate(item) {
     const key = data.key;
     return (
         <div>
-            <div className="page-my-profile-verify-header-box">
+            <div className="page-project-signUp-verify-header-box">
                 {
                     item.is_required === 1 ?
-                        <span className="page-my-profile-verify-header-start">*</span>
+                        <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
                 }
-                <div className="page-my-profile-verify-fonts">{data.label}</div>
+                <div className="page-project-signUp-verify-fonts">{data.label}</div>
 
                 <DatePicker
                     mode="date"
@@ -390,7 +451,7 @@ renderOtherInfoDate(item) {
                     onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
                         ...this.state,
                         [key]: v
-                    }), console.log(v), console.log(this.state))}
+                    }))}
                 >
 
                     <this.CustomChildren/>
@@ -408,14 +469,14 @@ renderOtherInfoDateTime(item) {
     const key = data.key;
     return (
         <div>
-            <div className="page-my-profile-verify-header-box">
+            <div className="page-project-signUp-verify-header-box">
                 {
                     item.is_required === 1 ?
-                        <span className="page-my-profile-verify-header-start">*</span>
+                        <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
                 }
-                <div className="page-my-profile-verify-fonts">{data.label}</div>
+                <div className="page-project-signUp-verify-fonts">{data.label}</div>
                 <DatePicker
                     mode="datetime"
                     format="YYYY-MM-DD HH:mm"
@@ -424,7 +485,7 @@ renderOtherInfoDateTime(item) {
                     onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
                         ...this.state,
                         [key]: v
-                    }), console.log(v))}
+                    }))}
                 >
 
                     <this.CustomChildren/>
@@ -440,8 +501,9 @@ renderOtherInfoDateTime(item) {
             if (item.type == 5) {
                 // this.state[item.key] = [];
                 this.setState({
+                    ...this.state,
                     [item.key]: [],
-                    ...this.state
+                    
                 })
             }
         })
@@ -485,23 +547,23 @@ renderOtherPic(item) {
     const data = item;
     const key = data.key;
     return (
-        <div className="page-my-profile-other-title">
+        <div className="page-project-signUp-other-title">
             {
                 item.is_required === 1 ?
                     <span
-                        className="page-my-profile-verify-header-start page-my-profile-verify-header-other-pic-start">*</span>
+                        className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-pic-start">*</span>
                     :
                     null
             }
-            <div className="page-my-profile-verify-header-box-pic-fonts">{data.label}</div>
-            <div className="page-post-container-photo-container">
+            <div className="page-project-signUp-verify-header-box-pic-fonts">{data.label}</div>
+            <div className="page-project-signUp-photo-container">
                 {
                     this.state[key].map((item, keys) => (
-                        <div className="page-applys-item-render-container">
-                            <div className="page-applys-item-view">
+                        <div className="page-project-signUp-item-render-container">
+                            <div className="page-project-signUp-item-view">
                                 <Avatar src={item} size={{width: 80, radius: 1}}/>
                             </div>
-                            <div className="page-applys-item-render-del" onClick={this.onPicDel} id={keys}
+                            <div className="page-project-signUp-item-render-del" onClick={this.onPicDel} id={keys}
                                  key={item}
                                  data-key={`${key}`}
                             />
@@ -512,7 +574,7 @@ renderOtherPic(item) {
                     this.state[key].length === 1 ?
                         <div/> :
                         <div
-                            className="page-post-item-upload-container" id={`${key}`} onClick={this.onPicClick}
+                            className="page-project-signUp-item-upload-container" id={`${key}`} onClick={this.onPicClick}
                         />
                 }
             </div>
@@ -598,8 +660,6 @@ pushExtendsArray(key, value, isMany) {
 }
 
 renderOtherInfo() {
-    // const winOrgStateInfo = this.state.winOrgInfo;
-    // const {data:{custom_config:winOrgStateInfo}} =this.props.detail;
  
     if(this.props.detail.data === null || this.props.detail.data.custom_config === null ){
         return null
@@ -692,13 +752,13 @@ renderOtherInfo() {
             <div className="line1px"/>
             <div className="page-project-signUp-bottom-btn-contain">
                 <div  className={classnames({
-                    'alltrue': true,
-                    'all': false,
+                    'alltrue':  this.state.checkeAll,
+                    'all': !this.state.checkeAll,
                   })}>
-                <i className="checkall"/>
+                <i className="checkall" onClick={this.onCheckedAll}/>
                     全选
                 </div>
-                <div className="total">合计：<span>¥99.99</span></div>
+                <div className="total">合计：<span>¥{getnum(this.state.total || 0)}</span></div>
                 <div className="btn">提交</div>
             </div>
         </div>
