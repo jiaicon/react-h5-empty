@@ -1,0 +1,127 @@
+.component-CheckboxStepper{
+    width: 100%;
+}
+.component-CheckboxStepper-checkbox{
+    width: 100%;
+    height:79px;
+    display: flex;
+}
+.component-CheckboxStepper-checkbox label {
+    width: 100%;
+    height: 79px;
+    padding: 15px 15px 15px 43px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.component-CheckboxStepper-checkbox label input[type="checkbox"] {display:none;}
+.component-CheckboxStepper-checkbox-false label {
+    background-image:url(/images/my/buy_box@2x.png);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position:15px center;
+  }
+.component-CheckboxStepper-checkbox-disable label{
+    
+    background-image:url(/images/my/buy_box_gray@2x.png);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position:15px center;
+}
+.component-CheckboxStepper-checkbox-true label{
+   
+    background-image:url(/images/my/buy_box_selected@2x.png);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position:15px center;
+}
+.component-CheckboxStepper-checkbox label .labelname{
+    width: 100%;
+    height: 16px;
+    font-size: 16px;
+    color: #282828;
+    margin-bottom: 15px;
+}
+.component-CheckboxStepper-checkbox label .price{
+    width: 100%;
+    height: 16px;
+    font-size: 16px;
+    color: #282828;
+    display: flex;
+    justify-content: space-between;
+}
+.component-CheckboxStepper-checkbox label .price span{
+    font-size: 18px;
+    color: #FB5D5D;
+}
+.component-CheckboxStepper-checkbox label .price .container{
+    width: 90px;
+    height: 22px;
+    display: flex;
+    border: 1px solid #CBCBCB;
+    position: absolute;
+    right: 15px;
+    z-index: 99;
+}
+.component-CheckboxStepper-checkbox label .price .container .sub{
+    height: 22px;
+    width: 22px;
+    border-right: 1px solid #CBCBCB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.component-CheckboxStepper-checkbox label .price .container .add{
+    height: 22px;
+    width: 22px;
+    border-left: 1px solid #CBCBCB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.component-CheckboxStepper-checkbox label .price .container .view{
+    height: 22px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+ .container{
+    width: 90px;
+    height: 22px;
+    display: flex;
+    border: 1px solid #CBCBCB;
+    position: relative;
+    right: 15px;
+}
+.container .sub{
+    height: 22px;
+    width: 22px;
+    border-right: 1px solid #CBCBCB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container .add{
+    height: 22px;
+    width: 22px;
+    background: red;
+    border-left: 1px solid #CBCBCB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    z-index: 99;
+}
+ .container .view{
+    height: 22px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

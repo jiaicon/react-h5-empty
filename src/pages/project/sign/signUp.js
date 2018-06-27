@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import { bindActionCreators } from 'redux';
-
+import  CheckboxStepper  from '../../../components/checkboxStepper/index'
 import {List, Checkbox, DatePicker, Flex ,Stepper  } from 'antd-mobile';
 
 import 'antd-mobile/lib/date-picker/style/css';
@@ -32,6 +32,8 @@ function formatDate(x, y) {
         return `${dateStr}`;
     }
 }
+
+const isAndroid = /android/i.test(navigator.userAgent);
 const CheckboxItem = Checkbox.CheckboxItem;
 class SignUpPage extends React.Component {
 
@@ -42,7 +44,6 @@ class SignUpPage extends React.Component {
     // this.lastId = props.route.params.lastId;
     this.state = {
         extendsArray: {},
-        val:1
     };
     this.CustomChildren = ({extra, onClick}) => (
 
@@ -73,12 +74,43 @@ class SignUpPage extends React.Component {
             customConfig:Ndetail.data.custom_config
         })
     }
+    if(Ndetail.data && Ndetail.data.custom_payment_config){
+        let data =[];
+        Ndetail.data.custom_payment_config.map((item, index) => {
+            let obj = {};
+            obj.amount = item.amount;
+            obj.label = item.label;
+            obj.is_required = item.is_required;
+            obj.key = item.key;
+            if(item.is_required == '1'){
+                obj.num = 1;
+                obj.switch = true;
+            }else{
+                obj.num = 0;
+                obj.switch = false;
+            }
+            data.push(obj);
+        });
+        this.setState({
+            ...this.state,
+            data
+        })
+    }   
+    
+   
   }
   componentWillDidmount() {
+    // Android 下 fastclick 影响 select 点击
+    if (window.fastclick && isAndroid) {
+        window.fastclick.destroy();
+        window.fastclick = null;
+    }
 
   }
   componentWillUnmount() {
-    // document.title = '标题';
+    if (!window.fastclick && isAndroid) {
+        window.fastclick = FastClick.attach(document.body);
+    }
   }
   //单行
   renderOtherInfoInput() {
@@ -182,93 +214,24 @@ renderTime(){
         </div>
     )
 }
-onChange = (val) => {
-    // console.log(val);
-    this.setState({ val });
-  }
-// 多选
+onGetData(data){
+    this.setState({
+        ...this.state,
+        data,
+    })
+}
+// 多选购买
 renderOrder (){
-    const data = [ 
-        {   value: 0, 
-            label: '志多星公益T恤',
-            key: "test1",
-            amount:100.00,
-            is_required:1,
-        },
-        {   value: 1, 
-            label: '志多星公益短裤',
-            key: "test2",
-            amount:100.00,
-            is_required:0,
-        },
-        {   value: 2, 
-            label: '志多星公益帽子',
-            key: "test3",
-            amount:100.00,
-            is_required:0,
-        }
-    ];
+    const data =this.state.data;
+  
     return(
-        <List>
-            {
-                data.map((i,index)=>{
-                    return(
-                        <div>
-                        {
-                            i.is_required? 
-                            <CheckboxItem key="disabled" data-seed="logId"  key={i.key} disabled defaultChecked multipleLine>
-                               <div>{i.label}</div>
-                               <div className="page-singnuo-checkbox-container">
-                                  <span className="page-singnuo-checkbox-money">¥{i.amount}</span>
-                                  <List>
-                                    <List.Item
-                                    wrap
-                                    extra={
-                                        <Stepper
-                                        style={{ width: '100%', minWidth: '100px' }}
-                                        showNumber
-                                        max={10}
-                                        min={1}
-                                        value={this.state.val}
-                                        onChange={this.onChange}
-                                        />}
-                                    >
-                                    </List.Item>
-                                    
-                                </List>
-                               </div>
-                            </CheckboxItem>:
-                            <CheckboxItem key={i.key} onChange={() => this.onChange(i.key)}>
-                                 <div>{i.label}</div>
-                               <div className="page-singnuo-checkbox-container">
-                                  <span className="page-singnuo-checkbox-money">¥{i.amount}</span>
-                                  <List>
-                                    <List.Item
-                                    wrap
-                                    extra={
-                                        <Stepper
-                                        style={{ width: '100%', minWidth: '100px' }}
-                                        showNumber
-                                        max={10}
-                                        min={1}
-                                        value={this.state.val}
-                                        onChange={this.onChange}
-                                        />}
-                                    >
-                                    </List.Item>
-                                    
-                                </List>
-                               </div>
-                            </CheckboxItem>
-                        }
-
-                        </div>
-                    )
-                })
-            }
-      </List>
+        <CheckboxStepper data={data||null} getData={this.onGetData} />
+       
     )
 }
+
+
+
 //单选控件
 renderOtherInfoSelect(item) {
     const data = item;
@@ -627,7 +590,6 @@ pushExtendsArray(key, value, isMany) {
             extendsArray[key] = value;
         }
     }
-    console.log(extendsArray)
     this.setState({
         ...this.state,
         extendsArray,
@@ -721,15 +683,25 @@ renderOtherInfo() {
 
     return (
       <div className="page-project-signUp">
-        {/* {this.renderOtherInfoInput()}
-        {this.renderOtherInfoManyInput()}
-        {this.renderOtherInfoDate()}
-        {this.renderTime()} */}
-         {
-          //自定义信息
+         {//自定义信息
           this.renderOtherInfo()
-        }
+         }
         {this.renderOrder()}
+        <div className="take-up"/>
+        <div className="page-project-signUp-bottom-btn">
+            <div className="line1px"/>
+            <div className="page-project-signUp-bottom-btn-contain">
+                <div  className={classnames({
+                    'alltrue': true,
+                    'all': false,
+                  })}>
+                <i className="checkall"/>
+                    全选
+                </div>
+                <div className="total">合计：<span>¥99.99</span></div>
+                <div className="btn">提交</div>
+            </div>
+        </div>
       </div>
     );
   }
