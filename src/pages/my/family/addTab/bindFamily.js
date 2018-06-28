@@ -49,7 +49,7 @@ class BindFamily extends React.Component {
     const { failed: tFailed, fetching: tFetch } = this.props.bindFamily;
     const { failed: nFailed, fetching: nFetch } = nextProps.bindFamily;
     if (tFetch && !nFetch && !nFailed) {
-      history.replace('/my/family');
+      window.location.replace('/my/family');
     }
   }
 

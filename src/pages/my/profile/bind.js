@@ -63,13 +63,13 @@ class BindInfo extends React.Component {
       }
       if (phone && verifyCode) {
         if (Lphone.fetching && !Nphone.fetching && !Nphone.failed) {
-          history.replace('/my/profile/detail/user');
+          window.location.replace('/my/profile/detail/user');
         }
       }
     } else if (this.type === 'mail') {
       if (mail) {
         if (Lperson.fetching && !Nperson.fetching && !Nperson.failed) {
-          history.replace('/my/profile/detail/user');
+          window.location.replace('/my/profile/detail/user');
         }
       }
     }

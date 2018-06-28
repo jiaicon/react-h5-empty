@@ -60,6 +60,7 @@ class Login extends React.Component {
                     target = from;
                 }
                 this.props.storeLoginSource(target);
+
                 window.location.replace('/my/profile/verify');
                 // history.replace('/my/profile/verify');
             }else{
@@ -68,6 +69,7 @@ class Login extends React.Component {
                 if (from) {
                     target = from;
                 }
+                
                 window.location.replace(target);
                 // history.replace(target);
             }

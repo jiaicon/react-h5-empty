@@ -192,14 +192,14 @@ class Verify extends React.Component {
             // return
             // TODO 如果从项目跳过来的需要跳回去
             if (this.state.projectId) {
-                history.replace(`/project/detail/${this.state.projectId}`);
+                window.location.replace(`/project/detail/${this.state.projectId}`);
             } else if (this.state.teamId) {
-                history.replace(`/team/detail/${this.state.projectId}`);
+                window.location.replace(`/team/detail/${this.state.projectId}`);
             } else {
                 if (from) {
                     target = from;
                 }
-                history.replace(target);
+                window.location.replace(target);
                 // history.replace('/my');
             }
         }

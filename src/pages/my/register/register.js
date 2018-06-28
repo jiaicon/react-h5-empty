@@ -71,7 +71,7 @@ class Register extends React.Component {
     //   history.replace('/my/login');
     // }
     if(cRegis.fetching && !nRegis.fetching && !nRegis.failed) {
-      history.replace('/my/login');
+      window.location.replace('/my/login');
     }
   }
 

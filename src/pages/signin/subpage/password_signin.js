@@ -35,7 +35,7 @@ class PasswordSigninPage extends React.Component {
     const { checkinData: Lcheckin } = this.props;
     const { checkinData: Ncheckin } = nextProps;
     if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
-      history.replace('/signin');
+      window.location.replace('/signin');
     }
   }
 

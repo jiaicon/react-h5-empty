@@ -147,7 +147,7 @@ class TeamDetailPage extends React.Component {
     const { deleteFeeling: LdeleteFeeling } = this.props;
     const { deleteFeeling: NdeleteFeeling } = nextProps;
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
-      history.replace(`/team/detail/${this.teamId}`);
+      window.location.replace(`/team/detail/${this.teamId}`);
     }
 
     const { observe: Lobserve, unObserve: LunObserve } = this.props;
@@ -213,7 +213,7 @@ class TeamDetailPage extends React.Component {
           }
         // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-          history.replace(`/my/profile/verify/team/${this.teamId}`);
+          window.location.replace(`/my/profile/verify/team/${this.teamId}`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {
             this.props.joinTeam(teamId, detailData);
@@ -422,7 +422,7 @@ class TeamDetailPage extends React.Component {
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      history.replace(`/my/circlepublish/3/${this.teamId}`);
+      window.location.replace(`/my/circlepublish/3/${this.teamId}`);
     } else {
       this.setState({
         ...this.state,

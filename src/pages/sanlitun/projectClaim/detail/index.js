@@ -116,7 +116,7 @@ class projectClaimDetail extends React.Component {
       const { user: { isLogin, id_number: idNumber } } = this.props;
 
       if (action === 'join') {
-        history.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
+        window.location.replace(`/sanlitun/projectClaim/improve/${this.projectId}`);
       } else if (action === 'login') {
         this.props.userCenterAction();
       }

@@ -53,7 +53,7 @@ class Checkbox extends React.Component {
     const { person: Cperson } = this.props;
     const { person: Nperson } = nextProps;
     if (Cperson.fetching && !Nperson.fetching && !Nperson.failed) {
-      history.replace('/my/profile/detail/user');
+      window.location.replace('/my/profile/detail/user');
     }
   }
 

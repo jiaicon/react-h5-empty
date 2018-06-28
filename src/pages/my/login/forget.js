@@ -45,7 +45,7 @@ class Forget extends React.Component {
     }
 
     if (cForget.fetching && !cForget.failed && !nForget.fetching && !nForget.failed) {
-      history.replace('/my/login');
+      window.location.replace('/my/login');
     }
   }
 

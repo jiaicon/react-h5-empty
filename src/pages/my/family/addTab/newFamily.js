@@ -91,7 +91,7 @@ class NewFamily extends React.Component {
         const { failed: tFailed, fetching: tFetch } = this.props.addPeople;
         const { failed: nFailed, fetching: nFetch } = nextProps.addPeople;
         if(tFetch && !nFetch && !nFailed) {
-            history.replace('/my/family');
+            window.location.replace('/my/family');
         }
     }
     handleProvinceClick() {

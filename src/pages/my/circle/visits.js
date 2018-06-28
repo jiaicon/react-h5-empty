@@ -153,7 +153,7 @@ class CircleVists extends React.Component {
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      history.replace('/my/circlepublish/1');
+      window.location.replace('/my/circlepublish/1');
     } else {
       this.setState({ ...this.state, showDialogA: true });
     }

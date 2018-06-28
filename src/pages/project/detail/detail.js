@@ -142,7 +142,7 @@ class ProjectDetailPage extends React.Component {
     const { deleteFeeling: LdeleteFeeling } = this.props;
     const { deleteFeeling: NdeleteFeeling } = nextProps;
     if (LdeleteFeeling.fetching && !NdeleteFeeling.fetching && !NdeleteFeeling.failed) {
-      history.replace(`/project/detail/${this.projectId}`);
+      window.location.replace(`/project/detail/${this.projectId}`);
     }
 
     const { observe: Lobserve, unObserve: LunObserve } = this.props;
@@ -200,7 +200,7 @@ class ProjectDetailPage extends React.Component {
           if(!customConfig && !paymentConfig){
             this.props.joinProject(projectId);
           }else if(customConfig || paymentConfig){
-            history.replace(`/project/signup/${projectId}`)
+            window.location.replace(`/project/signup/${projectId}`)
           }
         } else if (action === 'quit') {
           this.setState({ ...this.state, showDialog: true });
@@ -212,20 +212,20 @@ class ProjectDetailPage extends React.Component {
             if(!customConfig && !paymentConfig){
               this.props.joinProject(projectId);
             }else if(customConfig || paymentConfig){
-              history.replace(`/project/signup/${projectId}`)
+              window.location.replace(`/project/signup/${projectId}`)
             }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
           }
         // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-          history.replace(`/my/profile/verify/project/${this.projectId}`);
+          window.location.replace(`/my/profile/verify/project/${this.projectId}`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {
             if(!customConfig && !paymentConfig){
               this.props.joinProject(projectId);
             }else if(customConfig || paymentConfig){
-              history.replace(`/project/signup/${projectId}`)
+              window.location.replace(`/project/signup/${projectId}`)
             }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
@@ -418,7 +418,7 @@ class ProjectDetailPage extends React.Component {
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      history.replace(`/my/circlepublish/2/${this.projectId}`);
+      window.location.replace(`/my/circlepublish/2/${this.projectId}`);
     } else {
       this.setState({ ...this.state, showDialogA: true });
     }

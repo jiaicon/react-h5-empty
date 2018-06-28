@@ -46,7 +46,7 @@ class Post extends React.Component {
     const { postapply: Cpostapply } = this.props;
     const { postapply: Npostapply } = nextProps;
     if (Cpostapply.fetching && !Npostapply.fetching && !Npostapply.failed) {
-      history.replace('/my/duration/applys');
+      window.location.replace('/my/duration/applys');
     }
   }
 
