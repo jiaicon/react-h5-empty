@@ -213,23 +213,26 @@ class ProjectDetailPage extends React.Component {
             if(!customConfig && !paymentConfig){
               this.props.joinProject(projectId);
             }else if(customConfig || paymentConfig){
-              // window.location.replace(`/project/signup/${projectId}`)
-              history.replace(`/project/signup/${projectId}`)
+              // window.location.push=`/project/signup/${projectId}`;
+              window.location.replace(`/project/signup/${projectId}`)
+              // history.replace(`/project/signup/${projectId}`)
             }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
           }
         // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-          // window.location.replace(`/my/profile/verify/project/${this.projectId}`);
-          history.replace(`/project/signup/${projectId}`)
+          window.location.replace(`/my/profile/verify/project/${this.projectId}`);
+          // history.replace(`/project/signup/${projectId}`)
+          // window.location.push=`/project/signup/${projectId}`;
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {
             if(!customConfig && !paymentConfig){
               this.props.joinProject(projectId);
             }else if(customConfig || paymentConfig){
-              // window.location.replace(`/project/signup/${projectId}`)
-              history.replace(`/project/signup/${projectId}`)
+              window.location.replace(`/project/signup/${projectId}`)
+              // history.replace(`/project/signup/${projectId}`)
+              // window.location.push=`/project/signup/${projectId}`;
             }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
@@ -301,6 +304,7 @@ class ProjectDetailPage extends React.Component {
     return (
       <div>
         <div className="header">
+          
           {this.renderSlick()}
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
