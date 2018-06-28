@@ -158,8 +158,9 @@ class SignUpPage extends React.Component {
     }   
     const { joinPay: Lpay } = this.props;
     const { joinPay: Npay } = nextProps;
-    if (Lpay.fetching && !Lpay.failed && !Npay.fetching && !Npay.failed) {
-        alert('success')
+   
+    if (!Lpay.fetching && Lpay.failed && Npay.fetching && Npay.failed) {
+       
      
       
     }
