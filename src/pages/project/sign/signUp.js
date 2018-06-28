@@ -177,85 +177,10 @@ class SignUpPage extends React.Component {
         window.fastclick = FastClick.attach(document.body);
     }
   }
-  //单行
-  renderOtherInfoInput() {
 
-    return (
-        <div>
-            <div>
-                <div className="page-project-signUp-verify-header-box">
 
-                    <div className="page-project-signUp-verify-fonts">单行输入标题</div>
-                    <input id='one' className="page-project-signUp-verify-text"
-                    placeholder={`请输入多行输入标题`}
-                    onChange={this.handleOtherInfoInputClick}/>
-                </div>
-                <div className="line1px"/>
-            </div>
-        </div>
-    )
-}
-handleOtherInfoInputClick(e) {
-    
-}
-
-// 多行
-renderOtherInfoManyInput() {
-    return (
-
-        <div>
-            <div className="page-project-signUp-verify-header-box">
-                
-                <div className="page-project-signUp-verify-fonts">多行输入标题</div>
-            </div>
-
-            <textarea placeholder={`请输入多行输入标题`}
-                      id='double'
-                      className="page-project-signUp-edit-text" maxLength="200"
-                      onKeyUp={this.handleOtherInfoManyInputClick}
-            />
-
-            <div className="line1px"/>
-        </div>
-    )
-}
-
-handleOtherInfoManyInputClick(e) {
-    // const key = e.target.id;
-    // const value = e.target.value;
-    // this.pushExtendsArray(key, value);
-}
- // 选择日期
- renderOtherInfoDate() {
-  
-    return (
-        <div>
-            <div className="page-project-signUp-verify-header-box">
-               
-                <div className="page-project-signUp-verify-fonts">选择日期</div>
-
-                <DatePicker
-                    mode="date"
-                    format="YYYY-MM-DD"
-                    value={this.state.date}
-                    extra={`请选择选择日期`}
-                    onOk={v => ( this.setState({
-                        ...this.state,
-                        date: v
-                    }))}
-                >
-
-                    <this.CustomChildren/>
-
-                </DatePicker>
-
-            </div>
-            <div className="line1px"/>
-        </div>
-    )
-}
 // 选择时间
-renderTime(){
+renderTime(item){
     return(
         <div>
             <div className="page-project-signUp-verify-header-box">
@@ -268,7 +193,7 @@ renderTime(){
                 onOk={v => ( this.setState({
                     ...this.state,
                     begin: v
-                }))}
+                },this.pushExtendsArray(item.key, v)))}
                 >
                 <this.CustomChildren/>
 
@@ -523,39 +448,40 @@ renderOtherInfoDate(item) {
     )
 }
 
-renderOtherInfoDateTime(item) {
-    const data = item;
-    const key = data.key;
-    return (
-        <div>
-            <div className="page-project-signUp-verify-header-box">
-                {
-                    Number(item.is_required) === 1 ?
-                        <span className="page-project-signUp-verify-header-start">*</span>
-                        :
-                        null
-                }
-                <div className="page-project-signUp-verify-fonts">{data.label}</div>
-                <DatePicker
-                    mode="datetime"
-                    format="YYYY-MM-DD HH:mm"
-                    value={this.state[key]}
-                    extra={`请选择${data.label}`}
-                    onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
-                        ...this.state,
-                        [key]: v
-                    }))}
-                >
+// renderOtherInfoDateTime(item) {
+//     const data = item;
+//     const key = data.key;
+//     return (
+//         <div>
+//             <div className="page-project-signUp-verify-header-box">
+//                 {
+//                     Number(item.is_required) === 1 ?
+//                         <span className="page-project-signUp-verify-header-start">*</span>
+//                         :
+//                         null
+//                 }
+//                 <div className="page-project-signUp-verify-fonts">{data.label}</div>
+//                 <DatePicker
+//                     mode="datetime"
+//                     format="YYYY-MM-DD HH:mm"
+//                     value={this.state[key]}
+//                     extra={`请选择${data.label}`}
+//                     onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
+//                         ...this.state,
+//                         [key]: v
+//                     }))}
+//                 >
 
-                    <this.CustomChildren/>
-                </DatePicker>
-            </div>
-            <div className="line1px"/>
-        </div>
-    )
-}
-    // 初始化上传照片
-    initialPic(data) {
+//                     <this.CustomChildren/>
+//                 </DatePicker>
+//             </div>
+//             <div className="line1px"/>
+//         </div>
+//     )
+// }
+//    
+// 初始化上传照片
+initialPic(data) {
         data.map((item, index) => {
             if (item.type == 5) {
                 // this.state[item.key] = [];
@@ -572,7 +498,6 @@ renderOtherInfoDateTime(item) {
 onPicClick(e) {
     var key = e.target.id;
     const attachment = this.state[key];
-    // count: 3 - attachment.length,
     uploadToWX({
 
         success: (urls) => {
@@ -584,7 +509,7 @@ onPicClick(e) {
                     attachment.push(urls[i]);
                 }
             }
-            this.setState({[key]: attachment, ...this.state});
+            this.setState({...this.state,[key]: attachment });
             this.pushExtendsArray(key, attachment)
         },
     });
@@ -597,8 +522,8 @@ onPicDel(e) {
     const attachment = this.state[key];
     attachment.splice(num, 1);
     // this.state[key] = attachment;
-    this.setState({[key]: attachment, ...this.state}),
-        this.pushExtendsArray(key, attachment)
+    this.setState({...this.state,[key]: attachment}),
+    this.pushExtendsArray(key, attachment)
 }
 
 renderOtherPic(item) {
@@ -667,6 +592,8 @@ softArr(oldArr, newArr) {
 pushExtendsArray(key, value, isMany) {
     const extendsArray = this.state.extendsArray;
     const windowOrgConfig = this.state.customConfig;
+    alert(value)
+    alert(`${JSON.stringIfy(this.state)}`)
     if (!isMany) {
         if (value == '-1') {
             if (key in extendsArray) {
@@ -780,7 +707,7 @@ renderOtherInfo() {
                             case 7:
                                 return (
                                     <div key={index}>
-                                        {this.renderOtherInfoDateTime(item)}
+                                        {this.renderTime(item)}
                                     </div>
                                 );
                                 break;
@@ -804,7 +731,7 @@ onSubmmit(){
     let data = {};
     let payment =[];
     data.id =this.projectId;
-    data.type =0;
+    data.type =1;
     data.extends = this.state.extendsArray;
     if(this.state.data && this.state.data.length > 0){
         let payData=this.state.data;
