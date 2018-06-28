@@ -2,11 +2,13 @@ import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
 
 
-export const joinPayProject = data => ({
-    type: 'PROJECT_PAY_JOIN',
-    payload: fetch(`/project/join/${data.id}`, {
+export const joinPayProject = data => (dispatch) => {
+    // type: 'PROJECT_PAY_JOIN',
+    // payload: 
+    fetch(`/project/join/${data.id}`, {
       data,
     }).then((json) => {
+        alert(JSON.stringify('json.data'))
         if (json.data.jsConfig) {
             wx.config(json.data.jsConfig);
               //   http://kf.qq.com/faq/161221IbQRZN161221M3EviE.html
@@ -20,7 +22,7 @@ export const joinPayProject = data => ({
                 paySign: json.data.payConfig.paySign,
                 success(res) {
                   dispatch({ type: 'PROJECT_PAY_JOIN_PENDING' });
-                  dispatch({ type: 'PROJECT_PAY_JOIN+_FULFILLED', data: json.data });
+                  dispatch({ type: 'PROJECT_PAY_JOIN_FULFILLED', data: json.data });
                   Alert.success('支付成功');
               
                 },
@@ -41,7 +43,7 @@ export const joinPayProject = data => ({
         dispatch({ type: 'PROJECT_PAY_JOIN_REJECTED' });
       })
     
-})
+}
 
   export default (state = {
     fetching: false,

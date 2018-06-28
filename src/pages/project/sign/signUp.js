@@ -21,7 +21,7 @@ import {
   } from '../detail/detail.store';
   import {
     joinPayProject,
-  } from '../detail/detail.store';
+  } from '../sign/sign.store';
 function formatDate(x, y) {
     /* eslint no-confusing-arrow: 0 */
     const pad = n => n < 10 ? `0${n}` : n;
@@ -41,6 +41,54 @@ function getnum(num){
     return Math.round(num*100)/100
 }
 
+
+
+let isEmpty = false;
+
+function checkEmpty(value, label) {
+    if (!value || !value.length) {
+        Alert.warning(`请填写${label}`);
+        isEmpty = true;
+        return true;
+    } else {
+        isEmpty = false;
+    }
+    return false;
+}
+
+//判断自定义信息必填的是否为空
+function isRequired(arr, stateData) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].is_required && arr[i].is_required === 1) {
+            console.log(stateData)
+            // if (stateData.length != 0) {
+            const keys = Object.keys(stateData);
+            if (keys.length != 0) {
+                let isInArr = false;    //记录自定义信息的对象中必填的key是否在存在
+                for (let j in stateData) {
+                    if (arr[i].key === j && stateData.hasOwnProperty(j)) {
+                        isInArr = false;
+                        break;
+                    } else {
+                        isInArr = true
+                    }
+                }
+                if (isInArr) {
+                    checkEmpty(null, arr[i].label);
+                    return true;
+                }
+            } else {
+                Alert.warning(`请填写${arr[i].label}`);
+                isEmpty = true;
+                break;
+            }
+        }
+    }
+    if (isEmpty) {
+        return true;
+    }
+    return false;
+}
 
 class SignUpPage extends React.Component {
 
@@ -107,8 +155,13 @@ class SignUpPage extends React.Component {
             total
         })
     }   
-    
-   
+    const { joinPay: Lpay } = this.props;
+    const { joinPay: Npay } = nextProps;
+    if (Lpay.fetching && !Lpay.failed && !Npay.fetching && !Npay.failed) {
+        alert('success')
+     
+      
+    }
   }
   componentWillDidmount() {
     // Android 下 fastclick 影响 select 点击
@@ -134,7 +187,7 @@ class SignUpPage extends React.Component {
                     <div className="page-project-signUp-verify-fonts">单行输入标题</div>
                     <input id='one' className="page-project-signUp-verify-text"
                     placeholder={`请输入多行输入标题`}
-                           onChange={this.handleOtherInfoInputClick}/>
+                    onChange={this.handleOtherInfoInputClick}/>
                 </div>
                 <div className="line1px"/>
             </div>
@@ -308,7 +361,7 @@ renderOtherInfoSelect(item) {
         <div>
             <div className="page-project-signUp-verify-header-box">
                 {
-                    item.is_required === 1 ?
+                    Number(item.is_required) === 1 ?
                         <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
@@ -377,7 +430,7 @@ renderOtherInfoInput(item) {
             <div>
                 <div className="page-project-signUp-verify-header-box">
                     {
-                        item.is_required === 1 ?
+                        Number(item.is_required) === 1 ?
                             <span className="page-project-signUp-verify-header-start">*</span>
                             :
                             null
@@ -408,7 +461,7 @@ renderOtherInfoManyInput(item) {
         <div>
             <div className="page-project-signUp-verify-header-box">
                 {
-                    item.is_required === 1 ?
+                    Number(item.is_required) === 1 ?
                         <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
@@ -441,7 +494,7 @@ renderOtherInfoDate(item) {
         <div>
             <div className="page-project-signUp-verify-header-box">
                 {
-                    item.is_required === 1 ?
+                    Number(item.is_required) === 1 ?
                         <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
@@ -476,7 +529,7 @@ renderOtherInfoDateTime(item) {
         <div>
             <div className="page-project-signUp-verify-header-box">
                 {
-                    item.is_required === 1 ?
+                    Number(item.is_required) === 1 ?
                         <span className="page-project-signUp-verify-header-start">*</span>
                         :
                         null
@@ -530,7 +583,6 @@ onPicClick(e) {
                     attachment.push(urls[i]);
                 }
             }
-            // this.state[key] = attachment;
             this.setState({[key]: attachment, ...this.state});
             this.pushExtendsArray(key, attachment)
         },
@@ -554,7 +606,7 @@ renderOtherPic(item) {
     return (
         <div className="page-project-signUp-other-title">
             {
-                item.is_required === 1 ?
+                Number(item.is_required) === 1 ?
                     <span
                         className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-pic-start">*</span>
                     :
@@ -743,6 +795,41 @@ renderOtherInfo() {
     )
 }
 onSubmmit(){
+    if (this.state.customConfig && this.state.customConfig.length > 0) {
+        if (isRequired(this.state.customConfig,this.state.extendsArray)) {
+            return;
+        }
+    }
+    let data = {};
+    let payment =[];
+    data.id =this.projectId;
+    data.type =0;
+    data.extends = this.state.extendsArray;
+    if(this.state.data && this.state.data.length > 0){
+        let payData=this.state.data;
+        for(var i = 0; i<payData.length;i++){
+            if(Number(payData[i].is_required) == 1){
+              
+                const key = payData[i].key;
+                const num = payData[i].num;
+              
+                payment[key] = num;
+              
+            }else if(Number(payData[i].is_required) == 0){
+             
+                if(payData[i].switch){
+                    const key =payData[i].key;
+                    const num =payData[i].num;
+                    payment[key] = num;
+                  
+                }
+            }
+        }
+    }
+    data.payment = payment;
+    alert(`token：${JSON.stringify(window.token)}`)
+    this.props.joinPayProject(data);
+
 
 }
   render() {
@@ -762,8 +849,8 @@ onSubmmit(){
                     <div  className={classnames({
                         'alltrue':  this.state.checkeAll,
                         'all': !this.state.checkeAll,
-                      })}>
-                    <i className="checkall" onClick={this.onCheckedAll}/>
+                      })} onClick={this.onCheckedAll}>
+                        <i className="checkall" onClick={this.onCheckedAll}/>
                         全选
                     </div>
                     :null
@@ -784,20 +871,14 @@ onSubmmit(){
 
 SignUpPage.propTypes = {
   requestProjectDetail: PropTypes.func,
-  feelingAction: PropTypes.func,
-  collectProject: PropTypes.func,
-  unCollectProject: PropTypes.func,
-  joinProject: PropTypes.func,
-  saveProjectTabIndex: PropTypes.func,
-  requestUserInfo: PropTypes.func,
-  quitProject: PropTypes.func,
+  joinPayProject: PropTypes.func,
+  
   detail: PropTypes.shape({
     fetchingId: PropTypes.string,
     data: PropTypes.shape({}),
     tabIndex: PropTypes.number,
   }),
-  user: PropTypes.shape({
-    isLogin: PropTypes.bool,
+  joinPay: PropTypes.shape({
   }),
   route: PropTypes.shape({
     params: PropTypes.shape({
@@ -806,15 +887,15 @@ SignUpPage.propTypes = {
   }),
 };
 
-SignUpPage.title = '报名信息';
+SignUpPage.title = '报名信息111';
 
 export default connect(
     state => ({
       detail: state.project.detail,
-    
+      joinPay :state.project.projectSign,
     }),
     dispatch => bindActionCreators({
       requestProjectDetail,
- 
+      joinPayProject
     }, dispatch),
   )(SignUpPage);
