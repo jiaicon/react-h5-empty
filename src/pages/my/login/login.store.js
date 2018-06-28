@@ -19,7 +19,7 @@ const STORE_LOGIN_SOURCE = 'STORE_LOGIN_SOURCE';
 export const loginAction = data => (dispatch) => {
     dispatch({type: LOGIN_PENDING});
 
-    fetch('/login', {
+    fetch(`${data.type == 0 ?'/login/phone':'/login'}`, {
         data,
     }).then((json) => {
         dispatch({type: LOGIN_FULFILLED, payload: json.data});
@@ -62,6 +62,7 @@ const loginReducer = (state = {
     failed: false,
     from: '',
     data: null,
+    idx: 0,
 }, action) => {
     switch (action.type) {
         case 'LOGIN_CHANGE_INDEX':
@@ -180,7 +181,7 @@ const againReducer = (state = {
 
 export const changeIndex = (idx) => ({
     type: 'LOGIN_CHANGE_INDEX',
-    payload: idx
+    payload: { idx  },
 });
 const reducer = combineReducers({
     forget: forgetReducer,

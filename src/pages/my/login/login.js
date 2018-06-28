@@ -17,17 +17,24 @@ import Tab from '../../../components/tab/tab';
 
 import './login.css';
 import {loginAction, changeIndex ,storeLoginSource} from './login.store';
-import Register from './../register/register';
+import { requestVerifyCode, register } from '../register/register.store';
+// import Register from './../register/register';
 import Avatar from '../../../components/avatar/avatar';
-
-const TAB_URL_MAPS = {
-    '/my/register': <Register />
-};
+import { API_HOST } from '../../../utils/config';
+// const TAB_URL_MAPS = {
+//     '/my/register': <Register />
+// };
 class Login extends React.Component {
 
     constructor(props) {
         super(props);
         autoBind(this);
+        this.state = {
+            captchaUrl: `${API_HOST}/api/captcha`,
+            buttonString: '获取验证码',
+            timer: null,
+            countDownTrigger: true,
+        };
     }
 
     componentWillMount() {
@@ -66,36 +73,129 @@ class Login extends React.Component {
     }
 
     onTextChanged() {
-        const username = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
-        const pwd = this.pwd.value.replace(/(^\s+)|(\s+$)/g, '');
+        const tabIndex = this.props.login.idx;
+        let username,pwd =null;
+        if(tabIndex == 0){
+            username = this.quickUsername.value.replace(/(^\s+)|(\s+$)/g, '');
+            pwd = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
+            const captcha =this.captcha.value.replace(/(^\s+)|(\s+$)/g, '');
+          
+            this.setState({
+                ...this.state,
+                username,
+                pwd,
+                captcha,
+            });
+   
+        }else if(tabIndex == 1){
+             username = this.loginUsername.value.replace(/(^\s+)|(\s+$)/g, '');
+             pwd = this.pwd.value.replace(/(^\s+)|(\s+$)/g, '');
+             this.setState({
+                ...this.state,
+                username,
+                pwd,
+            });
+        }
 
+        
+
+    }
+
+  
+
+
+    componentWillUnmount() {
+        const timer = this.state.timer;
+        clearInterval(timer);
         this.setState({
-            username,
-            pwd,
+            
+          buttonString: '获取验证码',
+          timer: null,
         });
     }
-
-    submit() {
-        const username = this.state.username;
-        const pwd = this.state.pwd;
+    onStartCountDown() {
+        let timer = this.state.timer;
+        let num = 60;
+        const that = this;
+        this.setState({
+          ...this.state,
+          buttonString: num,
+          countDownTrigger: false,
+        });
+        timer = setInterval(() => {
+          num -= 1;
+          that.setState({
+            ...this.state,
+            buttonString: num,
+            timer,
+          });
+          if (num === 0) {
+            clearInterval(timer);
+            that.setState({
+              ...this.state,
+              buttonString: '获取验证码',
+              timer: null,
+              countDownTrigger: true,
+            });
+          }
+        }, 1000);
+      }
+    refreshCaptcha() {
+        this.setState({
+          ...this.state,
+          captchaUrl: `${API_HOST}/api/captcha?t=${Date.now()}`,
+        });
+      }
+    onSend() {
+        const phone = this.state.username;
+        const captcha = this.state.captcha;
+        const countDownTrigger = this.state.countDownTrigger;
         const data = {};
-        data.username = username;
-        if (pwd.length <= 5 || pwd.length >= 19) {
-            Alert.warning('密码范围6-20位数字字母组成');
-            return;
+        if (phone && captcha) {
+            if (countDownTrigger === true) {
+            data.phone = phone;
+            data.captcha_code = captcha;
+            this.props.requestVerifyCode(data);
+            } else {
+            Alert.warning('同一时间内不能多次点击');
+            }
+        } else if (!phone) {
+            Alert.warning('请输入手机号');
+        } else {
+            Alert.warning('请输入验证码');
         }
-        data.pwd = pwd;
+    }
+    submit() {
+        const tabIndex = this.props.login.idx;
+        const data = {};
+        if(tabIndex == 0){
+            const username = this.state.username;
+            const pwd = this.state.pwd;
+            data.phone =username;
+            
+            data.verify_code =pwd;
+            data.type =tabIndex;
+          
+   
+        }else if(tabIndex == 1){
+            const username = this.state.username;
+            const pwd = this.state.pwd;
+            if (pwd.length <= 5 || pwd.length >= 19) {
+                Alert.warning('密码范围6-20位数字字母组成');
+                return;
+            }
+            data.pwd = pwd;
+            data.type =tabIndex;
+        
+        }
         this.props.loginAction(data);
     }
-
-
-
     renderLogin() {
         return (
             <div className="page-login-box">
                 <div className="page-login">
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged}
+                        <input type="text" ref={(c) => { this.loginUsername = c; }} onKeyUp={this.onTextChanged}
                                placeholder="手机号或身份证号" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
@@ -117,20 +217,22 @@ class Login extends React.Component {
             <div className="page-login-box">
                 <div className="page-login">
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged}
+                        <input type="text" ref={(c) => { this.quickUsername = c; }} onKeyUp={this.onTextChanged}
                                placeholder="请输入手机号" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
-                        <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
+                        <input type="text"ref={(c) => { this.captcha = c; }} onKeyUp={this.onTextChanged}
                                placeholder="图形验证码" className="page-login-item-input"/>
-                        <img className="page-login-item-code" src="" alt=""/>
+                        <img className="page-login-item-code" src={this.state.captchaUrl} 
+                         alt="" onClick={this.refreshCaptcha} />
                     </div>
                     <div className="page-login-item">
-                        <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
+                        <input type="password" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
                                placeholder="手机验证码" className="page-login-item-input"/>
-                        <div className="page-login-item-code">获取验证码</div>
+                        <div className="page-login-item-code" onClick={this.onSend}>{this.state.buttonString}</div>
                     </div>
                     <div className="page-login-entry page-login-quick-login" onClick={this.submit}>登录/注册</div>
+                 
                 </div>
                 <div className="page-login-agree">
                     提交代表已阅读
@@ -139,6 +241,7 @@ class Login extends React.Component {
                     </Link>
                 </div>
             </div>
+            
         )
     }
 
@@ -204,6 +307,22 @@ Login.propTypes = {
             good_at: PropTypes.arrayOf(PropTypes.shape({})),
         }),
     }),
+    requestVerifyCode: PropTypes.func,
+    register: PropTypes.func,
+    code: PropTypes.shape({
+      fetching: PropTypes.bool,
+      failed: PropTypes.bool,
+      data: PropTypes.shape({
+      }),
+    }),
+    regis: PropTypes.shape({
+      fetching: PropTypes.bool,
+      failed: PropTypes.bool,
+      data: PropTypes.shape({
+        id: PropTypes.number,
+        token: PropTypes.string,
+      }),
+    }),
 
 
 };
@@ -211,6 +330,8 @@ Login.propTypes = {
 export default connect(
     state => ({
         login: state.login.login,
+        code: state.register.code,
+        regis: state.register.register,
     }),
-    dispatch => bindActionCreators({loginAction,storeLoginSource ,changeIndex}, dispatch),
+    dispatch => bindActionCreators({loginAction,storeLoginSource ,changeIndex ,requestVerifyCode, register}, dispatch),
 )(Login);
