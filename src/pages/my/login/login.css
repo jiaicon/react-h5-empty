@@ -96,8 +96,7 @@
   color: #999999;
   text-align: center;
   width: 100%;
-  position: absolute;
-  bottom: 40px;
+  margin-top: 10px;
 }
 .page-login-agreement{
   font-size: 13px;
