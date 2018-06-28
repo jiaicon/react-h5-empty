@@ -117,6 +117,7 @@ class SignUpPage extends React.Component {
   }
 
   componentWillMount() {
+    
       this.props.requestProjectDetail(this.projectId)
     
   }
@@ -827,7 +828,7 @@ onSubmmit(){
         }
     }
     data.payment = payment;
-    alert(`token：${JSON.stringify(window.token)}`)
+   
     this.props.joinPayProject(data);
 
 

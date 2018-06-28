@@ -200,7 +200,7 @@ class ProjectDetailPage extends React.Component {
           if(!customConfig && !paymentConfig){
             this.props.joinProject(projectId);
           }else if(customConfig || paymentConfig){
-            window.location.href=`/project/signup/${projectId}`
+            window.location.replace(`/project/signup/${projectId}`)
           }
         } else if (action === 'quit') {
           this.setState({ ...this.state, showDialog: true });
@@ -212,7 +212,7 @@ class ProjectDetailPage extends React.Component {
             if(!customConfig && !paymentConfig){
               this.props.joinProject(projectId);
             }else if(customConfig || paymentConfig){
-              window.location.href=`/project/signup/${projectId}`
+              window.location.replace(`/project/signup/${projectId}`)
             }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
