@@ -592,8 +592,8 @@ softArr(oldArr, newArr) {
 pushExtendsArray(key, value, isMany) {
     const extendsArray = this.state.extendsArray;
     const windowOrgConfig = this.state.customConfig;
-    alert(value)
-    alert(`${JSON.stringIfy(this.state)}`)
+  
+    
     if (!isMany) {
         if (value == '-1') {
             if (key in extendsArray) {
@@ -722,6 +722,7 @@ renderOtherInfo() {
         </div>
     )
 }
+
 onSubmmit(){
     if (this.state.customConfig && this.state.customConfig.length > 0) {
         if (isRequired(this.state.customConfig,this.state.extendsArray)) {
@@ -729,7 +730,7 @@ onSubmmit(){
         }
     }
     let data = {};
-    let payment =[];
+    let pay ={};
     data.id =this.projectId;
     data.type =1;
     data.extends = this.state.extendsArray;
@@ -740,22 +741,20 @@ onSubmmit(){
               
                 const key = payData[i].key;
                 const num = payData[i].num;
-              
-                payment[key] = num;
-              
+            
+                pay[`${key}`]= num;
+                console.log(pay)
             }else if(Number(payData[i].is_required) == 0){
              
                 if(payData[i].switch){
                     const key =payData[i].key;
                     const num =payData[i].num;
-                    payment[key] = num;
-                  
+                    pay[`${key}`]= num;
                 }
             }
         }
     }
-    data.payment = payment;
-   
+    data.payment = pay;
     this.props.joinPayProject(data);
 
 
