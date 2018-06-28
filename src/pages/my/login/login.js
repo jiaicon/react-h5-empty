@@ -52,7 +52,8 @@ class Login extends React.Component {
         const {login: nLogin} = nextProps;
         const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
         if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
-         
+            alert(`data:${JSON.stringify(nLogin.data.token)}`)
+            // return
             let target = '/';
             const {from} = nLogin;
             if (realRegister && !nLogin.data.id_number) {
@@ -62,7 +63,7 @@ class Login extends React.Component {
                 this.props.storeLoginSource(target);
 
                 window.location.replace('/my/profile/verify');
-                // history.replace('/my/profile/verify');
+            //     history.replace('/my/profile/verify');
             }else{
                 
                 // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
