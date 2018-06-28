@@ -37,7 +37,7 @@ import {
 import { requestUserInfo } from '../../../stores/common';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
-import { SIGABRT } from 'constants';
+
 
 class ProjectDetailPage extends React.Component {
 
@@ -45,7 +45,6 @@ class ProjectDetailPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
-    // this.lastId = props.route.params.lastId;
     this.state = {
       showShareTip: false,
     };
@@ -112,11 +111,6 @@ class ProjectDetailPage extends React.Component {
     } else if (lastProjectId === this.projectId) {
       this.props.saveProjectTabIndex(tabIndex, this.projectId);
     }
-      // if(tabIndex){
-      //   this.props.saveProjectTabIndex(tabIndex);
-      // }else{
-      //   this.props.saveProjectTabIndex(0);
-      // }
   }
 
 
@@ -184,7 +178,8 @@ class ProjectDetailPage extends React.Component {
     });
   }
 
-  handleShareClick() { // eslint-disable-line
+  handleShareClick() { 
+    // eslint-disable-line
     this.setState({
       ...this.state,
       showShareTip: true,
@@ -194,13 +189,19 @@ class ProjectDetailPage extends React.Component {
   handleActionClick(action) {
     const { projectId } = this;
     const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
-    const { user } = this.props;
+    const { user , detail: { data: detailData } } = this.props;
+    const customConfig =detailData.custom_config || null;
+    const paymentConfig =detailData.custom_payment_config || null;
     return () => {
        // in_blacklist 黑名单 0不在，1在
       // realRegister 机构实名 1 要求  0 否
       if (!user.isLogin) {
         if (action === 'join') {
-          this.props.joinProject(projectId);
+          if(!customConfig && !paymentConfig){
+            this.props.joinProject(projectId);
+          }else if(customConfig || paymentConfig){
+            window.location.href=`/project/signup/${projectId}`
+          }
         } else if (action === 'quit') {
           this.setState({ ...this.state, showDialog: true });
         }
@@ -208,7 +209,11 @@ class ProjectDetailPage extends React.Component {
         // 不要求实名
         if (realRegister == 0) {
           if (action === 'join') {
-            this.props.joinProject(projectId);
+            if(!customConfig && !paymentConfig){
+              this.props.joinProject(projectId);
+            }else if(customConfig || paymentConfig){
+              window.location.href=`/project/signup/${projectId}`
+            }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
           }
@@ -217,7 +222,11 @@ class ProjectDetailPage extends React.Component {
           history.replace(`/my/profile/verify/project/${this.projectId}`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {
-            this.props.joinProject(projectId);
+            if(!customConfig && !paymentConfig){
+              this.props.joinProject(projectId);
+            }else if(customConfig || paymentConfig){
+              window.location.href=`/project/signup/${projectId}`
+            }
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
           }

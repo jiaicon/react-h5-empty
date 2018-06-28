@@ -9,6 +9,7 @@ import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 
 import homeReducer from '../pages/home/home.store';
 import projectReducer from '../pages/project/project.store';
+
 import teamReducer from '../pages/team/team.store';
 import signinReducer from '../pages/signin/signin.store';
 

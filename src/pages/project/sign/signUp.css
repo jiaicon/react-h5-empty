@@ -70,7 +70,7 @@
     margin-right: 5px;
 }
 .page-project-signUp-bottom-btn-contain .btn{
-    width: 140px;
+    flex: 1;
     background: #6AC6F8;
     height: 49px;
     display: flex;
@@ -80,7 +80,7 @@
     color: #FFFFFF;
 }
 .page-project-signUp-bottom-btn-contain .total{
-    flex: 1;
+    width: 158px;
     display: flex;
     justify-content: center;
     align-items: center;

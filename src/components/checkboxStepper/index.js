@@ -58,7 +58,11 @@ class CheckboxStepper extends React.Component {
           item.switch=false;
         }else{
           item.switch=true;
-          item.num = 1;
+          if(item.num > 0){
+            item.num = item.num ;
+          }else{
+            item.num = 1;
+          }
         }
       }
 

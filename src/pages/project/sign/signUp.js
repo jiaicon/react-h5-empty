@@ -6,7 +6,7 @@ import autoBind from 'react-autobind';
 import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-
+import uploadToWX from '../../../utils/wxupload';
 import { bindActionCreators } from 'redux';
 import  CheckboxStepper  from '../../../components/checkboxStepper/index'
 import {List, Checkbox, DatePicker, Flex ,Stepper  } from 'antd-mobile';
@@ -18,6 +18,9 @@ import '../../my/profile/verifyAntd.css';
 import './signUp.css';
 import {
     requestProjectDetail,
+  } from '../detail/detail.store';
+  import {
+    joinPayProject,
   } from '../detail/detail.store';
 function formatDate(x, y) {
     /* eslint no-confusing-arrow: 0 */
@@ -37,6 +40,8 @@ const CheckboxItem = Checkbox.CheckboxItem;
 function getnum(num){
     return Math.round(num*100)/100
 }
+
+
 class SignUpPage extends React.Component {
 
   constructor(props) {
@@ -737,10 +742,11 @@ renderOtherInfo() {
         </div>
     )
 }
+onSubmmit(){
+
+}
   render() {
-  
-
-
+    const {data} =this.state;
     return (
       <div className="page-project-signUp">
          {//自定义信息
@@ -751,15 +757,24 @@ renderOtherInfo() {
         <div className="page-project-signUp-bottom-btn">
             <div className="line1px"/>
             <div className="page-project-signUp-bottom-btn-contain">
-                <div  className={classnames({
-                    'alltrue':  this.state.checkeAll,
-                    'all': !this.state.checkeAll,
-                  })}>
-                <i className="checkall" onClick={this.onCheckedAll}/>
-                    全选
-                </div>
-                <div className="total">合计：<span>¥{getnum(this.state.total || 0)}</span></div>
-                <div className="btn">提交</div>
+                {
+                    data?
+                    <div  className={classnames({
+                        'alltrue':  this.state.checkeAll,
+                        'all': !this.state.checkeAll,
+                      })}>
+                    <i className="checkall" onClick={this.onCheckedAll}/>
+                        全选
+                    </div>
+                    :null
+                }
+                {
+                    data?
+                    <div className="total">合计：<span>¥{getnum(this.state.total || 0)}</span></div>
+                    :null
+                }
+                
+                <div className="btn" onClick={this.onSubmmit}>提交</div>
             </div>
         </div>
       </div>
