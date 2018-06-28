@@ -887,7 +887,7 @@ SignUpPage.propTypes = {
   }),
 };
 
-SignUpPage.title = '报名信息111';
+SignUpPage.title = '报名信息';
 
 export default connect(
     state => ({

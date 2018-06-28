@@ -44,10 +44,12 @@ class Link extends React.Component {
     if (this.props.to && this.props.to.indexOf('http') === 0) {
       location.href = this.props.to;
     } else if (this.props.to) {
-      history.push(this.props.to);
-    } else if (this.props.to !== '') {
-      history.push({ pathname: event.currentTarget.pathname, search: event.currentTarget.search });
+      // history.push(this.props.to);
+      location.href = this.props.to;
     }
+    // else if (this.props.to !== '') {
+    //   history.push({ pathname: event.currentTarget.pathname, search: event.currentTarget.search });
+    // }
   };
 
   render() {
@@ -56,10 +58,15 @@ class Link extends React.Component {
       ...props
     } = this.props; // eslint-disable-line no-use-before-define
     // eslint-disable-next-line jsx-a11y/anchor-has-content
+    // return (<a
+    //   href={typeof to === 'string'
+    //   ? to
+    //   : history.createHref(to)}
+    //   {...props}
+    //   onClick={this.handleClick}
+    // />);
     return (<a
-      href={typeof to === 'string'
-      ? to
-      : history.createHref(to)}
+      href={to}
       {...props}
       onClick={this.handleClick}
     />);
