@@ -72,7 +72,8 @@ class Addmember extends React.Component {
         } = nextProps;
 
         if (!Cdata && Ndata && Cfetching && !Nfetching && !Cfailed && !Nfailed) {
-            window.location.replace('/my/family');
+            // window.location.replace('/my/family');
+            history.replace('/my/family');
         }
 
 

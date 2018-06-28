@@ -43,7 +43,8 @@ class CityPage extends React.Component {
         city: '全国',
       }));
       this.props.saveCity('全国');
-      window.location.replace('/');
+      history.replace('/');
+      // window.location.replace('/');
       return;
     }
     const data = JSON.parse(event.target.getAttribute('data')).item;
@@ -114,7 +115,7 @@ class CityPage extends React.Component {
       city,
     });
     this.props.getAreaCity(city);
-    window.location.replace('/');
+    history.replace('/');
   }
   cityRender() {
     console.log(this.props.address.data);

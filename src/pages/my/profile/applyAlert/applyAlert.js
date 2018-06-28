@@ -18,7 +18,6 @@ class Introduce extends React.Component {
     }
 
     componentWillMount() {
-        console.log(window)
     }
 
     componentDidMount() {

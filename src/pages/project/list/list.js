@@ -79,16 +79,10 @@ class ProjectListPage extends React.Component {
   }
 
   onFilterChange(selectedOption) {
-    // this.selectedOption = {
-    //   service_object: selectedOption.objects,
-    //   service_category: selectedOption.categories,
-    //   sort: selectedOption.types === '距离最近' ? 'distance' : 'time',
-    // };
-
-    // this.requestList();
+ 
     const { type, category, target } = selectedOption;
-
-    window.location.href=`/project/list/type/${type}/category/${category}/target/${target}`;
+    history.push=`/project/list/type/${type}/category/${category}/target/${target}`;
+    // window.location.href=`/project/list/type/${type}/category/${category}/target/${target}`;
   }
 
   onFilterShow() {

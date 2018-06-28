@@ -49,15 +49,17 @@ class CirclePublish extends React.Component {
 
     if (LupFeeling.fetching && !NupFeeling.fetching && !NupFeeling.failed) {
       if (this.typeId == 1) {
-        window.location.replace('/my/circlevisits');
+        history.replace('/my/circlevisits');
+        // window.location.replace('/my/circlevisits');
       } else if (this.typeId == 2) {
-        // this.props.saveProjectTabIndex(2);
-        window.location.replace(`/project/detail/${this.relationId}`);
+        history.replace(`/project/detail/${this.relationId}`);
+        // window.location.replace(`/project/detail/${this.relationId}`);
       } else if (this.typeId == 3) {
-        // this.props.saveTeamTabIndex(3);
-        window.location.replace(`/team/detail/${this.relationId}`);
+        history.replace(`/team/detail/${this.relationId}`);
+        // window.location.replace(`/team/detail/${this.relationId}`);
       } else if (this.typeId == 4) {
-        window.location.replace('/my/circle');
+        history.replace('/my/circle');
+        // window.location.replace('/my/circle');
       }
     }
   }

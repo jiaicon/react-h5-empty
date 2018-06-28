@@ -142,7 +142,8 @@ export default function request(requestUrl, requestOptions = {}) {
           }
 
           store.dispatch(storeLoginSource(from));
-          window.location.replace('/my/entry');
+          history.replace('/my/entry');
+          // window.location.replace('/my/entry');
         } else {
           console.log('请求返回失败-', url, json);
 

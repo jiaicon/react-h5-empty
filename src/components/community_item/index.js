@@ -120,7 +120,8 @@ class COMMUNITYITEM extends React.Component {
 
       return;
     }
-    window.location.href=`/my/circledetail/${info.id}`;
+    history.push(`/my/circledetail/${info.id}`)
+    // window.location.href=`/my/circledetail/${info.id}`;
   }
 
   handleDelete(e) {

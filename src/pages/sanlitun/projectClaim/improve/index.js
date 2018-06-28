@@ -48,7 +48,8 @@ class projectClaimInfo extends React.Component {
     const { improve: Limprove } = this.props;
     const { improve: Nimprove } = nextProps;
     if (Limprove.fetching && !Nimprove.fetching && !Nimprove.failed) {
-      window.location.replace(`/sanlitun/projectClaim/detail/${this.projectId}`);
+      // window.location.replace(`/sanlitun/projectClaim/detail/${this.projectId}`);
+      history.replace(`/sanlitun/projectClaim/detail/${this.projectId}`);
     }
   }
 

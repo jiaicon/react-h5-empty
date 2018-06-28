@@ -37,7 +37,8 @@ class Edit extends React.Component {
     const { info: cInfo } = this.props;
     const { info: nInfo } = nextProps;
     if (cInfo.fetching && !cInfo.failed && !nInfo.fetching && !nInfo.failed) {
-      window.location.replace('/my/profile/detail/user');
+      // window.location.replace('/my/profile/detail/user');
+      history.replace('/my/profile/detail/user');
     }
   }
 
@@ -56,7 +57,8 @@ class Edit extends React.Component {
       };
       this.props.imporvePersonInfo(data);
     } else {
-      window.location.replace('/my/profile/detail/user');
+      // window.location.replace('/my/profile/detail/user');
+      history.replace('/my/profile/detail/user');
     }
   }
   render() {

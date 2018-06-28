@@ -437,7 +437,8 @@ class Profile extends React.Component {
         const {failed: tFailed, fetching: tFetch} = this.props.alertPeopleInfo;
         const {failed: nFailed, fetching: nFetch} = nextProps.alertPeopleInfo;
         if (tFetch && !nFetch && !nFailed) {
-            window.location.replace('/my/family');
+            // window.location.replace('/my/family');
+            history.replace('/my/family');
         }
         const userId = this.state.userId;
         

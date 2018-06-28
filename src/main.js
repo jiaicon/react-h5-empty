@@ -78,14 +78,14 @@ function render(location) {
  * 如果需要使用 hash 的 history 方案，但是 URL 是 path 方案则需要跳转到 hash 方案
  */
 
-// if (USING_HISTORY_HASH && location.pathname !== '/') {
-//   location.href = `${location.protocol}//${location.host}/#${location.pathname}`;
-// } else if (!USING_HISTORY_HASH
-//   && location.pathname === '/'
-//   && location.hash.length > 2
-//   && location.hash.indexOf('#/') === 0) {
-//   location.href = `${location.protocol}//${location.host}/${location.hash.replace(/^#\//g, '')}`;
-// } else {
+if (USING_HISTORY_HASH && location.pathname !== '/') {
+  location.href = `${location.protocol}//${location.host}/#${location.pathname}`;
+} else if (!USING_HISTORY_HASH
+  && location.pathname === '/'
+  && location.hash.length > 2
+  && location.hash.indexOf('#/') === 0) {
+  location.href = `${location.protocol}//${location.host}/${location.hash.replace(/^#\//g, '')}`;
+} else {
 // Handle client-side navigation by using HTML5 History API For more information
 // visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
   // 微信 config 验证完成后再初始化界面
@@ -105,7 +105,7 @@ function render(location) {
 // Eliminates the 300ms delay between a physical tap and the firing of a click
 // event on mobile browsers https://github.com/ftlabs/fastclick
   window.fastclick = FastClick.attach(document.body);
-// }
+}
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {

@@ -100,8 +100,8 @@ class TeamListPage extends React.Component {
   }
   onFilterChange(selectedOption) {
     const { type, category, target } = selectedOption;
-
-    window.location.href=`/team/list/type/${type}/category/${category}/target/${target}`;
+    history.push=`/team/list/type/${type}/category/${category}/target/${target}`;
+    // window.location.href=`/team/list/type/${type}/category/${category}/target/${target}`;
   }
 
   onFilterShow() {

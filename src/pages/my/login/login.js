@@ -61,8 +61,8 @@ class Login extends React.Component {
                 }
                 this.props.storeLoginSource(target);
 
-                window.location.replace('/my/profile/verify');
-            //     history.replace('/my/profile/verify');
+                // window.location.replace('/my/profile/verify');
+                history.replace('/my/profile/verify');
             }else{
                 
                 // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
@@ -70,8 +70,8 @@ class Login extends React.Component {
                     target = from;
                 }
                 
-                window.location.replace(target);
-                // history.replace(target);
+                // window.location.replace(target);
+                history.replace(target);
             }
         }
     }
