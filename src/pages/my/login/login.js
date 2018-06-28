@@ -53,7 +53,7 @@ class Login extends React.Component {
         const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
         if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
           
-            let target = '/';
+            let target = '/my';
             const {from} = nLogin;
             if (realRegister && !nLogin.data.id_number) {
                 if(from) {
