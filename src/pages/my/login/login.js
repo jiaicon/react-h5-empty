@@ -52,8 +52,7 @@ class Login extends React.Component {
         const {login: nLogin} = nextProps;
         const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
         if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
-            alert(`data:${JSON.stringify(nLogin.data.token)}`)
-            // return
+          
             let target = '/';
             const {from} = nLogin;
             if (realRegister && !nLogin.data.id_number) {
