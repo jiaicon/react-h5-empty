@@ -50,7 +50,8 @@ class Entry extends React.Component {
           <div className="page-entry-team-btn" />
         </a>
         <div className="page-entry-bottom">
-          <Link to="/my/register">
+          {/* <Link to="/my/register"> */}
+          <Link to="/my/login">
             <div className="page-entry-bottom-person">
             个人注册
 

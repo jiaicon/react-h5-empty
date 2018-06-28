@@ -39,10 +39,12 @@ class Login extends React.Component {
 
     componentWillMount() {
         this.props.changeIndex(0);
+    
     }
 
     componentDidMount() {
-
+        const tabIndex = this.props.login.idx;
+        this.props.changeIndex(tabIndex);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,7 +52,7 @@ class Login extends React.Component {
         const {login: nLogin} = nextProps;
         const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
         if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
-            let target = '/my';
+            let target = '/';
             const {from} = nLogin;
             if (realRegister && !nLogin.data.id_number) {
                 if(from) {
@@ -184,6 +186,7 @@ class Login extends React.Component {
                 Alert.warning('密码范围6-20位数字字母组成');
                 return;
             }
+            data.username =username;
             data.pwd = pwd;
             data.type =tabIndex;
         

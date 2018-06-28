@@ -3,16 +3,10 @@
 
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import Alert from 'react-s-alert';
-import Slick from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
-// import Alert from 'react-s-alert';
-import { connect } from 'react-redux';
-import classnames from 'classnames';
+import history from '../../history';
 
-import './signUp.css';
+import './success.css';
 ;
 
 
@@ -22,7 +16,6 @@ class SignUpPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
-    // this.lastId = props.route.params.lastId;
     this.state = {
    
     };
@@ -50,14 +43,23 @@ class SignUpPage extends React.Component {
     // document.title = '标题';
   }
 
-
+  goBackProject(){
+    history.replace(`/project/detail/${ this.projectId}`)
+  }
+  goBackIndex(){
+    history.replace(`/`)
+  }
   render() {
   
 
 
     return (
-      <div className="page-project-detail">
-       111
+      <div className="page-project-success">
+        <div className="logo"></div>
+
+        <div  className="fonts">报名成功</div>
+        <div className="btn project" onClick={this.goBackProject}>返回项目详情</div>
+        <div className="btn index" onClick={this.goBackIndex}>返回首页</div>
       </div>
     );
   }
