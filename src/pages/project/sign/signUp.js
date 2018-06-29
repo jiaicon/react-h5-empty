@@ -158,10 +158,10 @@ class SignUpPage extends React.Component {
     }   
     const { joinPay: Lpay } = this.props;
     const { joinPay: Npay } = nextProps;
+  
+    if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
    
-    if (!Lpay.fetching && Lpay.failed && Npay.fetching && Npay.failed) {
-       
-     
+        window.location.replace(`/project/success/${this.projectId}`)
       
     }
   }

@@ -23,7 +23,6 @@ export const joinPayProject = data => (dispatch) => {
                   dispatch({ type: 'PROJECT_PAY_JOIN_FULFILLED', data: json.data });
                   
                   Alert.success('支付成功');
-              
                 },
                 fail(res) {
                   Alert.warning('支付失败');
