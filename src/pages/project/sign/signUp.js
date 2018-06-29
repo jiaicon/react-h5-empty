@@ -483,18 +483,16 @@ renderOtherInfoDate(item) {
 //    
 // 初始化上传照片
 initialPic(data) {
-        data.map((item, index) => {
-            if (item.type == 5) {
-                // this.state[item.key] = [];
-                this.setState({
-                    ...this.state,
-                    [item.key]: [],
-                    
-                })
-            }
-        })
-
-    }
+    data.map((item, index) => {
+        if (Number(item.type) == 5) {
+            this.setState({
+                ...this.state,
+                [item.key]: [],
+                
+            })
+        }
+    })
+}
 // 上传图片
 onPicClick(e) {
     var key = e.target.id;
