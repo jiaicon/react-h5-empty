@@ -150,10 +150,10 @@ class SignUpPage extends React.Component {
             data.push(obj);
         });
         this.setState({
-         
+            ...this.state,
             data,
             total,
-            ...this.state,
+            
         })
     }   
     const { joinPay: Lpay } = this.props;
@@ -627,10 +627,10 @@ onGetData(data){
       })
       total=Ltotal +Ntotal;
     this.setState({
-       
+        ...this.state,
         data,
         total,
-        ...this.state,
+      
     })
 }
 onCheckedAll(){ 
@@ -667,10 +667,10 @@ onCheckedAll(){
     })
     total=Ltotal + Ntotal;
     this.setState({
+        ...this.state,
         data,
         total,
         checkeAll,
-        ...this.state,
     })
 }
 // 多选购买
