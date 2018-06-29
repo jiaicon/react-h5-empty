@@ -60,7 +60,7 @@ function checkEmpty(value, label) {
 //判断自定义信息必填的是否为空
 function isRequired(arr, stateData) {
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i].is_required && arr[i].is_required === 1) {
+        if (arr[i].is_required && arr[i].is_required === '1') {
             console.log(stateData)
             // if (stateData.length != 0) {
             const keys = Object.keys(stateData);
@@ -123,6 +123,7 @@ class SignUpPage extends React.Component {
     
   }
   componentWillReceiveProps(nextProps) {
+      console.log(nextProps)
     const {detail:Ldetail} =this.props;
     const {detail:Ndetail} =nextProps;
     if(Ndetail.data && Ndetail.data.custom_config){
@@ -132,7 +133,7 @@ class SignUpPage extends React.Component {
             customConfig:Ndetail.data.custom_config
         })
     }
-    if(Ndetail.data && Ndetail.data.custom_payment_config){
+    if(Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed && Ndetail.data && Ndetail.data.custom_payment_config){
         let data =[];
         let total =null;
         Ndetail.data.custom_payment_config.map((item, index) => {
@@ -160,11 +161,11 @@ class SignUpPage extends React.Component {
     const { joinPay: Lpay } = this.props;
     const { joinPay: Npay } = nextProps;
   
-    if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
+    // if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
    
-        history.replace(`/project/success/${this.projectId}`)
+    //     history.replace(`/project/success/${this.projectId}`)
       
-    }
+    // }
   }
   componentWillDidmount() {
     // Android 下 fastclick 影响 select 点击
