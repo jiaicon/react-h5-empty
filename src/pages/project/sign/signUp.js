@@ -10,6 +10,7 @@ import uploadToWX from '../../../utils/wxupload';
 import { bindActionCreators } from 'redux';
 import  CheckboxStepper  from '../../../components/checkboxStepper/index'
 import {List, Checkbox, DatePicker, Flex ,Stepper  } from 'antd-mobile';
+import history from '../../history';
 
 import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/checkbox/style/css';
