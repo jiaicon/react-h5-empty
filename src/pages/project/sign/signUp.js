@@ -30,7 +30,7 @@ function formatDate(x, y) {
     const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
     const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
     if (y) {
-        return `${dateStr} ${timeStr}`;
+        return `${timeStr}`;
     } else {
         return `${dateStr}`;
     }
@@ -61,8 +61,7 @@ function checkEmpty(value, label) {
 function isRequired(arr, stateData) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].is_required && arr[i].is_required === '1') {
-            console.log(stateData)
-            // if (stateData.length != 0) {
+    
             const keys = Object.keys(stateData);
             if (keys.length != 0) {
                 let isInArr = false;    //记录自定义信息的对象中必填的key是否在存在
@@ -97,9 +96,8 @@ class SignUpPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
-    // this.lastId = props.route.params.lastId;
+    this.extendsArray={}
     this.state = {
-        extendsArray: {},
         checkeAll:false,
     };
     this.CustomChildren = ({extra, onClick}) => (
@@ -128,10 +126,9 @@ class SignUpPage extends React.Component {
     const {detail:Ndetail} =nextProps;
     if(Ndetail.data && Ndetail.data.custom_config){
         this.initialPic(Ndetail.data.custom_config);
-        this.setState({
-            ...this.state,
-            customConfig:Ndetail.data.custom_config
-        })
+        
+        this.customConfig=Ndetail.data.custom_config
+      
     }
     if(Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed && Ndetail.data && Ndetail.data.custom_payment_config){
         let data =[];
@@ -153,9 +150,10 @@ class SignUpPage extends React.Component {
             data.push(obj);
         });
         this.setState({
-            ...this.state,
+         
             data,
-            total
+            total,
+            ...this.state,
         })
     }   
     const { joinPay: Lpay } = this.props;
@@ -192,11 +190,10 @@ renderTime(item){
                 <DatePicker
                 mode="time"
                 value={this.state.begin}
-                onChange={begin => this.setState({ ...this.state, begin })}
                 onOk={v => ( this.setState({
                     ...this.state,
                     begin: v
-                },this.pushExtendsArray(item.key, v)))}
+                },this.pushExtendsArray(item.key,formatDate(v ,true))))}
                 >
                 <this.CustomChildren/>
 
@@ -207,80 +204,6 @@ renderTime(item){
         </div>
     )
 }
-onGetData(data){
-    let  total = null;
-    let  Ltotal = null;
-    let  Ntotal = null;
-    data.map((item,index)=>{
-        if(item.is_required == '0'){
-         if(item.switch){
-           
-            Ltotal +=item.num * getnum(item.amount);
-           
-         }
-        }else if(item.is_required == '1'){
-         Ntotal += item.num * getnum(item.amount);
-        }
-  
-      })
-      total=Ltotal +Ntotal;
-    this.setState({
-        ...this.state,
-        data,
-        total
-    })
-}
-onCheckedAll(){ 
-    const {data} =this.state;
-    let checkeAll =this.state.checkeAll;
-    let  total = null;
-    let  Ltotal = null;
-    let  Ntotal = null;
-    checkeAll = !this.state.checkeAll;
-    data.map((item,index)=>{
-        if(item.is_required == '0'){
-         if(checkeAll){
-            if(!item.switch){
-                if(item.num == 0){
-                    item.num =1;
-                    item.switch =true;
-                    Ltotal +=item.num * getnum(item.amount);
-                }
-            }else{
-                Ltotal +=item.num * getnum(item.amount);
-            }
-           
-          }else{
-            if(item.num != 0){
-              item.num = 0;
-              item.switch =false;
-            }
-          }
-        }else if(item.is_required == '1'){
-         Ntotal=item.num * getnum(item.amount);
-        }
-  
-      })
-      total=Ltotal + Ntotal;
-    this.setState({
-        ...this.state,
-        checkeAll,
-        data,
-        total,
-    })
-}
-// 多选购买
-renderOrder (){
-    const data =this.state.data;
-  
-    return(
-        <CheckboxStepper data={data||null} getData={this.onGetData}  checkeAll={this.state.checkeAll}/>
-       
-    )
-}
-
-
-
 //单选控件
 renderOtherInfoSelect(item) {
     const data = item;
@@ -451,38 +374,6 @@ renderOtherInfoDate(item) {
     )
 }
 
-// renderOtherInfoDateTime(item) {
-//     const data = item;
-//     const key = data.key;
-//     return (
-//         <div>
-//             <div className="page-project-signUp-verify-header-box">
-//                 {
-//                     Number(item.is_required) === 1 ?
-//                         <span className="page-project-signUp-verify-header-start">*</span>
-//                         :
-//                         null
-//                 }
-//                 <div className="page-project-signUp-verify-fonts">{data.label}</div>
-//                 <DatePicker
-//                     mode="datetime"
-//                     format="YYYY-MM-DD HH:mm"
-//                     value={this.state[key]}
-//                     extra={`请选择${data.label}`}
-//                     onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
-//                         ...this.state,
-//                         [key]: v
-//                     }))}
-//                 >
-
-//                     <this.CustomChildren/>
-//                 </DatePicker>
-//             </div>
-//             <div className="line1px"/>
-//         </div>
-//     )
-// }
-//    
 // 初始化上传照片
 initialPic(data) {
     data.map((item, index) => {
@@ -490,7 +381,6 @@ initialPic(data) {
             this.setState({
                 ...this.state,
                 [item.key]: [],
-                
             })
         }
     })
@@ -522,7 +412,6 @@ onPicDel(e) {
     var key = e.target.getAttribute("data-key");
     const attachment = this.state[key];
     attachment.splice(num, 1);
-    // this.state[key] = attachment;
     this.setState({...this.state,[key]: attachment}),
     this.pushExtendsArray(key, attachment)
 }
@@ -591,8 +480,8 @@ softArr(oldArr, newArr) {
 * isMany 是否多选 true是 false否
 * */
 pushExtendsArray(key, value, isMany) {
-    const extendsArray = this.state.extendsArray;
-    const windowOrgConfig = this.state.customConfig;
+    const extendsArray = this.extendsArray;
+    const windowOrgConfig = this.customConfig;
   
     
     if (!isMany) {
@@ -638,11 +527,8 @@ pushExtendsArray(key, value, isMany) {
             extendsArray[key] = value;
         }
     }
-    this.setState({
-        ...this.state,
-        extendsArray,
+    this.extendsArray = extendsArray;
 
-    })
 }
 
 renderOtherInfo() {
@@ -723,10 +609,82 @@ renderOtherInfo() {
         </div>
     )
 }
+onGetData(data){
+    let  total = null;
+    let  Ltotal = null;
+    let  Ntotal = null;
+    data.map((item,index)=>{
+        if(item.is_required == '0'){
+         if(item.switch){
+           
+            Ltotal +=item.num * getnum(item.amount);
+           
+         }
+        }else if(item.is_required == '1'){
+         Ntotal += item.num * getnum(item.amount);
+        }
+  
+      })
+      total=Ltotal +Ntotal;
+    this.setState({
+       
+        data,
+        total,
+        ...this.state,
+    })
+}
+onCheckedAll(){ 
+    const {data} =this.state;
+    let checkeAll =this.state.checkeAll;
+    let  total = null;
+    let  Ltotal = null;
+    let  Ntotal = null;
+    checkeAll = !this.state.checkeAll;
 
+    data.map((item,index)=>{
+        if(item.is_required == '0'){
+         if(checkeAll){
+            if(!item.switch){
+                if(item.num == 0){
+                    item.num =1;
+                    item.switch =true;
+                    Ltotal +=item.num * getnum(item.amount);
+                }
+            }else{
+                Ltotal +=item.num * getnum(item.amount);
+            }
+           
+          }else{
+            if(item.num != 0){
+              item.num = 0;
+              item.switch =false;
+            }
+          }
+        }else if(item.is_required == '1'){
+         Ntotal=item.num * getnum(item.amount);
+        }
+  
+    })
+    total=Ltotal + Ntotal;
+    this.setState({
+        data,
+        total,
+        checkeAll,
+        ...this.state,
+    })
+}
+// 多选购买
+renderOrder (){
+    const data =this.state.data;
+  
+    return(
+        <CheckboxStepper data={data||null} getData={this.onGetData}  checkeAll={this.state.checkeAll}/>
+       
+    )
+}
 onSubmmit(){
-    if (this.state.customConfig && this.state.customConfig.length > 0) {
-        if (isRequired(this.state.customConfig,this.state.extendsArray)) {
+    if (this.customConfig && this.customConfig.length > 0) {
+        if (isRequired(this.customConfig,this.extendsArray)) {
             return;
         }
     }
@@ -734,19 +692,15 @@ onSubmmit(){
     let pay ={};
     data.id =this.projectId;
     data.type =1;
-    data.extends = this.state.extendsArray;
+    data.extends = this.extendsArray;
     if(this.state.data && this.state.data.length > 0){
         let payData=this.state.data;
         for(var i = 0; i<payData.length;i++){
             if(Number(payData[i].is_required) == 1){
-              
                 const key = payData[i].key;
                 const num = payData[i].num;
-            
-                pay[`${key}`]= num;
-                console.log(pay)
+                 pay[`${key}`]= num;
             }else if(Number(payData[i].is_required) == 0){
-             
                 if(payData[i].switch){
                     const key =payData[i].key;
                     const num =payData[i].num;
@@ -756,42 +710,46 @@ onSubmmit(){
         }
     }
     data.payment = pay;
+
     this.props.joinPayProject(data);
 
 
 }
   render() {
-    const {data} =this.state;
     return (
       <div className="page-project-signUp">
+
          {//自定义信息
           this.renderOtherInfo()
          }
         {this.renderOrder()}
         <div className="take-up"/>
-        <div className="page-project-signUp-bottom-btn">
-            <div className="line1px"/>
-            <div className="page-project-signUp-bottom-btn-contain">
-                {
-                    data?
-                    <div  className={classnames({
-                        'alltrue':  this.state.checkeAll,
-                        'all': !this.state.checkeAll,
-                      })} onClick={this.onCheckedAll}>
-                        <i className="checkall" onClick={this.onCheckedAll}/>
-                        全选
-                    </div>
-                    :null
-                }
-                {
-                    data?
-                    <div className="total">合计：<span>¥{getnum(this.state.total || 0)}</span></div>
-                    :null
-                }
-                
-                <div className="btn" onClick={this.onSubmmit}>提交</div>
-            </div>
-        </div>
+       
+          <div className="page-project-signUp-bottom-btn">
+          <div className="line1px"/>
+          <div className="page-project-signUp-bottom-btn-contain">
+              {
+                  this.state.data?
+                  <div  className={classnames({
+                      'alltrue':  this.state.checkeAll,
+                      'all': !this.state.checkeAll,
+                    })} onClick={this.onCheckedAll}>
+                      <i className="checkall" onClick={this.onCheckedAll}/>
+                      全选
+                  </div>
+                  :null
+              }
+              {
+                   this.state.data?
+                  <div className="total">合计：<span>¥{getnum(this.state.total || 0)}</span></div>
+                  :null
+              }
+              
+              <div className="btn" onClick={this.onSubmmit}>提交</div>
+          </div>
+      </div>
+    
+      
       </div>
     );
   }
