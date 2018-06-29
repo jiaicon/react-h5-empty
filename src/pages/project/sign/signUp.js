@@ -124,7 +124,7 @@ class SignUpPage extends React.Component {
       console.log(nextProps)
     const {detail:Ldetail} =this.props;
     const {detail:Ndetail} =nextProps;
-    if(Ndetail.data && Ndetail.data.custom_config){
+    if(Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed &&Ndetail.data && Ndetail.data.custom_config){
         this.initialPic(Ndetail.data.custom_config);
         
         this.customConfig=Ndetail.data.custom_config
@@ -159,11 +159,11 @@ class SignUpPage extends React.Component {
     const { joinPay: Lpay } = this.props;
     const { joinPay: Npay } = nextProps;
   
-    // if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
+    if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
    
-    //     history.replace(`/project/success/${this.projectId}`)
+        history.replace(`/project/success/${this.projectId}`)
       
-    // }
+    }
   }
   componentWillDidmount() {
     // Android 下 fastclick 影响 select 点击
@@ -386,9 +386,11 @@ initialPic(data) {
     })
 }
 // 上传图片
-onPicClick(e) {
+ // 上传图片
+ onPicClick(e) {
     var key = e.target.id;
     const attachment = this.state[key];
+    // count: 3 - attachment.length,
     uploadToWX({
 
         success: (urls) => {
@@ -400,7 +402,8 @@ onPicClick(e) {
                     attachment.push(urls[i]);
                 }
             }
-            this.setState({...this.state,[key]: attachment });
+            // this.state[key] = attachment;
+            this.setState({[key]: attachment, ...this.state});
             this.pushExtendsArray(key, attachment)
         },
     });
@@ -412,7 +415,8 @@ onPicDel(e) {
     var key = e.target.getAttribute("data-key");
     const attachment = this.state[key];
     attachment.splice(num, 1);
-    this.setState({...this.state,[key]: attachment}),
+    // this.state[key] = attachment;
+    this.setState({[key]: attachment, ...this.state}),
     this.pushExtendsArray(key, attachment)
 }
 

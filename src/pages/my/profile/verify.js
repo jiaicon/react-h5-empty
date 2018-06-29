@@ -744,7 +744,7 @@ class Verify extends React.Component {
         attachment.splice(num, 1);
         // this.state[key] = attachment;
         this.setState({[key]: attachment, ...this.state}),
-            this.pushExtendsArray(key, attachment)
+        this.pushExtendsArray(key, attachment)
     }
 
     renderOtherPic(item) {
