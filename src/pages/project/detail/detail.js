@@ -60,7 +60,7 @@ class ProjectDetailPage extends React.Component {
     };
 
     this.dialog = {
-      title: '确认预约挂号',
+      title: '退出报名',
       buttons: [
         {
           type: 'default',
@@ -185,58 +185,54 @@ class ProjectDetailPage extends React.Component {
       showShareTip: true,
     });
   }
-
+  handleActionClickSitch(action,projectId,customConfig,paymentConfig){
+    if (action === 'join') {
+      if (projectId == 1035) {
+        window.location.href = 'http://lxi.me/17i1a';
+        return;
+      } else if (projectId == 1043) {
+        window.location.href = 'http://lxi.me/4hwr6';
+        return;
+      } else if (projectId == 1101) {
+        window.location.href = 'http://lxi.me/17i1a';
+        return;
+      }
+      if(!customConfig && !paymentConfig){
+        this.props.joinProject(projectId);
+      }else if(customConfig || paymentConfig){
+        // window.location.replace(`/project/signup/${projectId}`)
+        history.replace(`/project/signup/${projectId}`)
+      }
+    } else if (action === 'quit') {
+      this.setState({ ...this.state, showDialog: true });
+    }
+  }
   handleActionClick(action) {
     const { projectId } = this;
     const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
     const { user , detail: { data: detailData } } = this.props;
     const customConfig =detailData.custom_config || null;
     const paymentConfig =detailData.custom_payment_config || null;
+
     return () => {
        // in_blacklist 黑名单 0不在，1在
       // realRegister 机构实名 1 要求  0 否
+      
       if (!user.isLogin) {
-        if (action === 'join') {
-          if(!customConfig && !paymentConfig){
-            this.props.joinProject(projectId);
-          }else if(customConfig || paymentConfig){
-            // window.location.replace(`/project/signup/${projectId}`)
-            history.replace(`/project/signup/${projectId}`)
-          }
-        } else if (action === 'quit') {
-          this.setState({ ...this.state, showDialog: true });
-        }
+        this.handleActionClickSitch(action,projectId,customConfig,paymentConfig);
       } else if (user.isLogin && !user.in_blacklist) {
         // 不要求实名
         if (realRegister == 0) {
-          if (action === 'join') {
-            if(!customConfig && !paymentConfig){
-              this.props.joinProject(projectId);
-            }else if(customConfig || paymentConfig){
-              // window.location.push=`/project/signup/${projectId}`;
-              window.location.replace(`/project/signup/${projectId}`)
-              // history.replace(`/project/signup/${projectId}`)
-            }
-          } else if (action === 'quit') {
-            this.setState({ ...this.state, showDialog: true });
-          }
+          this.handleActionClickSitch(action,projectId,customConfig,paymentConfig);
         // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
+      
           window.location.replace(`/my/profile/verify/project/${this.projectId}`);
           // history.replace(`/project/signup/${projectId}`)
           // window.location.push=`/project/signup/${projectId}`;
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
-          if (action === 'join') {
-            if(!customConfig && !paymentConfig){
-              this.props.joinProject(projectId);
-            }else if(customConfig || paymentConfig){
-              window.location.replace(`/project/signup/${projectId}`)
-              // history.replace(`/project/signup/${projectId}`)
-              // window.location.push=`/project/signup/${projectId}`;
-            }
-          } else if (action === 'quit') {
-            this.setState({ ...this.state, showDialog: true });
-          }
+
+          this.handleActionClickSitch(action,projectId,customConfig,paymentConfig)
         }
       } else if (user.isLogin && user.in_blacklist) {
         Alert.warning('您已被添加到黑名单，请联系客服');
