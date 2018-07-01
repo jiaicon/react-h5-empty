@@ -120,8 +120,8 @@ class COMMUNITYITEM extends React.Component {
 
       return;
     }
-    history.push(`/my/circledetail/${info.id}`)
-    // window.location.href=`/my/circledetail/${info.id}`;
+    // history.push(`/my/circledetail/${info.id}`)
+    window.location.href = `/my/circledetail/${info.id}`;
   }
 
   handleDelete(e) {
@@ -214,7 +214,7 @@ class COMMUNITYITEM extends React.Component {
 
 
               {
-                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                                                                           </Link> : null
+                this.props.isDetailEntry && data.project_info && data.project_info.name ? <Link to={`/project/detail/${data.project_info.id}`}><div className="components-community-item-business-container"># {data.project_info.name }</div>                                                                                                                                                                                                                                                                                                                                                                                                            </Link> : null
               }
 
 

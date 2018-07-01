@@ -44,7 +44,8 @@ class Link extends React.Component {
     if (this.props.to && this.props.to.indexOf('http') === 0) {
       location.href = this.props.to;
     } else if (this.props.to) {
-      history.push(this.props.to);
+      // history.push(this.props.to);
+      location.href = this.props.to;
     } else if (this.props.to !== '') {
       history.push({ pathname: event.currentTarget.pathname, search: event.currentTarget.search });
     }

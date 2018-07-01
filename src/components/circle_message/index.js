@@ -30,8 +30,8 @@ class CircleMessage extends React.Component {
     const feelingId = info.feeling_id;
     const feelingIsDisplay = info.feeling_is_display;
     if (feelingIsDisplay) {
-      history.push(`/my/circledetail/${feelingId}`)
-      // window.location.href=`/my/circledetail/${feelingId}`;
+      // history.push(`/my/circledetail/${feelingId}`)
+      window.location.href = `/my/circledetail/${feelingId}`;
     }
   }
 

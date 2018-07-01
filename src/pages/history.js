@@ -19,4 +19,4 @@ export const USING_HISTORY_HASH =
   && !/preview=1/.test(location.href);
 
 // export default USING_HISTORY_HASH ? createHashHistory() : createHistory();
-export  default createHistory();
+export default createHistory();

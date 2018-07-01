@@ -79,10 +79,9 @@ class ProjectListPage extends React.Component {
   }
 
   onFilterChange(selectedOption) {
- 
     const { type, category, target } = selectedOption;
-    history.push=`/project/list/type/${type}/category/${category}/target/${target}`;
-    // window.location.href=`/project/list/type/${type}/category/${category}/target/${target}`;
+    // history.push(`/project/list/type/${type}/category/${category}/target/${target}`);
+    window.location.href = `/project/list/type/${type}/category/${category}/target/${target}`;
   }
 
   onFilterShow() {
