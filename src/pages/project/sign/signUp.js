@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import  CheckboxStepper  from '../../../components/checkboxStepper/index'
 import {List, Checkbox, DatePicker, Flex ,Stepper  } from 'antd-mobile';
 import history from '../../history';
-
+import Avatar from '../../../components/avatar/avatar';
 import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/checkbox/style/css';
 import 'antd-mobile/lib/Stepper/style/css';
@@ -395,6 +395,7 @@ initialPic(data) {
 
         success: (urls) => {
             if (urls.length == 1) {
+                alert(`1`)
                 attachment.push(urls[0]);
 
             } else if (urls.length > 1) {
@@ -402,8 +403,7 @@ initialPic(data) {
                     attachment.push(urls[i]);
                 }
             }
-            // this.state[key] = attachment;
-            this.setState({[key]: attachment, ...this.state});
+            this.setState({ ...this.state,[key]: attachment});
             this.pushExtendsArray(key, attachment)
         },
     });
@@ -441,12 +441,12 @@ renderOtherPic(item) {
                                 <Avatar src={item} size={{width: 80, radius: 1}}/>
                             </div>
                             <div className="page-project-signUp-item-render-del" onClick={this.onPicDel} id={keys}
-                                 key={item}
-                                 data-key={`${key}`}
+                             data-key={`${key}`}
                             />
                         </div>
                     ))
                 }
+             
                 {
                     this.state[key].length === 1 ?
                         <div/> :
