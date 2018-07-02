@@ -209,7 +209,7 @@ class ProjectDetailPage extends React.Component {
   }
   handleActionClick(action) {
     const { projectId } = this;
-    const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
+    const realRegister =  window.real_name_register;
     const { user , detail: { data: detailData } } = this.props;
     const customConfig =detailData.custom_config || null;
     const paymentConfig =detailData.custom_payment_config || null;
