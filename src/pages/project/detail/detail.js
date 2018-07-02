@@ -219,7 +219,7 @@ class ProjectDetailPage extends React.Component {
       // realRegister 机构实名 1 要求  0 否
       
       if (!user.isLogin) {
-        this.handleActionClickSitch(action,projectId,customConfig,paymentConfig);
+        this.props.userCenterAction();
       } else if (user.isLogin && !user.in_blacklist) {
         // 不要求实名
         if (realRegister == 0) {
