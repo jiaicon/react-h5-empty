@@ -50,7 +50,7 @@ class Login extends React.Component {
     componentWillReceiveProps(nextProps) {
         const {login: cLogin} = this.props;
         const {login: nLogin} = nextProps;
-        const realRegister =  window.real_name_register;
+        const realRegister =  window.orgInfo.real_name_register;
         if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
           
             let target = '/my';

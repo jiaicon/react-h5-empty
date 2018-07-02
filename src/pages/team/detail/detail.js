@@ -194,7 +194,7 @@ class TeamDetailPage extends React.Component {
   handleActionClick(action) {
     const { teamId } = this;
     const { detail: { team: detailData }, user } = this.props;
-    const realRegister =  window.real_name_register;
+    const realRegister =  window.orgInfo.real_name_register;
     // in_blacklist 黑名单 0不在，1在
     // realRegister 机构实名 1 要求  0 否
     return () => {
