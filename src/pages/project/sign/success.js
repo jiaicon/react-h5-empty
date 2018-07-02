@@ -91,6 +91,6 @@ SignUpPage.propTypes = {
   }),
 };
 
-SignUpPage.title = '报名信息';
+SignUpPage.title = '报名成功';
 
 export default SignUpPage
