@@ -27,9 +27,9 @@ class Certificate extends React.Component {
     this.certCachet = window.orgInfo.cert_cachet || '/images/my/zdx.png';
     this.certAuthOrg = window.orgInfo.cert_auth_org || '和众泽益志愿服务中心';
     const { user: listData } = this.props;
-    const register = dateTextToDateText(listData.regitser_time.split(' ')[0]);
+    const register = listData.regitser_time ? dateTextToDateText(listData.regitser_time ? listData.regitser_time.split(' ')[0] : 0) : null;
 
-    const now = dateTextToDateText(listData.server_time.split(' ')[0]);
+    const now = listData.server_time ? dateTextToDateText(listData.server_time ? listData.server_time.split(' ')[0] : 0) : null;
 
 
     this.state = {
@@ -48,8 +48,20 @@ class Certificate extends React.Component {
 
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { user: listData } = this.props;
+    const { user: NlistData } = nextProps;
 
+    if (nextProps.user.id) {
+      const register = NlistData.regitser_time ? dateTextToDateText(NlistData.regitser_time ? NlistData.regitser_time.split(' ')[0] : 0) : null;
+
+      const now = NlistData.server_time ? dateTextToDateText(NlistData.server_time ? NlistData.server_time.split(' ')[0] : 0) : null;
+      this.setState({
+        ...this.state,
+        register,
+        now,
+      });
+    }
   }
 
   componentWillUnmount() {}

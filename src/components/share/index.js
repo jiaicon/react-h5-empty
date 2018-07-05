@@ -11,7 +11,13 @@ import { USING_HISTORY_HASH } from '../../pages/history';
  *    module_setting: [[]]
  * }
  */
-
+function removeHTMLTag(str) {
+  str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+  str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+  str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+  str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
+  return str;
+}
 
 const WXS = (option = {}) => {
   if (!window.wx) {
@@ -34,7 +40,7 @@ const WXS = (option = {}) => {
 
   const newOption = {
     title: `${option.title || orgInfo.name}`,
-    desc: option.desc || '文明点亮你我，志愿感动社会',
+    desc: removeHTMLTag(option.desc||'文明点亮你我，志愿感动社会'),
     // link: `${host}${option.link || ''}`,
     link: shareUrl,
     imgUrl: option.image || orgInfo.logo || `${host}/images/icon.png`,
