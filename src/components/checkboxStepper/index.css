@@ -49,6 +49,9 @@
     font-size: 16px;
     color: #282828;
     margin-bottom: 15px;
+    white-space:nowrap; 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
 }
 .component-CheckboxStepper-checkbox label .price{
     width: 100%;
