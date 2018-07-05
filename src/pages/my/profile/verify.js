@@ -253,16 +253,13 @@ class Verify extends React.Component {
     }
 
     onSubmit() {
-        let photo;
+      
         const stateOrgData = this.state.winOrgInfo;
-        if (!this.realRegister) {   //非实名
-            photo = this.state.photo;
-        }
+ 
         const realname = this.state.realname;
         const idcard = this.state.idcard;
         const people = this.state.people;
-
-        // const nowaddress = this.state.nowaddress;
+        const photo= this.state.photo;
 
 
         const address = this.state.address;
@@ -270,7 +267,8 @@ class Verify extends React.Component {
         const city = this.state.city;
         const county = this.state.county;
         if (
-            (stateOrgData.open_real_name && checkEmpty(realname, '姓名'))
+            (stateOrgData.open_avatars && checkEmpty(photo, '头像')) 
+            || (stateOrgData.open_real_name && checkEmpty(realname, '姓名'))
             || (stateOrgData.open_id_number && checkEmpty(idcard, '身份证号码'))
             || (stateOrgData.open_nation && checkEmpty(people, '民族'))
             || (stateOrgData.open_addr && checkEmpty(province, '省份'))
@@ -355,6 +353,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo.open_avatars === 1 ?
                         <div>
                             <div className="page-my-profile-verify-header-box page-my-profile-verify-photo-box">
+                            <span className="page-my-profile-verify-header-start">*</span>
                                 <div className="page-my-profile-verify-fonts">头像</div>
                                 <div className="page-my-profile-verify-photo" onClick={this.onAvatarClick}>
                                     <div>

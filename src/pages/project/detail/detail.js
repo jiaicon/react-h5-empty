@@ -209,7 +209,7 @@ class ProjectDetailPage extends React.Component {
   }
   handleActionClick(action) {
     const { projectId } = this;
-    const realRegister =  window.orgInfo.custom_config ? window.orgInfo.custom_config.real_name_register: 0;
+    const realRegister =  window.orgInfo.real_name_register;
     const { user , detail: { data: detailData } } = this.props;
     const customConfig =detailData.custom_config || null;
     const paymentConfig =detailData.custom_payment_config || null;
@@ -219,7 +219,7 @@ class ProjectDetailPage extends React.Component {
       // realRegister 机构实名 1 要求  0 否
       
       if (!user.isLogin) {
-        this.handleActionClickSitch(action,projectId,customConfig,paymentConfig);
+        this.props.userCenterAction();
       } else if (user.isLogin && !user.in_blacklist) {
         // 不要求实名
         if (realRegister == 0) {
