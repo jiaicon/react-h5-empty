@@ -12,6 +12,12 @@
   justify-content: flex-start;
   align-items: center;
 }
+.page-forget-item label{
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .page-forget-fonts{
   display: block;
   width: 62px;
@@ -23,17 +29,18 @@
 }
 .page-forget-input{
   width: 98px;
-  margin-right: 53px;
   font-size: 15px;
   color: #333333;
   outline: none;
   display: block;
   height: 49px;
   display: block;
+  flex: 1;
 }
 .page-forget-code{
   font-size: 13px;
   color: #6AC6F8;
+  padding: 18px 12px;
 }
 .page-forget-submmit{
   width: 300px;

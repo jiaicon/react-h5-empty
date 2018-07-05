@@ -128,17 +128,25 @@ class Forget extends React.Component {
       <div className="page-forget">
         <div className="page-forget-top">修改密码</div>
         <div className="page-forget-item">
-          <span className="page-forget-fonts">手机号</span>
-          <input className="page-forget-input" type="number" maxLength="11" ref={(c) => { this.phone = c; }} onChange={this.onTextChanged} />
+          <label htmlFor="phone">
+            <span className="page-forget-fonts">手机号</span>
+            <input className="page-forget-input" type="number" id="phone" maxLength="11" ref={(c) => { this.phone = c; }} onChange={this.onTextChanged} />
+
+          </label>
+       
         </div>
         <div className="page-forget-item">
+          <label htmlFor="verifyCode">
           <span className="page-forget-fonts">验证码</span>
-          <input className="page-forget-input" type="number" ref={(c) => { this.verifyCode = c; }} onChange={this.onTextChanged} />
+          <input className="page-forget-input" id="verifyCode" type="number" ref={(c) => { this.verifyCode = c; }} onChange={this.onTextChanged} />
+          </label>
           <div className="page-forget-code" onClick={this.onSend}>{buttonString}</div>
         </div>
         <div className="page-forget-item">
+        <label htmlFor="password">
           <span className="page-forget-fonts">新密码</span>
-          <input className="page-forget-input" type="password" ref={(c) => { this.pwd = c; }} onChange={this.onTextChanged} />
+          <input className="page-forget-input" id="password" type="password" ref={(c) => { this.pwd = c; }} onChange={this.onTextChanged} />
+          </label>
         </div>
 
         <div className="page-forget-submmit" onClick={this.onSubmit}>确认修改</div>
