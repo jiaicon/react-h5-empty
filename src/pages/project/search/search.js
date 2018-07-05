@@ -83,7 +83,7 @@ class ProjectSearchPage extends React.Component {
 
     return (
       <div className="page-project-search">
-        <div className="header">
+        <div className="header"  onClick={this.handleSearch}>
           <div className="search-bar-container">
             <form onSubmit={this.handleSearch} className="component-search-bar">
               <input ref={(el) => { this.searchInput = el; }} onBlur={this.handleSearch} className="input" placeholder="搜索项目" />
