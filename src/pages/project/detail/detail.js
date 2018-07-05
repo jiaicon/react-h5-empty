@@ -397,6 +397,10 @@ class ProjectDetailPage extends React.Component {
                   content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
             />
           </div>
+          <div className="project-description-backhome">
+            <Link to="/"/>
+          </div>
+          <div className="project-description-takeup"/>
         </div>
         <div className="foot">
           <div className="line1px" />

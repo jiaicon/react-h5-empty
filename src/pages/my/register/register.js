@@ -38,7 +38,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    //realRegister: 1  实名注册， 0  非实名注册
+    // realRegister: 1  实名注册， 0  非实名注册
     this.realRegister = window.orgInfo.real_name_register;
     this.state = {
       captchaUrl: `${API_HOST}/api/captcha`,
@@ -82,11 +82,11 @@ class Register extends React.Component {
   }
   onSubmit() {
     // realRegister 机构实名 1 要求  0 否
-    let name,photo;
-    if (!this.realRegister) {   //非实名
+    let name;
+    if (!this.realRegister) {   // 非实名
       name = this.state.name;
-      photo = this.state.photo;
     }
+    const photo = this.state.photo;
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const password = this.state.password;
@@ -99,7 +99,7 @@ class Register extends React.Component {
       return;
     }
     if (!this.realRegister && !/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
-      Alert.warning('请输入正确的账号');
+      Alert.warning('请输入字母数字中文格式昵称');
       return;
     }
     if (password.length <= 5) {
@@ -114,8 +114,7 @@ class Register extends React.Component {
     data.pwd = password;
     data.phone = phone;
     data.verify_code = verifyCode;
-    if (photo!=undefined && photo != '') {
-      console.log('photo: '+photo);
+    if (photo != undefined && photo != '') {
       data.avatars = photo;
     }
     this.props.register(data);
@@ -168,11 +167,8 @@ class Register extends React.Component {
   }
   onTextChanged() {
     let name = '';
-    if(!this.realRegister) {
+    if (!this.realRegister) {
       name = this.username.value.replace(/(^\s+)|(\s+$)/g, '');
-      this.setState({
-        name
-      })
     }
     const phone = this.userphone.value.replace(/(^\s+)|(\s+$)/g, '');
     const verifyCode = this.usercode.value.replace(/(^\s+)|(\s+$)/g, '');
@@ -181,11 +177,11 @@ class Register extends React.Component {
 
     this.setState({
       ...this.state,
-
+      name,
       captcha,
       phone,
       verifyCode,
-      password
+      password,
     });
   }
   // 上传照片
@@ -210,7 +206,7 @@ class Register extends React.Component {
     return (
       <div className="page-register">
         {
-          this.realRegister && this.realRegister === 1 ?  null:
+          this.realRegister && this.realRegister === 1 ? null :
           <div className="page-register-photo">
             <div className="page-register-photo-container" onClick={this.onAvatarClick}>
               <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
@@ -218,17 +214,17 @@ class Register extends React.Component {
           </div>
         }
         {
-          this.realRegister && this.realRegister === 1 ?  '':
-            <div className="page-register-photo-fonts">上传头像(选填)</div>
+          this.realRegister && this.realRegister === 1 ? '' :
+          <div className="page-register-photo-fonts">上传头像(选填)</div>
         }
 
-        <ul className={this.realRegister?'realRegisterUl': ''}>
+        <ul className={this.realRegister ? 'realRegisterUl' : ''}>
           {this.realRegister
             ? null :
             <li>
               <div className="page-register-item">
                 <span className="page-register-fonts">昵称</span>
-                <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
+                <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onBlur={this.onTextChanged} />
               </div>
               <div className="line1px" />
             </li>

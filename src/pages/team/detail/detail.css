@@ -338,3 +338,19 @@
   height: 180px;
   margin:110px auto;
 } */
+
+.team-description-backhome{
+  width: 70px;
+  height: 38px;
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+}
+.team-description-backhome a{
+  display: block;
+  width: 70px;
+  height: 38px;
+  background-image: url(/images/my/backhome.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

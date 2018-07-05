@@ -155,7 +155,12 @@ class Post extends React.Component {
               >{data.name ? data.name : '补录时长项目'}</div>
               <div className="page-post-container-item-more" />
             </div>
-            <input type="tel" maxLength="2" className="page-post-container-text" placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }} onKeyUp={this.onTextChanged} />
+            <input
+              // type="tel" maxLength="3"
+              className="page-post-container-text"
+              placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }}
+              onKeyUp={this.onTextChanged}
+            />
             <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
           </div>
           <div>
