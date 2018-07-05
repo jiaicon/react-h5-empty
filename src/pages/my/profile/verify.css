@@ -80,6 +80,9 @@
     color: #666;
     text-align: justify;
     padding: 15px;
+    white-space:nowrap; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
 }
 
 .page-my-profile-verify-header-other-pic-start {
@@ -92,6 +95,9 @@
     width: 70px;
     text-align: justify;
     text-align-last: justify;
+    white-space:nowrap; 
+overflow:hidden; 
+text-overflow:ellipsis; 
 }
 
 .page-my-profile-verify-text {

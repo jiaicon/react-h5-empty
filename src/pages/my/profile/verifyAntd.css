@@ -3,6 +3,9 @@
     color: #666666;
     font-size: 15px;
     line-height: 30px;
+    white-space:nowrap; 
+  overflow:hidden; 
+  text-overflow:ellipsis;
   }
   .page-my-profile-verify-container .am-list-body::before{
     content: '';
