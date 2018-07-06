@@ -52,7 +52,7 @@
 .page-my-profile-verify-header-box {
     width: 100%;
     height: 50px;
-    padding: 0 15px;
+    padding: 0 20px;
     display: flex;
     flex-direction: reverse;
     justify-content: flex-start;
@@ -104,7 +104,7 @@ text-overflow:ellipsis;
     height: 50px;
     font-size: 15px;
     text-align: left;
-    width: 275px;
+    flex: 1;
     display: block;
     padding-left: 15px;
 }
@@ -195,59 +195,11 @@ text-overflow:ellipsis;
     align-items: center;
 }
 
-/* .page-my-profile-verify-container .am-list-header {
-  height: 50px;
-  color: #666666;
-  font-size: 15px;
-  line-height: 50px;
-}
-.page-my-profile-verify-container .am-list-body::before{
-  background-color: transparent;
-} */
-/* .am-list {
-  margin-left: 15px;
-  color: #282828;
-  font-size: 15px;
-}
-.am-list-thumb {
-  margin-right: 10px;
-  width: 24px;
-  height: 24px;
-}
-.am-checkbox-wrapper{
-  cursor: default;
-}
-.am-list .am-list-item.am-checkbox-item .am-list-thumb .am-checkbox {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 44px;
-}
-.am-checkbox-input {
-  position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    width: 21px;
-    height: 21px;
-}
-.ant-checkbox-input:focus + .ant-checkbox-inner{
-  border: 1px solid #1BBA79 !important;
-  width: 24px!important;
-}
-
-.ant-checkbox-inner{
-  border: 1px solid red!important;
-  background-color: transparent;
-} */
 
 .page-my-profile-edit-text {
-    width: 345px;
+    width: 335px;
     height: 100px;
-    margin-bottom: 20px;
-    margin: 0 15px;
+    margin: 0 20px 20px;
     background: #FFFFFF;
     border-radius: 4px;
     font-size: 15px;
