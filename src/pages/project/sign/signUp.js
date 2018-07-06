@@ -9,12 +9,13 @@ import classnames from 'classnames';
 import uploadToWX from '../../../utils/wxupload';
 import { bindActionCreators } from 'redux';
 import  CheckboxStepper  from '../../../components/checkboxStepper/index'
-import {List, Checkbox, DatePicker, Flex ,Stepper  } from 'antd-mobile';
+import {List, Checkbox, DatePicker, Flex ,Stepper ,Radio } from 'antd-mobile';
 import history from '../../history';
 import Avatar from '../../../components/avatar/avatar';
 import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/checkbox/style/css';
 import 'antd-mobile/lib/Stepper/style/css';
+import 'antd-mobile/lib/Radio/style/css';
 import '../../my/profile/verifyAntd.css';
 import './signUp.css';
 import {
@@ -38,6 +39,7 @@ function formatDate(x, y) {
 
 const isAndroid = /android/i.test(navigator.userAgent);
 const CheckboxItem = Checkbox.CheckboxItem;
+const RadioItem = Radio.RadioItem;
 function getnum(num){
     return Math.round(num*100)/100
 }
@@ -60,7 +62,7 @@ function checkEmpty(value, label) {
 //判断自定义信息必填的是否为空
 function isRequired(arr, stateData) {
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i].is_required && arr[i].is_required === '1') {
+        if (Number( arr[i].is_required )  && Number( arr[i].is_required )  === 1) {
     
             const keys = Object.keys(stateData);
             if (keys.length != 0) {
@@ -109,7 +111,7 @@ class SignUpPage extends React.Component {
         <span
             className="page-project-signUp-verify-text page-project-signUp-verify-text-lineheight"
         >
-          {extra}</span>
+          {extra} <img  src="/images/my/more.png"/></span> 
 
         </div>
     );
@@ -139,7 +141,7 @@ class SignUpPage extends React.Component {
             obj.label = item.label;
             obj.is_required = item.is_required;
             obj.key = item.key;
-            if(item.is_required == '1'){
+            if(Number(item.is_required) == 1){
                 obj.num = 1;
                 obj.switch = true;
                 total = obj.num * getnum(obj.amount);
@@ -204,6 +206,7 @@ renderTime(item){
         </div>
     )
 }
+
 //单选控件
 renderOtherInfoSelect(item) {
     const data = item;
@@ -211,28 +214,42 @@ renderOtherInfoSelect(item) {
     const options = data.options.split(",");
     return (
         <div>
-            <div className="page-project-signUp-verify-header-box">
+            <div className="page-signUp-danxuan">
                 {
                     Number(item.is_required) === 1 ?
-                        <span className="page-project-signUp-verify-header-start">*</span>
+                        <span className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-start">*</span>
                         :
                         null
                 }
-                <div className="page-project-signUp-verify-fonts">{data.label}</div>
-                <label htmlFor={`${key}`}>
+                {/* <div className="page-project-signUp-verify-fonts">{data.label}</div> */}
+                {/* <label htmlFor={`${key}`}>
                     <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}
                     >
                         <option value="-1"/>
                         {options.map((item1, keys) =>
                             <option value={item1} key={keys}>{item1}</option>)}
                     </select>
-                </label>
+                </label> */}
+                 <List renderHeader={() => data.label}>
+                    {options.map(item => (
+                    <RadioItem checked={this.state[key] === item} onChange={() => this.onChange(item,key)}>
+                        {item}
+                    </RadioItem>
+                    ))}
+                </List>
             </div>
             <div className="line1px"/>
         </div>
     )
 }
-
+onChange = (value,key) => {
+    console.log(value);
+    console.log(key)
+    this.pushExtendsArray(key, value);
+    this.setState({
+      [key]: value,
+    });
+  };
 handleOtherInfoSelectClick(e) {
     const key = e.target.id;
     const value = e.target.value;
@@ -257,7 +274,7 @@ renderOtherInfoCheckbox(item1) {
     return (
         <div className="page-project-signUp-other-title">
             {
-                item1.is_required === 1 ?
+                 Number(item1.is_required) === 1 ?
                     <span className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-start">*</span>
                     :
                     null
@@ -287,10 +304,11 @@ renderOtherInfoInput(item) {
                             :
                             null
                     }
-                    <div className="page-project-signUp-verify-fonts">{data.label}</div>
-                    <input id={`${key}`} className="page-project-signUp-verify-text"
+                  {data.label}
+                    </div>
+                    <input id={`${key}`} className="page-my-profile-signUp-verify-double-text"
                            onChange={this.handleOtherInfoInputClick}/>
-                </div>
+            
                 <div className="line1px"/>
             </div>
         </div>
@@ -318,7 +336,7 @@ renderOtherInfoManyInput(item) {
                         :
                         null
                 }
-                <div className="page-project-signUp-verify-fonts">{data.label}</div>
+                  {data.label}
             </div>
 
             <textarea placeholder={`请输入${data.label}`}
@@ -626,13 +644,13 @@ onGetData(data){
     let  Ltotal = null;
     let  Ntotal = null;
     data.map((item,index)=>{
-        if(item.is_required == '0'){
+        if(Number(item.is_required) == 0){
          if(item.switch){
            
             Ltotal +=item.num * getnum(item.amount);
            
          }
-        }else if(item.is_required == '1'){
+        }else if(Number(item.is_required) == 1){
          Ntotal += item.num * getnum(item.amount);
         }
   
@@ -654,7 +672,7 @@ onCheckedAll(){
     checkeAll = !this.state.checkeAll;
 
     data.map((item,index)=>{
-        if(item.is_required == '0'){
+        if(Number(item.is_required) == 0){
          if(checkeAll){
             if(!item.switch){
                 if(item.num == 0){
@@ -672,7 +690,7 @@ onCheckedAll(){
               item.switch =false;
             }
           }
-        }else if(item.is_required == '1'){
+        }else if(Number(item.is_required)== 1){
          Ntotal=item.num * getnum(item.amount);
         }
   

@@ -144,7 +144,7 @@ class Verify extends React.Component {
             <span
                 className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
             >
-              {extra}</span>
+              {extra}<img  src="/images/my/more.png"/></span>
 
             </div>
         );
@@ -594,10 +594,11 @@ class Verify extends React.Component {
                                 :
                                 null
                         }
-                        <div className="page-my-profile-verify-fonts">{data.label}</div>
-                        <input id={`${key}`} className="page-my-profile-verify-text"
-                               onChange={this.handleOtherInfoInputClick}/>
+                        {data.label}
                     </div>
+                        <input id={`${key}`} className="page-my-profile-verify-double-text"
+                        onChange={this.handleOtherInfoInputClick}/>
+                
                     <div className="line1px"/>
                 </div>
             </div>
@@ -624,7 +625,7 @@ class Verify extends React.Component {
                             :
                             null
                     }
-                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+                  {data.label}
                 </div>
 
                 <textarea placeholder={`请输入${data.label}`}
