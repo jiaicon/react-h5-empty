@@ -58,12 +58,20 @@ class MyPage extends React.Component {
       </div>
     );
   }
-
+  onPreview(e) {
+    var key = e.target.getAttribute("data-key");
+    wx.ready(() => {
+      wx.previewImage({
+        current: key, // 当前显示图片的http链接
+        urls: key, // 需要预览的图片http链接列表
+      });
+    });
+  }
   renderPageMyphotoTemplate() {
     const { user } = this.props;
     return (
       <div className="page-my-photo-container">
-        <Avatar src={user.avatars ? user.avatars : ''} size={{ width: 80, radius: 8 }} defaultSrc="/images/my/register.png" />
+        <Avatar src={user.avatars ? user.avatars : ''} data-key={user.avatars||''} size={{ width: 80, radius: 8 }} defaultSrc="/images/my/register.png"  onClick={this.onPreview}/>
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.real_name || user.username || '未设置昵称'}</p>
           <p className="page-my-user-info-signature">{ user.slogan || '未设置口号'}</p>

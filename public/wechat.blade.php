@@ -7,15 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <meta name="last-build-time" content="Thu Jul 05 2018 10:50:26 GMT+0800 (GMT+08:00)">
-=======
-  <meta name="last-build-time" content="Mon Jul 02 2018 20:37:31 GMT+0800 (GMT+08:00)">
->>>>>>> 1493fc7e3583cba770e75d98a2e4b2fafaab31a0
-=======
-  <meta name="last-build-time" content="Wed Jun 06 2018 11:00:59 GMT+0800 (中国标准时间)">
->>>>>>> 9c1b99298bce59797f12c489a2af1c67723dc455
+  <meta name="last-build-time" content="Fri Jul 06 2018 15:50:50 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -95,15 +87,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <script src="/dist/main.26cd80d35d8f8e37df1a.js"></script>
-=======
-  <script src="/dist/main.2f6006f80fcc1a296064.js"></script>
->>>>>>> 1493fc7e3583cba770e75d98a2e4b2fafaab31a0
-=======
-  <script src="/dist/main.e0608efac85127c572c6.js"></script>
->>>>>>> 9c1b99298bce59797f12c489a2af1c67723dc455
+  <script src="/dist/main.ca53eafb8acef58b0363.js"></script>
 </body>
 
 </html>
