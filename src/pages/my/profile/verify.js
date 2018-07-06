@@ -716,7 +716,6 @@ class Verify extends React.Component {
     onPicClick(e) {
         var key = e.target.id;
         const attachment = this.state[key];
-        // count: 3 - attachment.length,
         uploadToWX({
 
             success: (urls) => {
@@ -728,7 +727,6 @@ class Verify extends React.Component {
                         attachment.push(urls[i]);
                     }
                 }
-                // this.state[key] = attachment;
                 this.setState({[key]: attachment, ...this.state});
                 this.pushExtendsArray(key, attachment)
             },
@@ -741,11 +739,20 @@ class Verify extends React.Component {
         var key = e.target.getAttribute("data-key");
         const attachment = this.state[key];
         attachment.splice(num, 1);
-        // this.state[key] = attachment;
         this.setState({[key]: attachment, ...this.state}),
         this.pushExtendsArray(key, attachment)
     }
-
+    onPreview(e) {
+        const num = e.target.id;
+        var key = e.target.getAttribute("data-key");
+        const imagesArr = this.state[key];
+        wx.ready(() => {
+          wx.previewImage({
+            current: imagesArr[num], // 当前显示图片的http链接
+            urls: imagesArr, // 需要预览的图片http链接列表
+          });
+        });
+      }
     renderOtherPic(item) {
         const data = item;
         const key = data.key;
@@ -764,7 +771,11 @@ class Verify extends React.Component {
                         this.state[key].map((item, keys) => (
                             <div className="page-applys-item-render-container">
                                 <div className="page-applys-item-view">
-                                    <Avatar src={item} size={{width: 80, radius: 1}}/>
+                                    <Avatar src={item} size={{width: 80, radius: 1}} id={keys}
+                                     key={item}
+                                     data-key={`${key}`}
+                                     onClick={this.onPreview} 
+                                     />
                                 </div>
                                 <div className="page-applys-item-render-del" onClick={this.onPicDel} id={keys}
                                      key={item}

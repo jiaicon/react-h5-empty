@@ -196,6 +196,17 @@ class Profile extends React.Component {
             </div>
         );
     }
+    onPreview(e) {
+        // const num = e.target.id;
+        var src = e.target.getAttribute("data-key");
+        // const imagesArr = this.state[key];
+        wx.ready(() => {
+          wx.previewImage({
+            current: src, // 当前显示图片的http链接
+            urls: src, // 需要预览的图片http链接列表
+          });
+        });
+    }
     renderRealInfoExtends(){
         const userId= this.state.userId;
         const user = userId === 'user' ? this.props.user: this.props.otherfamily.data;
@@ -267,7 +278,7 @@ class Profile extends React.Component {
                                                 <div className="page-profile-fonts">{item.label}</div>
                                                 </div>
                                                 <div className="page-profile-fonts-view-img">
-                                                    <Avatar  src={item.value} size={{width: 80, radius: 1}}/>
+                                                    <Avatar  src={item.value} data-key={item.value} size={{width: 80, radius: 1}} onClick={this.onPreview} />
 
                                                 </div>
                                                 <div className="line1px" />
