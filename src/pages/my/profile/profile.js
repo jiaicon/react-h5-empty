@@ -197,13 +197,13 @@ class Profile extends React.Component {
         );
     }
     onPreview(e) {
-        // const num = e.target.id;
         var src = e.target.getAttribute("data-key");
-        // const imagesArr = this.state[key];
+        var arr =[];
+        arr.push(src)
         wx.ready(() => {
           wx.previewImage({
             current: src, // 当前显示图片的http链接
-            urls: src, // 需要预览的图片http链接列表
+            urls: arr, // 需要预览的图片http链接列表
           });
         });
     }
@@ -449,7 +449,6 @@ class Profile extends React.Component {
         const {failed: nFailed, fetching: nFetch} = nextProps.alertPeopleInfo;
         if (tFetch && !nFetch && !nFailed) {
             window.location.replace('/my/family');
-            // history.replace('/my/family');
         }
         const userId = this.state.userId;
         
