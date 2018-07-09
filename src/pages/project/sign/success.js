@@ -44,12 +44,12 @@ class SignUpPage extends React.Component {
   }
 
   goBackProject(){
-    // window.location.replace(`/project/detail/${ this.projectId}`)
-    history.replace(`/project/detail/${ this.projectId}`)
+    window.location.replace(`/project/detail/${ this.projectId}`)
+    // history.replace(`/project/detail/${ this.projectId}`)
   }
   goBackIndex(){
-    // window.location.replace(`/`)
-    history.replace(`/`)
+    window.location.replace(`/`)
+    // history.replace(`/`)
   }
   render() {
   

@@ -49,8 +49,8 @@ export const logoutAction = () => (dispatch) => {
         dispatch({type: USERINFO_CLEAR, payload: json});
 
         if (json && !json.error_code) {
-            // window.location.replace('/');
-            history.replace('/');
+            window.location.replace('/');
+            // history.replace('/');
         }
     }).catch((e) => {
         console.log(e);

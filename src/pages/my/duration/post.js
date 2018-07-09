@@ -67,7 +67,6 @@ class Post extends React.Component {
     const attachment = this.state.attachment;
     uploadToWX({
       success: (urls) => {
-        console.log('图片上传成功:', urls);
         attachment.push(urls[0]);
         this.setState({
           ...this.state,
@@ -110,7 +109,6 @@ class Post extends React.Component {
     }
   }
   onNext() {
-    console.log('我点击了');
     const id = this.state.data.id;
     const hours = this.state.hours;
     const content = this.state.info;

@@ -158,8 +158,8 @@ class Circle extends React.Component {
   onPublish() {
     const { user: { isLogin } } = this.props;
     if (isLogin) {
-      // window.location.replace('/my/circlepublish/4');
-      history.replace('/my/circlepublish/4');
+      window.location.replace('/my/circlepublish/4');
+      // history.replace('/my/circlepublish/4');
     } else {
       this.setState({ ...this.state, showDialogA: true });
     }

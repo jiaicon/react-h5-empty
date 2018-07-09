@@ -163,7 +163,8 @@ class SignUpPage extends React.Component {
   
     if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
    
-        history.replace(`/project/success/${this.projectId}`)
+        // history.replace(`/project/success/${this.projectId}`)
+        window.location.replace(`/project/success/${this.projectId}`)
       
     }
   }
