@@ -957,7 +957,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo === null ?
                         null
                         :
-                        <div>
+                        <div style={{width:'100%'}}>
                             <div className="page-my-profile-verify-main">
                                 {
                                     //头像
