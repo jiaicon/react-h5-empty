@@ -275,7 +275,7 @@ class ProjectDetailPage extends React.Component {
     let actionLabel = '';
     let actionClassName = '';
     let action = '';
-    if (detailData.activity_status === 3 ||detailData.project_status === 5) {
+    if (detailData.activity_status === 3 || detailData.project_status === 5) {
       actionLabel = '已结束';
       actionClassName = 'project-action-end';
     }  else if (!joined && fulled) {
