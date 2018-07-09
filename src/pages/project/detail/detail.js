@@ -267,7 +267,7 @@ class ProjectDetailPage extends React.Component {
     const content = detailData.content;
     // join_status: [integer] 0审核中 1通过 2驳回, 详情页下发，登陆后如加入项目才有此字段
     // activity_status: [integer] 活动状态 1 招募中，2进行中 3已结束
-    const joined = isLogin && (detailData.join_status === 0 || detailData.join_status === 1);
+    const joined = isLogin && (detailData.join_status === 0 || detailData.join_status === 1 );
     const fulled = detailData.join_people_count === detailData.people_count;
     const serviceCategories = detailData.category.map(category => category.service_category_name);
     const serviceObjects = detailData.service_object.map(obj => obj.service_object_name);
@@ -275,11 +275,10 @@ class ProjectDetailPage extends React.Component {
     let actionLabel = '';
     let actionClassName = '';
     let action = '';
-
-    if (detailData.activity_status === 3) {
+    if (detailData.activity_status === 3 ||detailData.project_status === 5) {
       actionLabel = '已结束';
       actionClassName = 'project-action-end';
-    } else if (!joined && fulled) {
+    }  else if (!joined && fulled) {
       actionLabel = '已满员';
       actionClassName = 'project-action-full';
     } else if (!joined && detailData.activity_status === 2) {
