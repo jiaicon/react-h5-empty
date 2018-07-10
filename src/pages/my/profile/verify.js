@@ -283,6 +283,7 @@ class Verify extends React.Component {
         }
         if (this.state.winOrgInfo.extends && this.state.winOrgInfo.extends.length > 0) {
             if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
+                isEmpty = false;
                 return;
             }
         }
@@ -731,7 +732,7 @@ class Verify extends React.Component {
                         attachment.push(urls[i]);
                     }
                 }
-                this.setState({[key]: attachment, ...this.state});
+                this.setState({...this.state,[key]: attachment});
                 this.pushExtendsArray(key, attachment)
             },
         });
@@ -743,8 +744,8 @@ class Verify extends React.Component {
         var key = e.target.getAttribute("data-key");
         const attachment = this.state[key];
         attachment.splice(num, 1);
-        this.setState({[key]: attachment, ...this.state}),
-        this.pushExtendsArray(key, null)
+        this.setState({...this.state,[key]: attachment}),
+        this.pushExtendsArray(key, attachment)
     }
     onPreview(e) {
         const num = e.target.id;

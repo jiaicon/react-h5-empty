@@ -49,6 +49,7 @@ function getnum(num){
 let isEmpty = false;
 
 function checkEmpty(value, label) {
+    
     if (!value || !value.length) {
         Alert.warning(`请填写${label}`);
         isEmpty = true;
@@ -61,15 +62,17 @@ function checkEmpty(value, label) {
 
 //判断自定义信息必填的是否为空
 function isRequired(arr, stateData) {
+ 
     for (let i = 0; i < arr.length; i++) {
         if (Number( arr[i].is_required )  && Number( arr[i].is_required )  === 1) {
-    
+
             const keys = Object.keys(stateData);
             if (keys.length != 0) {
                 let isInArr = false;    //记录自定义信息的对象中必填的key是否在存在
                 for (let j in stateData) {
-                    if (arr[i].key === j && stateData.hasOwnProperty(j)) {
+                    if (arr[i].key == j && stateData.hasOwnProperty(j)) {
                         isInArr = false;
+                        
                         break;
                     } else {
                         isInArr = true
@@ -77,6 +80,7 @@ function isRequired(arr, stateData) {
                 }
                 if (isInArr) {
                     checkEmpty(null, arr[i].label);
+                    
                     return true;
                 }
             } else {
@@ -98,9 +102,10 @@ class SignUpPage extends React.Component {
     super(props);
     autoBind(this);
     this.projectId = props.route.params.projectId;
-    this.extendsArray={}
+   
     this.state = {
         checkeAll:false,
+        extendsArray:{},
     };
     this.CustomChildren = ({extra, onClick}) => (
 
@@ -124,13 +129,12 @@ class SignUpPage extends React.Component {
     
   }
   componentWillReceiveProps(nextProps) {
-      console.log(nextProps)
-    const {detail:Ldetail} =this.props;
-    const {detail:Ndetail} =nextProps;
-    if(Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed &&Ndetail.data && Ndetail.data.custom_config){
+    const {detail:Ldetail ,joinPay: Lpay} =this.props;
+    const {detail:Ndetail ,joinPay: Npay } =nextProps;
+    if(Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed && Ndetail.data && Ndetail.data.custom_config){
         this.initialPic(Ndetail.data.custom_config);
         
-        this.customConfig=Ndetail.data.custom_config
+        this.customConfig = Ndetail.data.custom_config
       
     }
     if(Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed && Ndetail.data && Ndetail.data.custom_payment_config){
@@ -159,9 +163,6 @@ class SignUpPage extends React.Component {
             
         })
     }   
-    const { joinPay: Lpay } = this.props;
-    const { joinPay: Npay } = nextProps;
-  
     if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
    
         // history.replace(`/project/success/${this.projectId}`)
@@ -236,8 +237,8 @@ renderOtherInfoSelect(item) {
                 }
              
                  <List renderHeader={() => data.label}>
-                    {options.map(item => (
-                    <RadioItem checked={this.state[key] === item} onChange={() => this.onChange(item,key)}>
+                    {options.map((item,index) => (
+                    <RadioItem checked={this.state[key] === item} key={index} onChange={() => this.onChange(item,key)}>
                         {item}
                     </RadioItem>
                     ))}
@@ -248,8 +249,7 @@ renderOtherInfoSelect(item) {
     )
 }
 onChange = (value,key) => {
-    console.log(value);
-    console.log(key)
+
     this.pushExtendsArray(key, value);
     this.setState({
       [key]: value,
@@ -437,8 +437,8 @@ onPicDel(e) {
     var key = e.target.getAttribute("data-key");
     const attachment = this.state[key];
     attachment.splice(num, 1);
-    this.setState({[key]: attachment, ...this.state}),
-    this.pushExtendsArray(key, null)
+    this.setState({ ...this.state,[key]: attachment}),
+    this.pushExtendsArray(key, attachment)
 }
 onPreview(e) {
     const num = e.target.id;
@@ -469,7 +469,7 @@ renderOtherPic(item) {
                     this.state[key].map((item, keys) => (
                         <div className="page-project-signUp-item-render-container">
                             <div className="page-project-signUp-item-view">
-                                <Avatar src={item} size={{width: 80, radius: 1}} onClick={this.onPreview}  id={keys}
+                                <Avatar src={item} size={{width: 100, radius: 1}} onClick={this.onPreview}  id={keys}
                                 data-key={`${key}`}/>
                             </div>
                             <div className="page-project-signUp-item-render-del" onClick={this.onPicDel} id={keys}
@@ -516,7 +516,7 @@ softArr(oldArr, newArr) {
 * isMany 是否多选 true是 false否
 * */
 pushExtendsArray(key, value, isMany) {
-    const extendsArray = this.extendsArray;
+    const extendsArray = this.state.extendsArray;
     const windowOrgConfig = this.customConfig;
   
     
@@ -563,7 +563,11 @@ pushExtendsArray(key, value, isMany) {
             extendsArray[key] = value;
         }
     }
-    this.extendsArray = extendsArray;
+    this.setState({
+        ...this.state,
+        extendsArray
+    })
+    // this.extendsArray = extendsArray;
 
 }
 
@@ -712,15 +716,19 @@ onCheckedAll(){
 // 多选购买
 renderOrder (){
     const data =this.state.data;
-  
+    
     return(
         <CheckboxStepper data={data||null} getData={this.onGetData}  checkeAll={this.state.checkeAll}/>
        
     )
 }
 onSubmmit(){
+    const extendsArray = this.state.extendsArray;
     if (this.customConfig && this.customConfig.length > 0) {
-        if (isRequired(this.customConfig,this.extendsArray)) {
+
+        if (isRequired(this.customConfig, extendsArray)) {
+         
+            isEmpty = false;
             return;
         }
     }
@@ -728,7 +736,7 @@ onSubmmit(){
     let pay ={};
     data.id =this.projectId;
     data.type =1;
-    data.extends = this.extendsArray;
+    data.extends = extendsArray;
     if(this.state.data && this.state.data.length > 0){
         let payData=this.state.data;
         for(var i = 0; i<payData.length;i++){
@@ -746,7 +754,7 @@ onSubmmit(){
         }
     }
     data.payment = pay;
-
+  
     this.props.joinPayProject(data);
 
 
@@ -809,7 +817,7 @@ SignUpPage.propTypes = {
   }),
 };
 
-SignUpPage.title = '报名信息';
+SignUpPage.title = '报名信息111';
 
 export default connect(
     state => ({

@@ -162,14 +162,14 @@
     align-items: center;
   }
   .page-project-signUp-item-render-container{
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin-right: 12px;
     position: relative;
   }
   .page-project-signUp-item-view{
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     position: absolute;
     top: 0;
     left: 0;
