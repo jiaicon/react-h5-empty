@@ -163,11 +163,12 @@ class SignUpPage extends React.Component {
             
         })
     }   
+    if (Lpay.fetching && !Lpay.failed && !Npay.fetching && !Npay.failed) {
+        window.location.replace(`/project/success/${this.projectId}`)
+    }
     if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {
-   
         // history.replace(`/project/success/${this.projectId}`)
         window.location.replace(`/project/success/${this.projectId}`)
-      
     }
   }
   componentWillDidmount() {
@@ -724,6 +725,10 @@ renderOrder (){
 }
 onSubmmit(){
     const extendsArray = this.state.extendsArray;
+    let data = {};
+    let pay ={};
+    data.id =this.projectId;
+    data.type =1;
     if (this.customConfig && this.customConfig.length > 0) {
 
         if (isRequired(this.customConfig, extendsArray)) {
@@ -731,12 +736,8 @@ onSubmmit(){
             isEmpty = false;
             return;
         }
+        data.extends = extendsArray;
     }
-    let data = {};
-    let pay ={};
-    data.id =this.projectId;
-    data.type =1;
-    data.extends = extendsArray;
     if(this.state.data && this.state.data.length > 0){
         let payData=this.state.data;
         for(var i = 0; i<payData.length;i++){
