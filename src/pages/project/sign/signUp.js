@@ -111,7 +111,7 @@ class SignUpPage extends React.Component {
         <span
             className="page-project-signUp-verify-text page-project-signUp-verify-text-lineheight"
         >
-          {/* {extra} */}
+          {extra}
            <img  src="/images/my/more.png"/></span> 
 
         </div>
@@ -196,7 +196,7 @@ renderTime(item){
                 <DatePicker
                 mode="time"
                 value={this.state[key]}
-                // extra={`请选择${data.label}`}
+                extra={`  `}
                 onOk={v => (
                     this.pushExtendsArray(key, formatDate(v)), 
                     this.setState({
@@ -375,7 +375,7 @@ renderOtherInfoDate(item) {
                     mode="date"
                     format="YYYY-MM-DD"
                     value={this.state[key]}
-                    // extra={`请选择${data.label}`}
+                    extra={` }`}
                     onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
                         ...this.state,
                         [key]: v

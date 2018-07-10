@@ -144,7 +144,7 @@ class Verify extends React.Component {
             <span
                 className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
             >
-              {/* {extra} */}
+              {extra}
               <img  src="/images/my/more.png"/></span>
 
             </div>
@@ -666,7 +666,7 @@ class Verify extends React.Component {
                         mode="date"
                         format="YYYY-MM-DD"
                         value={this.state[key]}
-                        extra={`请选择${data.label}`}
+                        extra={` `}
                         onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
                             ...this.state,
                             [key]: v
@@ -700,11 +700,13 @@ class Verify extends React.Component {
                         mode="datetime"
                         format="YYYY-MM-DD HH:mm"
                         value={this.state[key]}
-                        extra={`请选择${data.label}`}
-                        onOk={v => (this.pushExtendsArray(key, formatDate(v, true)), this.setState({
+                        extra={`  `}
+                        onOk={v => (
+                            this.pushExtendsArray(key, formatDate(v, true)), 
+                            this.setState({
                             ...this.state,
                             [key]: v
-                        }), console.log(v))}
+                        })}
                     >
 
                         <this.CustomChildren/>
