@@ -186,6 +186,8 @@ class SignUpPage extends React.Component {
 
 // 选择时间
 renderTime(item){
+    const data = item;
+    const key = data.key;
     return(
         <div>
             <div className="page-project-signUp-verify-header-box">
@@ -193,11 +195,14 @@ renderTime(item){
 
                 <DatePicker
                 mode="time"
-                value={this.state.begin}
-                onOk={v => ( this.setState({
+                value={this.state[key]}
+                // extra={`请选择${data.label}`}
+                onOk={v => (
+                    this.pushExtendsArray(key, formatDate(v)), 
+                    this.setState({
                     ...this.state,
-                    begin: v
-                },this.pushExtendsArray(item.key,formatDate(v ,true))))}
+                    [key]: v
+                }))}
                 >
                 <this.CustomChildren/>
 
@@ -223,15 +228,7 @@ renderOtherInfoSelect(item) {
                         :
                         null
                 }
-                {/* <div className="page-project-signUp-verify-fonts">{data.label}</div> */}
-                {/* <label htmlFor={`${key}`}>
-                    <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}
-                    >
-                        <option value="-1"/>
-                        {options.map((item1, keys) =>
-                            <option value={item1} key={keys}>{item1}</option>)}
-                    </select>
-                </label> */}
+             
                  <List renderHeader={() => data.label}>
                     {options.map(item => (
                     <RadioItem checked={this.state[key] === item} onChange={() => this.onChange(item,key)}>
@@ -378,7 +375,7 @@ renderOtherInfoDate(item) {
                     mode="date"
                     format="YYYY-MM-DD"
                     value={this.state[key]}
-                    extra={`请选择${data.label}`}
+                    // extra={`请选择${data.label}`}
                     onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
                         ...this.state,
                         [key]: v
