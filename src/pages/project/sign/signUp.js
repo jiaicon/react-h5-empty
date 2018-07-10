@@ -23,6 +23,7 @@ import {
   } from '../detail/detail.store';
   import {
     joinPayProject,
+    joinProjectAction
   } from '../sign/sign.store';
 function formatDate(x, y) {
     /* eslint no-confusing-arrow: 0 */
@@ -753,10 +754,13 @@ onSubmmit(){
                 }
             }
         }
+        data.payment = pay;
+        this.props.joinPayProject(data);
+        return
     }
-    data.payment = pay;
+    
   
-    this.props.joinPayProject(data);
+    this.props.joinProjectAction(data);
 
 
 }
@@ -827,6 +831,7 @@ export default connect(
     }),
     dispatch => bindActionCreators({
       requestProjectDetail,
-      joinPayProject
+      joinPayProject,
+      joinProjectAction
     }, dispatch),
   )(SignUpPage);

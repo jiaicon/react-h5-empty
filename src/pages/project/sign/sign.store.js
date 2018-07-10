@@ -5,8 +5,9 @@ import Alert from 'react-s-alert';
 
 export const joinPayProject = data => (dispatch) => {
   fetch(`/project/join/${data.id}`, {
-    data,
+    method: 'POST',data,
   }).then((json) => {
+      console.log(json)
       if (json.data.jsConfig) {
           // wx.config(json.data.jsConfig);
               //   http://kf.qq.com/faq/161221IbQRZN161221M3EviE.html
@@ -42,6 +43,10 @@ export const joinPayProject = data => (dispatch) => {
     });
 };
 
+export const joinProjectAction = data => ({
+  type: 'PROJECT_JOINPROJECT_DATA',
+  payload: fetch(`/project/join/${data.id}`, { data }),
+});
 export default (state = {
   fetching: false,
   failed: false,
@@ -69,7 +74,27 @@ export default (state = {
           fetching: false,
           failed: true,
         };
+        case 'PROJECT_JOINPROJECT_DATA_PENDING':
+        return {
+          ...state,
+          fetching: true,
+          failed: false,
+        };
+      case 'PROJECT_JOINPROJECT_DATA_FULFILLED':
+        return {
+          ...state,
+          fetching: false,
+          failed: false,
+          data: action.payload.data,
+        };
+      case 'PROJECT_JOINPROJECT_DATA_REJECTED':
+        return {
+          ...state,
+          failed: true,
+          fetching: false,
+        };
       default:
         return state;
     }
 };
+
