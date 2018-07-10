@@ -706,8 +706,7 @@ class Verify extends React.Component {
                             this.setState({
                             ...this.state,
                             [key]: v})
-                        )}
-                    >
+                        )} >
 
                         <this.CustomChildren/>
                     </DatePicker>

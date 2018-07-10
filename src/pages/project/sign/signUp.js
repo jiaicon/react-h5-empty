@@ -375,7 +375,7 @@ renderOtherInfoDate(item) {
                     mode="date"
                     format="YYYY-MM-DD"
                     value={this.state[key]}
-                    extra={` }`}
+                    extra={` `}
                     onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
                         ...this.state,
                         [key]: v
