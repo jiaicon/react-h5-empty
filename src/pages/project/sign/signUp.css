@@ -20,7 +20,7 @@
 }
 
 .page-project-signUp .am-list-header {
-    height: 50px;
+    min-height: 50px;
     color: #666666;
     font-size: 15px;
     line-height: 30px;
@@ -246,7 +246,7 @@
 
 .page-project-signUp-verify-header-box {
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     padding: 0 15px;
     display: flex;
     flex-direction: reverse;
@@ -276,12 +276,7 @@
     color: #666;
     text-align: justify;
     padding: 15px;
-    overflow : hidden; 
-    text-overflow: ellipsis; 
-    display: -webkit-box; 
-    -webkit-line-clamp: 2; 
-    -webkit-box-orient: vertical; 
-    -webkit-line-clamp:2; 
+    min-height: 30px;
 }
 
 .page-project-signUp-verify-header-other-pic-start {
@@ -494,3 +489,35 @@
     width: 20px;
     height: 20px;
  }
+ .page-project-signUp-other-title .am-checkbox.am-checkbox-checked .am-checkbox-inner{
+    content: '';
+  background:url(/images/my/checkbox_click@2x.png);
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  border:none; 
+  border-radius: 0;
+}
+.page-project-signUp-other-title  .am-checkbox .am-checkbox-inner{
+  content: '';
+  background:url(/images/my/checkbox@2x.png);
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  border:none; 
+  border-radius: 0;
+}
+.page-project-signUp-other-title  .am-checkbox  .am-checkbox-inner:after {
+  position: absolute;
+  display: none;
+  top: 1.5px;
+  right: 6px;
+  z-index: 999;
+  width: 5px;
+  height: 11px;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  content: ' ';
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

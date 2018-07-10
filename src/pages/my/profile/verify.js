@@ -144,7 +144,8 @@ class Verify extends React.Component {
             <span
                 className="page-my-profile-verify-text page-my-profile-verify-text-lineheight"
             >
-              {extra}<img  src="/images/my/more.png"/></span>
+              {/* {extra} */}
+              <img  src="/images/my/more.png"/></span>
 
             </div>
         );
@@ -628,7 +629,8 @@ class Verify extends React.Component {
                   {data.label}
                 </div>
 
-                <textarea placeholder={`请输入${data.label}`}
+                <textarea 
+                // placeholder={`请输入${data.label}`}
                           id={`${key}`}
                           className="page-my-profile-edit-text" maxLength="200"
                           onKeyUp={this.handleOtherInfoManyInputClick}
@@ -741,7 +743,7 @@ class Verify extends React.Component {
         const attachment = this.state[key];
         attachment.splice(num, 1);
         this.setState({[key]: attachment, ...this.state}),
-        this.pushExtendsArray(key, attachment)
+        this.pushExtendsArray(key, null)
     }
     onPreview(e) {
         const num = e.target.id;

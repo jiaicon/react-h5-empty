@@ -111,7 +111,8 @@ class SignUpPage extends React.Component {
         <span
             className="page-project-signUp-verify-text page-project-signUp-verify-text-lineheight"
         >
-          {extra} <img  src="/images/my/more.png"/></span> 
+          {/* {extra} */}
+           <img  src="/images/my/more.png"/></span> 
 
         </div>
     );
@@ -188,7 +189,7 @@ renderTime(item){
     return(
         <div>
             <div className="page-project-signUp-verify-header-box">
-                <div className="page-project-signUp-verify-fonts">选择时间</div>
+                <div className="page-project-signUp-verify-fonts">{item.label}</div>
 
                 <DatePicker
                 mode="time"
@@ -340,7 +341,8 @@ renderOtherInfoManyInput(item) {
                   {data.label}
             </div>
 
-            <textarea placeholder={`请输入${data.label}`}
+            <textarea 
+            // placeholder={`请输入${data.label}`}
                       id={`${key}`}
                       className="page-project-signUp-edit-text" maxLength="200"
                       onKeyUp={this.handleOtherInfoManyInputClick}
@@ -433,7 +435,7 @@ onPicDel(e) {
     const attachment = this.state[key];
     attachment.splice(num, 1);
     this.setState({[key]: attachment, ...this.state}),
-    this.pushExtendsArray(key, attachment)
+    this.pushExtendsArray(key, null)
 }
 onPreview(e) {
     const num = e.target.id;
