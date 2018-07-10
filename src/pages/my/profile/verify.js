@@ -705,8 +705,8 @@ class Verify extends React.Component {
                             this.pushExtendsArray(key, formatDate(v, true)), 
                             this.setState({
                             ...this.state,
-                            [key]: v
-                        })}
+                            [key]: v})
+                        )}
                     >
 
                         <this.CustomChildren/>
