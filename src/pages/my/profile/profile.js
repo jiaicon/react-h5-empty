@@ -224,9 +224,10 @@ class Profile extends React.Component {
                                         return (
                                             <div key={index}>
                                              <div className="page-profile-header-box">
-                                                <div className="page-profile-fonts">{item.label}</div>
-                                                <div className="page-profile-initial-fonts">{item.value}</div>
-                                             </div>
+                                                <div className="page-profile-fonts-single">{item.label}</div>
+                                                </div>
+                                                <div className="page-profile-fonts-view">{item.value}</div>
+                                            
                                             <div className="line1px" />
                                             </div>
                                         );
@@ -236,7 +237,7 @@ class Profile extends React.Component {
                                         return (
                                             <div key={index}>
                                                <div className="page-profile-header-box">
-                                                <div className="page-profile-fonts">{item.label}</div>
+                                                <div className="page-profile-fonts-single">{item.label}</div>
                                                 </div>
                                                 <div className="page-profile-fonts-view">{item.value}</div>
                                                 <div className="line1px" />
@@ -247,14 +248,12 @@ class Profile extends React.Component {
                                     case 3:
                                         return (
                                             <div key={index}>
-                                            
-                                                    <div className="page-profile-header-box">
-                                                        <div className="page-profile-fonts">{item.label}</div>
-                                                        <div className="page-profile-initial-fonts">{item.value}</div>
-                                                    </div>
+                                                <div className="page-profile-header-box">
+                                                    <div className="page-profile-fonts-single">{item.label}</div>
+                                                </div>
+                                                    <div className="page-profile-fonts-view">{item.value}</div>
                                                 <div className="line1px" />
-                                       
-                                            </div>
+                                        </div>
                                         );
                                         break;
                                     //多行输
@@ -262,7 +261,7 @@ class Profile extends React.Component {
                                         return (
                                             <div key={index}>
                                                <div className="page-profile-header-box">
-                                                <div className="page-profile-fonts">{item.label}</div>
+                                                <div className="page-profile-fonts-single">{item.label}</div>
                                                 </div>
                                                 <div className="page-profile-fonts-view">{item.value}</div>
                                                 <div className="line1px" />
@@ -275,7 +274,7 @@ class Profile extends React.Component {
                                         return (
                                             <div key={index}>
                                              <div className="page-profile-header-box">
-                                                <div className="page-profile-fonts">{item.label}</div>
+                                                <div className="page-profile-fonts-single">{item.label}</div>
                                                 </div>
                                                 <div className="page-profile-fonts-view-img">
                                                     <Avatar  src={item.value} data-key={item.value} size={{width: 80, radius: 1}} onClick={this.onPreview} />
