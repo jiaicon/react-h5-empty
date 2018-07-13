@@ -35,7 +35,6 @@ class Login extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props.login)
         this.props.changeIndex(0);
         
     }
