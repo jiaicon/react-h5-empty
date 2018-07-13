@@ -38,7 +38,7 @@ class Link extends React.Component {
     if (event.defaultPrevented === true) {
       return;
     }
-
+    
     event.preventDefault();
 
     if (this.props.to && this.props.to.indexOf('http') === 0) {

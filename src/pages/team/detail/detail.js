@@ -18,6 +18,7 @@ import Avatar from '../../../components/avatar/avatar';
 import ShareTip from '../../../components/sharetip/sharetip';
 import CommunityItem from '../../../components/community_item/index';
 import { dateTextToDateText } from '../../../utils/funcs';
+import {storeLoginSource} from '../../my/login/login.store';
 
 import history from '../../history';
 
@@ -91,6 +92,7 @@ class TeamDetailPage extends React.Component {
           label: '确认',
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
+            this.props.storeLoginSource(`/project/detail/${this.projectId}`)
             this.props.userCenterAction();
           },
         },
@@ -467,7 +469,6 @@ class TeamDetailPage extends React.Component {
       </div>
     );
   }
-
   render() {
     const { detail: { team: detailData, tabTeamIndex } } = this.props;
     const currentTeamId = parseInt(this.teamId, 10);
@@ -561,5 +562,6 @@ export default connect(
     unObserveAction,
     userCenterAction,
     deleteFeelingAction,
+    storeLoginSource,
   }, dispatch),
 )(TeamDetailPage);

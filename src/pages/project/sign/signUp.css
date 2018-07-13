@@ -414,7 +414,9 @@
     top: 15px;
     right: 15px;
 }
-
+.page-signUp-danxuan{
+    position: relative;
+}
 .page-signUp-danxuan .am-list-line{
     padding-left: 40px;
     position: relative;

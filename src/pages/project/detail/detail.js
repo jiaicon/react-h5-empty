@@ -37,7 +37,7 @@ import {
 import { requestUserInfo } from '../../../stores/common';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
-
+import {storeLoginSource} from '../../my/login/login.store';
 
 class ProjectDetailPage extends React.Component {
 
@@ -90,6 +90,7 @@ class ProjectDetailPage extends React.Component {
           label: '确认',
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
+            this.props.storeLoginSource(`/project/detail/${this.projectId}`)
             this.props.userCenterAction();
           },
         },
@@ -219,7 +220,10 @@ class ProjectDetailPage extends React.Component {
       // realRegister 机构实名 1 要求  0 否
       
       if (!user.isLogin) {
+        this.props.storeLoginSource(`/project/detail/${this.projectId}`)
+
         this.props.userCenterAction();
+    
       } else if (user.isLogin && !user.in_blacklist) {
         // 不要求实名
         if (realRegister == 0) {
@@ -228,8 +232,6 @@ class ProjectDetailPage extends React.Component {
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
       
           window.location.replace(`/my/profile/verify/project/${this.projectId}`);
-          // history.replace(`/project/signup/${projectId}`)
-          // window.location.push=`/project/signup/${projectId}`;
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
 
           this.handleActionClickSitch(action,projectId,customConfig,paymentConfig)
@@ -288,7 +290,7 @@ class ProjectDetailPage extends React.Component {
       actionLabel = '我要报名';
       actionClassName = 'project-action-available';
       action = 'join';
-    } else if (joined && detailData.join_status === 0) {
+    } else if (isLogin && detailData.join_status === 0) {
       actionLabel = '等待审核';
       actionClassName = 'project-action-audit';
     } else if (joined) {
@@ -548,5 +550,6 @@ export default connect(
     userCenterAction,
     deleteFeelingAction,
     requestUserInfo,
+    storeLoginSource,
   }, dispatch),
 )(ProjectDetailPage);

@@ -194,10 +194,8 @@ class Verify extends React.Component {
             // TODO 如果从项目跳过来的需要跳回去
             if (this.state.projectId) {
                 window.location.replace(`/project/detail/${this.state.projectId}`);
-                // history.replace(`/project/detail/${this.state.projectId}`);
             } else if (this.state.teamId) {
                 window.location.replace(`/team/detail/${this.state.projectId}`);
-                // history.replace(`/project/detail/${this.state.projectId}`);
             } else {
                 if (from) {
                     target = from;
@@ -961,7 +959,7 @@ class Verify extends React.Component {
                     this.state.winOrgInfo === null ?
                         null
                         :
-                        <div style={{width:'100%'}}>
+                        <div style={{width:'100%',height:'100%'}}>
                             <div className="page-my-profile-verify-main">
                                 {
                                     //头像
@@ -990,7 +988,7 @@ class Verify extends React.Component {
                                     this.renderOtherInfo()
                                 }
                             </div>
-                            <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
+                            <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交11</div>
                         </div>
                 }
             </div>

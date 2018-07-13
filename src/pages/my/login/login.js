@@ -35,8 +35,9 @@ class Login extends React.Component {
     }
 
     componentWillMount() {
+        console.log(this.props.login)
         this.props.changeIndex(0);
-    
+        
     }
 
     componentDidMount() {
@@ -48,7 +49,7 @@ class Login extends React.Component {
         const {login: cLogin} = this.props;
         const {login: nLogin} = nextProps;
         const realRegister =  window.orgInfo.real_name_register;
-        if (cLogin.fetching && !nLogin.fetching && !nLogin.failed) {
+        if (cLogin.fetching && !cLogin.failed && !nLogin.fetching && !nLogin.failed) {
           
             let target = '/my';
             const {from} = nLogin;
@@ -70,6 +71,15 @@ class Login extends React.Component {
                 window.location.replace(target);
                 // history.replace(target);
             }
+        }
+        const { code: cCode, forget: cForget } = this.props;
+        const { code: nCode, forget: nForget } = nextProps;
+
+        if (cCode.fetching && !cCode.failed && !nCode.fetching && !nCode.failed) {
+        this.onStartCountDown();
+        this.setState({
+            countDownTrigger: false,
+        });
         }
     }
 

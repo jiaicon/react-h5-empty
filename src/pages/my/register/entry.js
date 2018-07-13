@@ -10,7 +10,7 @@ import { ADMIN_HOST } from '../../../utils/config';
 import { requestUserInfo } from '../../../stores/common';
 import history from '../../history';
 import './entry.css';
-
+import {storeLoginSource} from '../login/login.store';
 class Entry extends React.Component {
 
   constructor(props) {
@@ -19,7 +19,11 @@ class Entry extends React.Component {
   }
 
   componentWillMount() {
-
+    console.log(this.props.login)
+    const {from}=this.props.login;
+    if(from){
+      this.props.storeLoginSource(from)
+    }
   }
 
   componentDidMount() {
@@ -31,8 +35,8 @@ class Entry extends React.Component {
 
   componentWillUnmount() {}
   onLogin(){
-    window.location.replace('/my/login')
-    // history.replace('/my/login')
+    // window.location.push='/my/login';
+    history.replace('/my/login')
   }
   render() {
     return (
@@ -104,6 +108,7 @@ Entry.propTypes = {
 export default connect(
   state=> ({
     user: state.user,
+    login:state.login,
   }),
-  dispatch => bindActionCreators({requestUserInfo}, dispatch),
+  dispatch => bindActionCreators({requestUserInfo,storeLoginSource}, dispatch),
 )(Entry);

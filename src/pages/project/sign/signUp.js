@@ -232,7 +232,7 @@ renderOtherInfoSelect(item) {
         <div>
             <div className="page-signUp-danxuan">
                 {
-                    Number(item.is_required) === 1 ?
+                    Number(item.is_required) == 1 ?
                         <span className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-start">*</span>
                         :
                         null
@@ -240,7 +240,7 @@ renderOtherInfoSelect(item) {
              
                  <List renderHeader={() => data.label}>
                     {options.map((item,index) => (
-                    <RadioItem checked={this.state[key] === item} key={index} onChange={() => this.onChange(item,key)}>
+                    <RadioItem checked={this.state[key] === item  } key={index} onChange={() => this.onChange(item,key)} onClick={() => this.onClick(item,key)}>
                         {item}
                     </RadioItem>
                     ))}
@@ -250,13 +250,23 @@ renderOtherInfoSelect(item) {
         </div>
     )
 }
+onClick= (value,key) => {
+   const sceondValue =this.state[key];
+   if(value == sceondValue){
+    this.pushExtendsArray(key, null);
+    this.setState({
+        [key]: null,
+    });
+   }
+  
+};
 onChange = (value,key) => {
-
     this.pushExtendsArray(key, value);
     this.setState({
-      [key]: value,
+        [key]: value,
     });
-  };
+  
+};
 handleOtherInfoSelectClick(e) {
     const key = e.target.id;
     const value = e.target.value;
