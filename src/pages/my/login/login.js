@@ -250,9 +250,17 @@ class Login extends React.Component {
                 </div>
                 <div className="page-login-agree">
                     提交代表已阅读
-                    <Link to="/my/agree">
-                        <span className="page-login-agreement">《志多星用户协议》</span>
-                    </Link>
+                    {
+                        window.orgCode == 'joQeZJepZV' ?
+                        <Link to="/my/agree">
+                            <span className="page-login-agreement">《长春志愿者用户协议》</span>
+                        </Link>
+                        :
+                        <Link to="/my/agree">
+                            <span className="page-login-agreement">《志多星用户协议》</span>
+                        </Link>
+                    }
+                  
                 </div>
             </div>
             

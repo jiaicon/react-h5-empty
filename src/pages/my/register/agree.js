@@ -30,6 +30,9 @@ class Agree extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    if( window.orgCode == 'joQeZJepZV'){
+      return null
+    }
     return (
       <div className="page-introduce">
         <h5 className="page-introduce-subtitle page-introduce-take-up">志多星软件用户使用协议</h5>
@@ -389,8 +392,11 @@ class Agree extends React.Component {
 }
 
 
-Agree.title = '志多星协议';
-
+if( window.orgCode == 'joQeZJepZV'){
+  Agree.title = '长春志愿者用户协议';
+}else{
+  Agree.title = '志多星协议';
+}
 Agree.propTypes = {
 };
 

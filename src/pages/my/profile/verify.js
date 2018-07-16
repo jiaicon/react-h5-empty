@@ -988,7 +988,7 @@ class Verify extends React.Component {
                                     this.renderOtherInfo()
                                 }
                             </div>
-                            <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交11</div>
+                            <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>提交</div>
                         </div>
                 }
             </div>
