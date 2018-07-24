@@ -194,9 +194,6 @@ class ProjectDetailPage extends React.Component {
       } else if (projectId == 1043) {
         window.location.href = 'http://lxi.me/4hwr6';
         return;
-      } else if (projectId == 1101) {
-        window.location.href = 'http://lxi.me/17i1a';
-        return;
       }
       if(!customConfig && !paymentConfig){
         this.props.joinProject(projectId);
