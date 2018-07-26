@@ -125,20 +125,15 @@ class SignUpPage extends React.Component {
     }
 
     componentWillMount() {
-
         this.props.requestProjectDetail(this.projectId)
 
     }
     componentWillReceiveProps(nextProps) {
         const { detail: Ldetail, joinPay: Lpay, join: Ljoin } = this.props;
         const { detail: Ndetail, joinPay: Npay, join: Njoin } = nextProps;
-        console.log(Ljoin)
-        console.log(Njoin)
         if (Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed && Ndetail.data && Ndetail.data.custom_config) {
             this.initialPic(Ndetail.data.custom_config);
-
-            this.customConfig = Ndetail.data.custom_config
-
+            this.customConfig = Ndetail.data.custom_config;
         }
         if (Ldetail.fetching && !Ldetail.failed && !Ndetail.fetching && !Ndetail.failed && Ndetail.data && Ndetail.data.custom_payment_config) {
             let data = [];
@@ -166,7 +161,10 @@ class SignUpPage extends React.Component {
 
             })
         }
-        if (!Ljoin.fetching && !Ljoin.failed && Njoin.fetching && !Njoin.failed) {
+        alert(`${Ljoin.fetching} ,${Ljoin.failed} , ${Njoin.fetching},${Njoin.failed}`)
+        alert(`${Lpay.fetching} ,${Lpay.failed} , ${Npay.fetching},${Npay.failed}`)
+        return
+        if (Ljoin.fetching && !Ljoin.failed && !Njoin.fetching && !Njoin.failed) {
             window.location.replace(`/project/success/${this.projectId}`)
         }
         if (!Lpay.fetching && Lpay.failed && Npay.fetching && !Npay.failed) {

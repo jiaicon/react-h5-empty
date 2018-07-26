@@ -7,6 +7,9 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
   <meta name="last-build-time" content="<%= lastBuild %>">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
@@ -199,10 +202,13 @@
     window.teamCategory = ["党政机关","教育事业单位","卫生事业单位","科技事业单位","文化事业单位","社会福利利事业单位","其他事业单位","群团组织","居委会或村委会","国有企业","民营企业","社会团体","社会服务机构","基金会"];
     if (window.wxConfig) {
       try{
-        if (typeof window.wxConfig === 'string') {
-          window.wxConfig = JSON.parse(window.wxConfig);
-        }
-        window.wx.config(wxConfig);
+        setTimeout(function () {
+            if (typeof window.wxConfig === 'string') {
+                window.wxConfig = JSON.parse(window.wxConfig);
+                }
+                window.wx.config(wxConfig);
+        }, 500);
+        
       }
       catch(e) {
         alert(e);
