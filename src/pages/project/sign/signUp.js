@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import uploadToWX from '../../../utils/wxupload';
 import { bindActionCreators } from 'redux';
 import CheckboxStepper from '../../../components/checkboxStepper/index'
-import { List, Checkbox, DatePicker, Flex, Stepper, Radio } from 'antd-mobile';
+import { List, Checkbox, DatePicker, Radio } from 'antd-mobile';
 import history from '../../history';
 import Avatar from '../../../components/avatar/avatar';
 import 'antd-mobile/lib/date-picker/style/css';
@@ -161,9 +161,6 @@ class SignUpPage extends React.Component {
 
             })
         }
-        alert(`${Ljoin.fetching} ,${Ljoin.failed} , ${Njoin.fetching},${Njoin.failed}`)
-        alert(`${Lpay.fetching} ,${Lpay.failed} , ${Npay.fetching},${Npay.failed}`)
-        return
         if (Ljoin.fetching && !Ljoin.failed && !Njoin.fetching && !Njoin.failed) {
             window.location.replace(`/project/success/${this.projectId}`)
         }
