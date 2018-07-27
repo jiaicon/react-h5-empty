@@ -24,7 +24,6 @@ import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/checkbox/style/css';
 import 'antd-mobile/lib/Radio/style/css';
 import './verifyAntd.css';
-import '../../project/sign/signUp.css';
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
 const people = [{id: '01', name: '汉族'}, {id: '02', name: '蒙古族'}, {id: '03', name: '回族'},
@@ -525,8 +524,8 @@ class Verify extends React.Component {
         const options = data.options.split(",");
         return (
             <div>
-                {/* <div className="page-my-profile-verify-header-box"> */}
-                    {/* {
+                <div className="page-my-profile-verify-header-box">
+                     {
                         item.is_required === 1 ?
                             <span className="page-my-profile-verify-header-start">*</span>
                             :
@@ -542,44 +541,12 @@ class Verify extends React.Component {
                         </select>
                     </label>
                 </div>
-                <div className="line1px"/> */}
-                <div className="page-signUp-danxuan">
-                    {
-                        Number(item.is_required) == 1 ?
-                            <span className="page-project-signUp-verify-header-start page-project-signUp-verify-header-other-start">*</span>
-                            :
-                            null
-                    }
-
-                    <List renderHeader={() => data.label}>
-                        {options.map((item, index) => (
-                            <RadioItem checked={this.state[key] === item} key={index} onChange={() => this.onSignleChange(item, key)} onClick={() => this.onSignleClick(item, key)}>
-                                {item}
-                            </RadioItem>
-                        ))}
-                    </List>
-                </div>
+               
                 <div className="line1px" />
             </div>
         )
     }
-    onSignleClick = (value, key) => {
-        const sceondValue = this.state[key];
-        if (value == sceondValue) {
-            this.pushExtendsArray(key, null);
-            this.setState({
-                [key]: null,
-            });
-        }
 
-    };
-    onSignleChange = (value, key) => {
-        this.pushExtendsArray(key, value);
-        this.setState({
-            [key]: value,
-        });
-
-    };
     //多选控件
     onChange = (key, val) => {
         console.log(val);
