@@ -202,12 +202,12 @@
     window.teamCategory = ["党政机关","教育事业单位","卫生事业单位","科技事业单位","文化事业单位","社会福利利事业单位","其他事业单位","群团组织","居委会或村委会","国有企业","民营企业","社会团体","社会服务机构","基金会"];
     if (window.wxConfig) {
       try{
-        setTimeout(function () {
-            if (typeof window.wxConfig === 'string') {
-                window.wxConfig = JSON.parse(window.wxConfig);
-                }
-                window.wx.config(wxConfig);
-        }, 500);
+        // setTimeout(function () {
+        if (typeof window.wxConfig === 'string') {
+            window.wxConfig = JSON.parse(window.wxConfig);
+            }
+            window.wx.config(wxConfig);
+        // }, 500);
         
       }
       catch(e) {
