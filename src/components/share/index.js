@@ -37,10 +37,14 @@ const WXS = (option = {}) => {
     && location.hash.indexOf('#/') === 0) {
     shareUrl = `${location.protocol}//${location.host}/${location.hash.replace(/^#\//g, '')}`;
   }
-
+  const orgCode= window.orgCode;
+  let desxName ='文明点亮你我，志愿感动社会';
+  if( orgCode == 'qM7e5Ba2vp'){
+    desxName = '志愿小金人，用爱传温暖！'
+  }
   const newOption = {
     title: `${option.title || orgInfo.name}`,
-    desc: removeHTMLTag(option.desc||'文明点亮你我，志愿感动社会'),
+    desc: removeHTMLTag(option.desc|| desxName),
     // link: `${host}${option.link || ''}`,
     link: shareUrl,
     imgUrl: option.image || orgInfo.logo || `${host}/images/icon.png`,

@@ -219,7 +219,8 @@ class Profile extends React.Component {
                     <div>
                         {
                             this.state.objArray.map((item, index) => {
-                                switch (Number(item.type)) {//单项选择
+                                switch (Number(item.type)) {
+                                    //单项选择
                                     case 1:
                                         return (
                                             <div key={index}>

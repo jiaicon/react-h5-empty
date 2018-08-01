@@ -20,7 +20,12 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-
+    this.state = {
+      city: props.home.city || '定位中',
+    };
+    this.play = this.play.bind(this);
+    this.next = this.next.bind(this);
+    this.previous = this.previous.bind(this);
     this.slickSettings = {
       dots: true,
       speed: 500,
@@ -29,9 +34,6 @@ class HomePage extends React.Component {
       arrows: false,
       autoplay: true,
       autoplaySpeed: 6000,
-    };
-    this.state = {
-      city: props.home.city || '定位中',
     };
   }
 
@@ -72,7 +74,9 @@ class HomePage extends React.Component {
   }
 
   componentWillUnmount() {}
-
+  componentDidMount(){
+    
+  }
   renderHeaderBar() {
     const { user } = this.props;
 
@@ -88,13 +92,24 @@ class HomePage extends React.Component {
       }
     </div>);
   }
+  play() {
+    this.slider.slickPlay();
+  }
 
+  next() {
+    this.slider.slickNext();
+  }
+
+  previous() {
+    this.slider.slickPrev();
+  }
   renderSlick() {
     const { home, user } = this.props;
     const orgCode = window.orgCode;
     if (!home.data || !home.data.banner) {
       return <div className="slick-container slick-container-empty" />;
     }
+
     if (!user.isLogin && orgCode == 'wMvbmOeYAl') {
       return (<div className="slick-container">
         { home.data.banner && home.data.banner.length ?

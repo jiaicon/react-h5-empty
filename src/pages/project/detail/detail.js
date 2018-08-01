@@ -187,6 +187,7 @@ class ProjectDetailPage extends React.Component {
     });
   }
   handleActionClickSitch(action,projectId,customConfig,paymentConfig){
+
     if (action === 'join') {
       if (projectId == 1035) {
         window.location.href = 'http://lxi.me/17i1a';
@@ -194,14 +195,12 @@ class ProjectDetailPage extends React.Component {
       } else if (projectId == 1043) {
         window.location.href = 'http://lxi.me/4hwr6';
         return;
-      } else if (projectId == 1101) {
-        window.location.href = 'http://lxi.me/17i1a';
-        return;
       }
       if(!customConfig && !paymentConfig){
         this.props.joinProject(projectId);
       }else if(customConfig || paymentConfig){
-        window.location.replace(`/project/signup/${projectId}`)
+        // window.location.replace(`/project/signup/${projectId}`)
+        window.location.href=`/project/signup/${projectId}`;
         // history.replace(`/project/signup/${projectId}`)
       }
     } else if (action === 'quit') {
