@@ -55,9 +55,9 @@ class MessagesItem extends React.Component {
     return (
       <div>
         {
-        data.map((item, index) => (
-          <Link to={`/announcee/detail/${item.id}`} key={index}>
-            <div className="page-announceitem">
+        data.map((item,i) => (
+          <Link to={`/announcee/detail/${item.id}`} key={i}>
+            <div className="page-announceitem" >
               <div className="main">
                 <div>
                   <div className="page-announceitem-title">{item.title}</div>

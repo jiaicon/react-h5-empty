@@ -16,6 +16,7 @@ import history from '../history';
 import { userCenterAction } from './my.store';
 import { requestUserInfo } from '../../stores/common';
 import Link from '../../components/link/link';
+import Star from '../../components/star/star';
 import './my.css';
 import Avatar from '../../components/avatar/avatar';
 
@@ -79,6 +80,12 @@ class MyPage extends React.Component {
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">{user.real_name || user.username || '未设置昵称'}</p>
           <p className="page-my-user-info-signature">{ user.slogan || '未设置口号'}</p>
+          <div className="page-my-user-info-star">
+          {
+            user.star? <Star size={{width:15,height:14,score:user.star}}/>:null
+          }
+       
+          </div>
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ import cx from 'classnames';
 import './teams.css';
 import Link from '../link/link';
 import Avatar from '../avatar/avatar';
-
+import Star from '../star/star';
 class Teams extends React.Component {
 
   constructor(props) {
@@ -43,6 +43,9 @@ class Teams extends React.Component {
                 <div className="team-name">
                   <div className="team-name-content">
                     {team.name}
+                  </div>
+                  <div className="team-name-star">
+                       {team.star?<Star  size={{width:15,height:14,score:team.star}}/>:null}
                   </div>
                   {
                     showLabel ?
