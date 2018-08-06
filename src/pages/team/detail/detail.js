@@ -15,10 +15,11 @@ import Tab from '../../../components/tab/tab';
 import Projects from '../../../components/projects/projects';
 import Image from '../../../components/image/image';
 import Avatar from '../../../components/avatar/avatar';
+import Star from '../../../components/star/star';
 import ShareTip from '../../../components/sharetip/sharetip';
 import CommunityItem from '../../../components/community_item/index';
 import { dateTextToDateText } from '../../../utils/funcs';
-import {storeLoginSource} from '../../my/login/login.store';
+import { storeLoginSource } from '../../my/login/login.store';
 
 import history from '../../history';
 
@@ -163,7 +164,7 @@ class TeamDetailPage extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   onTabChange(idx) {
     this.props.saveTeamTabIndex(idx);
@@ -196,7 +197,7 @@ class TeamDetailPage extends React.Component {
   handleActionClick(action) {
     const { teamId } = this;
     const { detail: { team: detailData }, user } = this.props;
-    const realRegister =  window.orgInfo.real_name_register;
+    const realRegister = window.orgInfo.real_name_register;
     // in_blacklist 黑名单 0不在，1在
     // realRegister 机构实名 1 要求  0 否
     return () => {
@@ -214,7 +215,7 @@ class TeamDetailPage extends React.Component {
           } else if (action === 'quit') {
             this.setState({ ...this.state, showDialog: true });
           }
-        // 要求实名切用户未实名过，通过ID判断
+          // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
           window.location.replace(`/my/profile/verify/team/${this.teamId}`);
           // history.replace(`/my/profile/verify/team/${this.teamId}`);
@@ -237,12 +238,12 @@ class TeamDetailPage extends React.Component {
     }
 
     return (<div className="slick-container">
-      { detailData.team_photo && detailData.team_photo.length ?
+      {detailData.team_photo && detailData.team_photo.length ?
         <Slick {...this.slickSettings}>
           {detailData.team_photo
-              .map(item => (
-                <Image src={item} className="team-photo" resize={{ width: 1500 }} />
-                ))}
+            .map(item => (
+              <Image src={item} className="team-photo" resize={{ width: 1500 }} />
+            ))}
         </Slick> : null
       }
     </div>);
@@ -273,13 +274,26 @@ class TeamDetailPage extends React.Component {
     return (<div>
       <div className="header">
         {this.renderSlick()}
-        <div className="header-addition">
-          <div className="team-info">
-            <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
-            <span>{detailData.name}</span>
-          </div>
+        {
+          !detailData.star ?
+            <div className="header-addition">
+              <div className="team-info">
+                <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
+                <span>{detailData.name}</span>
+              </div>
 
-        </div>
+            </div> :
+            <div className="header-addition-new">
+              <div className="team-info">
+                <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
+                <div className="header-addition-new-container">
+                  <div  className="header-addition-new-container-title"><span>{detailData.name}</span></div>
+                  <div  className="header-addition-new-container-star"><Star size={{width:15,height:14,score:detailData.star}} /></div>
+                </div>
+              </div>
+
+            </div>
+        }
       </div>
       <div className="body">
         <div className="team-info-list">
@@ -288,7 +302,7 @@ class TeamDetailPage extends React.Component {
               <div>
                 <span>{
                   detailData.team_size >= 10000
-                  ? (detailData.team_size / 10000).toFixed(2) : detailData.team_size}
+                    ? (detailData.team_size / 10000).toFixed(2) : detailData.team_size}
                 </span>
                 {detailData.team_size >= 10000 ? '万' : ''}
               </div>
@@ -299,7 +313,7 @@ class TeamDetailPage extends React.Component {
               <div>
                 <span>{
                   detailData.reward_time >= 10000
-                  ? (detailData.reward_time / 10000).toFixed(2) : detailData.reward_time}
+                    ? (detailData.reward_time / 10000).toFixed(2) : detailData.reward_time}
                 </span>
                 {detailData.reward_time >= 10000 ? '万' : ''}
               </div>
@@ -327,7 +341,7 @@ class TeamDetailPage extends React.Component {
             <li>
               <span>注册日期</span><span>{
                 detailData.created_at ?
-                dateTextToDateText(detailData.created_at.split(' ')[0]) : ''}</span>
+                  dateTextToDateText(detailData.created_at.split(' ')[0]) : ''}</span>
               <div className="line1px" />
             </li>
             <li>
@@ -352,11 +366,11 @@ class TeamDetailPage extends React.Component {
           </p>
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-        确定要退出项目吗？
+          确定要退出项目吗？
         </Dialog>
         <div className="team-description-backhome">
-            <Link to="/"/>
-        </div>        
+          <Link to="/" />
+        </div>
       </div>
       <div className="foot">
         <div className="line1px" />
@@ -455,16 +469,16 @@ class TeamDetailPage extends React.Component {
               onDeleteClick={this.delete} onParseClick={this.onParse} onUnParseClick={this.unOnParse}
             />
           )) :
-          <div className="page-circle-rendercommunity-no-info-container">
-            <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
-            <div className="page-circle-rendercommunity-info">还没有动态信息</div>
-          </div>
+            <div className="page-circle-rendercommunity-no-info-container">
+              <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
+              <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+            </div>
 
         }
 
         <div className="page-team-detail-community-link" onClick={this.onPublish} />
         <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-        只有登录的用户才能点赞和评论哦～
+          只有登录的用户才能点赞和评论哦～
         </Dialog>
       </div>
     );
