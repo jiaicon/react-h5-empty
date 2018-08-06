@@ -15,6 +15,7 @@ class Star extends React.Component {
       width: PropTypes.number,
       height: PropTypes.number,
     }),
+    isBlockEmptyStar: PropTypes.bool,
     onChoose: PropTypes.func,
   }
   constructor(props) {
@@ -80,8 +81,9 @@ class Star extends React.Component {
                 />
               </li> : null
           }
+          
           {
-            emptyArr.length > 0 && emptyArr.map(item =>
+            this.props.isBlockEmptyStar && emptyArr.length > 0 && emptyArr.map(item =>
               <li key={item}>
                 <div
                   style={{ width, height }}

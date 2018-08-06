@@ -52,10 +52,9 @@
   margin-top: 10px;
   text-align: center;
   line-height: 19px;
-  width: 80px;
+  min-width: 80px;
   height: 19px;
   font-weight: 200;
-  margin-bottom: 21px;
 }
 .page-certificate-container-content{
   width: 100%;
@@ -118,4 +117,10 @@
   position: absolute;
   top: -22px;
   right: 0px;
+}
+
+
+.page-certificate-container-star{
+  width: 90px;
+  margin: 10px auto 30px;
 }

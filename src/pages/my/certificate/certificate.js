@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 
 
 import Avatar from '../../../components/avatar/avatar';
+import Star from '../../../components/star/star';
 import { dateTextToDateText } from '../../../utils/funcs';
 import { requestUserInfo } from '../../../stores/common';
 import './certificate.css';
@@ -78,6 +79,11 @@ class Certificate extends React.Component {
           <Avatar src={this.props.user.avatars} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           <div className="page-certificate-container-certificate" />
           <div className="page-certificate-container-name">{this.props.user.real_name}</div>
+          <div className="page-certificate-container-star">
+              {
+                this.props.user.star ? <Star size={{width:15,height:14,score:this.props.user.star}} />:null
+              }
+          </div>
           <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>
           <div className="page-certificate-container-content">{this.state.register}注册成为{this.certOrg}志愿者</div>
           <div className="page-certificate-container-content">{this.state.now}截止</div>
