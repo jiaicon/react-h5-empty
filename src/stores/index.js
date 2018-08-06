@@ -21,6 +21,7 @@ import circleReducer from '../pages/my/circle/circle.store';
 
 import sanlitunReducer from '../pages/sanlitun/starModel/starModel.store';
 import insuranceReducer from '../pages/ensure/ensure.store';
+import announceReducer from '../pages/announce/announce.store';
 
 import { userReducer } from './common';
 
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   sanlitun: sanlitunReducer,
   insurance: insuranceReducer,
   circle: circleReducer,
+  announce:announceReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];

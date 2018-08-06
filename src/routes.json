@@ -343,5 +343,15 @@
     "path": "/ensure",
     "page": "./pages/ensure/index",
     "chunk": "main"
+  },
+  {
+    "path": "/announce",
+    "page": "./pages/announce/messages",
+    "chunk": "main"
+  },
+  {
+    "path": "/announcee/detail/:Id",
+    "page": "./pages/announce/detail",
+    "chunk": "main"
   }
 ]

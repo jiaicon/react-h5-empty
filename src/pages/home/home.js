@@ -12,6 +12,7 @@ import Image from '../../components/image/image';
 import Avatar from '../../components/avatar/avatar';
 import Projects from '../../components/projects/projects';
 import Menus from '../../components/menus/menus';
+import Announcement from '../../components/announcement/announcement';
 import { getCity } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from './home.store';
 
@@ -102,6 +103,16 @@ class HomePage extends React.Component {
 
   previous() {
     this.slider.slickPrev();
+  }
+  renderAnnounceComponent(){
+    const { home, user } = this.props;
+    return(
+      <div className="notice">
+
+          <Announcement data={home.data.news} entry="/announce" />
+
+      </div>
+    )
   }
   renderSlick() {
     const { home, user } = this.props;
@@ -206,12 +217,15 @@ class HomePage extends React.Component {
 
   render() {
     const { home } = this.props;
-
+    if (!home.data) {
+      return null;
+    }
     return (
       <div className="page-home">
         <div className="page-home-header">
           {this.renderHeaderBar()}
           {this.renderSlick()}
+          {this.renderAnnounceComponent()}
         </div>
         <div className="page-home-body">
           {window.orgInfo ?

@@ -1,0 +1,30 @@
+.page-announce-detail{
+    width: 100%;
+    padding: 30px 20px;
+}
+.page-announce-detail .title{
+    font-size: 22px;
+    color: #484848;
+    margin-bottom: 15px;
+}
+.page-announce-detail  .date{
+    font-size: 13px;
+    color: #A1A1A1;
+}
+
+.page-announce-detail .page-center-style{
+    width: 100%;
+    padding: 40px 0 0;
+    flex: 1;
+    overflow-y: scroll;
+  }
+  .page-announce-detail .page-center-style img{
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
+  .page-announce-detail  img{
+    width: 100%;
+    display: block;
+    margin: auto;
+  }
