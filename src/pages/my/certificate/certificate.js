@@ -71,6 +71,7 @@ class Certificate extends React.Component {
     if (listData == null) {
       return <div>加载中</div>;
     }
+    // qM7e5Ba2vp  国有黄金
     return (
       <div className="page-certificate-bg">
         <div className="page-certificate-container-border">
@@ -94,7 +95,8 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-bottom-infobox">
             <div className="page-certificate-container-bussiness">认证机构：{this.certAuthOrg}</div>
             <div className="page-certificate-container-teachsupport">技术支持：志多星</div>
-            {this.certCachet ? <img src={this.certCachet} alt="" /> : <div />}
+              {this.certCachet ? <img src={this.certCachet} alt="" className="first" /> : <div />}
+              {window.orgCode ==  'qM7e5Ba2vp' ? <img src='/images/my/zdx.png' className="second" />:null}
           </div>
         </div>
       </div>
