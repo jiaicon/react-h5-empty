@@ -275,7 +275,7 @@ class TeamDetailPage extends React.Component {
       <div className="header">
         {this.renderSlick()}
         {
-          !detailData.star ?
+          !detailData.stars ?
             <div className="header-addition">
               <div className="team-info">
                 <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
@@ -288,7 +288,7 @@ class TeamDetailPage extends React.Component {
                 <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
                 <div className="header-addition-new-container">
                   <div  className="header-addition-new-container-title"><span>{detailData.name}</span></div>
-                  <div  className="header-addition-new-container-star"><Star size={{width:15,height:14,score:detailData.star}} /></div>
+                  <div  className="header-addition-new-container-star"><Star size={{width:15,height:14,score:detailData.stars}} /></div>
                 </div>
               </div>
 

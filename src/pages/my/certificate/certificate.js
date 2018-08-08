@@ -81,7 +81,7 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-name">{this.props.user.real_name}</div>
           <div className="page-certificate-container-star">
               {
-                this.props.user.star ? <Star size={{width:15,height:14,score:this.props.user.star}} />:null
+                this.props.user.stars ? <Star size={{width:15,height:14,score:this.props.user.stars}} />:null
               }
           </div>
           <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>

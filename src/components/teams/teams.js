@@ -43,10 +43,11 @@ class Teams extends React.Component {
                 <div className="team-name">
                   <div className="team-name-content">
                     {team.name}
+                    <div className="team-name-star">
+                       {team.stars?<Star  size={{width:15,height:14,score:team.stars}}/>:null}
                   </div>
-                  <div className="team-name-star">
-                       {team.star?<Star  size={{width:15,height:14,score:team.star}}/>:null}
                   </div>
+                 
                   {
                     showLabel ?
                       <div

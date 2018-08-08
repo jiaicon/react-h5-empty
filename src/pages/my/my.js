@@ -82,7 +82,7 @@ class MyPage extends React.Component {
           <p className="page-my-user-info-signature">{ user.slogan || '未设置口号'}</p>
           <div className="page-my-user-info-star">
           {
-            user.star? <Star size={{width:15,height:14,score:user.star}}/>:null
+            user.stars? <Star size={{width:15,height:14,score:user.stars}}/>:null
           }
        
           </div>
