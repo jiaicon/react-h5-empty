@@ -115,12 +115,13 @@
 .page-certificate-container-bottom-infobox img{
   width: 80px;
   position: absolute;
-  top: -22px;
-  right: 0px;
+  
 }
-
-
-.page-certificate-container-star{
-  width: 90px;
-  margin: 10px auto 30px;
+.page-certificate-container-bottom-infobox img.first{
+  top: -22px;
+  right: 32px;
+}
+.page-certificate-container-bottom-infobox img.second{
+  top: -22px;
+  right: -48px;
 }
