@@ -369,7 +369,7 @@ class ProjectDetailPage extends React.Component {
               <li>
                 <div className="item-point" />
                 <div className="detail-title">项目地址</div>
-                <div className="detail-content">{detailData.province_name}{detailData.city_name}{detailData.county_name}{detailData.addr}</div>
+                <div className="detail-content">{detailData.addr}</div>
               </li>
             </ul>
             <div className="project-guard">
