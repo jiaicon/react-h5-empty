@@ -72,6 +72,9 @@ class Certificate extends React.Component {
     if (listData == null) {
       return <div>加载中</div>;
     }
+
+    const starWidth =this.props.user.stars? Number(this.props.user.stars) * Number(20) -Number(5) +'px':null
+    console.log(starWidth)
     // qM7e5Ba2vp  国有黄金
     return (
       <div className="page-certificate-bg">
@@ -80,11 +83,16 @@ class Certificate extends React.Component {
           <Avatar src={this.props.user.avatars} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
           <div className="page-certificate-container-certificate" />
           <div className="page-certificate-container-name">{this.props.user.real_name}</div>
-          <div className="page-certificate-container-star">
+          
+          
               {
-                this.props.user.stars ? <Star size={{width:15,height:14,score:this.props.user.stars}} />:null
+                this.props.user.stars ? 
+                <div className="page-certificate-container-star" style={{width: `${starWidth}`}}>
+                  <Star size={{width:15,height:14,score:this.props.user.stars}} />
+                </div>
+                :null
               }
-          </div>
+         
           <div className="page-certificate-container-content">证书编号：{this.props.user.identifier}</div>
           <div className="page-certificate-container-content">{this.state.register}注册成为{this.certOrg}志愿者</div>
           <div className="page-certificate-container-content">{this.state.now}截止</div>
