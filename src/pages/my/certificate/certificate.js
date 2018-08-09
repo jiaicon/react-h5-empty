@@ -74,7 +74,7 @@ class Certificate extends React.Component {
     }
 
     const starWidth =this.props.user.stars? Number(this.props.user.stars) * Number(20) -Number(5) +'px':null
-    console.log(starWidth)
+
     // qM7e5Ba2vp  国有黄金
     return (
       <div className="page-certificate-bg">
