@@ -106,6 +106,9 @@ class HomePage extends React.Component {
   }
   renderAnnounceComponent(){
     const { home, user } = this.props;
+    if(home.data && !home.data.news){
+      return null
+    }
     return(
       <div className="notice">
 
