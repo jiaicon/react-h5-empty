@@ -72,9 +72,6 @@ class LaunchPage extends React.Component {
         <div className="content">
           {page}
         </div>
-        <div className="takeup"/>
-        <div className="tabscontainer">
-        <div className="line1px " style={{ width: '100%'}} />
         <ul className="tabs">
           <li>
             <Link to="/">
@@ -113,8 +110,7 @@ class LaunchPage extends React.Component {
             </Link>
           </li>
         </ul>
-        </div>
-       
+        <div className="line1px" style={{ width: '100%', position: 'absolute', bottom: '49px', left: '0' }} />
       </div>
     );
   }
