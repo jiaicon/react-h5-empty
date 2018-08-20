@@ -32,7 +32,7 @@ class TeamListPage extends React.Component {
 
     this.selectedOption = {
       county_id: '',
-      service_category: '',
+      service_object: '',
       team_type: '',
     };
   }
@@ -46,7 +46,7 @@ class TeamListPage extends React.Component {
     this.selectedOption = {
       team_type: window.teamCategory[type],
       county_id: '',
-      service_category: window.serviceCategory[category],
+      service_object: window.serviceTarget[category],
     };
     this.requestList(false);
     this.props.getAreaCity(JSON.parse(localStorage.provinceAndCityName).city);
@@ -87,7 +87,7 @@ class TeamListPage extends React.Component {
     const countyIdArr = this.state.countyId;
     this.selectedOption = {
       team_type: window.teamCategory[type],
-      service_category: window.serviceCategory[category],
+      service_object: window.serviceTarget[category],
       county_id: countyIdArr[target],
 
     };
