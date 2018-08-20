@@ -1,9 +1,11 @@
 .page-launch{
-  position: absolute;
+  /* position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: 0; */
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: #F8F8F8;
@@ -14,8 +16,17 @@
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-
+.page-launch  .takeup{
+  height: 50px;
+  background:transparent;
+}
+.page-launch .tabscontainer{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
 .page-launch .tabs{
+ 
   display: flex;
   justify-content: center;
   align-items: center;
