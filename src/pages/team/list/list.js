@@ -155,7 +155,7 @@ class TeamListPage extends React.Component {
         <div className="header">
           <div className="search-bar-container">
             <Link className="component-search-bar" to="/team/search">
-              <input className="input" placeholder="搜索团队" />
+              <input className="input" placeholder="搜索团队"  disabled="disabled" />
             </Link>
           </div>
         </div>

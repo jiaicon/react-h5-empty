@@ -135,7 +135,7 @@ class ProjectListPage extends React.Component {
         <div className="header">
           <div className="search-bar-container">
             <Link className="component-search-bar" to="/project/search">
-              <input className="input" placeholder="搜索项目" />
+              <input className="input" placeholder="搜索项目"  disabled="disabled" />
             </Link>
           </div>
         </div>
