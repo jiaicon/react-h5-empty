@@ -26,10 +26,8 @@ class ProjectSearchPage extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
-    setTimeout(() => {
-      this.searchInput.focus();
-      this.searchInput.select();
-  }, 20)
+
+    this.searchInput.focus();
   }
 
   componentWillReceiveProps() {
