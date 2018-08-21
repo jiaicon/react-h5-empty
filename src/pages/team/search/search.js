@@ -27,8 +27,11 @@ class TeamSearchPage extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
     console.log(this.searchInput)
-    this.searchInput.focus();
-    this.searchInput.select();
+    setTimeout(() => {
+      this.searchInput.focus();
+      this.searchInput.select();
+  }, 20)
+
   }
 
   componentWillReceiveProps() {
