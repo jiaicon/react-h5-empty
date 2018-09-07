@@ -5,6 +5,16 @@
     "chunk": "main"
   },
   {
+    "path": "/shop",
+    "page": "./pages/shop/index",
+    "chunk": "main"
+  },
+  {
+    "path": "/shop/goods/:Id",
+    "page": "./pages/shop/detail/index",
+    "chunk": "main"
+  },
+  {
     "path": "/signin",
     "page": "./pages/launch/launch",
     "chunk": "main"
