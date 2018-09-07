@@ -16,7 +16,9 @@
     width: 100%;
     padding: 40px 0 0;
     flex: 1;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    overflow: hidden;
+    word-wrap: break-word;
   }
   .page-announce-detail .page-center-style img{
     width: 100%;

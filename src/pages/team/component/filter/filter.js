@@ -12,14 +12,14 @@ class Filter extends React.Component {
 
     this.filterConfig = {
       types: window.teamCategory,
-      categories: window.serviceCategory,
+      categories: window.serviceTarget,
       objects: props.countyNames,
     };
     this.state = {
       showOptionsType: '',
       selectedOption: {
         types: window.teamCategory[props.type] || '',
-        categories: window.serviceCategory[props.category] || '',
+        categories: window.serviceTarget[props.category] || '',
         objects: props.countyNames[props.target] || '',
       },
     };
@@ -108,7 +108,7 @@ class Filter extends React.Component {
   render() {
     const { showOptionsType, selectedOption } = this.state;
     const selectedType = selectedOption.types || '团队类型';
-    const selectedCategory = selectedOption.categories || '服务类型';
+    const selectedCategory = selectedOption.categories || '服务对象';
     const selectedObject = selectedOption.objects || '所在区域';
     return (
       <div className="component-project-filter">

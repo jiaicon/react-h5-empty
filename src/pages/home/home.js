@@ -84,7 +84,7 @@ class HomePage extends React.Component {
     return (<div className="header-bar">
       <Link to="/selectcity"><div className="city-name">{this.state.city}</div></Link>
       <Link className="component-search-bar" to="/homesearch">
-        <input className="input" placeholder="搜索项目/团队" />
+        <input className="input" placeholder="搜索项目/团队"  disabled="disabled" />
       </Link>
       {
         !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link>
@@ -106,6 +106,9 @@ class HomePage extends React.Component {
   }
   renderAnnounceComponent(){
     const { home, user } = this.props;
+    if(home.data && !home.data.news){
+      return null
+    }
     return(
       <div className="notice">
 

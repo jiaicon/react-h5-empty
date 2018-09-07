@@ -450,3 +450,4 @@ input::-webkit-input-placeholder{
 	0%{ transform: rotateZ(0deg); }
 	100%{ transform: rotateZ(360deg); }
 }
+a,button,input,optgroup,select,textarea { -webkit-tap-highlight-color:rgba(0,0,0,0); }

@@ -26,7 +26,9 @@ class TeamSearchPage extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+
     this.searchInput.focus();
+
   }
 
   componentWillReceiveProps() {
@@ -86,7 +88,7 @@ class TeamSearchPage extends React.Component {
         <div className="header"  onClick={this.handleSearch}>
           <div className="search-bar-container">
             <form onSubmit={this.handleSearch} className="component-search-bar">
-              <input ref={(el) => { this.searchInput = el; }} onBlur={this.handleSearch} className="input" placeholder="搜索团队" />
+              <input ref={(el) => { this.searchInput = el; }} onBlur={this.handleSearch} className="input" placeholder="搜索团队" autofocus="autofocus" />
             </form>
             <button onClick={this.handleCancelSearch}>取消</button>
           </div>

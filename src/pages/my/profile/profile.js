@@ -422,9 +422,11 @@ class Profile extends React.Component {
                     'page-profile-display-extends-none': user.id_number,
                     })}
                     >
-                        <Link to="/my/profile/verify">
-                            <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
-                        </Link>
+                        
+                            <Link to="/my/profile/verify">
+                                <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
+                            </Link>
+                        
                     </div>
                
               
