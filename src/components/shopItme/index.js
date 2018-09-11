@@ -27,8 +27,7 @@ class Projects extends React.Component {
     }
 
     componentWillUnmount() { }
-
-    render() {
+    renderIndexItem() {
         const { data } = this.props;
         if (!data) {
             return null;
@@ -39,7 +38,7 @@ class Projects extends React.Component {
             <ul className="component-shopItem">
                 {
                     data.map((item, index) => {
-                        return(
+                        return (
                             <li key={index}>
                                 <Link to={`/shop/goods/${item.id}`}>
                                     <div className="component-shopItem-container">
@@ -65,6 +64,47 @@ class Projects extends React.Component {
             </ul>
         );
     }
+    renderOrderList() {
+        return (
+            <ul className="component-shopItem">
+                <Link to=''>
+                    <li >
+                        <div className="component-shopItem-container">
+                            <Image src={'123'} className="image" defaultSrc="/images/my/banner.png" />
+                            <div className="component-shopItem-content">
+                                <div className="component-shopItem-name">1231</div>
+                                <div className="component-shopItem-condition">123}</div>
+                                <div className="component-shopItem-price-container">
+                                    <div className="new">123123}</div>
+                                    <div className="fonts">星币</div>
+                                    <div className="old">¥123123元</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="line1px" />
+                        <div className="component-shopItem-order-container">
+                            <div className="component-shopItem-order-time">下单时间：2018-08-26 14:21:34</div>
+                            <div className="component-shopItem-order-time">已兑换／发货时间：2018-2-14 12:33</div>
+                            <div  className="component-shopItem-order-btn">确认已兑换</div>
+                        </div>
+
+
+                    </li>
+                    <div className="takeupborder" />
+                </Link>
+
+            </ul>
+        )
+    }
+    render() {
+        const { isntIndex } = this.props;
+
+        return (
+            <div>
+                {!isntIndex ? this.renderIndexItem() : this.renderOrderList()}
+            </div>
+        );
+    }
 }
 
 Projects.propTypes = {
@@ -72,6 +112,8 @@ Projects.propTypes = {
         PropTypes.shape({
 
         })),
+    isntIndex: PropTypes.bool,
+    isSure: PropTypes.func,
 };
 
 export default Projects;

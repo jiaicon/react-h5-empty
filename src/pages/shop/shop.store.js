@@ -1,5 +1,54 @@
 import fetch from '../../utils/fetch';
 import { combineReducers } from 'redux';
+export const ordersAction =() => ({
+  type: 'ORDER_DATA',
+
+  payload: fetch('/order/myorders', { method: 'GET'}),
+});
+
+export const  ordersReducer =  (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  let data;
+  const { more } = action.meta || {};
+  const { data: payloadData } = action.payload || {};
+
+  switch (action.type) {
+    case 'ORDER_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'ORDER_DATA_FULFILLED':
+      if (!more || !state.data) {
+        data = payloadData;
+      } else {
+        data = {
+          list: state.data.list.concat(payloadData.list),
+          page: payloadData.page,
+        };
+      }
+
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+      };
+    case 'ORDER_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
 export const bannerAction =() => ({
   type: 'BANNER_DATA',
 
@@ -147,4 +196,5 @@ export default combineReducers({
     banner: bannerReducer,
     goodsList:goodsListReducer,
     detail:goodsDetailReducer,
+    orderList:ordersReducer,
   });

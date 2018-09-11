@@ -68,6 +68,7 @@ class ShopDetailPage extends React.Component {
     }
     renderDetail() {
         const { detail: { data } } = this.props;
+        console.log(data)
         if (!data) {
             return null;
         }
@@ -89,7 +90,7 @@ class ShopDetailPage extends React.Component {
                     <div className="line1px"></div>
                     <div className="page-shop-goods-content-top-date">有效期：{data.created_at} 至 {data.updated_at}</div>
                     <div className="line1px"></div>
-                    <div className="page-shop-goods-content-top-date">发起方：{data.org_id || null}{data.team_id || null}</div>
+                    <div className="page-shop-goods-content-top-date">发起方：{data.team_info.name}</div>
                     <div className="line1px"></div>
                     <div className="page-shop-goods-content-top-date">支持方：{data.sponsor}</div>
                 </div>
@@ -111,7 +112,7 @@ class ShopDetailPage extends React.Component {
         )
     }
     render() {
-
+      
         return (
             <div className="page-shop-goods-main-container">
                 {this.renderSlick()}
