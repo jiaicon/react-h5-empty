@@ -34,6 +34,9 @@
     color: #6AC6F8;
     padding-left: 10px;
  }
+ .page-shop-main-container  .page-shop-main-header .left .redfonts{
+    color: red;
+ }
  .page-shop-main-container  .page-shop-main-header .right{
     width: 85px;
     height: 28px;

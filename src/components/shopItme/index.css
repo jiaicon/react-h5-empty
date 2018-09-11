@@ -43,7 +43,7 @@
 .component-shopItem-price-container .fonts{
     font-size: 13px;
     color: #484848;
-    margin: 0 5px 0 15px;
+    margin: 0 15px 0 5px;
 }
 .component-shopItem-price-container .old{
     font-size: 13px;
@@ -59,7 +59,7 @@
     font-weight: 200;
     min-height: 300px;
   }
-  .component-shopItem-container .takeupborder{
+  .component-shopItem .takeupborder{
     width: 100%;
     height: 10px;
     background: #F4F4F4;
@@ -92,4 +92,7 @@
     color: #FFFFFF;
     margin: 15px 0;
     margin-left: auto;
+  }
+  .component-shopItem-order-time-fonts-color{
+      color: #6AC6F8;
   }

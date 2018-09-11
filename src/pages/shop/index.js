@@ -17,7 +17,8 @@ import Image from '../../components/image/image';
 import Link from '../../components/link/link';
 import ShopItem from '../../components/shopItme/index';
 import { isWindowReachBottom } from '../../utils/funcs';
-import { bannerAction,requestGoodsList } from './shop.store';
+import { bannerAction, requestGoodsList } from './shop.store';
+import { userCenterAction } from '../my/my.store';
 import './index.css';
 
 class ShopPage extends React.Component {
@@ -26,20 +27,24 @@ class ShopPage extends React.Component {
     super(props);
     autoBind(this);
     this.slickSettings = {
-        dots: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        autoplay: true,
-        autoplaySpeed: 6000,
-      };
+      dots: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 6000,
+    };
   }
 
 
   componentWillMount() {
-      this.props.bannerAction();
-      this.requestList(false);
+    const { user } = this.props;
+    if (user.isLogin) {
+      this.props.userCenterAction();
+    }
+    this.props.bannerAction();
+    this.requestList(false);
   }
 
   componentDidMount() {
@@ -70,78 +75,95 @@ class ShopPage extends React.Component {
     const scrollHeight = event.target.scrollHeight;
     const scrollTop = event.target.scrollTop;
     const isBottom = (clientHeight + scrollTop === scrollHeight);
- 
-      
-      if (isBottom) {
-        this.requestList(true)
-      } 
-    
+
+
+    if (isBottom) {
+      this.requestList(true)
+    }
+
   }
   renderSlick() {
-    const { banner: { data} } = this.props;
+    const { banner: { data } } = this.props;
     if (!data || !data.length) {
       return <div className="slick-container slick-container-empty" />;
     }
 
     return (<div className="slick-container">
-     <Slick {...this.slickSettings}>
-            {data
-              .map((item) => {
-                // let url = '';
-                // const mode = item.jump_mode;
+      <Slick {...this.slickSettings}>
+        {data
+          .map((item) => {
+            // let url = '';
+            // const mode = item.jump_mode;
 
-                // if (mode === 1) {
-                //   url = '/my/entry';
+            // if (mode === 1) {
+            //   url = '/my/entry';
 
-                //   // 第三方
-                // } else if (mode === 2) {
-                //   // 项目
-                //   url = `/project/detail/${item.jump_id}`;
-                // } else if (mode === 3) {
-                //   // 团队
-                //   url = `/team/detail/${item.jump_id}`;
-                // }
+            //   // 第三方
+            // } else if (mode === 2) {
+            //   // 项目
+            //   url = `/project/detail/${item.jump_id}`;
+            // } else if (mode === 3) {
+            //   // 团队
+            //   url = `/team/detail/${item.jump_id}`;
+            // }
             //     <Link key={item.id} to={url}>
             //     <Image src={item.photo} className="image" defaultSrc="/images/my/banner.png" />
             //   </Link>);
-                return (
-                  <Image src={item.photo} key={item.id} className="image" defaultSrc="/images/my/banner.png" />
-                )
-              })}
-        </Slick> 
+            return (
+              <Image src={item.photo} key={item.id} className="image" defaultSrc="/images/my/banner.png" />
+            )
+          })}
+      </Slick>
 
     </div>);
   }
-  renderItem(){
+  onLogin(){
+    this.props.usercenter();
+  }
+  renderItem() {
     const { goods: { data: listData } } = this.props;
-    return(
-        <ShopItem data={listData && listData.list || null} />
+    return (
+      <ShopItem data={listData && listData.list || null} />
     )
   }
   render() {
-    const { goods: { data: listData } } = this.props;
+    const { goods: { data: listData }, user } = this.props;
     const showLoadingMore = listData &&
-        listData.page && (listData.page.current_page < listData.page.total_page);
+      listData.page && (listData.page.current_page < listData.page.total_page);
+    console.log(user)
     return (
       <div className="page-shop-main-container">
         <div className="page-shop-main-header">
-            <div className="left">我的星币:<span>29382</span></div>
-            <div className="right">兑换记录</div>
+          {
+            user.isLogin ?
+
+              <div className="left">我的星币:<span>29382</span></div>
+
+              :
+              <div className="left">我的星币:<span className="redfonts">请先登录</span></div>
+
+          }
+          {
+            user.isLogin ?
+              <div className="right">兑换记录</div>
+              :
+              <div className="right" onClick={this.onLogin}>前往登录</div>
+          }
         </div>
-        <div className="page-shop-content-header"  ref="LaunchContent">
-         {this.renderSlick()}
-         {this.renderItem()}
-         {
+        <div className="page-shop-content-header" ref="LaunchContent">
+          {this.renderSlick()}
+          {this.renderItem()}
+          {
             showLoadingMore
-            ?
-               <div className="component-loading-more">
+              ?
+              <div className="component-loading-more">
                 <img src="/images/icon_loading.png" alt="loading" />
-              正在加载
-            </div> 
-             : null
-         } 
+                正在加载
+            </div>
+              : null
+          }
         </div>
- 
+
       </div>
     );
   }
@@ -153,6 +175,7 @@ ShopPage.title = '积分商城';
 ShopPage.propTypes = {
   bannerAction: PropTypes.func,
   banner: PropTypes.shape({}),
+  user: PropTypes.shape({}),
   requestGoodsList: PropTypes.func,
 };
 
@@ -160,10 +183,13 @@ export default connect(
   state => ({
     banner: state.shop.banner,
     user: state.user,
+    usercenter: state.my.usercenter,
     goods: state.shop.goodsList,
   }),
   dispatch => bindActionCreators({
     bannerAction,
-    requestGoodsList },
+    requestGoodsList,
+    userCenterAction
+  },
     dispatch),
 )(ShopPage);

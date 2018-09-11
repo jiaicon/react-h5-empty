@@ -1,5 +1,79 @@
 import fetch from '../../utils/fetch';
 import { combineReducers } from 'redux';
+
+export const changeOrdersAction =(id) => ({
+  type: 'CHANGE_ORDER_DATA',
+
+  payload: fetch(`/goods/change/${id}`, { method: 'GET'}),
+});
+
+export const  changeOrdersReducer =  (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+
+  switch (action.type) {
+    case 'CHANGE_ORDER_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'CHANGE_ORDER_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+      };
+    case 'CHANGE_ORDER_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+}
+
+export const sureOrdersAction =(id) => ({
+  type: 'SURE_ORDER_DATA',
+
+  payload: fetch(`/order/collect/${id}`, { method: 'GET'}),
+});
+
+export const  sureOrdersReducer =  (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+
+  switch (action.type) {
+    case 'SURE_ORDER_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'SURE_ORDER_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data,
+      };
+    case 'SURE_ORDER_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 export const ordersAction =() => ({
   type: 'ORDER_DATA',
 
@@ -10,6 +84,7 @@ export const  ordersReducer =  (state = {
   fetching: false,
   failed: false,
   data: null,
+  
 }, action) => {
   let data;
   const { more } = action.meta || {};
@@ -23,15 +98,14 @@ export const  ordersReducer =  (state = {
         failed: false,
       };
     case 'ORDER_DATA_FULFILLED':
-      if (!more || !state.data) {
-        data = payloadData;
-      } else {
-        data = {
-          list: state.data.list.concat(payloadData.list),
-          page: payloadData.page,
-        };
-      }
-
+    if (!more || !state.data) {
+      data = payloadData;
+    } else {
+      data = {
+        list: state.data.list.concat(payloadData.list),
+        page: payloadData.page,
+      };
+    }
       return {
         ...state,
         fetching: false,
@@ -197,4 +271,6 @@ export default combineReducers({
     goodsList:goodsListReducer,
     detail:goodsDetailReducer,
     orderList:ordersReducer,
+    sureOrder:sureOrdersReducer,
+    changeOrder:changeOrdersReducer,
   });

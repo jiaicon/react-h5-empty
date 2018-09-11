@@ -10,18 +10,11 @@ import autoBind from 'react-autobind';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Slick from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import Image from '../../../components/image/image';
-import ShopItem from '../../../components/shopItme/index';
-// import Avatar from '../../../components/avatar/avatar';
-// import Star from '../../../components/star/star';
-// import { dateTextToDateText } from '../../../utils/funcs';
-// import { requestUserInfo } from '../../../stores/common';
-import { requestGoodsDetail } from '../shop.store';
+import { requestGoodsDetail ,changeOrdersAction} from '../shop.store';
 import './index.css';
-
+import history from '../../history';
+import { userCenterAction } from '../../my/my.store';
 class ShopDetailPage extends React.Component {
 
     constructor(props) {
@@ -49,7 +42,16 @@ class ShopDetailPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
+        const {changeOrder:LchangeOrder}=this.props;
+        const {changeOrder:NchangeOrder}=nextProps;
+        if(LchangeOrder.fetching && !LchangeOrder.failed && !NchangeOrder.fetching && !NchangeOrder.failed ){
+           if(NchangeOrder.data.examine){
+             history.replace('/shop/result/1')
+                console.log(1)
+           }else{
+             history.replace('/shop/result/0')
+           }
+        }   
     }
 
     componentWillUnmount() { }
@@ -68,7 +70,7 @@ class ShopDetailPage extends React.Component {
     }
     renderDetail() {
         const { detail: { data } } = this.props;
-        console.log(data)
+      
         if (!data) {
             return null;
         }
@@ -90,7 +92,7 @@ class ShopDetailPage extends React.Component {
                     <div className="line1px"></div>
                     <div className="page-shop-goods-content-top-date">有效期：{data.created_at} 至 {data.updated_at}</div>
                     <div className="line1px"></div>
-                    <div className="page-shop-goods-content-top-date">发起方：{data.team_info.name}</div>
+                    <div className="page-shop-goods-content-top-date">发起方：{data.team_info && data.team_info.name?data.team_info.name:null}</div>
                     <div className="line1px"></div>
                     <div className="page-shop-goods-content-top-date">支持方：{data.sponsor}</div>
                 </div>
@@ -106,9 +108,34 @@ class ShopDetailPage extends React.Component {
             </div>
         )
     }
+    onChange(){
+        const {user} =this.props;
+        if(user.isLogin){
+            this.props.changeOrdersAction(this.Id)
+        }else{
+            this.props.userCenterAction();
+        }
+    }
     renderBtn(){
+        const { detail: { data } } = this.props;
+      
+        if (!data) {
+            return null;
+        }
+        console.log(data.updated_at)
+        // `${data.updated_at}`
+        const now = +new Date();
+		const end = new Date(`${data.updated_at}`).getTime();
         return(
-            <div className='page-shop-goods-main-btn'>立即兑换</div>
+            <div>
+                {
+                    end - now >1*60*1000 && data.g_num >0 ?
+                    <div className='page-shop-goods-main-btn' onClick={this.onChange}>立即兑换</div>:
+                    <div className='page-shop-goods-main-btn-end'>兑换已结束</div>
+                    
+                }
+            </div>
+           
         )
     }
     render() {
@@ -127,16 +154,24 @@ class ShopDetailPage extends React.Component {
 ShopDetailPage.title = '商品详情';
 
 ShopDetailPage.propTypes = {
+    changeOrdersAction: PropTypes.func,
     requestGoodsDetail: PropTypes.func,
     detail: PropTypes.shape({}),
+    changeOrder: PropTypes.shape({}),
+    user: PropTypes.shape({}),
+    userCenterAction: PropTypes.func,
 };
 
 export default connect(
     state => ({
         detail: state.shop.detail,
+        changeOrder:state.shop.changeOrder,
+        user:state.user,
     }),
     dispatch => bindActionCreators({
-        requestGoodsDetail
+        requestGoodsDetail,
+        changeOrdersAction,
+        userCenterAction
     },
         dispatch),
 )(ShopDetailPage);

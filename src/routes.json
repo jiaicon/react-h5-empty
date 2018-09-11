@@ -20,6 +20,11 @@
     "chunk": "main"
   },
   {
+    "path": "/shop/result/:typeId",
+    "page": "./pages/shop/detail/result",
+    "chunk": "main"
+  },
+  {
     "path": "/signin",
     "page": "./pages/launch/launch",
     "chunk": "main"

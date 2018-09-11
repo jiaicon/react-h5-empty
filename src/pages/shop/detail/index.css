@@ -117,3 +117,17 @@
       font-weight: 600;
       color: #666666;
   }
+  .page-shop-goods-main-btn-end{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #666666;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
