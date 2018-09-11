@@ -27,16 +27,23 @@ class Introduce extends React.Component {
     componentWillReceiveProps() {
     }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     render() {
-        const content = window.orgInfo.org_service_tel;
+        const content = window.orgInfo.org_service_guide;
+        const tel = window.orgInfo.org_service_tel;
         return (
-            <div
-                className="page-introduce-style" dangerouslySetInnerHTML={{
-          __html: content ?
-          content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
-            />
+            <div>
+                <div
+                    className="page-introduce-style" dangerouslySetInnerHTML={{
+                        __html: content ?
+                            content.replace(/(\n+)/g, '<br/>') : `请联系客服电话:<a href="tel:${tel}"/>${tel}</a>`
+                    }}
+                />
+                
+
+            </div>
+
         );
     }
 
