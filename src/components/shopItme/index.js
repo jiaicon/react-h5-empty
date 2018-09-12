@@ -68,43 +68,6 @@ class Projects extends React.Component {
         this.props.isSure(id);
     }
     renderOrderList() {
-        // const orderData = [{
-        //     "id": 1,
-        //     "order_num": "aaaaaa111111",
-        //     "org_id": 1,
-        //     "team_id": 0,
-        //     "goods_info": {
-        //         "id": 1,
-        //         "g_name": "水杯",
-        //         "sponsor": "星巴克",
-        //         "thumbnail": "/uploads/2017-09/246251506503134.png",
-        //         "g_img": "/uploads/2017-09/246251506503134.png",
-        //         "content": "超级好用",
-        //         "access": "包你满意",
-        //         "type": 0,
-        //         "price": "180.00",
-        //         "points": 180,
-        //         "g_num": 10,
-        //         "u_num": 1,
-        //         "start_time": "2017-09-27",
-        //         "end_time": "2017-09-27",
-        //         "created_at": "2017-09-27 17:07:08",
-        //         "updated_at": "2017-09-27 17:07:08",
-        //         "auto_time": "2017-09-27 17:07:08",
-        //         "examine": 0,
-        //         "is_display": 1,
-        //         "condition": "女士,vip"
-        //     },
-        //     "user_id": 1,
-        //     "status": 0,
-        //     "num": 1,
-        //     "points": 180,
-        //     "collect_time": "2017-09-27 17:07:08",
-        //     "created_at": "2017-09-27 17:07:08",
-        //     "updated_at": "2017-09-27 17:07:08",
-        //     "state": 0,
-        //     "reason": "11"
-        // }];
         const { orderData } = this.props;
         if (!orderData) {
             return null;
@@ -119,14 +82,14 @@ class Projects extends React.Component {
                         <Link to=''>
                         <li >
                             <div className="component-shopItem-container">
-                                <Image src={item.goods_info.thumbnail} className="image" defaultSrc="/images/my/banner.png" />
+                                <Image src={item && item.goods_id && item.goods_id.thumbnail?item.goods_id.thumbnail:''} className="image" defaultSrc="/images/my/banner.png" />
                                 <div className="component-shopItem-content">
-                                    <div className="component-shopItem-name">{item.goods_info.g_name}</div>
-                                    <div className="component-shopItem-condition">{item.goods_info.condition} </div>
+                                    <div className="component-shopItem-name">{item && item.goods_id && item.goods_id.g_name?item.goods_id.g_name:null}</div>
+                                    <div className="component-shopItem-condition">{item && item.goods_id && item.goods_id.condition?item.goods_id.condition:null} </div>
                                     <div className="component-shopItem-price-container">
-                                        <div className="new">{item.goods_info.points}</div>
+                                        <div className="new">{item && item.goods_id && item.goods_id.points?item.goods_id.points:null}</div>
                                         <div className="fonts">星币</div>
-                                        <div className="old">¥{item.goods_info.price}元</div>
+                                        <div className="old">¥{item && item.goods_id && item.goods_id.price?item.goods_id.price:null}元</div>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +101,7 @@ class Projects extends React.Component {
                                         <div className="component-shopItem-order-time">已兑换／发货时间：{item.collect_time}</div> : null}
                                 {
     
-                                    !item.state && item.status == 0 ? <div className="component-shopItem-order-btn" onClick={()=>this.onSure(item.order_num)}>确认已兑换</div> : null}
+                                    !item.state && item.status == 0 ? <div className="component-shopItem-order-btn" onClick={()=>this.onSure(item.id)}>确认已兑换</div> : null}
                                 {
                                     !item.state && item.status == 1 ? <div className="component-shopItem-order-time">兑换失败：{item.reason}</div> : null}
                                 {

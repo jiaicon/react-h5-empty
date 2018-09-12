@@ -45,12 +45,11 @@ class ShopDetailPage extends React.Component {
         const {changeOrder:LchangeOrder}=this.props;
         const {changeOrder:NchangeOrder}=nextProps;
         if(LchangeOrder.fetching && !LchangeOrder.failed && !NchangeOrder.fetching && !NchangeOrder.failed ){
-           if(NchangeOrder.data.examine){
-             history.replace('/shop/result/1')
-                console.log(1)
-           }else{
-             history.replace('/shop/result/0')
-           }
+            console.log(NchangeOrder.data)
+            if(NchangeOrder.data){
+                history.replace(`/shop/result/${NchangeOrder.data.msg}?data=${JSON.stringify(NchangeOrder.data)}`)
+            }
+
         }   
     }
 
@@ -122,8 +121,6 @@ class ShopDetailPage extends React.Component {
         if (!data) {
             return null;
         }
-        console.log(data.updated_at)
-        // `${data.updated_at}`
         const now = +new Date();
 		const end = new Date(`${data.updated_at}`).getTime();
         return(

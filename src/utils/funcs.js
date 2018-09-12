@@ -1,5 +1,9 @@
 /* global wx:false, qq:false */
-
+export function getQueryString(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return r[2]; return '';
+}
 export function parseTimeStringToDateString(timeString) {
   const dateString = timeString.split(' ')[0];
   return dateString.replace(/-/g, '.');

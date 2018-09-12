@@ -56,7 +56,6 @@ class RecordPagr extends React.Component {
             (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
             return;
         }
-
         this.props.ordersAction({
             current_page: more ? listData.page.current_page + 1 : 1,
             more,

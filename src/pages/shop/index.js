@@ -65,6 +65,7 @@ class ShopPage extends React.Component {
       (more && (!listData || listData.page.current_page >= listData.page.total_page))) {
       return;
     }
+  
     this.props.requestGoodsList({
       current_page: more ? listData.page.current_page + 1 : 1,
       more,
@@ -118,7 +119,7 @@ class ShopPage extends React.Component {
     </div>);
   }
   onLogin(){
-    this.props.usercenter();
+    this.props.userCenterAction();
   }
   renderItem() {
     const { goods: { data: listData } } = this.props;
@@ -127,17 +128,18 @@ class ShopPage extends React.Component {
     )
   }
   render() {
-    const { goods: { data: listData }, user } = this.props;
+    const { goods: { data: listData }, user,usercenter } = this.props;
     const showLoadingMore = listData &&
       listData.page && (listData.page.current_page < listData.page.total_page);
-    console.log(user)
+
+
     return (
       <div className="page-shop-main-container">
         <div className="page-shop-main-header">
           {
             user.isLogin ?
 
-              <div className="left">我的星币:<span>29382</span></div>
+              <div className="left">我的星币:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
 
               :
               <div className="left">我的星币:<span className="redfonts">请先登录</span></div>
@@ -145,7 +147,7 @@ class ShopPage extends React.Component {
           }
           {
             user.isLogin ?
-              <div className="right">兑换记录</div>
+              <Link to="/shop/record"><div className="right">兑换记录</div></Link>
               :
               <div className="right" onClick={this.onLogin}>前往登录</div>
           }
@@ -176,6 +178,7 @@ ShopPage.propTypes = {
   bannerAction: PropTypes.func,
   banner: PropTypes.shape({}),
   user: PropTypes.shape({}),
+  usercenter: PropTypes.shape({}),
   requestGoodsList: PropTypes.func,
 };
 

@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import Link from '../../../components/link/link';
 import { requestGoodsDetail, changeOrdersAction } from '../shop.store';
 import './result.css';
-
+import {getQueryString} from '../../../utils/funcs';
 class ResultPage extends React.Component {
 
     constructor(props) {
@@ -21,6 +21,7 @@ class ResultPage extends React.Component {
         autoBind(this);
         this.state = {
             typeId: props.route.params.typeId,
+            dataInfo:JSON.parse(decodeURIComponent(getQueryString('data'))),
         }
     }
 
@@ -48,8 +49,8 @@ class ResultPage extends React.Component {
             <div className="page-shop-result-container">
                 <img src="/images/shop/success.png" />
                 <div className="page-shop-result-title">恭喜，兑换成功</div>
-                <div className="page-shop-result-points">支付金额：500积分</div>
-                <div className="page-shop-result-points">下单时间：2018-08-26 16:32</div>
+                <div className="page-shop-result-points">支付金额：{this.state.dataInfo.points}积分</div>
+                <div className="page-shop-result-points">下单时间：{this.state.dataInfo.time}</div>
                 <Link to="/shop">
                     <div className="page-shop-result-btn">返回积分商城首页</div>
                 </Link>
@@ -62,8 +63,8 @@ class ResultPage extends React.Component {
             <div className="page-shop-result-container">
                 <img src="/images/shop/wait.png" />
                 <div className="page-shop-result-title">审核中，请稍后...</div>
-                <div className="page-shop-result-points">支付金额：500积分</div>
-                <div className="page-shop-result-points">下单时间：2018-08-26 16:32</div>
+                <div className="page-shop-result-points">支付金额：{this.state.dataInfo.points}积分</div>
+                <div className="page-shop-result-points">下单时间：{this.state.dataInfo.time}</div>
                 <Link to="/shop">
                     <div className="page-shop-result-btn">返回积分商城首页</div>
                 </Link>
@@ -75,7 +76,6 @@ class ResultPage extends React.Component {
 
         return (
             <div>
-                '支付金额,下单时间字段未对'
                 {this.state.typeId == 1 ? this.renderSuccess() : this.renderExamine()}
             </div>
         );

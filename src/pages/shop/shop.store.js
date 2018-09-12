@@ -25,7 +25,7 @@ export const  changeOrdersReducer =  (state = {
         ...state,
         fetching: false,
         failed: false,
-        data,
+        data: action.payload && action.payload.data,
       };
     case 'CHANGE_ORDER_DATA_REJECTED':
       return {
@@ -62,7 +62,7 @@ export const  sureOrdersReducer =  (state = {
         ...state,
         fetching: false,
         failed: false,
-        data,
+        data: action.payload && action.payload.data,
       };
     case 'SURE_ORDER_DATA_REJECTED':
       return {
@@ -74,10 +74,12 @@ export const  sureOrdersReducer =  (state = {
       return state;
   }
 };
-export const ordersAction =() => ({
+export const ordersAction =data => ({
   type: 'ORDER_DATA',
-
-  payload: fetch('/order/myorders', { method: 'GET'}),
+  meta: {
+    more: data.more,
+  },
+  payload: fetch('/order/myorders', { method: 'GET', data, loading: !data.more}),
 });
 
 export const  ordersReducer =  (state = {
