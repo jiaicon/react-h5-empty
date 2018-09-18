@@ -111,8 +111,10 @@ class HomePage extends React.Component {
     }
     return(
       <div className="notice">
-
-          <Announcement data={home.data.news} entry="/announce" />
+      {
+        home.data.news.length>0?<Announcement data={home.data.news} entry="/announce" />:null
+      }
+          
 
       </div>
     )
