@@ -128,7 +128,7 @@ export const  ordersReducer =  (state = {
 export const bannerAction =() => ({
   type: 'BANNER_DATA',
 
-  payload: fetch('/banner/0', { method: 'GET'}),
+  payload: fetch('/banner', { method: 'GET'}),
 });
 
 export const  bannerReducer =  (state = {

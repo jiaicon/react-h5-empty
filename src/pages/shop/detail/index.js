@@ -82,7 +82,8 @@ class ShopDetailPage extends React.Component {
                             <div className="price"><span>{data.points}</span>星币</div>
                             <div className="now">¥{data.price}元</div>
                         </div>
-                        <div className="num">库存{data.g_num}件</div>
+                        {data.g_num?<div className="num">库存{data.g_num}件</div>:null}
+                        {/* <div className="num">库存{data.g_num}件</div> */}
                     </div>
                     {
                         data.condition ? <div className="page-shop-goods-content-top-condition">{data.condition}</div> : null
@@ -93,7 +94,8 @@ class ShopDetailPage extends React.Component {
                     <div className="line1px"></div>
                     <div className="page-shop-goods-content-top-date">发起方：{data.team_info && data.team_info.name?data.team_info.name:null}</div>
                     <div className="line1px"></div>
-                    <div className="page-shop-goods-content-top-date">支持方：{data.sponsor}</div>
+                    {data.sponsor?<div className="page-shop-goods-content-top-date">支持方：{data.sponsor}</div>:null}
+           
                 </div>
                 <div className="page-shop-goods-content-line"></div>
                 <div className="page-shop-goods-content-bottom">
@@ -126,7 +128,7 @@ class ShopDetailPage extends React.Component {
         return(
             <div>
                 {
-                    end - now >1*60*1000 && data.g_num >0 ?
+                    end - now >1*60*1000 && (data.g_num >0 || data.g_num == null)?
                     <div className='page-shop-goods-main-btn' onClick={this.onChange}>立即兑换</div>:
                     <div className='page-shop-goods-main-btn-end'>兑换已结束</div>
                     

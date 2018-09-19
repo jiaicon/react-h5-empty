@@ -51,6 +51,7 @@ class ResultPage extends React.Component {
                 <div className="page-shop-result-title">恭喜，兑换成功</div>
                 <div className="page-shop-result-points">支付金额：{this.state.dataInfo.points}积分</div>
                 <div className="page-shop-result-points">下单时间：{this.state.dataInfo.time}</div>
+                <div className="page-shop-result-access">{this.state.dataInfo.access}</div>
                 <Link to="/shop">
                     <div className="page-shop-result-btn">返回积分商城首页</div>
                 </Link>

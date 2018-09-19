@@ -65,7 +65,8 @@ const loginReducer = (state = {
     data: null,
     idx: 0,
 }, action) => {
-    switch (action.type) {
+    console.log(action)
+    switch (action) {
         case 'LOGIN_CHANGE_INDEX':
             return {
                 ...state,

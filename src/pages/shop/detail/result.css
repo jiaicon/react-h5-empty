@@ -37,3 +37,12 @@
     text-align: center;
     margin-top: 50px;
 }
+.page-shop-result-access{
+    width: 270px;
+    margin: 45px auto 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333333;
+    letter-spacing: 0;
+    line-height: 23px;
+}

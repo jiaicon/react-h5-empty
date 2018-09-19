@@ -91,7 +91,7 @@ class ProjectDetailPage extends React.Component {
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
             this.props.storeLoginSource(`/project/detail/${this.projectId}`)
-            this.props.userCenterAction();
+            history.replace('/my/entry')
           },
         },
       ],
@@ -220,8 +220,8 @@ class ProjectDetailPage extends React.Component {
       
       if (!user.isLogin) {
         this.props.storeLoginSource(`/project/detail/${this.projectId}`)
-
-        this.props.userCenterAction();
+        history.replace('/my/entry')
+        // this.props.userCenterAction();
     
       } else if (user.isLogin && !user.in_blacklist) {
         // 不要求实名

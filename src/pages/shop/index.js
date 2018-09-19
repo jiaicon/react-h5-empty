@@ -93,25 +93,24 @@ class ShopPage extends React.Component {
       <Slick {...this.slickSettings}>
         {data
           .map((item) => {
-            // let url = '';
-            // const mode = item.jump_mode;
+            let url = '';
+            const mode = item.jump_mode;
 
-            // if (mode === 1) {
-            //   url = '/my/entry';
-
-            //   // 第三方
-            // } else if (mode === 2) {
-            //   // 项目
-            //   url = `/project/detail/${item.jump_id}`;
-            // } else if (mode === 3) {
-            //   // 团队
-            //   url = `/team/detail/${item.jump_id}`;
-            // }
-            //     <Link key={item.id} to={url}>
-            //     <Image src={item.photo} className="image" defaultSrc="/images/my/banner.png" />
-            //   </Link>);
+            if (mode === 1) {
+              url =`${item.href}`;
+            } else if (mode === 2) {
+              // 项目
+              url = `/project/detail/${item.jump_id}`;
+            } else if (mode === 3) {
+              // 团队
+              url = `/team/detail/${item.jump_id}`;
+            }
+              
+                // <Image src={item.photo} key={item.id} className="image" defaultSrc="/images/my/banner.png" />
             return (
-              <Image src={item.photo} key={item.id} className="image" defaultSrc="/images/my/banner.png" />
+              <Link key={item.id} to={url}>
+                <Image src={item.photo} className="image" defaultSrc="/images/my/banner.png" />
+              </Link>
             )
           })}
       </Slick>
