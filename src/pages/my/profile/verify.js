@@ -228,10 +228,9 @@ class Verify extends React.Component {
     }
 
     onTextChanged() {
-        const windowInfo = this.state.winOrgInfo;
-        const realname = windowInfo.open_real_name ? this.realname.value.replace(/(^\s+)|(\s+$)/g, '') : null;
-        const idcard = windowInfo.open_id_number ? this.idcard.value.replace(/(^\s+)|(\s+$)/g, '') : null;
-        const address = windowInfo.open_addr ? this.address.value.replace(/(^\s+)|(\s+$)/g, '') : null;
+        const realname =  this.realname.value.replace(/(^\s+)|(\s+$)/g, '') ;
+        const idcard =  this.idcard.value.replace(/(^\s+)|(\s+$)/g, '') ;
+        const address = this.address.value.replace(/(^\s+)|(\s+$)/g, '') ;
         this.setState({
             address,
             realname,
@@ -308,12 +307,13 @@ class Verify extends React.Component {
         if (address) {
             data.addr = address;
         }
+      
         if (photo != undefined && photo != '') {
             console.log('photo: ' + photo);
             data.avatars = photo;
         }
         data.extends = this.state.extendsArray;
-        console.log('data' + data);
+    
         this.props.checkUser(data);
     }
 
@@ -349,12 +349,15 @@ class Verify extends React.Component {
 
     renderAvatars() {
         return (
-            <div>
-                {
-                    this.state.winOrgInfo.open_avatars === 1 ?
+            // <div>
+            //     {
+            //         this.state.winOrgInfo.open_avatars === 1 ?
                         <div>
                             <div className="page-my-profile-verify-header-box page-my-profile-verify-photo-box">
-                            <span className="page-my-profile-verify-header-start">*</span>
+                            {
+                                this.state.winOrgInfo.open_avatars === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null
+                            }
+                            
                                 <div className="page-my-profile-verify-fonts">头像</div>
                                 <div className="page-my-profile-verify-photo" onClick={this.onAvatarClick}>
                                     <div>
@@ -368,20 +371,20 @@ class Verify extends React.Component {
                             </div>
                             < div className="line1px"/>
                         </div>
-                        : null
-                }
-            </div>
+            //             : null
+            //     }
+            // </div>
         )
     }
 
     renderName() {
         return (
-            <div>
-                {
-                    this.state.winOrgInfo.open_real_name === 1 ?
+            // <div>
+            //     {
+                    
                         <div>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                                {this.state.winOrgInfo.open_real_name === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
                                 <div className="page-my-profile-verify-fonts">姓名</div>
                                 <input type="text" ref={(c) => {
                                     this.realname = c;
@@ -390,19 +393,19 @@ class Verify extends React.Component {
                             <div className="line1px"/>
                         </div>
                         : null
-                }
-            </div>
+            //     }
+            // </div>
         )
     }
 
     renderIdCard() {
         return (
-            <div>
-                {
-                    this.state.winOrgInfo.open_id_number === 1 ?
+            // <div>
+            //     {
+                  
                         <div>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                                {  this.state.winOrgInfo.open_id_number === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
                                 <div className="page-my-profile-verify-fonts">身份证号</div>
                                 <input type="text" maxLength="18" ref={(c) => {
                                     this.idcard = c;
@@ -410,20 +413,21 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                         </div>
-                        : null
-                }
-            </div>
+            //             : null
+            //     }
+            // </div>
         )
     }
 
     renderNation() {
         return (
-            <div>
-                {
-                    this.state.winOrgInfo.open_nation === 1 ?
+            // <div>
+            //     {
+                   
                         <div>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                            { this.state.winOrgInfo.open_nation === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
+                                
                                 <div className="page-my-profile-verify-fonts">民族</div>
                                 <label htmlFor="people">
                                     <select id="people" onChange={this.handlePeopleClick} ref={(c) => {
@@ -437,9 +441,9 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                         </div>
-                        : null
-                }
-            </div>
+            //             : null
+            //     }
+            // </div>
         )
     }
 
@@ -449,11 +453,12 @@ class Verify extends React.Component {
         const county = this.props.address.data.county;
         return (
             <div>
-                {
-                    this.state.winOrgInfo.open_addr === 1 ?
+          {/* {
+                    this.state.winOrgInfo.open_addr === 1 ? */}
                         <div>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                            {  this.state.winOrgInfo.open_addr === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
+                                
                                 <div className="page-my-profile-verify-fonts">省份</div>
                                 <label htmlFor="province">
                                     <select id="province" onChange={this.handleProvinceClick} ref={(c) => {
@@ -467,7 +472,7 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                            {  this.state.winOrgInfo.open_addr === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
                                 <div className="page-my-profile-verify-fonts">城市</div>
                                 <label htmlFor="city">
                                     <select id="city" onChange={this.handleCityClick} ref={(c) => {
@@ -482,7 +487,7 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                            {  this.state.winOrgInfo.open_addr === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
                                 <div className="page-my-profile-verify-fonts">区县</div>
                                 <label htmlFor="county">
                                     <select id="county" onChange={this.handleCountryClick} ref={(c) => {
@@ -497,7 +502,7 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                             <div className="page-my-profile-verify-header-box">
-                                <span className="page-my-profile-verify-header-start">*</span>
+                            {  this.state.winOrgInfo.open_addr === 1 ?<span className="page-my-profile-verify-header-start">*</span>:null}
                                 <div className="page-my-profile-verify-fonts">详细地址</div>
                                 <input type="text" ref={(c) => {
                                     this.address = c;
@@ -505,8 +510,8 @@ class Verify extends React.Component {
                             </div>
                             <div className="line1px"/>
                         </div>
-                        : null
-                }
+            {/* //             : null
+            //     } */}
             </div>
         )
     }
