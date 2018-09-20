@@ -133,15 +133,14 @@ export default function request(requestUrl, requestOptions = {}) {
           resolve(json);
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
           let from = window.location.pathname;
-
+          store.dispatch(storeLoginSource(from));
           if (USING_HISTORY_HASH) {
             from = window
               .location
               .hash
               .replace('#', '');
           }
-
-          store.dispatch(storeLoginSource(from));
+          // store.dispatch(storeLoginSource(from));
           history.replace('/my/entry');
           // window.location.replace('/my/entry');
         } else {
