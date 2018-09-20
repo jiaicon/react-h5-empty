@@ -13,6 +13,7 @@ class Projects extends React.Component {
     constructor(props) {
         super(props);
         autoBind(this);
+     
     }
 
     componentWillMount() {
@@ -80,8 +81,9 @@ class Projects extends React.Component {
             <ul className="component-shopItem">
                 {
                     orderData.map((item) => {
+                        console.log(item)
                         return (
-                            <Link to=''>
+                            <Link to={`/shop/goods/${item.goods_id.id}`}>
                                 <li >
                                     <div className="component-shopItem-container">
                                         <Image src={item && item.goods_id && item.goods_id.thumbnail ? item.goods_id.thumbnail : ''} className="image" defaultSrc="/images/my/banner.png" />
@@ -103,7 +105,7 @@ class Projects extends React.Component {
                                         <div className="component-shopItem-order-time">下单时间：{item.updated_at}</div>
                                         {
                                             item.state ?
-                                                <div className="component-shopItem-order-time">已兑换／发货时间：{item.collect_time}</div> : null}
+                                                <div className="component-shopItem-order-time">兑换时间：{item.collect_time}</div> : null}
                                         {
 
                                             !item.state && item.status == 0 ? <div className="component-shopItem-order-btn" onClick={() => this.onSure(item.id)}>确认已兑换</div> : null}
