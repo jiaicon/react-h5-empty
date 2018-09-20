@@ -45,7 +45,6 @@ class starModelPage extends React.Component {
     if (!starModel.data) {
       return null;
     }
-    console.log(starModel.data);
     return (
       <div className="page-starmodel">
         <IMAGE src="/images/model.png" className="page-starmodel-header-pic" />

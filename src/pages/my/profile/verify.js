@@ -63,8 +63,6 @@ function checkEmpty(value, label) {
 function isRequired(arr, stateData) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].is_required && arr[i].is_required === 1) {
-            console.log(stateData)
-            // if (stateData.length != 0) {
             const keys = Object.keys(stateData);
             if (keys.length != 0) {
                 let isInArr = false;    //记录自定义信息的对象中必填的key是否在存在
@@ -554,7 +552,6 @@ class Verify extends React.Component {
 
     //多选控件
     onChange = (key, val) => {
-        console.log(val);
         this.pushExtendsArray(key, val, true)
     };
 
@@ -676,7 +673,7 @@ class Verify extends React.Component {
                         onOk={v => (this.pushExtendsArray(key, formatDate(v)), this.setState({
                             ...this.state,
                             [key]: v
-                        }), console.log(v), console.log(this.state))}
+                        }))}
                     >
 
                         <this.CustomChildren/>
@@ -875,7 +872,6 @@ class Verify extends React.Component {
                 extendsArray[key] = value;
             }
         }
-        console.log(extendsArray)
         this.setState({
             ...this.state,
             extendsArray,

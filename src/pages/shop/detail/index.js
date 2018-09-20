@@ -45,7 +45,6 @@ class ShopDetailPage extends React.Component {
         const {changeOrder:LchangeOrder}=this.props;
         const {changeOrder:NchangeOrder}=nextProps;
         if(LchangeOrder.fetching && !LchangeOrder.failed && !NchangeOrder.fetching && !NchangeOrder.failed ){
-            console.log(NchangeOrder.data)
             if(NchangeOrder.data){
                 history.replace(`/shop/result/${NchangeOrder.data.msg}?data=${JSON.stringify(NchangeOrder.data)}`)
             }

@@ -42,7 +42,6 @@ class PointItem extends React.Component {
   render() {
     const isPay = this.props.isPay;
     const data = this.props.data;
-    console.log(data);
     return (
       <div className="component-point-item-container">
         {

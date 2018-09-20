@@ -31,7 +31,6 @@ class ResultPage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.typeId)
         if (this.state.typeId == 1) {
             document.title = "兑换成功"
         } else {

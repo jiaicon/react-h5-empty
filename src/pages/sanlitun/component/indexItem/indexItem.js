@@ -36,7 +36,6 @@ class IndexItem extends React.Component {
     } else if (data.list && !data.list.length) {
       return <div className="component-page-starmodel-empty-tip">目前还没有党员信息</div>;
     }
-    // console.log(list);
     return (
       <div>
         {

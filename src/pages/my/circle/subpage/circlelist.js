@@ -40,7 +40,6 @@ class CircleList extends React.Component {
   }
   handleScroll() {
     if (isWindowReachBottom(50)) {
-      console.log('滚蛋了')
       this.requestList(true);
     }
   }
@@ -62,7 +61,6 @@ class CircleList extends React.Component {
     const { newComment:  { data: listData } } = this.props;
     const showLoadingMore = listData &&
     listData.page && (listData.page.current_page < listData.page.total_page);
-    console.log(showLoadingMore)
     return (
       <div className="page-teams-container">
 

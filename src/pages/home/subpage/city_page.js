@@ -119,7 +119,6 @@ class CityPage extends React.Component {
     window.location.replace('/');
   }
   cityRender() {
-    console.log(this.props.address.data);
     const city = this.props.address.data.city;
     return (
       <ul>

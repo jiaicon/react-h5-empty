@@ -67,7 +67,6 @@ class BindFamily extends React.Component {
     data.phone = userAccount;
     data.pwd = userPassword;
     data.relation = relations;
-    console.log(data);
     this.props.bindFamilyFun(data);
   }
 
@@ -90,7 +89,6 @@ class BindFamily extends React.Component {
   }
 
   render() {
-        // console.log(relations);
     return (
       <div className="pages-add-bind-family">
         <div className="pages-add-bind-family-top">

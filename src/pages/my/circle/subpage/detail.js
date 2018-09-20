@@ -76,7 +76,6 @@ class CircleDetail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const nextId = nextProps.route.params.Id;
-    console.log(nextId);
     if (nextId !== this.Id) {
       this.props.feelingDetailAction(nextId);
       this.props.requestUserInfo();

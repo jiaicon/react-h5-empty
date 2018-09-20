@@ -78,7 +78,6 @@ class CheckboxStepper extends React.Component {
     e.nativeEvent.stopImmediatePropagation();
     const data = this.state.data;
     const keyId =e.currentTarget.id;
-    console.log(keyId)
     data.map((item,index)=>{
       if(item.key === keyId){
         if(item.is_required !== '1'){
