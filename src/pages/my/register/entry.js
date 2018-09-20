@@ -19,7 +19,7 @@ class Entry extends React.Component {
   }
 
   componentWillMount() {
-    const {from}=this.props.login;
+    const {from}=this.props.login.login;
     if(from){
       this.props.storeLoginSource(from)
     }
