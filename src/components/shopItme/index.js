@@ -42,7 +42,7 @@ class Projects extends React.Component {
                             <li key={index}>
                                 <Link to={`/shop/goods/${item.id}`}>
                                     <div className="component-shopItem-container">
-                                        <Image src={item.g_img} className="image" defaultSrc="/images/my/banner.png" />
+                                        <Image src={item.thumbnail} className="image" defaultSrc="/images/my/banner.png" />
                                         <div className="component-shopItem-content">
                                             <div className="component-shopItem-name-container">
                                                 <div className="component-shopItem-name">{item.g_name}</div>
