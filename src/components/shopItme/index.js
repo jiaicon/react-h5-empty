@@ -124,7 +124,11 @@ class Projects extends React.Component {
                 {
                     orderData.map((item) => {
                         console.log(item);
-                        const time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time)
+                        let time=0;
+                        if(item.goods_id){
+                            time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time)
+                        }
+                     
                         return (
                             <div>
                                 <li key={item.id}>
