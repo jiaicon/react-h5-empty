@@ -36,6 +36,7 @@ class Login extends React.Component {
 
     componentWillMount() {
         this.props.changeIndex(0);
+
         
     }
 
@@ -52,13 +53,17 @@ class Login extends React.Component {
           
             let target = '/my';
             const {from} = nLogin;
+         
             if (realRegister && !nLogin.data.id_number) {
                 if(from) {
                     target = from;
                 }
+                
                 this.props.storeLoginSource(target);
-
-                window.location.replace('/my/profile/verify');
+            
+               
+                window.location.replace(`/my/profile/verify?target=${target}`);
+               
                 // history.replace('/my/profile/verify');
             }else{
                 

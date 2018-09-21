@@ -217,7 +217,8 @@ class TeamDetailPage extends React.Component {
           }
           // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-          window.location.replace(`/my/profile/verify/team/${this.teamId}`);
+          this.props.storeLoginSource(`/project/detail/${this.teamId}`)
+          window.location.replace(`/my/profile/verify`);
           // history.replace(`/my/profile/verify/team/${this.teamId}`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
           if (action === 'join') {

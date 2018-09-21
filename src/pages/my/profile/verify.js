@@ -15,7 +15,7 @@ import {requestUserInfo} from '../../../stores/common';
 import Avatar from '../../../components/avatar/avatar';
 import {checkUser, addressDataAction, userDefinedInfo} from './profile.store';
 import {loginAction} from '../login/login.store';
-
+import { getQueryString } from '../../../utils/funcs';
 import './verify.css';
 import {List, Checkbox, DatePicker, Radio} from 'antd-mobile';
 
@@ -153,6 +153,7 @@ class Verify extends React.Component {
     componentWillMount() {
         this.props.addressDataAction(0);
         const params = this.props.route.params;
+    
         if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
             this.initialPic(this.state.winOrgInfo.extends);
         }
@@ -172,8 +173,11 @@ class Verify extends React.Component {
         const {check: Ncheck} = nextProps;
         const {login: cLogin} = this.props;
         const {login: nLogin} = nextProps;
-        let target = '/my';
+
+        let target =getQueryString('target')?getQueryString('target'):'/my';
+    
         const {from} = nLogin;
+
         if (Ccheck.fetching &&!Ccheck.failed && !Ncheck.fetching && !Ncheck.failed) {
             if (from) {
                 target = from;
