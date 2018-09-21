@@ -156,20 +156,7 @@ class Verify extends React.Component {
         if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
             this.initialPic(this.state.winOrgInfo.extends);
         }
-        if (params.projectId && !isNaN(Number(params.projectId))) {
-            const projectId = params.projectId;
-            this.setState({
-                ...this.state,
-                projectId,
-            });
-        }
-        if (params.teamId && !isNaN(Number(params.teamId))) {
-            const teamId = params.teamId;
-            this.setState({
-                ...this.state,
-                teamId,
-            });
-        }
+      
     }
 
     componentDidMount() {
@@ -187,21 +174,13 @@ class Verify extends React.Component {
         const {login: nLogin} = nextProps;
         let target = '/my';
         const {from} = nLogin;
-        if (Ccheck.fetching && !Ncheck.fetching && !Ncheck.failed) {
-            this.props.requestUserInfo();
-            // return
-            // TODO 如果从项目跳过来的需要跳回去
-            if (this.state.projectId) {
-                window.location.replace(`/project/detail/${this.state.projectId}`);
-            } else if (this.state.teamId) {
-                window.location.replace(`/team/detail/${this.state.projectId}`);
-            } else {
-                if (from) {
-                    target = from;
-                }
-                window.location.replace(target);
-                // history.replace(target);
+        if (Ccheck.fetching &&!Ccheck.failed && !Ncheck.fetching && !Ncheck.failed) {
+            if (from) {
+                target = from;
             }
+            window.location.replace(target);
+            // history.replace(target);
+            
         }
     }
 

@@ -134,12 +134,13 @@ export default function request(requestUrl, requestOptions = {}) {
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
           let from = window.location.pathname;
           store.dispatch(storeLoginSource(from));
-          if (USING_HISTORY_HASH) {
-            from = window
-              .location
-              .hash
-              .replace('#', '');
-          }
+          console.log(123123123)
+          // if (USING_HISTORY_HASH) {
+          //   from = window
+          //     .location
+          //     .hash
+          //     .replace('#', '');
+          // }
           // store.dispatch(storeLoginSource(from));
           history.replace('/my/entry');
           // window.location.replace('/my/entry');
