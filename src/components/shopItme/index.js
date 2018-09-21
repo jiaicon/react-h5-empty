@@ -7,13 +7,54 @@ import classnames from 'classnames';
 import './index.css';
 import Link from '../link/link';
 import Image from '../image/image';
-
+import { Dialog } from 'react-weui';
+import 'weui/dist/style/weui.css';
+import 'react-weui/build/packages/react-weui.css';
+function isInTimeArea(t1, t2, t3) {
+    var begin = new Date(t1.replace(/-/g, "/"));
+    var end = new Date(t2.replace(/-/g, "/"));
+    var now = t3 ? t3 : new Date();
+    var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    if (Date.parse(str) > Date.parse(end)) {
+        //结束
+        console.log('过了')
+        return 1
+    } else if (Date.parse(begin) < Date.parse(str) < Date.parse(end)) {
+        // 区间
+        console.log('刚好')
+        return 0
+    } else if (Date.parse(begin) > Date.parse(str)) {
+        // 未到
+        console.log('未到')
+        return -1
+    }
+}
 class Projects extends React.Component {
 
     constructor(props) {
         super(props);
         autoBind(this);
-     
+        this.state = ({
+            showDialog: false
+        })
+        this.dialog = {
+            title: '确认兑换',
+            buttons: [
+                {
+                    type: 'default',
+                    label: '取消',
+                    onClick: () => this.setState({ ...this.state, showDialog: false }),
+                },
+                {
+                    type: 'primary',
+                    label: '确认',
+                    onClick: () => {
+                        this.setState({ ...this.state, showDialog: false });
+                        this.props.isSure(this.sureId);
+                    },
+                },
+            ],
+        };
     }
 
     componentWillMount() {
@@ -68,7 +109,8 @@ class Projects extends React.Component {
         );
     }
     onSure(id) {
-        this.props.isSure(id);
+        this.sureId = id;
+        this.setState({ ...this.state, showDialog: true });
     }
     renderOrderList() {
         const { orderData } = this.props;
@@ -81,10 +123,11 @@ class Projects extends React.Component {
             <ul className="component-shopItem">
                 {
                     orderData.map((item) => {
-                        console.log(item)
+                        console.log(item);
+                        const time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time)
                         return (
-                            <Link to={`/shop/goods/${item.goods_id.id}`}>
-                                <li >
+                            <div>
+                                <li key={item.id}>
                                     <div className="component-shopItem-container">
                                         <Image src={item && item.goods_id && item.goods_id.thumbnail ? item.goods_id.thumbnail : ''} className="image" defaultSrc="/images/my/banner.png" />
                                         <div className="component-shopItem-content">
@@ -108,7 +151,16 @@ class Projects extends React.Component {
                                                 <div className="component-shopItem-order-time">兑换时间：{item.collect_time}</div> : null}
                                         {
 
-                                            !item.state && item.status == 0 ? <div className="component-shopItem-order-btn" onClick={() => this.onSure(item.id)}>确认已兑换</div> : null}
+                                            !item.state && item.status == 0 && time == 1 ? <div className="component-shopItem-order-btn">未到兑换日期</div> : null
+                                        }
+                                        {
+
+                                            !item.state && item.status == 0 && time == 0 ? <div className="component-shopItem-order-btn" onClick={() => this.onSure(item.id)}>确认已兑换</div> : null
+                                        }
+                                        {
+
+                                            !item.state && item.status == 0 && time == -1 ? <div className="component-shopItem-order-time">兑换失败，商品已过兑换日期（不返还积分）</div> : null
+                                        }
                                         {
                                             !item.state && item.status == 1 ? <div className="component-shopItem-order-time">兑换失败：{item.reason}</div> : null}
                                         {
@@ -117,10 +169,12 @@ class Projects extends React.Component {
 
                                     </div>
 
-
+                                    <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+                                        确认是否已兑换
+                                    </Dialog>
                                 </li>
                                 <div className="takeupborder" />
-                            </Link>
+                            </div>
                         )
                     })
                 }

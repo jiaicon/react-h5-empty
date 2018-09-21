@@ -15,12 +15,32 @@ import { requestGoodsDetail, changeOrdersAction } from '../shop.store';
 import './index.css';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
-
+import Link from '../../../components/link/link';
 
 
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
+
+function isInTimeArea(t1, t2, t3) {
+    var begin = new Date(t1.replace(/-/g, "/"));
+    var end = new Date(t2.replace(/-/g, "/"));
+    var now = t3 ? t3 : new Date();
+    var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    if (Date.parse(str) > Date.parse(end)) {
+        //结束
+        console.log('过了')
+        return 1
+    } else if (Date.parse(begin) < Date.parse(str) < Date.parse(end)) {
+        // 区间
+        console.log('刚好')
+        return 0
+    } else if (Date.parse(begin) > Date.parse(str)) {
+        // 未到
+        console.log('未到')
+        return -1
+    }
+}
 class ShopDetailPage extends React.Component {
 
     constructor(props) {
@@ -109,7 +129,7 @@ class ShopDetailPage extends React.Component {
                             <div className="price"><span>{data.points}</span>星币</div>
                             <div className="now">¥{data.price}元</div>
                         </div>
-                        {data.g_num ? <div className="num">库存{data.g_num}件</div> : null}
+                        {data.g_num? <div className="num">库存{data.g_num}件</div> : null}
                         {/* <div className="num">库存{data.g_num}件</div> */}
                     </div>
                     {
@@ -153,20 +173,45 @@ class ShopDetailPage extends React.Component {
         if (!data) {
             return null;
         }
-        const now = +new Date();
-        const end = new Date(`${data.updated_at}`).getTime();
+        console.log(data)
+        // 1能买 0不能
+        let actionLabel = '';
+        let actionClassName = '';
+        let action = '';
+        if((data.g_num>0|| data.g_num == null) && data.change_num == 1){
+            actionClassName = 'page-shop-goods-main-btn';
+            actionLabel='立即兑换';
+            action = 'sure'
+        }else if(data.g_num == 0){
+            actionClassName = 'page-shop-goods-main-btn-end';
+            actionLabel='已售罄';
+            action = ''
+        }else if((data.g_num>0|| data.g_num == null) && data.change_num == 0){
+            actionClassName = 'page-shop-goods-main-btn-end';
+            actionLabel='已达到兑换限制';
+            action = ''
+        }
         return (
-            <div>
-                {
-                    end - now > 1 * 60 * 1000 && (data.g_num > 0 || data.g_num == null) ?
-                        <div className='page-shop-goods-main-btn' onClick={this.onChange}>立即兑换</div> :
-                        <div className='page-shop-goods-main-btn-end'>兑换已结束</div>
-
-                }
-            </div>
+                 <Link to="" onClick={this.handleActionClick(action)} className={`${actionClassName}`}>
+                    {actionLabel}
+                </Link>
 
         )
     }
+    handleActionClick(action) {
+      
+        const { user } = this.props;
+        
+        return () => {
+            if(action == 'sure'){
+                if (user.isLogin) {
+                    this.setState({ ...this.state, showDialog: true });
+                } else {
+                    this.props.userCenterAction();
+                }
+            }
+        };
+      }
     render() {
 
         return (
