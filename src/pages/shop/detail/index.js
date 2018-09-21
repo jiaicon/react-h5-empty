@@ -159,16 +159,8 @@ class ShopDetailPage extends React.Component {
             </div>
         )
     }
-    onChange() {
-        const { user } = this.props;
-        if (user.isLogin) {
-            this.setState({ ...this.state, showDialog: true });
-        } else {
-            this.props.userCenterAction();
-        }
-    }
     renderBtn() {
-        const { detail: { data } } = this.props;
+        const { detail: { data },user } = this.props;
 
         if (!data) {
             return null;
@@ -178,19 +170,26 @@ class ShopDetailPage extends React.Component {
         let actionLabel = '';
         let actionClassName = '';
         let action = '';
-        if((data.g_num>0|| data.g_num == null) && data.change_num == 1){
+        if (user.isLogin) {
+            if((data.g_num>0|| data.g_num == null) && data.change_num == 1){
+                actionClassName = 'page-shop-goods-main-btn';
+                actionLabel='立即兑换';
+                action = 'sure'
+            }else if(data.g_num == 0){
+                actionClassName = 'page-shop-goods-main-btn-end';
+                actionLabel='已售罄';
+                action = ''
+            }else if((data.g_num>0|| data.g_num == null) && data.change_num == 0){
+                actionClassName = 'page-shop-goods-main-btn-end';
+                actionLabel='已达到兑换限制';
+                action = ''
+            }
+        } else {
             actionClassName = 'page-shop-goods-main-btn';
             actionLabel='立即兑换';
             action = 'sure'
-        }else if(data.g_num == 0){
-            actionClassName = 'page-shop-goods-main-btn-end';
-            actionLabel='已售罄';
-            action = ''
-        }else if((data.g_num>0|| data.g_num == null) && data.change_num == 0){
-            actionClassName = 'page-shop-goods-main-btn-end';
-            actionLabel='已达到兑换限制';
-            action = ''
         }
+     
         return (
                  <Link to="" onClick={this.handleActionClick(action)} className={`${actionClassName}`}>
                     {actionLabel}
