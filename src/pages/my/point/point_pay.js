@@ -27,7 +27,7 @@ class PointPay extends React.Component {
   }
 
   componentDidMount() {
-
+    document.title = `我的${scoreName || '星币'}明细`;
   }
 
   componentWillReceiveProps() {
@@ -56,7 +56,6 @@ class PointPay extends React.Component {
   }
 }
 
-PointPage.title = `我的${scoreName || '星币'}明细`;
 
 PointPay.propTypes = {
 

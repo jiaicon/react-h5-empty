@@ -118,7 +118,7 @@ class MyPage extends React.Component {
         <Link to="/my/point">
           <div className="page-my-record-item">
             <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</b> {scoreName || '星币'}</p>
-            <p className="page-my-record-item-bottom">`志愿 ${scoreName || scoreName || '星币'}`</p>
+            <p className="page-my-record-item-bottom">志愿{scoreName ||  '星币'}</p>
           </div>
         </Link>
       </div>

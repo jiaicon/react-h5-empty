@@ -39,7 +39,7 @@ class PointPage extends React.Component {
   }
 
   componentDidMount() {
-
+    document.title = `我的${scoreName || '星币'}明细`;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,7 +98,6 @@ class PointPage extends React.Component {
 }
 
 
-PointPage.title = `我的${scoreName || '星币'}明细`;
 PointPage.propTypes = {
   usercenter: PropTypes.shape({
     data: PropTypes.shape({

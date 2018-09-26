@@ -14,7 +14,7 @@ import './point.css';
 import { scoreAction } from '../my.store';
 
 import POINTITEM from './component/pointItem';
-const scoreName =window.orgInfo.score_name;
+const scoreName = window.orgInfo.score_name;
 
 class PointIncome extends React.Component {
 
@@ -28,7 +28,7 @@ class PointIncome extends React.Component {
   }
 
   componentDidMount() {
-
+    document.title = `我的${scoreName || '星币'}明细`;
   }
 
   componentWillReceiveProps() {
@@ -57,7 +57,6 @@ class PointIncome extends React.Component {
   }
 }
 
-PointPage.title = `我的${scoreName || '星币'}明细`;
 
 PointIncome.propTypes = {
 
