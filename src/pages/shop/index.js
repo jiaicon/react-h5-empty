@@ -154,6 +154,9 @@ class ShopPage extends React.Component {
         <div className="page-shop-content-header" ref="LaunchContent">
           {this.renderSlick()}
           {this.renderItem()}
+          <div className="page-shop-backhome">
+            <Link to="/" />
+          </div>
           {
             showLoadingMore
               ?

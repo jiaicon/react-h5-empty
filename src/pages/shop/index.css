@@ -74,4 +74,19 @@
     height: 150px;
 }
   
- 
+
+ .page-shop-backhome{
+    width: 70px;
+    height: 38px;
+    position: fixed;
+    bottom: 25px;
+    right: 20px;
+  }
+  .page-shop-backhome a{
+    display: block;
+    width: 70px;
+    height: 38px;
+    background-image: url(/images/my/backhome.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
