@@ -10,6 +10,20 @@ import Image from '../image/image';
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
+// Date.prototype.Format = function (fmt) { // author: meizz
+//     const o = {
+//       'M+': this.getMonth() + 1, // 月份
+//       'd+': this.getDate(), // 日
+//       'h+': this.getHours(), // 小时
+//       'm+': this.getMinutes(), // 分
+//       's+': this.getSeconds(), // 秒
+//       'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+//       S: this.getMilliseconds(), // 毫秒
+//     };
+//     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (`${this.getFullYear()}`).substr(4 - RegExp.$1.length));
+//     for (const k in o) { if (new RegExp(`(${k})`).test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length))); }
+//     return fmt;
+//   };
 function isInTimeArea(t1, t2, t3) {
     var begin = new Date(t1.replace(/-/g, "/"));
     var end = new Date(t2.replace(/-/g, "/"));
@@ -18,7 +32,7 @@ function isInTimeArea(t1, t2, t3) {
   
 
 
-    var strD =Date.parse(str);
+    var strD =Date.parse(str.replace(/-/g, "/"));
     
     var endD =Date.parse(end);
     
