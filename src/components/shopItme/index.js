@@ -16,13 +16,24 @@ function isInTimeArea(t1, t2, t3) {
     var now = t3 ? t3 : new Date();
     var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
   
-    if (Date.parse(str) - (Date.parse(end) + 86400) > 0) {
+
+
+    var strD =Date.parse(str);
+    
+    var endD =Date.parse(end);
+    
+    var beginD =Date.parse(begin);
+    if(beginD - endD == 0){
+        endD = endD + 86400;
+    }
+
+    if (strD - endD > 0) {
         //结束
         return 1
-    } else if (Date.parse(str) - Date.parse(begin) > 0 && (Date.parse(end) + 86400) - Date.parse(str) > 0 ) {
+    } else if (strD - beginD > 0 && endD - strD > 0 ) {
         // 区间
         return 0
-    } else if (Date.parse(begin) - Date.parse(str) > 0) {
+    } else if (beginD - strD > 0) {
         // 未到
         return -1
     }
