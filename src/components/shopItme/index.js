@@ -15,17 +15,16 @@ function isInTimeArea(t1, t2, t3) {
     var end = new Date(t2.replace(/-/g, "/"));
     var now = t3 ? t3 : new Date();
     var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-    if (Date.parse(str) > Date.parse(end)) {
+    console.log(Date.parse(begin))
+    console.log(Date.parse(end))
+    if (Date.parse(str) - Date.parse(end) > 0) {
         //结束
-        console.log('过了')
         return 1
-    } else if (Date.parse(begin) < Date.parse(str) < Date.parse(end)) {
+    } else if (Date.parse(str) - Date.parse(begin) > 0 && Date.parse(end) - Date.parse(str) > 0 ) {
         // 区间
-        console.log('刚好')
         return 0
-    } else if (Date.parse(begin) > Date.parse(str)) {
+    } else if (Date.parse(begin) - Date.parse(str) > 0) {
         // 未到
-        console.log('未到')
         return -1
     }
 }
@@ -123,10 +122,10 @@ class Projects extends React.Component {
             <ul className="component-shopItem">
                 {
                     orderData.map((item) => {
-                        console.log(item);
                         let time=0;
                         if(item.goods_id){
-                            time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time)
+                            time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time);
+                            console.log(time)
                         }
                      
                         return (
@@ -155,7 +154,7 @@ class Projects extends React.Component {
                                                 <div className="component-shopItem-order-time">兑换时间：{item.collect_time}</div> : null}
                                         {
 
-                                            !item.state && item.status == 0 && time == 1 ? <div className="component-shopItem-order-btn">未到兑换日期</div> : null
+                                            !item.state && item.status == 0 && time == -1 ? <div className="component-shopItem-order-btn">未到兑换日期</div> : null
                                         }
                                         {
 
@@ -163,7 +162,7 @@ class Projects extends React.Component {
                                         }
                                         {
 
-                                            !item.state && item.status == 0 && time == -1 ? <div className="component-shopItem-order-time">兑换失败，商品已过兑换日期（不返还积分）</div> : null
+                                            !item.state && item.status == 0 && time == 1 ? <div className="component-shopItem-order-time">兑换失败，商品已过兑换日期（不返还积分）</div> : null
                                         }
                                         {
                                             !item.state && item.status == 1 ? <div className="component-shopItem-order-time">兑换失败：{item.reason}</div> : null}
