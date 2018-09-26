@@ -15,12 +15,11 @@ function isInTimeArea(t1, t2, t3) {
     var end = new Date(t2.replace(/-/g, "/"));
     var now = t3 ? t3 : new Date();
     var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-    console.log(Date.parse(begin))
-    console.log(Date.parse(end))
-    if (Date.parse(str) - Date.parse(end) > 0) {
+  
+    if (Date.parse(str) - (Date.parse(end) + 86400) > 0) {
         //结束
         return 1
-    } else if (Date.parse(str) - Date.parse(begin) > 0 && Date.parse(end) - Date.parse(str) > 0 ) {
+    } else if (Date.parse(str) - Date.parse(begin) > 0 && (Date.parse(end) + 86400) - Date.parse(str) > 0 ) {
         // 区间
         return 0
     } else if (Date.parse(begin) - Date.parse(str) > 0) {
