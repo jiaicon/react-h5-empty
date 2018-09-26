@@ -20,7 +20,7 @@ import { isWindowReachBottom } from '../../utils/funcs';
 import { bannerAction, requestGoodsList } from './shop.store';
 import { userCenterAction } from '../my/my.store';
 import './index.css';
-
+const scoreName =window.orgInfo.score_name;
 class ShopPage extends React.Component {
 
   constructor(props) {
@@ -138,10 +138,10 @@ class ShopPage extends React.Component {
           {
             user.isLogin ?
 
-              <div className="left">我的星币:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
+              <div className="left">我的{scoreName || '星币'}:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
 
               :
-              <div className="left">我的星币:<span className="redfonts">请先登录</span></div>
+              <div className="left">我的{scoreName || '星币'}:<span className="redfonts">请先登录</span></div>
 
           }
           {

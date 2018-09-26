@@ -10,30 +10,15 @@ import Image from '../image/image';
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
-// Date.prototype.Format = function (fmt) { // author: meizz
-//     const o = {
-//       'M+': this.getMonth() + 1, // 月份
-//       'd+': this.getDate(), // 日
-//       'h+': this.getHours(), // 小时
-//       'm+': this.getMinutes(), // 分
-//       's+': this.getSeconds(), // 秒
-//       'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
-//       S: this.getMilliseconds(), // 毫秒
-//     };
-//     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (`${this.getFullYear()}`).substr(4 - RegExp.$1.length));
-//     for (const k in o) { if (new RegExp(`(${k})`).test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length))); }
-//     return fmt;
-//   };
+const scoreName =window.orgInfo.score_name;
 function isInTimeArea(t1, t2, t3) {
     var begin = new Date(t1.replace(/-/g, "/"));
     var end = new Date(t2.replace(/-/g, "/"));
     var now = t3 ? t3 : new Date();
     var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-  
-
 
     var strD =Date.parse(str.replace(/-/g, "/"));
-    
+
     var endD =Date.parse(end);
     
     var beginD =Date.parse(begin);
@@ -115,7 +100,7 @@ class Projects extends React.Component {
                                             </div>
                                             <div className="component-shopItem-price-container">
                                                 <div className="new">{item.points}</div>
-                                                <div className="fonts">星币</div>
+                                                <div className="fonts">{scoreName || '星币'}</div>
                                                 <div className="old">¥{item.price}元</div>
                                             </div>
                                         </div>
@@ -165,7 +150,7 @@ class Projects extends React.Component {
 
                                             <div className="component-shopItem-price-container">
                                                 <div className="new">{item && item.goods_id && item.goods_id.points ? item.goods_id.points : null}</div>
-                                                <div className="fonts">星币</div>
+                                                <div className="fonts">{scoreName || '星币'}</div>
                                                 <div className="old">¥{item && item.goods_id && item.goods_id.price ? item.goods_id.price : null}元</div>
                                             </div>
                                         </div>

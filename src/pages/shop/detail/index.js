@@ -21,7 +21,7 @@ import Link from '../../../components/link/link';
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
-
+const scoreName =window.orgInfo.score_name;
 function isInTimeArea(t1, t2, t3) {
     var begin = new Date(t1.replace(/-/g, "/"));
     var end = new Date(t2.replace(/-/g, "/"));
@@ -126,7 +126,7 @@ class ShopDetailPage extends React.Component {
                     <div className="page-shop-goods-content-top-title">{data.g_name}</div>
                     <div className="page-shop-goods-content-top-price-container">
                         <div className="price-container">
-                            <div className="price"><span>{data.points}</span>星币</div>
+                            <div className="price"><span>{data.points}</span>{scoreName || '星币'}</div>
                             <div className="now">¥{data.price}元</div>
                         </div>
                         {data.g_num? <div className="num">库存{data.g_num}件</div> : null}
@@ -162,7 +162,7 @@ class ShopDetailPage extends React.Component {
                 </div>
                 <div className="page-shop-goods-takeup"></div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-                兑换该商品需要消耗{data.points}星币，您是否兑换吗？
+                兑换该商品需要消耗{data.points}{scoreName || '星币'}，您是否兑换吗？
                 </Dialog>
             </div>
         )

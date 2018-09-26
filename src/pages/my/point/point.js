@@ -1,5 +1,5 @@
 /**
- * @file 我的星币明细
+ * @file 我的{scoreName || '星币'}明细
  */
 
 /* eslint  "class-methods-use-this":"off",
@@ -23,7 +23,7 @@ const TAB_URL_MAPS = {
   '/my/point': <IncomePage />,
   '/my/point/pay': <PayPage />,
 };
-
+const scoreName =window.orgInfo.score_name;
 class PointPage extends React.Component {
 
   constructor(props) {
@@ -60,7 +60,7 @@ class PointPage extends React.Component {
       <div className="page-ponit">
         <div className="page-ponit-pic-container">
           <div className="page-ponit-pic-title">
-            <span>我的星币明细(个)</span>
+            <span>我的{scoreName || '星币'}明细(个)</span>
             <span>{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</span>
           </div>
         </div>
@@ -72,7 +72,7 @@ class PointPage extends React.Component {
                   'page-ponit-tab-container-li-current': true,
                   active: path === '/my/point',
                 })}
-              >星币获取</div>
+              >{scoreName || '星币'}获取</div>
             </Link>
           </div>
           <div><div className="line1px-v page-ponit-tab-container-line-v" /></div>
@@ -83,7 +83,7 @@ class PointPage extends React.Component {
                   'page-ponit-tab-container-li-current': true,
                   active: path === '/my/point/pay',
                 })}
-              >星币支出</div>
+              >{scoreName || '星币'}支出</div>
             </Link>
           </div>
         </div>
@@ -98,7 +98,7 @@ class PointPage extends React.Component {
 }
 
 
-PointPage.title = '我的星币明细';
+PointPage.title = `我的${scoreName || '星币'}明细`;
 PointPage.propTypes = {
   usercenter: PropTypes.shape({
     data: PropTypes.shape({

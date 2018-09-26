@@ -1,5 +1,5 @@
 /**
- * @file 星币
+ * @file {scoreName || '星币'}
  */
 
 /* global wx:false */
@@ -14,7 +14,7 @@ import './point.css';
 import { scoreAction } from '../my.store';
 
 import POINTITEM from './component/pointItem';
-
+const scoreName =window.orgInfo.score_name;
 
 class PointIncome extends React.Component {
 
@@ -44,7 +44,7 @@ class PointIncome extends React.Component {
         <div className="page-point-income-pay-title">
           <span>项目</span>
           <span>时间</span>
-          <span>星币</span>
+          <span>{scoreName || '星币'}</span>
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
@@ -57,7 +57,7 @@ class PointIncome extends React.Component {
   }
 }
 
-PointIncome.title = '我的星币明细';
+PointPage.title = `我的${scoreName || '星币'}明细`;
 
 PointIncome.propTypes = {
 
