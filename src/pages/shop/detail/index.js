@@ -139,8 +139,16 @@ class ShopDetailPage extends React.Component {
                     <div className="line1px"></div>
                     <div className="page-shop-goods-content-top-date">线下兑换日期:{data.created_at} 至 {data.updated_at}</div>
                     <div className="line1px"></div>
-                    <div className="page-shop-goods-content-top-date">发起方：{data.team_info && data.team_info.name ? data.team_info.name : null}</div>
-                    <div className="line1px"></div>
+                    {
+                        data.team_info && data.team_info.name ?
+                        <div>
+                             <div className="page-shop-goods-content-top-date">发起方：{data.team_info && data.team_info.name ? data.team_info.name : null}</div>
+                            <div className="line1px"></div>
+                        </div>
+                        :null
+                    }
+                  
+             
                     {data.sponsor ? <div className="page-shop-goods-content-top-date">支持方：{data.sponsor}</div> : null}
 
                 </div>
