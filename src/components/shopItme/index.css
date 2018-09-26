@@ -105,3 +105,16 @@
   .component-shopItem-order-time-fonts-color{
       color: #6AC6F8;
   }
+  .component-shopItem-order-btn-end{
+    background: #666666;
+    border-radius: 50px;
+    width: 100px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin: 15px 0;
+    margin-left: auto;
+  }

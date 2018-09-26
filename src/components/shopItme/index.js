@@ -164,7 +164,7 @@ class Projects extends React.Component {
                                                 <div className="component-shopItem-order-time">兑换时间：{item.collect_time}</div> : null}
                                         {
 
-                                            !item.state && item.status == 0 && time == -1 ? <div className="component-shopItem-order-btn">未到兑换日期</div> : null
+                                            !item.state && item.status == 0 && time == -1 ? <div className="component-shopItem-order-btn-end">未到兑换日期</div> : null
                                         }
                                         {
 
