@@ -10,31 +10,31 @@ import Image from '../image/image';
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
-const scoreName =window.orgInfo.score_name;
+const scoreName = window.orgInfo.score_name;
 function isInTimeArea(t1, t2, t3) {
+
     var begin = new Date(t1.replace(/-/g, "/"));
     var end = new Date(t2.replace(/-/g, "/"));
     var now = t3 ? t3 : new Date();
     var str = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
 
-    var strD =Date.parse(str.replace(/-/g, "/"));
+    var strD = Date.parse(str.replace(/-/g, "/"));
 
-    var endD =Date.parse(end);
-    
-    var beginD =Date.parse(begin);
-    if(beginD - endD == 0){
-        endD = endD + 86400;
+    var endD = Date.parse(end);
+    var beginD = Date.parse(begin);
+
+    if (t1 == t2) {
+        endD = Number(endD) + 86400;
     }
-
-    if (strD - endD > 0) {
+    if (Number(strD) - Number(endD) > 0) {
         //结束
-        return 1
-    } else if (strD - beginD > 0 && endD - strD > 0 ) {
+        return 1;
+    } else if (Number(strD) >= Number(beginD)  && Number(endD) >= Number(strD)) {
         // 区间
-        return 0
-    } else if (beginD - strD > 0) {
+        return 0;
+    } else if (Number(beginD) - Number(strD) > 0) {
         // 未到
-        return -1
+        return -1;
     }
 }
 class Projects extends React.Component {
@@ -131,12 +131,13 @@ class Projects extends React.Component {
             <ul className="component-shopItem">
                 {
                     orderData.map((item) => {
-                        let time=0;
-                        if(item.goods_id){
+                        let time = 0;
+                        if (item.goods_id) {
+                            console.log(item.goods_id.start_time)
+                            console.log(item.goods_id.end_time)
                             time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time);
                             console.log(time)
                         }
-                     
                         return (
                             <div>
                                 <li key={item.id}>
