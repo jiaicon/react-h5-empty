@@ -1,4 +1,16 @@
 /* global wx:false, qq:false */
+// 去除三里屯  志愿回馈
+export function deleteSanlitunMoudling(data) {
+
+  var newData = data.map((item) => {
+    return (
+      item.filter((ite) => {
+        return ite['key'] != 'volunteer_feedback';
+      })
+    )
+  })
+  return newData
+}
 export function getQueryString(name) {
   const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
   const r = window.location.search.substr(1).match(reg);

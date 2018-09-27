@@ -93,12 +93,20 @@
 }
 .page-shop-goods-content-bottom .content{
     width: 100%;
-  }
-  .page-shop-goods-content-bottom .content img{
-    width: 100%;
+    overflow: hidden;
+}
+.page-shop-goods-content-bottom .content *{
+    max-width: 100%!important;
+    box-sizing: border-box!important;
+    -webkit-box-sizing: border-box!important;
+    word-wrap: break-word!important;
+
+}
+  /* .page-shop-goods-content-bottom .content img{
+    max-width: 100%!important;
     display: block;
-    margin: auto;
-  }
+    margin: 0 auto;
+  } */
   .page-shop-goods-takeup{
     height: 50px;
     width: 100%;

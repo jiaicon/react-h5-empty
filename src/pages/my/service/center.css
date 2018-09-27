@@ -29,10 +29,12 @@
   flex: 1;
   overflow-y: scroll;
 }
-.page-center-style img{
-  width: 100%;
-  display: block;
-  margin: auto;
+.page-center-style *{
+  max-width: 100%!important;
+  box-sizing: border-box!important;
+  -webkit-box-sizing: border-box!important;
+  word-wrap: break-word!important;
+
 }
 .page-center-phone-take{
   height: 60px;

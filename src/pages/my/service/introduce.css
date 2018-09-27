@@ -33,8 +33,10 @@
   width: 100%;
   padding: 40px 15px 18px;
 }
-.page-introduce-style img {
-  width: 100%;
-  display: block;
-  margin: auto;
+.page-introduce-style *{
+  max-width: 100%!important;
+  box-sizing: border-box!important;
+  -webkit-box-sizing: border-box!important;
+  word-wrap: break-word!important;
+
 }
