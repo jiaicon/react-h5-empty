@@ -49,8 +49,27 @@ class ShopPage extends React.Component {
 
   componentDidMount() {
     this.refs.LaunchContent.addEventListener('scroll', this.handleScroll);
+    const InfoData =this.Moudling(window.orgInfo.module_settings);
+    if(InfoData && InfoData.label){
+      document.title=InfoData.label;
+    }
   }
-
+  Moudling(data) {
+    var newData={};
+    newData = data.map((item) => {
+      return (
+        item.filter((ite) => {
+          return ite['key'] == 'volunteer_feedback';
+        })
+      )
+    })
+    for(var i = 0;i<newData.length;i++){
+      if(newData[i].length){
+        newData = newData[i][0]
+      }
+    }
+    return newData
+  }
   componentWillReceiveProps(nextProps) {
 
   }
@@ -174,7 +193,7 @@ class ShopPage extends React.Component {
 }
 
 
-ShopPage.title = '积分商城';
+ShopPage.title = '志愿回馈';
 
 ShopPage.propTypes = {
   bannerAction: PropTypes.func,
