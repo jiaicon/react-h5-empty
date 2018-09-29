@@ -47,8 +47,10 @@ class Post extends React.Component {
     const { postapply: Cpostapply } = this.props;
     const { postapply: Npostapply } = nextProps;
     if (Cpostapply.fetching && !Npostapply.fetching && !Npostapply.failed) {
-      this.setState({ isClickable: true })
-      window.location.replace('/my/duration/applys');
+      this.setState({ isClickable: true },()=>{
+        window.location.replace('/my/duration/applys');
+      })
+    
     }else{
       this.setState({ isClickable: true })
     }
@@ -130,9 +132,7 @@ class Post extends React.Component {
       Alert.warning('请输入详细说明');
       return;
     }
-    if(id && content && hours){
-      this.setState({ isClickable: false })
-    }
+  
     if (attachment.length !== 0) {
       data.attachment = attachment;
     }
@@ -141,7 +141,12 @@ class Post extends React.Component {
     data.project_id = id;
     data.reward_time = hours;
     data.content = content;
-    this.props.postapplyAction(data); 
+    if(this.state.isClickable){
+      const that =this;
+      this.setState({ isClickable: false },()=>{
+        that.props.postapplyAction(data);
+      })
+    }
    
   }
 
