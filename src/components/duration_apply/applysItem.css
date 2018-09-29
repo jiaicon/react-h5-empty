@@ -1,12 +1,13 @@
 .page-applys-item-container{
   width: 100%;
-  padding: 20px 15px 0px 15px;
+  padding: 0px 15px 0px 15px;
 }
 .page-applys-item-title{
   font-size: 18px;
   color: #333333;
   margin-bottom: 8px;
   width: 100%;
+  padding-top: 20px;
 
 }
 .page-applys-item-date-box{
