@@ -126,13 +126,16 @@ class Post extends React.Component {
       Alert.warning('请输入详细说明');
       return;
     }
-    
+    console.log(this.props)
+    this.props.dispatch({
+      type: 'POSTAPPLY_DATA_PENDING',
+    })
+  
     if (attachment.length !== 0) {
       data.attachment = attachment;
     }
     const { postapply: Cpostapply } = this.props;
     console.log(Cpostapply)
-  
     if (Cpostapply.fetching) {
       return;
     }
@@ -247,5 +250,5 @@ export default connect(
     postapply: state.my.postapply,
     projectapply: state.my.projectapply,
   }),
-  dispatch => bindActionCreators({ postapplyAction, projectapplyAction }, dispatch),
+  dispatch => bindActionCreators({ postapplyAction, projectapplyAction , dispatch }, dispatch),
 )(Post);
