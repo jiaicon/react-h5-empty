@@ -31,7 +31,6 @@ class Post extends React.Component {
       limitNum: 3,
       attachment: [],
       data: {},
-      isClickable:true,
     };
   }
 
@@ -47,12 +46,7 @@ class Post extends React.Component {
     const { postapply: Cpostapply } = this.props;
     const { postapply: Npostapply } = nextProps;
     if (Cpostapply.fetching && !Npostapply.fetching && !Npostapply.failed) {
-      this.setState({ isClickable: true },()=>{
-        window.location.replace('/my/duration/applys');
-      })
-    
-    }else{
-      this.setState({ isClickable: true })
+      window.location.replace('/my/duration/applys');
     }
   }
 
@@ -132,21 +126,20 @@ class Post extends React.Component {
       Alert.warning('请输入详细说明');
       return;
     }
-  
+    
     if (attachment.length !== 0) {
       data.attachment = attachment;
     }
-
-
+    const { postapply: Cpostapply } = this.props;
+    console.log(Cpostapply)
+  
+    if (Cpostapply.fetching) {
+      return;
+    }
     data.project_id = id;
     data.reward_time = hours;
     data.content = content;
-    if(this.state.isClickable){
-      const that =this;
-      this.setState({ isClickable: false },()=>{
-        that.props.postapplyAction(data);
-      })
-    }
+    this.props.postapplyAction(data);
    
   }
 
@@ -197,14 +190,8 @@ class Post extends React.Component {
            }
             </div>
           </div>
-          <button
-            className="page-post-btn" 
-            onClick={this.onNext}
-            disabled={!this.state.isClickable}
-            >
-            {this.state.isClickable ? '提交' : '正在处理中...'}
-          </button>
-          {/* <div className="page-post-btn" onClick={this.onNext}>提交</div> */}
+         
+          <div className="page-post-btn" onClick={this.onNext}>提交</div>
           {/** 遮罩层* */}
           <div
             className={classnames({
