@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Wed Oct 10 2018 16:07:13 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Wed Oct 10 2018 16:54:00 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -87,7 +87,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
-  <script src="/dist/main.9b7768c08949064ff42f.js"></script>
+  <script src="/dist/main.ce86d825989f3f65c8c2.js"></script>
 </body>
 
 </html>

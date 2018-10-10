@@ -166,7 +166,7 @@ class Post extends React.Component {
             <input
               // type="tel" maxLength="3"
               className="page-post-container-text"
-              placeholder="申申请志愿时长(小时)" ref={(c) => { this.hours = c; }}
+              placeholder="申请志愿时长(小时)" ref={(c) => { this.hours = c; }}
               onKeyUp={this.onTextChanged}
             />
             <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
