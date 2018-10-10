@@ -40,7 +40,7 @@ class Apply extends React.Component {
           <Link to="/my/duration/post">
             <div className="page-apply-main">
               发起
-              <span>补录申请</span>
+              <span>申请志愿时长</span>
               <div className="page-apply-more" />
             </div>
           </Link>
@@ -55,7 +55,7 @@ class Apply extends React.Component {
 }
 
 
-Apply.title = '补录申请';
+Apply.title = '申请志愿时长';
 
 Apply.propTypes = {
   applyAction: PropTypes.func,

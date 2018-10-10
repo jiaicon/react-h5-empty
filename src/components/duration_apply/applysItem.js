@@ -31,7 +31,7 @@ class applysItem extends React.Component {
             <div>
               <div className="page-applys-item-title">{data.project.name}</div>
               <div className="page-applys-item-date-box">
-                <div className="page-applys-item-date">申请补录时长<span>{data.reward_time}小时</span></div>
+                <div className="page-applys-item-date">申请志愿时长<span>{data.reward_time}小时</span></div>
                 <div
                   className={classnames({
                     'page-applys-item-content': true,

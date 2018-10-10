@@ -116,10 +116,10 @@ class Post extends React.Component {
     const attachment = this.state.attachment;
     const data = {};
     if (!id) {
-      Alert.warning('请选择补录项目');
+      Alert.warning('请选择申请项目');
     }
     if (!hours) {
-      Alert.warning('请输入正确的补录时间');
+      Alert.warning('请输入正确的时间');
       return;
     }
     if (!content) {
@@ -160,13 +160,13 @@ class Post extends React.Component {
                 className={classnames({
                   'page-post-font-color': data.name,
                 })}
-              >{data.name ? data.name : '补录时长项目'}</div>
+              >{data.name ? data.name : '申请志愿项目'}</div>
               <div className="page-post-container-item-more" />
             </div>
             <input
               // type="tel" maxLength="3"
               className="page-post-container-text"
-              placeholder="申请补录时长(小时)" ref={(c) => { this.hours = c; }}
+              placeholder="申申请志愿时长(小时)" ref={(c) => { this.hours = c; }}
               onKeyUp={this.onTextChanged}
             />
             <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
@@ -224,7 +224,7 @@ class Post extends React.Component {
 }
 
 
-Post.title = '补录申请';
+Post.title = '申请志愿时长';
 
 Post.propTypes = {
   postapplyAction: PropTypes.func,
