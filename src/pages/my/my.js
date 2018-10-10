@@ -236,7 +236,7 @@ class MyPage extends React.Component {
           <div>
             <Link to="/my/duration/applys">
               <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-applys" />补录时长
+                <i className="page-my-item-icon page-my-item-icon-applys" />申请志愿时长
             </div>
               <span className="page-my-item-big" />
             </Link>
