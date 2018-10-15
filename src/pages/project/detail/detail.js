@@ -417,7 +417,7 @@ class ProjectDetailPage extends React.Component {
           </Link>
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-        确定要退出团队吗？
+        确定要退出项目吗？
         </Dialog>
 
       </div>
