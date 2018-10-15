@@ -367,7 +367,7 @@ class TeamDetailPage extends React.Component {
           </p>
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-          确定要退出项目吗？
+          确定要退出团队吗？
         </Dialog>
         <div className="team-description-backhome">
           <Link to="/" />
