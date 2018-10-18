@@ -46,7 +46,7 @@ class DurationProjects extends React.Component {
     }
     const isEntry = this.props.isEntry;
     return (
-      <div>
+      <div style={{height: '800px', overflowY: 'auto'}}>
         {
           isEntry ?
             <ul className="component-duration-projects">

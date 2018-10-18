@@ -1,6 +1,7 @@
 .component-duration-projects{
   overflow-y:auto;
 }
+
 .component-duration-projects li{
   height: 176px;
   display: flex;
@@ -20,6 +21,10 @@
   color: #333333;
   letter-spacing: 0;
   margin-bottom: 14px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .component-duration-projects-main-date{
   font-size: 13px;
