@@ -13,10 +13,14 @@
   overflow: hidden;
   display: flex;
 }
-.components-star-light::before{
-  /* position: absolute;
+.components-star-light {
+  background:url(/images/star.png) no-repeat;
+  background-size: contain;
+}
+/* .components-star-light::before{
+   position: absolute;
   top: 0;
-  left: 0; */
+  left: 0; 
   display: block;
   width: 50%;
   height: 100%;
@@ -24,21 +28,20 @@
   background-size: contain;
   content:'';
   flex: 1;
-}
-.components-star-light::after{
-  /* position: absolute;
+/* }  */
+/* .components-star-light::after{
+   position: absolute;
   top: 0;
-  /* left: -1o; */
-  right: 0; */
+  right: 0; 
   display: block;
   width: 50%;
   height: 100%;
   background:url(/images/star2.png) no-repeat;
   background-size: contain;
-  /* transform: rotateY(-180deg); */
+  /* transform: rotateY(-180deg); 
   content:'';
   flex: 1;
-}
+} */
 
 .components-star-empty::before{
   position: absolute;
