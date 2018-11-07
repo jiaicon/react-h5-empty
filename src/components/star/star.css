@@ -11,29 +11,33 @@
   top: 0;
   right: 0;
   overflow: hidden;
+  display: flex;
 }
 .components-star-light::before{
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 0;
+  left: 0; */
   display: block;
   width: 50%;
   height: 100%;
   background:url(/images/star1.png) no-repeat;
   background-size: contain;
-  content:" ";
+  content:'';
+  flex: 1;
 }
 .components-star-light::after{
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  right: 0;
+  /* left: -1o; */
+  right: 0; */
   display: block;
   width: 50%;
   height: 100%;
   background:url(/images/star2.png) no-repeat;
   background-size: contain;
   /* transform: rotateY(-180deg); */
-  content:" ";
+  content:'';
+  flex: 1;
 }
 
 .components-star-empty::before{

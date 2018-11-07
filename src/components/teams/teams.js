@@ -44,6 +44,7 @@ class Teams extends React.Component {
                   <div className="team-name-content">
                     {team.name}
                     <div className="team-name-star">
+                    {/* <Star  size={{width:15,height:14,score:4}} isBlockEmptyStar/> */}
                        {team.stars?<Star  size={{width:15,height:14,score:team.stars}} isBlockEmptyStar/>:null}
                   </div>
                   </div>
