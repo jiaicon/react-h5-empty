@@ -43,7 +43,8 @@ class Edit extends React.Component {
   }
 
   componentWillUnmount() {}
-  onTextChanged() {
+  onTextChanged(evt) {
+    evt.preventDefault();
     const slogan = this.editslogan.value.replace(/(^\s+)|(\s+$)/g, '');
     this.setState({
       slogan,
@@ -64,7 +65,7 @@ class Edit extends React.Component {
   render() {
     return (
       <div className="page-my-profile-edit-container">
-        <textarea placeholder={this.props.user.slogan} className="page-my-profile-edit-text" maxLength="20" ref={(c) => { this.editslogan = c; }} onKeyUp={this.onTextChanged} />
+        <textarea placeholder={this.props.user.slogan} className="page-my-profile-edit-text" maxLength="20" ref={(c) => { this.editslogan = c; }} onBlur={this.onTextChanged} />
         <div className="page-mu-profile-edit-btn" onClick={this.onSubmit}>保存</div>
 
       </div>
