@@ -196,7 +196,7 @@ class ProjectDetailPage extends React.Component {
         window.location.href = 'http://lxi.me/4hwr6';
         return;
       } else if (projectId == 2129) {
-        window.location.href = 'http://lxi.me/4hwr6';
+        window.location.href = 'http://wx2.gongyibao.cn/H5page/SubmitDonate.aspx?tid=0&uid=c8831755-2c7e-4f8c-854d-302a3c4d8719&id=612b9a55-a0dc-4198-a4ed-3e31a5ad9c1c&type=';
         return;
       }
       if(!customConfig && !paymentConfig){
