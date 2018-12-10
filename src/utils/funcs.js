@@ -109,6 +109,7 @@ export function getCity(success, fail) {
   }
 
   getLocation((loc) => {
+    console.log(1111,loc)
     const geocoder = new qq.maps.Geocoder({
       complete: (result) => {
         if (result.detail.addressComponents
@@ -117,6 +118,7 @@ export function getCity(success, fail) {
             console.log(result);
             return;
           }
+          console.log(2222222)
           // result.detail.addressComponents.province
           const city = result.detail.addressComponents.city;
           const province = result.detail.addressComponents.province;
