@@ -90,7 +90,7 @@ class HomePage extends React.Component {
     } else {
       // 新添加默认北京
       this.setState({
-        city:'沈阳'，
+        city:'沈阳',
       })
       localStorage.setItem("provinceAndCityName", JSON.stringify({
           province: "沈阳",
