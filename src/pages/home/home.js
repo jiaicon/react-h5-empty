@@ -1,28 +1,31 @@
-import React, { PropTypes } from 'react';
-import autoBind from 'react-autobind';
-import Slick from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Alert from 'react-s-alert';
-import './home.css';
-import Link from '../../components/link/link';
-import Image from '../../components/image/image';
-import Avatar from '../../components/avatar/avatar';
-import Projects from '../../components/projects/projects';
-import Menus from '../../components/menus/menus';
-import Announcement from '../../components/announcement/announcement';
-import { getCity , deleteSanlitunMoudling } from '../../utils/funcs';
-import { requestHomeData, saveCity, getAreaCity } from './home.store';
+import React, { PropTypes } from "react";
+import autoBind from "react-autobind";
+import Slick from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import Alert from "react-s-alert";
+import "./home.css";
+import Link from "../../components/link/link";
+import Image from "../../components/image/image";
+import Avatar from "../../components/avatar/avatar";
+import Projects from "../../components/projects/projects";
+import Menus from "../../components/menus/menus";
+import Announcement from "../../components/announcement/announcement";
+import { getCity, deleteSanlitunMoudling } from "../../utils/funcs";
+import { requestHomeData, saveCity, getAreaCity } from "./home.store";
+
+import { Dialog } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
 
 class HomePage extends React.Component {
-
   constructor(props) {
     super(props);
     autoBind(this);
     this.state = {
-      city: props.home.city || '定位中',
+      city: props.home.city || "北京"
     };
     this.play = this.play.bind(this);
     this.next = this.next.bind(this);
@@ -34,63 +37,120 @@ class HomePage extends React.Component {
       slidesToScroll: 1,
       arrows: false,
       autoplay: true,
-      autoplaySpeed: 6000,
+      autoplaySpeed: 6000
+    };
+    this.dialog = {
+      title: "询问",
+      buttons: [
+        {
+          type: "default",
+          label: "取消",
+          onClick: () => this.setState({ ...this.state, showDialog: false })
+        },
+        {
+          type: "primary",
+          label: "确认",
+          onClick: () => {
+            this.setState({ ...this.state, showDialog: false });
+            const { city } = this.state;
+            this.props.requestHomeData();
+            this.props.saveCity(city);
+            this.props.getAreaCity(city);
+          }
+        }
+      ]
     };
   }
 
   componentWillMount() {
     const { home } = this.props;
-    if (localStorage.getItem('provinceAndCityName') != null) {
+    // TODO:
+    this.props.requestHomeData();
+
+    if (localStorage.getItem("provinceAndCityName") != null) {
       this.setState({
         ...this.state,
-        city: JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''),
+        city: JSON.parse(
+          localStorage.getItem("provinceAndCityName")
+        ).city.replace("市", "")
       });
       this.props.requestHomeData();
-      this.props.saveCity(JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''));
-      this.props.getAreaCity(JSON.parse(localStorage.getItem('provinceAndCityName')).city.replace('市', ''));
+      this.props.saveCity(
+        JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
+          "市",
+          ""
+        )
+      );
+      this.props.getAreaCity(
+        JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
+          "市",
+          ""
+        )
+      );
     } else {
-      getCity((city) => {
-        this.setState({
-          ...this.state,
-          city,
-        });
-        this.props.requestHomeData();
-        this.props.saveCity(city);
-        this.props.getAreaCity(city);
-      }, () => {
-        Alert.error('定位失败，请确认同意微信定位授权');
-        this.state = {
-          city: '未定位',
-        };
-        this.props.requestHomeData();
-      });
+      // 新添加默认北京
+      localStorage.setItem(
+        "provinceAndCityName",
+        JSON.stringify({
+          province: "北京",
+          city: "北京"
+        })
+      );
+      this.props.requestHomeData();
+      this.props.saveCity(city);
+      this.props.getAreaCity(city);
+
+      getCity(
+        city => {
+          this.setState({ ...this.state, showDialog: true, city });
+
+       
+         
+        },
+        () => {
+          Alert.error("定位失败，请确认同意微信定位授权");
+          this.state = {
+            city: "未定位"
+          };
+          this.props.requestHomeData();
+        }
+      );
     }
 
-    
     // 地理位置重新获取后需要刷新首页数据
     // EM.on('location', () => this.props.requestHomeData());
   }
 
-  componentWillReceiveProps() {
-  }
+  componentWillReceiveProps() {}
 
-  componentWillUnmount() { }
-  componentDidMount() {
-  }
+  componentWillUnmount() {}
+  componentDidMount() {}
   renderHeaderBar() {
     const { user } = this.props;
 
-    return (<div className="header-bar">
-      <Link to="/selectcity"><div className="city-name">{this.state.city}</div></Link>
-      <Link className="component-search-bar" to="/homesearch">
-        <input className="input" placeholder="搜索项目/团队" disabled="disabled" />
-      </Link>
-      {
-        !user.isLogin ? <Link className="login-button" to="/my/entry">登录</Link>
-          :
-          <Link to="/my"><Avatar src={user.avatars} size={{ width: 28 }} /></Link>
-      }
-    </div>);
+    return (
+      <div className="header-bar">
+        <Link to="/selectcity">
+          <div className="city-name">{this.state.city}</div>
+        </Link>
+        <Link className="component-search-bar" to="/homesearch">
+          <input
+            className="input"
+            placeholder="搜索项目/团队"
+            disabled="disabled"
+          />
+        </Link>
+        {!user.isLogin ? (
+          <Link className="login-button" to="/my/entry">
+            登录
+          </Link>
+        ) : (
+          <Link to="/my">
+            <Avatar src={user.avatars} size={{ width: 28 }} />
+          </Link>
+        )}
+      </div>
+    );
   }
   play() {
     this.slider.slickPlay();
@@ -105,18 +165,16 @@ class HomePage extends React.Component {
   }
   renderAnnounceComponent() {
     const { home, user } = this.props;
-    if (!home.data || home.data.news.length ==0) {
-      return null
+    if (!home.data || home.data.news.length == 0) {
+      return null;
     }
     return (
       <div className="notice">
-        {
-          home.data.news.length > 0 ? <Announcement data={home.data.news} entry="/announce" /> : null
-        }
-
-
+        {home.data.news.length > 0 ? (
+          <Announcement data={home.data.news} entry="/announce" />
+        ) : null}
       </div>
-    )
+    );
   }
   renderSlick() {
     const { home, user } = this.props;
@@ -125,17 +183,17 @@ class HomePage extends React.Component {
       return <div className="slick-container slick-container-empty" />;
     }
 
-    if (!user.isLogin && orgCode == 'wMvbmOeYAl') {
-      return (<div className="slick-container">
-        {home.data.banner && home.data.banner.length ?
-          <Slick {...this.slickSettings}>
-            {home.data.banner
-              .map((item) => {
-                let url = '';
+    if (!user.isLogin && orgCode == "wMvbmOeYAl") {
+      return (
+        <div className="slick-container">
+          {home.data.banner && home.data.banner.length ? (
+            <Slick {...this.slickSettings}>
+              {home.data.banner.map(item => {
+                let url = "";
                 const mode = item.jump_mode;
 
                 if (mode === 1) {
-                  url = '/my/entry';
+                  url = "/my/entry";
 
                   // 第三方
                 } else if (mode === 2) {
@@ -146,25 +204,32 @@ class HomePage extends React.Component {
                   url = `/team/detail/${item.jump_id}`;
                 }
 
-                return (<Link key={item.id} to={url}>
-                  <Image src={item.photo} className="image" resize={{ width: 1500 }} />
-                </Link>);
+                return (
+                  <Link key={item.id} to={url}>
+                    <Image
+                      src={item.photo}
+                      className="image"
+                      resize={{ width: 1500 }}
+                    />
+                  </Link>
+                );
               })}
-          </Slick> : null
-        }
-      </div>);
-    } else if (!user.isLogin && orgCode == 'KGRb41dBLZ') {
-      return (<div className="slick-container">
-        {home.data.banner && home.data.banner.length ?
-          <Slick {...this.slickSettings}>
-            {home.data.banner
-              .map((item) => {
-                let url = '';
+            </Slick>
+          ) : null}
+        </div>
+      );
+    } else if (!user.isLogin && orgCode == "KGRb41dBLZ") {
+      return (
+        <div className="slick-container">
+          {home.data.banner && home.data.banner.length ? (
+            <Slick {...this.slickSettings}>
+              {home.data.banner.map(item => {
+                let url = "";
                 const mode = item.jump_mode;
 
                 if (mode === 1) {
                   if (!user.isLogin) {
-                    url = '/my/entry';
+                    url = "/my/entry";
                   } else {
                     // 第三方
                     url = item.href;
@@ -177,20 +242,27 @@ class HomePage extends React.Component {
                   url = `/team/detail/${item.jump_id}`;
                 }
 
-                return (<Link key={item.id} to={url}>
-                  <Image src={item.photo} className="image" resize={{ width: 1500 }} />
-                </Link>);
+                return (
+                  <Link key={item.id} to={url}>
+                    <Image
+                      src={item.photo}
+                      className="image"
+                      resize={{ width: 1500 }}
+                    />
+                  </Link>
+                );
               })}
-          </Slick> : null
-        }
-      </div>);
+            </Slick>
+          ) : null}
+        </div>
+      );
     }
-    return (<div className="slick-container">
-      {home.data.banner && home.data.banner.length ?
-        <Slick {...this.slickSettings}>
-          {home.data.banner
-            .map((item) => {
-              let url = '';
+    return (
+      <div className="slick-container">
+        {home.data.banner && home.data.banner.length ? (
+          <Slick {...this.slickSettings}>
+            {home.data.banner.map(item => {
+              let url = "";
               const mode = item.jump_mode;
 
               if (mode === 1) {
@@ -199,8 +271,6 @@ class HomePage extends React.Component {
                 // }else{
                 // 第三方
                 url = item.href;
-
-
               } else if (mode === 2) {
                 // 项目
                 url = `/project/detail/${item.jump_id}`;
@@ -209,15 +279,21 @@ class HomePage extends React.Component {
                 url = `/team/detail/${item.jump_id}`;
               }
 
-              return (<Link key={item.id} to={url}>
-                <Image src={item.photo} className="image" resize={{ width: 1500 }} />
-              </Link>);
+              return (
+                <Link key={item.id} to={url}>
+                  <Image
+                    src={item.photo}
+                    className="image"
+                    resize={{ width: 1500 }}
+                  />
+                </Link>
+              );
             })}
-        </Slick> : null
-      }
-    </div>);
+          </Slick>
+        ) : null}
+      </div>
+    );
   }
-
 
   render() {
     const { home } = this.props;
@@ -231,81 +307,89 @@ class HomePage extends React.Component {
           {this.renderSlick()}
           {this.renderAnnounceComponent()}
         </div>
+        <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+          已经成功定位到当前城市，是否切换？
+        </Dialog>
         <div className="page-home-body">
-          {window.orgInfo && window.orgCode == 'VolejRejNm'
-            ?
-            <Menus menus={deleteSanlitunMoudling(window.orgInfo.module_settings)}/>
-            :
+          {window.orgInfo && window.orgCode == "VolejRejNm" ? (
+            <Menus
+              menus={deleteSanlitunMoudling(window.orgInfo.module_settings)}
+            />
+          ) : (
             <Menus menus={window.orgInfo.module_settings} />
-          }
-          {
-            !home.data
-              ?
-              null
-              :
-              <div>
-                {
-                  home.data && home.data.sanlitun ? <div>
-                    <div style={{ width: '100%', height: '10px' }} />
-                    <div className="project-list">
-                      <div className="list-header">
-                        <div className="main-label">
-                          <div className="label-line" />
-                          <span>回馈激励</span>
-                          <div className="label-line" />
-                        </div>
-                        <div className="sub-label">Feedback incentive</div>
+          )}
+          {!home.data ? null : (
+            <div>
+              {home.data && home.data.sanlitun ? (
+                <div>
+                  <div style={{ width: "100%", height: "10px" }} />
+                  <div className="project-list">
+                    <div className="list-header">
+                      <div className="main-label">
+                        <div className="label-line" />
+                        <span>回馈激励</span>
+                        <div className="label-line" />
                       </div>
+                      <div className="sub-label">Feedback incentive</div>
                     </div>
-                    <div className="page-home-feedback-show-container">
-                      {/* <Link to={`http://${location.host}/tmall`}> */}
-                      <Link to='/shop'>
-                        <img src="/images/sanlitun/feedback1.jpg" alt="回馈展示" />
-                      </Link>
-                      {/* <Link to={`http://${location.host}/tmall`}> */}
-                      <Link to='/shop'>
-                        <img src="/images/sanlitun/feedback2.jpg" alt="回馈展示" />
-                      </Link>
-                      {/* <Link to={`http://${location.host}/tmall`}> */}
-                      <Link to='/shop'>
-                        <img src="/images/sanlitun/feedback4.png" alt="回馈展示" />
-                      </Link>
-                    </div>
-                    <div style={{ width: '100%', height: '10px' }} />
-                  </div> : null
-                }
-                {
-                  home.data && home.data.sanlitun ?
-                    null
-                    :
-                    <div className="menus-activity">
-                      <Link to="/project/list/type/1/category/1000/target/1000">
-                        <img src="/images/activities_nearby.png" alt="附近" />
-                      </Link>
-                      <Link to="/project/list/type/0/category/1000/target/1000">
-                        <img src="/images/activities_new.png" alt="最新" />
-                      </Link>
-                      <Link to="/project/list/type/2/category/1000/target/1000">
-                        <img src="/images/activities_hot.png" alt="最热" />
-                      </Link>
-                    </div>
-                }
-                <div className="project-list">
-                  <div className="list-header">
-                    <div className="main-label">
-                      <div className="label-line" />
-                      <span>{home.data && home.data.sanlitun ? '联盟活动' : '精品活动'}</span>
-                      <div className="label-line" />
-                    </div>
-                    <div className="sub-label">Awesome Activity</div>
                   </div>
-                  <div className="line1px" />
-                  <Projects projects={(home.data && home.data.project) || []} />
+                  <div className="page-home-feedback-show-container">
+                    {/* <Link to={`http://${location.host}/tmall`}> */}
+                    <Link to="/shop">
+                      <img
+                        src="/images/sanlitun/feedback1.jpg"
+                        alt="回馈展示"
+                      />
+                    </Link>
+                    {/* <Link to={`http://${location.host}/tmall`}> */}
+                    <Link to="/shop">
+                      <img
+                        src="/images/sanlitun/feedback2.jpg"
+                        alt="回馈展示"
+                      />
+                    </Link>
+                    {/* <Link to={`http://${location.host}/tmall`}> */}
+                    <Link to="/shop">
+                      <img
+                        src="/images/sanlitun/feedback4.png"
+                        alt="回馈展示"
+                      />
+                    </Link>
+                  </div>
+                  <div style={{ width: "100%", height: "10px" }} />
                 </div>
+              ) : null}
+              {home.data && home.data.sanlitun ? null : (
+                <div className="menus-activity">
+                  <Link to="/project/list/type/1/category/1000/target/1000">
+                    <img src="/images/activities_nearby.png" alt="附近" />
+                  </Link>
+                  <Link to="/project/list/type/0/category/1000/target/1000">
+                    <img src="/images/activities_new.png" alt="最新" />
+                  </Link>
+                  <Link to="/project/list/type/2/category/1000/target/1000">
+                    <img src="/images/activities_hot.png" alt="最热" />
+                  </Link>
+                </div>
+              )}
+              <div className="project-list">
+                <div className="list-header">
+                  <div className="main-label">
+                    <div className="label-line" />
+                    <span>
+                      {home.data && home.data.sanlitun
+                        ? "联盟活动"
+                        : "精品活动"}
+                    </span>
+                    <div className="label-line" />
+                  </div>
+                  <div className="sub-label">Awesome Activity</div>
+                </div>
+                <div className="line1px" />
+                <Projects projects={(home.data && home.data.project) || []} />
               </div>
-
-          }
-
+            </div>
+          )}
         </div>
       </div>
     );
@@ -317,26 +401,30 @@ HomePage.propTypes = {
   saveCity: PropTypes.func,
   home: PropTypes.shape({
     data: PropTypes.shape({
-      banner: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-        photo: PropTypes.string,
-        jump_mode: PropTypes.number,
-        jump_id: PropTypes.number,
-      })),
+      banner: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          title: PropTypes.string,
+          photo: PropTypes.string,
+          jump_mode: PropTypes.number,
+          jump_id: PropTypes.number
+        })
+      ),
       project: PropTypes.arrayOf(PropTypes.shape({})),
-      sanlitun: PropTypes.number,
+      sanlitun: PropTypes.number
     }),
-    city: PropTypes.string,
+    city: PropTypes.string
   }),
-  user: PropTypes.shape({}),
+  user: PropTypes.shape({})
 };
 
 export default connect(
-  state => ({   //store根节点
+  state => ({
+    //store根节点
     home: state.home.home,
     user: state.user,
-    area: state.home.getAreaCity,
-  }),    //
-  dispatch => bindActionCreators({ requestHomeData, saveCity, getAreaCity }, dispatch),
+    area: state.home.getAreaCity
+  }), //
+  dispatch =>
+    bindActionCreators({ requestHomeData, saveCity, getAreaCity }, dispatch)
 )(HomePage);
