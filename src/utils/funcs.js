@@ -134,6 +134,7 @@ export function getCity(success, fail) {
       },
     });
     const coord = new qq.maps.LatLng(loc.lat, loc.lng);
+    console.log("coord::", coord);
     geocoder.getAddress(coord);
   }, (error) => {
     if (fail) {
