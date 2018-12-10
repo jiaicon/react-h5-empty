@@ -88,7 +88,7 @@ class HomePage extends React.Component {
     } else {
       // 新添加默认北京
       this.setState({
-        city: "沈阳"
+        city: "郑州"
       });
       localStorage.setItem("provinceAndCityName", JSON.stringify({
           province: "河南",
@@ -97,8 +97,8 @@ class HomePage extends React.Component {
       // 123.442763, 41.82679
       // 34.7472500000, 113.6249300000
       localStorage.setItem("location", JSON.stringify({
-          lat: "113.6249300000",
-          lng: "34.7472500000"
+        lat: "34.7472500000",
+        lng: "113.6249300000"
         }));
       this.props.requestHomeData();
       this.props.saveCity("郑州市");
