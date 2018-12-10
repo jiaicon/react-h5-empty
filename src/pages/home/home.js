@@ -97,8 +97,8 @@ class HomePage extends React.Component {
         })
       );
       this.props.requestHomeData();
-      this.props.saveCity(city);
-      this.props.getAreaCity(city);
+      this.props.saveCity("北京");
+      this.props.getAreaCity("北京");
 
       getCity(
         city => {
