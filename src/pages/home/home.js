@@ -24,9 +24,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = {
-      city: props.home.city || "定位中"
-    };
+    this.state = { city: props.home.city || "定位中", showDialog: false };
     this.play = this.play.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
