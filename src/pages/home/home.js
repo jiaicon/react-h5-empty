@@ -24,7 +24,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = { city: props.home.city || "定位中", showDialog: false };
+    this.state = { city: props.home.city || "北京", showDialog: false };
     this.play = this.play.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -50,10 +50,11 @@ class HomePage extends React.Component {
           label: "确认",
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
-            const { newcity } = this.state;
+            const { newcity, pc } = this.state;
             this.props.requestHomeData();
             this.props.saveCity(newcity);
             this.props.getAreaCity(newcity);
+            localStorage.setItem('provinceAndCityName', pc);
             this.setState({
               city: newcity,
             })
@@ -90,21 +91,16 @@ class HomePage extends React.Component {
       );
     } else {
       // 新添加默认北京
-      this.setState({
-        city: "郑州"
-      });
-      localStorage.setItem("provinceAndCityName", JSON.stringify({
-          province: "河南",
-         city: "郑州市"
-        }));
+      // localStorage.setItem("provinceAndCityName", JSON.stringify({
+      //     province: "",
+      //    city: "郑州市"
+      //   }));
       this.props.requestHomeData();
-      // this.props.saveCity("郑州市");
-      // this.props.getAreaCity("郑州市");
 
       getCity(
-        city => {
+        city,str => {
           console.log(city)
-          this.setState({ ...this.state, showDialog: true, newcity:city });
+          this.setState({ ...this.state, showDialog: true, newcity:city ,pc:str});
         },
         () => {
           Alert.error("定位失败，请确认同意微信定位授权");

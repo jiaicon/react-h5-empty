@@ -123,11 +123,16 @@ export function getCity(success, fail) {
           // result.detail.addressComponents.province
           const city = result.detail.addressComponents.city;
           const province = result.detail.addressComponents.province;
-          localStorage.setItem('provinceAndCityName', JSON.stringify({
+          // localStorage.setItem('provinceAndCityName', JSON.stringify({
+          //   city,
+          //   province,
+          // }));
+
+          success(result.detail.addressComponents.city.replace('市', ''), JSON.stringify({
             city,
             province,
           }));
-          success(result.detail.addressComponents.city.replace('市', ''));
+
         } else if (fail) {
           fail({});
         }
