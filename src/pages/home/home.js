@@ -91,20 +91,18 @@ class HomePage extends React.Component {
         city: "沈阳"
       });
       localStorage.setItem("provinceAndCityName", JSON.stringify({
-          province: "辽宁",
-         city: "沈阳"
+          province: "河南",
+         city: "郑州市"
         }));
       // 123.442763, 41.82679
-      localStorage.setItem(
-        "location",
-        JSON.stringify({
-          lat: "123.442763",
-          lng: "41.82679"
-        })
-      );
+      // 34.7472500000, 113.6249300000
+      localStorage.setItem("location", JSON.stringify({
+          lat: "113.6249300000",
+          lng: "34.7472500000"
+        }));
       this.props.requestHomeData();
-      this.props.saveCity("沈阳");
-      this.props.getAreaCity("沈阳");
+      this.props.saveCity("郑州市");
+      this.props.getAreaCity("郑州市");
 
       getCity(
         city => {
