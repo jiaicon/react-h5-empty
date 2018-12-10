@@ -106,6 +106,7 @@ class HomePage extends React.Component {
 
       getCity(
         city => {
+          console.log(city)
           this.setState({ ...this.state, showDialog: true, city });
         },
         () => {
