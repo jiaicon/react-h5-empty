@@ -90,13 +90,10 @@ class HomePage extends React.Component {
       this.setState({
         city: "沈阳"
       });
-      localStorage.setItem(
-        "provinceAndCityName",
-        JSON.stringify({
-          province: "沈阳",
+      localStorage.setItem("provinceAndCityName", JSON.stringify({
+          province: "辽宁",
           city: "沈阳"
-        })
-      );
+        }));
       // 123.442763, 41.82679
       localStorage.setItem(
         "location",
@@ -106,8 +103,8 @@ class HomePage extends React.Component {
         })
       );
       this.props.requestHomeData();
-      this.props.saveCity("沈阳市");
-      this.props.getAreaCity("沈阳市");
+      this.props.saveCity("北京");
+      this.props.getAreaCity("北京");
 
       getCity(
         city => {
