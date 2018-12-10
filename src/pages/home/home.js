@@ -25,7 +25,7 @@ class HomePage extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      city: props.home.city || "北京"
+      city: props.home.city || "定位中"
     };
     this.play = this.play.bind(this);
     this.next = this.next.bind(this);
@@ -89,6 +89,9 @@ class HomePage extends React.Component {
       );
     } else {
       // 新添加默认北京
+      this.setState({
+        city:'沈阳'，
+      })
       localStorage.setItem("provinceAndCityName", JSON.stringify({
           province: "沈阳",
           city: "沈阳"
@@ -105,8 +108,6 @@ class HomePage extends React.Component {
       getCity(
         city => {
           this.setState({ ...this.state, showDialog: true, city });
-
-       
          
         },
         () => {
