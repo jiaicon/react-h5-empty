@@ -50,10 +50,13 @@ class HomePage extends React.Component {
           label: "确认",
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
-            const { city } = this.state;
+            const { newcity } = this.state;
             this.props.requestHomeData();
-            this.props.saveCity(city);
-            this.props.getAreaCity(city);
+            this.props.saveCity(newcity);
+            this.props.getAreaCity(newcity);
+            this.setState({
+              city: newcity,
+            })
           }
         }
       ]
@@ -94,12 +97,6 @@ class HomePage extends React.Component {
           province: "河南",
          city: "郑州市"
         }));
-      // 123.442763, 41.82679
-      // 34.7472500000, 113.6249300000
-      // localStorage.setItem("location", JSON.stringify({
-      //   lat: "34.7472500000",
-      //   lng: "113.6249300000"
-      //   }));
       this.props.requestHomeData();
       // this.props.saveCity("郑州市");
       // this.props.getAreaCity("郑州市");
@@ -107,7 +104,7 @@ class HomePage extends React.Component {
       getCity(
         city => {
           console.log(city)
-          this.setState({ ...this.state, showDialog: true, city });
+          this.setState({ ...this.state, showDialog: true, newcity:city });
         },
         () => {
           Alert.error("定位失败，请确认同意微信定位授权");
