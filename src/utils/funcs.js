@@ -112,6 +112,7 @@ export function getCity(success, fail) {
     console.log(1111,loc)
     const geocoder = new qq.maps.Geocoder({
       complete: (result) => {
+        console.log(result);
         if (result.detail.addressComponents
           && result.detail.addressComponents.city) {
           if (!success) {
