@@ -90,13 +90,21 @@ class HomePage extends React.Component {
     } else {
       // 新添加默认北京
       this.setState({
-        city:'北京'
-      })
+        city: "沈阳"
+      });
       localStorage.setItem(
         "provinceAndCityName",
         JSON.stringify({
-          province: "北京",
-          city: "北京市"
+          province: "沈阳",
+          city: "沈阳"
+        })
+      );
+      // 123.442763, 41.82679
+      localStorage.setItem(
+        "location",
+        JSON.stringify({
+          lat: "123.442763",
+          lng: "41.82679"
         })
       );
       this.props.requestHomeData();
@@ -106,9 +114,6 @@ class HomePage extends React.Component {
       getCity(
         city => {
           this.setState({ ...this.state, showDialog: true, city });
-
-       
-         
         },
         () => {
           Alert.error("定位失败，请确认同意微信定位授权");
@@ -310,7 +315,12 @@ class HomePage extends React.Component {
           {this.renderSlick()}
           {this.renderAnnounceComponent()}
         </div>
-        <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+        <Dialog
+          type="ios"
+          title={this.dialog.title}
+          buttons={this.dialog.buttons}
+          show={this.state.showDialog}
+        >
           已经成功定位到当前城市，是否切换？
         </Dialog>
         <div className="page-home-body">
