@@ -195,6 +195,9 @@ class ProjectDetailPage extends React.Component {
       } else if (projectId == 1043) {
         window.location.href = 'http://lxi.me/4hwr6';
         return;
+      } else if (projectId == 2129) {
+        window.location.href = 'http://wx2.gongyibao.cn/H5page/SubmitDonate.aspx?tid=0&uid=c8831755-2c7e-4f8c-854d-302a3c4d8719&id=612b9a55-a0dc-4198-a4ed-3e31a5ad9c1c&type=';
+        return;
       }
       if(!customConfig && !paymentConfig){
         this.props.joinProject(projectId);
@@ -220,7 +223,7 @@ class ProjectDetailPage extends React.Component {
       
       if (!user.isLogin) {
         this.props.storeLoginSource(`/project/detail/${this.projectId}`)
-        history.replace('/my/entry')
+        history.replace('/my/login')
         // this.props.userCenterAction();
     
       } else if (user.isLogin && !user.in_blacklist) {
@@ -255,6 +258,21 @@ class ProjectDetailPage extends React.Component {
               ))}
       </Slick>
     </div>);
+  }
+  handleActionClickTwo() {
+    window.location.href = 'http://wx2.gongyibao.cn/H5page/ProdetailsNew.aspx?id=82d89f34-c91a-404f-949c-73da74a0c8a9';
+  }
+  renderTwoBtn() {
+    return(
+        <div className="project-action-main-two">
+          <Link to="" onClick={this.handleActionClickTwo} className={`project-action-main project-action-main-color`}>
+            我要捐款
+          </Link>
+          <Link to="" onClick={this.handleActionClick('join')} className={`project-action-main project-action-available`}>
+            我要报名
+          </Link>
+        </div>
+    )
   }
   renderBasic() {
     const { detail: { data: detailData, tabIndex }, user: { isLogin } } = this.props;
@@ -296,6 +314,13 @@ class ProjectDetailPage extends React.Component {
       actionLabel = '我要退出';
       actionClassName = 'project-action-quit';
       action = 'quit';
+    }
+    if(detailData.id === 2129) {
+      actionLabel = '申请助养';
+      action = 'join';
+    }
+    if(detailData.id === 2009) {
+        action = 'two';
     }
     return (
       <div>
@@ -412,9 +437,12 @@ class ProjectDetailPage extends React.Component {
             <span />
             <span>分享</span>
           </Link>
-          <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
-            {actionLabel}
-          </Link>
+            {
+                action === 'two' ? this.renderTwoBtn() : <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
+                    {actionLabel}
+                </Link>
+            }
+
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         确定要退出项目吗？

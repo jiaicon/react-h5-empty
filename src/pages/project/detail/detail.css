@@ -371,3 +371,11 @@
   line-height: 20px;
   text-align: center;
 }
+.project-action-main-two {
+  flex: 1;
+  display: flex;
+}
+.project-action-main-color {
+  color: #666666;
+  background-color: #CFC7FD;
+}
