@@ -39,7 +39,6 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-   
     const { home } = this.props;
     if (localStorage.getItem('provinceAndCityName') != null) {
       this.setState({
@@ -67,7 +66,7 @@ class HomePage extends React.Component {
       });
     }
 
-
+    
     // 地理位置重新获取后需要刷新首页数据
     // EM.on('location', () => this.props.requestHomeData());
   }
