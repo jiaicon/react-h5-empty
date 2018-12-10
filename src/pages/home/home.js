@@ -87,21 +87,19 @@ class HomePage extends React.Component {
       );
     } else {
       // 新添加默认北京
-      this.setState({
-        city: "沈阳"
-      });
+      this.setState({ city: "北京" });
       localStorage.setItem("provinceAndCityName", JSON.stringify({
-          province: "辽宁",
-          city: "沈阳"
+        province: "北京",
+        city: "北京"
         }));
       // 123.442763, 41.82679
-      localStorage.setItem(
-        "location",
-        JSON.stringify({
-          lat: "123.442763",
-          lng: "41.82679"
-        })
-      );
+      // localStorage.setItem(
+      //   "location",
+      //   JSON.stringify({
+      //     lat: "123.442763",
+      //     lng: "41.82679"
+      //   })
+      // );
       this.props.requestHomeData();
       this.props.saveCity("北京");
       this.props.getAreaCity("北京");
