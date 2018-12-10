@@ -96,13 +96,13 @@ class HomePage extends React.Component {
         }));
       // 123.442763, 41.82679
       // 34.7472500000, 113.6249300000
-      localStorage.setItem("location", JSON.stringify({
-        lat: "34.7472500000",
-        lng: "113.6249300000"
-        }));
+      // localStorage.setItem("location", JSON.stringify({
+      //   lat: "34.7472500000",
+      //   lng: "113.6249300000"
+      //   }));
       this.props.requestHomeData();
-      this.props.saveCity("郑州市");
-      this.props.getAreaCity("郑州市");
+      // this.props.saveCity("郑州市");
+      // this.props.getAreaCity("郑州市");
 
       getCity(
         city => {
