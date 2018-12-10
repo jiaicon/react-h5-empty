@@ -133,6 +133,7 @@ export function getCity(success, fail) {
         }
       },
     });
+    console.log("coord::::");
     const coord = new qq.maps.LatLng(loc.lat, loc.lng);
     console.log("coord::", coord);
     geocoder.getAddress(coord);
