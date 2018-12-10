@@ -132,6 +132,10 @@ export function getCity(success, fail) {
           fail({});
         }
       },
+      error: function (res) {
+        console.log("res", res);
+      }
+
     });
     console.log("coord::::");
     const coord = new qq.maps.LatLng(loc.lat, loc.lng);
