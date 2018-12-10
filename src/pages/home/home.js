@@ -98,7 +98,7 @@ class HomePage extends React.Component {
       this.props.requestHomeData();
 
       getCity(
-        city,str => {
+        (city, str) => {
           console.log(city)
           this.setState({ ...this.state, showDialog: true, newcity:city ,pc:str});
         },
