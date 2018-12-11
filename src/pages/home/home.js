@@ -50,14 +50,14 @@ class HomePage extends React.Component {
           label: "确认",
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
-            const { newcity, pc } = this.state;
+            const { newcity, pc ,city} = this.state;
             this.props.requestHomeData();
             this.props.saveCity(newcity);
-            this.props.getAreaCity(newcity);
-            localStorage.setItem('provinceAndCityName', pc);
+            // this.props.getAreaCity(newcity);
+            localStorage.setItem("provinceAndCityName", pc);
             this.setState({
-              city: newcity,
-            })
+              city: newcity
+            });
           }
         }
       ]
@@ -68,38 +68,56 @@ class HomePage extends React.Component {
     const { home } = this.props;
     // TODO:
     this.props.requestHomeData();
+    this.props.saveCity('北京');
     if (localStorage.getItem("provinceAndCityName") != null) {
-      this.setState({
-        ...this.state,
-        city: JSON.parse(
-        localStorage.getItem("provinceAndCityName")
-        ).city.replace("市", "")
-      });
-      this.props.requestHomeData();
-      this.props.saveCity(
-        JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-          "市",
-          ""
-        )
-      );
-      this.props.getAreaCity(
-        JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-          "市",
-          ""
-        )
-      );
+      if (
+        this.state.city ==
+        localStorage.getItem("provinceAndCityName").city.replace("市", "")
+      ) {
+        return;
+      } else {
+        this.setState({
+          ...this.state,
+          city: JSON.parse(
+            localStorage.getItem("provinceAndCityName")
+          ).city.replace("市", "")
+        });
+        this.props.requestHomeData();
+        this.props.saveCity(
+          JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
+            "市",
+            ""
+          )
+        );
+        // this.props.getAreaCity(
+        //   JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
+        //     "市",
+        //     ""
+        //   )
+        // );
+      }
     } else {
       getCity(
         (city, str) => {
-          console.log(city)
-          this.setState({ ...this.state, showDialog: true, newcity:city ,pc:str});
+          console.log(city);
+          const { city: initaialCity } = this.state;
+          if (initaialCity == city || city == '北京市') {
+            return
+          } else {
+            this.setState({
+              ...this.state,
+              showDialog: true,
+              newcity: city,
+              pc: str
+            });
+          }
         },
         () => {
           Alert.error("定位失败，请确认同意微信定位授权");
           this.state = {
-            city: "未定位"
+            city: "北京"
           };
-          this.props.requestHomeData();
+          // this.props.requestHomeData();
         }
       );
     }
