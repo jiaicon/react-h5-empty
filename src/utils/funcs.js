@@ -110,6 +110,10 @@ export function getCity(success, fail) {
 
   getLocation((loc) => {
     console.log(new qq.maps.Geocoder)
+    var qqmaps = document.createElement("script");
+    qqmaps.src = "http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI";
+    var s = document.getElementsByTagName("body")[0];
+    s.parentNode.insertBefore(qqmaps, s);
     const geocoder = new qq.maps.Geocoder({
       complete: (result) => {
         console.log(result);
@@ -119,15 +123,8 @@ export function getCity(success, fail) {
             console.log(result);
             return;
           }
-          console.log(2222222)
-          // result.detail.addressComponents.province
           const city = result.detail.addressComponents.city;
           const province = result.detail.addressComponents.province;
-          // localStorage.setItem('provinceAndCityName', JSON.stringify({
-          //   city,
-          //   province,
-          // }));
-
           success(result.detail.addressComponents.city.replace('市', ''), JSON.stringify({
             city,
             province,
