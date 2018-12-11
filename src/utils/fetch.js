@@ -56,23 +56,24 @@ export default function request(requestUrl, requestOptions = {}) {
   const city = localStorage.provinceAndCityName
     ? JSON.parse(localStorage.provinceAndCityName).city
     : "北京";
-  // ${encodeURI(city)}
-  options.headers = {
+  let headersObj = {
     ...headers,
     "X-auth-token": getToken() || "",
     "X-org-code": window.orgCode,
     "X-location": location
       ? `${
-          location.lng // 授权 token // 机构代码 // 经纬度 经度-纬度
-        }-${location.lat}`
+      location.lng // 授权 token // 机构代码 // 经纬度 经度-纬度
+      }-${location.lat}`
       : "116.403847-39.915526",
     "X-unique-key": window.uniqueKey || "demo",
     "X-city": `${encodeURI(city)}`
-  };
-  if (!location) {
-    delete options.headers.X - location;
-    console.log(options.headers);
   }
+  if (!location) {
+    delete headersObj["X - location"];
+    console.log(headersObj);
+  }
+  options.headers = headersObj;
+  console.log(options.headers);
   // 自定义头必须设置 mode 为 cors
   options.mode = "cors";
 
