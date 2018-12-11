@@ -69,6 +69,7 @@
   color: #333333;
   font-size: 14px;
   border: 1px solid #E5E5E5;
+  box-sizing: content-box;
 }
 
 .page-home .header-bar .avatar {
