@@ -113,7 +113,8 @@ export function getCity(success, fail) {
     var qqmaps = document.createElement("script");
     qqmaps.src = "http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI";
     var s = document.getElementsByTagName("body")[0];
-    s.parentNode.insertBefore(qqmaps, s);
+    // s.parentNode.insertBefore(qqmaps, s);
+    s.appendChild(qqmaps);
     const geocoder = new qq.maps.Geocoder({
       complete: (result) => {
         console.log(result);
