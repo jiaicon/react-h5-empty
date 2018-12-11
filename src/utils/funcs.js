@@ -109,15 +109,6 @@ export function getCity(success, fail) {
   }
 
   getLocation((loc) => {
-    // console.log(new qq.maps.Geocoder)
-    var qqmaps = document.createElement("script");
-    qqmaps.src = "http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI";
-    var s = document.getElementsByTagName("head")[0];
-    // s.parentNode.insertBefore(qqmaps, s);
-    s.appendChild(qqmaps);
-
-    qqmaps.onload = function () {
-      console.log('加载完毕了');
       const geocoder = new qq.maps.Geocoder({
         complete: (result) => {
           console.log(result);
@@ -147,7 +138,6 @@ export function getCity(success, fail) {
       const coord = new qq.maps.LatLng(loc.lat, loc.lng);
       console.log("coord::", coord);
       geocoder.getAddress(coord);
-    }
    
   }, (error) => {
     if (fail) {
