@@ -69,6 +69,10 @@ export default function request(requestUrl, requestOptions = {}) {
     "X-unique-key": window.uniqueKey || "demo",
     "X-city": `${encodeURI(city)}`
   };
+  if (!location) {
+    delete options.headers.X - location;
+    console.log(options.headers);
+  }
   // 自定义头必须设置 mode 为 cors
   options.mode = "cors";
 

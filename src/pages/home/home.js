@@ -24,7 +24,12 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    this.state = { city: props.home.city || "北京", showDialog: false };
+    this.state = {
+      city: localStorage.getItem("provinceAndCityName")
+        ? JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace("市","")
+        : "北京",
+      showDialog: false
+    };
     this.play = this.play.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
@@ -50,7 +55,7 @@ class HomePage extends React.Component {
           label: "确认",
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
-            const { newcity, pc ,city} = this.state;
+            const { newcity, pc, city } = this.state;
             this.props.requestHomeData();
             this.props.saveCity(newcity);
             // this.props.getAreaCity(newcity);
@@ -68,11 +73,14 @@ class HomePage extends React.Component {
     const { home } = this.props;
     // TODO:
     this.props.requestHomeData();
-    this.props.saveCity('北京');
     if (localStorage.getItem("provinceAndCityName") != null) {
-      if (this.state.city == JSON.parse(localStorage
-        .getItem("provinceAndCityName"))
-          .city.replace("市", "")) {
+      if (
+        this.state.city ==
+        JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
+          "市",
+          ""
+        )
+      ) {
         return;
       } else {
         this.setState({
@@ -82,19 +90,27 @@ class HomePage extends React.Component {
           ).city.replace("市", "")
         });
         this.props.requestHomeData();
-        this.props.saveCity(JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace("市", ""));
+        this.props.saveCity(
+          JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
+            "市",
+            ""
+          )
+        );
       }
     } else {
       getCity(
         (city, str) => {
           console.log(city);
           const { city: initaialCity } = this.state;
-          if (initaialCity == city || city == '北京市') {
-            localStorage.setItem("provinceAndCityName", JSON.stringify({
-              city:'北京市',
-              province:'北京',
-            }));
-            return
+          if (initaialCity == city || city == "北京市") {
+            localStorage.setItem(
+              "provinceAndCityName",
+              JSON.stringify({
+                city: "北京市",
+                province: "北京"
+              })
+            );
+            return;
           } else {
             this.setState({
               ...this.state,
