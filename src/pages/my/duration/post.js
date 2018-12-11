@@ -28,7 +28,6 @@ class Post extends React.Component {
     autoBind(this);
     this.state = {
       popToggle: false,
-      limitNum: 3,
       attachment: [],
       data: {},
     };
@@ -151,75 +150,60 @@ class Post extends React.Component {
 
     const attachment = this.state.attachment;
     const data = this.state.data;
-    return (
-      <div className="page-post-bg">
+    return <div className="page-post-bg">
         <div className="page-post-container">
           <div className="page-post-container-top">
             <div className="page-post-container-item" onClick={this.onPop}>
-              <div
-                className={classnames({
-                  'page-post-font-color': data.name,
-                })}
-              >{data.name ? data.name : '申请志愿项目'}</div>
+              <div className={classnames({
+                  "page-post-font-color": data.name
+                })}>
+                {data.name ? data.name : "申请志愿项目"}
+              </div>
               <div className="page-post-container-item-more" />
             </div>
-            <input
-              // type="tel" maxLength="3"
-              className="page-post-container-text"
-              placeholder="申请志愿时长(小时)" ref={(c) => { this.hours = c; }}
-              onKeyUp={this.onTextChanged}
-            />
-            <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={(c) => { this.info = c; }} onKeyUp={this.onTextChanged} />
+            <input // type="tel" maxLength="3"
+              className="page-post-container-text" placeholder="申请志愿时长(小时)" ref={c => {
+                this.hours = c;
+            }} onBlur={this.onTextChanged} />
+            <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={c => {
+                this.info = c;
+              }} onBlur={this.onTextChanged} />
           </div>
           <div>
-            <div className="page-post-container-photo-text" >工作证明图片(选填)</div>
+            <div className="page-post-container-photo-text">
+              工作证明图片(选填)
+            </div>
             <div className="page-post-container-photo-container">
-              {
-             attachment.map((item, key) => (
-               <div className="page-applys-item-render-container">
-                 <div className="page-applys-item-view" >
-                   <Avatar src={item} size={{ width: 100, radius: 1 }} />
-                 </div>
-                 <div className="page-applys-item-render-del" onClick={this.onDel} id={key} key={item} />
-               </div>
-             ))
-           }
-              {
-             attachment.length === 3 ?
-               <div /> :
-               <div
-                 className="page-post-item-upload-container" onClick={this.onAvatarClick}
-               />
-           }
+              {attachment.map((item, key) => (
+                <div className="page-applys-item-render-container">
+                  <div className="page-applys-item-view">
+                    <Avatar src={item} size={{ width: 100, radius: 1 }} />
+                  </div>
+                  <div
+                    className="page-applys-item-render-del"
+                    onClick={this.onDel}
+                    id={key}
+                    key={item}
+                  />
+                </div>
+              ))}
+              {attachment.length === 3 ? <div /> : <div className="page-post-item-upload-container" onClick={this.onAvatarClick} />}
             </div>
           </div>
-         
-          <div className="page-post-btn" onClick={this.onNext}>提交</div>
+
+          <div className="page-post-btn" onClick={this.onNext}>
+            提交
+          </div>
           {/** 遮罩层* */}
-          <div
-            className={classnames({
-              'page-post-mask-container': true,
-
-              'page-post-pop-block': popToggle,
-            })}
-          >
-
+          <div className={classnames({ "page-post-mask-container": true,
+              "page-post-pop-block": popToggle })}>
             <div className="page-post-take-up" onClick={this.Popnone} />
             <div className="page-post-mask-content">
-
-              <DutationProjects
-                durationProject={this.props.projectapply.data ? this.props.projectapply.data.list : null}
-                HandleClick={this.HandleClick}
-                isEntry={false}
-              />
+              <DutationProjects durationProject={this.props.projectapply.data ? this.props.projectapply.data.list : null} HandleClick={this.HandleClick} isEntry={false} />
             </div>
-
-
           </div>
         </div>
-
-      </div>
-    );
+      </div>;
   }
 }
 

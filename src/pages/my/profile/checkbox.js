@@ -31,7 +31,7 @@ class Checkbox extends React.Component {
   componentWillMount() {
     console.log(this.state.goodAt)
     const { goodAt } = this.state;
-    const GoodAt = window.goodAt != null ? ["111", "2222", "333", "444", "555", "666666", "777", "8888", "社区服务", "社区服务", "社区服务", "社区服务", "社区服务", "社区服务", "社区服务", "国际服务", "社区服务", "社区服务", "社区服务", "应急救援", "赛事服务", "医疗卫生", "绿色环保", "文化倡导", "教育", "助残", "助老", "其他"] : window.goodAt;
+    const GoodAt = window.goodAt == null ? ["社区服务","国际服务",  "应急救援", "赛事服务", "医疗卫生", "绿色环保", "文化倡导", "教育", "助残", "助老", "其他"] : window.goodAt;
     const data = [];
     for (let i = 0; i < GoodAt.length; i += 1) {
       const obj = {};

@@ -189,7 +189,7 @@ class NewFamily extends React.Component {
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">姓名</div>
                     <div className="pages-add-new-family-ipt">
-                        <input type="text"  ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
+                        <input type="text" ref={(c) => { this.username = c; }} onBlur={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="line1px"></div>

@@ -137,44 +137,6 @@ class Addmember extends React.Component {
     }
 
     render() {
-        // return (
-        //   <div className="page-add">
-        //     <div className="page-add-photo">
-        //       <div
-        //         className="page-add-photo-container" onClick={this.onAvatarClick}
-        //       >
-        //
-        //         <Avatar src={this.state.photo} size={{ width: 80 }} defaultSrc="/images/my/register.png" />
-        //       </div>
-        //     </div>
-        //     <div className="page-add-photo-fonts">上传头像(选填)</div>
-        //     <ul>
-        //       <li>
-        //         <div className="page-add-item">
-        //           <span className="page-add-fonts">用户名</span>
-        //           <input className="page-add-input" type="text" ref={(c) => { this.username = c; }} onKeyUp={this.onTextChanged} />
-        //         </div>
-        //         <div className="line1px" />
-        //       </li>
-        //       <li>
-        //         <div className="page-add-item">
-        //           <span className="page-add-fonts">设置密码</span>
-        //           <input className="page-add-input" type="password" ref={(c) => { this.userpassword = c; }} onKeyUp={this.onTextChanged} maxLength="20" minLength="6" />
-        //         </div>
-        //         <div className="line1px" />
-        //       </li>
-        //     </ul>
-        //     <div className="page-add-submmit" onClick={this.onSubmit}>确认提交</div>
-        //     <div className="page-add-agree">
-        //   提交代表已同意
-        //   <Link to="/my/agree">
-        //     <span className="page-add-agreement">《志多星用户协议》</span>
-        //   </Link>
-        //     </div>
-        //
-        //
-        //   </div>
-        // );
         const {pages} = this.state;
         const {path} = this.props.route;
         return (

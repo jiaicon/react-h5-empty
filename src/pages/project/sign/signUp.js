@@ -340,29 +340,19 @@ class SignUpPage extends React.Component {
     renderOtherInfoManyInput(item) {
         const data = item;
         const key = data.key;
-        return (
-
-            <div>
-                <div className="page-project-signUp-verify-header-box">
-                    {
-                        Number(item.is_required) === 1 ?
-                            <span className="page-project-signUp-verify-header-start">*</span>
-                            :
-                            null
-                    }
-                    {data.label}
-                </div>
-
-                <textarea
-                    // placeholder={`请输入${data.label}`}
-                    id={`${key}`}
-                    className="page-project-signUp-edit-text" maxLength="200"
-                    onKeyUp={this.handleOtherInfoManyInputClick}
-                />
-
-                <div className="line1px" />
+        return <div>
+            <div className="page-project-signUp-verify-header-box">
+              {Number(item.is_required) === 1 ? <span className="page-project-signUp-verify-header-start">
+                  *
+                </span> : null}
+              {data.label}
             </div>
-        )
+
+            <textarea // placeholder={`请输入${data.label}`}
+              id={`${key}`} className="page-project-signUp-edit-text" maxLength="200" onBlur={this.handleOtherInfoManyInputClick} />
+
+            <div className="line1px" />
+          </div>;
     }
 
     handleOtherInfoManyInputClick(e) {
