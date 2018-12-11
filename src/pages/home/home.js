@@ -121,14 +121,14 @@ class HomePage extends React.Component {
             disabled="disabled"
           />
         </Link>
-        {!user.isLogin ? (
+        {user.isLogin ? (
           <Link className="login-button" to="/my/entry">
             登录
           </Link>
         ) : (
-          <Link to="/my">
-            <Avatar src={user.avatars} size={{ width: 28 }} />
-          </Link>
+            <Link to="/my" className="login-button-img">
+              <Avatar src={user.avatars} size={{ width: 28 }} />
+            </Link>
         )}
       </div>
     );
@@ -160,7 +160,7 @@ class HomePage extends React.Component {
   renderSlick() {
     const { home, user } = this.props;
     const orgCode = window.orgCode;
-    if (!home.data || !home.data.banner) {
+    if (!home.data || !home.data.banner || home.data.banner.length == 0) {
       return <div className="slick-container slick-container-empty" />;
     }
 

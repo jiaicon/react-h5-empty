@@ -30,8 +30,7 @@
   bottom: 10px;
 }
 
-.page-home .header-bar{
-  width: 100%;
+.page-home .header-bar {
   display: flex;
   justify-content: space-between;
   padding: 15px;
@@ -45,15 +44,7 @@
   z-index: 1;
   font-weight: 300;
 }
-.page-home .header-bar .component-search-bar{
-    width: 160px;
-    display: flex;
-    align-items: stretch;
-    height: 32px;
-    flex: 1 1 0%;
-    margin: 0 15px;
 
-}
 .page-home .header-bar .city-name {
   width: 64px;
   height: 28px;
@@ -66,6 +57,7 @@
   font-size: 14px;
   overflow: hidden;
 }
+
 .page-home .header-bar .login-button {
   width: 64px;
   height: 28px;
@@ -77,9 +69,13 @@
   color: #333333;
   font-size: 14px;
   border: 1px solid #E5E5E5;
-  box-sizing: content-box;
 }
+.page-home .header-bar .login-button-img {
+  width: 64px;
+  height: 28px;
+  padding: 0 18px;
 
+}
 .page-home .header-bar .avatar {
   width: 28px;
   height: 28px;
