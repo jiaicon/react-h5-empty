@@ -46,6 +46,7 @@ class LaunchPage extends React.Component {
     wx.ready(() => {
       WXShare();
     });
+    
   }
 
   componentWillReceiveProps(nextProps) {

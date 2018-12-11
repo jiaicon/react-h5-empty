@@ -79,7 +79,11 @@
     s.parentNode.insertBefore(hm, s);
   })();
   </script> -->
-
+  <script type="text/javascript" crossorigin="anonymous" src="https://mirror.testin.cn/testin-sdk-latest.min.js"></script>
+  <script>
+    testinSDK.enable('data', 'f0172624517a4e366983fb5fe11bc3df');
+    testinSDK.enable('bug');
+  </script>
 
 </head>
 
@@ -89,11 +93,7 @@
   <!-- async="async" defer="defer" -->
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
   <script src="<%= bundle %>"></script>
-  <script type="text/javascript" crossorigin="anonymous" src="https://mirror.testin.cn/testin-sdk-latest.min.js"></script>
-  <script>
-    testinSDK.enable('data', 'f0172624517a4e366983fb5fe11bc3df');
-    testinSDK.enable('bug');
-  </script>
+  
 </body>
 
 </html>
