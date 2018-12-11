@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Tue Dec 11 2018 15:00:51 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Tue Dec 11 2018 15:32:35 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -25,6 +25,7 @@
     })();
   </script>
   <script src="/lib/jweixin-1.0.0.js"></script>
+  <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="0e6d72e0b2c12d6d572ab35d4869c463b315c24bf7f2a62f2edd329958d8b8a2"></script>
   <script>
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {!! $jsConfig !!}; // 或者 '{}'
