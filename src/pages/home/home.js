@@ -89,12 +89,6 @@ class HomePage extends React.Component {
             ""
           )
         );
-        // this.props.getAreaCity(
-        //   JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-        //     "市",
-        //     ""
-        //   )
-        // );
       }
     } else {
       getCity(
@@ -102,6 +96,10 @@ class HomePage extends React.Component {
           console.log(city);
           const { city: initaialCity } = this.state;
           if (initaialCity == city || city == '北京市') {
+            localStorage.setItem("provinceAndCityName", JSON.stringify({
+              city:'北京市',
+              province:'北京',
+            }));
             return
           } else {
             this.setState({
