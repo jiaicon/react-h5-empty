@@ -25,6 +25,7 @@ class HomePage extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
+      newcity: null,
       city: localStorage.getItem("provinceAndCityName")
         ? JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace("市","")
         : "北京",
@@ -48,7 +49,7 @@ class HomePage extends React.Component {
         {
           type: "default",
           label: "取消",
-          onClick: () => this.setState({ ...this.state, showDialog: false })
+          onClick: () => { this.props.requestHomeData();this.setState({ ...this.state, showDialog: false })}
         },
         {
           type: "primary",
@@ -70,65 +71,35 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    const { home } = this.props;
     // TODO:
     this.props.requestHomeData();
-    if (localStorage.getItem("provinceAndCityName") != null) {
-      if (
-        this.state.city ==
-        JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-          "市",
-          ""
-        )
-      ) {
-        return;
-      } else {
-        this.setState({
-          ...this.state,
-          city: JSON.parse(
-            localStorage.getItem("provinceAndCityName")
-          ).city.replace("市", "")
-        });
-        this.props.requestHomeData();
-        this.props.saveCity(
-          JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-            "市",
-            ""
-          )
-        );
-      }
-    } else {
-      getCity(
-        (city, str) => {
-          console.log(city);
-          const { city: initaialCity } = this.state;
-          if (initaialCity == city || city == "北京市") {
-            localStorage.setItem(
-              "provinceAndCityName",
-              JSON.stringify({
-                city: "北京市",
-                province: "北京"
-              })
-            );
-            return;
-          } else {
-            this.setState({
-              ...this.state,
-              showDialog: true,
-              newcity: city,
-              pc: str
-            });
-          }
-        },
-        () => {
-          Alert.error("定位失败，请确认同意微信定位授权");
-          this.state = {
-            city: "北京"
-          };
-          // this.props.requestHomeData();
+    getCity(
+      (city, str) => {
+        const { city: initaialCity } = this.state;
+        if (initaialCity == city || city == "北京市") {
+          localStorage.setItem(
+            "provinceAndCityName",
+            JSON.stringify({
+              city: "北京市",
+              province: "北京"
+            })
+          );
+          this.props.requestHomeData();
+          return;
+        } else {
+          this.setState({
+            ...this.state,
+            showDialog: true,
+            newcity: city,
+            pc: str
+          });
         }
-      );
-    }
+      },
+      () => {
+        Alert.error("定位失败，请确认同意微信定位授权");
+      }
+    );
+    
   }
 
   componentWillReceiveProps() {}
@@ -310,33 +281,19 @@ class HomePage extends React.Component {
     if (!home.data) {
       return null;
     }
-    return (
-      <div className="page-home">
+    return <div className="page-home">
         <div className="page-home-header">
           {this.renderHeaderBar()}
           {this.renderSlick()}
           {this.renderAnnounceComponent()}
         </div>
-        <Dialog
-          type="ios"
-          title={this.dialog.title}
-          buttons={this.dialog.buttons}
-          show={this.state.showDialog}
-        >
-          已经成功定位到当前城市，是否切换？
+        <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
+        已经成功定位到当前定位城市{this.state.newcity ? (this.state.newcity) : null},是否切换？
         </Dialog>
         <div className="page-home-body">
-          {window.orgInfo && window.orgCode == "VolejRejNm" ? (
-            <Menus
-              menus={deleteSanlitunMoudling(window.orgInfo.module_settings)}
-            />
-          ) : (
-            <Menus menus={window.orgInfo.module_settings} />
-          )}
-          {!home.data ? null : (
-            <div>
-              {home.data && home.data.sanlitun ? (
-                <div>
+          {window.orgInfo && window.orgCode == "VolejRejNm" ? <Menus menus={deleteSanlitunMoudling(window.orgInfo.module_settings)} /> : <Menus menus={window.orgInfo.module_settings} />}
+          {!home.data ? null : <div>
+              {home.data && home.data.sanlitun ? <div>
                   <div style={{ width: "100%", height: "10px" }} />
                   <div className="project-list">
                     <div className="list-header">
@@ -351,31 +308,20 @@ class HomePage extends React.Component {
                   <div className="page-home-feedback-show-container">
                     {/* <Link to={`http://${location.host}/tmall`}> */}
                     <Link to="/shop">
-                      <img
-                        src="/images/sanlitun/feedback1.jpg"
-                        alt="回馈展示"
-                      />
+                      <img src="/images/sanlitun/feedback1.jpg" alt="回馈展示" />
                     </Link>
                     {/* <Link to={`http://${location.host}/tmall`}> */}
                     <Link to="/shop">
-                      <img
-                        src="/images/sanlitun/feedback2.jpg"
-                        alt="回馈展示"
-                      />
+                      <img src="/images/sanlitun/feedback2.jpg" alt="回馈展示" />
                     </Link>
                     {/* <Link to={`http://${location.host}/tmall`}> */}
                     <Link to="/shop">
-                      <img
-                        src="/images/sanlitun/feedback4.png"
-                        alt="回馈展示"
-                      />
+                      <img src="/images/sanlitun/feedback4.png" alt="回馈展示" />
                     </Link>
                   </div>
                   <div style={{ width: "100%", height: "10px" }} />
-                </div>
-              ) : null}
-              {home.data && home.data.sanlitun ? null : (
-                <div className="menus-activity">
+                </div> : null}
+              {home.data && home.data.sanlitun ? null : <div className="menus-activity">
                   <Link to="/project/list/type/1/category/1000/target/1000">
                     <img src="/images/activities_nearby.png" alt="附近" />
                   </Link>
@@ -385,8 +331,7 @@ class HomePage extends React.Component {
                   <Link to="/project/list/type/2/category/1000/target/1000">
                     <img src="/images/activities_hot.png" alt="最热" />
                   </Link>
-                </div>
-              )}
+                </div>}
               <div className="project-list">
                 <div className="list-header">
                   <div className="main-label">
@@ -403,11 +348,9 @@ class HomePage extends React.Component {
                 <div className="line1px" />
                 <Projects projects={(home.data && home.data.project) || []} />
               </div>
-            </div>
-          )}
+            </div>}
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 
