@@ -327,122 +327,131 @@ class Profile extends React.Component {
     }
     renderHost() {
         const user = this.props.user;
-        return (
-            <div className="page-profile">
-                <div>
-                    <div className="page-profile-title">基本信息</div>
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">头像</div>
-                        <div className="page-profile-header-uploade-box">
-                            <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
-                                <Avatar src={this.photo ? this.photo : user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
-                            </div>
-                            <div className="page-profile-edit-icon" />
-                        </div>
-                    </div>
-                    <div className="line1px" />
-                    {this.realRegister !== null && this.realRegister.real_name_register ? null :
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">账号</div>
-                            <div className="page-profile-edit-box">
-                                <div className="page-profile-initial-fonts">{user.username}</div>
-                                <div className="page-profile-initial-fonts-take-up" />
-                            </div>
-                        </div>
-                    }
-                    {
-                      this.realRegister !== null && this.realRegister.real_name_register ? null : <div className="line1px" />
-                    }
-
-                    <Link to="/my/profile/bind/phone">
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">手机号</div>
-                            <div className="page-profile-edit-box">
-                                <div className="page-profile-initial-fonts">{user.phone || ''}</div>
-                                <div className="page-profile-edit-icon" />
-                            </div>
-                        </div>
-                    </Link>
-                    <div className="line1px" />
-
-                    <Link to="/my/profile/bind/mail">
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">邮箱</div>
-                            <div className="page-profile-edit-box">
-                                <div className="page-profile-initial-fonts">{user.email || ''}</div>
-                                <div className="page-profile-edit-icon" />
-                            </div>
-                        </div>
-                    </Link>
-                    <div className="line1px" />
-
-                    <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">志愿者编号</div>
-                        <div className="page-profile-edit-box">
-                            <div className="page-profile-initial-fonts">{user.identifier}</div>
-                            <div className="page-profile-initial-fonts-take-up" />
-                        </div>
-                    </div>
-                    <div className="line1px" />
-                    <Link to="/my/profile/checkbox">
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">个人擅长</div>
-                            <div className="page-profile-edit-box">
-                                {user.good_at != null ?
-                                    user.good_at.map((item, index) =>
-                                        <span key={index} className="page-profile-initial-fonts" >
-                      {item.good_at_name}{index < user.good_at.length - 1 ? '、' : ''}
-                    </span>)
-                                    : <span />
-                                }
-                                <div className="page-profile-edit-icon" />
-                            </div>
-
-                        </div>
-                    </Link>
-                    <div className="line1px" />
-
-                    <div>
-                        <Link to="/my/profile/edit">
-                            <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">志愿者口号</div>
-                                <div className="page-profile-edit-icon" />
-                            </div>
-                            <div className="page-profile-fonts-view">{user.slogan}</div>
-                        </Link>
-                    </div>
+        return <div className="page-profile">
+            <div>
+              <div className="page-profile-title">基本信息</div>
+              <div className="page-profile-header-box">
+                <div className="page-profile-fonts">头像</div>
+                <div className="page-profile-header-uploade-box">
+                  <div className="page-profile-header-img-container" onClick={this.onAvatarClick}>
+                    <Avatar src={this.photo ? this.photo : user.avatars} size={{ width: 40, radius: 4 }} defaultSrc="/images/my/register.png" />
+                  </div>
+                  <div className="page-profile-edit-icon" />
                 </div>
-                {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
-                <div
-                    className={cx({
-                    'page-profile-bottom': true,
-                    'page-profile-display-block': this.state.winOrgInfo !== null,
-                    'page-profile-display-none': this.state.winOrgInfo === null ,
-                    'page-profile-display-extends-block': !user.id_number && this.state.winOrgInfo !== null,
-                    'page-profile-display-extends-none': user.id_number,
-                    })}
-                    >
-                        
-                            <Link to="/my/profile/verify">
-                                <div className="page-profile-bottom-btn">申请成为实名注册志愿者</div>
-                            </Link>
-                        
+              </div>
+              <div className="line1px" />
+              {this.realRegister !== null && this.realRegister.real_name_register ? null : <div className="page-profile-header-box">
+                  <div className="page-profile-fonts">账号</div>
+                  <div className="page-profile-edit-box">
+                    <div className="page-profile-initial-fonts">
+                      {user.username}
                     </div>
-               
-              
-                  
-                <div
-                    className={cx({
-                    'page-profile-bottom': true,
-                    'page-profile-display-extends-block': user.id_number,
-                    'page-profile-display-extends-none ': !user.id_number,
-                })}
-                >
-                    {this.renderRealInfo()}
-                </div>
+                    <div className="page-profile-initial-fonts-take-up" />
+                  </div>
+                </div>}
+              {this.realRegister !== null && this.realRegister.real_name_register ? null : <div className="line1px" />}
 
+              <Link to="/my/profile/bind/phone">
+                <div className="page-profile-header-box">
+                  <div className="page-profile-fonts">手机号</div>
+                  <div className="page-profile-edit-box">
+                    <div className="page-profile-initial-fonts">
+                      {user.phone || ""}
+                    </div>
+                    <div className="page-profile-edit-icon" />
+                  </div>
+                </div>
+              </Link>
+              <div className="line1px" />
+
+              <Link to="/my/profile/bind/mail">
+                <div className="page-profile-header-box">
+                  <div className="page-profile-fonts">邮箱</div>
+                  <div className="page-profile-edit-box">
+                    <div className="page-profile-initial-fonts">
+                      {user.email || ""}
+                    </div>
+                    <div className="page-profile-edit-icon" />
+                  </div>
+                </div>
+              </Link>
+              <div className="line1px" />
+
+              <div className="page-profile-header-box">
+                <div className="page-profile-fonts">志愿者编号</div>
+                <div className="page-profile-edit-box">
+                  <div className="page-profile-initial-fonts">
+                    {user.identifier}
+                  </div>
+                  <div className="page-profile-initial-fonts-take-up" />
+                </div>
+              </div>
+              <div className="line1px" />
+              {/* TODO: user.good_at == null*/}
+              <Link to="" onClick={() => {
+                  user.good_at != null && localStorage.setItem("goodAt", `${JSON.stringify(user.good_at)}`);
+                  window.location.href = "/my/profile/checkbox";
+                }}>
+                <div className="page-profile-header-box">
+                  <div className="page-profile-fonts">个人擅长</div>
+                  <div className="page-profile-edit-box">
+                    {user.good_at != null ? user.good_at.map(
+                        (item, index) => (
+                          <span
+                            key={index}
+                            className="page-profile-initial-fonts"
+                          >
+                            {item.good_at_name}
+                            {index < user.good_at.length - 1
+                              ? "、"
+                              : ""}
+                          </span>
+                        )
+                      ) : <span />}
+                    <div className="page-profile-edit-icon" />
+                  </div>
+                </div>
+              </Link>
+              <div className="line1px" />
+
+              <div>
+                <Link to="/my/profile/edit">
+                  <div className="page-profile-header-box">
+                    <div className="page-profile-fonts">志愿者口号</div>
+                    <div className="page-profile-edit-icon" />
+                  </div>
+                  <div className="page-profile-fonts-view">
+                    {user.slogan}
+                  </div>
+                </Link>
+              </div>
             </div>
-        );
+            {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
+            <div className={cx({
+                "page-profile-bottom": true,
+                "page-profile-display-block":
+                  this.state.winOrgInfo !== null,
+                "page-profile-display-none":
+                  this.state.winOrgInfo === null,
+                "page-profile-display-extends-block":
+                  !user.id_number && this.state.winOrgInfo !== null,
+                "page-profile-display-extends-none": user.id_number
+              })}>
+              <Link to="/my/profile/verify">
+                <div className="page-profile-bottom-btn">
+                  申请成为实名注册志愿者
+                </div>
+              </Link>
+            </div>
+
+            <div className={cx({
+                "page-profile-bottom": true,
+                "page-profile-display-extends-block": user.id_number,
+                "page-profile-display-extends-none ": !user.id_number
+              })}>
+              {this.renderRealInfo()}
+            </div>
+          </div>;
     }
   
 

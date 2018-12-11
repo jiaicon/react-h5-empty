@@ -30,7 +30,8 @@
   bottom: 10px;
 }
 
-.page-home .header-bar {
+.page-home .header-bar{
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 15px;
@@ -44,7 +45,15 @@
   z-index: 1;
   font-weight: 300;
 }
+.page-home .header-bar .component-search-bar{
+    width: 160px;
+    display: flex;
+    align-items: stretch;
+    height: 32px;
+    flex: 1 1 0%;
+    margin: 0 15px;
 
+}
 .page-home .header-bar .city-name {
   width: 64px;
   height: 28px;
@@ -57,7 +66,6 @@
   font-size: 14px;
   overflow: hidden;
 }
-
 .page-home .header-bar .login-button {
   width: 64px;
   height: 28px;

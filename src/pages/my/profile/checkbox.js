@@ -20,6 +20,8 @@ class Checkbox extends React.Component {
     super(props);
     autoBind(this);
     this.state = ({
+      
+      goodAt: localStorage.getItem("goodAt")?JSON.parse(localStorage.getItem("goodAt")):[],
       limitArr: [],
       limitNum: 3,
     });
@@ -27,9 +29,9 @@ class Checkbox extends React.Component {
 
 
   componentWillMount() {
-    const GoodAt = (window.goodAt == null ?
-      ['关爱服务', '国际服务', '社区服务', '应急救援', '赛事服务', '医疗卫生', '绿色环保', '文化倡导', '教育', '助残', '助老', '其他'] :
-       window.goodAt);
+    console.log(this.state.goodAt)
+    const { goodAt } = this.state;
+    const GoodAt = window.goodAt != null ? ["111", "2222", "333", "444", "555", "666666", "777", "8888", "社区服务", "社区服务", "社区服务", "社区服务", "社区服务", "社区服务", "社区服务", "国际服务", "社区服务", "社区服务", "社区服务", "应急救援", "赛事服务", "医疗卫生", "绿色环保", "文化倡导", "教育", "助残", "助老", "其他"] : window.goodAt;
     const data = [];
     for (let i = 0; i < GoodAt.length; i += 1) {
       const obj = {};
@@ -38,11 +40,26 @@ class Checkbox extends React.Component {
       obj.toggle = false;
       Object.assign({}, obj);
       data.push(obj);
-      this.setState({
-        ...this.state,
-        data,
-      });
+     
     }
+    var arr = [];
+  
+    if (goodAt.length>0) {
+      for (var attr in goodAt) {
+        arr.push(goodAt[attr].good_at_name);
+        
+      }
+      for (let i = 0; i < GoodAt.length; i += 1){
+        console.log(data[i])
+        for (var attr in goodAt) {
+          if (goodAt[attr].good_at_name == data[i].name) {
+            data[i].toggle = true;
+          }
+        }
+        
+      }
+    }
+    this.setState({ ...this.state, data, limitArr: arr, });
   }
 
   componentDidMount() {
@@ -72,6 +89,7 @@ class Checkbox extends React.Component {
     const limitNum = this.state.limitNum;
     const data = this.state.data;
     const len = limitArr.length;
+    console.log(len);
     if (!data[e.target.id - 1].toggle && len < limitNum) {
       data[e.target.id - 1].toggle = true;
       limitArr.push(data[e.target.id - 1].name);
@@ -88,6 +106,8 @@ class Checkbox extends React.Component {
         data,
       });
     }
+    console.log(limitArr);
+    console.log(limitNum);
   }
 
   render() {
@@ -117,11 +137,49 @@ Checkbox.propTypes = {
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
   }),
+  user: PropTypes.shape({
+    token: PropTypes.string,
+    id: PropTypes.number,
+    username: PropTypes.string,
+    phone: PropTypes.string,
+    avatars: PropTypes.string,
+    real_name: PropTypes.string,
+    nation: PropTypes.string,
+    sex: PropTypes.number,
+    birthday: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    identifier: PropTypes.string,
+    slogan: PropTypes.string,
+    reward_time: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    id_number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    province_id: PropTypes.number,
+    province_name: PropTypes.string,
+    city_id: PropTypes.number,
+    city_name: PropTypes.string,
+    county_id: PropTypes.number,
+    county_name: PropTypes.string,
+    addr: PropTypes.string,
+    family_id: PropTypes.number,
+    join_family_time: PropTypes.string,
+    good_at: PropTypes.arrayOf(PropTypes.shape({
+
+    }))
+
+  }),
 };
 
 export default connect(
   state => ({
-    person: state.info.person,
+    user: state.user,
+    person: state.info.person
   }),
-  dispatch => bindActionCreators({ imporvePersonInfo }, dispatch),
+  dispatch => bindActionCreators({ imporvePersonInfo }, dispatch)
 )(Checkbox);
