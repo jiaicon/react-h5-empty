@@ -137,7 +137,6 @@ export default function request(requestUrl, requestOptions = {}) {
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
           let from = window.location.pathname;
           store.dispatch(storeLoginSource(from));
-          console.log(123123123);
           // if (USING_HISTORY_HASH) {
           //   from = window
           //     .location
