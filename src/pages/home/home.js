@@ -68,12 +68,11 @@ class HomePage extends React.Component {
     const { home } = this.props;
     // TODO:
     this.props.requestHomeData();
-
     if (localStorage.getItem("provinceAndCityName") != null) {
       this.setState({
         ...this.state,
         city: JSON.parse(
-          localStorage.getItem("provinceAndCityName")
+        localStorage.getItem("provinceAndCityName")
         ).city.replace("市", "")
       });
       this.props.requestHomeData();
@@ -90,13 +89,6 @@ class HomePage extends React.Component {
         )
       );
     } else {
-      // 新添加默认北京
-      // localStorage.setItem("provinceAndCityName", JSON.stringify({
-      //     province: "",
-      //    city: "郑州市"
-      //   }));
-      this.props.requestHomeData();
-
       getCity(
         (city, str) => {
           console.log(city)
@@ -111,9 +103,6 @@ class HomePage extends React.Component {
         }
       );
     }
-
-    // 地理位置重新获取后需要刷新首页数据
-    // EM.on('location', () => this.props.requestHomeData());
   }
 
   componentWillReceiveProps() {}
