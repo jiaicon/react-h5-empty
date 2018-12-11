@@ -115,35 +115,40 @@ export function getCity(success, fail) {
     var s = document.getElementsByTagName("head")[0];
     // s.parentNode.insertBefore(qqmaps, s);
     s.appendChild(qqmaps);
-    const geocoder = new qq.maps.Geocoder({
-      complete: (result) => {
-        console.log(result);
-        if (result.detail.addressComponents
-          && result.detail.addressComponents.city) {
-          if (!success) {
-            console.log(result);
-            return;
+
+    qqmaps.onload = function () {
+      console.log('加载完毕了');
+      const geocoder = new qq.maps.Geocoder({
+        complete: (result) => {
+          console.log(result);
+          if (result.detail.addressComponents
+            && result.detail.addressComponents.city) {
+            if (!success) {
+              console.log(result);
+              return;
+            }
+            const city = result.detail.addressComponents.city;
+            const province = result.detail.addressComponents.province;
+            success(result.detail.addressComponents.city.replace('市', ''), JSON.stringify({
+              city,
+              province,
+            }));
+
+          } else if (fail) {
+            fail({});
           }
-          const city = result.detail.addressComponents.city;
-          const province = result.detail.addressComponents.province;
-          success(result.detail.addressComponents.city.replace('市', ''), JSON.stringify({
-            city,
-            province,
-          }));
-
-        } else if (fail) {
-          fail({});
+        },
+        error: function (res) {
+          console.log("res", res);
         }
-      },
-      error: function (res) {
-        console.log("res", res);
-      }
 
-    });
-    console.log("coord::::");
-    const coord = new qq.maps.LatLng(loc.lat, loc.lng);
-    console.log("coord::", coord);
-    geocoder.getAddress(coord);
+      });
+      console.log("coord::::");
+      const coord = new qq.maps.LatLng(loc.lat, loc.lng);
+      console.log("coord::", coord);
+      geocoder.getAddress(coord);
+    }
+   
   }, (error) => {
     if (fail) {
       fail(error);
