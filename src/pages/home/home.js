@@ -70,10 +70,9 @@ class HomePage extends React.Component {
     this.props.requestHomeData();
     this.props.saveCity('北京');
     if (localStorage.getItem("provinceAndCityName") != null) {
-      if (
-        this.state.city ==
-        localStorage.getItem("provinceAndCityName").city.replace("市", "")
-      ) {
+      if (this.state.city == JSON.parse(localStorage
+        .getItem("provinceAndCityName"))
+          .city.replace("市", "")) {
         return;
       } else {
         this.setState({
@@ -83,12 +82,7 @@ class HomePage extends React.Component {
           ).city.replace("市", "")
         });
         this.props.requestHomeData();
-        this.props.saveCity(
-          JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-            "市",
-            ""
-          )
-        );
+        this.props.saveCity(JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace("市", ""));
       }
     } else {
       getCity(
