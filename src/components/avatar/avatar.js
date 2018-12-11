@@ -21,9 +21,7 @@ class Avatar extends React.Component {
     autoBind(this);
     this.logoSrc = '/images/my/register.png';
 
-    this.state = {
-      src: this.configSrc(props),
-    };
+    this.state = { src: this.configSrc(props), iserror:false };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +36,12 @@ class Avatar extends React.Component {
     const size = (props.size || []);
     const { width, height } = size;
     const resizeWidth = width || height;
-
+    var img = document.createElement("img");
+    img.src = `${src}`;
+    const that = this;
+    img.onerror = function () {
+      that.setState({ iserror: true });
+    };
     if (resizeWidth) {
       // 确保 server 端返回不变形，所以只指定 width
       src = `${src}?${resizeWidth * 3 || 0}x0`;
@@ -51,6 +54,7 @@ class Avatar extends React.Component {
     const width = this.props.size.width;
     const height = this.props.size.height;
     const radius = this.props.size.radius;
+    const { iserror } = this.state;
     const props = {
       ...this.props,
     };
@@ -61,7 +65,8 @@ class Avatar extends React.Component {
 
     return (<div
       {...props}
-      style={{ backgroundImage: `url(${src})`,
+      style={{
+        backgroundImage: `url(${iserror ?'/images/my/register.png':src})`,
         width: `${width || height || 20}px`,
         height: `${height || width || 20}px`,
         borderRadius: `${radius || (width || height) / 2}px`,
