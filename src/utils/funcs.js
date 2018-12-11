@@ -109,7 +109,7 @@ export function getCity(success, fail) {
   }
 
   getLocation((loc) => {
-    console.log(1111,loc)
+    console.log(new qq.maps.Geocoder)
     const geocoder = new qq.maps.Geocoder({
       complete: (result) => {
         console.log(result);
