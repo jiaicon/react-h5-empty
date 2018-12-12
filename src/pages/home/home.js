@@ -115,47 +115,29 @@ class HomePage extends React.Component {
   renderHeaderBar() {
     const { user } = this.props;
     const switchView = user.isLogin;
-    return (
-      <div className="header-bar">
+    return <div className="header-bar">
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
 
-        {switchView ? (
-          <div style={{ display: "flex", flex: '1' }}>
-            <div className="bbbbb">
-              <Link className="component-search-bar aaaaa" to="/homesearch">
-                <input
-                  className="input"
-                  style={{marginLeft:'35px'}}
-                  placeholder="搜索项目/团队"
-                  disabled="disabled"
-                />
+        {switchView ? <div style={{ display: "flex", flex: "1" }}>
+            <div className="content-boxpadding">
+              <Link className="component-search-bar dirmargin" to="/homesearch">
+                <input className="input" style={{ marginLeft: "35px" }} placeholder="搜索项目/团队" disabled="disabled" />
               </Link>
             </div>
             <Link to="/my">
-              <Avatar
-                src={user.avatars}
-                size={{ width: 28 }}
-              />
+              <Avatar src={user.avatars} size={{ width: 28 }} />
             </Link>
-          </div>
-        ) : (
-          <div style={{ display: "flex", width: "280px" }}>
+          </div> : <div style={{ display: "flex", width: "280px" }}>
             <Link className="component-search-newbar" to="/homesearch">
-              <input
-                className="input"
-                placeholder="搜索项目/团队"
-                disabled="disabled"
-              />
+            <input className="input" style={{ marginLeft: "35px" }}  placeholder="搜索项目/团队" disabled="disabled" />
             </Link>
             <Link to="/my/entry">
               <div className="login-button">登录</div>
             </Link>
-          </div>
-        )}
-      </div>
-    );
+          </div>}
+      </div>;
   }
 
   play() {

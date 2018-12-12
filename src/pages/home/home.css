@@ -72,10 +72,10 @@
   background-size: 25px 25px;
   margin: 0 15px;
 }
-.aaaaa {
+.dirmargin {
   margin: 0;
 }
-.bbbbb {
+.content-boxpadding {
   box-sizing: border-box;
   padding: 0 15px;
   flex: 1;
