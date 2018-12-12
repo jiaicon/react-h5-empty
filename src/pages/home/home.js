@@ -123,7 +123,7 @@ class HomePage extends React.Component {
 
         {switchView ? (
           <div style={{ display: "flex", flex:'1' }}>
-            <Link className="component-search-bar" to="/homesearch">
+            <Link className="component-search-bar aaaaa" to="/homesearch">
               <input
                 className="input"
                 placeholder="搜索项目/团队"

@@ -72,6 +72,9 @@
   background-size: 25px 25px;
   margin: 0 15px;
 }
+.aaaaa {
+  margin: 0;
+}
 .page-home .header-bar .component-search-newbar input {
   margin-left: 45px;
   flex: 1;
