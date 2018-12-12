@@ -131,31 +131,21 @@ class HomePage extends React.Component {
     //     </Link>
     //   )
     // }
-    return (
-      <div className="header-bar">
+    return <div className="header-bar">
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
-        <div style={{display:'flex',width:'280px'}}>
-          <Link className="component-search-bar" to="/homesearch">
-            <input
-              className="input"
-              placeholder="搜索项目/团队"
-              disabled="disabled"
-            />
+        <div style={{ display: "flex", width: "280px" }}>
+          <Link className="component-search-newbar" to="/homesearch">
+            <input className="input" placeholder="搜索项目/团队" disabled="disabled" />
           </Link>
-          {!user.isLogin ? (
-            <Link to="/my/entry">
+          {!user.isLogin ? <Link to="/my/entry">
               <div className="login-button">登录</div>
-            </Link>
-          ) : (
-              <Link to="/my">
-                <Avatar src={user.avatars} size={{ width: 28 }} />
-              </Link>
-            )}
+            </Link> : <Link to="/my">
+              <Avatar src={user.avatars} size={{ width: 28 }} />
+            </Link>}
         </div>
-      </div>
-    );
+      </div>;
   }
 
   play() {
