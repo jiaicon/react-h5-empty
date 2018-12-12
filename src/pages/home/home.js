@@ -113,28 +113,47 @@ class HomePage extends React.Component {
   componentDidMount() {}
   renderHeaderBar() {
     const { user } = this.props;
-
+    // <Link className="component-search-bar" to="/homesearch">
+    //   <input
+    //     className="input"
+    //     placeholder="搜索项目/团队"
+    //     disabled="disabled"
+    //   />
+    // </Link>
+    // {
+    //   !user.isLogin ? (
+    //     <Link to="/my/entry">
+    //       <div className="login-button">登录</div>
+    //     </Link>
+    //   ) : (
+    //     <Link to="/my">
+    //       <Avatar src={user.avatars} size={{ width: 28 }} />
+    //     </Link>
+    //   )
+    // }
     return (
       <div className="header-bar">
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
-        <Link className="component-search-bar" to="/homesearch">
-          <input
-            className="input"
-            placeholder="搜索项目/团队"
-            disabled="disabled"
-          />
-        </Link>
-        {!user.isLogin ? (
-          <Link to="/my/entry">
-            <div className="login-button">登录</div>
+        <div style={{flex:'1',display:'flex'}}>
+          <Link className="component-search-bar" to="/homesearch">
+            <input
+              className="input"
+              placeholder="搜索项目/团队"
+              disabled="disabled"
+            />
           </Link>
-        ) : (
-          <Link to="/my">
-            <Avatar src={user.avatars} size={{ width: 28 }} />
-          </Link>
-        )}
+          {!user.isLogin ? (
+            <Link to="/my/entry">
+              <div className="login-button">登录</div>
+            </Link>
+          ) : (
+              <Link to="/my">
+                <Avatar src={user.avatars} size={{ width: 28 }} />
+              </Link>
+            )}
+        </div>
       </div>
     );
   }
