@@ -84,7 +84,8 @@ class HomePage extends React.Component {
     getCity(
       (city, str) => {
         const { city: initaialCity } = this.state;
-        if (pathname == '/home'){
+        if (pathname == '/home') {
+          this.props.requestHomeData();
           return
         } else {
           if (initaialCity == city) {
