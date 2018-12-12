@@ -77,6 +77,7 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
+    alert(1111)
     // TODO:
     this.props.requestHomeData();
     getCity(
