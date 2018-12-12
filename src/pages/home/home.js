@@ -82,7 +82,7 @@ class HomePage extends React.Component {
     getCity(
       (city, str) => {
         const { city: initaialCity } = this.state;
-        if (initaialCity == city || city == "北京市") {
+        if (initaialCity == city ) {
           localStorage.setItem(
             "provinceAndCityName",
             JSON.stringify({
