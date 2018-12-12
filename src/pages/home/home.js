@@ -127,6 +127,7 @@ class HomePage extends React.Component {
               <Link className="component-search-bar aaaaa" to="/homesearch">
                 <input
                   className="input"
+                  style={{marginLeft:'35px'}}
                   placeholder="搜索项目/团队"
                   disabled="disabled"
                 />
