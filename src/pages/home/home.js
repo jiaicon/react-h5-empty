@@ -136,7 +136,7 @@ class HomePage extends React.Component {
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
-        <div style={{flex:'1',display:'flex'}}>
+        <div style={{display:'flex',width:'280px'}}>
           <Link className="component-search-bar" to="/homesearch">
             <input
               className="input"
