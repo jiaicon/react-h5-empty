@@ -19,10 +19,11 @@ import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
 
 const TAB_URL_MAPS = {
-  '/': <HomePage />,
-  '/signin': <SigninPage />,
-  '/my': <MyPage />,
-  '/signin/password': <PasswordPage />,
+  "/": <HomePage />,
+  "/home": <HomePage />,
+  "/signin": <SigninPage />,
+  "/my": <MyPage />,
+  "/signin/password": <PasswordPage />
 };
 
 class LaunchPage extends React.Component {
@@ -80,7 +81,7 @@ class LaunchPage extends React.Component {
                 className={classnames({
                   'tab-icon': true,
                   'tab-icon-home': true,
-                  active: path === '/',
+                  active: path === '/' || path === "/home",
                 })}
               />
               <span>首页</span>

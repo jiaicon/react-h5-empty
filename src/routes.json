@@ -5,6 +5,11 @@
     "chunk": "main"
   },
   {
+    "path": "/home",
+    "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
     "path": "/shop",
     "page": "./pages/shop/index",
     "chunk": "main"
