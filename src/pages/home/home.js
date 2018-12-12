@@ -139,7 +139,7 @@ class HomePage extends React.Component {
           <Link className="component-search-newbar" to="/homesearch">
             <input className="input" placeholder="搜索项目/团队" disabled="disabled" />
           </Link>
-          {user.isLogin ? <Link to="/my/entry">
+          {!user.isLogin ? <Link to="/my/entry">
               <div className="login-button">登录</div>
             </Link> : <Link to="/my">
               <Avatar src={user.avatars} size={{ width: 28 }} className="login-button-img"/>
