@@ -77,23 +77,16 @@ class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    alert(1111)
     // TODO:
     this.props.requestHomeData();
     getCity(
       (city, str) => {
         const { city: initaialCity } = this.state;
         if (initaialCity == city ) {
-          localStorage.setItem(
-            "provinceAndCityName",
-            JSON.stringify({
-              city: "北京市",
-              province: "北京"
-            })
-          );
           this.props.requestHomeData();
           return;
         } else {
+          console.log('-----', str)
           this.setState({
             ...this.state,
             showDialog: true,

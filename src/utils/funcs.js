@@ -49,13 +49,13 @@ export function getLocation(success, fail, noCache) {
     return;
   }
 
-  let cachedLoc = localStorage.getItem('location');
-  cachedLoc = cachedLoc ? JSON.parse(cachedLoc) : cachedLoc;
+  // let cachedLoc = localStorage.getItem('location');
+  // cachedLoc = cachedLoc ? JSON.parse(cachedLoc) : cachedLoc;
 
-  if ((cachedLoc && cachedLoc.expires <= Date.now()) || noCache === true) {
-    cachedLoc = null;
-  }
-
+  // if ((cachedLoc && cachedLoc.expires <= Date.now()) || noCache === true) {
+  //   cachedLoc = null;
+  // }
+  let cachedLoc = null;
   if (!cachedLoc) {
     window.wx.ready(() => {
       wx.getLocation({
