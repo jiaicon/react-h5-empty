@@ -5,6 +5,7 @@
 
 .page-home .page-home-header {
   position: relative;
+  overflow: hidden;
 }
 
 .page-home .slick-container {
