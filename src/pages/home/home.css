@@ -59,15 +59,14 @@
   overflow: hidden;
 }
 .page-home .header-bar .component-search-newbar {
+  width: 180px;
   display: flex;
   align-items: stretch;
-  flex: 1;
   height: 32px;
   opacity: 0.95;
   border-radius: 16px;
-  background: #f8f8f8 url(/images/search.png) no-repeat 10px center;
+  background: #fff url(/images/search.png) no-repeat 10px center;
   background-size: 25px 25px;
-  flex: 1;
   margin: 0 15px;
 }
 .page-home .header-bar .component-search-newbar input {
@@ -89,9 +88,7 @@
   border: 1px solid #e5e5e5;
 }
 .page-home .header-bar .login-button-img {
-  width: 64px;
-  height: 28px;
-  padding: 0 18px;
+  margin-left:18px;
 }
 .page-home .header-bar .avatar {
   width: 28px;
