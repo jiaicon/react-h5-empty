@@ -84,15 +84,15 @@ class HomePage extends React.Component {
     getCity(
       (city, str) => {
         const { city: initaialCity } = this.state;
-        if (pathname == '/home') {
+        if (pathname == "/home") {
           this.props.requestHomeData();
-          return
+          return;
         } else {
-          if (initaialCity == city) {
+          if (initaialCity == city.replace("市", "")) {
             this.props.requestHomeData();
             return;
           } else {
-            console.log('-----', str)
+            console.log("-----", str);
             this.setState({
               ...this.state,
               showDialog: true,
@@ -101,7 +101,6 @@ class HomePage extends React.Component {
             });
           }
         }
-
       },
       () => {
         Alert.error("定位失败，请确认同意微信定位授权");
@@ -115,21 +114,45 @@ class HomePage extends React.Component {
   componentDidMount() {}
   renderHeaderBar() {
     const { user } = this.props;
-    return <div className="header-bar">
+    const switchView = user.isLogin;
+    return (
+      <div className="header-bar">
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
-        <div style={{ display: "flex", width: "280px" }}>
-          <Link className="component-search-newbar" to="/homesearch">
-            <input className="input" placeholder="搜索项目/团队" disabled="disabled" />
-          </Link>
-          {!user.isLogin ? <Link to="/my/entry">
+
+        {switchView ? (
+          <div style={{ display: "flex", flex:'1' }}>
+            <Link className="component-search-bar" to="/homesearch">
+              <input
+                className="input"
+                placeholder="搜索项目/团队"
+                disabled="disabled"
+              />
+            </Link>
+            <Link to="/my">
+              <Avatar
+                src={user.avatars}
+                size={{ width: 28 }}
+              />
+            </Link>
+          </div>
+        ) : (
+          <div style={{ display: "flex", width: "280px" }}>
+            <Link className="component-search-newbar" to="/homesearch">
+              <input
+                className="input"
+                placeholder="搜索项目/团队"
+                disabled="disabled"
+              />
+            </Link>
+            <Link to="/my/entry">
               <div className="login-button">登录</div>
-            </Link> : <Link to="/my">
-              <Avatar src={user.avatars} size={{ width: 28 }} className="login-button-img"/>
-            </Link>}
-        </div>
-      </div>;
+            </Link>
+          </div>
+        )}
+      </div>
+    );
   }
 
   play() {

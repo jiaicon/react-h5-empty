@@ -33,7 +33,7 @@
 
 .page-home .header-bar {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 15px;
   align-items: center;
   background: transparent;
