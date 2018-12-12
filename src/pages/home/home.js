@@ -122,14 +122,16 @@ class HomePage extends React.Component {
         </Link>
 
         {switchView ? (
-          <div style={{ display: "flex", flex:'1' }}>
-            <Link className="component-search-bar aaaaa" to="/homesearch">
-              <input
-                className="input"
-                placeholder="搜索项目/团队"
-                disabled="disabled"
-              />
-            </Link>
+          <div style={{ display: "flex", flex: '1' }}>
+            <div className="bbbbb">
+              <Link className="component-search-bar aaaaa" to="/homesearch">
+                <input
+                  className="input"
+                  placeholder="搜索项目/团队"
+                  disabled="disabled"
+                />
+              </Link>
+            </div>
             <Link to="/my">
               <Avatar
                 src={user.avatars}

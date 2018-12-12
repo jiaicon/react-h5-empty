@@ -75,6 +75,11 @@
 .aaaaa {
   margin: 0;
 }
+.bbbbb {
+  box-sizing: border-box;
+  padding: 0 15px;
+  flex: 1;
+}
 .page-home .header-bar .component-search-newbar input {
   margin-left: 45px;
   flex: 1;
