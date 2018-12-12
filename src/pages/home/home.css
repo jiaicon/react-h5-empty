@@ -60,7 +60,7 @@
 }
 
 .page-home .header-bar .login-button {
-  width: 64px;
+  width: 64px !important;
   height: 28px;
   line-height: 28px;
   text-align: center;
