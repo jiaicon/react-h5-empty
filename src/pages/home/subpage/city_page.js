@@ -16,21 +16,18 @@ class CityPage extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
-      province:
-        (localStorage.getItem("provinceAndCityName") &&
-          JSON.parse(localStorage.getItem("provinceAndCityName")).province) ||
-        "全国",
-      city:
-        localStorage.getItem("provinceAndCityName") &&
-        JSON.parse(localStorage.getItem("provinceAndCityName")).city === "全国"
-          ? null
-          : JSON.parse(localStorage.getItem("provinceAndCityName")).city,
+      province: '',
+      city: '',
       renderTrigger: true
     };
   }
 
   componentWillMount() {
     this.props.addressDataAction(0);
+    if (localStorage.provinceAndCityName) {
+      const data = JSON.parse(localStorage.getItem("provinceAndCityName"));
+      this.setState({ province: data.province || '全国', city: data.city == '全国' ? null : data.city });
+    };
   }
 
   componentWillReceiveProps() {}

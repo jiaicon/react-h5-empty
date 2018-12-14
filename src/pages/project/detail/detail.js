@@ -196,7 +196,7 @@ class ProjectDetailPage extends React.Component {
         window.location.href = 'http://lxi.me/4hwr6';
         return;
       } else if (projectId == 2129) {
-        window.location.href = 'http://wx2.gongyibao.cn/H5page/SubmitDonate.aspx?tid=0&uid=c8831755-2c7e-4f8c-854d-302a3c4d8719&id=612b9a55-a0dc-4198-a4ed-3e31a5ad9c1c&type=';
+        window.location.href = 'http://wx2.gongyibao.cn/H5page/SubmitDonate.aspx?tid=0&uid=c8831755-2c7e-4f8c-854d-302a3c4d8719&id=3f94d47d-6843-4d2e-b3d9-114814b45855&type=';
         return;
       }
       if(!customConfig && !paymentConfig){
@@ -260,7 +260,7 @@ class ProjectDetailPage extends React.Component {
     </div>);
   }
   handleActionClickTwo() {
-    window.location.href = 'http://wx2.gongyibao.cn/H5page/ProdetailsNew.aspx?id=82d89f34-c91a-404f-949c-73da74a0c8a9';
+    window.location.href = "http://wx2.gongyibao.cn/H5page/ProdetailsNew.aspx?id=bf014416-f7c9-49ff-a326-c18e77f223b0";
   }
   renderTwoBtn() {
     return(

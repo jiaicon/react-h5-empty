@@ -12,7 +12,7 @@ import Filter from '../component/filter/filter';
 import Teams from '../../../components/teams/teams';
 import { isWindowReachBottom } from '../../../utils/funcs';
 import { getAreaCity } from '../../home/home.store';
-
+import { getCity } from "../../../utils/funcs";
 import {
   requestTeamList,
 } from './list.store';
@@ -49,7 +49,14 @@ class TeamListPage extends React.Component {
       service_object: window.serviceTarget[category],
     };
     this.requestList(false);
-    this.props.getAreaCity(JSON.parse(localStorage.provinceAndCityName).city);
+    getCity(
+      (city, str) => {
+        this.props.getAreaCity(city);
+      },
+      () => {
+        Alert.error("定位失败，请确认同意微信定位授权");
+      }
+    );
   }
 
   componentDidMount() {
