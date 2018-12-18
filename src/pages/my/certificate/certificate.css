@@ -39,6 +39,8 @@
   position: relative;
 }
 .page-certificate-container-title{
+  width: 100%;
+  text-align: center;
   font-size: 18px;
   color: #333333;
   letter-spacing: 0;
