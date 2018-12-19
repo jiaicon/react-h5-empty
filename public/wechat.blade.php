@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Fri Dec 14 2018 15:37:16 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Wed Dec 19 2018 19:07:26 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -24,8 +24,9 @@
         document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
     })();
   </script>
-  <script src="/lib/jweixin-1.0.0.js"></script>
-  <!-- <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="0e6d72e0b2c12d6d572ab35d4869c463b315c24bf7f2a62f2edd329958d8b8a2"></script> -->
+  <script src="/lib/jweixin-1.0.0.js"></script> 
+  <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="7de7de184affb1a29b9a766df87ac3420018a2e870a7cc91278229aaeeaccedb"></script>
+
   <script>
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {!! $jsConfig !!}; // 或者 '{}'
@@ -88,7 +89,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
-  <script src="/dist/main.44a533dee613c23328f6.js"></script>
+  <script src="/dist/main.2b321582c60e3aee140b.js"></script>
 </body>
 
 </html>

@@ -322,26 +322,23 @@ class ProjectDetailPage extends React.Component {
     if(detailData.id === 2009) {
         action = 'two';
     }
-    return (
-      <div>
+    return <div>
         <div className="header">
-          
           {this.renderSlick()}
           <Link to={`/team/detail/${detailData.team.id}`} className="header-addition">
             <div className="team-info">
               <Avatar src={detailData.team.logo} size={{ width: 30, radius: 4 }} />
-              <span style={{ marginLeft: '10px' }}>{detailData.team.name}</span>
+              <span style={{ marginLeft: "10px" }}>
+                {detailData.team.name}
+              </span>
             </div>
             <img src="/images/my/more.png" />
-
           </Link>
         </div>
         <div className="body">
-          <div className="project-name">
-            {detailData.name}
-          </div>
+          <div className="project-name">{detailData.name}</div>
           <div className="project-category">
-        #&nbsp;{serviceCategories.join('、')}
+            #&nbsp;{serviceCategories.join("、")}
           </div>
           <div className="project-detail-list">
             <ul>
@@ -349,13 +346,17 @@ class ProjectDetailPage extends React.Component {
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">发布日期</div>
-                <div className="detail-content">{detailData.created_at}</div>
+                <div className="detail-content">
+                  {detailData.created_at}
+                </div>
               </li>
               <li>
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">服务对象</div>
-                <div className="detail-content">{serviceObjects.join('、')}</div>
+                <div className="detail-content">
+                  {serviceObjects.join("、")}
+                </div>
               </li>
               <li>
                 <div className="item-point" />
@@ -367,30 +368,34 @@ class ProjectDetailPage extends React.Component {
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">项目日期</div>
-                <div className="detail-content">{parseTimeStringToDateString(detailData.begin)}-{parseTimeStringToDateString(detailData.end)}</div>
+                <div className="detail-content">
+                  {parseTimeStringToDateString(detailData.begin)}-{parseTimeStringToDateString(detailData.end)}
+                </div>
               </li>
               <li>
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">志愿时长</div>
-                <div className="detail-content">{detailData.reward_time} 小时</div>
+                <div className="detail-content">
+                  {detailData.reward_time} 小时
+                </div>
               </li>
               <li>
                 <div className="item-point" />
                 <div className="line1px-v" />
                 <div className="detail-title">联系人姓名</div>
-                <div className="detail-content">{detailData.contact_name}</div>
+                <div className="detail-content">
+                  {detailData.contact_name}
+                </div>
               </li>
-              {
-            detailData.contact_phone_public ?
-              <li>
-                <div className="item-point" />
-                <div className="line1px-v" />
-                <div className="detail-title">联系人电话</div>
-                <a href={`tel:${detailData.contact_phone}`} className="detail-content">{detailData.contact_phone}</a>
-              </li>
-          : null
-          }
+              {detailData.contact_phone_public ? <li>
+                  <div className="item-point" />
+                  <div className="line1px-v" />
+                  <div className="detail-title">联系人电话</div>
+                  <a href={`tel:${detailData.contact_phone}`} className="detail-content">
+                    {detailData.contact_phone}
+                  </a>
+                </li> : null}
               <li>
                 <div className="item-point" />
                 <div className="detail-title">项目地址</div>
@@ -402,54 +407,51 @@ class ProjectDetailPage extends React.Component {
               <span>志愿保障</span>
               <div className="line1px-v" />
               <div className="guard-detail">
-                {detailData.volunteer_security ? detailData.volunteer_security : '无'}
+                {detailData.volunteer_security
+                  ? detailData.volunteer_security
+                  : "无"}
               </div>
             </div>
           </div>
           <div className="project-report">
             <span>已报名人数</span>
             <div>
-              <span>{detailData.join_people_count}</span>
-          /
-          <span>{detailData.people_count}</span>
+              <span>
+                {Number(this.projectId) == 2009
+                  ? 183
+                  : detailData.join_people_count}
+              </span>/<span>{detailData.people_count}</span>
             </div>
           </div>
           <div className="project-description">
             <div>项目介绍</div>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: content ?
-                  content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
-            />
+            <p dangerouslySetInnerHTML={{ __html: content ? content.replace(/(\n+)/g, "<br/>") : "暂无介绍" }} />
           </div>
           <div className="project-description-backhome">
-            <Link to="/"/>
+            <Link to="/" />
           </div>
-          <div className="project-description-takeup"/>
+          <div className="project-description-takeup" />
         </div>
         <div className="foot">
           <div className="line1px" />
           <Link to="" onClick={this.handleFavoriteClick} className="project-action project-action-favorite">
-            <span className={classnames({ selected: detailData.collection_status })} />
+            <span className={classnames({
+                selected: detailData.collection_status
+              })} />
             <span>收藏</span>
           </Link>
           <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
             <span />
             <span>分享</span>
           </Link>
-            {
-                action === 'two' ? this.renderTwoBtn() : <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
-                    {actionLabel}
-                </Link>
-            }
-
+          {action === "two" ? this.renderTwoBtn() : <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
+              {actionLabel}
+            </Link>}
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-        确定要退出项目吗？
+          确定要退出项目吗？
         </Dialog>
-
-      </div>
-    );
+      </div>;
   }
   onPublish() {
     const { user: { isLogin } } = this.props;
