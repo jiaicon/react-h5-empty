@@ -87,10 +87,12 @@ class Projects extends React.Component {
                   </Link>
                   <div className="project-footer">
                     <div className="project-location">
-                      {project.county_name} {project.distance>0?parseDistance(project.distance):null}
+                      {project.county_name} {project.distance > 0 ? parseDistance(project.distance) : null}
                     </div>
                     <div className="project-members">
-                      <span>{project.join_people_count}</span>
+                      <span>
+                      {Number(project.id) == 2009 ? 183 : project.join_people_count}
+                      </span>
                       &nbsp;/&nbsp;
                       <span>{project.people_count}</span>
                     </div>
