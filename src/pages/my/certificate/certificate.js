@@ -122,7 +122,7 @@ class Certificate extends React.Component {
 
     // qM7e5Ba2vp  国有黄金
     return <div className="page-certificate-bg">
-        <div className="page-certificate-container-border">
+      <div className="page-certificate-container-border" ref="LaunchContent">
           <h5 className="page-certificate-container-title">
             {this.certTitle}志愿服务证书
           </h5>
@@ -168,7 +168,7 @@ class Certificate extends React.Component {
             <div className="page-certificate-container-teachsupport">
               技术支持：志多星
             </div>
-          <div className="page-certificate-container-content" style={{paddingLeft:0}}>
+          <div className="page-certificate-container-content" style={{paddingLeft:0,paddingRight:0,textAlign:'right'}}>
             {this.state.now}
           </div>
             {this.certCachet ? <img src={this.certCachet} alt="" className="first" /> : <div />}
@@ -184,8 +184,8 @@ class Certificate extends React.Component {
     if (!listData) {
       return null;
     }
-    return <div>
-        {dataUrl ? <img style={{ width: "100%", display: "block" }} src={`${this.state.dataUrl}`} /> : <div className="page-certificate-main-container" ref="LaunchContent">
+    return <div style={{ position: 'absolute', left: '0', top: '0', width: '100%', height: '100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        {dataUrl ? <img style={{ width: "100%", display: "block",position:'relative',top:0,bottom:0,left:0,right:0,margin:'auto', }} src={`${this.state.dataUrl}`} /> : <div className="page-certificate-main-container">
             {/** TODO: */}
             {this.renderCertificate()}
           </div>}
