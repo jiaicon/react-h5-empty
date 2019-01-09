@@ -90,7 +90,7 @@ class Certificate extends React.Component {
     var width = shareContent.offsetWidth;
     var height = shareContent.offsetHeight;
     var canvas = document.createElement("canvas");
-    var scale = 10;
+    var scale = 4;
     canvas.width = width * scale;
     canvas.height = height * scale;
     canvas.getContext("2d").scale(scale, scale);
@@ -104,21 +104,10 @@ class Certificate extends React.Component {
     };
     setTimeout(() => {
       html2canvas(shareContent, opts).then(function (canvas) {
-        var dataUrl = canvas.toDataURL("image/jpeg", 10);
+        var dataUrl = canvas.toDataURL("image/jpeg", 4);
           that.setState({ dataUrl });
       });
     },1500)
-    // html2canvas(shareContent, opts).then(function(canvas) {
-    //   var dataUrl = canvas.toDataURL("image/jpeg", 4);
-
-    //   // console.log(dataUrl);
-    //   setTimeout(() => {
-    //     that.setState({ dataUrl });
-    //   },1000)
-      
-    //   // localStorage.setItem("dataUrl", JSON.stringify(dataUrl));
-    //   // history.push("/my/certificateview");
-    // });
   };
  
   renderCertificate() {
@@ -153,9 +142,7 @@ class Certificate extends React.Component {
           <div className="page-certificate-container-content">
             {this.state.register}注册成为{this.certOrg}志愿者
           </div>
-          <div className="page-certificate-container-content">
-            {this.state.now}截止
-          </div>
+        
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
               <div className="page-certificate-container-hours-item">
@@ -181,6 +168,9 @@ class Certificate extends React.Component {
             <div className="page-certificate-container-teachsupport">
               技术支持：志多星
             </div>
+          <div className="page-certificate-container-content" style={{paddingLeft:0}}>
+            {this.state.now}
+          </div>
             {this.certCachet ? <img src={this.certCachet} alt="" className="first" /> : <div />}
             {window.orgCode == "qM7e5Ba2vp" ? <img src="/images/my/zdx.png" className="second" /> : null}
           </div>
@@ -199,7 +189,7 @@ class Certificate extends React.Component {
             {/** TODO: */}
             {this.renderCertificate()}
           </div>}
-        {dataUrl ? null : <div className="page-certificate-main-mask">
+          {dataUrl ? null : <div className="page-certificate-main-mask">
             图片生成中。。。
           </div>} 
       </div>;
