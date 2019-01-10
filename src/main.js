@@ -34,7 +34,7 @@ import store from './stores';
 import WXShare from './components/share';
 
 
-if (wx) {
+if (wx && window.userAgent) {
   wx.ready(() => WXShare());
 }
 

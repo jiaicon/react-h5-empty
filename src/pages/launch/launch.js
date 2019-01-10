@@ -44,10 +44,11 @@ class LaunchPage extends React.Component {
   }
 
   componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
-    
+      if(window.userAgent) {
+          wx.ready(() => {
+              WXShare();
+          });
+      }
   }
 
   componentWillReceiveProps(nextProps) {

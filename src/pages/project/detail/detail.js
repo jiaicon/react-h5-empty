@@ -129,14 +129,16 @@ class ProjectDetailPage extends React.Component {
         && detailData.id === parseInt(this.projectId, 10)
         && !this.wxRegistered) {
       document.title = detailData.name;
-      wx.ready(() => {
-        WXShare({
-          title: detailData.name,
-          desc: detailData.content,
-          image: detailData.photo && detailData.photo[0],
-          success: () => this.hideShareTip(),
-        });
-      });
+        if(window.userAgent) {
+            wx.ready(() => {
+                WXShare({
+                    title: detailData.name,
+                    desc: detailData.content,
+                    image: detailData.photo && detailData.photo[0],
+                    success: () => this.hideShareTip(),
+                });
+            });
+        }
 
       this.wxRegistered = true;
     }
@@ -440,10 +442,17 @@ class ProjectDetailPage extends React.Component {
               })} />
             <span>收藏</span>
           </Link>
-          <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
-            <span />
-            <span>分享</span>
-          </Link>
+            {
+                window.userAgent
+                    ?
+                    <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
+                        <span />
+                        <span>分享</span>
+                    </Link>
+                    :
+                    null
+            }
+
           {action === "two" ? this.renderTwoBtn() : <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
               {actionLabel}
             </Link>}

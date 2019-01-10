@@ -2,7 +2,7 @@
 // 去除三里屯  志愿回馈
 export function deleteSanlitunMoudling(data) {
 
-  var newData = data.map((item) => {
+    let newData = data.map((item) => {
     return (
       item.filter((ite) => {
         return ite['key'] != 'volunteer_feedback';
@@ -57,36 +57,25 @@ export function getLocation(success, fail, noCache) {
   // }
   let cachedLoc = null;
   if (!cachedLoc) {
-    window.wx.ready(() => {
-      wx.getLocation({
-        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: (res) => {
-          const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-          const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180
-          const expires = Date.now() + (5 * 60 * 1000); // 5分钟过期
-
-          console.log('获取新位置成功', res);
-
-          localStorage.setItem('location', JSON.stringify({
-            lat,
-            lng,
-            expires,
-          }));
-
+      let geolocation = new qq.maps.Geolocation("GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI", "myapp");
+      let options = { timeout: 8000 };
+      geolocation.getLocation(function(position) {
+          const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
+          const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
+          const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
+          console.log("获取新位置成功", position);
+          localStorage.setItem(
+              "location",
+              JSON.stringify({
+                  lat,
+                  lng,
+                  expires
+              })
+          );
           if (success) {
-            success({
-              lat,
-              lng,
-            });
+              success({ lat, lng });
           }
-        },
-        fail: (error) => {
-          if (fail) {
-            fail(error);
-          }
-        },
-      });
-    });
+      }, options);
   } else if (success) {
     success({
       lat: cachedLoc.lat,
@@ -138,7 +127,7 @@ export function getCity(success, fail) {
       const coord = new qq.maps.LatLng(loc.lat, loc.lng);
       console.log("coord::", coord);
       geocoder.getAddress(coord);
-   
+
   }, (error) => {
     if (fail) {
       fail(error);

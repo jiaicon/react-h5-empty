@@ -266,12 +266,12 @@
       ];
       if (window.wxConfig) {
         try {
-          // setTimeout(function () {
+
           if (typeof window.wxConfig === "string") {
             window.wxConfig = JSON.parse(window.wxConfig);
           }
           window.wx.config(wxConfig);
-          // }, 500);
+
         } catch (e) {
           alert(e);
         }
@@ -280,6 +280,7 @@
       document.title = window.orgInfo.name;
 
       window.dev = true;
+      window.userAgent = false  //true:微信浏览器   false:h5
     </script>
   </head>
 
