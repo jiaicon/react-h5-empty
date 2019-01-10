@@ -52,7 +52,9 @@ class Certificate extends React.Component {
     this.props.requestUserInfo();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { photo } = this.state;
+  }
 
   componentWillReceiveProps(nextProps) {
     const { user: listData } = this.props;
@@ -78,7 +80,23 @@ class Certificate extends React.Component {
         register,
         now
       }, () => {
-          this.htm2Click();
+          const { photo } = this.state;
+          if (photo) {
+            var tempImage = new Image();
+            tempImage.src = photo;
+            // tempImage.crossOrigin = '*';
+            tempImage.setAttribute('crossorigin', 'anonymous');
+            const that = this;
+            tempImage.onload = function () {
+              that.htm2Click();
+            };
+            tempImage.onerror = function () {
+              that.htm2Click();
+            }
+          } else {
+            this.htm2Click();
+          }
+      
       });
     }
   }
@@ -107,7 +125,7 @@ class Certificate extends React.Component {
         var dataUrl = canvas.toDataURL("image/jpeg", 4);
           that.setState({ dataUrl });
       });
-    },1500)
+    },500)
   };
  
   renderCertificate() {
