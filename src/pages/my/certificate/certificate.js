@@ -24,7 +24,7 @@ function convertImgToBase64(url, callback,defaultUrl,errorBack, outputFormat=nul
   let img = new Image;
   img.crossOrigin = '*';
   img.onload = function () {
-    console.log('img onloaf')
+    console.log('img onloag')
     canvas.height = img.height;
     canvas.width = img.width;
     ctx.drawImage(img, 0, 0);
@@ -66,6 +66,7 @@ class Certificate extends React.Component {
       : null;
 
     this.state = {
+      certCachet: this.certAuthOrg,
       dataUrl: null,
       photo:null,
       register,
