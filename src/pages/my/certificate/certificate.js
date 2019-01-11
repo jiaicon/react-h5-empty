@@ -100,55 +100,61 @@ class Certificate extends React.Component {
           )
         : null;
       const that = this;
-      convertImgToBase64(
-        this.certCachet,
-        (base64Img = null) => {
-          if (base64Img) {
-            that.setState(
-              {
-                ...that.state,
-                certCachet: base64Img
-              },
-              () => {
-                // that.htm2Click();
-              }
-            );
-          }
-        },
-        "/images/my/zdx.png",
-        () => {
-          console.log("error");
+      that.setState(
+        {
+          ...that.state,
+          register,
+          now,
+        })
+      // convertImgToBase64(
+      //   this.certCachet,
+      //   (base64Img = null) => {
+      //     if (base64Img) {
+      //       that.setState(
+      //         {
+      //           ...that.state,
+      //           certCachet: base64Img
+      //         },
+      //         () => {
+      //           // that.htm2Click();
+      //         }
+      //       );
+      //     }
+      //   },
+      //   "/images/my/zdx.png",
+      //   () => {
+      //     console.log("error");
          
-              // that.htm2Click();
-        }
-      );
-      convertImgToBase64(nextProps.user.avatars, (base64Img = null) => {
-        if (base64Img) {
-          that.setState(
-            {
-              ...that.state,
-              register,
-              now,
-              people: base64Img,
-            },
-            () => {
-              that.htm2Click();
-            }
-          );
-        }
+      //         // that.htm2Click();
+      //   }
+      // );
+      // convertImgToBase64(nextProps.user.avatars, (base64Img = null) => {
+      //   if (base64Img) {
+      //     that.setState(
+      //       {
+      //         ...that.state,
+      //         register,
+      //         now,
+      //         people: base64Img,
+      //       },
+      //       () => {
+      //         that.htm2Click();
+      //       }
+      //     );
+      //   }
 
-      }, "/images/my/register.png", () => {
-        console.log('error')
-        that.setState(
-          {
-            ...that.state,
-            register,
-            now,
-          },
-          () => {
-            that.htm2Click();
-          })
-      });
+      // }, "/images/my/register.png", () => {
+      //   console.log('error')
+      //   that.setState(
+      //     {
+      //       ...that.state,
+      //       register,
+      //       now,
+      //     },
+      //     () => {
+      //       that.htm2Click();
+      //     })
+      // });
 
 
     }
@@ -195,10 +201,10 @@ class Certificate extends React.Component {
             {this.certTitle}志愿服务证书
           </h5>
           <div>
-          <img src={this.state.people} id="avatars"
+          {/* <img src={this.state.people} id="avatars"
             style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }}
-            crossorigin="anonymous" />
-            {/* <Avatar src={this.props.user.avatars} size={{ width: 80 }} /> */}
+            crossorigin="anonymous" /> */}
+            <Avatar src={this.props.user.avatars} size={{ width: 80 }} />
           </div>
 
           <div className="page-certificate-container-certificate" />
@@ -245,7 +251,7 @@ class Certificate extends React.Component {
             <div className="page-certificate-container-content" style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}>
               {this.state.now}
             </div>
-            {this.certCachet ? <img src={this.state.certCachet} alt="" className="first" crossorigin="anonymous" /> : <div />}
+            {this.certCachet ? <img src={this.certCachet} alt="" className="first" crossorigin="anonymous" /> : <div />}
             {window.orgCode == "qM7e5Ba2vp" ? <img src="/images/my/zdx.png" className="second" /> : null}
           </div>
         </div>
@@ -259,13 +265,7 @@ class Certificate extends React.Component {
       return null;
     }
     return <div style={{ position: 'absolute', left: '0', top: '0', width: '100%', height: '100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-        {dataUrl ? <img style={{ width: "357px", display: "block",position:'relative',top:0,bottom:0,left:0,right:0,margin:'auto', }} src={`${this.state.dataUrl}`} /> : <div className="page-certificate-main-container">
-            {/** TODO: */}
-            {this.renderCertificate()}
-          </div>}
-          {dataUrl ? null : <div className="page-certificate-main-mask">
-            图片生成中。。。
-          </div>} 
+      {this.renderCertificate()}
       </div>;
   }
 }
