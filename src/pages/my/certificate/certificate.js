@@ -18,44 +18,34 @@ import "./certificate.css";
 import history from "../../history";
 import html2canvas from "html2canvas";
 
-function convertImgToBase64(
-  url,
-  callback,
-  defaultUrl,
-  errorBack,
-  outputFormat = null
-) {
-
-  let canvas = document.createElement("CANVAS");
-  let ctx = canvas.getContext("2d");
-  let img = new Image();
-  // img.crossOrigin = "*";
-  img.onload = function() {
-    console.log("img onload");
-    // console.log(`'img src:'${this.src}`);
-    // canvas.height = img.height;
-    // canvas.width = img.width;
-    // ctx.drawImage(img, 0, 0);
-    // var dataURL = canvas.toDataURL(outputFormat || "image/png");
-    // callback.call(this, dataURL);
-    // canvas = null;
+function convertImgToBase64(url, callback, defaultUrl, errorBack, outputFormat = null) {
+  let canvas = document.createElement('CANVAS');
+  let ctx = canvas.getContext('2d');
+  let img = new Image;
+  // img.crossOrigin = '*';
+  img.onload = function () {
+    img.crossOrigin = '*';
+    console.log('img onload')
+    canvas.height = img.height;
+    canvas.width = img.width;
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+    console.log("dataURL:::", dataURL);
+    callback.call(this, dataURL);
+  
+    canvas = null;
   };
-  img.onerror = function() {
-    console.log("img onerror----------------");
-    // console.log(`'img src:'${this.src}`);
-    // console.log(event.srcElement);
-    // if (defaultUrl) {
-    //   console.log("onerror中设置默认头像？为什么先执行");
-    //   img.src = defaultUrl;
-    //   console.log(`'img defualt src:'${this.src}`);
-    // }
-    // console.log("img onerror-----end-----------");
-    // errorBack && errorBack();
-  };
+  img.onerror = function () {
+    console.log('error')
+    if (defaultUrl) {
+      img.src = defaultUrl;
+    }
+    errorBack && errorBack();
+  }
 
   img.src = url;
 }
-
+const num = 2;
 class Certificate extends React.Component {
   constructor(props) {
     super(props);
@@ -68,14 +58,14 @@ class Certificate extends React.Component {
     const { user: listData } = props;
     const register = listData.regitser_time
       ? dateTextToDateText(
-          listData.regitser_time ? listData.regitser_time.split(" ")[0] : 0
-        )
+        listData.regitser_time ? listData.regitser_time.split(" ")[0] : 0
+      )
       : null;
 
     const now = listData.server_time
       ? dateTextToDateText(
-          listData.server_time ? listData.server_time.split(" ")[0] : 0
-        )
+        listData.server_time ? listData.server_time.split(" ")[0] : 0
+      )
       : null;
 
     this.state = {
@@ -91,7 +81,10 @@ class Certificate extends React.Component {
     this.props.requestUserInfo();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+
+
+  }
 
   componentWillReceiveProps(nextProps) {
     const { user: listData } = this.props;
@@ -100,74 +93,71 @@ class Certificate extends React.Component {
     if (nextProps.user.id) {
       const register = NlistData.regitser_time
         ? dateTextToDateText(
-            NlistData.regitser_time ? NlistData.regitser_time.split(" ")[0] : 0
-          )
+          NlistData.regitser_time ? NlistData.regitser_time.split(" ")[0] : 0
+        )
         : null;
 
       const now = NlistData.server_time
         ? dateTextToDateText(
-            NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
-          )
+          NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
+        )
         : null;
       const that = this;
-      that.setState(
-        {
-          ...that.state,
-          register,
-          now,
-        },
-      )
       // convertImgToBase64(
       //   this.certCachet,
-      //   base64Img => {
-      //     console.log("生成印章");
+      //   (base64Img = null) => {
       //     if (base64Img) {
-      //       that.setState({
-      //         ...that.state,
-      //         certCachet: base64Img
-      //       });
+      //       that.setState(
+      //         {
+      //           ...that.state,
+      //           certCachet: base64Img
+      //         },
+      //         () => {
+      //           // that.htm2Click();
+      //         }
+      //       );
       //     }
       //   },
-      //   "/images/my/zdx.png"
-      // );
-      // convertImgToBase64(
-      //   nextProps.user.avatars,
-      //   base64Img => {
-      //     // console.log("生成头像成功");
-      //     // console.log(`${base64Img}`);
-      //     // if (base64Img) {
-            // that.setState(
-            //   {
-            //     ...that.state,
-            //     register,
-            //     now,
-            //     people: base64Img
-            //   },
-      //     //     () => {
-      //     //       that.htm2Click();
-      //     //     }
-      //     //   );
-      //     // }
-      //   },
-      //   "/images/my/register.png",
+      //   "/images/my/zdx.png",
       //   () => {
-      //     // console.log("生成头像失败");
-      //     // that.setState(
-      //     //   {
-      //     //     ...that.state,
-      //     //     register,
-      //     //     now
-      //     //   },
-      //     //   () => {
-      //     //     // that.htm2Click();
-      //     //   }
-      //     // );
+      //     console.log("error");
+
+      //     // that.htm2Click();
       //   }
       // );
+      convertImgToBase64(nextProps.user.avatars, (base64Img) => {
+        if (base64Img) {
+          that.setState(
+            {
+              ...that.state,
+              register,
+              now,
+              people: base64Img,
+            },
+            () => {
+              // that.htm2Click();
+            }
+          );
+        }
+
+      }, "/images/my/register.png", () => {
+        console.log('error')
+        that.setState(
+          {
+            ...that.state,
+            register,
+            now,
+          },
+          () => {
+            // that.htm2Click();
+          })
+      });
+
+
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
   htm2Click = () => {
     var that = this;
     var shareContent = this.refs["LaunchContent"];
@@ -183,14 +173,12 @@ class Certificate extends React.Component {
       canvas: canvas,
       width: width,
       height: height,
-      useCORS: true
+      useCORS: true,
     };
-    setTimeout(() => {
-      html2canvas(shareContent, opts).then(function(canvas) {
-        var dataUrl = canvas.toDataURL("image/jpeg", 4);
-        that.setState({ dataUrl });
-      });
-    }, 1000);
+    html2canvas(shareContent, opts).then(function (canvas) {
+      var dataUrl = canvas.toDataURL("image/jpeg", 4);
+      that.setState({ dataUrl });
+    });
   };
 
   renderCertificate() {
@@ -204,99 +192,68 @@ class Certificate extends React.Component {
       : null;
     // alert(this.state.people)
     // qM7e5Ba2vp  国有黄金
-    return (
-      <div className="page-certificate-bg">
-        <div className="page-certificate-container-border" ref="LaunchContent">
-          <h5 className="page-certificate-container-title">
-            {this.certTitle}志愿服务证书
+    return <div className="page-certificate-bg">
+      <div className="page-certificate-container-border" ref="LaunchContent">
+        <h5 className="page-certificate-container-title">
+          {this.certTitle}志愿服务证书
           </h5>
-          <div>
-            {/* <img
-              src={this.state.people}
-              id="avatars"
-              style={{
-                display: "block",
-                width: "80px",
-                height: "80px",
-                borderRadius: "50%",
-                objectFit: "cover"
-              }}
-              crossorigin="anonymous"
-            /> */}
-            <Avatar src={this.props.user.avatars} size={{ width: 80 }} />
+        <div>
+          <img src={this.state.people} id="avatars"
+            style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }}
+          />
+          {/* <Avatar src={this.props.user.avatars} size={{ width: 80 }} /> */}
+        </div>
+
+        <div className="page-certificate-container-certificate" />
+        <div className="page-certificate-container-name">
+          {this.props.user.real_name}
+        </div>
+
+        {this.props.user.stars ? <div className="page-certificate-container-star" style={{ width: `${starWidth}` }}>
+          <Star size={{ width: 15, height: 14, score: this.props.user.stars }} />
+        </div> : null}
+
+        <div className="page-certificate-container-content">
+          证书编号：{this.props.user.identifier}
+        </div>
+        <div className="page-certificate-container-content">
+          {this.state.register}注册成为{this.certOrg}志愿者
           </div>
 
-          <div className="page-certificate-container-certificate" />
-          <div className="page-certificate-container-name">
-            {this.props.user.real_name}
-          </div>
-
-          {this.props.user.stars ? (
-            <div
-              className="page-certificate-container-star"
-              style={{ width: `${starWidth}` }}
-            >
-              <Star
-                size={{ width: 15, height: 14, score: this.props.user.stars }}
-              />
-            </div>
-          ) : null}
-
-          <div className="page-certificate-container-content">
-            证书编号：{this.props.user.identifier}
-          </div>
-          <div className="page-certificate-container-content">
-            {this.state.register}注册成为{this.certOrg}志愿者
-          </div>
-
-          <div className="page-certificate-container-hours-box">
-            <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item">
-                <span>{this.props.user.join_project_count}</span>个
+        <div className="page-certificate-container-hours-box">
+          <div className="page-certificate-container-hours">
+            <div className="page-certificate-container-hours-item">
+              <span>{this.props.user.join_project_count}</span>个
               </div>
-              <div className="page-certificate-container-hours-item">
-                志愿服务项目
+            <div className="page-certificate-container-hours-item">
+              志愿服务项目
               </div>
-            </div>
-            <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item">
-                <span>{this.props.user.reward_time}</span>小时
-              </div>
-              <div className="page-certificate-container-hours-item">
-                志愿服务时长
-              </div>
-            </div>
           </div>
-          <div className="page-certificate-container-bottom-infobox">
-            <div className="page-certificate-container-bussiness">
-              认证机构：{this.certAuthOrg}
-            </div>
-            <div className="page-certificate-container-teachsupport">
-              技术支持：志多星
-            </div>
-            <div
-              className="page-certificate-container-content"
-              style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
-            >
-              {this.state.now}
-            </div>
-            {this.certCachet ? (
-              <img
-                src={this.certCachet}
-                alt=""
-                className="first"
-                crossorigin="anonymous"
-              />
-            ) : (
-              <div />
-            )}
-            {window.orgCode == "qM7e5Ba2vp" ? (
-              <img src="/images/my/zdx.png" className="second" />
-            ) : null}
+          <div className="page-certificate-container-hours">
+            <div className="page-certificate-container-hours-item">
+              <span>{this.props.user.reward_time}</span>小时
+              </div>
+            <div className="page-certificate-container-hours-item">
+              志愿服务时长
+              </div>
           </div>
         </div>
+        <div className="page-certificate-container-bottom-infobox">
+          <div className="page-certificate-container-bussiness">
+            认证机构：{this.certAuthOrg}
+          </div>
+          <div className="page-certificate-container-teachsupport">
+            技术支持：志多星
+            </div>
+          <div className="page-certificate-container-content" style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}>
+            {this.state.now}
+          </div>
+          {this.state.certCachet ? <img src={this.state.certCachet} alt="" className="first"
+          /> : <div />}
+          {window.orgCode == "qM7e5Ba2vp" ? <img src="/images/my/zdx.png" className="second" /> : null}
+        </div>
       </div>
-    );
+    </div>;
   }
 
   render() {
@@ -305,49 +262,19 @@ class Certificate extends React.Component {
     if (!listData) {
       return null;
     }
-    return (
-      <div
-        style={{
-          position: "absolute",
-          left: "0",
-          top: "0",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
+    return <div style={{ position: 'absolute', left: '0', top: '0', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      {dataUrl ? <img style={{ width: "357px", display: "block", position: 'relative', top: 0, bottom: 0, left: 0, right: 0, margin: 'auto', }} src={`${this.state.dataUrl}`} /> : <div className="page-certificate-main-container">
+        {/** TODO: */}
         {this.renderCertificate()}
-        {/* {dataUrl ? (
-          <img
-            style={{
-              width: "357px",
-              display: "block",
-              position: "relative",
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              margin: "auto"
-            }}
-            src={`${this.state.dataUrl}`}
-          />
-        ) : (
-          <div className="page-certificate-main-container">
-            {/** TODO: */}
-            {/* {this.renderCertificate()} */}
-          {/* </div>
-        )} */} 
-        {/* {dataUrl ? null : (
-          <div className="page-certificate-main-mask">图片生成中。。。</div>
-        )} */}
-      </div>
-    );
+      </div>}
+      {/* {dataUrl ? null : <div className="page-certificate-main-mask">
+        图片生成中。。。
+          </div>} */}
+    </div>;
   }
 }
 
-Certificate.title = `我的证书`;
+Certificate.title = `我的证书${+new Date()}`;
 
 Certificate.propTypes = {
   requestUserInfo: PropTypes.func,
