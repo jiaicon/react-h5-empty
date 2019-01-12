@@ -7,6 +7,7 @@ import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import uploadToWX from '../../../utils/wxupload';
+import UploadPhoto from '../../../components/uploadPhoto/uploadPhoto';
 import { bindActionCreators } from 'redux';
 import CheckboxStepper from '../../../components/checkboxStepper/index'
 import { List, Checkbox, DatePicker, Radio } from 'antd-mobile';

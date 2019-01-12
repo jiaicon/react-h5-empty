@@ -18,7 +18,6 @@ import Avatar from '../../../components/avatar/avatar';
 import {addFamilyAction} from '../my.store';
 import history from '../../history';
 import './add.css';
-import uploadToWX from '../../../utils/wxupload';
 
 
 import Tab from '../../../components/tab/tab';
@@ -84,20 +83,6 @@ class Addmember extends React.Component {
     }
 
     componentWillUnmount() {
-    }
-
-    // 上传照片
-    onAvatarClick() {
-        uploadToWX({
-            success: (urls) => {
-                console.log('图片上传成功:', urls);
-                this.setState({
-                    ...this.state,
-                    photo: urls[0],
-                });
-                this.photo = urls[0];
-            },
-        });
     }
 
     onTextChanged() {

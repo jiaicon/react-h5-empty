@@ -114,9 +114,9 @@ ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.9.0"
 
-antd-mobile@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/antd-mobile/-/antd-mobile-2.2.0.tgz#6516bfc44ee33682f991a666b67641ea44e20e6f"
+antd-mobile@^2.2.8:
+  version "2.2.8"
+  resolved "http://registry.npm.taobao.org/antd-mobile/download/antd-mobile-2.2.8.tgz#d69d21a7778b9de4e0f406dd68b4df47de2c19e6"
   dependencies:
     array-tree-filter "~2.1.0"
     babel-runtime "6.x"
@@ -1041,7 +1041,6 @@ balanced-match@^1.0.0:
 base64-arraybuffer@0.1.5, base64-arraybuffer@^0.1.5:
   version "0.1.5"
   resolved "http://registry.npm.taobao.org/base64-arraybuffer/download/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
-  integrity sha1-c5JncZI7Whl0etZmqlzUv5xunOg=
 
 base64-js@^1.0.2:
   version "1.2.1"
@@ -1725,7 +1724,6 @@ css-color-names@0.0.4:
 css-line-break@1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/css-line-break/download/css-line-break-1.0.1.tgz#19f2063a33e95fb2831b86446c0b80c188af450a"
-  integrity sha1-GfIGOjPpX7KDG4ZEbAuAwYivRQo=
   dependencies:
     base64-arraybuffer "^0.1.5"
 
@@ -3002,7 +3000,6 @@ html-tags@^2.0.0:
 html2canvas@^1.0.0-alpha.12:
   version "1.0.0-alpha.12"
   resolved "http://registry.npm.taobao.org/html2canvas/download/html2canvas-1.0.0-alpha.12.tgz#3b1992e3c9b3f56063c35fd620494f37eba88513"
-  integrity sha1-OxmS48mz9WBjw1/WIElPN+uohRM=
   dependencies:
     css-line-break "1.0.1"
 
