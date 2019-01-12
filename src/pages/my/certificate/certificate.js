@@ -17,31 +17,7 @@ import { requestUserInfo } from "../../../stores/common";
 import "./certificate.css";
 import history from "../../history";
 import html2canvas from "html2canvas";
-
-function convertImgToBase64(url, callback,defaultUrl,errorBack, outputFormat=null) {
-  let canvas = document.createElement('CANVAS');
-  let  ctx = canvas.getContext('2d');
-  let img = new Image;
-  img.crossOrigin = '*';
-  img.onload = function () {
-    console.log('img onloag')
-    canvas.height = img.height;
-    canvas.width = img.width;
-    ctx.drawImage(img, 0, 0);
-    var dataURL = canvas.toDataURL(outputFormat || 'image/png');
-    callback.call(this, dataURL);
-    canvas = null;
-  };
-  img.onerror = function () {
-    console.log('error')
-    if (defaultUrl) {
-      img.src = defaultUrl;
-    }
-    errorBack&&errorBack();
-  }
- 
-  img.src = url;
-}    
+import { ImageToBase64 } from '../../../utils/funcs'
 
 class Certificate extends React.Component {
   constructor(props) {
@@ -50,7 +26,7 @@ class Certificate extends React.Component {
     this.BussinessInfo = window.orgInfo.name || "和众泽益志愿服务中心";
     this.certTitle = window.orgInfo.cert_title || "和众泽益";
     this.certOrg = window.orgInfo.cert_org || "和众泽益";
-    this.certCachet =window.orgInfo.cert_cachet || "/images/my/zdx.png";
+    this.certCachet = window.orgInfo.cert_cachet || "/images/my/zdx.png";
     this.certAuthOrg = window.orgInfo.cert_auth_org || "和众泽益志愿服务中心";
     const { user: listData } = props;
     const register = listData.regitser_time
@@ -68,7 +44,6 @@ class Certificate extends React.Component {
     this.state = {
       certCachet: this.certAuthOrg,
       dataUrl: null,
-      photo:null,
       register,
       now
     };
@@ -78,10 +53,7 @@ class Certificate extends React.Component {
     this.props.requestUserInfo();
   }
 
-  componentDidMount() {
-  
-
-  }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     const { user: listData } = this.props;
@@ -94,12 +66,13 @@ class Certificate extends React.Component {
           )
         : null;
 
-      const now = NlistData.server_time
+      const now= NlistData.server_time
         ? dateTextToDateText(
             NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
           )
         : null;
       const that = this;
+<<<<<<< HEAD
       that.setState(
         {
           ...that.state,
@@ -157,6 +130,16 @@ class Certificate extends React.Component {
       // });
 
 
+=======
+      ImageToBase64([this.certCachet, nextProps.user.avatars], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
+        that.setState({
+          base64Array: base64Array.slice(0), register, now
+        }, () => {
+            that.htm2Click();
+        });
+      
+      },0);
+>>>>>>> 84e450f49a398a237f01d93593930f9ea493e3d1
     }
   }
 
@@ -176,14 +159,14 @@ class Certificate extends React.Component {
       canvas: canvas,
       width: width,
       height: height,
-      useCORS: true,
+      useCORS: true
     };
-      html2canvas(shareContent, opts).then(function (canvas) {
-        var dataUrl = canvas.toDataURL("image/jpeg", 4);
-          that.setState({ dataUrl });
-      });
+    html2canvas(shareContent, opts).then(function(canvas) {
+      var dataUrl = canvas.toDataURL("image/jpeg", 4);
+      that.setState({ dataUrl });
+    });
   };
- 
+
   renderCertificate() {
     const { user: listData } = this.props;
     if (!listData) {
@@ -193,18 +176,21 @@ class Certificate extends React.Component {
     const starWidth = this.props.user.stars
       ? Number(this.props.user.stars) * Number(20) - Number(5) + "px"
       : null;
-    // alert(this.state.people)
-    // qM7e5Ba2vp  国有黄金
     return <div className="page-certificate-bg">
         <div className="page-certificate-container-border" ref="LaunchContent">
           <h5 className="page-certificate-container-title">
             {this.certTitle}志愿服务证书
           </h5>
           <div>
+<<<<<<< HEAD
           {/* <img src={this.state.people} id="avatars"
             style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }}
             crossorigin="anonymous" /> */}
             <Avatar src={this.props.user.avatars} size={{ width: 80 }} />
+=======
+            <img src={this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
+              } id="avatars" style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }} />
+>>>>>>> 84e450f49a398a237f01d93593930f9ea493e3d1
           </div>
 
           <div className="page-certificate-container-certificate" />
@@ -251,7 +237,7 @@ class Certificate extends React.Component {
             <div className="page-certificate-container-content" style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}>
               {this.state.now}
             </div>
-            {this.certCachet ? <img src={this.certCachet} alt="" className="first" crossorigin="anonymous" /> : <div />}
+            {this.state.certCachet ? <img src={this.state.base64Array&&this.state.base64Array[0]} alt="" className="first" /> : <div />}
             {window.orgCode == "qM7e5Ba2vp" ? <img src="/images/my/zdx.png" className="second" /> : null}
           </div>
         </div>
@@ -264,9 +250,44 @@ class Certificate extends React.Component {
     if (!listData) {
       return null;
     }
-    return <div style={{ position: 'absolute', left: '0', top: '0', width: '100%', height: '100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-      {this.renderCertificate()}
-      </div>;
+    return (
+      <div
+        style={{
+          position: "absolute",
+          left: "0",
+          top: "0",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        {dataUrl ? (
+          <img
+            style={{
+              width: "357px",
+              display: "block",
+              position: "relative",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              margin: "auto"
+            }}
+            src={`${this.state.dataUrl}`}
+          />
+        ) : (
+          <div className="page-certificate-main-container">
+            {/** TODO: */}
+            {this.renderCertificate()}
+          </div>
+        )}
+        {dataUrl ? null : <div className="page-certificate-main-mask">
+        图片生成中。。。
+          </div>}
+      </div>
+    );
   }
 }
 

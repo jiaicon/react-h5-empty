@@ -1,4 +1,51 @@
 /* global wx:false, qq:false */
+// 遍历转baser64
+export function ImageToBase64(imageArrays, defaultArrays, callback, index,) {
+  // let base64Arrays = [];
+  if (!imageArrays.length) return;
+  if (index < imageArrays.length) {
+    console.log("start------", imageArrays[index]);
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    let img = new Image();
+    img.crossOrigin = "*";
+    img.onload = function () {
+      console.log("img onload", this.src);
+      
+      canvas.height = img.height;
+      canvas.width = img.width;
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png");
+      imageArrays[index]=dataURL;
+      index++;
+      console.log(`---------------------${index}转换成功`)
+      ImageToBase64(imageArrays, defaultArrays, callback, index);
+      canvas = null;
+    };
+    img.onerror = function (e) {
+      console.log(`----------------------${index}张图片失败`);
+      console.log("img onerror", e);
+      if (defaultArrays[index]) {
+        img.src = defaultArrays[index];
+      } else {
+        this.style.visibility = 'hidden';
+      }
+    };
+    img.src = imageArrays[index];
+
+  } else {
+    callback && callback(imageArrays);
+  }
+
+}
+
+
+
+
+
+
+
+
 // 去除三里屯  志愿回馈
 export function deleteSanlitunMoudling(data) {
 
