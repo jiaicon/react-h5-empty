@@ -26,6 +26,11 @@ import {
     joinPayProject,
     joinProjectAction
 } from '../sign/sign.store';
+
+
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
 function formatDate(x, y) {
     /* eslint no-confusing-arrow: 0 */
     const pad = n => n < 10 ? `0${n}` : n;
@@ -108,6 +113,8 @@ class SignUpPage extends React.Component {
         this.state = {
             checkeAll: false,
             extendsArray: {},
+            showMultiple: false,
+            previewData: []
         };
         this.CustomChildren = ({ extra, onClick }) => (
 
@@ -444,12 +451,17 @@ class SignUpPage extends React.Component {
         const num = e.target.id;
         var key = e.target.getAttribute("data-key");
         const imagesArr = this.state[key];
-        wx.ready(() => {
-            wx.previewImage({
-                current: imagesArr[num], // 当前显示图片的http链接
-                urls: imagesArr, // 需要预览的图片http链接列表
-            });
+        this.setState({
+            previewData: imagesArr,
+            showMultiple: true,
+            defaultIndex: 0
         });
+        // wx.ready(() => {
+        //     wx.previewImage({
+        //         current: imagesArr[num], // 当前显示图片的http链接
+        //         urls: imagesArr, // 需要预览的图片http链接列表
+        //     });
+        // });
     }
     renderOtherPic(item) {
         const data = item;
@@ -763,6 +775,15 @@ class SignUpPage extends React.Component {
 
     }
     render() {
+        const BackButtonStyle = {
+            display: "block",
+            width: "100%",
+            color: "white",
+            border: "none",
+            position: "absolute",
+            top: "-55px",
+            left: "0"
+        };
         return (
             <div className="page-project-signUp">
 
@@ -796,7 +817,15 @@ class SignUpPage extends React.Component {
                     </div>
                 </div>
 
-
+                <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+                    <Button
+                        style={BackButtonStyle}
+                        onClick={e => this.setState({ showMultiple: false })}
+                        plain
+                    >
+                        Back
+          </Button>
+                </Gallery>
             </div>
         );
     }

@@ -26,6 +26,9 @@ import "antd-mobile/lib/date-picker/style/css";
 import "antd-mobile/lib/checkbox/style/css";
 import "antd-mobile/lib/Radio/style/css";
 import "./verifyAntd.css";
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
 
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
@@ -175,7 +178,9 @@ class Verify extends React.Component {
             city: 0,
             county: 0,
             extendsArray: {},
-            winOrgInfo: window.orgInfo.custom_config
+            winOrgInfo: window.orgInfo.custom_config,
+            showMultiple: false,
+            previewData: []
         };
         this.CustomChildren = ({extra, onClick}) => (
             <div
@@ -839,12 +844,17 @@ class Verify extends React.Component {
         const num = e.target.id;
         var key = e.target.getAttribute("data-key");
         const imagesArr = this.state[key];
-        wx.ready(() => {
-            wx.previewImage({
-                current: imagesArr[num], // 当前显示图片的http链接
-                urls: imagesArr // 需要预览的图片http链接列表
-            });
+        this.setState({
+          previewData: imagesArr,
+          showMultiple: true,
+          defaultIndex: 0
         });
+        // wx.ready(() => {
+        //     wx.previewImage({
+        //         current: imagesArr[num], // 当前显示图片的http链接
+        //         urls: imagesArr // 需要预览的图片http链接列表
+        //     });
+        // });
     }
 
     renderOtherPic(item) {
@@ -1038,6 +1048,15 @@ class Verify extends React.Component {
     }
 
     render() {
+        const BackButtonStyle = {
+            display: "block",
+            width: "100%",
+            color: "white",
+            border: "none",
+            position: "absolute",
+            top: "-55px",
+            left: "0"
+        };
         return (
             <div className="page-my-profile-verify-container">
                 {this.state.winOrgInfo === null ? null : (
@@ -1063,6 +1082,15 @@ class Verify extends React.Component {
                         </div>
                     </div>
                 )}
+                <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+                    <Button
+                        style={BackButtonStyle}
+                        onClick={e => this.setState({ showMultiple: false })}
+                        plain
+                    >
+                        Back
+          </Button>
+                </Gallery>
             </div>
         );
     }

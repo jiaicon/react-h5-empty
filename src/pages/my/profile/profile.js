@@ -25,7 +25,9 @@ import Link from '../../../components/link/link';
 import Avatar from '../../../components/avatar/avatar';
 import './profile.css';
 
-
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
 function sexName(sex) {
     if (sex === 1) {
         return '男';
@@ -50,6 +52,8 @@ class Profile extends React.Component {
             photo: '',
             showDialog: false,
             winOrgInfo: window.orgInfo.custom_config,
+            showMultiple: false,
+            previewData: []
         });
         this.dialog = {
             title: '提示',
@@ -191,12 +195,17 @@ class Profile extends React.Component {
         var src = e.target.getAttribute("data-key");
         var arr = [];
         arr.push(src)
-        wx.ready(() => {
-            wx.previewImage({
-                current: src, // 当前显示图片的http链接
-                urls: arr, // 需要预览的图片http链接列表
-            });
+        this.setState({
+          previewData: arr,
+          showMultiple: true,
+          defaultIndex: 0
         });
+        // wx.ready(() => {
+        //     wx.previewImage({
+        //         current: src, // 当前显示图片的http链接
+        //         urls: arr, // 需要预览的图片http链接列表
+        //     });
+        // });
     }
 
     renderRealInfoExtends() {
@@ -608,7 +617,15 @@ class Profile extends React.Component {
 
     render() {
         const userId = this.userId;
-
+        const BackButtonStyle = {
+            display: "block",
+            width: "100%",
+            color: "white",
+            border: "none",
+            position: "absolute",
+            top: "-55px",
+            left: "0"
+        };
         return (
             <div>
                 {
@@ -617,6 +634,15 @@ class Profile extends React.Component {
 
                         : this.renderNewView()
                 }
+                <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+                    <Button
+                        style={BackButtonStyle}
+                        onClick={e => this.setState({ showMultiple: false })}
+                        plain
+                    >
+                        Back
+          </Button>
+                </Gallery>
             </div>
         );
     }

@@ -103,12 +103,6 @@ class COMMUNITYITEM extends React.Component {
     const index = e.currentTarget.getAttribute('data-index');
     const imagesArr = this.props.data.photo;
     this.setState({ previewData: imagesArr, showMultiple: true, defaultIndex: index });
-    // wx.ready(() => {
-    //   wx.previewImage({
-    //     current: imagesArr[index], // 当前显示图片的http链接
-    //     urls: imagesArr, // 需要预览的图片http链接列表
-    //   });
-    // });
   }
   entry(e) {
     const info = JSON.parse(e.target.getAttribute('data-info'));

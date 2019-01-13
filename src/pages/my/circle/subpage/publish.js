@@ -85,16 +85,6 @@ class CirclePublish extends React.Component {
       imagesArr,
     });
   }
-  // onPreview(e) {
-  //   const index = e.target.getAttribute('data-index');
-  //   const imagesArr = this.state.imagesArr;
-  //   wx.ready(() => {
-  //     wx.previewImage({
-  //       current: imagesArr[index], // 当前显示图片的http链接
-  //       urls: imagesArr, // 需要预览的图片http链接列表
-  //     });
-  //   });
-  // }
   onPublish() {
       const { upFeeling: LupFeeling } = this.props;
       if(LupFeeling.fetching)return;

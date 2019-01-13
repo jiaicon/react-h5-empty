@@ -76,12 +76,6 @@ class MyPage extends React.Component {
       showMultiple: true,
       defaultIndex: 0
     });
-    // wx.ready(() => {
-    //   wx.previewImage({
-    //     current: key, // 当前显示图片的http链接
-    //     urls: arr, // 需要预览的图片http链接列表
-    //   });
-    // });
   }
   renderPageMyphotoTemplate() {
     const { user } = this.props;
@@ -285,6 +279,15 @@ class MyPage extends React.Component {
     );
   }
   render() {
+    const BackButtonStyle = {
+      display: "block",
+      width: "100%",
+      color: "white",
+      border: "none",
+      position: "absolute",
+      top: "-55px",
+      left: "0"
+    };
     return (
       <div className="page-my">
         <div className="page-my-top">
