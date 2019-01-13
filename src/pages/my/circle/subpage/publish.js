@@ -85,16 +85,16 @@ class CirclePublish extends React.Component {
       imagesArr,
     });
   }
-  onPreview(e) {
-    const index = e.target.getAttribute('data-index');
-    const imagesArr = this.state.imagesArr;
-    wx.ready(() => {
-      wx.previewImage({
-        current: imagesArr[index], // 当前显示图片的http链接
-        urls: imagesArr, // 需要预览的图片http链接列表
-      });
-    });
-  }
+  // onPreview(e) {
+  //   const index = e.target.getAttribute('data-index');
+  //   const imagesArr = this.state.imagesArr;
+  //   wx.ready(() => {
+  //     wx.previewImage({
+  //       current: imagesArr[index], // 当前显示图片的http链接
+  //       urls: imagesArr, // 需要预览的图片http链接列表
+  //     });
+  //   });
+  // }
   onPublish() {
       const { upFeeling: LupFeeling } = this.props;
       if(LupFeeling.fetching)return;
@@ -140,6 +140,7 @@ class CirclePublish extends React.Component {
             <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={9} />
         </div>
         <div className="page-circlepublish-btn" onClick={this.onPublish}>发表</div>
+
       </div>
     );
   }
