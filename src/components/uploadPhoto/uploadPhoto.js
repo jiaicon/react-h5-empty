@@ -2,7 +2,6 @@ import React, { PropTypes } from "react";
 import autoBind from "react-autobind";
 import { ImagePicker, Toast } from "antd-mobile";
 import uploadImage from "./../../utils/uploadImage";
-import PreviewPhoto from "../previewPhoto/index.js";
 import "antd-mobile/lib/image-picker/style/css";
 import "antd-mobile/lib/toast/style/css";
 import "./uploadPhoto.css";
