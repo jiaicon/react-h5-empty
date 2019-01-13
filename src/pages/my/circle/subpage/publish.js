@@ -122,7 +122,8 @@ class CirclePublish extends React.Component {
       this.props.upFeelingAction(data);
     }
   }
-    onPhotoChange(images) {
+  onPhotoChange(images) {
+       console.log(images)
         this.setState({
             imagesArr: images.map(item=>item.url)
         })
