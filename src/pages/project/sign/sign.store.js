@@ -11,7 +11,11 @@ export const joinPayProject = data => (dispatch) => {
     method: 'POST', data,
   }).then((json) => {
     console.log(Object.keys(data.payment).length);
-    if (json.data.jsConfig) {
+    if(!window.userAgent && json.data.wechatPayUrl) {
+        location.replace(json.data.wechatPayUrl);
+        return;
+    }
+    if (window.userAgent && json.data.jsConfig) {
       // wx.config(json.data.jsConfig);
       //   http://kf.qq.com/faq/161221IbQRZN161221M3EviE.html
       // ios系统可以正常支付，android系统支付失败 timestamp字段值需要加上“”,传递数据必须为字符串类型。

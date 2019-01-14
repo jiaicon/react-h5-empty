@@ -752,12 +752,11 @@ class SignUpPage extends React.Component {
                     }
                 }
             }
+            console.log(111)
             data.payment = pay;
             this.props.joinPayProject(data);
             return
         }
-
-
         this.props.joinProjectAction(data);
 
 
