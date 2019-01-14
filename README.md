@@ -1,24 +1,5 @@
-### 代码规范
+### v7.0  微信/h5
 
-1. 编辑器务必使用 vscode
-2. 安装 ESLint 插件
-3. 安装 EditorConfig 插件
-4. 开启保存时自动格式化
-
-#### ESLint 配置
-
-一、编辑器配置（保存自动格式化）
-
-```js
-{
-    "eslint.autoFixOnSave": true,
-    "eslint.run": "onSave"
-}
-```
-
-同时确保编辑器 `autoSave` 处于关闭状态
-
-更多规则配置[参考官方文档](https://eslint.org/docs/user-guide/configuring)
 
 ### 目录结构
 
