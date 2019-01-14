@@ -250,11 +250,6 @@
     "chunk": "main"
   },
   {
-    "path": "/my/setting/password",
-    "page": "./pages/my/setting/password",
-    "chunk": "main"
-  },
-  {
     "path": "/my/teams",
     "page": "./pages/my/teams/teams",
     "chunk": "main"
