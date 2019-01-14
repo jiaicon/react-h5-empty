@@ -72,65 +72,6 @@ class Certificate extends React.Component {
           )
         : null;
       const that = this;
-<<<<<<< HEAD
-      that.setState(
-        {
-          ...that.state,
-          register,
-          now,
-        })
-      // convertImgToBase64(
-      //   this.certCachet,
-      //   (base64Img = null) => {
-      //     if (base64Img) {
-      //       that.setState(
-      //         {
-      //           ...that.state,
-      //           certCachet: base64Img
-      //         },
-      //         () => {
-      //           // that.htm2Click();
-      //         }
-      //       );
-      //     }
-      //   },
-      //   "/images/my/zdx.png",
-      //   () => {
-      //     console.log("error");
-         
-      //         // that.htm2Click();
-      //   }
-      // );
-      // convertImgToBase64(nextProps.user.avatars, (base64Img = null) => {
-      //   if (base64Img) {
-      //     that.setState(
-      //       {
-      //         ...that.state,
-      //         register,
-      //         now,
-      //         people: base64Img,
-      //       },
-      //       () => {
-      //         that.htm2Click();
-      //       }
-      //     );
-      //   }
-
-      // }, "/images/my/register.png", () => {
-      //   console.log('error')
-      //   that.setState(
-      //     {
-      //       ...that.state,
-      //       register,
-      //       now,
-      //     },
-      //     () => {
-      //       that.htm2Click();
-      //     })
-      // });
-
-
-=======
       ImageToBase64([this.certCachet, nextProps.user.avatars], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
         that.setState({
           base64Array: base64Array.slice(0), register, now
@@ -139,7 +80,6 @@ class Certificate extends React.Component {
         });
       
       },0);
->>>>>>> 84e450f49a398a237f01d93593930f9ea493e3d1
     }
   }
 
@@ -182,15 +122,8 @@ class Certificate extends React.Component {
             {this.certTitle}志愿服务证书
           </h5>
           <div>
-<<<<<<< HEAD
-          {/* <img src={this.state.people} id="avatars"
-            style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }}
-            crossorigin="anonymous" /> */}
-            <Avatar src={this.props.user.avatars} size={{ width: 80 }} />
-=======
             <img src={this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
               } id="avatars" style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }} />
->>>>>>> 84e450f49a398a237f01d93593930f9ea493e3d1
           </div>
 
           <div className="page-certificate-container-certificate" />
