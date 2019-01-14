@@ -849,12 +849,6 @@ class Verify extends React.Component {
           showMultiple: true,
           defaultIndex: 0
         });
-        // wx.ready(() => {
-        //     wx.previewImage({
-        //         current: imagesArr[num], // 当前显示图片的http链接
-        //         urls: imagesArr // 需要预览的图片http链接列表
-        //     });
-        // });
     }
 
     renderOtherPic(item) {

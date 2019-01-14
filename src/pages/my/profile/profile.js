@@ -191,18 +191,15 @@ class Profile extends React.Component {
     onPreview(e) {
         var src = e.target.getAttribute("data-key");
         var arr = [];
+        if (!key) {
+            key = '/images/my/register.png';
+        }
         arr.push(src)
         this.setState({
           previewData: arr,
           showMultiple: true,
           defaultIndex: 0
         });
-        // wx.ready(() => {
-        //     wx.previewImage({
-        //         current: src, // 当前显示图片的http链接
-        //         urls: arr, // 需要预览的图片http链接列表
-        //     });
-        // });
     }
 
     renderRealInfoExtends() {

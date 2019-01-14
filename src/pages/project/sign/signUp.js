@@ -9,6 +9,7 @@ import classnames from 'classnames';
 import uploadToWX from '../../../utils/wxupload';
 import UploadPhoto from '../../../components/uploadPhoto/uploadPhoto';
 import { bindActionCreators } from 'redux';
+import uploadImage from "../../../utils/uploadImage";
 import CheckboxStepper from '../../../components/checkboxStepper/index'
 import { List, Checkbox, DatePicker, Radio } from 'antd-mobile';
 import history from '../../history';
@@ -421,6 +422,7 @@ class SignUpPage extends React.Component {
     onPicClick(e) {
         var key = e.target.id;
         const attachment = this.state[key];
+        console.log(11)
         uploadToWX({
 
             success: (urls) => {
@@ -450,6 +452,7 @@ class SignUpPage extends React.Component {
     onPreview(e) {
         const num = e.target.id;
         var key = e.target.getAttribute("data-key");
+        console.log(11)
         const imagesArr = this.state[key];
         this.setState({
             previewData: imagesArr,
@@ -462,6 +465,20 @@ class SignUpPage extends React.Component {
         //         urls: imagesArr, // 需要预览的图片http链接列表
         //     });
         // });
+    }
+    onPhotoChange(e) {
+        console.log(e.target.id);
+        let key = e.target.id;
+        uploadImage(`/api/imgupload`, { method: 'POST', data: { file: { file: e.target.files[0] } } }).then((json) => {
+            if (json.error_code === 0) {
+                const attachment = this.state[key];
+                attachment.push(json.data.url);
+                this.setState({
+                    ...this.state, [key]: attachment
+                });
+                this.pushExtendsArray(key, attachment);
+            }
+        });
     }
     renderOtherPic(item) {
         const data = item;
@@ -494,9 +511,12 @@ class SignUpPage extends React.Component {
                     {
                         this.state[key].length === 1 ?
                             <div /> :
-                            <div
-                                className="page-project-signUp-item-upload-container" id={`${key}`} onClick={this.onPicClick}
-                            />
+                            <div className="page-project-signUp-item-upload-container">
+                                <input id={key} onChange={this.onPhotoChange} accept="image/png, image/jpeg, image/jpg"
+                                    ref={c => {
+                                        this.uploadImages = c
+                                    }} className="page-profile-header-uploade-box-ipt" type="file" />
+                            </div>
                     }
                 </div>
                 <div className="line1px" />

@@ -69,7 +69,10 @@ class MyPage extends React.Component {
   }
   onPreview(e) {
     var key = e.target.getAttribute("data-key");
-    var arr =[];
+    var arr = [];
+    if (!key) {
+      key = '/images/my/register.png';
+    }
     arr.push(key);
     this.setState({
       previewData: arr,

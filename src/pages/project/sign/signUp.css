@@ -523,3 +523,11 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.page-project-signUp-item-upload-container .page-profile-header-uploade-box-iptbox {
+    height: 100%;
+}
+.page-project-signUp-item-upload-container input {
+    opacity: 0;
+    height: 100%;
+}
