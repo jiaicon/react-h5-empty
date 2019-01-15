@@ -38,41 +38,37 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
-    wx.ready(() => {
-      wx.getLocation({
-        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: (res) => {
-          const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-          const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180
-          const expires = Date.now() + (5 * 60 * 1000); // 5分钟过期
+    // wx.ready(() => {
+    //   wx.getLocation({
+    //     type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+    //     success: (res) => {
+    //       const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+    //       const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180
+    //       const expires = Date.now() + (5 * 60 * 1000); // 5分钟过期
 
-          console.log('获取新位置成功', res);
+    //       console.log('获取新位置成功', res);
 
-          localStorage.setItem('location', JSON.stringify({
-            lat,
-            lng,
-            expires,
-          }));
+    //       localStorage.setItem('location', JSON.stringify({
+    //         lat,
+    //         lng,
+    //         expires,
+    //       }));
 
 
-          getCity((city) => {
-            this.props.saveCity(city);
-            this.props.getAreaCity(city);
-          });
-        },
-        fail: (error) => {
-          Alert.error('定位失败，请确认同意微信定位授权');
-        },
-      });
-    });
+    //       getCity((city) => {
+    //         this.props.saveCity(city);
+    //         this.props.getAreaCity(city);
+    //       });
+    //     },
+    //     fail: (error) => {
+    //       Alert.error('定位失败，请确认同意微信定位授权');
+    //     },
+    //   });
+    // });
   }
 
   componentDidMount() {
-      if(window.userAgent) {
-          wx.ready(() => {
-              WXShare();
-          });
-      }
+ 
   }
 
   componentWillReceiveProps(nextProps) {
@@ -169,9 +165,9 @@ class SigninPage extends React.Component {
           <Link to="/signin/password" className="signin-btn" >
             密令签到
           </Link>
-          <a className="signin-btn" onClick={this.handleSignin}>
+          {/* <a className="signin-btn" onClick={this.handleSignin}>
             扫码签到
-          </a>
+          </a> */}
         </div>
       </div>
     );

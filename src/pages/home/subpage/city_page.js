@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import Alert from "react-s-alert";
 import "./city_page.css";
 import Link from "../../../components/link/link";
-import { getCity } from "../../../utils/funcs";
+import { getCity, getCookie, setCookie } from "../../../utils/funcs";
 import history from "../../history";
 import { requestHomeData, saveCity, getAreaCity } from "../home.store";
 import { addressDataAction } from "../../my/profile/profile.store";
@@ -24,9 +24,12 @@ class CityPage extends React.Component {
 
   componentWillMount() {
     this.props.addressDataAction(0);
-    if (localStorage.provinceAndCityName) {
-      const data = JSON.parse(localStorage.getItem("provinceAndCityName"));
-      this.setState({ province: data.province || '全国', city: data.city == '全国' ? null : data.city });
+    if (getCookie("provinceAndCityName")) {
+      const data = JSON.parse(getCookie("provinceAndCityName"));
+      this.setState({
+        province: data.province || "全国",
+        city: data.city == "全国" ? null : data.city
+      });
     };
   }
 
@@ -40,13 +43,10 @@ class CityPage extends React.Component {
         province: "全国",
         city: "全国"
       });
-      localStorage.setItem(
-        "provinceAndCityName",
-        JSON.stringify({
+      setCookie("provinceAndCityName", JSON.stringify({
           province: "全国",
           city: "全国"
-        })
-      );
+        }),1);
       this.props.saveCity("全国");
       window.location.replace("/");
       return;
@@ -54,15 +54,7 @@ class CityPage extends React.Component {
     const data = JSON.parse(event.target.getAttribute("data")).item;
     const lat = data.lat;
     const lng = data.lon;
-    const expires = Date.now() + 5 * 60 * 1000;
-    localStorage.setItem(
-      "location",
-      JSON.stringify({
-        lat,
-        lng,
-        expires
-      })
-    );
+    setCookie("location", JSON.stringify({ lat, lng }),1);
     const province = data.name;
 
     const id = data.id;
@@ -117,25 +109,14 @@ class CityPage extends React.Component {
     const data = JSON.parse(event.target.getAttribute("data")).item;
     const lat = data.lat;
     const lng = data.lon;
-    const expires = Date.now() + 5 * 60 * 1000;
-    localStorage.setItem(
-      "location",
-      JSON.stringify({
-        lat,
-        lng,
-        expires
-      })
-    );
+    setCookie("location", JSON.stringify({ lat, lng }),1);
 
     const city = data.name.replace("市", "");
     const province = this.state.province;
-    localStorage.setItem(
-      "provinceAndCityName",
-      JSON.stringify({
-        province: this.state.province,
+    setCookie("provinceAndCityName", JSON.stringify({
+        province,
         city
-      })
-    );
+      }),1);
     this.props.saveCity(city);
     const id = data.id;
     this.setState({
@@ -143,8 +124,7 @@ class CityPage extends React.Component {
       city
     });
     this.props.getAreaCity(city);
-    // history.replace('/');
-    window.location.replace("/home");
+    history.replace('/');
   }
   cityRender() {
     const city = this.props.address.data.city;

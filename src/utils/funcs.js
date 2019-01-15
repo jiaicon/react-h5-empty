@@ -1,4 +1,78 @@
 /* global wx:false, qq:false */
+
+
+
+
+
+
+
+//写cookies（设置作用域）
+export function setCookie(name, value,Days) {
+  var exp = new Date();
+  exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+  let hostname = location.hostname.substring(location.hostname.indexOf(".") + 1)  //设置为一级域名
+  document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";domain=" + hostname + ";path=/";
+}
+//读取cookies
+export function getCookie(name) {
+  var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+  if (arr != null) return unescape(arr[2]); return null;
+};
+//删除cookies（有作用域的）
+export function delCookie(name) {
+  var exp = new Date();
+  var name = "access_token";
+  exp.setTime(exp.getTime() - 1);
+  var cval = getCookie(name);
+  if (cval != null) {
+    let hostname = location.hostname.substring(location.hostname.indexOf(".") + 1)
+    document.cookie = name + "='';expires=" + exp.toGMTString() + ";domain=" + hostname + ";path=/";
+  }
+
+} 
+
+
+
+// 遍历转baser64
+export function ImageToBase64(imageArrays, defaultArrays, callback, index, ) {
+  // let base64Arrays = [];
+  if (!imageArrays.length) return;
+  if (index < imageArrays.length) {
+    console.log("start------", imageArrays[index]);
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    let img = new Image();
+    img.crossOrigin = "*";
+    img.onload = function () {
+      console.log("img onload", this.src);
+
+      canvas.height = img.height;
+      canvas.width = img.width;
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL("image/png");
+      imageArrays[index] = dataURL;
+      index++;
+      console.log(`---------------------${index}转换成功`)
+      ImageToBase64(imageArrays, defaultArrays, callback, index);
+      canvas = null;
+    };
+    img.onerror = function (e) {
+      console.log(`----------------------${index}张图片失败`);
+      console.log("img onerror", e);
+      if (defaultArrays[index]) {
+        img.src = defaultArrays[index];
+      } else {
+        this.style.visibility = 'hidden';
+      }
+    };
+    img.src = imageArrays[index];
+
+  } else {
+    callback && callback(imageArrays);
+  }
+
+}
+
 // 去除三里屯  志愿回馈
 export function deleteSanlitunMoudling(data) {
 
@@ -42,6 +116,7 @@ export function parseDistance(distance) {
 
 export function getLocation(success, fail, noCache) {
   if (window.dev) {
+    setCookie("location", JSON.stringify({ lat: "40.065560", lng: "116.314820" }), 1);
     success({
       lng: '116.314820',
       lat: '40.065560',
@@ -63,15 +138,16 @@ export function getLocation(success, fail, noCache) {
           const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
           const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
           const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
-          console.log("获取新位置成功", position);
-          localStorage.setItem(
-              "location",
-              JSON.stringify({
-                  lat,
-                  lng,
-                  expires
-              })
-          );
+        console.log("获取新位置成功", position);
+        setCookie("location", JSON.stringify({ lat, lng }), 1);
+          // localStorage.setItem(
+          //     "location",
+          //     JSON.stringify({
+          //         lat,
+          //         lng,
+          //         expires
+          //     })
+          // );
           if (success) {
               success({ lat, lng });
           }
@@ -88,12 +164,13 @@ export function getCity(success, fail) {
   if (window.dev) {
     const city = '北京市';
     const province = '北京';
-    localStorage.setItem('provinceAndCityName', JSON.stringify({
-      city,
-      province,
-    }));
+    setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
+    // localStorage.setItem('provinceAndCityName', JSON.stringify({
+    //   city,
+    //   province,
+    // }));
 
-    success(JSON.parse(localStorage.getItem('provinceAndCityName')).city || '北京');
+    success(city || "北京");
     return;
   }
 

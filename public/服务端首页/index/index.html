@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <!-- link rel="apple-touch-icon" href="apple-touch-icon.png" -->
+    <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/animate.min.css">
+    <script>
+        var designWidth = 375;
+        var screenWidth = screen.width;
+        var scale = screenWidth / designWidth;
+        var meta =
+            '<meta name="viewport" content="width=' +
+            designWidth +
+            ", initial-scale=" +
+            scale +
+            ", maximum-scale=" +
+            scale +
+            ", minimum-scale=" +
+            scale +
+            ', user-scalable=no, target-densitydpi=device-dpi, minimal-ui" >';
+        document.write(meta);
+
+        // 调试工具，url 中加入 debug 开启
+        (function () {
+            if (!/debug/.test(window.location)) return;
+            var src = "/lib/eruda.min.js";
+            document.write("<scr" + 'ipt src="' + src + '"></scr' + "ipt>");
+            document.write("<scr" + "ipt>eruda.init();</scr" + "ipt>");
+        })();
+    </script>
+    <!-- <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="7de7de184affb1a29b9a766df87ac3420018a2e870a7cc91278229aaeeaccedb"></script> -->
+    <script src="/lib/jweixin-1.0.0.js"></script>
+    <script src="./lib/zepto.min.js"></script>
+    <script src="./lib/swiper.min.js"></script>
+    <script src="./lib/swiper.animate.min.js"></script>
+    <script src="./lib/fx.js"></script>
+
+    <script>
+        //true:微信浏览器   false:h5
+        window.userAgent = false;
+
+        // 微信 config，类型可以是 JS Object 或者 JSON 字符串
+        window.wxConfig = {};// 或者 '{}'
+
+        window.apiHost = 'http://api.volunteer.alpha.flashdiet.cn';
+
+        // server 端下发 token 以及 uniqueKey
+        window.token = '';
+
+        //server 下发的uniqueKey
+        window.uniqueKey = '';
+
+        // server 下发的服务对象,可用于过滤等
+        window.serviceTarget = ["儿童", "青少年", "孤寡老⼈", "残障⼈⼠", "优抚对象", "特困群体", "其他", "测试"];
+
+        // server 下发的服务类型,可用于过滤等
+        window.serviceCategory = ["赛会服务", "应急救援", "城市运行", "文化教育", "关爱服务", "社区服务", "绿色环保", "医疗保障", "在线志愿服务", "国际服务", "境外服务", "其他"];
+
+        // server 下发的服务类型,可用于过滤等
+        window.teamCategory = ["党政机关", "教育事业单位", "卫生事业单位", "科技事业单位", "文化事业单位", "社会福利利事业单位", "其他事业单位", "群团组织", "居委会或村委会", "国有企业", "民营企业", "社会团体", "社会服务机构", "基金会"];
+
+        // server 下发的个人擅长, 用于用户资料填写
+        window.goodAt = ["关爱服务", "国际服务", "社区服务", "应急救援", "赛事服务", "医疗卫生", "绿色环保", "文化倡导", "教育", "助残", "助老", "其他"];
+
+        // server 下发的机构信息
+        window.orgInfo = [];
+
+        // server 下发的机构编号
+        window.orgCode = '';
+
+        if (window.userAgent && window.wxConfig) {
+            try {
+                if (typeof window.wxConfig === "string") {
+                    window.wxConfig = JSON.parse(window.wxConfig);
+                }
+                window.wx.config(wxConfig);
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+        window.orgInfo && (document.title = window.orgInfo.name);
+
+        document.title = window.orgInfo.name;
+
+        window.dev = true;
+        document.title = window.orgInfo.name;
+        // 获取host,跳react项目使用
+        let href = `http://${window.location.host}`;
+
+        let data = { "banner": [], "project": [], "news": [{ "id": 14, "title": "asdasdasda1111111", "photo": "http:\/\/api.volunteer.alpha.flashdiet.cn\/images\/uploads\/2018-10\/124331539235447.png", "content": "<p>111111111111111111111<\/p>", "publish_time": "2018-10-11 13:24:21" }, { "id": 13, "title": "safs", "photo": "http:\/\/alpha.api.volunteer.tmallwo.com\/images\/uploads\/2018-10\/529281538900731.jpeg", "content": "<p>asdfasdf<\/p>", "publish_time": "2018-10-07 16:25:33" }], "sanlitun": 0 };
+        let userInfoData = {};
+    </script>
+</head>
+
+<body>
+    <div class="page-launch">
+        <div class="page-error" onclick="()=>{$.fx.off}">
+        </div>
+        <div class="content">
+            <div class="page-home">
+                <div class="page-home-header">
+                    <!-- 头部 -->
+                    <div class="header-bar">
+
+                    </div>
+                    <!-- 轮播 -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <div id="header-notice">
+
+                    </div>
+
+                </div>
+                <div class="page-home-body">
+                    <div id="page-body-menu">
+
+                    </div>
+                    <div id="page-body-project">
+
+                    </div>
+                    <div id="page-body-project-list">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="tabs">
+            <li>
+                <a>
+                    <div class='tab-icon tab-icon-home active'></div>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href='/signin'>
+                    <div class='tab-icon tab-icon-signin'></div>
+                    <span>签到打卡</span>
+                </a>
+            </li>
+            <li>
+                <a href='/my'>
+                    <div class='tab-icon tab-icon-me'></div>
+                    <span>个人中心</span>
+                </a>
+            </li>
+        </ul>
+        <div class="line1px" style="width:100%; position:absolute; bottom:49px; left:0" />
+    </div>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
