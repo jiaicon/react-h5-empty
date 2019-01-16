@@ -124,7 +124,8 @@ class CityPage extends React.Component {
       city
     });
     this.props.getAreaCity(city);
-    history.replace('/');
+    // history.replace('/');
+    window.location.replace("/");
   }
   cityRender() {
     const city = this.props.address.data.city;

@@ -181,7 +181,7 @@
         "社会服务机构",
         "基金会"
       ];
-      if (window.wxConfig) {
+      if (window.userAgent&&window.wxConfig) {
         try {
 
           if (typeof window.wxConfig === "string") {
@@ -205,6 +205,7 @@
   <body>
     <div id="container"></div>
     <script charset="utf-8" ="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
+    <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
     <script src="<%= bundle %>"></script>
    
   </body>

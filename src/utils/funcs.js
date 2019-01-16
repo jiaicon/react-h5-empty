@@ -35,7 +35,6 @@ export function delCookie(name) {
 
 // 遍历转baser64
 export function ImageToBase64(imageArrays, defaultArrays, callback, index, ) {
-  // let base64Arrays = [];
   if (!imageArrays.length) return;
   if (index < imageArrays.length) {
     console.log("start------", imageArrays[index]);
@@ -140,14 +139,7 @@ export function getLocation(success, fail, noCache) {
           const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
         console.log("获取新位置成功", position);
         setCookie("location", JSON.stringify({ lat, lng }), 1);
-          // localStorage.setItem(
-          //     "location",
-          //     JSON.stringify({
-          //         lat,
-          //         lng,
-          //         expires
-          //     })
-          // );
+     
           if (success) {
               success({ lat, lng });
           }
@@ -165,11 +157,6 @@ export function getCity(success, fail) {
     const city = '北京市';
     const province = '北京';
     setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
-    // localStorage.setItem('provinceAndCityName', JSON.stringify({
-    //   city,
-    //   province,
-    // }));
-
     success(city || "北京");
     return;
   }

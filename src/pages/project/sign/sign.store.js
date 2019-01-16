@@ -20,7 +20,6 @@ const payResultReducer = (
     case "PROJECT_PAYRESEULT_DATA_PENDING":
       return { ...state, fetching: true, failed: false };
     case "PROJECT_PAYRESEULT_DATA_FULFILLED":
-      alert(`redux:${JSON.stringify(action.payload)}`);
       return {
         ...state,
         fetching: false,
@@ -50,7 +49,6 @@ export const joinPayProject = data => dispatch => {
           sn: json.data.sn,
           project_id: json.data.project_id
         };
-        // alert(JSON.stringify(json.data));
         localStorage.setItem("sndata", JSON.stringify(data));
         location.replace(`/project/receipt/${json.data.sn}`);
         return;
