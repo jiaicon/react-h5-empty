@@ -28,7 +28,7 @@
     ? JSON.parse(getCookie("provinceAndCityName")).city.replace("市", "")
     : "北京";
   let locationCity = null;
-
+  console.log(initaialCity);
   rightHeader(userInfoData);
   initSwiper(data && data.banner);
   initNews(data && data.news);
@@ -41,10 +41,13 @@
   initProject(data && data.sanlitun, data && data.project);
   share();
   if (!getCookie("provinceAndCityName")) {
+    console.log(11);
     // 获取定位
     getCity(
       (city, str) => {
         if (initaialCity == city.replace("市", "")) {
+          console.log(222);
+          requestHomeData();
           return;
         } else {
           console.log("-----", str);
@@ -147,11 +150,11 @@
   // 右上角用户信息显示头像、登录按钮
   function rightHeader(data) {
     if (!data || !data.id) {
-      let dom = `<a href='${href}/selectcity'><div class="city-name">北京</div></a><div style="display: flex; width: 280px;"><a href="/homesearch" class="component-search-newbar"><input class="input" placeholder="搜索项目/团队" disabled="" style="margin-left: 35px;"></a><a href='${href}/my/entry'><div class="login-button">登录</div></a></div>`;
+      let dom = `<a href='${href}/selectcity'><div class="city-name">${initaialCity}</div></a><div style="display: flex; width: 280px;"><a href="/homesearch" class="component-search-newbar"><input class="input" placeholder="搜索项目/团队" disabled="" style="margin-left: 35px;"></a><a href='${href}/my/entry'><div class="login-button">登录</div></a></div>`;
       $(".header-bar")[0].innerHTML = dom;
       return;
     } else {
-      let dom = `<a href='${href}/selectcity'><div class="city-name">北京</div></a>
+      let dom = `<a href='${href}/selectcity'><div class="city-name">${initaialCity}</div></a>
             
             <div style="display: flex; flex: 1 1 0%;"><div class="content-boxpadding">
             <a href=='${href}/homesearch' class="component-search-bar dirmargin">
@@ -399,9 +402,9 @@
                   <a href='${href}/project/detail/${
           project.id
         }' class="project-main">
-                 <img data-type=2 class="image" src=${
+                 <img data-type=2 class="image" style='width:100%;height:200px;border-radius:4px; object-fit: cover;' src=${
                    project.list_photo
-                 }  style='width:100%;height:200px;border-radius:4px; object-fit: cover;' />
+                 }   />
                      <div class="project-name">
                       ${project.name}
                 `;
@@ -417,7 +420,7 @@
                       )}-${parseTimeStringToDateString(project.end)}
                     </div><div class='project-status ${classLabel}'></div></a> <div class="project-footer">
                     <div class="project-location"> ${project.county_name} ${
-          project.distance > 0 ? parseDistance(project.distance) : null
+          project.distance > 0 ? parseDistance(project.distance) : ""
         }
                     </div>
                     <div class="project-members">
