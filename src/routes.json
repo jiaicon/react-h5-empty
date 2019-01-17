@@ -35,6 +35,11 @@
     "chunk": "main"
   },
   {
+      "path": "/signin/signdetail/detail/:Id",
+      "page": "./pages/signin/signdetail/detail",
+      "chunk": "main"
+  },
+  {
     "path": "/selectcity",
     "page": "./pages/home/subpage/city_page",
     "chunk": "main"
@@ -44,11 +49,7 @@
     "page": "./pages/home/subpage/search",
     "chunk": "main"
   },
-  {
-    "path": "/signin/password",
-    "page": "./pages/launch/launch",
-    "chunk": "main"
-  },
+
   {
     "path": "/project/detail/:projectId",
     "page": "./pages/project/detail/detail",
