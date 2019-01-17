@@ -91,6 +91,7 @@ class ProjectDetailPage extends React.Component {
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
             this.props.storeLoginSource(`/project/detail/${this.projectId}`)
+            
             history.replace('/my/entry')
           },
         },
