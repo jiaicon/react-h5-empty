@@ -63,7 +63,7 @@ class SigninPage extends React.Component {
     const next = data && data.next && data.next.project ? data.next : null;
 
     return <div className="page-signin">
-      {/* <SignItem data={null}/> */}
+      <SignItem data={null}/>
     </div>;
   }
 }

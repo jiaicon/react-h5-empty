@@ -14,3 +14,49 @@
     padding: 0 20px;
     line-height: 50px;
 }
+
+
+.page-signin-detail  .project-detail-list {
+  padding: 30px 20px 20px;
+  position: relative;
+}
+
+.page-signin-detail  .project-detail-list .line1px-v {
+  height: 100%;
+  position: absolute;
+  left: 5px;
+  top: 0;
+  background-color: #E5E5E5;
+}
+
+.page-signin-detail  .project-detail-list .item-point {
+  position: absolute;
+  left: 0;
+  top: 0;
+background: #D8D8D8;
+  width: 11px;
+  height: 11px;
+  border-radius: 11px;
+  z-index: 1;
+}
+
+.page-signin-detail  .project-detail-list ul {
+
+}
+
+.page-signin-detail  .project-detail-list li {
+  padding-bottom: 20px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.page-signin-detail  .project-detail-list .detail-title {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.page-signin-detail  .project-detail-list .detail-content {
+  font-size: 14px;
+  color: #333333;
+}

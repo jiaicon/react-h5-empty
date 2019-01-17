@@ -93,6 +93,8 @@
   font-size: 13px;
   color: #999;
   background: #fff;
+  display: flex;
+  justify-content: space-between;
 }
 
 .page-project-detail .body .project-detail-list {
@@ -134,6 +136,7 @@
   font-size: 13px;
   color: #999;
   margin-bottom: 5px;
+  width: 93px;
 }
 
 .page-project-detail .body .project-detail-list .detail-content {
@@ -184,7 +187,9 @@
 }
 
 .page-project-detail .body .project-report {
-  margin: 10px 0;
+  /* margin: 10px 0; */
+  border-top: 5px solid  #F8F8F8;
+  border-bottom: 5px solid  #F8F8F8;
   padding: 25px 20px;
   display: flex;
   justify-content: space-between;
@@ -320,18 +325,18 @@
 }
 
 .page-project-detail .foot .project-action-available {
-  background: #C7EAFD;
-  color: #666666;
+  background: #A0D9F7;
+  color: #fff ;
 }
 
 .page-project-detail .foot .project-action-quit {
-  background: #FBABAB;
-  color: #666666;
+background: #F89393;
+  color: #fff ;
 }
 
 .page-project-detail .foot .project-action-full, .page-project-detail .foot .project-action-end {
-  background: #666666;
-  color: #ffffff;
+  background: #CACACA;
+  color: #fff ;
 }
 
 .page-project-detail .foot .project-action-audit {

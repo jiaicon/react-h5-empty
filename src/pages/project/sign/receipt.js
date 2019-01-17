@@ -30,7 +30,7 @@ class SignUpPage extends React.Component {
     } else {
       that.props.payResultAction({ sn: this.sn });
     }
- 
+
     if (localStorage.sndata) {
       this.setState({
         data
@@ -41,8 +41,6 @@ class SignUpPage extends React.Component {
     const { payResult: LpayResult } = this.props;
     const { payResult: NpayResult } = nextProps;
     const { data } = this.state;
-    
-  
 
     if (
       LpayResult.fetching &&
@@ -54,18 +52,21 @@ class SignUpPage extends React.Component {
       if (NpayResult.data && Number(NpayResult.data.code) == 1) {
         location.replace(`/project/detail/${NpayResult.data.project_id}`);
         // location.replace(`${this.state.data.wechatPayUrl}`);
-      }
-      else {
+      } else {
         const that = this;
-        setTimeout(function () {
+        setTimeout(function() {
           that.props.payResultAction({ sn: that.sn });
-        },3000)
+        }, 3000);
       }
     }
   }
-  componentWillDidmount() {
-
+  done() {
+    this.props.payResultAction({ sn: that.sn });
   }
+  backDetail() {
+    location.href = `/project/detail/${this.state.data.project_id}`
+  }
+  componentWillDidmount() {}
   componentWillUnmount() {}
 
   render() {
@@ -88,16 +89,20 @@ class SignUpPage extends React.Component {
           2.如果你已完成，请点击“已完成付款”。
         </div>
         <a href={data.wechatPayUrl}>
-        <div
-          className="page-project-receipt-btn"
-          style={{ background: "#08C062", color: "#fff", marginTop: "20px" }}
-        >
-          继续支付
-        </div>
+          <div
+            className="page-project-receipt-btn"
+            style={{ background: "#08C062", color: "#fff", marginTop: "20px" }}
+          >
+            继续支付
+          </div>
         </a>
 
-        <div className="page-project-receipt-btn">已完成付款</div>
-        <div className="page-project-receipt-btn">支付遇到问题</div>
+        <div className="page-project-receipt-btn" onClick={this.done}>
+          已完成付款
+        </div>
+        <div className="page-project-receipt-btn" onClick={this.backDetail}>
+          支付遇到问题(重新报名,回到项目详情页)
+        </div>
         {window.orgInfo && window.orgInfo.name ? (
           <div className="page-projrct-receipt-orgname">
             {window.orgInfo && window.orgInfo.name}
