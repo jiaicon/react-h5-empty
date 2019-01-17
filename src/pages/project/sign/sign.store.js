@@ -44,13 +44,14 @@ export const joinPayProject = data => dispatch => {
     .then(json => {
       console.log(Object.keys(data.payment).length);
       if (!window.userAgent && json.data.wechatPayUrl) {
+        // alert(JSON.stringify(json.data));
         let data = {
           wechatPayUrl: json.data.wechatPayUrl,
           sn: json.data.sn,
           project_id: json.data.project_id
         };
         localStorage.setItem("sndata", JSON.stringify(data));
-        location.replace(`/project/receipt/${json.data.sn}`);
+        location.replace(`/project/receipt/${json.data.sn}?firstopen=true`);
         return;
       }
       if (window.userAgent && json.data.jsConfig) {

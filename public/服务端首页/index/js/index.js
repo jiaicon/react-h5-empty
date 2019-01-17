@@ -150,7 +150,9 @@
   // 右上角用户信息显示头像、登录按钮
   function rightHeader(data) {
     if (!data || !data.id) {
-      let dom = `<a href='${href}/selectcity'><div class="city-name">${initaialCity}</div></a><div style="display: flex; width: 280px;"><a href="/homesearch" class="component-search-newbar"><input class="input" placeholder="搜索项目/团队" disabled="" style="margin-left: 35px;"></a><a href='${href}/my/entry'><div class="login-button">登录</div></a></div>`;
+      let dom = `<a href='${href}/selectcity'><div class="city-name">${initaialCity}</div></a><div style="display: flex; width: 280px;"><a href="/homesearch" class="component-search-newbar"><input class="input" placeholder="搜索项目/团队" disabled="" style="margin-left: 35px;"></a>
+      <a href='${href}/my/entry'><div class="login-button">登录</div></a>
+      </div>`;
       $(".header-bar")[0].innerHTML = dom;
       return;
     } else {
