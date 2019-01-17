@@ -88,7 +88,7 @@ class MyPage extends React.Component {
         data-key={user.avatars||''} size={{ width: 80, radius: 8 }} 
         defaultSrc="/images/my/register.png"  onClick={this.onPreview}/>
         <div className="page-my-user-info">
-          <p className="page-my-user-info-nick">{user.real_name || user.username || '未设置昵称'}</p>
+            <p className="page-my-user-info-nick">{user.real_name || user.username || '未设置昵称'}<p className="page-my-user-info-nick-commonweal">公益大使</p></p>
           <p className="page-my-user-info-signature">{ user.slogan || '未设置口号'}</p>
           <div className="page-my-user-info-star">
           {
