@@ -66,9 +66,9 @@ class ProjectDetailContent extends React.Component {
         arr.push({
           label: "招募截止",
           value: detailData.join_end,
-          islast: fals
+          islast: false
         });
-      } else if (attr == "join_begin_public" && detailData.begin_public) {
+      } else if (attr == "begin_public" && detailData.begin_public) {
         arr.push({
           label: "项目日期",
           value: `${parseTimeStringToDateString(
@@ -77,7 +77,7 @@ class ProjectDetailContent extends React.Component {
           islast: false
         });
       } else if (
-        attr == "join_reward_time_public" &&
+        attr == "reward_time_public" &&
         detailData.reward_time_public
       ) {
         arr.push({
@@ -86,8 +86,8 @@ class ProjectDetailContent extends React.Component {
           islast: false
         });
       } else if (
-        attr == "join_contact_name_public" &&
-        detailData.join_contact_name_public
+        attr == "contact_name_public" &&
+        detailData.contact_name_public
       ) {
         arr.push({
           label: "联系人姓名",
@@ -95,8 +95,8 @@ class ProjectDetailContent extends React.Component {
           islast: false
         });
       } else if (
-        attr == "join_contact_phone_public" &&
-        detailData.join_contact_phone_public
+        attr == "contact_phone_public" &&
+        detailData.contact_phone_public
       ) {
         arr.push({
           label: "联系人电话",
@@ -106,7 +106,7 @@ class ProjectDetailContent extends React.Component {
       }
     }
     if (arr && arr.length > 0) {
-      arr[arr.length].islast = true;
+      arr[arr.length-1].islast = true;
     }
     this.setState({
       content: arr.slice(0)
@@ -115,10 +115,11 @@ class ProjectDetailContent extends React.Component {
   render() {
     const { content } = this.state;
     const { data: detailData } = this.props;
+    console.log(content);
     return (
       <div>
         {content &&
-        content.length == 0 &&
+        content.length > 0 &&
         detailData.volunteer_security_public ? (
           <div className="project-detail-list">
             <ul>
@@ -515,7 +516,6 @@ class ProjectDetailPage extends React.Component {
         </div>
         <div className="body">
           <div className="project-name">{detailData.name}</div>
-          {detailData.category_public || detailData.created_at_public ? (
             <div className="project-category">
               <div style={{ color: "#666666" }}>
                 {detailData.category_public
@@ -523,13 +523,9 @@ class ProjectDetailPage extends React.Component {
                   : null}
               </div>
               <div>
-                {" "}
-                {detailData.created_at_public
-                  ? detailData.created_at.split(" ")[0]
-                  : null}
+                {detailData.created_at.split(" ")[0]}
               </div>
             </div>
-          ) : null}
 
           {detailData.addr_public ? (
             <div className="project-category">
