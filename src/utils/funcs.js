@@ -4,27 +4,37 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index,) {
   // let base64Arrays = [];
   if (!imageArrays.length) return;
   if (index < imageArrays.length) {
-    console.log("start------", imageArrays[index]);
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
     let img = new Image();
     img.crossOrigin = "*";
     img.onload = function () {
-      console.log("img onload", this.src);
-      
-      canvas.height = img.height;
-      canvas.width = img.width;
-      ctx.drawImage(img, 0, 0);
+      var w = img.width;
+      var h = img.height;
+      canvas.height = 200;
+      canvas.width = 200;
+
+      if (w > h) {
+        let diff = (w - h) / 2;
+
+        ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200)
+      }else if (w < h) {
+        let diff = (h - w) / 2;
+
+        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200)
+      } else if (w==h) {
+        ctx.drawImage(img, 0, 0);
+      }
+
+     
       var dataURL = canvas.toDataURL("image/png");
       imageArrays[index]=dataURL;
       index++;
-      console.log(`---------------------${index}转换成功`)
       ImageToBase64(imageArrays, defaultArrays, callback, index);
       canvas = null;
     };
     img.onerror = function (e) {
-      console.log(`----------------------${index}张图片失败`);
-      console.log("img onerror", e);
+    
       if (defaultArrays[index]) {
         img.src = defaultArrays[index];
       } else {

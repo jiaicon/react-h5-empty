@@ -180,47 +180,19 @@ class Certificate extends React.Component {
   render() {
     const { user: listData } = this.props;
     const { dataUrl } = this.state;
-    if (!listData) {
+    if (!listData || !listData.id) {
       return null;
     }
-    return (
-      <div
-        style={{
-          position: "absolute",
-          left: "0",
-          top: "0",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        {dataUrl ? (
-          <img
-            style={{
-              width: "357px",
-              display: "block",
-              position: "relative",
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              margin: "auto"
-            }}
-            src={`${this.state.dataUrl}`}
-          />
-        ) : (
-          <div className="page-certificate-main-container">
+    console.log(listData);
+    return <div style={{ position: "absolute", left: "0", top: "0", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {dataUrl ? <img style={{ width: "357px", display: "block", position: "relative", top: 0, bottom: 0, left: 0, right: 0, margin: "auto" }} src={`${this.state.dataUrl}`} /> : <div className="page-certificate-main-container">
             {/** TODO: */}
             {this.renderCertificate()}
-          </div>
-        )}
-        {dataUrl ? null : <div className="page-certificate-main-mask">
-        图片生成中。。。
           </div>}
-      </div>
-    );
+        {dataUrl ? null : <div className="page-certificate-main-mask">
+            <img className="loading-img" src="/images/loadingimg.png" />
+          </div>}
+      </div>;
   }
 }
 
