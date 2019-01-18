@@ -1,0 +1,29 @@
+.achievement {
+    height: 100%;
+    width: 100%;
+    padding-top: 20px;
+    position: absolute;
+    background-color: rgb(243, 243, 243);
+}
+.achievement-box {
+    width: 339px;
+    padding: 27px 28px 0;
+    margin: 0 auto;
+    background-color: #FFF;
+}
+.achievement-box-title {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 32px;
+    justify-content: space-between;
+}
+.achievement-box-title>div:nth-child(1) {
+    font-family: PingFangSC-Semibold;
+    font-size: 17px;
+    color: #262A35;
+}
+.achievement-box-title>div:nth-child(2) {
+    font-family: PingFangSC-Semibold;
+    font-size: 11px;
+    color: #9B9B9B;
+}

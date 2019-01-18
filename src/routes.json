@@ -120,6 +120,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/achievemet",
+    "page": "./pages/my/achievemet/achievemet",
+    "chunk": "main"
+  },
+  {
     "path": "/my/certificate",
     "page": "./pages/my/certificate/certificate",
     "chunk": "main"
