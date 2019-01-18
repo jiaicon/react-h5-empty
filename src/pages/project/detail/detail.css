@@ -107,14 +107,14 @@
   height: 100%;
   position: absolute;
   left: 5px;
-  top: 0;
+  top: 3px;
   background-color: #E5E5E5;
 }
 
 .page-project-detail .body .project-detail-list .item-point {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 3px;
   background: #C7EAFD;
   width: 11px;
   height: 11px;
