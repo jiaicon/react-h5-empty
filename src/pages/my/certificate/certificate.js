@@ -73,13 +73,18 @@ class Certificate extends React.Component {
         : null;
       const that = this;
       ImageToBase64([this.certCachet, nextProps.user.avatars], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
-        that.setState({
-          base64Array: base64Array.slice(0), register, now
-        }, () => {
-            that.htm2Click();
-        });
-      
-      },0);
+      // ImageToBase64([this.certCachet, "/images/my/register.png"], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
+          that.setState(
+            {
+              base64Array: base64Array.slice(0),
+              register,
+              now
+            },
+            () => {
+              that.htm2Click();
+            }
+          );
+        }, 0);
     }
   }
 

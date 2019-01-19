@@ -22,8 +22,8 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index,) {
         let diff = (h - w) / 2;
 
         ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200)
-      } else if (w==h) {
-        ctx.drawImage(img, 0, 0);
+      }else if (w == h) {
+        ctx.drawImage(img, 0, 0,w,w,0,0,200,200);
       }
 
      
