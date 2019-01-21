@@ -47,7 +47,8 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index, ) {
       index++;
       ImageToBase64(imageArrays, defaultArrays, callback, index);
       return;
-    }
+    }  
+    
     img.onload = function () {
       var w = img.width;
       var h = img.height;
