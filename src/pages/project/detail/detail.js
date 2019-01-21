@@ -8,11 +8,10 @@ import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { Dialog } from "react-weui";
+import { Dialog, ActionSheet } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
 
-// import Alert from 'react-s-alert';
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { bindActionCreators } from "redux";
@@ -106,7 +105,7 @@ class ProjectDetailContent extends React.Component {
       }
     }
     if (arr && arr.length > 0) {
-      arr[arr.length-1].islast = true;
+      arr[arr.length - 1].islast = true;
     }
     this.setState({
       content: arr.slice(0)
@@ -164,7 +163,17 @@ class ProjectDetailPage extends React.Component {
     autoBind(this);
     this.projectId = props.route.params.projectId;
     this.state = {
-      showShareTip: false
+      showShareTip: false,
+      actionSheet: false,
+      menus: [],
+      actions: [
+        {
+          label: "取消",
+          onClick: this.hide
+        }
+      ],
+      dialogType: true,
+      showDialog: false
     };
 
     this.slickSettings = {
@@ -178,7 +187,7 @@ class ProjectDetailPage extends React.Component {
     };
 
     this.dialog = {
-      title: "退出报名",
+      title: `${this.state.dialogType ? "退出报名" : "登录提示"}`,
       buttons: [
         {
           type: "default",
@@ -189,28 +198,15 @@ class ProjectDetailPage extends React.Component {
           type: "primary",
           label: "确认",
           onClick: () => {
-            this.setState({ ...this.state, showDialog: false });
-            this.props.quitProject(this.projectId);
-          }
-        }
-      ]
-    };
-    this.dialogA = {
-      title: "登录提示",
-      buttons: [
-        {
-          type: "default",
-          label: "取消",
-          onClick: () => this.setState({ ...this.state, showDialogA: false })
-        },
-        {
-          type: "primary",
-          label: "确认",
-          onClick: () => {
-            this.setState({ ...this.state, showDialogA: false });
-            this.props.storeLoginSource(`/project/detail/${this.projectId}`);
+            if (this.state.dialogType) {
+              this.setState({ ...this.state, showDialog: false });
+              this.props.quitProject(this.projectId);
+            } else {
+              this.setState({ ...this.state, showDialog: false });
+              this.props.storeLoginSource(`/project/detail/${this.projectId}`);
 
-            history.replace("/my/entry");
+              window.location.href = `/my/login`;
+            }
           }
         }
       ]
@@ -218,6 +214,54 @@ class ProjectDetailPage extends React.Component {
   }
 
   componentWillMount() {
+    if (window.userAgent) {
+      this.setState({
+        ...this.state,
+        menus: [
+          {
+            label: "转发给好友",
+            onClick: () => {
+              this.setState(
+                {
+                  actionSheet: false
+                },
+                () => {
+                  this.handleShareClick();
+                }
+              );
+            }
+          },
+          {
+            label: "分享到朋友圈",
+            onClick: () => {
+              this.setState(
+                {
+                  actionSheet: false
+                },
+                () => {
+                  this.handleShareClick();
+                }
+              );
+            }
+          },
+          {
+            label: "保存海报",
+            onClick: () => {}
+          }
+        ]
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        menus: [
+          {
+            label: "保存海报",
+            onClick: () => {}
+          }
+        ]
+      });
+    }
+
     const {
       detail: { data: detailData, tabIndex, lastProjectId },
       user
@@ -242,6 +286,9 @@ class ProjectDetailPage extends React.Component {
 
   onTabChange(idx) {
     this.props.saveProjectTabIndex(idx);
+  }
+  hide() {
+    this.setState({ actionSheet: false });
   }
   componentWillReceiveProps(nextProps) {
     const newProjectId = nextProps.route.params.projectId;
@@ -516,16 +563,14 @@ class ProjectDetailPage extends React.Component {
         </div>
         <div className="body">
           <div className="project-name">{detailData.name}</div>
-            <div className="project-category">
-              <div style={{ color: "#666666" }}>
-                {detailData.category_public
-                  ? `# ${serviceCategories.join("、")}`
-                  : null}
-              </div>
-              <div>
-                {detailData.created_at.split(" ")[0]}
-              </div>
+          <div className="project-category">
+            <div style={{ color: "#666666" }}>
+              {detailData.category_public
+                ? `# ${serviceCategories.join("、")}`
+                : null}
             </div>
+            <div>{detailData.created_at.split(" ")[0]}</div>
+          </div>
 
           {detailData.addr_public ? (
             <div className="project-category">
@@ -548,12 +593,8 @@ class ProjectDetailPage extends React.Component {
             <div className="project-report">
               <span>已报名人数</span>
               <div>
-                <span>
-                  {Number(this.projectId) == 2009
-                    ? 183
-                    : detailData.join_people_count}
-                </span>
-                /<span>{detailData.people_count}</span>
+                <span>{detailData.join_people_count}</span>/
+                <span>{detailData.people_count}</span>
               </div>
             </div>
           ) : null}
@@ -591,16 +632,18 @@ class ProjectDetailPage extends React.Component {
             />
             <span>收藏</span>
           </Link>
-          {window.userAgent ? (
-            <Link
-              to=""
-              onClick={this.handleShareClick}
-              className="project-action project-action-share"
-            >
-              <span />
-              <span>分享</span>
-            </Link>
-          ) : null}
+          <Link
+            to=""
+            onClick={e =>
+              this.setState({
+                actionSheet: true
+              })
+            }
+            className="project-action project-action-share"
+          >
+            <span />
+            <span>分享</span>
+          </Link>
 
           {action === "two" ? (
             this.renderTwoBtn()
@@ -614,14 +657,6 @@ class ProjectDetailPage extends React.Component {
             </Link>
           )}
         </div>
-        <Dialog
-          type="ios"
-          title={this.dialog.title}
-          buttons={this.dialog.buttons}
-          show={this.state.showDialog}
-        >
-          确定要退出项目吗？
-        </Dialog>
       </div>
     );
   }
@@ -632,7 +667,7 @@ class ProjectDetailPage extends React.Component {
     if (isLogin) {
       window.location.replace(`/my/circlepublish/2/${this.projectId}`);
     } else {
-      this.setState({ ...this.state, showDialogA: true });
+      this.setState({ ...this.state, dialogType:false,showDialog: true });
     }
   }
   delete(id) {
@@ -679,14 +714,6 @@ class ProjectDetailPage extends React.Component {
           className="page-project-detail-community-link"
           onClick={this.onPublish}
         />
-        <Dialog
-          type="ios"
-          title={this.dialogA.title}
-          buttons={this.dialogA.buttons}
-          show={this.state.showDialogA}
-        >
-          只有登录的用户才能点赞和评论哦～
-        </Dialog>
       </div>
     );
   }
@@ -703,20 +730,12 @@ class ProjectDetailPage extends React.Component {
       return null;
     }
 
-    const content = detailData.content;
-
     return (
       <div className="page-project-detail">
         <Tab
           tabs={[
-            {
-              label: "项目详情",
-              component: this.renderBasic()
-            },
-            {
-              label: "项目社区",
-              component: this.renderCommunity()
-            }
+            { label: "项目详情", component: this.renderBasic() },
+            { label: "项目社区", component: this.renderCommunity() }
           ]}
           onChange={this.onTabChange}
           selectedIndex={tabIndex}
@@ -724,6 +743,23 @@ class ProjectDetailPage extends React.Component {
         {this.state.showShareTip ? (
           <ShareTip onClick={this.hideShareTip} />
         ) : null}
+        <ActionSheet
+          menus={this.state.menus}
+          actions={this.state.actions}
+          show={this.state.actionSheet}
+          type="ios"
+          onRequestClose={e => this.setState({ actionSheet: false })}
+        />
+        <Dialog
+          type="ios"
+          title={this.dialog.title}
+          buttons={this.dialog.buttons}
+          show={this.state.showDialog}
+        >
+          {this.state.dialogType
+            ? " 确定要退出项目吗？"
+            : "只有登录的用户才能点赞和评论哦～"}
+        </Dialog>
       </div>
     );
   }
