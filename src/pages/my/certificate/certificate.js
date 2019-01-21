@@ -17,7 +17,7 @@ import { requestUserInfo } from "../../../stores/common";
 import "./certificate.css";
 import history from "../../history";
 import html2canvas from "html2canvas";
-import { ImageToBase64 } from '../../../utils/funcs'
+import { ImageToBase64 } from "../../../utils/funcs";
 
 class Certificate extends React.Component {
   constructor(props) {
@@ -31,14 +31,14 @@ class Certificate extends React.Component {
     const { user: listData } = props;
     const register = listData.regitser_time
       ? dateTextToDateText(
-        listData.regitser_time ? listData.regitser_time.split(" ")[0] : 0
-      )
+          listData.regitser_time ? listData.regitser_time.split(" ")[0] : 0
+        )
       : null;
 
     const now = listData.server_time
       ? dateTextToDateText(
-        listData.server_time ? listData.server_time.split(" ")[0] : 0
-      )
+          listData.server_time ? listData.server_time.split(" ")[0] : 0
+        )
       : null;
 
     this.state = {
@@ -53,7 +53,7 @@ class Certificate extends React.Component {
     this.props.requestUserInfo();
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     const { user: listData } = this.props;
@@ -62,28 +62,37 @@ class Certificate extends React.Component {
     if (nextProps.user.id) {
       const register = NlistData.regitser_time
         ? dateTextToDateText(
-          NlistData.regitser_time ? NlistData.regitser_time.split(" ")[0] : 0
-        )
+            NlistData.regitser_time ? NlistData.regitser_time.split(" ")[0] : 0
+          )
         : null;
 
       const now = NlistData.server_time
         ? dateTextToDateText(
-          NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
-        )
+            NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
+          )
         : null;
       const that = this;
-      ImageToBase64([this.certCachet, nextProps.user.avatars], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
-        that.setState({
-          base64Array: base64Array.slice(0), register, now
-        }, () => {
-          that.htm2Click();
-        });
-
-      }, 0);
+      ImageToBase64(
+        [this.certCachet, nextProps.user.avatars],
+        ["/images/my/zdx.png", "/images/my/register.png"],
+        base64Array => {
+          that.setState(
+            {
+              base64Array: base64Array.slice(0),
+              register,
+              now
+            },
+            () => {
+              that.htm2Click();
+            }
+          );
+        },
+        0
+      );
     }
   }
 
-  componentWillUnmount() { }
+  componentWillUnmount() {}
   htm2Click = () => {
     var that = this;
     var shareContent = this.refs["LaunchContent"];
@@ -101,7 +110,7 @@ class Certificate extends React.Component {
       height: height,
       useCORS: true
     };
-    html2canvas(shareContent, opts).then(function (canvas) {
+    html2canvas(shareContent, opts).then(function(canvas) {
       var dataUrl = canvas.toDataURL("image/jpeg", 4);
       that.setState({ dataUrl });
     });
@@ -116,73 +125,107 @@ class Certificate extends React.Component {
     const starWidth = this.props.user.stars
       ? Number(this.props.user.stars) * Number(20) - Number(5) + "px"
       : null;
-    return <div className="page-certificate-bg">
-      <div className="page-certificate-container-border" ref="LaunchContent">
-        <h5 className="page-certificate-container-title">
-          {this.certTitle}志愿服务证书
+    return (
+      <div className="page-certificate-bg">
+        <div className="page-certificate-container-border" ref="LaunchContent">
+          <h5 className="page-certificate-container-title">
+            {this.certTitle}志愿服务证书
           </h5>
-        <div>
-          <img src={this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
-          } id="avatars" style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }} />
-        </div>
-
-        <div className="page-certificate-container-certificate" />
-        <div className="page-certificate-container-name">
-          {this.props.user.real_name}
-        </div>
-
-        {this.props.user.stars ? <div className="page-certificate-container-star" style={{ width: `${starWidth}` }}>
-          <Star size={{ width: 15, height: 14, score: this.props.user.stars }} />
-        </div> : null}
-
-        <div className="page-certificate-container-content">
-          证书编号：{this.props.user.identifier}
-        </div>
-        <div className="page-certificate-container-content">
-          {this.state.register}注册成为{this.certOrg}志愿者
+          <div>
+            <img
+              src={
+                this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
+              }
+              id="avatars"
+              style={{
+                display: "block",
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                objectFit: "cover"
+              }}
+            />
           </div>
 
-        <div className="page-certificate-container-hours-box">
-          <div className="page-certificate-container-hours">
-            <div className="page-certificate-container-hours-item">
-              <span>{this.props.user.join_project_count}</span>个
-              </div>
-            <div className="page-certificate-container-hours-item">
-              志愿服务项目
-              </div>
+          <div className="page-certificate-container-certificate" />
+          <div className="page-certificate-container-name">
+            {this.props.user.real_name}
           </div>
-          <div className="page-certificate-container-hours">
-            <div className="page-certificate-container-hours-item">
-              <span>{this.props.user.reward_time}</span>小时
-              </div>
-            <div className="page-certificate-container-hours-item">
-              志愿服务时长
-              </div>
-          </div>
-        </div>
-        <div className="page-certificate-container-bottom-infobox">
-          <div className="page-certificate-container-bussiness">
-            认证机构：{this.certAuthOrg}
-          </div>
-          <div className="page-certificate-container-teachsupport">
-            技术支持：志多星
+
+          {this.props.user.stars ? (
+            <div
+              className="page-certificate-container-star"
+              style={{ width: `${starWidth}` }}
+            >
+              <Star
+                size={{ width: 15, height: 14, score: this.props.user.stars }}
+              />
             </div>
-          <div className="page-certificate-container-content" style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}>
-            {this.state.now}
+          ) : null}
+
+          <div className="page-certificate-container-content">
+            证书编号：{this.props.user.identifier}
           </div>
-          {this.state.certCachet ? <img src={this.state.base64Array && this.state.base64Array[0]} alt="" className="first" /> : <div />}
-          {window.orgCode == "qM7e5Ba2vp" ? <img src="/images/my/zdx.png" className="second" /> : null}
+          <div className="page-certificate-container-content">
+            {this.state.register}注册成为{this.certOrg}志愿者
+          </div>
+
+          <div className="page-certificate-container-hours-box">
+            <div className="page-certificate-container-hours">
+              <div className="page-certificate-container-hours-item">
+                <span>{this.props.user.join_project_count}</span>个
+              </div>
+              <div className="page-certificate-container-hours-item">
+                志愿服务项目
+              </div>
+            </div>
+            <div className="page-certificate-container-hours">
+              <div className="page-certificate-container-hours-item">
+                <span>{this.props.user.reward_time}</span>小时
+              </div>
+              <div className="page-certificate-container-hours-item">
+                志愿服务时长
+              </div>
+            </div>
+          </div>
+          <div className="page-certificate-container-bottom-infobox">
+            <div className="page-certificate-container-bussiness">
+              认证机构：{this.certAuthOrg}
+            </div>
+            <div className="page-certificate-container-teachsupport">
+              技术支持：志多星
+            </div>
+            <div
+              className="page-certificate-container-content"
+              style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
+            >
+              {this.state.now}
+            </div>
+            {this.state.certCachet ? (
+              <img
+                src={this.state.base64Array && this.state.base64Array[0]}
+                alt=""
+                className="first"
+              />
+            ) : (
+              <div />
+            )}
+            {window.orgCode == "qM7e5Ba2vp" ? (
+              <img src="/images/my/zdx.png" className="second" />
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>;
+    );
   }
 
   render() {
     const { user: listData } = this.props;
     const { dataUrl } = this.state;
-    if (!listData) {
+    if (!listData || !listData.id) {
       return null;
     }
+    console.log(listData);
     return (
       <div
         style={{
@@ -211,14 +254,16 @@ class Certificate extends React.Component {
             src={`${this.state.dataUrl}`}
           />
         ) : (
-            <div className="page-certificate-main-container">
-              {/** TODO: */}
-              {this.renderCertificate()}
-            </div>
-          )}
-        {dataUrl ? null : <div className="page-certificate-main-mask">
-          图片生成中。。。
-          </div>}
+          <div className="page-certificate-main-container">
+            {/** TODO: */}
+            {this.renderCertificate()}
+          </div>
+        )}
+        {dataUrl ? null : (
+          <div className="page-certificate-main-mask">
+            <img className="loading-img" src="/images/loadingimg.png" />
+          </div>
+        )}
       </div>
     );
   }
