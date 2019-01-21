@@ -12,10 +12,23 @@ import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
 import history from '../history';
 
-import { getCity, getLocation } from '../../utils/funcs';
+import { setCookie} from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
-import SignItem from '../../components/signItem/index.js'
+Date.prototype.Format = function (fmt) { // author: meizz
+  const o = {
+    'M+': this.getMonth() + 1, // 月份
+    'd+': this.getDate(), // 日
+    'h+': this.getHours(), // 小时
+    'm+': this.getMinutes(), // 分
+    's+': this.getSeconds(), // 秒
+    'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+    S: this.getMilliseconds(), // 毫秒
+  };
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (`${this.getFullYear()}`).substr(4 - RegExp.$1.length));
+  for (const k in o) { if (new RegExp(`(${k})`).test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length))); }
+  return fmt;
+};
 class SigninPage extends React.Component {
 
   constructor(props) {
@@ -25,10 +38,31 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
+
+    let geolocation = new qq.maps.Geolocation(
+      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+      "myapp"
+    );
+    let options = { timeout: 8000 };
+    geolocation.getLocation(function (position) {
+      const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
+      const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
+      const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
+      console.log("获取新位置成功", position);
+      setCookie("location", JSON.stringify({ lat, lng }), 1);
+
+      if (success) {
+        success({ lat, lng });
+      }
+    }, options);
   }
 
   componentDidMount() {
- 
+    if (window.userAgent) {
+      wx.ready(() => {
+        WXShare();
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,32 +73,98 @@ class SigninPage extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
-  // handleSignin() {
-  //   wx.ready(() => {
-  //     wx.scanQRCode({
-  //       needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-  //       scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
-  //       success: (res) => {
-  //         const result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-  //         this.props.checkin(result, 1);
-  //       },
-  //       fail: (error) => {
-  //         Alert.error(`扫码失败：${error && error.errMsg}`);
-  //       },
-  //     });
-  //   });
-  // }
+  handleSignin() {
+    wx.ready(() => {
+      wx.scanQRCode({
+        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
+        success: (res) => {
+          const result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+          this.props.checkin(result, 1);
+        },
+        fail: (error) => {
+          Alert.error(`扫码失败：${error && error.errMsg}`);
+        },
+      });
+    });
+  }
 
   render() {
     const { data } = this.props;
     const records = data && data.list ? data.list : [];
     const next = data && data.next && data.next.project ? data.next : null;
 
-    return <div className="page-signin">
-      {/* <SignItem data={null}/> */}
-    </div>;
+    return (
+      <div className="page-signin">
+        {
+          data && data.list && data.list.length === 0 && !next ?
+            <div className="no-record">
+              <div>
+                <img src="/images/signin.png" alt="" />
+              </div>
+              <span>
+                <p>还没有项目可以签到</p>
+                <p>快去加入项目吧</p>
+              </span>
+            </div> : null
+        }
+        <ul className="signin-list">
+          {
+            next ?
+              <li>
+                <div className="signin-header">
+                  <div className="signin-time">
+                    <span>下次签到时间</span>
+                    <span>{new Date(Date.parse(next.begin.replace(/-/g, '/'))).Format('yyyy-MM-dd hh:mm')} - {new Date(Date.parse(next.end.replace(/-/g, '/'))).Format('hh:mm')}</span>
+                  </div>
+                </div>
+                <div className="line1px" />
+                <div className="project-info">
+                  <div className="project-title">{next.project && next.project.name}</div>
+                  <div className="project-duration">
+                    <span>可获得志愿者时长</span>
+                    <span>{parseFloat(next.reward_time)}小时</span>
+                  </div>
+                </div>
+              </li>
+              : null
+          }
+          {
+            records.map(record =>
+              <li key={record.clock_in_time} className="signin-record">
+                <div className="signin-header">
+                  <div className="signin-time">
+                    <span>签到时间</span>
+                    <span>{record.clock_in_time}</span>
+                  </div>
+                  <div>已签到</div>
+                </div>
+                <div className="line1px" />
+                <div className="project-info">
+                  <div className="project-title">{record.project && record.project.name}</div>
+                  <div className="project-duration">
+                    <span>获得志愿者时长</span>
+                    <span>{parseFloat(record.reward_time)}小时</span>
+                  </div>
+                </div>
+              </li>)
+          }
+        </ul>
+        <div className="signin-btn-container">
+          {/**  <Link to="/signin/password" className="signin-btn" >
+            密令签到
+          </Link> */}
+          <Link to="/signin/password" className="signin-btn" >
+            密令签到
+          </Link>
+          {/* <a className="signin-btn" onClick={this.handleSignin}>
+            扫码签到
+          </a> */}
+        </div>
+      </div>
+    );
   }
 }
 

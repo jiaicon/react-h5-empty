@@ -452,19 +452,12 @@ class SignUpPage extends React.Component {
     onPreview(e) {
         const num = e.target.id;
         var key = e.target.getAttribute("data-key");
-        console.log(11)
         const imagesArr = this.state[key];
         this.setState({
             previewData: imagesArr,
             showMultiple: true,
             defaultIndex: 0
         });
-        // wx.ready(() => {
-        //     wx.previewImage({
-        //         current: imagesArr[num], // 当前显示图片的http链接
-        //         urls: imagesArr, // 需要预览的图片http链接列表
-        //     });
-        // });
     }
     onPhotoChange(e) {
         console.log(e.target.id);

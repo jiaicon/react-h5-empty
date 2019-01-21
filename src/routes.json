@@ -35,9 +35,14 @@
     "chunk": "main"
   },
   {
-      "path": "/signin/signdetail/detail/:Id",
-      "page": "./pages/signin/signdetail/detail",
-      "chunk": "main"
+    "path": "/signin/password",
+    "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
+    "path": "/signin/signdetail/detail/:Id",
+    "page": "./pages/signin/signdetail/detail",
+    "chunk": "main"
   },
   {
     "path": "/selectcity",
@@ -55,11 +60,11 @@
     "page": "./pages/project/detail/detail",
     "chunk": "main"
   },
-    {
-      "path": "/project/receipt/:sn",
-      "page": "./pages/project/sign/receipt",
-      "chunk": "main"
-    },
+  {
+    "path": "/project/receipt/:sn",
+    "page": "./pages/project/sign/receipt",
+    "chunk": "main"
+  },
   {
     "path": "/project/signup/:projectId",
     "page": "./pages/project/sign/signUp",
