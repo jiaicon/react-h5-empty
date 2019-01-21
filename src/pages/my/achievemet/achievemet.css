@@ -27,3 +27,136 @@
     font-size: 11px;
     color: #9B9B9B;
 }
+.achievement-array {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.achievement-array-item {
+    /*width: 48px;*/
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: 0 10px;
+}
+.achievement-array-item>div {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 9px;
+    /*background-color: #D8D8D8;*/
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.achievement-array-item>p {
+    margin-bottom: 37px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #4A4A4A;
+}
+.modal-new-wrap-container-padding {
+    border-radius: 0;
+}
+.modal-new-wrap-container-padding {
+    padding: 0;
+}
+.achievement-modal-box {
+
+}
+.achievement-modal-box-all {
+    position: relative;
+    height: 241px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.achievement-modal-box-all-gold {
+    background-image: url("/images/my/achievement-gold.png");
+}
+.achievement-modal-box-all-silver {
+    background-image: url("/images/my/achievement-silver.png");
+}
+.achievement-modal-box-all-iron {
+    background-image: url("/images/my/achievement-iron.png");
+}
+.achievement-modal-box-all-box {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+}
+.achievement-modal-box-all-box>div {
+    width: 144px;
+    height: 144px;
+    background-color: #D8D8D8;
+    display: inline-block;
+}
+.achievement-modal-box-all-box>p {
+    font-family: PingFangSC-Semibold;
+    font-size: 27px;
+    color: #4A4A4A;
+    margin-top: 14px;
+}
+.achievement-modal-box-level {
+    width: 227px;
+    height: 74px;
+    margin: 21px auto 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.achievement-modal-box-level-gold {
+    background-image: url("/images/my/acgievement-level-gold.png");
+}
+.achievement-modal-box-level-silver {
+    background-image: url("/images/my/acgievement-level-silver.png");
+}
+.achievement-modal-box-level-iron {
+    background-image: url("/images/my/acgievement-level-iron.png");
+}
+.achievement-modal-box-level-box {
+    width: 250px;
+    display: flex;
+    margin: 13px auto 14px;
+    font-family: PingFangSC-Regular;
+    font-size: 10px;
+    color: #9B9B9B;
+    justify-content: space-between;
+}
+.achievement-modal-box-tips {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #4A4A4A;
+    text-align: center;
+    margin-bottom: 28px;
+}
+.achievement-modal-box-btn {
+    background: #F89393;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09);
+    border-radius: 18.5px;
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #FFFFFF;
+    text-align: center;
+    width: 187px;
+    height: 37px;
+    line-height: 37px;
+    margin: 0 auto 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

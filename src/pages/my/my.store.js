@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 import fetch from '../../utils/fetch';
 import { API_HOST } from '../../utils/config';
+import achievementReducer from './achievemet/achievement.store';
 // score
 
 export const scoreAction = num => ({
@@ -674,6 +675,7 @@ const reducer = combineReducers({
   projectapply: projectapplyReducer,
   deletefamily: deleteFamilyReducer,
   alertFamilyPeopleInfo: alertFamilyPeopleInfoReducer,
-  score: scoreReducer
+  score: scoreReducer,
+    achievement: achievementReducer
 });
 export default reducer;
