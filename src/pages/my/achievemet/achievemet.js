@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ModalNew from './../../../components/ModalNew/ModalNew';
 import "./achievemet.css";
-import {getAchievement} from './achievement.store';
+import {getAchievement,getAchievementHas} from './achievement.store';
 
 class Achievement extends React.Component {
 
@@ -17,7 +17,8 @@ class Achievement extends React.Component {
     }
 
     componentWillMount() {
-        this.props.getAchievement()
+        this.props.getAchievement();
+        this.props.getAchievementHas();
     }
 
     componentDidMount() {
@@ -31,7 +32,6 @@ class Achievement extends React.Component {
     }
 
     openModalAchievement(e) {
-
         console.log(e.currentTarget.dataset.index);
         let modalMod = <div className="achievement-modal-box">
             <div className="achievement-modal-box-all achievement-modal-box-all-gold">
@@ -65,22 +65,28 @@ class Achievement extends React.Component {
     }
 
     render() {
-        const {achievementList} = this.props;
-        console.log(achievementList);
+        console.log(this.props)
+        const {achievementList, achievementHasList} = this.props;
+        let has = 0;
+        let all = 0;
+        if(achievementList.data && achievementList.data.list  && achievementHasList.data && achievementHasList.data.list) {
+            has = achievementHasList.data.list.length;
+            all = achievementHasList.data.list.length + achievementList.data.list.length;
+        }
         return (<div className="achievement">
             <div className="achievement-box">
                 <div className="achievement-box-title">
                     <div>志愿成就</div>
-                    <div>5/9</div>
+                    <div>{`${has}/${all}`}</div>
                 </div>
                 <div className="achievement-array">
                     {
-                        achievementList.data && achievementList.data.data && achievementList.data.data.list && achievementList.data.data.list.length > 0 && achievementList.data.data.list.map((item, index) => {
+                        achievementList.data && achievementList.data.list && achievementList.data.list.length > 0 && achievementList.data.list.map((item, index) => (
                             <div className="achievement-array-item" data-index={item.id} onClick={this.openModalAchievement} style={{backgroundImage: `url(${item.icons})`}}>
                                 <div ></div>
                                 <p>{item.name}</p>
                             </div>
-                        })
+                        ))
                     }
                 </div>
             </div>
@@ -100,12 +106,13 @@ class Achievement extends React.Component {
 
 Achievement.propTypes = {
     getAchievement: PropTypes.func,
-    // achievementList: PropTypes.
+    getAchievementHas: PropTypes.func
 };
 
 export default connect(
     state => ({
-        achievementList: state.my.achievement.achievementList
+        achievementList: state.my.achievement.achievementList,
+        achievementHasList: state.my.achievement.achievementHasList,
     }),
-    dispatch => bindActionCreators({getAchievement}, dispatch),
+    dispatch => bindActionCreators({getAchievement,getAchievementHas}, dispatch),
 )(Achievement);

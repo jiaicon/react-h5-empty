@@ -13,7 +13,7 @@ import {bindActionCreators} from 'redux';
 
 import history from '../history';
 
-import {userCenterAction} from './my.store';
+import {userCenterAction, userAchieve} from './my.store';
 import {requestUserInfo} from '../../stores/common';
 import Link from '../../components/link/link';
 import Star from '../../components/star/star';
@@ -45,6 +45,7 @@ class MyPage extends React.Component {
     componentWillMount() {
         this.props.requestUserInfo();
         this.props.userCenterAction();
+        this.props.userAchieve();
     }
 
     componentDidMount() {
@@ -99,7 +100,18 @@ class MyPage extends React.Component {
     }
 
     renderPageMyphotoTemplate() {
-        const {user} = this.props;
+        const {userAchieveList,user} = this.props;
+        let label = "暂无等级";
+        if(userAchieveList&&userAchieveList.data&&userAchieveList.data.data&&userAchieveList.data.data.growth_level&&userAchieveList.data.data.growth_level.length && user) {
+            for(let i = 0; i < userAchieveList.data.data.growth_level.length;i++) {
+                if(user.growth >= userAchieveList.data.data.growth_level[i].growth && (i === userAchieveList.data.data.growth_level.length-1 ? true : user.growth < userAchieveList.data.data.growth_level[i+1].growth)) {
+                    label = userAchieveList.data.data.growth_level[i].name;
+                    // if(i === userAchieveList.data.data.growth_level.length-1) {
+                    //     label = userAchieveList.data.data.growth_level[i].name;
+                    // }
+                }
+            }
+        }
         return (
             <div className="page-my-photo-container">
                 <Avatar src={user.avatars ? user.avatars : ''}
@@ -108,7 +120,7 @@ class MyPage extends React.Component {
                 <div className="page-my-user-info">
                     <p className="page-my-user-info-nick"
                        onClick={this.showCommonweal}>{user.real_name || user.username || '未设置昵称'}<p
-                        className="page-my-user-info-nick-commonweal">公益大使</p></p>
+                        className="page-my-user-info-nick-commonweal">{label}</p></p>
                     <p className="page-my-user-info-signature">{user.slogan || '未设置口号'}</p>
                     <div className="page-my-user-info-star">
                         {
@@ -118,8 +130,10 @@ class MyPage extends React.Component {
 
                     </div>
                 </div>
-                <div className="page-my-user-info-nick-commonweal-medal"><Link to="/my/achievemet"><img src="/images/my/commonweal-medal.png" alt=""/><span
-                    className="page-my-user-info-nick-commonweal-medal-word">55枚</span></Link></div>
+                <div className="page-my-user-info-nick-commonweal-medal"><Link to="/my/achievemet"><img
+                    src="/images/my/commonweal-medal.png" alt=""/><span
+                    className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
+                </div>
             </div>
         );
     }
@@ -323,74 +337,84 @@ class MyPage extends React.Component {
     }
 
     renderCommonwealLevel() {
+        const {userAchieveList,user} = this.props;
+        const height = [18, 37, 57, 78, 104, 126];
+        user.growth = 18;
+        let now_label = {
+            name: ''
+        };
+        let next_label = null;
+        let last_label = null;
+        if(userAchieveList&&userAchieveList.data&&userAchieveList.data.data&&userAchieveList.data.data.growth_level&&userAchieveList.data.data.growth_level.length && user) {
+            next_label = userAchieveList.data.data.growth_level[0];
+            next_label.level = userAchieveList.data.data.growth_level[0].growth;
+            last_label = userAchieveList.data.data.growth_level[userAchieveList.data.data.growth_level.length-1];
+            for(let i = 0; i < userAchieveList.data.data.growth_level.length;i++) {
+                if(user.growth >= userAchieveList.data.data.growth_level[i].growth && (i === userAchieveList.data.data.growth_level.length-1 ? true : user.growth < userAchieveList.data.data.growth_level[i+1].growth)) {
+                    if(i === userAchieveList.data.data.growth_level.length-1) {
+                        now_label = userAchieveList.data.data.growth_level[i];
+                        now_label.level = i;
+                        next_label = null;
+                    }else {
+                        now_label = userAchieveList.data.data.growth_level[i];
+                        now_label.level = i;
+                        next_label = userAchieveList.data.data.growth_level[i+1];
+                        next_label.level = i+1;
+                    }
+                }
+            }
+        }
         return <div className="commonweal-box">
             <div className="commonweal-box-close" onClick={this.closeModalNew}><img src="/images/my/delete.png" alt=""/>
             </div>
             <div className="commonweal-box-level">
                 <div>
                     <p style={{textAlign: 'left'}}>当前等级</p>
-                    <p>Lv.22 志愿大使</p>
+                    <p>{now_label.name === ''? '暂无等级' : `Lv.${now_label.level} ${now_label.name}`}</p>
                 </div>
                 <div>
                     <p style={{textAlign: 'right'}}>成长值</p>
-                    <p>13200/15000</p>
+                    <p>{`${next_label===null ? user.growth : user.growth+'/'+next_label.growth }`}</p>
                 </div>
             </div>
             <div className="commonweal-box-bar">
-                <div style={{width: '10%'}} className="commonweal-box-bar-active"></div>
+                <div style={{width: now_label&&last_label ? `${(now_label.growth/last_label.growth >= 100 ? 100 : now_label.growth/last_label.growth)*100}%` : 0}} className="commonweal-box-bar-active"></div>
             </div>
             <div className="commonweal-box-level commonweal-box-level-next">
                 <div>
-                    <p style={{textAlign: 'left'}}>Lv.22</p>
-                    <p>志愿大使</p>
+                    <p style={{textAlign: 'left'}}>{now_label.name === ''? '' : `Lv.${now_label.level}`}</p>
+                    <p>{now_label.name === ''? '' : `${now_label.name}`}</p>
                 </div>
                 <div>
-                    <p style={{textAlign: 'right'}}>Lv.23</p>
-                    <p>志愿元老</p>
+                    <p style={{textAlign: 'right'}}>{!next_label ? '':`Lv.${next_label.level}`}</p>
+                    <p>{!next_label? '' : `${next_label.name}`}</p>
                 </div>
             </div>
             <div className="line1px"></div>
             <div className="commonweal-box-growUp">
                 <div className="commonweal-box-growUp-word">成长体系</div>
                 <div className="commonweal-box-growUp-box">
-                    <div className="commonweal-box-growUp-box-bar">
-                        <div style={{height: '18px'}} className="commonweal-box-growUp-box-bar-middle">
-                            <div className="commonweal-box-growUp-box-bar-top">志愿新秀</div>
-                        </div>
-                        <div className="commonweal-box-growUp-box-bar-bot">Lv.0</div>
-                    </div>
-                    <div className="commonweal-box-growUp-box-bar">
-                        <div style={{height: '37px'}} className="commonweal-box-growUp-box-bar-middle">
-                            <div className="commonweal-box-growUp-box-bar-top">志愿实习生</div>
-                        </div>
-                        <div className="commonweal-box-growUp-box-bar-bot">Lv.1</div>
-                    </div>
-                    <div className="commonweal-box-growUp-box-bar">
-                        <div style={{height: '57px'}} className="commonweal-box-growUp-box-bar-middle">
-                            <div className="commonweal-box-growUp-box-bar-top">志愿精英</div>
-                        </div>
-                        <div className="commonweal-box-growUp-box-bar-bot">Lv.2</div>
-                    </div>
-                    <div className="commonweal-box-growUp-box-bar">
-                        <div style={{height: '78px'}} className="commonweal-box-growUp-box-bar-middle">
-                            <div className="commonweal-box-growUp-box-bar-top commonweal-box-growUp-box-bar-top-active">
-                                志愿大使
-                            </div>
-                        </div>
-                        <div className="commonweal-box-growUp-box-bar-bot">Lv.3</div>
-                    </div>
-                    <div className="commonweal-box-growUp-box-bar">
-                        <div style={{height: '104px'}} className="commonweal-box-growUp-box-bar-middle">
-                            <div className="commonweal-box-growUp-box-bar-top">志愿元老</div>
-                        </div>
-                        <div className="commonweal-box-growUp-box-bar-bot">Lv.4</div>
-                    </div>
-                    <div className="commonweal-box-growUp-box-bar">
-                        <div style={{height: '126px'}} className="commonweal-box-growUp-box-bar-middle">
-                            <div className="commonweal-box-growUp-box-bar-top">志愿王者</div>
-                        </div>
-                        <div className="commonweal-box-growUp-box-bar-bot">Lv.5</div>
-                    </div>
+                    {
+                        userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && userAchieveList.data.data.growth_level.map((item, index) => {
+                            return (
+                                <div className={
+                                    classnames({
+                                        "commonweal-box-growUp-box-bar": true,
+                                    })
+                                } key={index}>
+                                    <div style={{height: height[index]+'px'}} className="commonweal-box-growUp-box-bar-middle">
+                                        <div
+                                            className={
+                                                classnames({
+                                                    "commonweal-box-growUp-box-bar-top": true,
+                                                    "commonweal-box-growUp-box-bar-top-active": user.growth>=item.growth&&(index === userAchieveList.data.data.growth_level.length-1 ? true : user.growth<userAchieveList.data.data.growth_level[index+1].growth)
+                                                })}>{item.name}</div>
+                                    </div>
+                                    <div className="commonweal-box-growUp-box-bar-bot">Lv.{index}</div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
             <div className="commonweal-box-growUp-more">您可以通过更多志愿行为来获得成长值</div>
@@ -403,11 +427,13 @@ class MyPage extends React.Component {
             visibleInstruction: true,
         })
     }
+
     closeModalNewInstruction() {
         this.setState({
             visibleInstruction: false
         })
     }
+
     renderInstruction() {
         const data = [{label: '志愿时长', value: '10'}, {label: '发表动态', value: '10'}, {
             label: '每日登陆',
@@ -417,7 +443,8 @@ class MyPage extends React.Component {
             value: '100'
         }, {label: '解锁1级成就1次', value: '200'}, {label: '解锁1级成就2次', value: '400'}, {label: '解锁1级成就3次', value: '1000'}]
         return <div className="commonweal-box">
-            <div className="commonweal-box-close" onClick={this.closeModalNewInstruction}><img src="/images/my/delete.png" alt=""/>
+            <div className="commonweal-box-close" onClick={this.closeModalNewInstruction}><img
+                src="/images/my/delete.png" alt=""/>
             </div>
             <div className="commonweal-box-instruction-how">如何获得成长值？</div>
             <div className="commonweal-box-instruction-list">下列操作可以帮你获得成长值：</div>
@@ -578,10 +605,12 @@ export default connect(
     state => ({
         usercenter: state.my.usercenter,
         user: state.user,
+        userAchieveList: state.my.userAchieve
     }),
     dispatch => bindActionCreators({
             userCenterAction,
-            requestUserInfo
+            requestUserInfo,
+            userAchieve
         },
         dispatch),
 )(MyPage);

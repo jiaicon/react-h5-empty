@@ -15,21 +15,57 @@ const getAchievementRedux = (state={
         case 'GET_ACHIEVEMENT_PENDING':
             return {
                 ...state,
-                pending: true,
+                fetching: true,
                 failed: false,
                 data: action.payload
             };
         case 'GET_ACHIEVEMENT_FULFILLED':
             return {
                 ...state,
-                pending: false,
+                fetching: false,
                 failed: false,
-                data: action.payload
+                data: action.payload&&action.payload.data
             };
         case 'GET_ACHIEVEMENT_REJECTED':
             return {
                 ...state,
-                pending: false,
+                fetching: false,
+                failed: true,
+                data: action.payload
+            };
+        default:
+            return state;
+    }
+};
+
+export const getAchievementHas = ()=>({
+    type: 'GET_ACHIEVEMENT_HAS',
+    payload: fetch(`${API_HOST}/api/v1/user/achievement`, {method: 'GET'})
+});
+const getAchievementHasRedux = (state={
+    fetching: false,
+    failed: false,
+    data: null,
+}, action)=>{
+    switch(action.type) {
+        case 'GET_ACHIEVEMENT_HAS_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+                data: action.payload
+            };
+        case 'GET_ACHIEVEMENT_HAS_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload&&action.payload.data
+            };
+        case 'GET_ACHIEVEMENT_HAS_REJECTED':
+            return {
+                ...state,
+                fetching: false,
                 failed: true,
                 data: action.payload
             };
@@ -39,6 +75,7 @@ const getAchievementRedux = (state={
 };
 
 const reducer =  combineReducers({
-    achievementList: getAchievementRedux
+    achievementList: getAchievementRedux,
+    achievementHasList: getAchievementHasRedux
 });
 export default reducer;
