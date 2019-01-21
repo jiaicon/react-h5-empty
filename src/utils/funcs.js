@@ -42,6 +42,12 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index, ) {
     let ctx = canvas.getContext("2d");
     let img = new Image();
     img.crossOrigin = "*";
+    if (imageArrays[index].startWith("data:image")) {
+      imageArrays[index] = imageArrays[index];
+      index++;
+      ImageToBase64(imageArrays, defaultArrays, callback, index);
+      return;
+    }
     img.onload = function () {
       var w = img.width;
       var h = img.height;
@@ -57,7 +63,7 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index, ) {
 
         ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200)
       } else if (w == h) {
-        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200);
       }
 
       var dataURL = canvas.toDataURL("image/png");
