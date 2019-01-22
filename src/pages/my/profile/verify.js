@@ -471,7 +471,8 @@ class Verify extends React.Component {
           ) : null}
           <div className="page-my-profile-verify-fonts">证件类型</div>
           <label htmlFor="cardtype">
-            <select
+            <select 
+              
               id="cardtype"
               onChange={this.handleCardClick}
               ref={c => {
