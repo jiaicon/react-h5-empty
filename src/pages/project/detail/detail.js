@@ -24,6 +24,7 @@ import Avatar from "../../../components/avatar/avatar";
 import Tab from "../../../components/tab/tab";
 import CommunityItem from "../../../components/community_item/index";
 import ShareTip from "../../../components/sharetip/sharetip";
+import ModalNew from "../../../components/posterModal/ModalNew";
 import {
   feelingAction,
   observeAction,
@@ -165,6 +166,7 @@ class ProjectDetailPage extends React.Component {
     this.state = {
       showShareTip: false,
       actionSheet: false,
+      visible: false,
       menus: [],
       actions: [
         {
@@ -246,7 +248,16 @@ class ProjectDetailPage extends React.Component {
           },
           {
             label: "保存海报",
-            onClick: () => {}
+            onClick: () => {
+               this.setState(
+                {
+                   actionSheet: false,
+                   visible: true,
+                },
+                () => {
+                  // this.showModal();
+                })
+            }
           }
         ]
       });
@@ -256,7 +267,18 @@ class ProjectDetailPage extends React.Component {
         menus: [
           {
             label: "保存海报",
-            onClick: () => {}
+            onClick: () => {
+              console.log(1222)
+              this.setState(
+                {
+                  actionSheet: false,
+                  visible: true
+                },
+                () => {
+                  console.log(this.state.visible)
+                  // this.showModal();
+                }
+              );}
           }
         ]
       });
@@ -465,6 +487,27 @@ class ProjectDetailPage extends React.Component {
         </Slick>
       </div>
     );
+  }
+  showModal() {
+    this.setState({
+      ...this.state,
+      visible: true,
+    })
+  }
+  closeModal() {
+    this.setState({
+      ...this.state,
+      visible: false
+    })
+  }
+  renderModal() {
+    const {
+      detail: { data: detailData, tabIndex },
+      user
+    } = this.props;
+    console.log(detailData);
+    console.log(user)
+    return <ModalNew projectData={detailData} userinfoData={user} maskCloseable={true} visible={this.state.visible} platform="ios" transparent={true} animationType="slide" maskCloseable={this.closeModal} url={window.location.href} />;
   }
   handleActionClickTwo() {
     window.location.href =
@@ -760,6 +803,7 @@ class ProjectDetailPage extends React.Component {
             ? " 确定要退出项目吗？"
             : "只有登录的用户才能点赞和评论哦～"}
         </Dialog>
+        {this.renderModal()}
       </div>
     );
   }

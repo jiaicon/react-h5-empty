@@ -142,6 +142,7 @@
 .page-project-detail .body .project-detail-list .detail-content {
   font-size: 14px;
   color: #333333;
+  flex: 1;
 }
 
 .page-project-detail .body .project-detail-list .project-guard {
@@ -383,4 +384,11 @@ background: #F89393;
 .project-action-main-color {
   color: #666666;
   background-color: #CFC7FD;
+}
+
+
+
+.project-detail-modal-container{
+  width: 329px;
+  height: 540px;
 }
