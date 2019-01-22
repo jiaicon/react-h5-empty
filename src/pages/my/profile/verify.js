@@ -480,7 +480,7 @@ class Verify extends React.Component {
             >
               {cardtype &&
                 cardtype.map((item, keys) => (
-                  <option value={item.name} key={keys}>
+                  <option value={item.id} key={keys}>
                     {item.name}
                   </option>
                 ))}
