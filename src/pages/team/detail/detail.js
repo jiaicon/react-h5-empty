@@ -20,7 +20,8 @@ import ShareTip from "../../../components/sharetip/sharetip";
 import CommunityItem from "../../../components/community_item/index";
 import { dateTextToDateText } from "../../../utils/funcs";
 import { storeLoginSource } from "../../my/login/login.store";
-
+import ModalNew from "../../../components/posterModal/ModalNew";
+import { PostDataModel_Team } from "../../../components/posterModal/PostDataModel";
 import history from "../../history";
 
 import { Dialog, ActionSheet } from "react-weui";
@@ -133,7 +134,17 @@ class TeamDetailPage extends React.Component {
           },
           {
             label: "保存海报",
-            onClick: () => {}
+            onClick: () => {
+              this.setState(
+                {
+                  actionSheet: false,
+                  visible: true
+                },
+                () => {
+                  // this.showModal();
+                }
+              );
+            }
           }
         ]
       });
@@ -143,7 +154,19 @@ class TeamDetailPage extends React.Component {
         menus: [
           {
             label: "保存海报",
-            onClick: () => {}
+            onClick: () => {
+              console.log(1222);
+              this.setState(
+                {
+                  actionSheet: false,
+                  visible: true
+                },
+                () => {
+                  console.log(this.state.visible);
+                  // this.showModal();
+                }
+              );
+            }
           }
         ]
       });
@@ -480,7 +503,6 @@ class TeamDetailPage extends React.Component {
             <div>团队简介</div>
             <p>{detailData.abstract}</p>
           </div>
-         
 
           <div className="team-description-backhome">
             <Link to="/" />
@@ -638,7 +660,34 @@ class TeamDetailPage extends React.Component {
       </div>
     );
   }
+  showModal() {
+    this.setState({
+      ...this.state,
+      visible: true
+    });
+  }
+  closeModal() {
+    this.setState({
+      ...this.state,
+      visible: false
+    });
+  }
+  renderModal() {
+    const {
+      detail: { team: detailData, tabTeamIndex },
+      user
+    } = this.props;
 
+    const postData = PostDataModel_Team(detailData, user);
+    return (
+      <ModalNew
+        postData={postData}
+        maskCloseable={true}
+        visible={this.state.visible}
+        maskCloseable={this.closeModal}
+      />
+    );
+  }
   render() {
     const {
       detail: { team: detailData, tabTeamIndex }
@@ -676,20 +725,21 @@ class TeamDetailPage extends React.Component {
           show={this.state.actionSheet}
           type="ios"
           onRequestClose={e => this.setState({ actionSheet: false })}
-            />
-            <Dialog
-                type="ios"
-                title={this.dialog.title}
-                buttons={this.dialog.buttons}
-                show={this.state.showDialog}
-            >
-                {this.state.dialogType
-                    ? "确定要退出团队吗？"
-                    : "只有登录的用户才能点赞和评论哦～"}
-            </Dialog>
+        />
+        <Dialog
+          type="ios"
+          title={this.dialog.title}
+          buttons={this.dialog.buttons}
+          show={this.state.showDialog}
+        >
+          {this.state.dialogType
+            ? "确定要退出团队吗？"
+            : "只有登录的用户才能点赞和评论哦～"}
+        </Dialog>
         {this.state.showShareTip ? (
           <ShareTip onClick={this.hideShareTip} />
         ) : null}
+        {this.renderModal()}
       </div>
     );
   }

@@ -382,3 +382,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.page-team-detail  .weui-actionsheet{
+    bottom: -999px;  
+}
+.page-team-detail  .weui-actionsheet_toggle{
+  bottom: 0;
+}

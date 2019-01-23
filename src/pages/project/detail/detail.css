@@ -388,7 +388,9 @@ background: #F89393;
 
 
 
-.project-detail-modal-container{
-  width: 329px;
-  height: 540px;
+.page-project-detail .weui-actionsheet{
+    bottom: -999px;  
+}
+.page-project-detail .weui-actionsheet_toggle{
+  bottom: 0;
 }
