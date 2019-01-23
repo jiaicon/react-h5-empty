@@ -25,6 +25,7 @@ import Tab from "../../../components/tab/tab";
 import CommunityItem from "../../../components/community_item/index";
 import ShareTip from "../../../components/sharetip/sharetip";
 import ModalNew from "../../../components/posterModal/ModalNew";
+import {PostDataModel_Project} from "../../../components/posterModal/PostDataModel";
 import {
   feelingAction,
   observeAction,
@@ -505,9 +506,9 @@ class ProjectDetailPage extends React.Component {
       detail: { data: detailData, tabIndex },
       user
     } = this.props;
-    console.log(detailData);
-    console.log(user)
-    return <ModalNew projectData={detailData} userinfoData={user} maskCloseable={true} visible={this.state.visible} platform="ios" transparent={true} animationType="slide" maskCloseable={this.closeModal} url={window.location.href} />;
+  
+    const postData = PostDataModel_Project(detailData,user);
+    return <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  />;
   }
   handleActionClickTwo() {
     window.location.href =
