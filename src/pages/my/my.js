@@ -100,18 +100,24 @@ class MyPage extends React.Component {
     }
 
     renderPageMyphotoTemplate() {
-        const {userAchieveList,user} = this.props;
-        let label = "暂无等级";
-        if(userAchieveList&&userAchieveList.data&&userAchieveList.data.data&&userAchieveList.data.data.growth_level&&userAchieveList.data.data.growth_level.length && user) {
-            for(let i = 0; i < userAchieveList.data.data.growth_level.length;i++) {
-                if(user.growth >= userAchieveList.data.data.growth_level[i].growth && (i === userAchieveList.data.data.growth_level.length-1 ? true : user.growth < userAchieveList.data.data.growth_level[i+1].growth)) {
-                    label = userAchieveList.data.data.growth_level[i].name;
-                    // if(i === userAchieveList.data.data.growth_level.length-1) {
-                    //     label = userAchieveList.data.data.growth_level[i].name;
-                    // }
+        let {userAchieveList, user} = this.props;
+        let label = "";
+        if (userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && user) {
+            let userAchieveListLocal = userAchieveList.data.data.growth_level;
+            if (user.growth < userAchieveListLocal[0].growth) {
+                label = userAchieveListLocal[0].name;
+            } else if (user.growth >= userAchieveListLocal[userAchieveListLocal.length - 1].growth) {
+                label = userAchieveListLocal[userAchieveListLocal.length - 1].name;
+            } else {
+                for (let i = 0; i < userAchieveListLocal.length; i++) {
+                    if (user.growth >= userAchieveListLocal[i].growth) {
+                        label = userAchieveListLocal[i+1].name;
+                    }
                 }
             }
         }
+        console.log(label)
+
         return (
             <div className="page-my-photo-container">
                 <Avatar src={user.avatars ? user.avatars : ''}
@@ -120,7 +126,7 @@ class MyPage extends React.Component {
                 <div className="page-my-user-info">
                     <p className="page-my-user-info-nick"
                        onClick={this.showCommonweal}>{user.real_name || user.username || '未设置昵称'}<p
-                        className="page-my-user-info-nick-commonweal">{label}</p></p>
+                        className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p></p>
                     <p className="page-my-user-info-signature">{user.slogan || '未设置口号'}</p>
                     <div className="page-my-user-info-star">
                         {
@@ -312,6 +318,7 @@ class MyPage extends React.Component {
                                     </div>
                                     <span className="page-my-item-big"/>
                                 </Link>
+                                <div className="line1px"/>
                             </div>
                         </li>
                 }
@@ -337,29 +344,34 @@ class MyPage extends React.Component {
     }
 
     renderCommonwealLevel() {
-        const {userAchieveList,user} = this.props;
+        const {userAchieveList, user} = this.props;
         const height = [18, 37, 57, 78, 104, 126];
-        user.growth = 18;
         let now_label = {
             name: ''
         };
         let next_label = null;
         let last_label = null;
-        if(userAchieveList&&userAchieveList.data&&userAchieveList.data.data&&userAchieveList.data.data.growth_level&&userAchieveList.data.data.growth_level.length && user) {
-            next_label = userAchieveList.data.data.growth_level[0];
-            next_label.level = userAchieveList.data.data.growth_level[0].growth;
-            last_label = userAchieveList.data.data.growth_level[userAchieveList.data.data.growth_level.length-1];
-            for(let i = 0; i < userAchieveList.data.data.growth_level.length;i++) {
-                if(user.growth >= userAchieveList.data.data.growth_level[i].growth && (i === userAchieveList.data.data.growth_level.length-1 ? true : user.growth < userAchieveList.data.data.growth_level[i+1].growth)) {
-                    if(i === userAchieveList.data.data.growth_level.length-1) {
-                        now_label = userAchieveList.data.data.growth_level[i];
-                        now_label.level = i;
-                        next_label = null;
-                    }else {
-                        now_label = userAchieveList.data.data.growth_level[i];
-                        now_label.level = i;
-                        next_label = userAchieveList.data.data.growth_level[i+1];
-                        next_label.level = i+1;
+        if (userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && user) {
+            let userAchieveListLocal = userAchieveList.data.data.growth_level;
+            console.log(userAchieveListLocal)
+            last_label = userAchieveListLocal[userAchieveListLocal.length - 1];
+            if (user.growth < userAchieveListLocal[0].growth) {
+                now_label = userAchieveListLocal[0];
+                now_label.level = userAchieveListLocal[0].name.replace('等级', '');
+                next_label = userAchieveListLocal[1];
+                next_label.growth=userAchieveListLocal[0].growth;
+                next_label.level = userAchieveListLocal[1].name.replace('等级', '');
+            } else if (user.growth >= userAchieveListLocal[userAchieveListLocal.length - 2].growth) {
+                next_label=null;
+                now_label = userAchieveListLocal[userAchieveListLocal.length - 1];
+                now_label.level = userAchieveListLocal[userAchieveListLocal.length - 1].name.replace('等级', '');
+            } else {
+                for (let i = 0; i < userAchieveListLocal.length; i++) {
+                    if (user.growth >= userAchieveListLocal[i].growth) {
+                        now_label = userAchieveListLocal[i+1];
+                        now_label.level = userAchieveListLocal[i+1].name.replace('等级', '');
+                        next_label = userAchieveListLocal[i+2];
+                        next_label.level = userAchieveListLocal[i+2].name.replace('等级', '');
                     }
                 }
             }
@@ -370,24 +382,26 @@ class MyPage extends React.Component {
             <div className="commonweal-box-level">
                 <div>
                     <p style={{textAlign: 'left'}}>当前等级</p>
-                    <p>{now_label.name === ''? '暂无等级' : `Lv.${now_label.level} ${now_label.name}`}</p>
+                    <p>{now_label.name === '' ? '暂无等级' : `Lv.${now_label.level} ${now_label.name}`}</p>
                 </div>
                 <div>
                     <p style={{textAlign: 'right'}}>成长值</p>
-                    <p>{`${next_label===null ? user.growth : user.growth+'/'+next_label.growth }`}</p>
+                    <p>{`${next_label === null ? user.growth : user.growth + '/' + next_label.growth }`}</p>
                 </div>
             </div>
             <div className="commonweal-box-bar">
-                <div style={{width: now_label&&last_label ? `${(now_label.growth/last_label.growth >= 100 ? 100 : now_label.growth/last_label.growth)*100}%` : 0}} className="commonweal-box-bar-active"></div>
+                <div
+                    style={{width: now_label && last_label ? `${(now_label.growth / last_label.growth >= 100 ? 100 : now_label.growth / last_label.growth) * 100}%` : 0}}
+                    className="commonweal-box-bar-active"></div>
             </div>
             <div className="commonweal-box-level commonweal-box-level-next">
                 <div>
-                    <p style={{textAlign: 'left'}}>{now_label.name === ''? '' : `Lv.${now_label.level}`}</p>
-                    <p>{now_label.name === ''? '' : `${now_label.name}`}</p>
+                    <p style={{textAlign: 'left'}}>{now_label.name === '' ? '' : `Lv.${now_label.level}`}</p>
+                    <p>{now_label.name === '' ? '' : `${now_label.name}`}</p>
                 </div>
                 <div>
-                    <p style={{textAlign: 'right'}}>{!next_label ? '':`Lv.${next_label.level}`}</p>
-                    <p>{!next_label? '' : `${next_label.name}`}</p>
+                    <p style={{textAlign: 'right'}}>{!next_label ? '' : `Lv.${next_label.level}`}</p>
+                    <p>{!next_label ? '' : `${next_label.name}`}</p>
                 </div>
             </div>
             <div className="line1px"></div>
@@ -402,12 +416,13 @@ class MyPage extends React.Component {
                                         "commonweal-box-growUp-box-bar": true,
                                     })
                                 } key={index}>
-                                    <div style={{height: height[index]+'px'}} className="commonweal-box-growUp-box-bar-middle">
+                                    <div style={{height: height[index] + 'px'}}
+                                         className="commonweal-box-growUp-box-bar-middle">
                                         <div
                                             className={
                                                 classnames({
                                                     "commonweal-box-growUp-box-bar-top": true,
-                                                    "commonweal-box-growUp-box-bar-top-active": user.growth>=item.growth&&(index === userAchieveList.data.data.growth_level.length-1 ? true : user.growth<userAchieveList.data.data.growth_level[index+1].growth)
+                                                    "commonweal-box-growUp-box-bar-top-active": now_label.level == index
                                                 })}>{item.name}</div>
                                     </div>
                                     <div className="commonweal-box-growUp-box-bar-bot">Lv.{index}</div>

@@ -89,7 +89,6 @@
 .achievement-modal-box-all-box>div {
     width: 144px;
     height: 144px;
-    background-color: #D8D8D8;
     display: inline-block;
 }
 .achievement-modal-box-all-box>p {
@@ -144,8 +143,85 @@
     line-height: 37px;
     margin: 0 auto 30px;
 }
+.achievement-modal-box-all-box>div {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
 
+.achieve-share-bigimg {
+    width: 100%;
+    height: 224px;
+    background-image: url("/images/my/achieve-share-big.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.achieve-share {
+    position: relative;
+}
+.achieve-share-avatar {
+    position: absolute;
+    top: 106px;
+    left: 50%;
+    margin-left: -39px;
 
+}
+.achieve-share-num {
+    display: flex;
+    justify-content: space-around;
+}
+.achieve-share-num p {
+    font-family: PingFangSC-Regular;
+    font-size: 11px;
+    color: #999999;
+    transform: scale(0.9);
+}
+.achieve-share-num-p {
+    position: relative;
+}
+.achieve-share-num-word {
+    font-family: AbadiMT-CondensedExtraBold;
+    font-size: 34px;
+    color: #000000;
+}
+.achieve-share-num-p-span {
+    position: absolute;
+    bottom: 9px;
+    margin-left: 4px;
+}
+.achieve-share-all{
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.achieve-share-all-item-img {
+    width: 48px;
+    height: 48px;
+    background: #000;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: 0 auto 8px;
+}
+.achieve-share-all-item {
+    margin-top: 16px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #4A4A4A;
+    min-width: 70px;
+}
+.achieve-share-word-img {
+    text-align: right;
+    padding: 0 40px;
+    margin-top: 30px;
+}
+.achieve-share-word-img-img {
+    width: 167px;
+    height: 15px;
+}
 
 
 
