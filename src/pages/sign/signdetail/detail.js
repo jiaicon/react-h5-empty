@@ -7,14 +7,64 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Alert from "react-s-alert";
 import Link from "../../../components/link/link";
-import { requestCheckinList, checkin } from "../../signin/signin.store";
-
+import { requestCheckinList, checkin } from "../../sign/sign.store";
+import classnames from "classnames";
+import moment from 'moment';
 import history from "../../history";
 
 import { getCity, getLocation } from "../../../utils/funcs";
 import { requestHomeData, saveCity, getAreaCity } from "../../home/home.store";
 import "./detail.css";
-class SigninPage extends React.Component {
+
+class SignBall extends React.Component {
+  static propTypes = {
+    isLight: PropTypes.bool,
+    clickFunc: PropTypes.func,
+    ballTitle: PropTypes.string
+  };
+  constructor(props) {
+    super(props);
+    autoBind(this);
+    this.timer = null;
+    this.state = { time: `${moment().format("HH:mm:ss")}` };
+  }
+
+  componentWillMount() {
+    clearInterval(this.timer);
+  }
+
+  componentDidMount() {
+    const that = this;
+    this.timer = setInterval(() => {
+      that.setState({
+        time: `${moment().format("HH:mm:ss")}`
+      });
+    }, 1000);
+  }
+
+  componentWillReceiveProps(nextProps) {}
+
+  componentWillUnmount() {}
+  handleClick() {
+    console.log('click')
+  }
+  render() {
+    const { time } = this.state;
+    return (
+      <div
+        className={classnames({
+          "page-signball-shape": true,
+          "page-signball-islight": true
+        })}
+        onClick={this.handleClick}
+      >
+        <div className="page-signball-title">签到打卡</div>
+        <div className="page-signball-date">{time}</div>
+      </div>
+    );
+  }
+}
+class SignPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -83,13 +133,14 @@ class SigninPage extends React.Component {
     };
     var type = true;
 
-    return (
-      <div className="page-signin-detail">
-        <div className="page-signin-title">
+    return <div className="page-sign-detail">
+        <div className="page-sign-title">
           <div style={{ fontSize: "14px", color: "#4A4A4A" }}>
             志多星关注程序员健康活动
           </div>
-          <div style={{ fontSize: "12px", color: "#9B9B9B" }}>2019.01.09</div>
+          <div style={{ fontSize: "12px", color: "#9B9B9B" }}>
+            2019.01.09
+          </div>
         </div>
 
         <div className="project-detail-list">
@@ -102,7 +153,12 @@ class SigninPage extends React.Component {
                 &nbsp; &nbsp;
                 {data.begin.split(" ")[0]}
               </div>
-              <div className="detail-content">1</div>
+              <div className="detail-content">
+                <div className="sign-ball-content" >
+                <SignBall />
+                <div>已进入签到地点范围</div>
+                </div>
+              </div>
             </li>
             <li>
               <div className="item-point" />
@@ -123,8 +179,7 @@ class SigninPage extends React.Component {
             </li>
           </ul>
         </div>
-      </div>
-    );
+      </div>;
   }
   render() {
     const { turnMap } = this.state;
@@ -133,9 +188,9 @@ class SigninPage extends React.Component {
   }
 }
 
-SigninPage.title = "签到打卡";
+SignPage.title = "签到打卡";
 
-SigninPage.propTypes = {
+SignPage.propTypes = {
   data: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({})
@@ -145,12 +200,12 @@ SigninPage.propTypes = {
 };
 export default connect(
   state => ({
-    data: state.signin.ckeckinList.data,
-    checkinData: state.signin.checkin
+    data: state.sign.ckeckinList.data,
+    checkinData: state.sign.checkin
   }),
   dispatch =>
     bindActionCreators(
       { requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity },
       dispatch
     )
-)(SigninPage);
+)(SignPage);

@@ -8,15 +8,17 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import Link from '../../components/link/link';
-import { requestCheckinList, checkin } from '../signin/signin.store';
-import './signin.css';
+import { requestCheckinList, checkin } from '../sign/sign.store';
 import history from '../history';
 
 import { getCity, getLocation } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 import SignItem from '../../components/signItem/index.js'
-class SigninPage extends React.Component {
+class SignBall extends React.Component { 
+
+}
+class SignPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -41,7 +43,7 @@ class SigninPage extends React.Component {
 
   componentWillUnmount() {}
 
-  // handleSignin() {
+  // handleSign() {
   //   wx.ready(() => {
   //     wx.scanQRCode({
   //       needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
@@ -62,15 +64,15 @@ class SigninPage extends React.Component {
     const records = data && data.list ? data.list : [];
     const next = data && data.next && data.next.project ? data.next : null;
 
-    return <div className="page-signin">
+    return <div>
       <SignItem data={null}/>
     </div>;
   }
 }
 
-SigninPage.title = '签到打卡';
+SignPage.title = '签到打卡';
 
-SigninPage.propTypes = {
+SignPage.propTypes = {
   data: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
@@ -80,8 +82,8 @@ SigninPage.propTypes = {
 };
 export default connect(
   state => ({
-    data: state.signin.ckeckinList.data,
-    checkinData: state.signin.checkin,
+    data: state.sign.ckeckinList.data,
+    checkinData: state.sign.checkin,
   }),
   dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
-)(SigninPage);
+)(SignPage);

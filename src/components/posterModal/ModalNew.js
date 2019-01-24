@@ -21,11 +21,6 @@ class ModalNew extends React.Component {
       contentText: PropTypes.string,
       url: PropTypes.string,
     }),
-   
-
-    // projectData: PropTypes.shape({}),
-    // userinfoData: PropTypes.shape({}),
-    // type: PropTypes.number,
     
   };
   constructor(props) {
