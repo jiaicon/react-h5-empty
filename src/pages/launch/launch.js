@@ -12,8 +12,8 @@ import classnames from 'classnames';
 import Link from '../../components/link/link';
 import './launch.css';
 import HomePage from '../home/home';
-import SigninPage from '../signin/signin';
-import PasswordPage from '../signin/subpage/password_signin';
+import SignPage from '../sign/sign';
+// import PasswordPage from '../sign/subpage/password_sign';
 import WXShare from '../../components/share';
 import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
@@ -21,9 +21,8 @@ import { requestUserInfo } from '../../stores/common';
 const TAB_URL_MAPS = {
   "/": <HomePage />,
   "/home": <HomePage />,
-  "/signin": <SigninPage />,
+  "/sign": <SignPage />,
   "/my": <MyPage />,
-  "/signin/password": <PasswordPage />
 };
 
 class LaunchPage extends React.Component {
@@ -89,12 +88,12 @@ class LaunchPage extends React.Component {
             </Link>
           </li>
           <li>
-            <Link to="/signin">
+            <Link to="/sign">
               <div
                 className={classnames({
                   'tab-icon': true,
-                  'tab-icon-signin': true,
-                  active: path === '/signin',
+                  'tab-icon-sign': true,
+                  active: path === '/sign',
                 })}
               />
               <span>签到打卡</span>

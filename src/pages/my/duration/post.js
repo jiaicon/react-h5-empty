@@ -86,6 +86,7 @@ class Post extends React.Component {
   }
   HandleClick(item) {
     const data = item;
+    console.log(data)
     if (data) {
       this.setState({
         data,
@@ -136,10 +137,7 @@ class Post extends React.Component {
         })
     }
   render() {
-    const popToggle = this.state.popToggle;
-
-    const attachment = this.state.attachment;
-    const data = this.state.data;
+    const { data, attachment, popToggle} = this.state;
     return <div className="page-post-bg">
         <div className="page-post-container">
           <div className="page-post-container-top">
@@ -147,14 +145,21 @@ class Post extends React.Component {
               <div className={classnames({
                   "page-post-font-color": data.name
                 })}>
-                {data.name ? data.name : "申请志愿项目"}
+              {data.name ? data.name : "参加项目"}
               </div>
               <div className="page-post-container-item-more" />
             </div>
-            <input // type="tel" maxLength="3"
-              className="page-post-container-text" placeholder="申请志愿时长(小时)" ref={c => {
+            <div className="page-post-container-item">
+              <div className={classnames({
+                  "page-post-font-color": data.begin
+                })}>
+              {data.begin ? data.begin.split(' ')[0] : "补卡班次"}
+              </div>
+            </div>
+            <input className="page-post-container-text" placeholder="申请志愿时长(小时)" ref={c => {
+                // type="tel" maxLength="3"
                 this.hours = c;
-            }} onBlur={this.onTextChanged} />
+              }} onBlur={this.onTextChanged} />
             <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={c => {
                 this.info = c;
               }} onBlur={this.onTextChanged} />
@@ -164,7 +169,7 @@ class Post extends React.Component {
               工作证明图片(选填)
             </div>
             <div className="page-post-container-photo-container">
-                <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={3} />
+              <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={3} />
             </div>
           </div>
 
@@ -172,8 +177,10 @@ class Post extends React.Component {
             提交
           </div>
           {/** 遮罩层* */}
-          <div className={classnames({ "page-post-mask-container": true,
-              "page-post-pop-block": popToggle })}>
+          <div className={classnames({
+              "page-post-mask-container": true,
+              "page-post-pop-block": popToggle
+            })}>
             <div className="page-post-take-up" onClick={this.Popnone} />
             <div className="page-post-mask-content">
               <DutationProjects durationProject={this.props.projectapply.data ? this.props.projectapply.data.list : null} HandleClick={this.HandleClick} isEntry={false} />

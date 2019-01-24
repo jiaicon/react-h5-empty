@@ -29,11 +29,10 @@ class DurationProjects extends React.Component {
   componentWillUnmount() {}
 
   onClick(e) {
-    const id = e.currentTarget.id;
-    const name = e.currentTarget.getAttribute('data-name');
+    const info = JSON.parse(e.currentTarget.getAttribute("data-data"));
+    console.log(info)
     const data = {
-      id,
-      name,
+      ...info
     };
     this.props.HandleClick(data);
   }
@@ -93,41 +92,33 @@ class DurationProjects extends React.Component {
             durationProject.map((project) => {
               const { team } = project;
 
-              return (<li
-                key={project.id} onClick={this.onClick} id={project.id}
-                data-name={project.name}
-              >
-                <div className="component-duration-projects-take-up" />
-                <div className="component-duration-projects-main" >
-
-                  <div className="component-duration-projects-main-name">{project.name}</div>
-                  <div className="component-duration-projects-main-date">
-                    <div className="component-duration-projects-main-date-icon component-duration-projects-main-date-icon-date" />
-                    {parseTimeStringToDateString(project.begin)}
-                    -
-                    {parseTimeStringToDateString(project.end)}
-                  </div>
-                  <div className="component-duration-projects-main-date">
-                    <div className="component-duration-projects-main-date-icon component-duration-projects-main-date-icon-addr" />
-                    {project.county_name} {parseDistance(project.distance)}
-                  </div>
-
-                </div>
-                <div className="line1px" />
-                <div className="component-duration-projects-footer">
-                  <a>
-                    <div className="component-duration-projects-footer-logo">
-                      <div className="component-duration-projects-footer-logo-right">
-                        <Avatar src={team.logo} size={{ width: 30, radius: 4 }} />
-                      </div>
-                      {team.name}
+              return <li key={project.id} onClick={this.onClick} data-data={JSON.stringify(project)}>
+                  <div className="component-duration-projects-take-up" />
+                  <div className="component-duration-projects-main">
+                    <div className="component-duration-projects-main-name">
+                      {project.name}
                     </div>
-
-                  </a>
-                </div>
-
-
-              </li>);
+                    <div className="component-duration-projects-main-date">
+                      <div className="component-duration-projects-main-date-icon component-duration-projects-main-date-icon-date" />
+                      {parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}
+                    </div>
+                    <div className="component-duration-projects-main-date">
+                      <div className="component-duration-projects-main-date-icon component-duration-projects-main-date-icon-addr" />
+                      {project.county_name} {project.distance > 0 ? parseDistance(project.distance) : null}
+                    </div>
+                  </div>
+                  <div className="line1px" />
+                  <div className="component-duration-projects-footer">
+                    <a>
+                      <div className="component-duration-projects-footer-logo">
+                        <div className="component-duration-projects-footer-logo-right">
+                          <Avatar src={team.logo} size={{ width: 30, radius: 4 }} />
+                        </div>
+                        {team.name}
+                      </div>
+                    </a>
+                  </div>
+                </li>;
             })
         }
             </ul>
