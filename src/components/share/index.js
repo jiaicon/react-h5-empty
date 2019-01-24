@@ -42,8 +42,8 @@ const WXS = (option = {}) => {
       ""
     )}`;
   }
-  const orgCode = window.orgCode;
-  let desxName = orgInfo.org_info || "文明点亮你我，志愿感动社会";
+  const orgCode = orgInfo.orgCode;
+  let desxName = (orgInfo&&orgInfo.org_info) || "文明点亮你我，志愿感动社会";
   if (orgCode == "qM7e5Ba2vp") {
     desxName = "志愿小金人，用爱传温暖！";
   }
