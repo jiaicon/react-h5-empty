@@ -41,14 +41,14 @@ class SignItem extends React.Component {
     return (
       <div className="no-record">
         <div>
-          <img src="/images/signin.png" alt="" />
+          <img src="/images/sign.png" alt="" />
         </div>
         <span>
           <p>还没有项目可以签到</p>
           <p>快去加入项目吧</p>
         </span>
-        <div className="signin-btn-container">
-          <Link to="/project/list" className="signin-btn">
+        <div className="sign-btn-container">
+          <Link to="/project/list" className="sign-btn">
             浏览项目
           </Link>
         </div>
@@ -71,9 +71,9 @@ class SignItem extends React.Component {
     // reject
     return <div>
         {records.map(record => (
-          <li key={record.clock_in_time} className="signin-record">
-            <div className="signin-header">
-              <div className="signin-time">
+          <li key={record.clock_in_time} className="sign-record">
+            <div className="sign-header">
+              <div className="sign-time">
                 <span>班次</span>
                 <span>
                   {/* {record.clock_in_time} */}
@@ -107,8 +107,8 @@ class SignItem extends React.Component {
     const next = true;
     // data && data.list && data.list.length === 0 && !next
     return <li>
-        <div className="signin-header">
-          <div className="signin-time">
+        <div className="sign-header">
+          <div className="sign-time">
             <span>下次签到班次</span>
             <span>
               2017.09.20 09:00 - 10:00
@@ -144,7 +144,7 @@ class SignItem extends React.Component {
           {data ? this.renderEmpty() : <div className="component-sign-title">
             请选择签到项目
           </div>}
-          <ul className="signin-list">
+          <ul className="sign-list">
             {next ? this.renderNextProject() : null}
             {this.renderProjectList()}
           </ul>

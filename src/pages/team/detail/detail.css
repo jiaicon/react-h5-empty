@@ -310,12 +310,12 @@
   background-image: url(/images/tab_home_active.png);
 }
 
-.page-team-detail-render-project-container .tabs li .tab-icon-signin {
-  background-image: url(/images/tab_signin.png);
+.page-team-detail-render-project-container .tabs li .tab-icon-sign {
+  background-image: url(/images/tab_sign.png);
 }
 
-.page-team-detail-render-project-container .tabs li .tab-icon-signin.active {
-  background-image: url(/images/tab_signin_active.png);
+.page-team-detail-render-project-container .tabs li .tab-icon-sign.active {
+  background-image: url(/images/tab_sign_active.png);
 }
 
 .page-team-detail-render-project-container .tabs li .tab-icon-me {

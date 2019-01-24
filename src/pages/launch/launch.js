@@ -12,7 +12,7 @@ import classnames from 'classnames';
 import Link from '../../components/link/link';
 import './launch.css';
 import HomePage from '../home/home';
-import SignPage from '../sign/sign.store';
+import SignPage from '../sign/sign';
 // import PasswordPage from '../sign/subpage/password_sign';
 import WXShare from '../../components/share';
 import MyPage from '../my/my';

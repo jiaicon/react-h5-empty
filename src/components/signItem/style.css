@@ -13,7 +13,7 @@
   margin-top: 86px;
 }
 
-.page-sign .signin-btn-container {
+.page-sign .sign-btn-container {
   width: 100%;
   padding: 0 25px;
   position: absolute;
@@ -27,7 +27,7 @@
   
 }
 
-.page-sign .signin-btn {
+.page-sign .sign-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +40,7 @@
   color: #FFF;
 }
 
-.page-sign .signin-list li {
+.page-sign .sign-list li {
   background: #FFFFFF;
   border-radius: 8px;
   font-size: 13px;
@@ -48,11 +48,11 @@
   margin-bottom: 15px;
 }
 
-.page-sign .signin-list li .signin-header {
+.page-sign .sign-list li .sign-header {
   padding: 15px;
 }
 
-.page-sign .signin-list li .project-info {
+.page-sign .sign-list li .project-info {
   padding: 15px;
   padding-right: 25px;
   background:url(/images/icon_more.png) no-repeat;
@@ -60,13 +60,13 @@
   background-size: 32px;
 }
 
-.page-sign .signin-time span:last-child {
+.page-sign .sign-time span:last-child {
   color: #6AC6F8;
   font-size: 16px;
   margin-left: 10px;
 }
 
-.page-sign .signin-list li.signin-record .signin-header {
+.page-sign .sign-list li.sign-record .sign-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,7 +104,7 @@
   margin-top: 86px;
 }
 
-.component-sign.signin-btn-container {
+.component-sign.sign-btn-container {
   width: 100%;
   padding: 0 25px;
   position: absolute;
@@ -118,7 +118,7 @@
   
 }
 
-.component-sign.signin-btn {
+.component-sign.sign-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,7 +131,7 @@
   color: #FFF;
 }
 
-.component-sign.signin-list li {
+.component-sign.sign-list li {
   background: #FFFFFF;
   border-radius: 8px;
   font-size: 13px;
@@ -139,27 +139,27 @@
   margin-bottom: 15px;
 }
 
-.component-sign.signin-list li .signin-header {
+.component-sign.sign-list li .sign-header {
   padding: 15px;
 }
 
-.component-sign.signin-list li .project-info {
+.component-sign.sign-list li .project-info {
   padding: 15px;
 }
 
-.component-sign.signin-time span:last-child {
+.component-sign.sign-time span:last-child {
   color: #6AC6F8;
   font-size: 16px;
   margin-left: 10px;
 }
 
-.component-sign.signin-list li.signin-record .signin-header {
+.component-sign.sign-list li.sign-record .sign-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.component-sign.signin-list li.signin-record .signin-header div:last-child {
+.component-sign.sign-list li.sign-record .sign-header div:last-child {
   background: #EBD1BA;
   border-radius: 4px;
   font-size: 13px;
@@ -181,28 +181,28 @@
 
 
 
-.page-sign .signin-list li.signin-record .signin-header .already-sign {
+.page-sign .sign-list li.sign-record .sign-header .already-sign {
   background: #A0D9F7;
   border-radius: 4px;
   font-size: 13px;
   color: #fff;
   padding: 2px 5px;
 }
-.page-sign .signin-list li.signin-record .signin-header .wait-sign {
+.page-sign .sign-list li.sign-record .sign-header .wait-sign {
   background: #B5F073;
   border-radius: 4px;
   font-size: 13px;
   color: #fff;
   padding: 2px 5px;
 }
-.page-sign .signin-list li.signin-record .signin-header .in-audit {
+.page-sign .sign-list li.sign-record .sign-header .in-audit {
   background: #F0C873;
   border-radius: 4px;
   font-size: 13px;
   color: #fff;
   padding: 2px 5px;
 }
-.page-sign .signin-list li.signin-record .signin-header .reject {
+.page-sign .sign-list li.sign-record .sign-header .reject {
   background: #F19292;
   border-radius: 4px;
   font-size: 13px;

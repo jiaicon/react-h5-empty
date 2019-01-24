@@ -15,9 +15,7 @@ import { getCity, getLocation } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 import SignItem from '../../components/signItem/index.js'
-class SignBall extends React.Component { 
 
-}
 class SignPage extends React.Component {
 
   constructor(props) {
@@ -43,22 +41,7 @@ class SignPage extends React.Component {
 
   componentWillUnmount() {}
 
-  // handleSign() {
-  //   wx.ready(() => {
-  //     wx.scanQRCode({
-  //       needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-  //       scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
-  //       success: (res) => {
-  //         const result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-  //         this.props.checkin(result, 1);
-  //       },
-  //       fail: (error) => {
-  //         Alert.error(`扫码失败：${error && error.errMsg}`);
-  //       },
-  //     });
-  //   });
-  // }
-
+  
   render() {
     const { data } = this.props;
     const records = data && data.list ? data.list : [];

@@ -8,14 +8,14 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../../components/share';
 import ReactCodeInput from '../../../components/code_input/ReactCodeInput';
-import { checkin } from '../../signin/signin.store';
-import './password_signin.css';
+import { checkin } from '../../sign/sign.store';
+import './password_sign.css';
 import history from '../../history';
 import { getCity, getLocation } from '../../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../../home/home.store';
 
 
-class PasswordSigninPage extends React.Component {
+class PasswordsignPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -37,8 +37,8 @@ class PasswordSigninPage extends React.Component {
     const { checkinData: Lcheckin } = this.props;
     const { checkinData: Ncheckin } = nextProps;
     if (Lcheckin.fetching && !Ncheckin.fetching && !Ncheckin.failed) {
-      // window.location.replace('/signin');
-      history.replace('/signin');
+      // window.location.replace('/sign');
+      history.replace('/sign');
     }
   }
 
@@ -82,9 +82,9 @@ class PasswordSigninPage extends React.Component {
   }
 }
 
-PasswordSigninPage.title = '密令打卡';
+PasswordsignPage.title = '密令打卡';
 
-PasswordSigninPage.propTypes = {
+PasswordsignPage.propTypes = {
   data: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
@@ -93,7 +93,7 @@ PasswordSigninPage.propTypes = {
     fetching: PropTypes.bool,
     failed: PropTypes.bool,
   }),
-  signin: PropTypes.shape({
+  sign: PropTypes.shape({
     list: PropTypes.arrayOf(PropTypes.shape({})),
     next: PropTypes.shape({}),
     fetching: PropTypes.bool,
@@ -105,7 +105,7 @@ PasswordSigninPage.propTypes = {
 
 export default connect(
   state => ({
-    checkinData: state.signin.checkin,
+    checkinData: state.sign.checkin,
   }),
   dispatch => bindActionCreators({ checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
-)(PasswordSigninPage);
+)(PasswordsignPage);
