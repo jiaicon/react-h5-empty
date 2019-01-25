@@ -30,21 +30,20 @@
 .achievement-array {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
     align-items: center;
 }
 .achievement-array-item {
-    /*width: 48px;*/
+    min-width: 70px;
     display: flex;
     flex-flow: column;
     align-items: center;
     margin: 0 10px;
+    overflow: hidden;
 }
 .achievement-array-item>div {
     width: 48px;
     height: 48px;
     margin-bottom: 9px;
-    /*background-color: #D8D8D8;*/
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -131,17 +130,31 @@
     margin-bottom: 28px;
 }
 .achievement-modal-box-btn {
-    background: #F89393;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09);
-    border-radius: 18.5px;
     font-family: PingFangSC-Regular;
     font-size: 13px;
     color: #FFFFFF;
     text-align: center;
-    width: 187px;
     height: 37px;
     line-height: 37px;
     margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+.achievement-modal-box-btn-default {
+    height: 100%;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09);
+    border-radius: 18.5px;
+    width: 110px;
+}
+.achievement-modal-box-btn-left {
+    background: #F89393;
+}
+.achievement-modal-box-btn-left-flex1 {
+    flex: 1;
+}
+.achievement-modal-box-btn-right {
+    background: #A0D9F7;
 }
 .achievement-modal-box-all-box>div {
     background-repeat: no-repeat;
@@ -169,6 +182,7 @@
 }
 .achieve-share-num {
     display: flex;
+    text-align: center;
     justify-content: space-around;
 }
 .achieve-share-num p {
@@ -200,11 +214,11 @@
 .achieve-share-all-item-img {
     width: 48px;
     height: 48px;
-    background: #000;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     margin: 0 auto 8px;
+    object-fit: cover;
 }
 .achieve-share-all-item {
     margin-top: 16px;
@@ -212,6 +226,7 @@
     font-size: 14px;
     color: #4A4A4A;
     min-width: 70px;
+    text-align: center;
 }
 .achieve-share-word-img {
     text-align: right;
@@ -221,6 +236,30 @@
 .achieve-share-word-img-img {
     width: 167px;
     height: 15px;
+}
+.achieve-share-qrcode {
+    display: flex;
+    font-family: PingFangSC-Regular;
+    font-size: 11px;
+    color: #999999;
+    align-items: flex-end;
+    margin: 10px 0 12px 18px;
+}
+.achieve-share-qrcode .achieve-share-qrcode-img {
+    width: 48px;
+    height: 48px;
+    margin-right: 5px;
+}
+.achieve-share-avatar-image {
+    width: 59px;
+    height: 59px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.achievement-modal-box-btn a {
+    color: #fff;
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
 }
 
 

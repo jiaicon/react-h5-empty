@@ -138,8 +138,7 @@ export default function request(requestUrl, requestOptions = {}) {
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
           let from = window.location.pathname;
           store.dispatch(storeLoginSource(from));
-          history.replace("/my/entry");
-          // window.location.replace('/my/entry');
+          history.replace("/my/login");
         } else {
           console.log("请求返回失败-", url, json);
 

@@ -30,9 +30,14 @@
     "chunk": "main"
   },
   {
-    "path": "/signin",
+    "path": "/sign",
     "page": "./pages/launch/launch",
     "chunk": "main"
+  },
+  {
+      "path": "/sign/signdetail/detail/:Id",
+      "page": "./pages/sign/signdetail/detail",
+      "chunk": "main"
   },
   {
     "path": "/selectcity",
@@ -44,11 +49,7 @@
     "page": "./pages/home/subpage/search",
     "chunk": "main"
   },
-  {
-    "path": "/signin/password",
-    "page": "./pages/launch/launch",
-    "chunk": "main"
-  },
+
   {
     "path": "/project/detail/:projectId",
     "page": "./pages/project/detail/detail",
@@ -120,7 +121,7 @@
     "chunk": "main"
   },
   {
-    "path": "/my/achievemet",
+    "path": "/my/achievemet/:projectNum",
     "page": "./pages/my/achievemet/achievemet",
     "chunk": "main"
   },

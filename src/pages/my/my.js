@@ -116,8 +116,6 @@ class MyPage extends React.Component {
                 }
             }
         }
-        console.log(label)
-
         return (
             <div className="page-my-photo-container">
                 <Avatar src={user.avatars ? user.avatars : ''}
@@ -136,7 +134,7 @@ class MyPage extends React.Component {
 
                     </div>
                 </div>
-                <div className="page-my-user-info-nick-commonweal-medal"><Link to="/my/achievemet"><img
+                <div className="page-my-user-info-nick-commonweal-medal"><Link to={`/my/achievemet/${this.props.usercenter&&this.props.usercenter.data&&this.props.usercenter.data.project_count}`}><img
                     src="/images/my/commonweal-medal.png" alt=""/><span
                     className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
                 </div>

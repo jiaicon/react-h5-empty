@@ -75,6 +75,21 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <find>renderInstruction</find>
+      <find>commonweal-box-growUp-box-bar-top</find>
+      <find>commonweal-box</find>
+      <find>scoreName</find>
+      <find>checkScoreMethod</find>
+      <find>/my</find>
+      <find>componentWillUnmount</find>
+      <find>closeModalNewInstruction</find>
+      <find>55</find>
+      <find>page-ponit-pic-title</find>
+      <find>_closeModal</find>
+>>>>>>> f18f1e1a3330cd9a517147605625fb1b1cb67050
       <find>ModalNew</find>
       <find>children</find>
       <find>page-my-user-info-nick-commonweal-medal-word</find>
@@ -96,6 +111,7 @@
       <find>userAchieveList</find>
       <find>18</find>
       <find>now_label</find>
+<<<<<<< HEAD
       <find>服务</find>
       <find>achievement-array-item</find>
       <find>achievement-modal-box-all-box</find>
@@ -105,6 +121,40 @@
       <find>componentWillReceiveProps</find>
       <find>Avatar</find>
       <find>achievement-modal-box-all-gold</find>
+=======
+=======
+      <find>onTextChange</find>
+      <find>input</find>
+      <find>ver</find>
+      <find>uploadImage</find>
+      <find>uploadToWX</find>
+      <find>onAvatarClick</find>
+      <find>page-post-item-upload-container</find>
+      <find>onPicClick</find>
+      <find>uploadAvatar</find>
+      <find>UploadAvatar</find>
+      <find>UploadPhoto</find>
+      <find>this.props.</find>
+      <find>register</find>
+      <find>add</find>
+      <find>onPhotoChange</find>
+      <find>png</find>
+      <find>/sign</find>
+      <find>TAB_URL_MAPS</find>
+      <find>conso</find>
+      <find>console</find>
+      <find>Page</find>
+      <find>wx.</find>
+      <find>提交</find>
+      <find>onSubmmit</find>
+      <find>//</find>
+      <find>apiHost</find>
+      <find>joinPayProject</find>
+      <find>orgCode</find>
+      <find>joinProjectAction</find>
+      <find>wechatPayUrl</find>
+>>>>>>> feature/sign
+>>>>>>> f18f1e1a3330cd9a517147605625fb1b1cb67050
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -130,9 +180,9 @@
         <option value="$PROJECT_DIR$/src/pages/launch/launch.js" />
         <option value="$PROJECT_DIR$/src/pages/project/detail/detail.js" />
         <option value="$PROJECT_DIR$/src/pages/sanlitun/projectClaim/detail/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/signin/subpage/password_signin.js" />
+        <option value="$PROJECT_DIR$/src/pages/sign/subpage/password_sign.js" />
         <option value="$PROJECT_DIR$/src/pages/team/detail/detail.js" />
-        <option value="$PROJECT_DIR$/src/pages/signin/signin.js" />
+        <option value="$PROJECT_DIR$/src/pages/sign/sign.js" />
         <option value="$PROJECT_DIR$/src/utils/funcs.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/pages/my/circle/subpage/publish.css" />
@@ -632,7 +682,11 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/node_modules/antd-mobile/lib/modal/index.d.ts">
+=======
+    <entry file="file://$PROJECT_DIR$/src/pages/sign/sign.js">
+>>>>>>> feature/sign
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
