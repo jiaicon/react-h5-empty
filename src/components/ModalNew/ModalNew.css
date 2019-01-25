@@ -10,8 +10,7 @@
     height: 100%;
     top: 0;
     right: 0;
-    /*background: rgba(72,72,72,0.40);*/
-    z-index: 5;
+    z-index: 7;
 }
 .modal-new-mask {
     position: fixed;
@@ -30,7 +29,7 @@
     bottom: 0;
     left: 0;
     height: 100%;
-    z-index: 4;
+    z-index: 10;
     -webkit-overflow-scrolling: touch;
     outline: 0;
     display: flex;

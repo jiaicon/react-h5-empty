@@ -123,8 +123,17 @@ class MyPage extends React.Component {
                         defaultSrc="/images/my/register.png" onClick={this.onPreview}/>
                 <div className="page-my-user-info">
                     <p className="page-my-user-info-nick"
-                       onClick={this.showCommonweal}>{user.real_name || user.username || '未设置昵称'}<p
-                        className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p></p>
+                       onClick={this.showCommonweal}>
+                        <p style={{display: 'flex',alignItems: 'center'}}>
+                            {user.real_name || user.username || '未设置昵称'}
+                            <p className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p>
+                        </p>
+                        <div className="page-my-user-info-nick-commonweal-medal"><Link to={`/my/achievemet/${this.props.usercenter&&this.props.usercenter.data&&this.props.usercenter.data.project_count}`}><img
+                            src="/images/my/commonweal-medal.png" alt=""/><span
+                            className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
+                        </div>
+
+                    </p>
                     <p className="page-my-user-info-signature">{user.slogan || '未设置口号'}</p>
                     <div className="page-my-user-info-star">
                         {
@@ -134,10 +143,7 @@ class MyPage extends React.Component {
 
                     </div>
                 </div>
-                <div className="page-my-user-info-nick-commonweal-medal"><Link to={`/my/achievemet/${this.props.usercenter&&this.props.usercenter.data&&this.props.usercenter.data.project_count}`}><img
-                    src="/images/my/commonweal-medal.png" alt=""/><span
-                    className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
-                </div>
+
             </div>
         );
     }
