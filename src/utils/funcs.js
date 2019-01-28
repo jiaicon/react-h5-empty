@@ -51,7 +51,7 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
     let ctx = canvas.getContext("2d");
     let img = new Image();
     img.crossOrigin = "*";
-    // console.log(imageArrays[index])
+    console.log(imageArrays[index])
     // console.log(typeof imageArrays[index])
     // if (imageArrays[index].startWith("data:image")) {
     //   imageArrays[index] = imageArrays[index];

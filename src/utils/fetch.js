@@ -106,7 +106,8 @@ export default function request(requestUrl, requestOptions = {}) {
     options.headers["Content-Type"] = "application/x-www-form-urlencoded";
     options.body = params.join("&");
   } else {
-    url = `${url}?${params.join("&")}`;
+      console.log(params)
+    url = `${url}${params&&params.length ? '?'+params.join("&"):''}`;
   }
 
   if (options.loading) {

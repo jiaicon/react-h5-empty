@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 import fetch from '../../utils/fetch';
 import { API_HOST } from '../../utils/config';
+import achievementReducer from './achievemet/achievement.store';
 // score
 
 export const scoreAction = num => ({
@@ -656,6 +657,40 @@ const alertFamilyPeopleInfoReducer = (state = {
       return state;
   }
 };
+//成就等级  所有的
+export const userAchieve = ()=>({
+    type: 'USER_ACHIEVE',
+    payload: fetch('/growth/config', {method: 'GET'})
+});
+const userAchieveReducer = (state={
+    fetching: false,
+    failed: false,
+    data: null
+}, action)=>{
+    switch(action.type){
+        case 'USER_ACHIEVE_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'USER_ACHIEVE_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload
+            };
+        case'USER_ACHIEVE_REJECTED':
+            return{
+                ...state,
+                fetching: false,
+                failed: false,
+            };
+        default:
+            return state;
+    }
+};
 const reducer = combineReducers({
   usercenter: userCenterReducer,
   team: teamReducer,
@@ -674,6 +709,8 @@ const reducer = combineReducers({
   projectapply: projectapplyReducer,
   deletefamily: deleteFamilyReducer,
   alertFamilyPeopleInfo: alertFamilyPeopleInfoReducer,
-  score: scoreReducer
+  score: scoreReducer,
+    achievement: achievementReducer,
+    userAchieve:userAchieveReducer
 });
 export default reducer;
