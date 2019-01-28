@@ -120,7 +120,7 @@
       <find>add</find>
       <find>onPhotoChange</find>
       <find>png</find>
-      <find>/signin</find>
+      <find>/sign</find>
       <find>TAB_URL_MAPS</find>
       <find>conso</find>
       <find>console</find>
@@ -169,9 +169,9 @@
         <option value="$PROJECT_DIR$/src/pages/launch/launch.js" />
         <option value="$PROJECT_DIR$/src/pages/project/detail/detail.js" />
         <option value="$PROJECT_DIR$/src/pages/sanlitun/projectClaim/detail/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/signin/subpage/password_signin.js" />
+        <option value="$PROJECT_DIR$/src/pages/sign/subpage/password_sign.js" />
         <option value="$PROJECT_DIR$/src/pages/team/detail/detail.js" />
-        <option value="$PROJECT_DIR$/src/pages/signin/signin.js" />
+        <option value="$PROJECT_DIR$/src/pages/sign/sign.js" />
         <option value="$PROJECT_DIR$/src/utils/funcs.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/pages/my/circle/subpage/publish.css" />
@@ -746,7 +746,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/signin/signin.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/sign/sign.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
           <caret line="48" column="17" lean-forward="false" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="17" />

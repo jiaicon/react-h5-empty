@@ -30,19 +30,14 @@
     "chunk": "main"
   },
   {
-    "path": "/signin",
+    "path": "/sign",
     "page": "./pages/launch/launch",
     "chunk": "main"
   },
   {
-    "path": "/signin/password",
-    "page": "./pages/launch/launch",
-    "chunk": "main"
-  },
-  {
-    "path": "/signin/signdetail/detail/:Id",
-    "page": "./pages/signin/signdetail/detail",
-    "chunk": "main"
+      "path": "/sign/signdetail/detail/:Id",
+      "page": "./pages/sign/signdetail/detail",
+      "chunk": "main"
   },
   {
     "path": "/selectcity",

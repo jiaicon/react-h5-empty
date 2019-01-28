@@ -28,8 +28,8 @@
   <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="7de7de184affb1a29b9a766df87ac3420018a2e870a7cc91278229aaeeaccedb"></script>
 
   <script>
-    window.userAgent = @if ($env == 'wx') true @else false @endif;
-    
+    //true:微信浏览器   false:h5
+      window.userAgent = @if ($env == 'wx') true @else false @endif;
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {!! $jsConfig !!}; // 或者 '{}'
 
