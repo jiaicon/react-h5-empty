@@ -32,25 +32,41 @@ class ModalNew extends React.Component {
   }
 
   componentWillMount() {
+    const that = this;
     this.createQrcode();
+    if (this.props.postData.postImage && this.props.postData.avatars && this.props.postData.username && this.props.postData.contentText && this.props.postData.url) {
+      ImageToBase64([`${this.props.postData.postImage}`, `${this.props.postData.avatars}`], ["/images/default_banner.png", "/images/my/register.png"], base64Array => {
+          that.setState(
+            {
+              contentText: this.props.postData.contentText,
+              username: this.props.postData.username,
+              base64Array: base64Array.slice(0)
+            },
+            () => {
+              that.htm2Click();
+            }
+          );
+        }, 0);
+    }
   }
 
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     const that = this;
-    console.info(nextProps);
     if (nextProps.postData.postImage && nextProps.postData.avatars && nextProps.postData.username && nextProps.postData.contentText && nextProps.postData.url) {
-      ImageToBase64([nextProps.postData.postImage, nextProps.postData.avatars], ["/images/default_banner.png", "/images/my/register.png"], base64Array => {
-        that.setState({
-          contentText:nextProps.postData.contentText,
-          username:nextProps.postData.username,
-          base64Array: base64Array.slice(0), 
-        }, () => {
-          that.htm2Click();
-        });
-
-      }, 0);
+      ImageToBase64([`${nextProps.postData.postImage}`, `${nextProps.postData.avatars}`], ["/images/default_banner.png", "/images/my/register.png"], base64Array => {
+          that.setState(
+            {
+              contentText: nextProps.postData.contentText,
+              username: nextProps.postData.username,
+              base64Array: base64Array.slice(0)
+            },
+            () => {
+              that.htm2Click();
+            }
+          );
+        }, 0);
     }
 }
   
@@ -83,7 +99,8 @@ htm2Click = () => {
   _closeModal() {
     this.props.maskCloseable();
     this.setState({
-      dataUrl:null,
+      dataUrl: null,
+      qrcode: null,
     })
   }
   _clearEvent(event) {
@@ -102,6 +119,7 @@ htm2Click = () => {
           // 证明生成了二维码（canvas） 然后把二维码转为图片
           let qrcodeURL = canvas.toDataURL("image/png");
           that.setState({ qrcodeURL });
+          console.log('qrend')
           callback && callback(qrcodeURL);
         }
       }

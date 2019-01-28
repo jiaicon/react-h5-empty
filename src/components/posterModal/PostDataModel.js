@@ -1,6 +1,5 @@
-export function PostDataModel_Project(projectData,userData){
+export function PostDataModel_Project(projectData, userData) {
     var tempContentText = `我参与了《${projectData.name}》这个项目，跟我一起做志愿服务吧~`;
-    console.log(getAvatar(userData));
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),
         avatars : getAvatar(userData),
@@ -8,12 +7,12 @@ export function PostDataModel_Project(projectData,userData){
         contentText :tempContentText,
         url :window.location.href,
     }
+    console.log(PostDataModel);
     return PostDataModel;
 }
 
 export function PostDataModel_Team(teamData,userData){
     var tempContentText = `我参与了《${teamData.name}》这个团队，跟我一起做志愿服务吧~`;
-    console.log(getAvatar(userData));
     let PostDataModel = {
         postImage : getTeamPhoto(teamData),
         avatars : getAvatar(userData),
@@ -39,7 +38,7 @@ export function PostDataModel_SignSuccess(projectData,userData){
 
 
 export function PostDataModel_ProjectSign(projectData,userData){
-    var tempContentText = `我参与了《${projectData.name}》这个项目，跟我一起做志愿服务吧~`;
+    var tempContentText = `我参与了《${projectData.name}》这个项目,累计获得${projectData.my_reward_time}个志愿时长,跟我一起做志愿服务吧~`;
 
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),
@@ -51,7 +50,7 @@ export function PostDataModel_ProjectSign(projectData,userData){
     return PostDataModel;
 }
 
-function getProjectPhoto(projectData){
+function getProjectPhoto(projectData) {
     return projectData.photo?(projectData.photo[0]):"/images/default_banner.png";
 }
 
