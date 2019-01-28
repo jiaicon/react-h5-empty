@@ -35,6 +35,16 @@
     "chunk": "main"
   },
   {
+    "path": "/signin/password",
+    "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
+    "path": "/signin/signdetail/detail/:Id",
+    "page": "./pages/signin/signdetail/detail",
+    "chunk": "main"
+  },
+  {
     "path": "/selectcity",
     "page": "./pages/home/subpage/city_page",
     "chunk": "main"
@@ -44,14 +54,15 @@
     "page": "./pages/home/subpage/search",
     "chunk": "main"
   },
-  {
-    "path": "/signin/password",
-    "page": "./pages/launch/launch",
-    "chunk": "main"
-  },
+
   {
     "path": "/project/detail/:projectId",
     "page": "./pages/project/detail/detail",
+    "chunk": "main"
+  },
+  {
+    "path": "/project/receipt/:sn",
+    "page": "./pages/project/sign/receipt",
     "chunk": "main"
   },
   {
@@ -247,11 +258,6 @@
   {
     "path": "/my/setting",
     "page": "./pages/my/setting/setting",
-    "chunk": "main"
-  },
-  {
-    "path": "/my/setting/password",
-    "page": "./pages/my/setting/password",
     "chunk": "main"
   },
   {

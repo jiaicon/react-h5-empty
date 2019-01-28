@@ -40,15 +40,23 @@ class Link extends React.Component {
     }
     
     event.preventDefault();
-
     if (this.props.to && this.props.to.indexOf('http') === 0) {
       location.href = this.props.to;
     } else if (this.props.to) {
-      // history.push(this.props.to);
-      location.href = this.props.to;
-    } else if (this.props.to !== '') {
-      history.push({ pathname: event.currentTarget.pathname, search: event.currentTarget.search });
+      if (this.props.to.indexOf('?') >= 0) {
+        window.location.href = `${this.props.to}&timestamp=${new Date().getTime()}`;
+      } else {
+        window.location.href = `${this.props.to}?timestamp=${new Date().getTime()}`;
+      }
     }
+    // if (this.props.to && this.props.to.indexOf('http') === 0) {
+    //   location.href = this.props.to;
+    // } else if (this.props.to) {
+    //   // history.push(this.props.to);
+    //   location.href = this.props.to;
+    // } else if (this.props.to !== '') {
+    //   history.push({ pathname: event.currentTarget.pathname, search: event.currentTarget.search });
+    // }
   };
 
   render() {

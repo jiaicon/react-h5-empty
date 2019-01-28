@@ -13,7 +13,12 @@ import Avatar from "../../components/avatar/avatar";
 import Projects from "../../components/projects/projects";
 import Menus from "../../components/menus/menus";
 import Announcement from "../../components/announcement/announcement";
-import { getCity, deleteSanlitunMoudling } from "../../utils/funcs";
+import {
+  getCity,
+  deleteSanlitunMoudling,
+  getCookie,
+  setCookie
+} from "../../utils/funcs";
 import { requestHomeData, saveCity, getAreaCity } from "./home.store";
 
 import { Dialog } from "react-weui";
@@ -26,11 +31,8 @@ class HomePage extends React.Component {
     autoBind(this);
     this.state = {
       newcity: null,
-      city: localStorage.getItem("provinceAndCityName")
-        ? JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-            "市",
-            ""
-          )
+      city: getCookie("provinceAndCityName")
+        ? JSON.parse(getCookie("provinceAndCityName")).city.replace("市", "")
         : "北京",
       showDialog: false
     };
@@ -65,8 +67,7 @@ class HomePage extends React.Component {
             const { newcity, pc, city } = this.state;
             this.props.requestHomeData();
             this.props.saveCity(newcity);
-            // this.props.getAreaCity(newcity);
-            localStorage.setItem("provinceAndCityName", pc);
+            setCookie("provinceAndCityName", pc, 1);
             this.setState({
               city: newcity
             });
@@ -79,20 +80,15 @@ class HomePage extends React.Component {
   componentWillMount() {
     // TODO:
     this.props.requestHomeData();
-    const { pathname } = window.location;
-    console.log(pathname);
-    getCity(
-      (city, str) => {
-        const { city: initaialCity } = this.state;
-        if (pathname == "/home") {
-          this.props.requestHomeData();
-          return;
-        } else {
+    if (!getCookie("provinceAndCityName")) {
+      getCity(
+        (city, str) => {
+          const { city: initaialCity } = this.state;
+
           if (initaialCity == city.replace("市", "")) {
             this.props.requestHomeData();
             return;
           } else {
-            console.log("-----", str);
             this.setState({
               ...this.state,
               showDialog: true,
@@ -100,12 +96,12 @@ class HomePage extends React.Component {
               pc: str
             });
           }
+        },
+        () => {
+          Alert.error("定位失败，请确认同意定位授权");
         }
-      },
-      () => {
-        Alert.error("定位失败，请确认同意微信定位授权");
-      }
-    );
+      );
+    }
   }
 
   componentWillReceiveProps() {}
@@ -115,29 +111,45 @@ class HomePage extends React.Component {
   renderHeaderBar() {
     const { user } = this.props;
     const switchView = user.isLogin;
-    return <div className="header-bar">
+    return (
+      <div className="header-bar">
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
 
-        {switchView ? <div style={{ display: "flex", flex: "1" }}>
+        {switchView ? (
+          <div style={{ display: "flex", flex: "1" }}>
             <div className="content-boxpadding">
               <Link className="component-search-bar dirmargin" to="/homesearch">
-                <input className="input" style={{ marginLeft: "35px" }} placeholder="搜索项目/团队" disabled="disabled" />
+                <input
+                  className="input"
+                  style={{ marginLeft: "35px" }}
+                  placeholder="搜索项目/团队"
+                  disabled="disabled"
+                />
               </Link>
             </div>
             <Link to="/my">
               <Avatar src={user.avatars} size={{ width: 28 }} />
             </Link>
-          </div> : <div style={{ display: "flex", width: "280px" }}>
+          </div>
+        ) : (
+          <div style={{ display: "flex", width: "280px" }}>
             <Link className="component-search-newbar" to="/homesearch">
-            <input className="input" style={{ marginLeft: "35px" }}  placeholder="搜索项目/团队" disabled="disabled" />
+              <input
+                className="input"
+                style={{ marginLeft: "35px" }}
+                placeholder="搜索项目/团队"
+                disabled="disabled"
+              />
             </Link>
             <Link to="/my/entry">
               <div className="login-button">登录</div>
             </Link>
-          </div>}
-      </div>;
+          </div>
+        )}
+      </div>
+    );
   }
 
   play() {

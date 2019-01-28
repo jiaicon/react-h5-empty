@@ -16,7 +16,7 @@ import './post.css';
 import DutationProjects from '../../../components/duration/projects';
 import { postapplyAction, projectapplyAction } from '../my.store';
 import history from '../../history';
-import uploadToWX from '../../../utils/wxupload';
+import UploadPhoto from '../../../components/uploadPhoto/uploadPhoto';
 
 import Avatar from '../../../components/avatar/avatar';
 
@@ -59,20 +59,6 @@ class Post extends React.Component {
       ...this.state,
       hours,
       info,
-    });
-  }
-  // 上传照片
-  onAvatarClick() {
-    const attachment = this.state.attachment;
-    uploadToWX({
-      success: (urls) => {
-        attachment.push(urls[0]);
-        this.setState({
-          ...this.state,
-          attachment,
-        });
-        this.photo = urls[0];
-      },
     });
   }
 
@@ -144,7 +130,11 @@ class Post extends React.Component {
     this.props.postapplyAction(data);
    
   }
-
+    onPhotoChange(images) {
+        this.setState({
+            attachment: images.map(item=>item.url)
+        })
+    }
   render() {
     const popToggle = this.state.popToggle;
 
@@ -174,20 +164,7 @@ class Post extends React.Component {
               工作证明图片(选填)
             </div>
             <div className="page-post-container-photo-container">
-              {attachment.map((item, key) => (
-                <div className="page-applys-item-render-container">
-                  <div className="page-applys-item-view">
-                    <Avatar src={item} size={{ width: 100, radius: 1 }} />
-                  </div>
-                  <div
-                    className="page-applys-item-render-del"
-                    onClick={this.onDel}
-                    id={key}
-                    key={item}
-                  />
-                </div>
-              ))}
-              {attachment.length === 3 ? <div /> : <div className="page-post-item-upload-container" onClick={this.onAvatarClick} />}
+                <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={3} />
             </div>
           </div>
 

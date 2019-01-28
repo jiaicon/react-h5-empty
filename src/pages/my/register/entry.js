@@ -34,8 +34,8 @@ class Entry extends React.Component {
 
   componentWillUnmount() {}
   onLogin(){
-    // window.location.push='/my/login';
-    history.replace('/my/login')
+    window.location.href='/my/login';
+    // history.replace('/my/login')
   }
   render() {
     return (

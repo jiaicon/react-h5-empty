@@ -16,10 +16,10 @@ import './publish.css';
 import Link from '../../../../components/link/link';
 
 import Avatar from '../../../../components/avatar/avatar';
-import uploadToWX from '../../../../utils/wxupload';
 import { upFeelingAction } from '../circle.store';
 import { saveProjectTabIndex } from '../../../project/detail/detail.store';
 import { saveTeamTabIndex } from '../../../team/detail/detail.store';
+import UploadPhoto from '../../../../components/uploadPhoto/uploadPhoto';
 import history from '../../../history';
 
 
@@ -67,29 +67,6 @@ class CirclePublish extends React.Component {
   componentWillUnmount() {
 
   }
-
-  onAvatarClick() {
-    const imagesArr = this.state.imagesArr;
-    const num = 9 - imagesArr.length;
-    uploadToWX({
-      count: `${num}`,
-      success: (urls) => {
-        // imagesArr = urls;
-        if (urls.length === 1) {
-          imagesArr.push(urls[0]);
-        } else {
-          for (let i = 0; i < urls.length; i++) {
-            imagesArr.push(urls[i]);
-          }
-        }
-
-        this.setState({
-          ...this.state,
-          imagesArr,
-        });
-      },
-    });
-  }
   onTextChanged() {
     const editsthink = this.editsthink.value.replace(/(^\s+)|(\s+$)/g, '');
 
@@ -108,17 +85,9 @@ class CirclePublish extends React.Component {
       imagesArr,
     });
   }
-  onPreview(e) {
-    const index = e.target.getAttribute('data-index');
-    const imagesArr = this.state.imagesArr;
-    wx.ready(() => {
-      wx.previewImage({
-        current: imagesArr[index], // 当前显示图片的http链接
-        urls: imagesArr, // 需要预览的图片http链接列表
-      });
-    });
-  }
   onPublish() {
+      const { upFeeling: LupFeeling } = this.props;
+      if(LupFeeling.fetching)return;
     const editsthink = this.state.editsthink;
     const imagesArr = this.state.imagesArr;
     const data = {};
@@ -143,6 +112,12 @@ class CirclePublish extends React.Component {
       this.props.upFeelingAction(data);
     }
   }
+  onPhotoChange(images) {
+       console.log(images)
+        this.setState({
+            imagesArr: images.map(item=>item.url)
+        })
+    }
   render() {
     return (
       <div className="page-circlepublish-container">
@@ -152,21 +127,10 @@ class CirclePublish extends React.Component {
           ref={(c) => { this.editsthink = c; }} onBlur={this.onTextChanged}
         />
         <div className="page-circlepublish-images-container">
-          {
-          this.state.imagesArr.map((item, index) => (
-            <div className="page-circlepublish-images-container-view" >
-              <div className="page-circlepublish-images-container-view-x" data-index={index} onClick={this.onDelete} />
-              <Avatar size={{ width: 80, height: 80, radius: 1 }} src={item} data-index={index} onClick={this.onPreview} />
-            </div>
-            ))
-          }
-          {
-            this.state.imagesArr.length >= 9 ? null : <div className="page-circlepublish-images-container-up-images" onClick={this.onAvatarClick} />
-          }
-
-
+            <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={9} />
         </div>
         <div className="page-circlepublish-btn" onClick={this.onPublish}>发表</div>
+
       </div>
     );
   }

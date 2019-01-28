@@ -17,7 +17,11 @@ import { requestUserInfo } from "../../../stores/common";
 import "./certificate.css";
 import history from "../../history";
 import html2canvas from "html2canvas";
+<<<<<<< HEAD
 import { ImageToBase64 } from '../../../utils/funcs'
+=======
+import { ImageToBase64 } from "../../../utils/funcs";
+>>>>>>> feature/uploadPhoto
 
 class Certificate extends React.Component {
   constructor(props) {
@@ -72,8 +76,15 @@ class Certificate extends React.Component {
           )
         : null;
       const that = this;
+<<<<<<< HEAD
       ImageToBase64([this.certCachet, nextProps.user.avatars], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
       // ImageToBase64([this.certCachet, "/images/my/register.png"], ["/images/my/zdx.png", "/images/my/register.png"], base64Array => {
+=======
+      ImageToBase64(
+        [this.certCachet, nextProps.user.avatars],
+        ["/images/my/zdx.png", "/images/my/register.png"],
+        base64Array => {
+>>>>>>> feature/uploadPhoto
           that.setState(
             {
               base64Array: base64Array.slice(0),
@@ -84,7 +95,13 @@ class Certificate extends React.Component {
               that.htm2Click();
             }
           );
+<<<<<<< HEAD
         }, 0);
+=======
+        },
+        0
+      );
+>>>>>>> feature/uploadPhoto
     }
   }
 
@@ -121,14 +138,35 @@ class Certificate extends React.Component {
     const starWidth = this.props.user.stars
       ? Number(this.props.user.stars) * Number(20) - Number(5) + "px"
       : null;
+<<<<<<< HEAD
     return <div className="page-certificate-bg">
+=======
+    return (
+      <div className="page-certificate-bg">
+>>>>>>> feature/uploadPhoto
         <div className="page-certificate-container-border" ref="LaunchContent">
           <h5 className="page-certificate-container-title">
             {this.certTitle}志愿服务证书
           </h5>
           <div>
+<<<<<<< HEAD
             <img src={this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
               } id="avatars" style={{ display: "block", width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover" }} />
+=======
+            <img
+              src={
+                this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
+              }
+              id="avatars"
+              style={{
+                display: "block",
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                objectFit: "cover"
+              }}
+            />
+>>>>>>> feature/uploadPhoto
           </div>
 
           <div className="page-certificate-container-certificate" />
@@ -136,9 +174,16 @@ class Certificate extends React.Component {
             {this.props.user.real_name}
           </div>
 
-          {this.props.user.stars ? <div className="page-certificate-container-star" style={{ width: `${starWidth}` }}>
-              <Star size={{ width: 15, height: 14, score: this.props.user.stars }} />
-            </div> : null}
+          {this.props.user.stars ? (
+            <div
+              className="page-certificate-container-star"
+              style={{ width: `${starWidth}` }}
+            >
+              <Star
+                size={{ width: 15, height: 14, score: this.props.user.stars }}
+              />
+            </div>
+          ) : null}
 
           <div className="page-certificate-container-content">
             证书编号：{this.props.user.identifier}
@@ -172,14 +217,36 @@ class Certificate extends React.Component {
             <div className="page-certificate-container-teachsupport">
               技术支持：志多星
             </div>
+<<<<<<< HEAD
             <div className="page-certificate-container-content" style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}>
               {this.state.now}
             </div>
             {this.state.certCachet ? <img src={this.state.base64Array&&this.state.base64Array[0]} alt="" className="first" /> : <div />}
             {window.orgCode == "qM7e5Ba2vp" ? <img src="/images/my/zdx.png" className="second" /> : null}
+=======
+            <div
+              className="page-certificate-container-content"
+              style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
+            >
+              {this.state.now}
+            </div>
+            {this.state.certCachet ? (
+              <img
+                src={this.state.base64Array && this.state.base64Array[0]}
+                alt=""
+                className="first"
+              />
+            ) : (
+              <div />
+            )}
+            {window.orgCode == "qM7e5Ba2vp" ? (
+              <img src="/images/my/zdx.png" className="second" />
+            ) : null}
+>>>>>>> feature/uploadPhoto
           </div>
         </div>
-      </div>;
+      </div>
+    );
   }
 
   render() {
@@ -189,6 +256,7 @@ class Certificate extends React.Component {
       return null;
     }
     console.log(listData);
+<<<<<<< HEAD
     return <div style={{ position: "absolute", left: "0", top: "0", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
         {dataUrl ? <img style={{ width: "357px", display: "block", position: "relative", top: 0, bottom: 0, left: 0, right: 0, margin: "auto" }} src={`${this.state.dataUrl}`} /> : <div className="page-certificate-main-container">
             {/** TODO: */}
@@ -198,6 +266,48 @@ class Certificate extends React.Component {
             <img className="loading-img" src="/images/loadingimg.png" />
           </div>}
       </div>;
+=======
+    return (
+      <div
+        style={{
+          position: "absolute",
+          left: "0",
+          top: "0",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        {dataUrl ? (
+          <img
+            style={{
+              width: "357px",
+              display: "block",
+              position: "relative",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              margin: "auto"
+            }}
+            src={`${this.state.dataUrl}`}
+          />
+        ) : (
+          <div className="page-certificate-main-container">
+            {/** TODO: */}
+            {this.renderCertificate()}
+          </div>
+        )}
+        {dataUrl ? null : (
+          <div className="page-certificate-main-mask">
+            <img className="loading-img" src="/images/loadingimg.png" />
+          </div>
+        )}
+      </div>
+    );
+>>>>>>> feature/uploadPhoto
   }
 }
 

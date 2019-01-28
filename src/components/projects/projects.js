@@ -62,27 +62,34 @@ class Projects extends React.Component {
                     </div>
                     <div className="project-date">
                       活动日期：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}
-                    </div>
+                  </div>
                     {showLabel ? <div className={classnames({
                           "project-status": true,
                           "project-status-employed":
                             project.join_status === 1 &&
-                            project.project_status !== 5,
+                           project.progress !== 4,
+                            // project.project_status !== 5,
                           "project-status-employed-wait":
                             project.join_status === 0 &&
-                            project.project_status !== 5,
-                          "project-status-employed-end":
-                            project.project_status === 5
+                            project.progress !== 4,
+                            // project.project_status !== 5,
+                      "project-status-employed-end":
+                             project.progress == 4,
+                            // project.project_status === 5
                         })} /> : <div className={classnames({
                           "project-status": true,
                           "project-status-recruit":
-                            project.project_status === 2,
+                            // project.project_status === 2,
+                            project.progress === 1,
                           "project-status-full":
-                            project.project_status === 3,
+                            // project.project_status === 3,
+                            project.progress === 3,
                           "project-status-progress":
-                            project.project_status === 4,
+                            // project.project_status === 4,
+                            project.progress === 2,
                           "project-status-end":
-                            project.project_status === 5
+                            // project.project_status === 5
+                            project.progress === 4,
                         })} />}
                   </Link>
                   <div className="project-footer">

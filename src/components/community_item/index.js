@@ -17,7 +17,7 @@ import './index.css';
 import { requestUserInfo } from '../../stores/common';
 import { userCenterAction } from '../../pages/my/my.store';
 
-import { Dialog } from 'react-weui';
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
 
@@ -41,6 +41,8 @@ class COMMUNITYITEM extends React.Component {
     this.state = ({
       descHeight: null,
       descTrigger: false,
+      showMultiple: false,
+      previewData: []
     });
     this.dialog = {
       title: '登录提示',
@@ -100,13 +102,7 @@ class COMMUNITYITEM extends React.Component {
   onPreview(e) {
     const index = e.currentTarget.getAttribute('data-index');
     const imagesArr = this.props.data.photo;
-
-    wx.ready(() => {
-      wx.previewImage({
-        current: imagesArr[index], // 当前显示图片的http链接
-        urls: imagesArr, // 需要预览的图片http链接列表
-      });
-    });
+    this.setState({ previewData: imagesArr, showMultiple: true, defaultIndex: index });
   }
   entry(e) {
     const info = JSON.parse(e.target.getAttribute('data-info'));
@@ -157,7 +153,15 @@ class COMMUNITYITEM extends React.Component {
     let action = '';
     this.commentId = data.id;
 
-
+    const BackButtonStyle = {
+      display: "block",
+      width: "100%",
+      color: "white",
+      border: "none",
+      position: "absolute",
+      top: "-55px",
+      left: "0"
+    };
     if (!joined && !auditing) {
       // 未登陆，点赞
       actionClassName = 'components-community-item-footer-like-n';
@@ -237,6 +241,15 @@ class COMMUNITYITEM extends React.Component {
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
         只有登录的用户才能点赞和评论哦～
         </Dialog>
+        <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+          <Button
+            style={BackButtonStyle}
+            onClick={e => this.setState({ showMultiple: false })}
+            plain
+          >
+            Back
+          </Button>
+        </Gallery>
       </div >
     );
   }

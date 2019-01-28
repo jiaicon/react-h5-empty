@@ -523,3 +523,65 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.page-project-signUp-item-upload-container .page-profile-header-uploade-box-iptbox {
+    height: 100%;
+}
+.page-project-signUp-item-upload-container input {
+    opacity: 0;
+    height: 100%;
+}
+
+
+
+
+
+.page-project-receipt{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+}
+.page-project-receipt-wechaticon{
+    display: block;
+    margin: 49px 0 24px;
+    width: 74px;
+    height: 74px;
+}
+.page-project-receipt-title{
+    font-size: 20px;
+    color: #000000;
+    font-weight: 400;
+    margin-bottom: 15px;    
+}
+.page-project-receipt-paragph{
+    width: 304px;
+    font-size: 14px;
+    color: #888888;
+    text-align: center;
+}
+.page-project-receipt-btn{
+    width: 335px;
+    height: 47px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border: 1px solid rgba(5,5,5,0.08);
+    border-radius: 5px;
+    background: #F8F8F8;
+    color: #000000;
+}
+.page-projrct-receipt-orgname{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 12px;
+    font-size: 13px;
+    color: #576B95;
+}

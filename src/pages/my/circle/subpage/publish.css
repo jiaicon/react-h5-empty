@@ -11,11 +11,11 @@
   outline: none;
 }
 .page-circlepublish-images-container{
-  padding: 0 11px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
+  padding: 16px 11px 0;
+  /*display: flex;*/
+  /*flex-wrap: wrap;*/
+  /*justify-content: flex-start;*/
+  /*align-content: flex-start;*/
 }
 .page-circlepublish-images-container-view{
   margin-right: 4px;

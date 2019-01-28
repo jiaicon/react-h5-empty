@@ -7,7 +7,11 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
+<<<<<<< HEAD
   <meta name="last-build-time" content="Sat Jan 19 2019 09:50:42 GMT+0800 (GMT+08:00)">
+=======
+  <meta name="last-build-time" content="Thu Jan 24 2019 17:53:08 GMT+0800 (GMT+08:00)">
+>>>>>>> feature/uploadPhoto
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -28,6 +32,8 @@
   <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="7de7de184affb1a29b9a766df87ac3420018a2e870a7cc91278229aaeeaccedb"></script>
 
   <script>
+    window.userAgent = @if ($env == 'wx') true @else false @endif;
+    
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {!! $jsConfig !!}; // 或者 '{}'
 
@@ -58,7 +64,7 @@
     // server 下发的机构编号
     window.orgCode = '{!! $orgCode !!}';
 
-    if (window.wxConfig) {
+    if (window.userAgent&&window.wxConfig) {
       try{
         if (typeof window.wxConfig === 'string') {
           window.wxConfig = JSON.parse(window.wxConfig);
@@ -89,7 +95,12 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
+<<<<<<< HEAD
   <script src="/dist/main.60bf49d0a619bccdb391.js"></script>
+=======
+  <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+  <script src="/dist/main.5cd884176fbffba6dc87.js"></script>
+>>>>>>> feature/uploadPhoto
 </body>
 
 </html>

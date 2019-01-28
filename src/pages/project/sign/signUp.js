@@ -7,7 +7,9 @@ import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import uploadToWX from '../../../utils/wxupload';
+import UploadPhoto from '../../../components/uploadPhoto/uploadPhoto';
 import { bindActionCreators } from 'redux';
+import uploadImage from "../../../utils/uploadImage";
 import CheckboxStepper from '../../../components/checkboxStepper/index'
 import { List, Checkbox, DatePicker, Radio } from 'antd-mobile';
 import history from '../../history';
@@ -25,6 +27,11 @@ import {
     joinPayProject,
     joinProjectAction
 } from '../sign/sign.store';
+
+
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
 function formatDate(x, y) {
     /* eslint no-confusing-arrow: 0 */
     const pad = n => n < 10 ? `0${n}` : n;
@@ -107,6 +114,8 @@ class SignUpPage extends React.Component {
         this.state = {
             checkeAll: false,
             extendsArray: {},
+            showMultiple: false,
+            previewData: []
         };
         this.CustomChildren = ({ extra, onClick }) => (
 
@@ -413,6 +422,7 @@ class SignUpPage extends React.Component {
     onPicClick(e) {
         var key = e.target.id;
         const attachment = this.state[key];
+        console.log(11)
         uploadToWX({
 
             success: (urls) => {
@@ -443,11 +453,24 @@ class SignUpPage extends React.Component {
         const num = e.target.id;
         var key = e.target.getAttribute("data-key");
         const imagesArr = this.state[key];
-        wx.ready(() => {
-            wx.previewImage({
-                current: imagesArr[num], // 当前显示图片的http链接
-                urls: imagesArr, // 需要预览的图片http链接列表
-            });
+        this.setState({
+            previewData: imagesArr,
+            showMultiple: true,
+            defaultIndex: 0
+        });
+    }
+    onPhotoChange(e) {
+        console.log(e.target.id);
+        let key = e.target.id;
+        uploadImage(`/api/imgupload`, { method: 'POST', data: { file: { file: e.target.files[0] } } }).then((json) => {
+            if (json.error_code === 0) {
+                const attachment = this.state[key];
+                attachment.push(json.data.url);
+                this.setState({
+                    ...this.state, [key]: attachment
+                });
+                this.pushExtendsArray(key, attachment);
+            }
         });
     }
     renderOtherPic(item) {
@@ -481,9 +504,12 @@ class SignUpPage extends React.Component {
                     {
                         this.state[key].length === 1 ?
                             <div /> :
-                            <div
-                                className="page-project-signUp-item-upload-container" id={`${key}`} onClick={this.onPicClick}
-                            />
+                            <div className="page-project-signUp-item-upload-container">
+                                <input id={key} onChange={this.onPhotoChange} accept="image/png, image/jpeg, image/jpg"
+                                    ref={c => {
+                                        this.uploadImages = c
+                                    }} className="page-profile-header-uploade-box-ipt" type="file" />
+                            </div>
                     }
                 </div>
                 <div className="line1px" />
@@ -751,17 +777,25 @@ class SignUpPage extends React.Component {
                     }
                 }
             }
+            console.log(111)
             data.payment = pay;
             this.props.joinPayProject(data);
             return
         }
-
-
         this.props.joinProjectAction(data);
 
 
     }
     render() {
+        const BackButtonStyle = {
+            display: "block",
+            width: "100%",
+            color: "white",
+            border: "none",
+            position: "absolute",
+            top: "-55px",
+            left: "0"
+        };
         return (
             <div className="page-project-signUp">
 
@@ -795,7 +829,15 @@ class SignUpPage extends React.Component {
                     </div>
                 </div>
 
-
+                <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+                    <Button
+                        style={BackButtonStyle}
+                        onClick={e => this.setState({ showMultiple: false })}
+                        plain
+                    >
+                        Back
+          </Button>
+                </Gallery>
             </div>
         );
     }

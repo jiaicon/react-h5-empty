@@ -44,8 +44,8 @@
     background-position:15px center;
 }
 .component-CheckboxStepper-checkbox label .labelname{
-    width: 100%;
-    height: 16px;
+    width: 90%;
+    height: 20px;
     font-size: 16px;
     color: #282828;
     margin-bottom: 15px;
@@ -107,7 +107,7 @@
     border: 1px solid #CBCBCB;
     position: relative;
     right: 15px;
-    top: 44px;
+    top: 54px;
 }
 .component-CheckboxStepper .container .sub{
     height: 22px;

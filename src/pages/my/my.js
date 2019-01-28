@@ -20,6 +20,10 @@ import Star from '../../components/star/star';
 import './my.css';
 import Avatar from '../../components/avatar/avatar';
 
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
+
 // 机构码
 const orgCode = window.orgCode;
 const scoreName = window.orgInfo.score_name;
@@ -29,6 +33,10 @@ class MyPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = ({
+      showMultiple: false,
+      previewData: []
+    });
   }
 
   componentWillMount() {
@@ -61,13 +69,15 @@ class MyPage extends React.Component {
   }
   onPreview(e) {
     var key = e.target.getAttribute("data-key");
-    var arr =[];
+    var arr = [];
+    if (!key) {
+      key = '/images/my/register.png';
+    }
     arr.push(key);
-    wx.ready(() => {
-      wx.previewImage({
-        current: key, // 当前显示图片的http链接
-        urls: arr, // 需要预览的图片http链接列表
-      });
+    this.setState({
+      previewData: arr,
+      showMultiple: true,
+      defaultIndex: 0
     });
   }
   renderPageMyphotoTemplate() {
@@ -272,6 +282,15 @@ class MyPage extends React.Component {
     );
   }
   render() {
+    const BackButtonStyle = {
+      display: "block",
+      width: "100%",
+      color: "white",
+      border: "none",
+      position: "absolute",
+      top: "-55px",
+      left: "0"
+    };
     return (
       <div className="page-my">
         <div className="page-my-top">
@@ -280,7 +299,15 @@ class MyPage extends React.Component {
         <div className="page-my-line" />
         <div className="page-my-item-container-padding" >
           {this.renderPageMyContainer()}
-
+          <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+            <Button
+              style={BackButtonStyle}
+              onClick={e => this.setState({ showMultiple: false })}
+              plain
+            >
+              Back
+          </Button>
+          </Gallery>
         </div>
 
       </div>
