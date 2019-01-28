@@ -122,9 +122,9 @@ class MyPage extends React.Component {
                         data-key={user.avatars || ''} size={{width: 80, radius: 8}}
                         defaultSrc="/images/my/register.png" onClick={this.onPreview}/>
                 <div className="page-my-user-info">
-                    <p className="page-my-user-info-nick"
-                       onClick={this.showCommonweal}>
-                        <p style={{display: 'flex',alignItems: 'center'}}>
+                    <p className="page-my-user-info-nick">
+                        <p style={{display: 'flex',alignItems: 'center'}}
+                           onClick={this.showCommonweal}>
                             {user.real_name || user.username || '未设置昵称'}
                             <p className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p>
                         </p>
