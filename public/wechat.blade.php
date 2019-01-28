@@ -7,11 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-<<<<<<< HEAD
-  <meta name="last-build-time" content="Sat Jan 19 2019 09:50:42 GMT+0800 (GMT+08:00)">
-=======
   <meta name="last-build-time" content="Thu Jan 24 2019 17:53:08 GMT+0800 (GMT+08:00)">
->>>>>>> feature/uploadPhoto
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -95,12 +91,8 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
-<<<<<<< HEAD
-  <script src="/dist/main.60bf49d0a619bccdb391.js"></script>
-=======
   <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
   <script src="/dist/main.5cd884176fbffba6dc87.js"></script>
->>>>>>> feature/uploadPhoto
 </body>
 
 </html>

@@ -1,9 +1,4 @@
 /* global wx:false, qq:false */
-<<<<<<< HEAD
-// 遍历转baser64
-export function ImageToBase64(imageArrays, defaultArrays, callback, index,) {
-  // let base64Arrays = [];
-=======
 
 //写cookies（设置作用域）
 export function setCookie(name, value, Days) {
@@ -50,18 +45,13 @@ export function delCookie(name) {
 
 // 遍历转baser64
 export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
->>>>>>> feature/uploadPhoto
   if (!imageArrays.length) return;
   if (index < imageArrays.length) {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
     let img = new Image();
     img.crossOrigin = "*";
-<<<<<<< HEAD
-    img.onload = function () {
-=======
     img.onload = function() {
->>>>>>> feature/uploadPhoto
       var w = img.width;
       var h = img.height;
       canvas.height = 200;
@@ -70,20 +60,6 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
       if (w > h) {
         let diff = (w - h) / 2;
 
-<<<<<<< HEAD
-        ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200)
-      }else if (w < h) {
-        let diff = (h - w) / 2;
-
-        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200)
-      }else if (w == h) {
-        ctx.drawImage(img, 0, 0,w,w,0,0,200,200);
-      }
-
-     
-      var dataURL = canvas.toDataURL("image/png");
-      imageArrays[index]=dataURL;
-=======
         ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200);
       } else if (w < h) {
         let diff = (h - w) / 2;
@@ -94,36 +70,10 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
       }
       var dataURL = canvas.toDataURL("image/png");
       imageArrays[index] = dataURL;
->>>>>>> feature/uploadPhoto
       index++;
       ImageToBase64(imageArrays, defaultArrays, callback, index);
       canvas = null;
     };
-<<<<<<< HEAD
-    img.onerror = function (e) {
-    
-      if (defaultArrays[index]) {
-        img.src = defaultArrays[index];
-      } else {
-        this.style.visibility = 'hidden';
-      }
-    };
-    img.src = imageArrays[index];
-
-  } else {
-    callback && callback(imageArrays);
-  }
-
-}
-
-
-
-
-
-
-
-
-=======
     img.onerror = function(e) {
       if (defaultArrays[index]) {
         img.src = defaultArrays[index];
@@ -137,7 +87,6 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
   }
 }
 
->>>>>>> feature/uploadPhoto
 // 去除三里屯  志愿回馈
 export function deleteSanlitunMoudling(data) {
   let newData = data.map(item => {
