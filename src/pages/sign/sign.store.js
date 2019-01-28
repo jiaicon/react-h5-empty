@@ -4,6 +4,35 @@ import { combineReducers } from 'redux';
 import fetch from '../../utils/fetch';
 
 
+export const requestClockList = () => ({
+  type: 'V2_CHECKIN_LIST',
+  payload: fetch('/user/project/clock', { method: 'GET', switchUrl: `${window.apiHost}/api/v2`}),
+});
+
+const clocklistReducer = (
+  state = {
+    fetching: false,
+    failed: false,
+    data: null
+  },
+  action
+) => {
+  switch (action.type) {
+    case "V2_CHECKIN_LIST_PENDING":
+      return { ...state, fetching: true, failed: false };
+    case "V2_CHECKIN_LIST_FULFILLED":
+      return { ...state, fetching: false, failed: false, data: action.payload.data };
+    case "V2_CHECKIN_LIST_REJECTED":
+      return { ...state, failed: true, fetching: false };
+    default:
+      return state;
+  }
+};
+
+
+
+
+
 export const requestCheckinList = () => ({
   type: 'CHECKIN_LIST',
   payload: fetch('/clock/in', { method: 'GET' }),
@@ -83,46 +112,7 @@ const checkinReducer = (state = {
 const reducer = combineReducers({
   checkin: checkinReducer,
   ckeckinList: requestCheckinListReducer,
+  clocklist: clocklistReducer,
 });
 export default reducer;
-
-// export default (state = {
-//   fetching: false,
-//   failed: false,
-//   data: null,
-// }, action) => {
-//   switch (action.type) {
-//     case 'CHECKIN_LIST_PENDING':
-//       return {
-//         ...state,
-//         fetching: true,
-//         failed: false,
-//       };
-//     case 'CHECKIN_LIST_FULFILLED':
-
-//       return {
-//         ...state,
-//         fetching: false,
-//         failed: false,
-//         data: action.payload && action.payload.data,
-//       };
-//     case 'CHECKIN_LIST_REJECTED':
-//       return {
-//         ...state,
-//         failed: true,
-//         fetching: false,
-//       };
-//     case 'PROJECT_CHECKIN_FULFILLED':
-//       if (action.payload.error_code || !action.payload.data) {
-//         return state;
-//       }
-
-//       return {
-//         ...state,
-//         data: action.payload.data,
-//       };
-//     default:
-//       return state;
-//   }
-// };
 

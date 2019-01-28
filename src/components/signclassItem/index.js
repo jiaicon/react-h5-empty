@@ -41,16 +41,7 @@ class SignItem extends React.Component {
     return (
       <div className="no-record">
         <div>
-          <img src="/images/sign.png" alt="" />
-        </div>
-        <span>
-          <p>还没有项目可以签到</p>
-          <p>快去加入项目吧</p>
-        </span>
-        <div className="sign-btn-container">
-          <Link to="/project/list" className="sign-btn">
-            浏览项目
-          </Link>
+          目前还没有班次
         </div>
       </div>
     );
@@ -62,31 +53,25 @@ class SignItem extends React.Component {
     // const next = true;
     // data && data.list && data.list.length === 0 && !next
     // const records = data && data.list ? data.list : [];
-    const records = [{}, {}, {}];
+    const records = [{}];
     return <div>
         {records.map(record => (
           <li key={record.clock_in_time} className="sign-record">
-            <Link to={`/sign/signclass/${1}`}>
-            <div
-              className={classnames({
-                "sign-record-status-shape": true,
-                "sign-record-status-shape-ing": true,
-                "sign-record-status-shape-recru": false,
-                "sign-record-status-shape-end": false
-              })}
-            />
-            <div className="sign-header">
-              <div className="project-title">志多星关注程序员健康活动</div>
-              <div style={{ color: "#686868", fontSize: "13px" }}>
-                活动日期：2017.10.12-2017.10.14
+            <Link to={`/sign/signdetail/detail/${1}`}>
+              <div className="sign-header">
+                <div style={{ color: "#4A4A4A", fontSize: "16px" }}>
+                  2017/9/20 09:00 - 2017/09/23 09:00
+                </div>
               </div>
-            </div>
-            <div className="line1px" />
-            <div className="project-info">
-              <div className="project-info-addr">朝阳区 0.6km</div>
-              <div className="project-info-date">
-                <span style={{ color: "#F6AB00" }}>50</span>/300
-              </div>
+              <div className="line1px" />
+              <div className="project-info">
+                <div className="project-info-time">
+                  预计最多可获得志愿时长&nbsp;&nbsp;
+                  <span style={{ color: "#6AC6F8" }}>2.00小时</span>
+                </div>
+                <div className="project-info-time-shape project-info-time-wait ">
+                  待打卡
+                </div>
               </div>
             </Link>
           </li>
@@ -102,20 +87,20 @@ class SignItem extends React.Component {
     // data && data.list && data.list.length === 0 && !next
     // if (!data) {
     //   return (
-    //     <div className="page-sign">
-    //       <div className="component-sign">{this.renderEmpty()}</div>
+    //     <div className="page-sign-class">
+    //       <div className="component-sign-class">{this.renderEmpty()}</div>
     //     </div>
     //   );
     // }
-    return <div className="page-sign">
-        <div className="component-sign">
-          {data ? null : <div className="component-sign-title">
-              近3天待打卡项目
+    return <div className="page-sign-class">
+        <div className="component-sign-class">
+          {data ? null : <div className="component-sign-class-title">
+              近3天待打卡班次
             </div>}
           <ul className="sign-list">
             {next ? this.renderProjectList() : null}
-            {data ? null : <div className="component-sign-title">
-                所有项目
+            {data ? null : <div className="component-sign-class-title">
+                所有班次
               </div>}
             {this.renderProjectList()}
           </ul>
