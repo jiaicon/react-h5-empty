@@ -17,12 +17,12 @@ import {userCenterAction, userAchieve} from './my.store';
 import {requestUserInfo} from '../../stores/common';
 import Link from '../../components/link/link';
 import Star from '../../components/star/star';
-import './my.css';
 import Avatar from '../../components/avatar/avatar';
 import ModalNew from './../../components/ModalNew/ModalNew';
 import {Dialog, Gallery, GalleryDelete, Button, Icon} from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
+import './my.css';
 
 
 // 机构码
