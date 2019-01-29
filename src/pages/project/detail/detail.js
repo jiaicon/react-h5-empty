@@ -418,7 +418,7 @@ class ProjectDetailPage extends React.Component {
             <div>
               <span>
                 {Number(this.projectId) == 2009
-                  ? 183
+                  ? 437
                   : detailData.join_people_count}
               </span>/<span>{detailData.people_count}</span>
             </div>
