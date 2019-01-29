@@ -3,6 +3,11 @@ import React, { PropTypes } from "react";
 import classnames from "classnames";
 import Link from "../link/link";
 import "./style.css";
+import {
+  parseTimeStringToDateString,
+  parseDistance,
+  isVolunteerInsure
+} from "../../utils/funcs";
 Date.prototype.Format = function(fmt) {
   // author: meizz
   const o = {
@@ -56,68 +61,81 @@ class SignItem extends React.Component {
     );
   }
   renderProjectList(data) {
-    // const { data } = this.props;
-    // const records = data && data.list ? data.list : [];
-    // // data && data.next && data.next.project ? data.next : null;
-    // const next = true;
-    // data && data.list && data.list.length === 0 && !next
-    // const records = data && data.list ? data.list : [];
-    const records = [{}, {}, {}];
-    return <div>
-        {records.map(record => (
-          <li key={record.clock_in_time} className="sign-record">
-            <Link to={`/sign/signclass/${1}`}>
-            <div
-              className={classnames({
-                "sign-record-status-shape": true,
-                "sign-record-status-shape-ing": true,
-                "sign-record-status-shape-recru": false,
-                "sign-record-status-shape-end": false
-              })}
-            />
-            <div className="sign-header">
-              <div className="project-title">志多星关注程序员健康活动</div>
-              <div style={{ color: "#686868", fontSize: "13px" }}>
-                活动日期：2017.10.12-2017.10.14
-              </div>
-            </div>
-            <div className="line1px" />
-            <div className="project-info">
-              <div className="project-info-addr">朝阳区 0.6km</div>
-              <div className="project-info-date">
-                <span style={{ color: "#F6AB00" }}>50</span>/300
-              </div>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </div>;
+    return (
+      <div>
+        {data.map((record, index) => {
+          return (
+            <li key={index} className="sign-record">
+              <Link to={`/sign/signclass/${record.id}`}>
+                <div
+                  className={classnames({
+                    "sign-record-status-shape": true,
+                    "sign-record-status-shape-ing": record.progress == 2,
+                    "sign-record-status-shape-recru": record.progress == 1,
+                    "sign-record-status-shape-end": record.progress == 4,
+                  })}
+                />
+                <div className="sign-header">
+                  <div className="project-title">{record.name}</div>
+                  <div style={{ color: "#686868", fontSize: "13px" }}>
+                    活动日期:&nbsp;&nbsp;{record.begin.split(" ")[0]}&nbsp; -
+                    &nbsp;
+                    {record.end.split(" ")[0]}
+                  </div>
+                </div>
+                <div className="line1px" />
+                <div className="project-info">
+                  <div className="project-info-addr">
+                    {record.county_name}
+                    {record.distance > 0
+                      ? parseDistance(record.distance)
+                      : null}
+                  </div>
+                  {record.people_count_public ? (
+                    <div className="project-info-date">
+                      <span style={{ color: "#F6AB00" }}>
+                        {record.join_people_count}
+                      </span>
+                      &nbsp;/&nbsp;
+                      <span>{record.people_count}</span>
+                    </div>
+                  ) : null}
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </div>
+    );
   }
-
   render() {
     const { data } = this.props;
-    const records = data && data.list ? data.list : [];
-    // data && data.next && data.next.project ? data.next : null;
-    const next = true;
-    // data && data.list && data.list.length === 0 && !next
-    // if (!data) {
-    //   return (
-    //     <div className="page-sign">
-    //       <div className="component-sign">{this.renderEmpty()}</div>
-    //     </div>
-    //   );
-    // }
+    console.log(data);
+    if (!data) {
+      return null;
+    } else if (data && !data.three_day_project && !data.project) {
+      return (
+        <div className="page-sign">
+          <div className="component-sign">{this.renderEmpty()}</div>
+        </div>
+      );
+    }
     return <div className="page-sign">
         <div className="component-sign">
-          {data ? null : <div className="component-sign-title">
+          {data.three_day_project && data.three_day_project.length > 0 ? <div className="component-sign-title">
               近3天待打卡项目
-            </div>}
+            </div> : null}
+
           <ul className="sign-list">
-            {next ? this.renderProjectList() : null}
-            {data ? null : <div className="component-sign-title">
+            {data.three_day_project && data.three_day_project.length > 0 ? <div>
+                {this.renderProjectList(data.three_day_project)}
+              </div> : null}
+            {data.project && data.project.length > 0 ? <div className="component-sign-title">
                 所有项目
-              </div>}
-            {this.renderProjectList()}
+              </div> : null}
+            {data.project && data.project.length > 0 ? <div>
+                {this.renderProjectList(data.project)}
+              </div> : null}
           </ul>
         </div>
       </div>;

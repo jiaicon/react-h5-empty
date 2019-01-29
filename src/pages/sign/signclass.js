@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import Link from '../../components/link/link';
-import { requestCheckinList, checkin, requestClockList} from './sign.store';
+import { requestClockClassList } from "./sign.store";
 import history from '../history';
 
 import { getCity, getLocation } from '../../utils/funcs';
@@ -25,10 +25,11 @@ class SignClassPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.Id = this.props.route.params.Id;
   }
 
   componentWillMount() {
-    // this.props.requestClockList();
+    this.props.requestClockClassList(this.Id);
   }
 
   componentDidMount() {
@@ -43,12 +44,10 @@ class SignClassPage extends React.Component {
 
   
   render() {
-    const { data } = this.props;
-    const records = data && data.list ? data.list : [];
-    const next = data && data.next && data.next.project ? data.next : null;
+    const { data } = this.props.clockclasslist;
 
     return <div>
-        <SignClassItem data={null} />
+      <SignClassItem data={data} />
       </div>;
   }
 }
@@ -65,7 +64,7 @@ SignClassPage.propTypes = {
 };
 export default connect(
   state => ({
-    clocklist: state.sign.clocklist,
+    clockclasslist: state.sign.clockclasslist
   }),
-  dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity, requestClockList }, dispatch),
+  dispatch => bindActionCreators({ requestClockClassList }, dispatch)
 )(SignClassPage);

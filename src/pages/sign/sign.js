@@ -24,7 +24,7 @@ class SignPage extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.requestClockList();
+    this.props.requestClockList();
   }
 
   componentDidMount() {
@@ -39,13 +39,12 @@ class SignPage extends React.Component {
 
   
   render() {
-    const { data } = this.props;
-    const records = data && data.list ? data.list : [];
-    const next = data && data.next && data.next.project ? data.next : null;
+    console.log(this.props.clocklist);
+    const { data } = this.props.clocklist;
 
     return <div>
-      <SignItem data={null}/>
-    </div>;
+        <SignItem data={data} />
+      </div>;
   }
 }
 
