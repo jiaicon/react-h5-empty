@@ -1,6 +1,70 @@
 import { combineReducers } from "redux";
 import fetch from "../../utils/fetch";
-requestClockClassList;
+export const clocking = data => ({
+  type: "V2_CHECKIN_ING",
+  payload: fetch(`/clock/${data.id}`, {
+    method: "post",
+    switchUrl: `${window.apiHost}/api/v2`
+  })
+});
+
+const clockingReducer = (
+  state = {
+    fetching: false,
+    failed: false,
+    data: null
+  },
+  action
+) => {
+  switch (action.type) {
+    case "V2_CHECKIN_ING_PENDING":
+      return { ...state, fetching: true, failed: false };
+    case "V2_CHECKIN_ING_FULFILLED":
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data
+      };
+    case "V2_CHECKIN_ING_REJECTED":
+      return { ...state, failed: true, fetching: false };
+    default:
+      return state;
+  }
+};
+
+export const requestClockInfo = id => ({
+  type: "V2_CHECKIN_INFO",
+  payload: fetch(`/clock/${id}/info`, {
+    method: "GET",
+    switchUrl: `${window.apiHost}/api/v2`
+  })
+});
+
+const clockinfoReducer = (
+  state = {
+    fetching: false,
+    failed: false,
+    data: null
+  },
+  action
+) => {
+  switch (action.type) {
+    case "V2_CHECKIN_INFO_PENDING":
+      return { ...state, fetching: true, failed: false };
+    case "V2_CHECKIN_INFO_FULFILLED":
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data
+      };
+    case "V2_CHECKIN_INFO_REJECTED":
+      return { ...state, failed: true, fetching: false };
+    default:
+      return state;
+  }
+};
 
 export const requestClockClassList = id => ({
   type: "V2_CHECKIN_CLASS_LIST",
@@ -153,5 +217,7 @@ const reducer = combineReducers({
   ckeckinList: requestCheckinListReducer,
   clocklist: clocklistReducer,
   clockclasslist: clockclasslistReducer,
+  clickinfo: clockinfoReducer,
+  clocking: clockingReducer
 });
 export default reducer;

@@ -7,32 +7,75 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Alert from "react-s-alert";
 import Link from "../../../components/link/link";
-import { requestCheckinList, checkin } from "../../sign/sign.store";
+import { requestClockInfo, clocking } from "../../sign/sign.store";
 import classnames from "classnames";
-import moment from 'moment';
+import moment from "moment";
 import history from "../../history";
 
 import { getCity, getLocation } from "../../../utils/funcs";
 import { requestHomeData, saveCity, getAreaCity } from "../../home/home.store";
 import "./detail.css";
-
+function GetDistance(lat1, lng1, lat2, lng2) {
+  var radLat1 = (lat1 * Math.PI) / 180.0;
+  var radLat2 = (lat2 * Math.PI) / 180.0;
+  var a = radLat1 - radLat2;
+  var b = (lng1 * Math.PI) / 180.0 - (lng2 * Math.PI) / 180.0;
+  var s =
+    2 *
+    Math.asin(
+      Math.sqrt(
+        Math.pow(Math.sin(a / 2), 2) +
+          Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)
+      )
+    );
+  s = s * 6378.137; // EARTH_RADIUS;
+  s = Math.round(s * 10000) / 10000;
+  // return的距离单位为km;
+  return s;
+}
 class SignBall extends React.Component {
   static propTypes = {
     isLight: PropTypes.bool,
     clickFunc: PropTypes.func,
+    data: PropTypes.shape({}),
     ballTitle: PropTypes.string
   };
   constructor(props) {
     super(props);
     autoBind(this);
     this.timer = null;
-    this.state = { time: `${moment().format("HH:mm:ss")}` };
+
+    this.state = {
+      time: `${moment().format("HH:mm:ss")}`,
+      type: 0,
+      isSign: false,
+      signIndex: 3
+    };
   }
 
   componentWillMount() {
-    clearInterval(this.timer);
+    this.getloc();
   }
+  getloc = () => {
+    const { data } = this.props;
+    getLocation(
+      loc => {
+        let distance = GetDistance(loc.lat, loc.lng, data.lat, data.lng);
+        console.log(data);
 
+        if (distance <= data.distance) {
+          this.setState({ isSign: true, signIndex: 1 });
+        } else {
+          this.setState({ isSign: false, signIndex: 2 });
+        }
+      },
+      error => {
+        if (fail) {
+          this.setState({ isSign: false, signIndex: 3 });
+        }
+      }
+    );
+  };
   componentDidMount() {
     const that = this;
     this.timer = setInterval(() => {
@@ -44,22 +87,60 @@ class SignBall extends React.Component {
 
   componentWillReceiveProps(nextProps) {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
   handleClick() {
-    console.log('click')
+    const { time, isSign, signIndex } = this.state;
+    const { data } = this.props;
+    if (!isSign) return;
+    let postMessages = {
+      id: data.id,
+
+    }
+    this.props.clickFunc(postMessages);
+  }
+  renderDistanceInfo() {
+    const { time, isSign, signIndex } = this.state;
+    let dom = null;
+    if (signIndex == 1) {
+      dom = (
+        <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+          <img src="/images/sign/signsuccess.png" className="sign-first"/>
+          已进入签到地点范围
+        </div>
+      );
+    } else if (signIndex == 2) {
+      dom = <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <img src="/images/sign/signal.png" className="sign-first" />
+        当前不在签到地点范围：<span style={{ color:' #230000'}}>查看签到地点</span> <img src="/images/sign/signmore.png" style={{ width: "9px" }} />
+        </div>;
+    } else if (signIndex == 3) {
+      dom = (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img src="images/sign/signfail.png" className="sign-first"/>
+          当前无法定位:请开启定位权限
+          <img src="/images/sign/signaw.png" style={{width:'9px'}} />
+        </div>
+      );
+    }
+    return <div className="page-signball-distanceinfo-container">{dom}</div>;
   }
   render() {
-    const { time } = this.state;
+    const { time, isSign, signIndex } = this.state;
     return (
-      <div
-        className={classnames({
-          "page-signball-shape": true,
-          "page-signball-islight": true
-        })}
-        onClick={this.handleClick}
-      >
-        <div className="page-signball-title">签到打卡</div>
-        <div className="page-signball-date">{time}</div>
+      <div>
+        <div
+          className={classnames({
+            "page-signball-shape": true,
+            "page-signball-islight": isSign
+          })}
+          onClick={this.handleClick}
+        >
+          <div className="page-signball-title">{this.props.ballTitle}</div>
+          <div className="page-signball-date">{time}</div>
+        </div>
+        {this.renderDistanceInfo()}
       </div>
     );
   }
@@ -68,21 +149,35 @@ class SignPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.Id = props.route.params.Id;
     this.state = { turnMap: false };
   }
 
   componentWillMount() {
-    this.props.requestCheckinList();
+    this.props.requestClockInfo(this.Id);
   }
 
   componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.clickinfo && nextProps.clickinfo.data) {
+      this.setState({
+        ...this.state,
+        type: nextProps.clickinfo.data.clock_info.type,
+        isToday:
+          moment(nextProps.clickinfo.data.clock_info.begin).format(
+            "YYYY-MM-DD"
+          ) == moment().format("YYYY-MM-DD")
+            ? true
+            : false
+      });
+    }
+  }
 
   componentWillUnmount() {}
   renderMap() {
     let source =
-      "https://apis.map.qq.com/tools/poimarker?type=0&marker=coord: 39.96554, 116.26719; title: 成都; addr: 北京市海淀区复兴路32号院&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI&referer=myapp";
+      "https://apis.map.qq.com/tools/poimarker?type=0&marker=coord: 39.96554, 116.26719; title: 打卡地点; addr: 北京市海淀区复兴路32号院&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI&referer=myapp";
 
     return (
       <iframe
@@ -96,50 +191,23 @@ class SignPage extends React.Component {
       />
     );
   }
+  handleBallClick(data) {
+    this.props.clocking(data)
+  }
   renderInfo() {
-    const data = {
-      addr: "昌平区金域华府(东区)",
-      begin: "2019-01-01 00:00:00",
-      city_id: 110100,
-      city_name: "北京市",
-      collection_status: 0,
-      contact_name: "郭晓炜",
-      contact_phone: "15522463978",
-      contact_phone_public: 1,
-      content: "<p>1231231</p>",
-      county_id: 110101,
-      county_name: "东城区",
-      created_at: "2019-01-14 17:26:51",
-      custom_config: null,
-      distance: -1,
-      end: "2019-01-30 23:59:59",
-      id: 91,
-      identifier: "ZDX2019011400000091",
-      join_end: "2019-01-30",
-      join_people_count: 0,
-      join_status: 0,
-      lat: "40.0653650",
-      list_photo: "",
-      lng: "116.3143310",
-      my_reward_time: "0.00",
-      name: "1.14 测试",
-      people_count: 14,
-      photo: null,
-      project_status: 4,
-      province_id: 110000,
-      province_name: "北京",
-      reward_time: "5.00",
-      volunteer_security: "志愿者保险"
-    };
-    var type = true;
-
-    return <div className="page-sign-detail">
+    const { data: detaildata } = this.props.clickinfo;
+    if (!detaildata) return null;
+    const data = detaildata.clock_info;
+    const { type, isToday } = this.state;
+    return (
+      <div className="page-sign-detail">
         <div className="page-sign-title">
           <div style={{ fontSize: "14px", color: "#4A4A4A" }}>
-            志多星关注程序员健康活动
+            {data.project_name}
           </div>
           <div style={{ fontSize: "12px", color: "#9B9B9B" }}>
-            2019.01.09
+            {/* replace(/\-/g,"/") */}
+            {moment(data.begin).format("YYYY.MM.DD")}
           </div>
         </div>
 
@@ -149,14 +217,19 @@ class SignPage extends React.Component {
               <div className="item-point" />
               <div className="line1px-v" />
               <div className="detail-title">
-                {type ? "打卡开始时间" : "签到时间"}
+                {type == 1 ? "打卡开始时间" : "签到时间"}
                 &nbsp; &nbsp;
-                {data.begin.split(" ")[0]}
+                {moment(data.begin).format("HH:MM")}
               </div>
               <div className="detail-content">
-                <div className="sign-ball-content" >
-                <SignBall />
-                <div>已进入签到地点范围</div>
+                <div className="sign-ball-content">
+                  {!isToday ? (
+                    <SignBall
+                      ballTitle="签到打卡"
+                      clickFunc={this.handleBallClick}
+                      data={detaildata.clock_info}
+                    />
+                  ) : null}
                 </div>
               </div>
             </li>
@@ -164,11 +237,19 @@ class SignPage extends React.Component {
               <div className="item-point" />
               <div className="line1px-v" />
               <div className="detail-title">
-                {type ? "打卡截止时间" : "签退时间"}
+                {type == 1 ? "打卡截止时间" : "签退时间"}
                 &nbsp; &nbsp;
-                {data.end.split(" ")[0]}
+                {moment(data.end).format("HH:MM")}
               </div>
-              <div className="detail-content">2221</div>
+              <div className="detail-content">
+                {!isToday ? (
+                  <SignBall
+                    ballTitle="签退"
+                    clickFunc={this.handleBallClick}
+                    data={detaildata.clock_info}
+                  />
+                ) : null}
+              </div>
             </li>
             <li>
               <div className="item-point" />
@@ -179,7 +260,8 @@ class SignPage extends React.Component {
             </li>
           </ul>
         </div>
-      </div>;
+      </div>
+    );
   }
   render() {
     const { turnMap } = this.state;
@@ -200,12 +282,7 @@ SignPage.propTypes = {
 };
 export default connect(
   state => ({
-    data: state.sign.ckeckinList.data,
-    checkinData: state.sign.checkin
+    clickinfo: state.sign.clickinfo
   }),
-  dispatch =>
-    bindActionCreators(
-      { requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity },
-      dispatch
-    )
+  dispatch => bindActionCreators({ requestClockInfo, clocking}, dispatch)
 )(SignPage);
