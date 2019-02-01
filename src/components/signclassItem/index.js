@@ -79,10 +79,9 @@ class SignItem extends React.Component {
 
   render() {
     const { data } = this.props;
-
     if (!data) {
       return null;
-    } else if (data && !data.three_day_clock && !data.clock) {
+    } else if (data && !data.three_day_clock.length && !data.clock.length) {
       return <div className="page-sign-class-empty-tip">目前还没有班次哟~</div>;
     }
     return (

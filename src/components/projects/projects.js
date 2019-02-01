@@ -49,7 +49,7 @@ class Projects extends React.Component {
                   <div className="org-name">{team.name}</div>
                 </Link>
                 <Link to={`/project/detail/${project.id}`} className="project-main">
-                  <Image className="image" src={project.list_photo} defaultSrc="/images/default_banner.png" alt="项目图片" />
+                <Image className="image" src={project.photo && project.photo[0]} defaultSrc="/images/default_banner.png" alt="项目图片" />
                   <div className="project-name">
                     {project.name}
 
