@@ -46,7 +46,6 @@ class SignPage extends React.Component {
       } else if (now > secondDayEnd) {
         isBeyond = true;
       }
-      console.log(isBeyond);
       this.setState({
         ...this.state,
         type: nextProps.clickinfo.data.clock_info.type,
@@ -55,28 +54,65 @@ class SignPage extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+ 
+  }
+
   renderMap() {
-    let source =
-      "https://apis.map.qq.com/tools/poimarker?type=0&marker=coord: 39.96554, 116.26719; title: 打卡地点; addr: 北京市海淀区复兴路32号院&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI&referer=myapp";
+    const { data: detaildata } = this.props.clickinfo;
+    if (!detaildata) return null;
+    let source = `https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${
+      detaildata.clock_info.lat
+    },${
+      detaildata.clock_info.lng
+    };&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI&referer=myapp`;
 
     return (
-      <iframe
+      <div
         style={{
           position: "absolute",
           width: "100%",
           height: "100%",
           top: "0"
         }}
-        src={source}
-      />
+      >
+        <div
+          ref="mapbtn"
+          style={{
+            width: '80px',
+            textAlign:'center',
+            fontSize:'14px',
+            padding: "5px",
+            border: "2px solid rgb(134, 172, 242)",
+            background: "rgb(255, 255, 255)",
+            zIndex: "1",
+            position: "absolute",
+            left: '0',
+            right: '0',
+            margin:'2px auto'
+          }}
+          onClick={() => { this.setState({ turnMap:false})}}
+        >
+          关闭地图
+        </div>
+        <iframe
+          style={{
+            width: "100%",
+            height: "100%"
+          }}
+          src={source}
+        />
+      </div>
     );
   }
-  handleBallClick(data) {
-    console.log(data);
+  turnOnMap = () => {
+    this.setState({ turnMap: true })
+  
+  }
+  handleBallClick=(data)=>{
     this.props.clocking(data);
   }
-  renderClock() {
+  renderClock=()=>{
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     const { clock_info: data, user_clock_info: userData } = detaildata;
@@ -93,6 +129,7 @@ class SignPage extends React.Component {
             <SignBall
               ballTitle="签到打卡"
               clickFunc={this.handleBallClick}
+              mapFunc={this.turnOnMap}
               data={detaildata.clock_info}
             />
           </div>
@@ -306,7 +343,7 @@ class SignPage extends React.Component {
       </div>
     );
   }
-  renderSignInSignOff() {
+  renderSignInSignOff=()=>{
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     const { clock_info: data, user_clock_info: userData } = detaildata;
@@ -323,6 +360,7 @@ class SignPage extends React.Component {
           <div className="sign-ball-content">
             <SignBall
               ballTitle="签到打卡"
+              mapFunc={this.turnOnMap}
               clickFunc={this.handleBallClick}
               data={detaildata.clock_info}
             />
@@ -428,6 +466,7 @@ class SignPage extends React.Component {
               <div className="sign-ball-content">
                 <SignBall
                   ballTitle="签退打卡"
+                  mapFunc={this.turnOnMap}
                   clickFunc={this.handleBallClick}
                   data={detaildata.clock_info}
                 />
@@ -828,7 +867,12 @@ class SignPage extends React.Component {
     return (
       <div className="page-sign-detail">
         <div className="page-sign-title">
-          <div style={{ fontSize: "14px", color: "#4A4A4A" }}>
+          <div
+            style={{ fontSize: "14px", color: "#4A4A4A" }}
+            onClick={() => {
+              this.setState({ turnMap: true });
+            }}
+          >
             {data.project_name}
           </div>
           <div style={{ fontSize: "12px", color: "#9B9B9B" }}>
@@ -876,7 +920,8 @@ class SignPage extends React.Component {
       </div>
     );
   }
-  render() {
+
+  render=()=>{
     const { turnMap } = this.state;
     const { type } = this.state;
     return (

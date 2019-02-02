@@ -141,6 +141,7 @@ export function parseDistance(distance) {
 }
 
 export function getLocation(success, fail, noCache) {
+  console.log('获取经纬开始')
   if (window.dev) {
     setCookie(
       "location",
@@ -167,7 +168,8 @@ export function getLocation(success, fail, noCache) {
       "myapp"
     );
     let options = { timeout: 8000 };
-    geolocation.getLocation(function(position) {
+    geolocation.getLocation(function (position) {
+      console.log(position);
       const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
       const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
       const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
@@ -203,9 +205,9 @@ export function getCity(success, fail) {
     );
     return;
   }
-
   getLocation(
     loc => {
+      console.log(loc)
       const geocoder = new qq.maps.Geocoder({
         complete: result => {
           console.log(result);
