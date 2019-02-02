@@ -443,7 +443,7 @@ const correctUserInfoReducer = (state = {
 // 个人中心首页
 export const userCenterAction = () => ({
   type: 'USER_CENTER_DATA',
-  payload: fetch('/user/center', { method: 'GET' }),
+  payload: fetch('/user/center', { method: 'GET'}),
 });
 const userCenterReducer = (state = {
   fetching: false,

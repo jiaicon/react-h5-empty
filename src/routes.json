@@ -34,6 +34,11 @@
     "page": "./pages/launch/launch",
     "chunk": "main"
   },
+    {
+      "path": "/sign/signclass/:Id",
+      "page": "./pages/launch/launch",
+      "chunk": "main"
+    },
   {
       "path": "/sign/signdetail/detail/:Id",
       "page": "./pages/sign/signdetail/detail",

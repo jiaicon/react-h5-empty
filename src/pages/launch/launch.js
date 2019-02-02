@@ -13,29 +13,29 @@ import Link from '../../components/link/link';
 import './launch.css';
 import HomePage from '../home/home';
 import SignPage from '../sign/sign';
-// import PasswordPage from '../sign/subpage/password_sign';
+import SignClassPage from "../sign/signclass";
 import WXShare from '../../components/share';
 import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
 
-const TAB_URL_MAPS = {
-  "/": <HomePage />,
-  "/home": <HomePage />,
-  "/sign": <SignPage />,
-  "/my": <MyPage />,
-};
+
 
 class LaunchPage extends React.Component {
-
   constructor(props) {
     super(props);
     autoBind(this);
 
     this.state = {
-      page: this.getTabName(this.props),
+      page: this.getTabName(this.props)
     };
   }
-
+  TAB_URL_MAPS = {
+    "/": <HomePage route={this.props.route} />,
+    "/sign/signclass/:Id": <SignClassPage route={this.props.route} />,
+    "/home": <HomePage route={this.props.route} />,
+    "/sign": <SignPage route={this.props.route} />,
+    "/my": <MyPage route={this.props.route} />
+  };
   componentWillMount() {
     if (!this.props.user.id) {
       this.props.requestUserInfo(true);
@@ -43,26 +43,24 @@ class LaunchPage extends React.Component {
   }
 
   componentDidMount() {
-      if(window.userAgent) {
-          wx.ready(() => {
-              WXShare();
-          });
-      }
+    if (window.userAgent) {
+      wx.ready(() => {
+        WXShare();
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       ...this.state,
-      page: this.getTabName(nextProps),
+      page: this.getTabName(nextProps)
     });
   }
 
-  componentWillUnmount() {
-
-  }
+  componentWillUnmount() {}
 
   getTabName(props) {
-    return TAB_URL_MAPS[(props || this.props).route.path];
+    return this.TAB_URL_MAPS[(props || this.props).route.path];
   }
 
   render() {
@@ -71,17 +69,15 @@ class LaunchPage extends React.Component {
 
     return (
       <div className="page-launch">
-        <div className="content">
-          {page}
-        </div>
+        <div className="content">{page}</div>
         <ul className="tabs">
           <li>
             <Link to="/">
               <div
                 className={classnames({
-                  'tab-icon': true,
-                  'tab-icon-home': true,
-                  active: path === '/' || path === "/home",
+                  "tab-icon": true,
+                  "tab-icon-home": true,
+                  active: path === "/" || path === "/home"
                 })}
               />
               <span>首页</span>
@@ -91,9 +87,9 @@ class LaunchPage extends React.Component {
             <Link to="/sign">
               <div
                 className={classnames({
-                  'tab-icon': true,
-                  'tab-icon-sign': true,
-                  active: path === '/sign',
+                  "tab-icon": true,
+                  "tab-icon-sign": true,
+                  active: path === "/sign" || path === "/sign/signclass/:Id"
                 })}
               />
               <span>签到打卡</span>
@@ -103,16 +99,24 @@ class LaunchPage extends React.Component {
             <Link to="/my">
               <div
                 className={classnames({
-                  'tab-icon': true,
-                  'tab-icon-me': true,
-                  active: path === '/my',
+                  "tab-icon": true,
+                  "tab-icon-me": true,
+                  active: path === "/my"
                 })}
               />
               <span>个人中心</span>
             </Link>
           </li>
         </ul>
-        <div className="line1px" style={{ width: '100%', position: 'absolute', bottom: '49px', left: '0' }} />
+        <div
+          className="line1px"
+          style={{
+            width: "100%",
+            position: "absolute",
+            bottom: "49px",
+            left: "0"
+          }}
+        />
       </div>
     );
   }

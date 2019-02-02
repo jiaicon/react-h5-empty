@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import Link from '../../components/link/link';
-import { requestCheckinList, checkin } from '../sign/sign.store';
+import { requestCheckinList, checkin, requestClockList} from '../sign/sign.store';
 import history from '../history';
 
 import { setCookie} from '../../utils/funcs';
@@ -26,22 +26,23 @@ class SignPage extends React.Component {
   componentWillMount() {
     this.props.requestCheckinList();
 
-    let geolocation = new qq.maps.Geolocation(
-      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-      "myapp"
-    );
-    let options = { timeout: 8000 };
-    geolocation.getLocation(function (position) {
-      const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
-      const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
-      const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
-      console.log("获取新位置成功", position);
-      setCookie("location", JSON.stringify({ lat, lng }), 1);
+    // let geolocation = new qq.maps.Geolocation(
+    //   "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+    //   "myapp"
+    // );
+    // let options = { timeout: 8000 };
+    // geolocation.getLocation(function (position) {
+    //   const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
+    //   const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
+    //   const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
+    //   console.log("获取新位置成功", position);
+    //   setCookie("location", JSON.stringify({ lat, lng }), 1);
 
-      if (success) {
-        success({ lat, lng });
-      }
-    }, options);
+    //   if (success) {
+    //     success({ lat, lng });
+    //   }
+    // }, options);
+    // this.props.requestClockList();
   }
 
   componentDidMount() {
@@ -53,24 +54,19 @@ class SignPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { checkinData: LcheckinData } = this.props;
-    const { checkinData: NcheckinData } = nextProps;
-    if (LcheckinData.fetching && !NcheckinData.fetching && !NcheckinData.failed) {
-      this.props.requestCheckinList();
-    }
+ 
   }
 
   componentWillUnmount() { }
 
   
   render() {
-    const { data } = this.props;
-    const records = data && data.list ? data.list : [];
-    const next = data && data.next && data.next.project ? data.next : null;
+    console.log(this.props.clocklist);
+    const { data } = this.props.clocklist;
 
     return <div>
-      <SignItem data={null}/>
-    </div>;
+        <SignItem data={data} />
+      </div>;
   }
 }
 
@@ -86,8 +82,7 @@ SignPage.propTypes = {
 };
 export default connect(
   state => ({
-    data: state.sign.ckeckinList.data,
-    checkinData: state.sign.checkin,
+    clocklist: state.sign.clocklist,
   }),
-  dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity }, dispatch),
+  dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity, requestClockList }, dispatch),
 )(SignPage);

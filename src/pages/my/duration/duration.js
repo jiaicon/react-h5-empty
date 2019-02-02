@@ -60,7 +60,7 @@ class Duration extends React.Component {
         <div className="line1px" />
 
         <div className="page-duration-main-box">
-          <DutationProjects durationProject={this.props.reward.data ? listData.project : null} isEntry />
+          <DutationProjects durationProject={this.props.reward.data ? listData.project : null} user={this.props.user} isEntry />
         </div>
 
 
@@ -90,6 +90,7 @@ Duration.propTypes = {
 export default connect(
   state => ({
     reward: state.my.reward,
+    user:state.user,
   }),
   dispatch => bindActionCreators({ rewardTimeAction }, dispatch),
 )(Duration);

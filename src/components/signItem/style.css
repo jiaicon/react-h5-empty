@@ -8,6 +8,9 @@
   color: #666666;
 }
 
+
+
+
 .page-sign .no-record img {
   width: 150px;
   margin-top: 86px;
@@ -46,167 +49,69 @@
   font-size: 13px;
   color: #666666;
   margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
 }
 
 .page-sign .sign-list li .sign-header {
-  padding: 15px;
+  padding: 12px 15px 10px;
 }
-
-.page-sign .sign-list li .project-info {
-  padding: 15px;
-  padding-right: 25px;
-  background:url(/images/icon_more.png) no-repeat;
-  background-position: 270px center;
-  background-size: 32px;
-}
-
-.page-sign .sign-time span:last-child {
-  color: #6AC6F8;
-  font-size: 16px;
-  margin-left: 10px;
-}
-
-.page-sign .sign-list li.sign-record .sign-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
 .page-sign .project-title {
   font-size: 18px;
   color: #333333;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
-.page-sign .project-duration span:last-child {
-  color: #6AC6F8;
-  margin-left: 10px;
-}
-
-.component-sign{
-  padding: 15px;
-}
-.component-sign .component-sign-title{
+.page-sign .component-sign-title{
   font-size: 16px;
   color: #4A4A4A;
-  padding-bottom: 15px;
+  padding-bottom: 9px;
+
 }
 
-.component-sign.no-record {
-  text-align: center;
+.page-sign .project-info{
+  padding: 15px 9px 15px 12px;  
+  width: 100%; 
+  display: flex;
+  align-items: baseline;
+}
+
+.page-sign .project-info div{
+  width: 50%; 
   font-size: 13px;
   color: #666666;
 }
 
-.component-sign.no-record img {
-  width: 150px;
-  margin-top: 86px;
+.page-sign .project-info div.project-info-addr{
+  padding-left: 30px;
+  background: url(/images/icon_location.png) no-repeat;
+  background-size: 24px 24px;
+  background-position: left center;
+}
+.page-sign .project-info div.project-info-date{
+  padding-left: 30px;
+  background: url(/images/icon_people.png) no-repeat;
+  background-size: 24px 24px;
+  background-position: left center;   
 }
 
-.component-sign.sign-btn-container {
-  width: 100%;
-  padding: 0 25px;
+.sign-record-status-shape{
   position: absolute;
-  display: flex;
-  /* justify-content: space-between; */
-  justify-content: center;
-  align-items: center;
-  bottom: 100px;
-  left: 0;
+  top:0;
   right: 0;
-  
+  width: 60px;
+  height: 60px;
+}
+.sign-record-status-shape-ing{
+  background: url(/images/activities_status_progress.png) no-repeat;
+  background-size: cover;
 }
 
-.component-sign.sign-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #C7EAFD;
-  border-radius: 100px;
-  height: 50px;
-  width: 300pt;
-  /* width: 300px; */
-  font-size: 16px;
-  color: #FFF;
+.sign-record-status-shape-recru{
+  background: url(/images/activities_status_recruit.png) no-repeat;
+  background-size: cover;
 }
-
-.component-sign.sign-list li {
-  background: #FFFFFF;
-  border-radius: 8px;
-  font-size: 13px;
-  color: #666666;
-  margin-bottom: 15px;
+.sign-record-status-shape-end{
+  background: url(/images/activities_status_end.png) no-repeat;
+  background-size: cover;
 }
-
-.component-sign.sign-list li .sign-header {
-  padding: 15px;
-}
-
-.component-sign.sign-list li .project-info {
-  padding: 15px;
-}
-
-.component-sign.sign-time span:last-child {
-  color: #6AC6F8;
-  font-size: 16px;
-  margin-left: 10px;
-}
-
-.component-sign.sign-list li.sign-record .sign-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.component-sign.sign-list li.sign-record .sign-header div:last-child {
-  background: #EBD1BA;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #976C3F;
-  padding: 2px 5px;
-}
-
-.component-sign.project-title {
-  font-size: 18px;
-  color: #333333;
-  margin-bottom: 10px;
-}
-
-.component-sign.project-duration span:last-child {
-  color: #6AC6F8;
-  margin-left: 10px;
-}
-
-
-
-
-.page-sign .sign-list li.sign-record .sign-header .already-sign {
-  background: #A0D9F7;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #fff;
-  padding: 2px 5px;
-}
-.page-sign .sign-list li.sign-record .sign-header .wait-sign {
-  background: #B5F073;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #fff;
-  padding: 2px 5px;
-}
-.page-sign .sign-list li.sign-record .sign-header .in-audit {
-  background: #F0C873;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #fff;
-  padding: 2px 5px;
-}
-.page-sign .sign-list li.sign-record .sign-header .reject {
-  background: #F19292;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #fff;
-  padding: 2px 5px;
-}
-
