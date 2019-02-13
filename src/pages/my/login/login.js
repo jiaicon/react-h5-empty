@@ -246,7 +246,7 @@ class Login extends React.Component {
                          alt="" onClick={this.refreshCaptcha} />
                     </div>
                     <div className="page-login-item">
-                        <input type="password" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
+                        <input type="text" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
                                placeholder="手机验证码" className="page-login-item-input"/>
                         <div className="page-login-item-code" onClick={this.onSend}>{this.state.buttonString}</div>
                     </div>
