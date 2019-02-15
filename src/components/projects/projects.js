@@ -91,7 +91,7 @@ class Projects extends React.Component {
                     </div>
                     <div className="project-members">
                       <span>
-                      {Number(project.id) == 2009 ? 437 : project.join_people_count}
+                      {Number(project.id) == 2009 ? 588 : project.join_people_count}
                       </span>
                       &nbsp;/&nbsp;
                       <span>{project.people_count}</span>
