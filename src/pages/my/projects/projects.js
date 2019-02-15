@@ -38,7 +38,7 @@ class Projects extends React.Component {
   }
 
   componentWillMount() {
-    this.props.projectAction();
+    // this.props.projectAction();
   }
 
   componentDidMount() {
