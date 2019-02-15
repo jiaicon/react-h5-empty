@@ -56,17 +56,31 @@
   padding: 0 67px;
   justify-content: space-between;
 }
-.page-entry-team-box a:nth-child(1) .page-entry-team-btn{
+.page-entry-team-box a:nth-child(1) .page-entry-team-btn-dalu{
   width: 110px;
   height: 36px;
   background-image: url(/images/my/individual3.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
-.page-entry-team-box a:nth-child(2) .page-entry-team-btn{
+.page-entry-team-box a:nth-child(2) .page-entry-team-btn-dalu{
   width: 110px;
   height: 36px;
   background-image: url(/images/my/individual2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.page-entry-team-box a:nth-child(1) .page-entry-team-btn-default{
+  width: 110px;
+  height: 36px;
+  background-image: url(/images/my/individual_teamlogin.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.page-entry-team-box a:nth-child(2) .page-entry-team-btn-default{
+  width: 110px;
+  height: 36px;
+  background-image: url(/images/my/individual_teamsignup.png);
   background-size: contain;
   background-repeat: no-repeat;
 }

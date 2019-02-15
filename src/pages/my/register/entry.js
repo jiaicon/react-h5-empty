@@ -38,6 +38,10 @@ class Entry extends React.Component {
     history.replace('/my/login')
   }
   render() {
+    let loginRegisterClassName = "page-entry-team-btn-default";
+    if (window.orgCode === "EKQe1RaJYv") {
+      loginRegisterClassName = "page-entry-team-btn-dalu"
+    }
     return (
       <div className="page-entry">
         <div className="page-entry-person" />
@@ -52,10 +56,10 @@ class Entry extends React.Component {
         <div className="page-entry-team" />
         <div className="page-entry-team-box">
           <a href={`${ADMIN_HOST}/login/${window.orgCode}`}>
-            <div className="page-entry-team-btn" />
+            <div className={loginRegisterClassName} />
           </a>
           <a href={`${ADMIN_HOST}/register/${window.orgCode}`}>
-            <div className="page-entry-team-btn" />
+            <div className={loginRegisterClassName} />
           </a>
         </div>
        
