@@ -131,6 +131,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/fundingApplication/list",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
     "path": "/my/collects/",
     "page": "./pages/my/collects/collects",
     "chunk": "main"
