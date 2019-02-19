@@ -55,6 +55,11 @@ class Form extends React.Component {
         this.doHtml();
     }
     componentWillReceiveProps(nextProps) {
+        const { check: Ccheck } = this.props;
+        const { check: Ncheck } = nextProps;
+        const { login: cLogin } = this.props;
+        const { login: nLogin } = nextProps;
+        const {  } = this.props.fundingApplicationData;
     }
     onAddActive=()=>{
         this.props.form.validateFields((error, value) => {

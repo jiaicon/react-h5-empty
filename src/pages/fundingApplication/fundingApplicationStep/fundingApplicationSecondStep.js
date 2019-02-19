@@ -59,7 +59,7 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
-            if(!this.state.imagesArr&&!this.state.imagesArr.length) {
+            if(!this.state.imagesArr || !this.state.imagesArr.length) {
                 return;
             }
             console.log('open');
