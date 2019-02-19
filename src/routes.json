@@ -389,5 +389,30 @@
     "path": "/announcee/detail/:Id",
     "page": "./pages/announce/detail",
     "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_one",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_two",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_three",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_four",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_five",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep",
+    "chunk": "main"
   }
 ]

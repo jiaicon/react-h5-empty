@@ -70,7 +70,13 @@
               key: "volunteer_feedback",
               icon:
                 "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/918461507952580.png"
-            }
+            },
+             {
+               label: "资助申请",
+               key: "funding_application",
+               icon:
+                 "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/583531507952882.png"
+             }
           ],
           [
             {
@@ -197,7 +203,48 @@
       document.title = window.orgInfo.name;
 
       window.dev = true;
-  
+       window.serviceArea = [
+                  {
+                      value: 0,
+                      label: '扶贫'
+                  },{
+                      value: 1,
+                      label: '济困'
+                  },{
+                      value: 2,
+                      label: '扶老'
+                  },{
+                      value: 3,
+                      label: '救孤'
+                  },{
+                      value: 4,
+                      label: '恤病'
+                  },{
+                      value: 5,
+                      label: '助残'
+                  },{
+                      value: 6,
+                      label: '救灾'
+                  },{
+                      value: 7,
+                      label: '助医'
+                  },{
+                      value: 8,
+                      label: '助学'
+                  },{
+                      value: 9,
+                      label: '环保'
+                  },{
+                      value: 10,
+                      label: '公共文化'
+                  },{
+                      value: 11,
+                      label: '大型赛会'
+                  },{
+                      value: 12,
+                      label: '其他服务'
+                  }
+              ];
 
     </script>
   </head>

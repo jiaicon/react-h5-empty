@@ -1,0 +1,119 @@
+.page-funding-application-item {
+    height: 42.5px;
+    display: flex;
+    align-items: center;
+    padding: 21px;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.page-funding-application-item-label {
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #030303;
+}
+.page-funding-application-input {
+    text-align: right;
+    width: 100%;
+    flex: 1;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #BABABA;
+}
+.page-funding-application .page-funding-application-input .fake-input-placeholder{
+    text-align: right!important;
+    font-family: PingFangSC-Regular;
+    font-size: 14px!important;
+    color: #BABABA!important;
+}
+.page-funding-application-item .am-list-item {
+    min-height: 40px!important;
+    min-width: 170px!important;
+    text-align: right!important;
+    background-color: transparent!important;
+}
+.page-funding-application-item .am-list-item .am-list-line {
+    padding-right: 0!important;
+    justify-content: flex-end;
+}
+.page-funding-application-item .am-list-item .am-list-line .am-list-extra {
+    flex: 1;
+}
+.page-funding-application-item .am-list-content {
+    text-align: right!important;
+}
+.page-funding-application-item .am-list-item .am-list-line .am-list-arrow {
+    background-image: url("/images/icon_more.png")!important;
+    background-size: contain;
+}
+.page-funding-application-item .am-input-control input {
+    text-align: right;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #BABABA;
+}
+.page-funding-application-item-textarea {
+    padding: 21px;
+    background-color: #FFF;
+    box-sizing: border-box;
+}
+.page-funding-application-item-label-special {
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #030303;
+}
+.page-funding-application-item-textarea .am-textarea-control textarea {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #BABABA;
+}
+.nextStepDefault {
+    height: 42px;
+    line-height: 42px;
+    background-color: #333333;
+    color: #FFFFFF;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+.nextStep {
+    height: 44px;
+    line-height: 44px;
+    background-color: rgb(177, 217, 246);
+    color: #FFFFFF;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+.addActive {
+    height: 42px;
+    line-height: 42px;
+    color: #030303;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 54px;
+    left: 0;
+    background-color: #fff;
+    border-top: 1px solid #DADADA;
+    border-bottom: 1px solid #DADADA;
+}
+.page-funding-application-item-DX {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #BABABA;
+    text-align: right;
+    padding-right: 21px;
+    padding-bottom: 21px;
+}
+div.page-funding-application-allBox {
+    margin-bottom: 134px;
+}
+.page-funding-application-item-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

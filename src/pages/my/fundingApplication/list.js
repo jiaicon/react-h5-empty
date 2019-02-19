@@ -1,20 +1,20 @@
-
+//
 // import React, { PropTypes } from 'react';
 // import autoBind from 'react-autobind';
 // import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 // import { projectAction } from '../my.store';
-
+//
 // import Link from '../../../components/link/link';
-
+//
 // import classnames from 'classnames';
 // import AllPage from './projects_all';
 // import WaitPage from './projects_wait';
 // import PassPage from './projects_pass';
 // import EndPage from './projects_end';
-
+//
 // import './projects.css';
-
+//
 // const TAB_URL_MAPS = {
 //   '/my/projects/': <AllPage />,
 //   '/my/projects/wait': <WaitPage />,
@@ -22,7 +22,7 @@
 //   '/my/projects/end': <EndPage />,
 // };
 // class Projects extends React.Component {
-
+//
 //   constructor(props) {
 //     super(props);
 //     autoBind(this);
@@ -30,22 +30,22 @@
 //       page: this.getTabName(this.props),
 //     };
 //   }
-
+//
 //   componentWillMount() {
 //     // this.props.projectAction();
 //   }
-
+//
 //   componentDidMount() {
-
+//
 //   }
-
+//
 //   componentWillReceiveProps(nextProps) {
 //     this.setState({
 //       ...this.state,
 //       page: this.getTabName(nextProps),
 //     });
 //   }
-
+//
 //   componentWillUnmount() {}
 //   getTabName(props) {
 //     return TAB_URL_MAPS[(props || this.props).route.path];
@@ -103,15 +103,15 @@
 //         <div className="page-projects-content-main">
 //           {page}
 //         </div>
-
+//
 //       </div>
 //     );
 //   }
 // }
-
-
+//
+//
 // Projects.title = '志愿项目';
-
+//
 // Projects.propTypes = {
 //   projectAction: PropTypes.func,
 //   project: PropTypes.shape({
@@ -153,7 +153,7 @@
 //     path: PropTypes.string,
 //   }),
 // };
-
+//
 // export default connect(
 //   state => ({
 //     project: state.my.project,
