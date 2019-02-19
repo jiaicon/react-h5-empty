@@ -5,6 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,8 +18,250 @@ import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
 import './../fundingApplication.css';
+import {DX} from './../../../utils/funcs';
+import store from "../../../stores";
+import { fifthStep, secondStep, fourthStep, fundingApplicationPost } from './../fundingApplication.store';
 
+let count = 1;
+const budgetType = [
+    {
+        label: '活动成本',
+        value: '活动成本'
+    },
+    {
+        label: '管理成本',
+        value: '管理成本'
+    },
+    {
+        label: '服务费',
+        value: '服务费'
+    }
+];
+class Form extends React.Component {
+    static propTypes = {
+        doAllActive: PropTypes.func,
+        fifthStep: PropTypes.func,
+    };
+    constructor(props) {
+        super(props);
+        autoBind(this);
 
+        this.state = {
+            formContent: [1],
+            html : []
+        };
+    }
+    componentWillMount() {
+        this.doHtml();
+    }
+    componentWillReceiveProps(nextProps) {
+    }
+    onAddActive=()=>{
+        this.props.form.validateFields((error, value) => {
+            // if(error) {
+            //     console.log('error');
+            //     return;
+            // }
+            let formContent = this.state.formContent;
+            console.log(formContent)
+            count+=1;
+            formContent.push(count);
+            this.setState({
+                ...this.state,
+                formContent: formContent
+            }, ()=>{
+                this.doHtml();
+            });
+        });
+    };
+
+    doHtml() {
+        const { getFieldProps } = this.props.form;
+        const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
+            <div className={classnames({
+                'page-funding-application-allBox': index == this.state.formContent.length
+            })} key={item} data-index={item}>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{this.state.formContent.length>1?<div id={item} onClick={(e)=>{this.deleteThis(e)}}>删除</div>:null}</div>
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">预算类型</div>
+                    <Picker
+                        data={this.state.budgetType}
+                        cols={1}
+                        {
+                            ...getFieldProps(`budget_type__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入预算类型',
+                                }],
+                            })
+                        }
+                    >
+                        <List.Item arrow="horizontal"></List.Item>
+                    </Picker>
+                </div>
+                <div className="page-funding-application-item-DX" style={{textAlign: 'left'}}>注：活动成本（指开展活动必须的物料、交通、人员等）管理成本（指开展活动必需的行政成本等，不得超过10%）</div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">预算用途</div>
+                    <InputItem
+                        className="page-funding-application-input"
+                        placeholder="请输入预算用途"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`budget_purpose__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入预算用途',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">单价</div>
+                    <InputItem
+                        type="money"
+                        className="page-funding-application-input"
+                        placeholder="请输入单价（保留2位小数）"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`budget_price__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入单价',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">数量</div>
+                    <InputItem
+                        className="page-funding-application-input"
+                        placeholder="请输入预算预计购买数量"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`budget_num__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入预算预计购买数量',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">金额</div>
+                    <InputItem
+                        type="money"
+                        className="page-funding-application-input"
+                        placeholder="请输入金额"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`budget_money__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入金额',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="page-funding-application-item-DX">{getFieldProps(`budget_money__${item}`)&&getFieldProps(`budget_money__${item}`).value&&getFieldProps(`budget_money__${item}`).value.length>0 ? DX(getFieldProps(`budget_money__${item}`).value):'此处自动显示项目总预算的大写数值'}</div>
+                <div className="line1px"></div>
+            </div>
+        )) : <div></div>;
+        return formItems;
+    }
+    deleteThis(e) {
+        let arr = this.state.formContent;
+        let html = this.state.html;
+        const index = arr.indexOf(Number(e.target.id));
+        if(index > -1) {
+            arr.splice(index, 1);
+            html.splice(index, 1);
+        }
+        this.props.doAllActive(arr);
+        this.setState({
+            ...this.state,
+            formContent: arr,
+            html: html
+        }, ()=>{
+            this.doHtml();
+        });
+    }
+    onNextStep = ()=>{
+        this.props.form.validateFields((error, value) => {
+            // if(error) {
+            //     console.log('error');
+            //     return;
+            // }
+            let data = [];
+            let formContent = this.state.formContent;
+            for(let j = 0; j < formContent.length; j++) {
+                let obj = {};
+                for(let i in value) {
+                    if(formContent[j] === Number(i.split('__')[1])) {
+                        obj[i.split('__')[0]] = value[i];
+                    }
+                }
+                data.push(obj);
+            }
+            if(value.budget_reason) {
+                data.budget_reason = value.budget_reason;
+            }
+            localStorage.setItem('fifthStep', JSON.stringify({budget: data}));
+            console.log(localStorage.getItem('firstStep'));
+            console.log(localStorage.getItem('secondStep'));
+            console.log(localStorage.getItem('thirdStep'));
+            console.log(localStorage.getItem('fourthStep'));
+            let allData = {
+                budget: data,
+                ...JSON.parse(localStorage.getItem('firstStep')),
+                ...JSON.parse(localStorage.getItem('secondStep')),
+                ...JSON.parse(localStorage.getItem('thirdStep')),
+                ...JSON.parse(localStorage.getItem('fourthStep')),
+            };
+
+            console.log(allData);
+            this.props.fundingApplicationPost(allData);
+
+        });
+    };
+    render() {
+        const { getFieldProps } = this.props.form;
+        return(
+            <div>
+                {this.doHtml()}
+                <div className="page-funding-application-item-textarea">
+                    <div className="page-funding-application-item-label-special">说明</div>
+                    <TextareaItem
+                        {...getFieldProps(`budget_reason`)}
+                        placeholder="简述预算理由（选填）"
+                        autoHeight
+                    />
+                </div>
+                <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加预算项目</span></div>
+                <div className="nextStep" onClick={this.onNextStep}>填写完成，预览申请信息</div>
+            </div>
+        )
+    }
+}
+const FormCreate = connect(
+    state=>({
+        fifthStepData: state.fundingApplication.fifthStep,
+        secondStepData: state.fundingApplication.secondStep,
+        fourthStepData: state.fundingApplication.fourthStep,
+        fundingApplicationData: state.fundingApplication.fundingApplicationPost
+    }),
+    dispatch => bindActionCreators({ fifthStep, secondStep, fourthStep, fundingApplicationPost }, dispatch),
+)(createForm()(Form));
 class FundingApplication extends React.Component {
 
     constructor(props) {
@@ -26,10 +269,7 @@ class FundingApplication extends React.Component {
         autoBind(this);
 
         this.state = {
-            serviceArea: window.serviceArea,
-            serviceAreaValue: '',
-            activeCount: 1,
-            allActive: []
+            htmlContent: []
         };
     }
 
@@ -51,173 +291,18 @@ class FundingApplication extends React.Component {
     onTextChanged() {
 
     }
-    onNextStep = ()=>{
-        this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
-            let data = [];
-            for(let j = 0; j < this.state.activeCount; j++) {
-                let obj = {};
-                for(let i in value) {
-                    console.log(i.split('__')[1], j)
-                    if(j+1 === Number(i.split('__')[1])) {
-                        obj[i.split('__')[0]] = value[i];
-                    }
-                }
-                data.push(obj);
-            }
-            console.log(data);
-            location.href='/funding_application/step_four';
-        });
-    };
-
-    onAddActive=()=>{
-        this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
-            let data = [];
-            for(let j = 0; j < this.state.activeCount; j++) {
-                let obj = {};
-                for(let i in value) {
-                    console.log(i.split('__')[1], j)
-                    if(j+1 === Number(i.split('__')[1])) {
-                        obj[i.split('__')[0]] = value[i];
-                    }
-                }
-                data.push(obj);
-            }
-            console.log(data)
-
-            this.setState({
-                activeCount: data+1
-            })
-        });
-    };
-    renderBasic(num) {
-        const { getFieldProps } = this.props.form;
-
-        return <div className={classnames({
-            'page-funding-application-allBox': num == this.state.activeCount
-        })} key={num}>
-            <div className="page-funding-application-item">
-                <div className="page-funding-application-item-label">项目预算明细（{num}）</div>
-            </div>
-            <div className="line1px"></div>
-            <div className="page-funding-application-item">
-                <div className="page-funding-application-item-label">活动名称</div>
-                <InputItem
-                    className="page-funding-application-input"
-                    placeholder="请输入活动名称"
-                    moneyKeyboardAlign="right"
-                    {
-                        ...getFieldProps(`projectNameAid__${num}`, {
-                            rules: [{
-                                required: true,
-                                message: '请输入活动名称',
-                            }],
-                        })
-                    }
-                />
-            </div>
-            <div className="line1px"></div>
-            <div className="page-funding-application-item">
-                <div className="page-funding-application-item-label">活动开始时间</div>
-                <DatePicker
-                    mode="date"
-                    {...getFieldProps(`start_time_aid__${num}`, {
-                        rules: [
-                            { required: true, message: '请选择活动开始时间' },
-                        ],
-                    })}
-                >
-                    <List.Item arrow="horizontal"></List.Item>
-                </DatePicker>
-            </div>
-            <div className="line1px"></div>
-            <div className="page-funding-application-item">
-                <div className="page-funding-application-item-label">活动结束时间</div>
-                <DatePicker
-                    mode="date"
-                    disabled={getFieldProps(`start_time_aid__${num}`).value ? false : true}
-                    minDate={new Date(+getFieldProps(`start_time_aid__${num}`).value)}
-                    {...getFieldProps(`end_time_aid__${num}`, {
-                        rules: [
-                            { required: true, message: '请选择活动结束时间' },
-                        ],
-                    })}
-                >
-                    <List.Item arrow="horizontal"></List.Item>
-                </DatePicker>
-            </div>
-            <div className="line1px"></div>
-            <div className="page-funding-application-item">
-                <div className="page-funding-application-item-label">活动目的</div>
-                <InputItem
-                    className="page-funding-application-input"
-                    placeholder="请输入活动目的"
-                    moneyKeyboardAlign="right"
-                    {
-                        ...getFieldProps(`activeGoal__${num}`, {
-                            rules: [{
-                                required: true,
-                                message: '请输入活动目的',
-                            }],
-                        })
-                    }
-                />
-            </div>
-            <div className="line1px"></div>
-            <div className="page-funding-application-item">
-                <div className="page-funding-application-item-label">预估受益人数</div>
-                <InputItem
-                    className="page-funding-application-input"
-                    placeholder="请输入预估受益人数"
-                    moneyKeyboardAlign="right"
-                    {
-                        ...getFieldProps(`bookPeopleNum__${num}`, {
-                            rules: [{
-                                required: true,
-                                message: '请输入预估受益人数',
-                            }],
-                        })
-                    }
-                />
-            </div>
-            <div className="line1px"></div>
-            <div className="page-funding-application-item-textarea">
-                <div className="page-funding-application-item-label-special">申请理由</div>
-                <TextareaItem
-                    {...getFieldProps(`applyReason__${num}`, {
-                        rules: [{
-                            required: true,
-                            message: '请输入申请理由',
-                        }],
-                    })}
-                    placeholder="包括活动形式、地点、参与人数等"
-                    autoHeight
-                />
-            </div>
-            <div className="line1px"></div>
-        </div>
+    doAllActive(arr) {
+        console.log(arr);
+        this.setState({
+            htmlContent: arr
+        })
     }
     render() {
-        let activeCountArr = [];
-        for(let i = 0; i < this.state.activeCount; i++) {
-            activeCountArr.push(i+1);
-        }
         return (
             <div className="page-funding-application">
-                {
-                    activeCountArr.map((item, index)=>{
-                        return this.renderBasic(item)
-                    })
-                }
-                <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加预算项目</span></div>
-                <div className="nextStep" onClick={this.onNextStep}>填写完成，预览申请信息</div>
+                <FormCreate
+                    doAllActive={this.doAllActive}
+                />
             </div>
         );
     }
@@ -227,7 +312,13 @@ FundingApplicationForm.propTypes = {
 
 };
 FundingApplication.title = '填写项目预算明细';
-export default connect(
-    dispatch => bindActionCreators({  }, dispatch),
-)(FundingApplicationForm);
+// export default connect(
+//     state=>({
+//         fifthStepData: state.fundingApplication.fifthStep,
+//         secondStepData: state.fundingApplication.secondStep,
+//     }),
+//     dispatch => bindActionCreators({ fifthStep }, dispatch),
+// )(FundingApplicationForm);
+
+export default FundingApplicationForm;
 

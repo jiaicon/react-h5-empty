@@ -47,6 +47,76 @@ const homeReducer = (state = {
       return state;
   }
 };
+//城市
+export const getCity = () => ({
+    type: 'GET_CITY',
+    payload: fetch(`${API_HOST}/api/city`, { method: 'GET' }),
+});
+const getCityReducer = (state = {
+    fetching: false,
+    failed: false,
+    data: null,
+}, action) => {
+    switch (action.type) {
+        case 'GET_CITY_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'GET_CITY_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data,
+            };
+        case 'GET_CITY_REJECTED':
+            return {
+                ...state,
+                failed: true,
+                fetching: false,
+            };
+        default:
+            return state;
+    }
+};
+// 省下的市接口
+export const getAreaProvince = name => ({
+    type: 'AREA_PROVINCE',
+    payload: fetch(`${API_HOST}/api/area/province`, { method: 'GET', data: { name } }),
+});
+
+const getAreaProvinceReducer = (state = {
+    fetching: false,
+    failed: false,
+    data: null,
+}, action) => {
+    switch (action.type) {
+        case 'AREA_PROVINCE_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'AREA_PROVINCE_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data,
+            };
+        case 'AREA_PROVINCE_REJECTED':
+            return {
+                ...state,
+                failed: true,
+                fetching: false,
+            };
+        default:
+            return state;
+    }
+};
+
 // 城市下区域接口 【3.0新增】
 export const getAreaCity = name => ({
   type: 'AREACITY_DATA',
@@ -85,5 +155,7 @@ const getAreaCityReducer = (state = {
 const reducer = combineReducers({
   home: homeReducer,
   getAreaCity: getAreaCityReducer,
+  getCity: getCityReducer,
+  getAreaProvince: getAreaProvinceReducer,
 });
 export default reducer;

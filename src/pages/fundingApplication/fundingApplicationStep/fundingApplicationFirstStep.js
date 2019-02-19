@@ -16,6 +16,8 @@ import 'antd-mobile/lib/picker/style/css';
 import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import './../fundingApplication.css';
+import { getCity, getAreaProvince } from './../../home/home.store'
+import { firstStep } from './../fundingApplication.store';
 
 
 class FundingApplication extends React.Component {
@@ -31,7 +33,7 @@ class FundingApplication extends React.Component {
     }
 
     componentWillMount() {
-
+        this.props.getCity();
     }
 
     componentDidMount() {
@@ -39,6 +41,7 @@ class FundingApplication extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
 
     }
 
@@ -55,12 +58,33 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
+            localStorage.setItem('firstStep', JSON.stringify(value));
+            // store.dispatch(firstStep(value));
             console.log('open');
             location.href='/funding_application/step_two';
         });
     };
+    provincePickerOk(val) {
+        console.log(val);
+        if(val.length) {
+            this.props.getAreaProvince(val[0]);
+        }
+    }
     render() {
-        const { getFieldProps, getFieldError } = this.props.form;
+        const { getFieldProps } = this.props.form;
+        const { cityData: { data: listData },areaData: { data: areaListData } } = this.props;
+        let provinceList = listData&&listData.list.map((line)=>{
+            return {
+                label: line.name,
+                value: line.name
+            };
+        });
+        let areaList = areaListData&&areaListData.list.map((line)=>{
+            return {
+                label: line.name,
+                value: line.name
+            };
+        });
         return (
             <div className="page-funding-application">
                 <div style={{marginBottom: '62px'}}>
@@ -71,7 +95,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入你的姓名"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('userName', {
+                                ...getFieldProps('user_name', {
                                     rules: [{
                                         required: true,
                                         message: '请输入申请人姓名',
@@ -82,21 +106,40 @@ class FundingApplication extends React.Component {
                     </div>
                     <div className="line1px"></div>
                     <div className="page-funding-application-item">
-                        <div className="page-funding-application-item-label">所属业务区域</div>
-                        {/*<Picker*/}
-                            {/*data={this.state.serviceArea}*/}
-                            {/*cols={1}*/}
-                            {/*{*/}
-                                {/*...getFieldProps('serviceAreaValue', {*/}
-                                    {/*rules: [{*/}
-                                        {/*required: true,*/}
-                                        {/*message: '请输入所属业务区域',*/}
-                                    {/*}],*/}
-                                {/*})*/}
-                            {/*}*/}
-                        {/*>*/}
-                            {/*<List.Item arrow="horizontal"></List.Item>*/}
-                        {/*</Picker>*/}
+                        <div className="page-funding-application-item-label">所属业务区域(省)</div>
+                        <Picker
+                            data={provinceList&&provinceList}
+                            onOk={this.provincePickerOk}
+                            cols={1}
+                            {
+                                ...getFieldProps('user_business_province', {
+                                    rules: [{
+                                        required: true,
+                                        message: '请输入所属业务区域',
+                                    }],
+                                })
+                            }
+                        >
+                            <List.Item arrow="horizontal"></List.Item>
+                        </Picker>
+                    </div>
+                    <div className="line1px"></div>
+                    <div className="page-funding-application-item">
+                        <div className="page-funding-application-item-label">所属业务区域(市)</div>
+                        <Picker
+                            data={areaList&&areaList}
+                            cols={1}
+                            {
+                                ...getFieldProps('user_business_city', {
+                                    rules: [{
+                                        required: true,
+                                        message: '请输入所属业务区域',
+                                    }],
+                                })
+                            }
+                        >
+                            <List.Item arrow="horizontal"></List.Item>
+                        </Picker>
                     </div>
                     <div className="line1px"></div>
                     <div className="page-funding-application-item">
@@ -106,7 +149,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入所属门店（部门）"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('userShop', {
+                                ...getFieldProps('user_store', {
                                     rules: [{
                                         required: true,
                                         message: '请输入所属门店（部门）',
@@ -123,7 +166,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入职位"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('userPosition', {
+                                ...getFieldProps('user_position', {
                                     rules: [{
                                         required: true,
                                         message: '请输入职位',
@@ -140,7 +183,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入工号"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('userJobNum', {
+                                ...getFieldProps('user_job_num', {
                                     rules: [{
                                         required: true,
                                         message: '请输入工号',
@@ -157,7 +200,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入联系电话"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('userPhone', {
+                                ...getFieldProps('user_phone', {
                                     rules: [{
                                         required: true,
                                         message: '请输入联系电话',
@@ -177,7 +220,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入电子邮箱"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('userEmail', {
+                                ...getFieldProps('user_email', {
                                     rules: [{
                                         required: true,
                                         message: '请输入电子邮箱',
@@ -193,7 +236,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">申请理由</div>
                         <TextareaItem
-                            {...getFieldProps('application', {
+                            {...getFieldProps('user_apply_rsason', {
                                 rules: [{
                                     required: true,
                                     message: '请输入申请理由',
@@ -213,7 +256,7 @@ class FundingApplication extends React.Component {
                             moneyKeyboardAlign="right"
                             type='money'
                             {
-                                ...getFieldProps('money', {
+                                ...getFieldProps('user_apply_monry', {
                                     rules: [{
                                         required: true,
                                         message: '请输入申请金额',
@@ -235,5 +278,10 @@ FundingApplicationForm.propTypes = {
 };
 FundingApplicationForm.title = "填写申报人信息";
 export default connect(
-    dispatch => bindActionCreators({  }, dispatch),
+    state=>({
+        firstStepData: state.fundingApplication.firstStep,
+        cityData: state.home.getCity,
+        areaData: state.home.getAreaProvince,
+    }),
+    dispatch => bindActionCreators({ firstStep, getCity, getAreaProvince }, dispatch),
 )(FundingApplicationForm);
