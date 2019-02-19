@@ -136,6 +136,26 @@
     "chunk": "main"
   },
   {
+    "path": "/my/fundingApplication/list_check",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_pass",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_reject",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_revoke",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
     "path": "/my/collects/",
     "page": "./pages/my/collects/collects",
     "chunk": "main"
