@@ -23,7 +23,20 @@ import store from "../../../stores";
 import { fifthStep, secondStep, fourthStep, fundingApplicationPost } from './../fundingApplication.store';
 
 let count = 1;
-
+const budgetType = [
+    {
+        label: '活动成本',
+        value: '活动成本'
+    },
+    {
+        label: '管理成本',
+        value: '管理成本'
+    },
+    {
+        label: '服务费',
+        value: '服务费'
+    }
+];
 class Form extends React.Component {
     static propTypes = {
         doAllActive: PropTypes.func,
@@ -75,7 +88,7 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">预算类型</div>
                     <Picker
-                        data={this.state.serviceArea}
+                        data={this.state.budgetType}
                         cols={1}
                         {
                             ...getFieldProps(`budget_type__${item}`, {

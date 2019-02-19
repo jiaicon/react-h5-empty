@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673f1116-2321-4048-b1ad-35e0e4a65ac4" name="Default" comment="Default">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.store.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/home.store.js" afterPath="$PROJECT_DIR$/src/pages/home/home.store.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stores/index.js" afterPath="$PROJECT_DIR$/src/stores/index.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -100,8 +91,8 @@
       <file leaf-file-name="fundingApplicationFifthStep.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="208" column="45" lean-forward="true" selection-start-line="208" selection-start-column="45" selection-end-line="208" selection-end-column="45" />
+            <state relative-caret-position="233">
+              <caret line="90" column="52" lean-forward="true" selection-start-line="90" selection-start-column="52" selection-end-line="90" selection-end-column="52" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
               </folding>
@@ -121,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>count</find>
       <find>doAllActive</find>
       <find>onSubmit</find>
       <find>serviceArea</find>
@@ -151,6 +141,7 @@
       <find>/city</find>
       <find>addressDataAction</find>
       <find>getAreaProvince</find>
+      <find>budgetType</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -432,7 +423,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="293396000" />
+    <option name="totallyTimeSpent" value="293636000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -916,6 +907,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="208" column="63" lean-forward="true" selection-start-line="208" selection-start-column="63" selection-end-line="208" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.store.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
@@ -926,18 +925,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="208" column="63" lean-forward="true" selection-start-line="208" selection-start-column="63" selection-end-line="208" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="208" column="45" lean-forward="true" selection-start-line="208" selection-start-column="45" selection-end-line="208" selection-end-column="45" />
+        <state relative-caret-position="233">
+          <caret line="90" column="52" lean-forward="true" selection-start-line="90" selection-start-column="52" selection-end-line="90" selection-end-column="52" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
           </folding>
