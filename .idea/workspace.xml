@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673f1116-2321-4048-b1ad-35e0e4a65ac4" name="Default" comment="Default">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +27,8 @@
       <file leaf-file-name="fundingApplicationFifthStep.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="54" column="22" lean-forward="true" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+            <state relative-caret-position="177">
+              <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
               </folding>
@@ -35,11 +36,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fundingApplicationSecondStep.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fundingApplicationThirdStep.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="165" column="43" lean-forward="true" selection-start-line="165" selection-start-column="43" selection-end-line="165" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fundingApplicationFourthStep.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="108" column="38" lean-forward="false" selection-start-line="108" selection-start-column="38" selection-end-line="108" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fundingApplicationSecondStep.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="66" column="59" lean-forward="false" selection-start-line="66" selection-start-column="59" selection-end-line="66" selection-end-column="59" />
+            <state relative-caret-position="288">
+              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
               </folding>
@@ -76,7 +97,6 @@
       <find>nextStep</find>
       <find>onAddActive</find>
       <find>page-funding-application-item-DX</find>
-      <find>dx</find>
       <find>onDelete</find>
       <find>loginReducer</find>
       <find>onNextStep</find>
@@ -101,6 +121,7 @@
       <find>getAreaProvince</find>
       <find>budgetType</find>
       <find>next</find>
+      <find>dx</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -161,10 +182,10 @@
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.store.js" />
         <option value="$PROJECT_DIR$/src/pages/home/home.store.js" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" />
-        <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" />
+        <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" />
-        <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
+        <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" />
       </list>
     </option>
   </component>
@@ -390,7 +411,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294021000" />
+    <option name="totallyTimeSpent" value="294297000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -815,7 +836,7 @@
         <state relative-caret-position="282">
           <caret line="222" column="44" lean-forward="true" selection-start-line="222" selection-start-column="44" selection-end-line="222" selection-end-column="44" />
           <folding>
-            <element signature="e#40#79#0" expanded="true" />
+            <element signature="e#40#79#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -846,22 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="234" column="45" lean-forward="false" selection-start-line="234" selection-start-column="45" selection-end-line="234" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="208" column="63" lean-forward="true" selection-start-line="208" selection-start-column="63" selection-end-line="208" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.store.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
@@ -882,23 +887,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="54" column="22" lean-forward="true" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+        <state relative-caret-position="288">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="66" column="59" lean-forward="false" selection-start-line="66" selection-start-column="59" selection-end-line="66" selection-end-column="59" />
+        <state relative-caret-position="177">
+          <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="165" column="43" lean-forward="true" selection-start-line="165" selection-start-column="43" selection-end-line="165" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="108" column="38" lean-forward="false" selection-start-line="108" selection-start-column="38" selection-end-line="108" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>

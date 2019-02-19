@@ -171,7 +171,7 @@ class FundingApplication extends React.Component {
                             }
                         />
                     </div>
-                    <div className="page-funding-application-item-DX">{getFieldProps('projectPrice')&&getFieldProps('projectPrice').value&&getFieldProps('projectPrice').value.length>0 ? DX(getFieldProps('projectPrice').value):'此处自动显示项目总预算的大写数值'}</div>
+                    <div className="page-funding-application-item-DX">{getFieldProps('project_money')&&getFieldProps('project_money').value&&getFieldProps('project_money').value.length>0 ? DX(getFieldProps('project_money').value):'此处自动显示项目总预算的大写数值'}</div>
                     <div className="line1px"></div>
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">项目概述</div>

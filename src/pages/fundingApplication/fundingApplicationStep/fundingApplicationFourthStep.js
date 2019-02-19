@@ -106,9 +106,9 @@ class Form extends React.Component {
                     <div className="page-funding-application-item-label">活动结束时间</div>
                     <DatePicker
                         mode="date"
-                        disabled={getFieldProps(`activity_end__${item}`).value ? false : true}
-                        minDate={new Date(+getFieldProps(`start_time_aid__${item}`).value)}
-                        {...getFieldProps(`end_time_aid__${item}`, {
+                        disabled={getFieldProps(`activity_start__${item}`).value ? false : true}
+                        minDate={new Date(+getFieldProps(`activity_start__${item}`).value)}
+                        {...getFieldProps(`activity_end__${item}`, {
                             rules: [
                                 { required: true, message: '请选择活动结束时间' },
                             ],
