@@ -19,9 +19,10 @@ import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
 import './../fundingApplication.css';
 
+let count = 0;
+
 class Form extends React.Component {
     static propTypes = {
-        formContent: PropTypes.Array,
         doAllActive: PropTypes.func
     };
     constructor(props) {
@@ -33,23 +34,127 @@ class Form extends React.Component {
             html : []
         };
     }
+    componentWillMount() {
+    }
     componentWillReceiveProps(nextProps) {
-        console.log(this.state.formContent);
+    }
+    onAddActive=()=>{
+        let formContent = this.state.formContent;
+        count+=1;
+        formContent.push(count);
         this.setState({
             ...this.state,
-            formContent: nextProps.formContent
+            formContent: formContent
+        }, ()=>{
+            this.doHtml();
         });
-        this.doHtml();
-    }
+    };
     doHtml() {
-
         console.log(this.state.formContent);
+        const { getFieldProps } = this.props.form;
         const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
-            <div>
-                <InputItem
-                    placeholder="测试"
-                />
-                <div id={item} onClick={(e)=>{this.deleteThis(e)}}>删除</div>
+            <div className={classnames({
+                'page-funding-application-allBox': index == this.state.formContent.length
+            })} key={item} data-index={item}>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目执行计划（{index+1}）</div>{this.state.formContent.length>1?<div id={item} onClick={(e)=>{this.deleteThis(e)}}>删除</div>:null}</div>
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">活动名称</div>
+                    <InputItem
+                        className="page-funding-application-input"
+                        placeholder="请输入活动名称"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`projectNameAid__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入活动名称',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">活动开始时间</div>
+                    <DatePicker
+                        mode="date"
+                        {...getFieldProps(`start_time_aid__${item}`, {
+                            rules: [
+                                { required: true, message: '请选择活动开始时间' },
+                            ],
+                        })}
+                    >
+                        <List.Item arrow="horizontal"></List.Item>
+                    </DatePicker>
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">活动结束时间</div>
+                    <DatePicker
+                        mode="date"
+                        disabled={getFieldProps(`start_time_aid__${item}`).value ? false : true}
+                        minDate={new Date(+getFieldProps(`start_time_aid__${item}`).value)}
+                        {...getFieldProps(`end_time_aid__${item}`, {
+                            rules: [
+                                { required: true, message: '请选择活动结束时间' },
+                            ],
+                        })}
+                    >
+                        <List.Item arrow="horizontal"></List.Item>
+                    </DatePicker>
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">活动目的</div>
+                    <InputItem
+                        className="page-funding-application-input"
+                        placeholder="请输入活动目的"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`activeGoal__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入活动目的',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item">
+                    <div className="page-funding-application-item-label">预估受益人数</div>
+                    <InputItem
+                        className="page-funding-application-input"
+                        placeholder="请输入预估受益人数"
+                        moneyKeyboardAlign="right"
+                        {
+                            ...getFieldProps(`bookPeopleNum__${item}`, {
+                                rules: [{
+                                    required: true,
+                                    message: '请输入预估受益人数',
+                                }],
+                            })
+                        }
+                    />
+                </div>
+                <div className="line1px"></div>
+                <div className="page-funding-application-item-textarea">
+                    <div className="page-funding-application-item-label-special">申请理由</div>
+                    <TextareaItem
+                        {...getFieldProps(`applyReason__${item}`, {
+                            rules: [{
+                                required: true,
+                                message: '请输入申请理由',
+                            }],
+                        })}
+                        placeholder="包括活动形式、地点、参与人数等"
+                        autoHeight
+                    />
+                </div>
+                <div className="line1px"></div>
             </div>
         )) : <div></div>;
         this.setState({
@@ -60,8 +165,6 @@ class Form extends React.Component {
         console.log(e.target.id)
         let arr = this.state.formContent;
         let html = this.state.html;
-        console.log(arr);
-        console.log(html);
         const index = arr.indexOf(Number(e.target.id));
         console.log(index);
         if(index > -1) {
@@ -70,10 +173,10 @@ class Form extends React.Component {
         }
         console.log(arr);
         console.log(html);
-        // this.props.doAllActive(arr);
+        this.props.doAllActive(arr);
         this.setState({
             ...this.state,
-            formContent: arr,
+            // formContent: arr,
             html: html
         });
     }
@@ -82,10 +185,12 @@ class Form extends React.Component {
         return(
             <div>
                 {this.state.html}
+                <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div>
             </div>
         )
     }
 }
+const FormCreate = createForm()(Form);
 
 class FundingApplication extends React.Component {
 
@@ -166,8 +271,8 @@ class FundingApplication extends React.Component {
             })
         });
         let htmlContent = this.state.htmlContent;
-        let num = htmlContent.length + 1;
-        htmlContent.push(num);
+        count+=1;
+        htmlContent.push(count);
         console.log('htmlContent', htmlContent)
         this.setState({
             htmlContent: htmlContent
@@ -309,11 +414,11 @@ class FundingApplication extends React.Component {
                     //     return this.renderBasic(item)
                     // })
                 }
-                <Form
+                <FormCreate
                     formContent={this.state.htmlContent}
                     doAllActive={this.doAllActive}
                 />
-                <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div>
+                {/*<div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div>*/}
                 <div className="nextStep" onClick={this.onNextStep}>下一步，填写项目预算明细</div>
             </div>
         );
