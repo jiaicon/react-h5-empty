@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673f1116-2321-4048-b1ad-35e0e4a65ac4" name="Default" comment="Default">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
@@ -38,8 +38,8 @@
       <file leaf-file-name="fundingApplicationSecondStep.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="62" column="23" lean-forward="true" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
+            <state relative-caret-position="266">
+              <caret line="66" column="59" lean-forward="false" selection-start-line="66" selection-start-column="59" selection-end-line="66" selection-end-column="59" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
               </folding>
@@ -390,7 +390,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="293923000" />
+    <option name="totallyTimeSpent" value="294021000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -894,8 +894,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="62" column="23" lean-forward="true" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
+        <state relative-caret-position="266">
+          <caret line="66" column="59" lean-forward="false" selection-start-line="66" selection-start-column="59" selection-end-line="66" selection-end-column="59" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
           </folding>

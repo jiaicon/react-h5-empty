@@ -59,11 +59,10 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
-            if(!this.state.imagesArr || !this.state.imagesArr.length) {
-                return;
+            if(this.state.imagesArr && this.state.imagesArr.length) {
+                value.group_certificate=this.state.imagesArr;
             }
             console.log('open');
-            value.group_certificate=this.state.imagesArr;
             localStorage.setItem('secondStep', JSON.stringify(value));
             location.href='/funding_application/step_three';
 
