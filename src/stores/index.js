@@ -24,8 +24,10 @@ import insuranceReducer from '../pages/ensure/ensure.store';
 import announceReducer from '../pages/announce/announce.store';
 import shopReducer from '../pages/shop/shop.store';
 import { userReducer } from './common';
+import fundingApplicationReducer from '../pages/fundingApplication/fundingApplication.store';
 
 const rootReducer = combineReducers({
+    fundingApplication: fundingApplicationReducer,
   home: homeReducer,
   user: userReducer,
   pendingTasks: pendingTasksReducer,

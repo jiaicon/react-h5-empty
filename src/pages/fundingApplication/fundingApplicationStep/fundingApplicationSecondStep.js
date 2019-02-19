@@ -19,6 +19,8 @@ import 'antd-mobile/lib/date-picker/style/css';
 import './../fundingApplication.css';
 import moment from 'moment';
 import UploadPhoto from './../../../components/uploadPhoto/uploadPhoto';
+import store from "../../../stores";
+import { secondStep } from './../fundingApplication.store';
 
 
 class FundingApplication extends React.Component {
@@ -57,8 +59,14 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
+            if(!this.state.imagesArr&&!this.state.imagesArr.length) {
+                return;
+            }
             console.log('open');
+            value.group_certificate=this.state.imagesArr;
+            localStorage.setItem('secondStep', JSON.stringify(value));
             location.href='/funding_application/step_three';
+
         });
     };
     onPhotoChange(images) {
@@ -69,7 +77,6 @@ class FundingApplication extends React.Component {
     }
     render() {
         const { getFieldProps, getFieldError } = this.props.form;
-        console.log(getFieldProps('projectPrice'))
 
         return (
             <div className="page-funding-application">
@@ -81,7 +88,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入收益组织名称"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('orgName', {
+                                ...getFieldProps('group_name', {
                                     rules: [{
                                         required: true,
                                         message: '请输入收益组织名称',
@@ -96,7 +103,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入统一社会信用代码（选填）"
-                            moneyKeyboardAlign="right"
+                            moneyKeyboardAlign="group_credit_num"
                             {
                                 ...getFieldProps('projectPosition')
                             }
@@ -110,7 +117,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入受益组织地址"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('orgAddress', {
+                                ...getFieldProps('group_addr', {
                                     rules: [{
                                         required: true,
                                         message: '请输入受益组织地址',
@@ -127,7 +134,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入受益组织法人／负责人姓名"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('orgPerson', {
+                                ...getFieldProps('group_legal_person', {
                                     rules: [{
                                         required: true,
                                         message: '请输入受益组织法人／负责人姓名',
@@ -144,7 +151,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入受益组织联系人姓名"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('orgPersonContact', {
+                                ...getFieldProps('group_user', {
                                     rules: [{
                                         required: true,
                                         message: '请输入受益组织联系人姓名',
@@ -161,7 +168,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入受益组织联系人电话"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('orgPersonContactPhone', {
+                                ...getFieldProps('group_user_phone', {
                                     rules: [{
                                         required: true,
                                         message: '请输入受益组织联系人电话',
@@ -181,7 +188,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入联系人邮箱"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('orgPersonContactEmail', {
+                                ...getFieldProps('group_user_email', {
                                     rules: [{
                                         required: true,
                                         message: '请输入联系人邮箱',
@@ -200,7 +207,7 @@ class FundingApplication extends React.Component {
                             data={this.state.serviceArea}
                             cols={1}
                             {
-                                ...getFieldProps('serviceAreaValue', {
+                                ...getFieldProps('group_service', {
                                     rules: [{
                                         required: true,
                                         message: '请输入服务领域',
@@ -215,7 +222,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">组织简介</div>
                         <TextareaItem
-                            {...getFieldProps('projectResult', {
+                            {...getFieldProps('group_info', {
                                 rules: [{
                                     required: true,
                                     message: '请输入组织简介',
@@ -245,6 +252,9 @@ FundingApplicationForm.propTypes = {
 };
 FundingApplication.title = '填写收益组织资料';
 export default connect(
-    dispatch => bindActionCreators({  }, dispatch),
+    state=>({
+        secondStepData: state.fundingApplication.secondStep
+    }),
+    dispatch => bindActionCreators({ secondStep }, dispatch),
 )(FundingApplicationForm);
 

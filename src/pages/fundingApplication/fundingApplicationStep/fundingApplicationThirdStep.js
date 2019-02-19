@@ -19,7 +19,8 @@ import 'antd-mobile/lib/date-picker/style/css';
 import './../fundingApplication.css';
 import moment from 'moment';
 import {DX} from './../../../utils/funcs';
-
+import store from "../../../stores";
+import { thirdStep } from './../fundingApplication.store';
 
 class FundingApplication extends React.Component {
 
@@ -57,7 +58,10 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
+            // store.dispatch(thirdStep(value));
             console.log('open');
+            localStorage.setItem('thirdStep', JSON.stringify(value));
+
             location.href='/funding_application/step_four';
         });
     };
@@ -75,7 +79,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入资助项目项目名称"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('projectName', {
+                                ...getFieldProps('project_name', {
                                     rules: [{
                                         required: true,
                                         message: '请输入资助项目项目名称',
@@ -91,7 +95,7 @@ class FundingApplication extends React.Component {
                             data={this.state.serviceArea}
                             cols={1}
                             {
-                                ...getFieldProps('projectAreaValue', {
+                                ...getFieldProps('project_field', {
                                     rules: [{
                                         required: true,
                                         message: '请选择资助项目项目领域',
@@ -107,7 +111,7 @@ class FundingApplication extends React.Component {
                         <div className="page-funding-application-item-label">实施开始时间</div>
                         <DatePicker
                             mode="date"
-                            {...getFieldProps('start_time', {
+                            {...getFieldProps('project_start', {
                                 rules: [
                                     { required: true, message: '请选择开始时间' },
                                 ],
@@ -121,9 +125,9 @@ class FundingApplication extends React.Component {
                         <div className="page-funding-application-item-label">实施结束时间</div>
                         <DatePicker
                             mode="date"
-                            disabled={getFieldProps('start_time').value ? false : true}
-                            minDate={new Date(+getFieldProps('start_time').value)}
-                            {...getFieldProps('end_time', {
+                            disabled={getFieldProps('project_start').value ? false : true}
+                            minDate={new Date(+getFieldProps('project_start').value)}
+                            {...getFieldProps('project_end', {
                                 rules: [
                                     { required: true, message: '请选择结束时间' },
                                 ],
@@ -140,7 +144,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入实施地点"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('projectPosition', {
+                                ...getFieldProps('project_addr', {
                                     rules: [{
                                         required: true,
                                         message: '请输入资助项目实施地点',
@@ -158,7 +162,7 @@ class FundingApplication extends React.Component {
                             placeholder="请输入资助项目总预算（保留两位小数）"
                             moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('projectPrice', {
+                                ...getFieldProps('project_money', {
                                     rules: [{
                                         required: true,
                                         message: '请输入项目总预算',
@@ -172,7 +176,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">项目概述</div>
                         <TextareaItem
-                            {...getFieldProps('projectDetail', {
+                            {...getFieldProps('project_info', {
                                 rules: [{
                                     required: true,
                                     message: '请输入项目概述',
@@ -188,7 +192,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">项目实施成效</div>
                         <TextareaItem
-                            {...getFieldProps('projectResult', {
+                            {...getFieldProps('project_effect', {
                                 rules: [{
                                     required: true,
                                     message: '请输入项目实施成效',
@@ -203,7 +207,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">项目收益对象</div>
                         <TextareaItem
-                            {...getFieldProps('projectFor', {
+                            {...getFieldProps('project_object', {
                                 rules: [{
                                     required: true,
                                     message: '请输入项目收益对象',
@@ -219,7 +223,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item-textarea">
                         <div className="page-funding-application-item-label-special">需要额外提供的资源</div>
                         <TextareaItem
-                            {...getFieldProps('projectDetail')}
+                            {...getFieldProps('project_resources')}
                             placeholder="请描述需要额外提供的其他资源，如场地、志愿者等
 （选填）"
                             autoHeight
@@ -239,6 +243,9 @@ FundingApplicationForm.propTypes = {
 };
 FundingApplication.title = '填写资助项目信息';
 export default connect(
-    dispatch => bindActionCreators({  }, dispatch),
+    state=>({
+        thirdStepData: state.fundingApplication.thirdStep
+    }),
+    dispatch => bindActionCreators({ thirdStep }, dispatch),
 )(FundingApplicationForm);
 

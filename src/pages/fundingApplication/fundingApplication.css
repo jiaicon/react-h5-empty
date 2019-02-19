@@ -111,8 +111,7 @@
     font-size: 14px;
     color: #BABABA;
     text-align: right;
-    padding-right: 21px;
-    padding-bottom: 21px;
+    padding: 0 21px 21px;
 }
 div.page-funding-application-allBox {
     margin-bottom: 134px;
