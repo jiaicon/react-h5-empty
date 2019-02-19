@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673f1116-2321-4048-b1ad-35e0e4a65ac4" name="Default" comment="Default">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
@@ -48,8 +47,8 @@
       <file leaf-file-name="fundingApplicationFourthStep.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="157" column="18" lean-forward="true" selection-start-line="157" selection-start-column="18" selection-end-line="157" selection-end-column="18" />
+            <state relative-caret-position="299">
+              <caret line="175" column="22" lean-forward="true" selection-start-line="175" selection-start-column="22" selection-end-line="175" selection-end-column="22" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
               </folding>
@@ -192,8 +191,8 @@
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" />
         <option value="$PROJECT_DIR$/src/routes.json" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" />
-        <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" />
+        <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
       </list>
     </option>
   </component>
@@ -410,7 +409,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="278905000" />
+    <option name="totallyTimeSpent" value="279245000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -889,8 +888,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="157" column="18" lean-forward="true" selection-start-line="157" selection-start-column="18" selection-end-line="157" selection-end-column="18" />
+        <state relative-caret-position="299">
+          <caret line="175" column="22" lean-forward="true" selection-start-line="175" selection-start-column="22" selection-end-line="175" selection-end-column="22" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
           </folding>

@@ -162,22 +162,20 @@ class Form extends React.Component {
         })
     }
     deleteThis(e) {
-        console.log(e.target.id)
         let arr = this.state.formContent;
         let html = this.state.html;
         const index = arr.indexOf(Number(e.target.id));
-        console.log(index);
         if(index > -1) {
             arr.splice(index, 1);
             html.splice(index, 1);
         }
-        console.log(arr);
-        console.log(html);
         this.props.doAllActive(arr);
         this.setState({
             ...this.state,
-            // formContent: arr,
+            formContent: arr,
             html: html
+        }, ()=>{
+            this.doHtml();
         });
     }
     render() {
