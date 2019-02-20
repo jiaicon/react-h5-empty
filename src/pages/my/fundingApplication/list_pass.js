@@ -21,7 +21,7 @@ class Projects extends React.Component {
   }
 
   componentWillMount() {
-    this.props.projectAction(2);
+    this.props.projectAction(1);
   }
 
   componentDidMount() {
