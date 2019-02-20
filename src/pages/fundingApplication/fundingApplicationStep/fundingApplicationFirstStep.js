@@ -8,18 +8,41 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Picker, List, InputItem, TextareaItem } from 'antd-mobile';
-import { createForm } from 'rc-form'
+import Slick from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Picker, List, InputItem, TextareaItem, Modal } from 'antd-mobile';
+import { createForm } from 'rc-form';
 import classnames from 'classnames';
 import 'antd-mobile/lib/list/style/css';
 import 'antd-mobile/lib/picker/style/css';
 import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
+import 'antd-mobile/lib/modal/style/css';
 import './../fundingApplication.css';
+import Image from "../../../components/image/image";
 import { getCity, getAreaProvince } from './../../home/home.store'
 import { firstStep } from './../fundingApplication.store';
 
-
+function closest(el, selector) {
+    const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+    while (el) {
+        if (matchesSelector.call(el, selector)) {
+            return el;
+        }
+        el = el.parentElement;
+    }
+    return null;
+}
+const imgContainer = [
+    {src: '/images/preview/team.png',content: '填写申报人信息'},
+    {src: '/images/preview/org.png',content: '填写受益组织资料'},
+    {src: '/images/preview/information.png',content: '填写资助项目信息'},
+    {src: '/images/preview/strategy.png',content: '填写项目执行计划'},
+    {src: '/images/preview/money.png',content: '填写经费预算明细'},
+    {src: '/images/preview/eye.png',content: '预览&修改申报信息'},
+    {src: '/images/preview/time.png',content: '申请完成，等待审核'},
+];
 class FundingApplication extends React.Component {
 
     constructor(props) {
@@ -28,10 +51,30 @@ class FundingApplication extends React.Component {
 
         this.state = {
             serviceArea: window.serviceArea,
-            serviceAreaValue: ''
+            serviceAreaValue: '',
+            showModal: true
+        };
+        this.slickSettings = {
+            dots: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            autoplay: false,
+            dotsClass: 'slick-dots dotsClass'
         };
     }
+    play() {
+        this.slider.slickPlay();
+    }
 
+    next() {
+        this.slider.slickNext();
+    }
+
+    previous() {
+        this.slider.slickPrev();
+    }
     componentWillMount() {
         this.props.getCity();
     }
@@ -68,6 +111,21 @@ class FundingApplication extends React.Component {
         console.log(val);
         if(val.length) {
             this.props.getAreaProvince(val[0]);
+        }
+    }
+    onCloseModal(key){
+        this.setState({
+            [key]: false
+        })
+    };
+    onWrapTouchStart = (e) => {
+        // fix touch to scroll background page on iOS
+        if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
+            return;
+        }
+        const pNode = closest(e.target, '.am-modal-content');
+        if (!pNode) {
+            e.preventDefault();
         }
     }
     render() {
@@ -268,6 +326,35 @@ class FundingApplication extends React.Component {
                     <div className="line1px"></div>
                 </div>
                  <div className="nextStep" onClick={this.onNextStep}>下一步，填写受益组织资料</div>
+                <Modal
+                    visible={this.state.showModal}
+                    transparent
+                    closable={true}
+                    maskClosable={false}
+                    onClose={()=>{this.onCloseModal('showModal')}}
+                    title="申请流程"
+                    footer={[{ text: 'Ok', onPress: () => { console.log('ok'); this.setState({showModal: false})} }]}
+                    wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                    afterClose={() => {  }}
+                >
+                    <div>
+                        <Slick {...this.slickSettings}>
+                            {
+                                imgContainer.map((item, index)=>(
+                                    <div key={index} style={{width: '165px', height: '165px'}}>
+                                        <Image
+                                            src={item.src}
+                                            className="image"
+                                            resize={{ width: 1500, height: 165 }}
+                                        />
+                                        <p style={{marginTop: '10px'}}>{item.content}</p>
+                                    </div>
+                                ))
+                            }
+
+                        </Slick>
+                    </div>
+                </Modal>
             </div>
         );
     }

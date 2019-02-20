@@ -1,0 +1,7 @@
+.am-accordion .am-accordion-item .am-accordion-header i {
+    background-image: url("/images/icon_left.png");
+    background-size: contain;
+}
+.page-funding-application-preview .am-list-item .am-input-control input:disabled {
+    background-color: #f5f5f9;
+}

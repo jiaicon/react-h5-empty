@@ -94,7 +94,7 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">预算类型</div>
                     <Picker
-                        data={this.state.budgetType}
+                        data={budgetType}
                         cols={1}
                         {
                             ...getFieldProps(`budget_type__${item}`, {
@@ -236,7 +236,7 @@ class Form extends React.Component {
             };
 
             console.log(allData);
-            this.props.fundingApplicationPost(allData);
+            // this.props.fundingApplicationPost(allData);
 
         });
     };

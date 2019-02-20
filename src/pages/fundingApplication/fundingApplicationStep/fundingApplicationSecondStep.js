@@ -202,20 +202,19 @@ class FundingApplication extends React.Component {
                     <div className="line1px"></div>
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">服务领域</div>
-                        <Picker
-                            data={this.state.serviceArea}
-                            cols={1}
+                        <InputItem
+                            className="page-funding-application-input"
+                            placeholder="请输入服务领域"
+                            moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_service', {
                                     rules: [{
                                         required: true,
                                         message: '请输入服务领域',
-                                    }],
+                                    }]
                                 })
                             }
-                        >
-                            <List.Item arrow="horizontal"></List.Item>
-                        </Picker>
+                        />
                     </div>
                     <div className="line1px"></div>
                     <div className="page-funding-application-item-textarea">
