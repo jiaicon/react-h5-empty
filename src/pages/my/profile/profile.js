@@ -444,7 +444,7 @@ class Profile extends React.Component {
                 !user.id_number && this.state.winOrgInfo !== null,
                 "page-profile-display-extends-none": user.id_number
             })}>
-                <Link to="/my/profile/verify">
+                <Link to="/my/profile/verifyStarbucks">
                     <div className="page-profile-bottom-btn">
                         申请成为实名注册志愿者
                     </div>

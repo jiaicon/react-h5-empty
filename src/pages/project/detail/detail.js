@@ -238,7 +238,6 @@ class ProjectDetailPage extends React.Component {
           this.props.storeLoginSource(`/project/detail/${this.projectId}`)
           window.location.replace(`/my/profile/verify`);
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
-
           this.handleActionClickSitch(action,projectId,customConfig,paymentConfig)
         }
       } else if (user.isLogin && user.in_blacklist) {

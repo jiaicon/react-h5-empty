@@ -211,6 +211,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/verifyStarbucks",
+    "page": "./pages/my/profile/verifyStarbucks",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/verify",
     "page": "./pages/my/profile/verify",
     "chunk": "main"

@@ -60,9 +60,14 @@ class Login extends React.Component {
                 }
                 
                 this.props.storeLoginSource(target);
+
+                if(1) {
+                    window.location.replace(`/my/profile/verifyStarbucks?target=${target}`);
+                    return;
+                }//星巴克判断条件
             
-               
                 window.location.replace(`/my/profile/verify?target=${target}`);
+               
                
                 // history.replace('/my/profile/verify');
             }else{
