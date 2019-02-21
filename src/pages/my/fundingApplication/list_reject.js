@@ -16,6 +16,7 @@ class Projects extends React.Component {
         this.props.list(2);
     }
 
+
     componentDidMount() {
 
     }
