@@ -61,7 +61,7 @@ class Login extends React.Component {
                 
                 this.props.storeLoginSource(target);
 
-                if(1) {
+                if(window.orgCode === 'VWPe9xdLyw') {
                     window.location.replace(`/my/profile/verifyStarbucks?target=${target}`);
                     return;
                 }//星巴克判断条件
