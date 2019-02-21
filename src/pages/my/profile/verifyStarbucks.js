@@ -317,6 +317,7 @@ class Verify extends React.Component {
   }
 
   onSubmit() {
+    console.log(this.state);
     const {
       winOrgInfo: stateOrgData,
       realname,
@@ -1039,11 +1040,50 @@ class Verify extends React.Component {
         extendsArray[key] = value;
       }
     }
+    let region_second = this.getRegionSecond(extendsArray.isStarbucksPartner,extendsArray.region_first);
+    console.log(region_second);
     this.setState({
       ...this.state,
-      extendsArray
+      extendsArray,
+      region_first: extendsArray.isStarbucksPartner === "是" ? { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,支持中心", "is_required": 1 } : { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,支持中心", "is_required": 0 },
+      region_second: region_second,
+      store_num: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "支持中心" ?  { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 1 }:{ "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 }, 
+      store_name: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "支持中心" ?   { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 1 } : { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 0 },
+      staff_id: extendsArray.isStarbucksPartner === "是" ?  { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 1 }: { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 0 },
+    } ,() => {
+      console.log(extendsArray,this.state.region_first,this.state.region_second);
     });
   }
+
+  getRegionSecond (isStarbucksPartner, region_first) {
+    let options = "";
+    if (region_first === "东区") {
+      options = "浙江,江苏,上海东,上海西";
+    }
+    if (region_first === "南区") {
+      options = "南东区,南西区";
+    }
+    if (region_first === "北区") {
+      options = "华北区,东北区";
+    }
+    if (region_first === "中西区") {
+      options = "中区,西区";
+    }
+    if (region_first === "支持中心") {
+      options = "上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心";
+    }
+    let is_required = isStarbucksPartner === "是" ? 1:0;
+
+    let tempRegionSecond = {};
+    tempRegionSecond.key = "region_second";
+    tempRegionSecond.label = "二级区域";
+    tempRegionSecond.type = "1";
+    tempRegionSecond.options = options;
+    tempRegionSecond.is_required = is_required;
+    return tempRegionSecond;
+    
+  }
+
   renderPassword() {
     const { user } = this.props;
     return (
