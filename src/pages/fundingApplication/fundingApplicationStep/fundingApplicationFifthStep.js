@@ -210,10 +210,14 @@ class Form extends React.Component {
             // }
             let data = [];
             let formContent = this.state.formContent;
+            console.log(value);
             for(let j = 0; j < formContent.length; j++) {
                 let obj = {};
                 for(let i in value) {
                     if(formContent[j] === Number(i.split('__')[1])) {
+                        if(i.indexOf('type') > -1) {
+                            value[i] = value[i][0];
+                        }
                         obj[i.split('__')[0]] = value[i];
                     }
                 }
@@ -223,10 +227,6 @@ class Form extends React.Component {
                 data.budget_reason = value.budget_reason;
             }
             localStorage.setItem('fifthStep', JSON.stringify({budget: data}));
-            console.log(localStorage.getItem('firstStep'));
-            console.log(localStorage.getItem('secondStep'));
-            console.log(localStorage.getItem('thirdStep'));
-            console.log(localStorage.getItem('fourthStep'));
             let allData = {
                 budget: data,
                 ...JSON.parse(localStorage.getItem('firstStep')),
@@ -234,11 +234,11 @@ class Form extends React.Component {
                 ...JSON.parse(localStorage.getItem('thirdStep')),
                 ...JSON.parse(localStorage.getItem('fourthStep')),
             };
-
             console.log(allData);
             location.replace('/funding_application/preview');
-            // this.props.fundingApplicationPost(allData);
 
+
+            // this.props.fundingApplicationPost(allData);
         });
     };
     render() {

@@ -101,6 +101,8 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
+            if(value.user_business_province) value.user_business_province = value.user_business_province[0];
+            if(value.user_business_city) value.user_business_city = value.user_business_city[0];
             localStorage.setItem('firstStep', JSON.stringify(value));
             // store.dispatch(firstStep(value));
             console.log('open');

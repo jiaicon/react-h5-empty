@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Accordion, List, Picker, InputItem, TextareaItem, DatePicker } from 'antd-mobile';
+import { Accordion, List, Picker, InputItem, TextareaItem, DatePicker, Checkbox, Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import 'antd-mobile/lib/accordion/style/css';
 import 'antd-mobile/lib/list/style/css';
@@ -17,6 +17,8 @@ import 'antd-mobile/lib/picker/style/css';
 import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
+import 'antd-mobile/lib/checkbox/style/css';
+import 'antd-mobile/lib/modal/style/css';
 import {DX,getQueryString} from './../../../utils/funcs';
 
 import UploadPhoto from './../../../components/uploadPhoto/uploadPhoto';
@@ -44,6 +46,8 @@ const budgetType = [
         value: '服务费'
     }
 ];
+const CheckboxItem = Checkbox.CheckboxItem;
+
 let doCountArr = function (count) {
     let formContent = [];
     if(count > 1) {
@@ -60,7 +64,11 @@ class Preview extends React.Component {
     constructor(props) {
         super(props);
         autoBind(this);
-
+        let serviceArea = window.serviceArea;
+        serviceArea = serviceArea.map((item)=>{
+            item.defaultChecked=false;
+            return item;
+        });
         this.state = {
             previewData: {},
             stepDisabled1: true,
@@ -68,7 +76,9 @@ class Preview extends React.Component {
             stepDisabled3: true,
             stepDisabled4: true,
             stepDisabled5: true,
-            serviceArea: window.serviceArea,
+            modal_project_field: false,
+            hasChooseArea: [],
+            serviceArea: serviceArea,
             serviceAreaValue: '',
             formContent: [],
             html : [],
@@ -82,16 +92,23 @@ class Preview extends React.Component {
         this.props.getCity();
         let allData = {};
         if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
-            //发送请求，获取数据
+            //已提交的申请
             let allApplyData = JSON.parse(localStorage.getItem('applyData')).list;
             allApplyData.map(item=>{
                 if(item.id == getQueryString('isHasApply')) {
                     allData = item;
 
                     allData.plan=item.plan;
-                    allData.budget=item.budget;
-                    allData.user_business_province = allData.user_business_province;
-                    allData.user_business_city = allData.user_business_city;
+                    allData.budget = item.budget.map((line, idx)=>{
+                        console.log(line)
+                        if(line.budget_type) {
+                            line.budget_type = [line.budget_type];
+                        }
+                        return line;
+                    });
+                    allData.user_business_province = [item.user_business_province];
+                    // allData.project_field = [item.project_field];
+                    allData.user_business_city = [item.user_business_city];
                     if(allData.user_business_province.length) {
                         this.props.getAreaProvince(allData.user_business_province[0]);
                     }
@@ -107,6 +124,19 @@ class Preview extends React.Component {
                 ...JSON.parse(localStorage.getItem('fourthStep')),
                 ...JSON.parse(localStorage.getItem('fifthStep')),
             };
+            allData.budget = allData.budget.map((line, idx)=>{
+                console.log(line)
+                if(line.budget_type) {
+                    line.budget_type = [line.budget_type];
+                }
+                return line;
+            });
+            allData.user_business_province = [allData.user_business_province];
+            allData.user_business_city = [allData.user_business_city];
+            // allData.project_field = [allData.project_field];
+            if(allData.user_business_province.length) {
+                this.props.getAreaProvince(allData.user_business_province[0]);
+            }
             count = JSON.parse(localStorage.getItem('fourthStep')).plan&&JSON.parse(localStorage.getItem('fourthStep')).plan.length;
             countBudget = JSON.parse(localStorage.getItem('fifthStep')).budget&&JSON.parse(localStorage.getItem('fifthStep')).budget.length;
         }
@@ -116,9 +146,22 @@ class Preview extends React.Component {
             previewData: allData,
             formContent: doCountArr(count),
             formContentBudget: doCountArr(countBudget),
+            hasChooseArea: allData.project_field,
+            serviceArea: this.concatArray(this.state.serviceArea, allData.project_field)
         })
     }
-
+    concatArray(arr1, arr2) {
+        if(arr2.length>0) {
+            arr1.map(item=>{
+                arr2.map(line=>{
+                    if(item.value == line) {
+                        item.defaultChecked = true;
+                    }
+                })
+            });
+        }
+        return arr1;
+    }
     componentDidMount() {
 
     }
@@ -191,7 +234,7 @@ class Preview extends React.Component {
                 'page-funding-application-allBox': index == this.state.formContent.length
             })} key={item} data-index={item}>
                 <div className="page-funding-application-item">
-                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目执行计划（{index+1}）</div>{this.state.formContent.length>1?<div id={item} onClick={(e)=>{this.deleteThis(e)}}>删除</div>:null}</div>
+                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目执行计划（{index+1}）</div>{this.state.alertBtn&&this.state.formContent.length>1?<div id={item} onClick={(e)=>{this.deleteThis(e)}}>删除</div>:null}</div>
                 </div>
                 <div className="line1px"></div>
                 <div className="page-funding-application-item">
@@ -307,7 +350,7 @@ class Preview extends React.Component {
                 'page-funding-application-allBox': index == this.state.formContentBudget.length
             })} key={item} data-index={item}>
                 <div className="page-funding-application-item">
-                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{this.state.formContentBudget.length>1?<div id={item} onClick={(e)=>{this.deleteBudgetThis(e)}}>删除</div>:null}</div>
+                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{this.state.alertBtn&&this.state.formContentBudget.length>1?<div id={item} onClick={(e)=>{this.deleteBudgetThis(e)}}>删除</div>:null}</div>
                 </div>
                 <div className="line1px"></div>
                 <div className="page-funding-application-item">
@@ -521,57 +564,6 @@ class Preview extends React.Component {
                 this.props.fundingApplicationPost(value);
             }
         });
-        // this.props.form.validateFields((error, value) => {
-        //     console.log(error, value)
-        //     if(error) {
-        //         console.log('error', error);
-        //         alert('存在未填写信息，请填写后重试');
-        //         return;
-        //     }
-        //     let formContentData = [];
-        //     let formContentBudgetData = [];
-        //     let formContent = this.state.formContent;
-        //     let formContentBudget = this.state.formContentBudget;
-        //     for(let j = 0; j < formContent.length; j++) {
-        //         let obj = {};
-        //         for(let i in value) {
-        //             if(formContent[j] === Number(i.split('__')[1])&&i.split('_')[0]==='activity') {
-        //                 obj[i.split('__')[0]] = value[i];
-        //                 if(i.indexOf('activity_start') > -1 || i.indexOf('activity_end') > -1) {
-        //                     obj[i.split('__')[0]] = moment(value[i]).format('YYYY-MM-DD');
-        //                 }
-        //             }
-        //
-        //         }
-        //         formContentData.push(obj);
-        //     }
-        //     for(let j = 0; j < formContentBudget.length; j++) {
-        //         let obj = {};
-        //         for(let i in value) {
-        //             if(formContentBudget[j] === Number(i.split('__')[1])&&i.split('_')[0]==='budget') {
-        //                 obj[i.split('__')[0]] = value[i];
-        //             }
-        //         }
-        //         formContentBudgetData.push(obj);
-        //     }
-        //     for(let i in value) {
-        //         if(i==='project_start' || i==='project_end') {
-        //             value[i] = moment(value[i]).format('YYYY-MM-DD');
-        //         }
-        //     }
-        //     value.plan=JSON.stringify(formContentData);
-        //     value.budget=JSON.stringify(formContentBudgetData);
-        //     value.user_business_province = value.user_business_province[0];
-        //     value.user_business_city = value.user_business_city[0];
-        //     console.log('allData::::', value);
-        //
-        //     if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
-        //         value.id=getQueryString('isHasApply');
-        //         this.props.resubmitApply(value);
-        //     }else {
-        //         this.props.fundingApplicationPost(value);
-        //     }
-        // });
     }
     doValue(callback) {
         this.props.form.validateFields((error, value) => {
@@ -602,6 +594,7 @@ class Preview extends React.Component {
                 let obj = {};
                 for(let i in value) {
                     if(formContentBudget[j] === Number(i.split('__')[1])&&i.split('_')[0]==='budget') {
+                        value[i] = value[i][0];
                         obj[i.split('__')[0]] = value[i];
                     }
                 }
@@ -614,6 +607,9 @@ class Preview extends React.Component {
             }
             value.plan=JSON.stringify(formContentData);
             value.budget=JSON.stringify(formContentBudgetData);
+            if(this.state.hasChooseArea.length>0) {
+                value.project_field=this.state.hasChooseArea;
+            }
             value.user_business_province = value.user_business_province[0];
             value.user_business_city = value.user_business_city[0];
             console.log('allData::::', value);
@@ -627,6 +623,33 @@ class Preview extends React.Component {
             alertBtn: !this.state.alertBtn
         })
     }
+    openProjectFiled() {
+        this.setState({
+            modal_project_field: true
+        })
+    }
+    onCloseModalProjectFiled() {
+        console.log('close')
+        this.setState({
+            modal_project_field: false
+        })
+    }
+    onChangeCheckbox = (val) => {
+        console.log(val);
+        let hasChooseArea = this.state.hasChooseArea;
+        let serviceArea = this.state.serviceArea;
+        serviceArea = serviceArea.map((item)=>{
+            if(item.value == val) {
+                item.defaultChecked=!item.defaultChecked
+            }
+            return item;
+        });
+        hasChooseArea.push(val);
+        this.setState({
+            hasChooseArea: hasChooseArea,
+            serviceArea: serviceArea
+        })
+    };
     render() {
         const { getFieldProps } = this.props.form;
         const { cityData: { data: listData },areaData: { data: areaListData } } = this.props;
@@ -1089,22 +1112,29 @@ class Preview extends React.Component {
                                 <div className="line1px"></div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">项目领域</div>
-                                    <Picker
-                                        data={this.state.serviceArea}
-                                        cols={1}
-                                        disabled={this.state.stepDisabled3}
-                                        {
-                                            ...getFieldProps('project_field', {
-                                                initialValue: this.state.previewData&&this.state.previewData.project_field,
-                                                rules: [{
-                                                    required: true,
-                                                    message: '请选择资助项目项目领域',
-                                                }],
-                                            })
+                                    <List renderHeader={()=>{
+                                        if(this.state.hasChooseArea.length>0) {
+                                            return this.state.hasChooseArea.join(',');
+                                        }else {
+                                            return'请选择项目领域';
                                         }
-                                    >
-                                        <List.Item arrow="horizontal"></List.Item>
-                                    </Picker>
+                                    }} onClick={this.openProjectFiled}/>
+                                    {/*<Picker*/}
+                                        {/*data={this.state.serviceArea}*/}
+                                        {/*cols={1}*/}
+                                        {/*disabled={this.state.stepDisabled3}*/}
+                                        {/*{*/}
+                                            {/*...getFieldProps('project_field', {*/}
+                                                {/*initialValue: this.state.previewData&&this.state.previewData.project_field,*/}
+                                                {/*rules: [{*/}
+                                                    {/*required: true,*/}
+                                                    {/*message: '请选择资助项目项目领域',*/}
+                                                {/*}],*/}
+                                            {/*})*/}
+                                        {/*}*/}
+                                    {/*>*/}
+                                        {/*<List.Item arrow="horizontal"></List.Item>*/}
+                                    {/*</Picker>*/}
                                 </div>
                                 <div className="line1px"></div>
                                 <div className="page-funding-application-item">
@@ -1303,12 +1333,30 @@ class Preview extends React.Component {
                 }
 
                 {
-                    // this.state.previewData&&this.state.previewData.status == 0 ? <div className="nextStep revoke" onClick={this.onRevokeThis}>撤销</div>:null
-                }
-
-                {
                     getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? null : <div className="nextStep" onClick={this.onSubmitInfo}>填写完成，提交申请</div>
                 }
+                <Modal
+                    className="review-modal-css"
+                    popup
+                    visible={this.state.modal_project_field}
+                    animationType="slide-up"
+                    onClose={this.onCloseModalProjectFiled}
+                    afterClose={() => { console.log('afterClose'); }}
+                >
+                    <List renderHeader={() => <div>选择服务领域</div>} className="popup-list">
+                        {
+                            this.state.serviceArea.map((item, index)=>(
+                                <CheckboxItem
+                                    key={index}
+                                    defaultChecked={item.defaultChecked}
+                                    onChange={()=>this.onChangeCheckbox(item.value)}
+                                >
+                                    {item.label}
+                                </CheckboxItem>
+                            ))
+                        }
+                    </List>
+                </Modal>
             </div>
         );
     }

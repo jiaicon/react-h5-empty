@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Picker, List, InputItem, TextareaItem, DatePicker } from 'antd-mobile';
+import { Picker, List, InputItem, TextareaItem, DatePicker, Modal, Checkbox } from 'antd-mobile';
 import { createForm } from 'rc-form'
 import classnames from 'classnames';
 import 'antd-mobile/lib/list/style/css';
@@ -16,21 +16,31 @@ import 'antd-mobile/lib/picker/style/css';
 import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
+import 'antd-mobile/lib/modal/style/css';
+import 'antd-mobile/lib/checkbox/style/css';
 import './../fundingApplication.css';
 import moment from 'moment';
 import {DX} from './../../../utils/funcs';
 import store from "../../../stores";
 import { thirdStep } from './../fundingApplication.store';
 
+const CheckboxItem = Checkbox.CheckboxItem;
+
 class FundingApplication extends React.Component {
 
     constructor(props) {
         super(props);
         autoBind(this);
-
+        let serviceArea = window.serviceArea;
+        serviceArea = serviceArea.map((item)=>{
+            item.defaultChecked=false;
+            return item;
+        });
         this.state = {
-            serviceArea: window.serviceArea,
-            serviceAreaValue: ''
+            serviceArea: serviceArea,
+            serviceAreaValue: '',
+            modal_project_field: false,
+            hasChooseArea: []
         };
     }
 
@@ -58,12 +68,44 @@ class FundingApplication extends React.Component {
             //     console.log('error');
             //     return;
             // }
-            // store.dispatch(thirdStep(value));
-            console.log('open');
+            if(this.state.hasChooseArea.length>0) {
+                value.project_field=this.state.hasChooseArea;
+            }
+            console.log(value);
+            // if(value.project_field) {
+            //     value.project_field=value.project_field[0]
+            // }
             localStorage.setItem('thirdStep', JSON.stringify(value));
 
             location.href='/funding_application/step_four';
         });
+    };
+    openProjectFiled() {
+        this.setState({
+            modal_project_field: true
+        })
+    }
+    onCloseModalProjectFiled() {
+        console.log('close')
+        this.setState({
+            modal_project_field: false
+        })
+    }
+    onChangeCheckbox = (val) => {
+        console.log(val);
+        let hasChooseArea = this.state.hasChooseArea;
+        let serviceArea = this.state.serviceArea;
+        serviceArea = serviceArea.map((item)=>{
+            if(item.value == val) {
+                item.defaultChecked=!item.defaultChecked
+            }
+            return item;
+        });
+        hasChooseArea.push(val);
+        this.setState({
+            hasChooseArea: hasChooseArea,
+            serviceArea: serviceArea
+        })
     };
     render() {
         const { getFieldProps, getFieldError } = this.props.form;
@@ -90,20 +132,27 @@ class FundingApplication extends React.Component {
                     <div className="line1px"></div>
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">项目领域</div>
-                        <Picker
-                            data={this.state.serviceArea}
-                            cols={1}
-                            {
-                                ...getFieldProps('project_field', {
-                                    rules: [{
-                                        required: true,
-                                        message: '请选择资助项目项目领域',
-                                    }],
-                                })
+                        <List renderHeader={()=>{
+                            if(this.state.hasChooseArea.length>0) {
+                                return this.state.hasChooseArea.join(',');
+                            }else {
+                                return'请选择项目领域';
                             }
-                        >
-                            <List.Item arrow="horizontal"></List.Item>
-                        </Picker>
+                        }} onClick={this.openProjectFiled}/>
+                        {/*<Picker*/}
+                            {/*data={this.state.serviceArea}*/}
+                            {/*cols={1}*/}
+                            {/*{*/}
+                                {/*...getFieldProps('project_field', {*/}
+                                    {/*rules: [{*/}
+                                        {/*required: true,*/}
+                                        {/*message: '请选择资助项目项目领域',*/}
+                                    {/*}],*/}
+                                {/*})*/}
+                            {/*}*/}
+                        {/*>*/}
+                            {/*<List.Item arrow="horizontal"></List.Item>*/}
+                        {/*</Picker>*/}
                     </div>
                     <div className="line1px"></div>
                     <div className="page-funding-application-item">
@@ -232,6 +281,28 @@ class FundingApplication extends React.Component {
                     <div className="line1px"></div>
                 </div>
                 <div className="nextStep" onClick={this.onNextStep}>下一步，填写项目执行计划</div>
+                <Modal
+                    className="review-modal-css"
+                    popup
+                    visible={this.state.modal_project_field}
+                    animationType="slide-up"
+                    onClose={this.onCloseModalProjectFiled}
+                    afterClose={() => { console.log('afterClose'); }}
+                >
+                    <List renderHeader={() => <div>选择服务领域</div>} className="popup-list">
+                        {
+                            this.state.serviceArea.map((item, index)=>(
+                                <CheckboxItem
+                                    key={index}
+                                    defaultChecked={item.defaultChecked}
+                                    onChange={()=>this.onChangeCheckbox(item.value)}
+                                >
+                                    {item.label}
+                                </CheckboxItem>
+                            ))
+                        }
+                    </List>
+                </Modal>
             </div>
         );
     }

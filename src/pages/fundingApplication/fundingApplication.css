@@ -153,3 +153,6 @@ div.page-funding-application-allBox {
 .am-modal-transparent .am-modal-content .am-modal-body {
     padding: 20px 15px 60px;
 }
+.review-modal-css {
+    height: 250px;
+}
