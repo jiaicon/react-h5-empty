@@ -55,12 +55,12 @@ class Form extends React.Component {
         this.doHtml();
     }
     componentWillReceiveProps(nextProps) {
-        const { check: Ccheck } = this.props;
-        const { check: Ncheck } = nextProps;
-        const { login: cLogin } = this.props;
-        const { login: nLogin } = nextProps;
-        const { fetching: tFetch, failed: tFailed } = this.props.fundingApplicationData.fundingApplicationPost;
-        const { fetching: nFetch, failed: nFailed } = nextProps.fundingApplicationData.fundingApplicationPost;
+        // const { check: Ccheck } = this.props;
+        // const { check: Ncheck } = nextProps;
+        // const { login: cLogin } = this.props;
+        // const { login: nLogin } = nextProps;
+        // const { fetching: tFetch, failed: tFailed } = this.props.fundingApplicationData.fundingApplicationPost;
+        // const { fetching: nFetch, failed: nFailed } = nextProps.fundingApplicationData.fundingApplicationPost;
     }
     onAddActive=()=>{
         this.props.form.validateFields((error, value) => {
@@ -236,6 +236,7 @@ class Form extends React.Component {
             };
 
             console.log(allData);
+            location.replace('/funding_application/preview');
             // this.props.fundingApplicationPost(allData);
 
         });

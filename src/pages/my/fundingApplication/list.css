@@ -29,12 +29,16 @@
     line-height: 47px;
     color: #6AC6F8;
     border-bottom: 2px solid #6AC6F8;
-  
+
   }
-  
+
   .page-projects-content-main{
     flex: 1;
     overflow-y: scroll;
     height: 100%;
   }
-  
+
+
+  .pages-funding-application-list-container {
+      padding: 34px 0 34px 40px;
+  }

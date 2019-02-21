@@ -129,7 +129,7 @@ div.page-funding-application-allBox {
     left: 50%;
     margin-left: -76px;
 }
-.dotsClass .slick-dots li {
+.dotsClass.slick-dots li {
     margin: 0!important;
 }
 .slick-dots.dotsClass li.slick-active button:before {

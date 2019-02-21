@@ -67,7 +67,6 @@ class FundingApplication extends React.Component {
     };
     render() {
         const { getFieldProps, getFieldError } = this.props.form;
-        console.log(getFieldProps('projectPrice'))
 
         return (
             <div className="page-funding-application">

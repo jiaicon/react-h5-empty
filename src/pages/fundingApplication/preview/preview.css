@@ -5,3 +5,27 @@
 .page-funding-application-preview .am-list-item .am-input-control input:disabled {
     background-color: #f5f5f9;
 }
+.revoke.nextStep {
+    bottom: 75px;
+}
+.submitBtn {
+    height: 44px;
+    line-height: 44px;
+    background-color: rgb(177, 217, 246);
+    color: #FFFFFF;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between
+}
+.submitBtn div:first-child {
+    border-right: 1px solid #D3D3D3;
+    background-color: #D3D3D3;
+}
+.submitBtn div {
+    flex: 1;
+    text-align: center;
+}

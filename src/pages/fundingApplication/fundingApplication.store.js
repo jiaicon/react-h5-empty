@@ -143,6 +143,108 @@ const fundingApplicationPostReducer = (state = {
             return state;
     }
 };
+//获取申请的列表
+export const list = (type)=>({
+    type: 'FUNDING_APPLICATION_TYPE_LIST',
+    payload: fetch(`/support/list${type||type==0 ? '?status='+type : ''}`, {method: 'GET', data: {page_size: 10000}})
+});
+const listReducer = (state={
+    fetching: false,
+    failed: false,
+    data: null,
+}, action)=>{
+    switch(action.type) {
+        case 'FUNDING_APPLICATION_TYPE_LIST_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'FUNDING_APPLICATION_TYPE_LIST_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data,
+            };
+        case 'FUNDING_APPLICATION_TYPE_LIST_REJECTED':
+            return {
+                ...state,
+                failed: true,
+                fetching: false,
+            };
+        default:
+            return state;
+    }
+};
+//重新提交数据
+export const resubmitApply = data => ({
+    type: 'RESUBMIT_APPLY',
+    payload: fetch(`/support/${data.id}`, { method: 'POST', data}),
+});
+const resubmitApplyReducer = (state = {
+    fetching: false,
+    failed: false,
+    data: null,
+}, action) => {
+    switch (action.type) {
+        case 'RESUBMIT_APPLY_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'RESUBMIT_APPLY_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data,
+            };
+        case 'RESUBMIT_APPLY_REJECTED':
+            return {
+                ...state,
+                failed: true,
+                fetching: false,
+            };
+        default:
+            return state;
+    }
+};
+//撤销
+export const revokeApply = data => ({
+    type: 'REVOKE_APPLY',
+    payload: fetch(`/support/${data.id}`, { method: 'GET', data}),
+});
+const revokeApplyReducer = (state = {
+    fetching: false,
+    failed: false,
+    data: null,
+}, action) => {
+    switch (action.type) {
+        case 'REVOKE_APPLY_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'REVOKE_APPLY_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data,
+            };
+        case 'REVOKE_APPLY_REJECTED':
+            return {
+                ...state,
+                failed: true,
+                fetching: false,
+            };
+        default:
+            return state;
+    }
+};
 const fundingApplicationReducer = combineReducers({
     firstStep: firstStepReducer,
     secondStep: secondStepReducer,
@@ -150,5 +252,8 @@ const fundingApplicationReducer = combineReducers({
     fourthStep: fourthStepReducer,
     fifthStep: fifthStepReducer,
     fundingApplicationPost: fundingApplicationPostReducer,
+    fundingApplicationList: listReducer,
+    resubmitApply: resubmitApplyReducer,
+    revokeApply: revokeApplyReducer,
 });
 export default fundingApplicationReducer;

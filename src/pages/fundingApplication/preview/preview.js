@@ -17,7 +17,7 @@ import 'antd-mobile/lib/picker/style/css';
 import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
-import {DX} from './../../../utils/funcs';
+import {DX,getQueryString} from './../../../utils/funcs';
 
 import UploadPhoto from './../../../components/uploadPhoto/uploadPhoto';
 
@@ -27,7 +27,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 
 import { getCity, getAreaProvince } from './../../home/home.store';
-import { fundingApplicationPost } from './../fundingApplication.store';
+import { fundingApplicationPost, resubmitApply, revokeApply } from './../fundingApplication.store';
 let count=1;
 let countBudget=1;
 const budgetType = [
@@ -73,21 +73,44 @@ class Preview extends React.Component {
             formContent: [],
             html : [],
             formContentBudget: [],
-            htmlBudget : []
+            htmlBudget : [],
+            alertBtn: getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? false : true
         };
     }
 
     componentWillMount() {
         this.props.getCity();
-        let allData = {
-            ...JSON.parse(localStorage.getItem('firstStep')),
-            ...JSON.parse(localStorage.getItem('secondStep')),
-            ...JSON.parse(localStorage.getItem('thirdStep')),
-            ...JSON.parse(localStorage.getItem('fourthStep')),
-            ...JSON.parse(localStorage.getItem('fifthStep')),
-        };
-        count = JSON.parse(localStorage.getItem('fourthStep')).plan&&JSON.parse(localStorage.getItem('fourthStep')).plan.length;
-        countBudget = JSON.parse(localStorage.getItem('fifthStep')).budget&&JSON.parse(localStorage.getItem('fifthStep')).budget.length;
+        let allData = {};
+        if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+            //发送请求，获取数据
+            let allApplyData = JSON.parse(localStorage.getItem('applyData')).list;
+            allApplyData.map(item=>{
+                if(item.id == getQueryString('isHasApply')) {
+                    allData = item;
+
+                    allData.plan=item.plan;
+                    allData.budget=item.budget;
+                    allData.user_business_province = allData.user_business_province;
+                    allData.user_business_city = allData.user_business_city;
+                    if(allData.user_business_province.length) {
+                        this.props.getAreaProvince(allData.user_business_province[0]);
+                    }
+                    count = allData.plan.length;
+                    countBudget = allData.budget.length;
+                }
+            });
+        }else {
+             allData = {
+                ...JSON.parse(localStorage.getItem('firstStep')),
+                ...JSON.parse(localStorage.getItem('secondStep')),
+                ...JSON.parse(localStorage.getItem('thirdStep')),
+                ...JSON.parse(localStorage.getItem('fourthStep')),
+                ...JSON.parse(localStorage.getItem('fifthStep')),
+            };
+            count = JSON.parse(localStorage.getItem('fourthStep')).plan&&JSON.parse(localStorage.getItem('fourthStep')).plan.length;
+            countBudget = JSON.parse(localStorage.getItem('fifthStep')).budget&&JSON.parse(localStorage.getItem('fifthStep')).budget.length;
+        }
+        console.log(allData);
 
         this.setState({
             previewData: allData,
@@ -101,12 +124,24 @@ class Preview extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         const { fetching: tFetch, failed: tFailed } = this.props.fundingApplicationData;
         const { fetching: nFetch, failed: nFailed } = nextProps.fundingApplicationData;
+        const { fetching: rtFetch, failed: rtFailed } = this.props.resubmitApplyData;
+        const { fetching: rnFetch, failed: rnFailed } = nextProps.resubmitApplyData;
+
+        const { fetching: revokerFetch, failed: revokerFailed } = this.props.revokeApplyData;
+        const { fetching: revokenFetch, failed: revokenFailed } = nextProps.revokeApplyData;
         if(tFetch && !tFailed && !nFetch && !nFailed) {
             console.log('提交成功');
-            location.href='/my';
+            location.replace('/my');
+        }
+        if(rtFetch && !rtFailed && !rnFetch && !rnFailed) {
+            console.log('提交成功');
+            location.replace('/my');
+        }
+        if(revokerFetch && !revokerFailed && !revokenFetch && !revokenFailed) {
+            console.log('撤销成功');
+            location.replace('/my');
         }
     }
 
@@ -150,6 +185,7 @@ class Preview extends React.Component {
     doHtml() {
         let fourthStep = JSON.parse(localStorage.getItem('fourthStep'));
         const { getFieldProps } = this.props.form;
+        // console.log(this.state.formContent);
         const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
             <div className={classnames({
                 'page-funding-application-allBox': index == this.state.formContent.length
@@ -167,6 +203,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_name__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_name : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入活动名称',
@@ -181,6 +218,7 @@ class Preview extends React.Component {
                     <DatePicker
                         mode="date"
                         {...getFieldProps(`activity_start__${item}`, {
+                            initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_start&&new Date(this.state.previewData.plan[index].activity_start) : null,
                             rules: [
                                 { required: true, message: '请选择活动开始时间' },
                             ],
@@ -197,6 +235,7 @@ class Preview extends React.Component {
                         disabled={getFieldProps(`activity_start__${item}`).value ? false : true}
                         minDate={new Date(+getFieldProps(`activity_start__${item}`).value)}
                         {...getFieldProps(`activity_end__${item}`, {
+                            initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_end&&new Date(this.state.previewData.plan[index].activity_end) : null,
                             rules: [
                                 { required: true, message: '请选择活动结束时间' },
                             ],
@@ -214,6 +253,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_objective__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_objective : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入活动目的',
@@ -231,6 +271,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_people__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_people : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入预估受益人数',
@@ -244,6 +285,7 @@ class Preview extends React.Component {
                     <div className="page-funding-application-item-label-special">申请理由</div>
                     <TextareaItem
                         {...getFieldProps(`activity_info__${item}`, {
+                            initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_info : null,
                             rules: [{
                                 required: true,
                                 message: '请输入申请理由',
@@ -276,6 +318,7 @@ class Preview extends React.Component {
                         disabled={this.state.stepDisabled5}
                         {
                             ...getFieldProps(`budget_type__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_type : [],
                                 rules: [{
                                     required: true,
                                     message: '请输入预算类型',
@@ -297,6 +340,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_purpose__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_purpose : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入预算用途',
@@ -316,6 +360,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_price__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入单价',
@@ -334,6 +379,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_num__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入预算预计购买数量',
@@ -353,6 +399,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_money__${item}`, {
+                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_money : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入金额',
@@ -414,20 +461,15 @@ class Preview extends React.Component {
         })
     }
     onAddActive=()=>{
-        this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
-            let formContent = this.state.formContent;
-            count+=1;
-            formContent.push(count);
-            this.setState({
-                ...this.state,
-                formContent: formContent
-            }, ()=>{
-                this.doHtml();
-            });
+        let formContent = this.state.formContent;
+        console.log(formContent)
+        count+=1;
+        formContent.push(count);
+        this.setState({
+            ...this.state,
+            formContent: formContent
+        }, ()=>{
+            this.doHtml();
         });
     };
     onAddBudgetActive() {
@@ -449,12 +491,96 @@ class Preview extends React.Component {
             });
         });
     }
+    //撤销
+    onRevokeThis() {
+        if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+            this.props.revokeApply({id: getQueryString('isHasApply'), status: 3});
+        }
+    }
+    //重新提交
+    onreSubmitThis() {
+        if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+            this.props.revokeApply({id: getQueryString('isHasApply'), status: 0});
+        }
+    }
+    //修改后提交
+    onreSubmitThisDefault() {
+        this.doValue((value)=>{
+            if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+                this.props.revokeApply({id: getQueryString('isHasApply'), status: 0, ...value});
+            }
+        });
+    }
     onSubmitInfo() {
+        this.doValue((value)=>{
+            if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+                //修改后再提交的
+                value.id=getQueryString('isHasApply');
+                this.props.resubmitApply(value);
+            }else {
+                this.props.fundingApplicationPost(value);
+            }
+        });
+        // this.props.form.validateFields((error, value) => {
+        //     console.log(error, value)
+        //     if(error) {
+        //         console.log('error', error);
+        //         alert('存在未填写信息，请填写后重试');
+        //         return;
+        //     }
+        //     let formContentData = [];
+        //     let formContentBudgetData = [];
+        //     let formContent = this.state.formContent;
+        //     let formContentBudget = this.state.formContentBudget;
+        //     for(let j = 0; j < formContent.length; j++) {
+        //         let obj = {};
+        //         for(let i in value) {
+        //             if(formContent[j] === Number(i.split('__')[1])&&i.split('_')[0]==='activity') {
+        //                 obj[i.split('__')[0]] = value[i];
+        //                 if(i.indexOf('activity_start') > -1 || i.indexOf('activity_end') > -1) {
+        //                     obj[i.split('__')[0]] = moment(value[i]).format('YYYY-MM-DD');
+        //                 }
+        //             }
+        //
+        //         }
+        //         formContentData.push(obj);
+        //     }
+        //     for(let j = 0; j < formContentBudget.length; j++) {
+        //         let obj = {};
+        //         for(let i in value) {
+        //             if(formContentBudget[j] === Number(i.split('__')[1])&&i.split('_')[0]==='budget') {
+        //                 obj[i.split('__')[0]] = value[i];
+        //             }
+        //         }
+        //         formContentBudgetData.push(obj);
+        //     }
+        //     for(let i in value) {
+        //         if(i==='project_start' || i==='project_end') {
+        //             value[i] = moment(value[i]).format('YYYY-MM-DD');
+        //         }
+        //     }
+        //     value.plan=JSON.stringify(formContentData);
+        //     value.budget=JSON.stringify(formContentBudgetData);
+        //     value.user_business_province = value.user_business_province[0];
+        //     value.user_business_city = value.user_business_city[0];
+        //     console.log('allData::::', value);
+        //
+        //     if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+        //         value.id=getQueryString('isHasApply');
+        //         this.props.resubmitApply(value);
+        //     }else {
+        //         this.props.fundingApplicationPost(value);
+        //     }
+        // });
+    }
+    doValue(callback) {
         this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
+            console.log(error, value)
+            if(error) {
+                console.log('error', error);
+                alert('存在未填写信息，请填写后重试');
+                return;
+            }
             let formContentData = [];
             let formContentBudgetData = [];
             let formContent = this.state.formContent;
@@ -481,19 +607,25 @@ class Preview extends React.Component {
                 }
                 formContentBudgetData.push(obj);
             }
-            // if(value.budget_reason) {
-            //     data.budget_reason = value.budget_reason;
-            // }
             for(let i in value) {
                 if(i==='project_start' || i==='project_end') {
                     value[i] = moment(value[i]).format('YYYY-MM-DD');
                 }
             }
-            value.plan=formContentData;
-            value.budget=formContentBudgetData;
+            value.plan=JSON.stringify(formContentData);
+            value.budget=JSON.stringify(formContentBudgetData);
+            value.user_business_province = value.user_business_province[0];
+            value.user_business_city = value.user_business_city[0];
             console.log('allData::::', value);
-            this.props.fundingApplicationPost(value);
+            if(callback&&typeof callback === 'function') {
+                callback(value)
+            }
         });
+    }
+    alertBtn() {
+        this.setState({
+            alertBtn: !this.state.alertBtn
+        })
     }
     render() {
         const { getFieldProps } = this.props.form;
@@ -510,7 +642,6 @@ class Preview extends React.Component {
                 value: line.name
             };
         });
-
         return (
             <div className="page-funding-application-preview">
                 <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange}>
@@ -519,10 +650,12 @@ class Preview extends React.Component {
                             <div style={{marginBottom: '62px'}}>
                                 <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
                                     {
-                                        this.state.stepDisabled1 ?
-                                            <div data-id="1" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                            :
-                                            <div data-id="1" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>
+                                        this.state.alertBtn ?
+                                            (this.state.stepDisabled1 ?
+                                                <div data-id="1" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                                :
+                                                <div data-id="1" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                            :null
                                     }
                                 </div>
                                 <div className="line1px"></div>
@@ -536,12 +669,11 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         {
                                             ...getFieldProps('user_name', {
-                                                initialValue: this.state.previewData&&this.state.previewData.user_name
-                                            },{
-                                                rules: [{
-                                                    required: true,
-                                                    message: '请输入申请人姓名',
-                                                }],
+                                                initialValue: this.state.previewData&&this.state.previewData.user_name,
+                                                    rules: [{
+                                                        required: true,
+                                                        message: '请输入申请人姓名',
+                                                    }]
                                             })
                                         }
                                     />
@@ -555,7 +687,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         cols={1}
                                         {
-                                            ...getFieldProps('user_business_province', {
+                                            ...getFieldProps('user_business_province',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_business_province,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入所属业务区域',
@@ -574,7 +707,8 @@ class Preview extends React.Component {
                                         cols={1}
                                         disabled={this.state.stepDisabled1}
                                         {
-                                            ...getFieldProps('user_business_city', {
+                                            ...getFieldProps('user_business_city',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_business_city,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入所属业务区域',
@@ -594,7 +728,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
-                                            ...getFieldProps('user_store', {
+                                            ...getFieldProps('user_store',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_store,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入所属门店（部门）',
@@ -612,7 +747,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
-                                            ...getFieldProps('user_position', {
+                                            ...getFieldProps('user_position',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_position,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入职位',
@@ -630,7 +766,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
-                                            ...getFieldProps('user_job_num', {
+                                            ...getFieldProps('user_job_num',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_job_num,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入工号',
@@ -648,7 +785,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
-                                            ...getFieldProps('user_phone', {
+                                            ...getFieldProps('user_phone',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_phone,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入联系电话',
@@ -669,7 +807,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
-                                            ...getFieldProps('user_email', {
+                                            ...getFieldProps('user_email',{
+                                                initialValue: this.state.previewData&&this.state.previewData.user_email,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入电子邮箱',
@@ -686,6 +825,7 @@ class Preview extends React.Component {
                                     <div className="page-funding-application-item-label-special">申请理由</div>
                                     <TextareaItem
                                         {...getFieldProps('user_apply_rsason', {
+                                            initialValue: this.state.previewData&&this.state.previewData.user_apply_rsason,
                                             rules: [{
                                                 required: true,
                                                 message: '请输入申请理由',
@@ -708,6 +848,7 @@ class Preview extends React.Component {
                                         type='money'
                                         {
                                             ...getFieldProps('user_apply_monry', {
+                                                initialValue: this.state.previewData&&this.state.previewData.user_apply_monry,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入申请金额',
@@ -725,10 +866,12 @@ class Preview extends React.Component {
                             <div style={{marginBottom: '62px'}}>
                                 <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
                                     {
-                                        this.state.stepDisabled2 ?
-                                            <div data-id="2" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                            :
-                                            <div data-id="2" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>
+                                        this.state.alertBtn ?
+                                            (this.state.stepDisabled2 ?
+                                                <div data-id="2" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                                :
+                                                <div data-id="2" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                            :null
                                     }
                                 </div>
                                 <div className="line1px"></div>
@@ -741,6 +884,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_name', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_name,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入收益组织名称',
@@ -756,9 +900,11 @@ class Preview extends React.Component {
                                         className="page-funding-application-input"
                                         placeholder="请输入统一社会信用代码（选填）"
                                         disabled={this.state.stepDisabled2}
-                                        moneyKeyboardAlign="group_credit_num"
+                                        moneyKeyboardAlign="right"
                                         {
-                                            ...getFieldProps('projectPosition')
+                                            ...getFieldProps('group_credit_num', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_credit_num
+                                            })
                                         }
                                     />
                                 </div>
@@ -772,6 +918,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_addr', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_addr,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入受益组织地址',
@@ -790,6 +937,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_legal_person', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_legal_person,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入受益组织法人／负责人姓名',
@@ -808,6 +956,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_user', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_user,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入受益组织联系人姓名',
@@ -826,6 +975,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_user_phone', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_user_phone,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入受益组织联系人电话',
@@ -847,6 +997,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_user_email', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_user_email,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入联系人邮箱',
@@ -867,6 +1018,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_service', {
+                                                initialValue: this.state.previewData&&this.state.previewData.group_service,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入服务领域',
@@ -880,6 +1032,7 @@ class Preview extends React.Component {
                                     <div className="page-funding-application-item-label-special">组织简介</div>
                                     <TextareaItem
                                         {...getFieldProps('group_info', {
+                                            initialValue: this.state.previewData&&this.state.previewData.group_info,
                                             rules: [{
                                                 required: true,
                                                 message: '请输入组织简介',
@@ -906,10 +1059,12 @@ class Preview extends React.Component {
                             <div style={{marginBottom: '62px'}}>
                                 <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
                                     {
-                                        this.state.stepDisabled3 ?
-                                            <div data-id="3" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                            :
-                                            <div data-id="3" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>
+                                        this.state.alertBtn ?
+                                            (this.state.stepDisabled3 ?
+                                                <div data-id="3" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                                :
+                                                <div data-id="3" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                            :null
                                     }
                                 </div>
                                 <div className="line1px"></div>
@@ -922,6 +1077,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('project_name', {
+                                                initialValue: this.state.previewData&&this.state.previewData.project_name,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入资助项目项目名称',
@@ -939,6 +1095,7 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled3}
                                         {
                                             ...getFieldProps('project_field', {
+                                                initialValue: this.state.previewData&&this.state.previewData.project_field,
                                                 rules: [{
                                                     required: true,
                                                     message: '请选择资助项目项目领域',
@@ -956,6 +1113,7 @@ class Preview extends React.Component {
                                         mode="date"
                                         disabled={this.state.stepDisabled3}
                                         {...getFieldProps('project_start', {
+                                            initialValue: this.state.previewData&&this.state.previewData.project_start&&new Date(this.state.previewData.project_start),
                                             rules: [
                                                 { required: true, message: '请选择开始时间' },
                                             ],
@@ -972,6 +1130,7 @@ class Preview extends React.Component {
                                         disabled={getFieldProps('project_start').value ? this.state.stepDisabled3 : true}
                                         minDate={new Date(+getFieldProps('project_start').value)}
                                         {...getFieldProps('project_end', {
+                                            initialValue: this.state.previewData&&this.state.previewData.project_end&&new Date(this.state.previewData.project_end),
                                             rules: [
                                                 { required: true, message: '请选择结束时间' },
                                             ],
@@ -990,6 +1149,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('project_addr', {
+                                                initialValue: this.state.previewData&&this.state.previewData.project_addr,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入资助项目实施地点',
@@ -1009,6 +1169,7 @@ class Preview extends React.Component {
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('project_money', {
+                                                initialValue: this.state.previewData&&this.state.previewData.project_money,
                                                 rules: [{
                                                     required: true,
                                                     message: '请输入项目总预算',
@@ -1024,6 +1185,7 @@ class Preview extends React.Component {
                                     <TextareaItem
                                         disabled={this.state.stepDisabled3}
                                         {...getFieldProps('project_info', {
+                                            initialValue: this.state.previewData&&this.state.previewData.project_info,
                                             rules: [{
                                                 required: true,
                                                 message: '请输入项目概述',
@@ -1040,6 +1202,7 @@ class Preview extends React.Component {
                                     <div className="page-funding-application-item-label-special">项目实施成效</div>
                                     <TextareaItem
                                         {...getFieldProps('project_effect', {
+                                            initialValue: this.state.previewData&&this.state.previewData.project_effect,
                                             rules: [{
                                                 required: true,
                                                 message: '请输入项目实施成效',
@@ -1056,6 +1219,7 @@ class Preview extends React.Component {
                                     <div className="page-funding-application-item-label-special">项目收益对象</div>
                                     <TextareaItem
                                         {...getFieldProps('project_object', {
+                                            initialValue: this.state.previewData&&this.state.previewData.project_object,
                                             rules: [{
                                                 required: true,
                                                 message: '请输入项目收益对象',
@@ -1073,7 +1237,9 @@ class Preview extends React.Component {
                                     <div className="page-funding-application-item-label-special">需要额外提供的资源</div>
                                     <TextareaItem
                                         disabled={this.state.stepDisabled3}
-                                        {...getFieldProps('project_resources')}
+                                        {...getFieldProps('project_resources', {
+                                            initialValue: this.state.previewData&&this.state.previewData.project_resources
+                                        })}
                                         placeholder="请描述需要额外提供的其他资源，如场地、志愿者等
 （选填）"
                                         autoHeight
@@ -1087,10 +1253,12 @@ class Preview extends React.Component {
                     <Accordion.Panel header="项目执行计划" className="pad">
                         <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
                             {
-                                this.state.stepDisabled4 ?
-                                    <div data-id="4" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                    :
-                                    <div data-id="4" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>
+                                this.state.alertBtn ?
+                                    (this.state.stepDisabled4 ?
+                                        <div data-id="4" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                        :
+                                        <div data-id="4" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                    :null
                             }
                         </div>
                         <div className="line1px"></div>
@@ -1100,10 +1268,12 @@ class Preview extends React.Component {
                     <Accordion.Panel header="项目预算明细" className="pad">
                         <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
                             {
-                                this.state.stepDisabled5 ?
+                                this.state.alertBtn ?
+                                    (this.state.stepDisabled5 ?
                                     <div data-id="5" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
-                                    <div data-id="5" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>
+                                    <div data-id="5" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                    :null
                             }
                         </div>
                         <div className="line1px"></div>
@@ -1112,7 +1282,9 @@ class Preview extends React.Component {
                         <div className="page-funding-application-item-textarea">
                             <div className="page-funding-application-item-label-special">说明</div>
                             <TextareaItem
-                                {...getFieldProps(`budget_reason`)}
+                                {...getFieldProps(`budget_reason`, {
+                                    initialValue: this.state.previewData&&this.state.previewData.budget_reason
+                                })}
                                 placeholder="简述预算理由（选填）"
                                 autoHeight
                             />
@@ -1120,8 +1292,23 @@ class Preview extends React.Component {
                         <div className="addActive" onClick={this.onAddBudgetActive}><span style={{marginRight: '18px'}}>+</span><span>增加预算项目</span></div>
                     </Accordion.Panel>
                 </Accordion>
+                {
+                    this.state.previewData&&this.state.previewData.status != 1 ? <div className="submitBtn">
+                        <div onClick={this.alertBtn}>{this.state.alertBtn ? '取消修改' : '修改' }</div>
 
-                <div className="nextStep" onClick={this.onSubmitInfo}>填写完成，提交申请</div>
+                        {
+                            this.state.alertBtn&&this.state.previewData&&this.state.previewData.status == 0 ? <div onClick={this.onSubmitInfo}>提交</div> : (this.state.previewData.status == 3 ? <div onClick={this.onreSubmitThis}>再次提交</div> : <div onClick={this.onRevokeThis}>撤销</div>)
+                        }
+                    </div>:null
+                }
+
+                {
+                    // this.state.previewData&&this.state.previewData.status == 0 ? <div className="nextStep revoke" onClick={this.onRevokeThis}>撤销</div>:null
+                }
+
+                {
+                    getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? null : <div className="nextStep" onClick={this.onSubmitInfo}>填写完成，提交申请</div>
+                }
             </div>
         );
     }
@@ -1135,8 +1322,10 @@ export default connect(
     state=>({
         cityData: state.home.getCity,
         areaData: state.home.getAreaProvince,
-        fundingApplicationData: state.fundingApplication.fundingApplicationPost
+        fundingApplicationData: state.fundingApplication.fundingApplicationPost,
+        resubmitApplyData: state.fundingApplication.resubmitApply,
+        revokeApplyData: state.fundingApplication.revokeApply,
     }),
-    dispatch => bindActionCreators({ getCity, getAreaProvince, fundingApplicationPost }, dispatch),
+    dispatch => bindActionCreators({ getCity, getAreaProvince, fundingApplicationPost, resubmitApply, revokeApply }, dispatch),
 )(PreviewForm);
 

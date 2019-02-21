@@ -189,6 +189,7 @@ class Form extends React.Component {
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
+            console.log(error)
             // if(error) {
             //     console.log('error');
             //     return;
