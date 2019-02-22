@@ -156,3 +156,34 @@ div.page-funding-application-allBox {
 .review-modal-css {
     height: 250px;
 }
+.page-funding-application .am-list-item .am-list-line .am-list-extra {
+    color: #bbb;
+}
+.page-funding-application .am-list-header {
+    color: #bbb;
+}
+.page-funding-application-preview .am-list-item .am-list-line .am-list-extra {
+    color: #bbb;
+}
+
+.page-funding-application .am-list-item .am-input-control input:disabled {
+    color: #bbb;
+}
+.page-funding-application .page-funding-application-item .am-input-control input {
+    color: #000;
+}
+.page-funding-application-preview .am-list-item .am-input-control input:disabled {
+    color: #bbb;
+}
+.page-funding-application-preview .page-funding-application-item .am-input-control input {
+    color: #000;
+}
+.page-funding-application-item-disabled-color .am-list-item .am-list-line .am-list-extra {
+    color: #000;
+}
+.page-funding-application-item-textarea.page-funding-application-item-textarea-disabled-color .am-textarea-control textarea {
+    color: #000;
+}
+.page-funding-application-item-disabled-default-color .am-list-header{
+    color: #000;
+}

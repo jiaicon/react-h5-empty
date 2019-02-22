@@ -256,7 +256,10 @@ class Preview extends React.Component {
                     />
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item">
+                <div className={classnames({
+                    "page-funding-application-item": true,
+                    "page-funding-application-item-disabled-color": !this.state.stepDisabled4
+                })}>
                     <div className="page-funding-application-item-label">活动开始时间</div>
                     <DatePicker
                         mode="date"
@@ -271,7 +274,10 @@ class Preview extends React.Component {
                     </DatePicker>
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item">
+                <div className={classnames({
+                    "page-funding-application-item": true,
+                    "page-funding-application-item-disabled-color": !this.state.stepDisabled4
+                })}>
                     <div className="page-funding-application-item-label">活动结束时间</div>
                     <DatePicker
                         mode="date"
@@ -293,6 +299,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入活动目的"
+                        disabled={this.state.stepDisabled4}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_objective__${item}`, {
@@ -311,6 +318,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入预估受益人数"
+                        disabled={this.state.stepDisabled4}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_people__${item}`, {
@@ -353,7 +361,10 @@ class Preview extends React.Component {
                     <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{this.state.alertBtn&&this.state.formContentBudget.length>1?<div id={item} onClick={(e)=>{this.deleteBudgetThis(e)}}>删除</div>:null}</div>
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item">
+                <div className={classnames({
+                    "page-funding-application-item": true,
+                    "page-funding-application-item-disabled-color": !this.state.stepDisabled5
+                })}>
                     <div className="page-funding-application-item-label">预算类型</div>
                     <Picker
                         data={budgetType}
@@ -364,7 +375,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_type : [],
                                 rules: [{
                                     required: true,
-                                    message: '请输入预算类型',
+                                    message: '请选择预算类型',
                                 }],
                             })
                         }
@@ -485,16 +496,8 @@ class Preview extends React.Component {
         });
     }
     saveFirstStep(e) {
-        console.log(e.target.getAttribute('data-id'))
         this.setState({
             [`stepDisabled${e.target.getAttribute('data-id')}`]: true
-        });
-        this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
-            console.log(value);
         });
     }
     onPhotoChange(images) {
@@ -504,8 +507,10 @@ class Preview extends React.Component {
         })
     }
     onAddActive=()=>{
+        if(!this.state.alertBtn||this.state.stepDisabled4) {
+            return;
+        }
         let formContent = this.state.formContent;
-        console.log(formContent)
         count+=1;
         formContent.push(count);
         this.setState({
@@ -516,22 +521,17 @@ class Preview extends React.Component {
         });
     };
     onAddBudgetActive() {
-        this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
-            let formContent = this.state.formContentBudget;
-            console.log(formContent)
-            console.log(count)
-            countBudget+=1;
-            formContent.push(countBudget);
-            this.setState({
-                ...this.state,
-                formContentBudget: formContent
-            }, ()=>{
-                this.doHtmlBudget();
-            });
+        if(!this.state.alertBtn||this.state.stepDisabled5) {
+            return;
+        }
+        let formContent = this.state.formContentBudget;
+        countBudget+=1;
+        formContent.push(countBudget);
+        this.setState({
+            ...this.state,
+            formContentBudget: formContent
+        }, ()=>{
+            this.doHtmlBudget();
         });
     }
     //撤销
@@ -554,17 +554,7 @@ class Preview extends React.Component {
             }
         });
     }
-    onSubmitInfo() {
-        this.doValue((value)=>{
-            if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
-                //修改后再提交的
-                value.id=getQueryString('isHasApply');
-                this.props.resubmitApply(value);
-            }else {
-                this.props.fundingApplicationPost(value);
-            }
-        });
-    }
+
     doValue(callback) {
         this.props.form.validateFields((error, value) => {
             console.log(error, value)
@@ -610,11 +600,25 @@ class Preview extends React.Component {
             if(this.state.hasChooseArea.length>0) {
                 value.project_field=this.state.hasChooseArea;
             }
+            if(this.state.imagesArr.length>0) {
+                value.group_certificate = this.state.imagesArr;
+            }
             value.user_business_province = value.user_business_province[0];
             value.user_business_city = value.user_business_city[0];
             console.log('allData::::', value);
             if(callback&&typeof callback === 'function') {
                 callback(value)
+            }
+        });
+    }
+    onSubmitInfo() {
+        this.doValue((value)=>{
+            if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
+                //修改后再提交的
+                value.id=getQueryString('isHasApply');
+                this.props.resubmitApply(value);
+            }else {
+                this.props.fundingApplicationPost(value);
             }
         });
     }
@@ -624,6 +628,9 @@ class Preview extends React.Component {
         })
     }
     openProjectFiled() {
+        if(!this.state.alertBtn||this.state.stepDisabled3) {
+            return;
+        }
         this.setState({
             modal_project_field: true
         })
@@ -667,7 +674,7 @@ class Preview extends React.Component {
         });
         return (
             <div className="page-funding-application-preview">
-                <Accordion accordion openAnimation={{}} className="my-accordion" onChange={this.onChange}>
+                <Accordion accordion defaultActiveKey="0" openAnimation={{}} className="my-accordion" onChange={this.onChange}>
                     <Accordion.Panel header="申请人信息">
                         <div className="page-funding-application">
                             <div style={{marginBottom: '62px'}}>
@@ -702,7 +709,11 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item">
+                                <div className={classnames({
+                                    "page-funding-application-item": true,
+                                    "page-funding-application-item-disabled-color": !this.state.stepDisabled1
+                                })}
+                                >
                                     <div className="page-funding-application-item-label">所属业务区域(省)</div>
                                     <Picker
                                         data={provinceList&&provinceList}
@@ -723,7 +734,10 @@ class Preview extends React.Component {
                                     </Picker>
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item">
+                                <div className={classnames({
+                                    "page-funding-application-item": true,
+                                    "page-funding-application-item-disabled-color": !this.state.stepDisabled1
+                                })}>
                                     <div className="page-funding-application-item-label">所属业务区域(市)</div>
                                     <Picker
                                         data={areaList&&areaList}
@@ -844,7 +858,10 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item-textarea">
+                                <div className={classnames({
+                                    "page-funding-application-item-textarea": true,
+                                    "page-funding-application-item-textarea-disabled-color": !this.state.stepDisabled1
+                                })}>
                                     <div className="page-funding-application-item-label-special">申请理由</div>
                                     <TextareaItem
                                         {...getFieldProps('user_apply_rsason', {
@@ -1038,6 +1055,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入服务领域"
+                                        disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('group_service', {
@@ -1051,7 +1069,10 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item-textarea">
+                                <div className={classnames({
+                                    "page-funding-application-item-textarea": true,
+                                    "page-funding-application-item-textarea-disabled-color": !this.state.stepDisabled2
+                                })}>
                                     <div className="page-funding-application-item-label-special">组织简介</div>
                                     <TextareaItem
                                         {...getFieldProps('group_info', {
@@ -1071,7 +1092,7 @@ class Preview extends React.Component {
                                 <div className="line1px"></div>
                                 <div className="page-funding-application-item-textarea">
                                     <div className="page-funding-application-item-label-special">登记证书（选填）</div>
-                                    <UploadPhoto  onChange={this.onPhotoChange} multiple={true} length={3}/>
+                                    <UploadPhoto defaultPhoto={this.state.previewData&&this.state.previewData.group_certificate} selectable={this.state.alertBtn&&!this.state.stepDisabled2 ? true : false}  onChange={this.onPhotoChange} multiple={true} length={3}/>
                                 </div>
                                 <div className="line1px"></div>
                             </div>
@@ -1110,7 +1131,10 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item">
+                                <div className={classnames({
+                                    "page-funding-application-item": true,
+                                    "page-funding-application-item-disabled-default-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label">项目领域</div>
                                     <List renderHeader={()=>{
                                         if(this.state.hasChooseArea.length>0) {
@@ -1119,25 +1143,12 @@ class Preview extends React.Component {
                                             return'请选择项目领域';
                                         }
                                     }} onClick={this.openProjectFiled}/>
-                                    {/*<Picker*/}
-                                        {/*data={this.state.serviceArea}*/}
-                                        {/*cols={1}*/}
-                                        {/*disabled={this.state.stepDisabled3}*/}
-                                        {/*{*/}
-                                            {/*...getFieldProps('project_field', {*/}
-                                                {/*initialValue: this.state.previewData&&this.state.previewData.project_field,*/}
-                                                {/*rules: [{*/}
-                                                    {/*required: true,*/}
-                                                    {/*message: '请选择资助项目项目领域',*/}
-                                                {/*}],*/}
-                                            {/*})*/}
-                                        {/*}*/}
-                                    {/*>*/}
-                                        {/*<List.Item arrow="horizontal"></List.Item>*/}
-                                    {/*</Picker>*/}
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item">
+                                <div className={classnames({
+                                    "page-funding-application-item": true,
+                                    "page-funding-application-item-disabled-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label">实施开始时间</div>
                                     <DatePicker
                                         mode="date"
@@ -1153,7 +1164,10 @@ class Preview extends React.Component {
                                     </DatePicker>
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item">
+                                <div className={classnames({
+                                    "page-funding-application-item": true,
+                                    "page-funding-application-item-disabled-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label">实施结束时间</div>
                                     <DatePicker
                                         mode="date"
@@ -1210,7 +1224,10 @@ class Preview extends React.Component {
                                 </div>
                                 <div className="page-funding-application-item-DX">{getFieldProps('project_money')&&getFieldProps('project_money').value&&getFieldProps('project_money').value.length>0 ? DX(getFieldProps('project_money').value):'此处自动显示项目总预算的大写数值'}</div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item-textarea">
+                                <div className={classnames({
+                                    "page-funding-application-item-textarea": true,
+                                    "page-funding-application-item-textarea-disabled-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label-special">项目概述</div>
                                     <TextareaItem
                                         disabled={this.state.stepDisabled3}
@@ -1228,7 +1245,10 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item-textarea">
+                                <div className={classnames({
+                                    "page-funding-application-item-textarea": true,
+                                    "page-funding-application-item-textarea-disabled-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label-special">项目实施成效</div>
                                     <TextareaItem
                                         {...getFieldProps('project_effect', {
@@ -1245,7 +1265,10 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item-textarea">
+                                <div className={classnames({
+                                    "page-funding-application-item-textarea": true,
+                                    "page-funding-application-item-textarea-disabled-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label-special">项目收益对象</div>
                                     <TextareaItem
                                         {...getFieldProps('project_object', {
@@ -1263,7 +1286,10 @@ class Preview extends React.Component {
                                     />
                                 </div>
                                 <div className="line1px"></div>
-                                <div className="page-funding-application-item-textarea">
+                                <div className={classnames({
+                                    "page-funding-application-item-textarea": true,
+                                    "page-funding-application-item-textarea-disabled-color": !this.state.stepDisabled3
+                                })}>
                                     <div className="page-funding-application-item-label-special">需要额外提供的资源</div>
                                     <TextareaItem
                                         disabled={this.state.stepDisabled3}
