@@ -66,7 +66,7 @@ class Certificate extends React.Component {
           )
         : null;
 
-      const now = NlistData.server_time
+      const now= NlistData.server_time
         ? dateTextToDateText(
             NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
           )
