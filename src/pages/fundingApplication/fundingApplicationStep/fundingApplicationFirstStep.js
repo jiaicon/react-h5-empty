@@ -20,6 +20,7 @@ import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/modal/style/css';
 import './../fundingApplication.css';
+import './../eachStepStyle.css';
 import Image from "../../../components/image/image";
 import { getCity, getAreaProvince } from './../../home/home.store'
 import { firstStep } from './../fundingApplication.store';
@@ -84,7 +85,7 @@ class FundingApplication extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
+        // console.log(nextProps)
 
     }
 
@@ -131,7 +132,7 @@ class FundingApplication extends React.Component {
         }
     }
     render() {
-        const { getFieldProps } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
         const { cityData: { data: listData },areaData: { data: areaListData } } = this.props;
         let provinceList = listData&&listData.list.map((line)=>{
             return {
@@ -165,7 +166,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item">
+                    <div className={classnames({
+                        "page-funding-application-item": true,
+                        "page-funding-application-item-picker": getFieldValue('user_business_province')&&getFieldValue('user_business_province').length > 0
+                    })}>
                         <div className="page-funding-application-item-label">所属业务区域(省)</div>
                         <Picker
                             data={provinceList&&provinceList}
@@ -184,7 +188,10 @@ class FundingApplication extends React.Component {
                         </Picker>
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item">
+                    <div className={classnames({
+                        "page-funding-application-item": true,
+                        "page-funding-application-item-picker": getFieldValue('user_business_city')&&getFieldValue('user_business_city').length > 0
+                    })}>
                         <div className="page-funding-application-item-label">所属业务区域(市)</div>
                         <Picker
                             data={areaList&&areaList}
@@ -293,7 +300,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item-textarea">
+                    <div className={classnames({
+                        "page-funding-application-item-textarea": true,
+                        "page-funding-application-item-picker": getFieldValue('user_apply_rsason')&&getFieldValue('user_apply_rsason').length > 0
+                    })}>
                         <div className="page-funding-application-item-label-special">申请理由</div>
                         <TextareaItem
                             {...getFieldProps('user_apply_rsason', {
@@ -335,7 +345,7 @@ class FundingApplication extends React.Component {
                     maskClosable={false}
                     onClose={()=>{this.onCloseModal('showModal')}}
                     title="申请流程"
-                    footer={[{ text: 'Ok', onPress: () => { console.log('ok'); this.setState({showModal: false})} }]}
+                    footer={[{ text: '开始申报', onPress: () => { console.log('ok'); this.setState({showModal: false})} }]}
                     wrapProps={{ onTouchStart: this.onWrapTouchStart }}
                     afterClose={() => {  }}
                 >

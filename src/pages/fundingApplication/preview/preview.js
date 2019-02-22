@@ -77,6 +77,7 @@ class Preview extends React.Component {
             stepDisabled4: true,
             stepDisabled5: true,
             modal_project_field: false,
+            imagesArr: [],
             hasChooseArea: [],
             serviceArea: serviceArea,
             serviceAreaValue: '',
@@ -144,6 +145,7 @@ class Preview extends React.Component {
 
         this.setState({
             previewData: allData,
+            imagesArr: allData.group_certificate || [],
             formContent: doCountArr(count),
             formContentBudget: doCountArr(countBudget),
             hasChooseArea: allData.project_field,
@@ -501,7 +503,13 @@ class Preview extends React.Component {
         });
     }
     onPhotoChange(images) {
-        console.log(images);
+        console.log(images.length);
+        if(images.length<=0) {
+            this.setState({
+                imagesArr: []
+            });
+            return;
+        }
         this.setState({
             imagesArr: images.map(item=>item.url)
         })
@@ -557,7 +565,6 @@ class Preview extends React.Component {
 
     doValue(callback) {
         this.props.form.validateFields((error, value) => {
-            console.log(error, value)
             if(error) {
                 console.log('error', error);
                 alert('存在未填写信息，请填写后重试');
@@ -600,6 +607,7 @@ class Preview extends React.Component {
             if(this.state.hasChooseArea.length>0) {
                 value.project_field=this.state.hasChooseArea;
             }
+            value.group_certificate=[];
             if(this.state.imagesArr.length>0) {
                 value.group_certificate = this.state.imagesArr;
             }
@@ -607,7 +615,7 @@ class Preview extends React.Component {
             value.user_business_city = value.user_business_city[0];
             console.log('allData::::', value);
             if(callback&&typeof callback === 'function') {
-                callback(value)
+                callback(value);
             }
         });
     }

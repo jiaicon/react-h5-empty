@@ -17,9 +17,8 @@ import 'antd-mobile/lib/input-item/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
 import './../fundingApplication.css';
-import moment from 'moment';
+import './../eachStepStyle.css';
 import UploadPhoto from './../../../components/uploadPhoto/uploadPhoto';
-import store from "../../../stores";
 import { secondStep } from './../fundingApplication.store';
 
 
@@ -75,7 +74,7 @@ class FundingApplication extends React.Component {
         })
     }
     render() {
-        const { getFieldProps, getFieldError } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
 
         return (
             <div className="page-funding-application">
@@ -217,7 +216,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item-textarea">
+                    <div className={classnames({
+                        "page-funding-application-item-textarea": true,
+                        "page-funding-application-item-picker": getFieldValue('group_info')&&getFieldValue('group_info').length > 0
+                    })}>
                         <div className="page-funding-application-item-label-special">组织简介</div>
                         <TextareaItem
                             {...getFieldProps('group_info', {

@@ -21,6 +21,7 @@ import './../fundingApplication.css';
 import {DX} from './../../../utils/funcs';
 import store from "../../../stores";
 import { fifthStep, secondStep, fourthStep, fundingApplicationPost } from './../fundingApplication.store';
+import './../eachStepStyle.css';
 
 let count = 1;
 const budgetType = [
@@ -82,7 +83,7 @@ class Form extends React.Component {
     };
 
     doHtml() {
-        const { getFieldProps } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
         const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
             <div className={classnames({
                 'page-funding-application-allBox': index == this.state.formContent.length
@@ -91,7 +92,10 @@ class Form extends React.Component {
                     <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{this.state.formContent.length>1?<div id={item} onClick={(e)=>{this.deleteThis(e)}}>删除</div>:null}</div>
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item">
+                <div className={classnames({
+                    "page-funding-application-item": true,
+                    "page-funding-application-item-picker": getFieldValue(`budget_type__${item}`) && getFieldValue(`budget_type__${item}`).length > 0
+                })}>
                     <div className="page-funding-application-item-label">预算类型</div>
                     <Picker
                         data={budgetType}
@@ -242,11 +246,14 @@ class Form extends React.Component {
         });
     };
     render() {
-        const { getFieldProps } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
         return(
             <div>
                 {this.doHtml()}
-                <div className="page-funding-application-item-textarea">
+                <div className={classnames({
+                    "page-funding-application-item-textarea": true,
+                    "page-funding-application-item-picker": getFieldValue('budget_reason')&&getFieldValue('budget_reason').length > 0
+                })}>
                     <div className="page-funding-application-item-label-special">说明</div>
                     <TextareaItem
                         {...getFieldProps(`budget_reason`)}

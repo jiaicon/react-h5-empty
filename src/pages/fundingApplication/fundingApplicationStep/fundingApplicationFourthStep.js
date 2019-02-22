@@ -20,6 +20,7 @@ import 'antd-mobile/lib/date-picker/style/css';
 import './../fundingApplication.css';
 import store from "../../../stores";
 import { fourthStep } from './../fundingApplication.store';
+import './../eachStepStyle.css';
 
 
 let count = 1;
@@ -62,7 +63,7 @@ class Form extends React.Component {
     };
 
     doHtml() {
-        const { getFieldProps } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
         const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
             <div className={classnames({
                 'page-funding-application-allBox': index == this.state.formContent.length
@@ -88,7 +89,10 @@ class Form extends React.Component {
                     />
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item">
+                <div className={classnames({
+                    "page-funding-application-item": true,
+                    "page-funding-application-item-picker": getFieldValue(`activity_start__${item}`) > 0
+                })}>
                     <div className="page-funding-application-item-label">活动开始时间</div>
                     <DatePicker
                         mode="date"
@@ -102,7 +106,10 @@ class Form extends React.Component {
                     </DatePicker>
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item">
+                <div className={classnames({
+                    "page-funding-application-item": true,
+                    "page-funding-application-item-picker": getFieldValue(`activity_end__${item}`) > 0
+                })}>
                     <div className="page-funding-application-item-label">活动结束时间</div>
                     <DatePicker
                         mode="date"
@@ -152,7 +159,10 @@ class Form extends React.Component {
                     />
                 </div>
                 <div className="line1px"></div>
-                <div className="page-funding-application-item-textarea">
+                <div className={classnames({
+                    "page-funding-application-item-textarea": true,
+                    "page-funding-application-item-picker": getFieldValue(`activity_info__${item}`)&&getFieldValue(`activity_info__${item}`).length > 0
+                })}>
                     <div className="page-funding-application-item-label-special">申请理由</div>
                     <TextareaItem
                         {...getFieldProps(`activity_info__${item}`, {

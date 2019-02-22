@@ -19,6 +19,7 @@ import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/modal/style/css';
 import 'antd-mobile/lib/checkbox/style/css';
 import './../fundingApplication.css';
+import './../eachStepStyle.css';
 import moment from 'moment';
 import {DX} from './../../../utils/funcs';
 import store from "../../../stores";
@@ -108,7 +109,7 @@ class FundingApplication extends React.Component {
         })
     };
     render() {
-        const { getFieldProps, getFieldError } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
 
         return (
             <div className="page-funding-application">
@@ -130,7 +131,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item">
+                    <div className={classnames({
+                        "page-funding-application-item": true,
+                        "page-funding-application-item-picker": this.state.hasChooseArea.length>0
+                    })}>
                         <div className="page-funding-application-item-label">项目领域</div>
                         <List renderHeader={()=>{
                             if(this.state.hasChooseArea.length>0) {
@@ -155,7 +159,10 @@ class FundingApplication extends React.Component {
                         {/*</Picker>*/}
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item">
+                    <div className={classnames({
+                        "page-funding-application-item": true,
+                        "page-funding-application-item-picker": getFieldValue('project_start') > 0
+                    })}>
                         <div className="page-funding-application-item-label">实施开始时间</div>
                         <DatePicker
                             mode="date"
@@ -169,7 +176,10 @@ class FundingApplication extends React.Component {
                         </DatePicker>
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item">
+                    <div className={classnames({
+                        "page-funding-application-item": true,
+                        "page-funding-application-item-picker": getFieldValue('project_end') > 0
+                    })}>
                         <div className="page-funding-application-item-label">实施结束时间</div>
                         <DatePicker
                             mode="date"
@@ -221,7 +231,10 @@ class FundingApplication extends React.Component {
                     </div>
                     <div className="page-funding-application-item-DX">{getFieldProps('project_money')&&getFieldProps('project_money').value&&getFieldProps('project_money').value.length>0 ? DX(getFieldProps('project_money').value):'此处自动显示项目总预算的大写数值'}</div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item-textarea">
+                    <div className={classnames({
+                        "page-funding-application-item-textarea": true,
+                        "page-funding-application-item-picker": getFieldValue('project_info')&&getFieldValue('project_info').length > 0
+                    })}>
                         <div className="page-funding-application-item-label-special">项目概述</div>
                         <TextareaItem
                             {...getFieldProps('project_info', {
@@ -237,7 +250,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item-textarea">
+                    <div className={classnames({
+                        "page-funding-application-item-textarea": true,
+                        "page-funding-application-item-picker": getFieldValue('project_effect')&&getFieldValue('project_effect').length > 0
+                    })}>
                         <div className="page-funding-application-item-label-special">项目实施成效</div>
                         <TextareaItem
                             {...getFieldProps('project_effect', {
@@ -252,7 +268,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item-textarea">
+                    <div className={classnames({
+                        "page-funding-application-item-textarea": true,
+                        "page-funding-application-item-picker": getFieldValue('project_object')&&getFieldValue('project_object').length > 0
+                    })}>
                         <div className="page-funding-application-item-label-special">项目收益对象</div>
                         <TextareaItem
                             {...getFieldProps('project_object', {
@@ -268,7 +287,10 @@ class FundingApplication extends React.Component {
                         />
                     </div>
                     <div className="line1px"></div>
-                    <div className="page-funding-application-item-textarea">
+                    <div className={classnames({
+                        "page-funding-application-item-textarea": true,
+                        "page-funding-application-item-picker": getFieldValue('project_resources')&&getFieldValue('project_resources').length > 0
+                    })}>
                         <div className="page-funding-application-item-label-special">需要额外提供的资源</div>
                         <TextareaItem
                             {...getFieldProps('project_resources')}
