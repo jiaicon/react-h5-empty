@@ -42,11 +42,16 @@ class Entry extends React.Component {
     if (window.orgCode === "EKQe1RaJYv") {
       loginRegisterClassName = "page-entry-team-btn-dalu"
     }
+
+    let personLoginRegisterClassName = "page-entry-person-btn"
+    if (window.orgCode === "VWPe9xdLyw") {//测试环境的星巴克
+      personLoginRegisterClassName = "page-entry-person-btn-Starbucks"
+    }
     return (
       <div className="page-entry">
         <div className="page-entry-person" />
           <a onClick={this.onLogin}>
-            <div className="page-entry-person-btn" />
+            <div className={personLoginRegisterClassName} />
           </a>
         <div className="page-line-box">
           <div className="line1px" style={{ width: '56px' }} />

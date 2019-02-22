@@ -31,6 +31,15 @@
   margin-bottom: 34px;
 }
 
+.page-entry-person-btn-Starbucks{
+  width: 100px;
+  height: 36px;
+  background-image: url(/images/my/individual_Starbucks.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 34px;
+}
+
 .page-line-box{
   width: 161px;
   display: flex;
@@ -84,3 +93,4 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
