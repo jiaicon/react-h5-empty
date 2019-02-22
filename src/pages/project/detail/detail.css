@@ -144,7 +144,7 @@
 .page-project-detail .body .project-detail-list .project-guard {
   border: 1px solid #F6AB00;
   border-radius: 8px;
-  height: 74px;
+  min-height: 74px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -179,7 +179,7 @@
   display: -webkit-box;
   flex: 1;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  /*-webkit-line-clamp: 2;*/
   overflow: hidden;
 }
 

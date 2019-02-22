@@ -344,6 +344,7 @@ class Verify extends React.Component {
       (stateOrgData.open_real_name && checkStr(realname)) ||
       (user.have_pwd == 0 && checkEmpty(password, "密码"))
     ) {
+      return;
     }
     if (stateOrgData.open_id_number) {
       if (cardtype == 1 && iscard(idcard)) {
@@ -356,15 +357,15 @@ class Verify extends React.Component {
         return;
       }
     }
-    if (
-      this.state.winOrgInfo.extends &&
-      this.state.winOrgInfo.extends.length > 0
-    ) {
-      if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
-        isEmpty = false;
-        return;
-      }
-    }
+    // if (
+    //   this.state.winOrgInfo.extends &&
+    //   this.state.winOrgInfo.extends.length > 0
+    // ) {
+    //   if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
+    //     isEmpty = false;
+    //     return;
+    //   }
+    // }
     let data = {};
     if (realname) {
       data.real_name = realname;
@@ -663,9 +664,7 @@ class Verify extends React.Component {
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
-          {item.is_required === 1 ? (
-            <span className="page-my-profile-verify-header-start">*</span>
-          ) : null}
+
           <div className="page-my-profile-verify-fonts">{data.label}</div>
           <label htmlFor={`${key}`}>
             <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}>
@@ -728,9 +727,7 @@ class Verify extends React.Component {
       <div>
         <div>
           <div className="page-my-profile-verify-header-box">
-            {item.is_required === 1 ? (
-              <span className="page-my-profile-verify-header-start">*</span>
-            ) : null}
+
             {data.label}
           </div>
           <input
