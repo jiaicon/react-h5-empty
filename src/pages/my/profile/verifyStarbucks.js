@@ -335,7 +335,7 @@ class Verify extends React.Component {
     if (
       (stateOrgData.open_avatars && checkEmpty(photo, "头像")) ||
       (stateOrgData.open_real_name && checkEmpty(realname, "姓名")) ||
-      (stateOrgData.open_id_number && checkEmpty(idcard, "身份证号码")) ||
+      (stateOrgData.open_id_number && checkEmpty(idcard, "证件号码")) ||
       (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
       (stateOrgData.open_addr && checkEmpty(province, "省份")) ||
       (stateOrgData.open_addr && checkEmpty(city, "城市")) ||
@@ -501,7 +501,7 @@ class Verify extends React.Component {
           {this.state.winOrgInfo.open_id_number === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
-          <div className="page-my-profile-verify-fonts">身份证号</div>
+          <div className="page-my-profile-verify-fonts">证件号码</div>
           <input
             type="text"
             maxLength="18"

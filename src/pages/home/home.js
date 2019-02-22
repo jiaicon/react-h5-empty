@@ -300,6 +300,17 @@ class HomePage extends React.Component {
     if (!home.data) {
       return null;
     }
+
+    let activities_nearby_image = "/images/activities_nearby.png";
+    let activities_new_image = "/images/activities_new.png";
+    let activities_hot_image = "/images/activities_hot.png";
+
+    if (window.orgCode === "VWPe9xdLyw") {
+      activities_nearby_image = "/images/activities_nearby_Starbucks.png";
+      activities_new_image = "/images/activities_new_Starbucks.png";
+      activities_hot_image = "/images/activities_hot_Starbucks.png";
+    }
+
     return (
       <div className="page-home">
         <div className="page-home-header">
@@ -368,13 +379,13 @@ class HomePage extends React.Component {
               {home.data && home.data.sanlitun ? null : (
                 <div className="menus-activity">
                   <Link to="/project/list/type/1/category/1000/target/1000">
-                    <img src="/images/activities_nearby.png" alt="附近" />
+                    <img src={activities_nearby_image} alt="附近" />
                   </Link>
                   <Link to="/project/list/type/0/category/1000/target/1000">
-                    <img src="/images/activities_new.png" alt="最新" />
+                    <img src={activities_new_image} alt="最新" />
                   </Link>
                   <Link to="/project/list/type/2/category/1000/target/1000">
-                    <img src="/images/activities_hot.png" alt="最热" />
+                    <img src={activities_hot_image} alt="最热" />
                   </Link>
                 </div>
               )}
