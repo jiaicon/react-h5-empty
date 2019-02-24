@@ -329,8 +329,17 @@ class Verify extends React.Component {
       province,
       city,
       county,
-      password
+      password,
+      extendsArray,
+      isStarbucksPartner,
+      region_first,
+      region_second,
+      city_starbucks,
+      store_num,
+      store_name,
+      staff_id
     } = this.state;
+
     const { user } = this.props;
     if (
       (stateOrgData.open_avatars && checkEmpty(photo, "头像")) ||
@@ -346,6 +355,65 @@ class Verify extends React.Component {
     ) {
       return;
     }
+    let arr = {};
+    if(isStarbucksPartner.is_required) {
+      if (!checkEmpty(this.state.extendsArray.isStarbucksPartner,"是否是星巴克员工")) {
+        arr.isStarbucksPartner = this.state.extendsArray.isStarbucksPartner;
+      }
+      else {
+        return;
+      }
+    }
+    if(this.state.region_first.is_required) {
+      if (!checkEmpty(this.state.extendsArray.region_first,"区域")) {
+        arr.region_first = this.state.extendsArray.region_first;
+      }
+      else {
+        return;
+      }
+    }
+    if(this.state.region_second.is_required) {
+      if (!checkEmpty(this.state.extendsArray.region_second,"二级区域")) {
+        arr.region_second = this.state.extendsArray.region_second;
+      }
+      else {
+        return;
+      }
+    }
+    if(this.state.city_starbucks.is_required) {
+      if (!checkEmpty(this.state.extendsArray.city_starbucks,"城市")) {
+        arr.city_starbucks = this.state.extendsArray.city_starbucks;
+      }
+      else {
+        return;
+      }
+    }
+    if(this.state.store_num.is_required) {
+      if (!checkEmpty(this.state.extendsArray.store_num,"门店编号")) {
+        arr.store_num = this.state.extendsArray.store_num;
+      }
+      else {
+        return;
+      }
+    }
+    if(this.state.store_name.is_required) {
+      if (!checkEmpty(this.state.extendsArray.store_name,"门店名称")) {
+        arr.store_name = this.state.extendsArray.store_name;
+      }
+      else {
+        return;
+      }
+    }
+    if(this.state.staff_id.is_required) {
+      if (!checkEmpty(this.state.extendsArray.staff_id,"员工号")) {
+        arr.staff_id = this.state.extendsArray.staff_id;
+      }
+      else {
+        return;
+      }
+    }
+    console.info(arr);
+    
     if (stateOrgData.open_id_number) {
       if (cardtype == 1 && iscard(idcard)) {
         return;
@@ -396,10 +464,15 @@ class Verify extends React.Component {
       data.pwd = password;
     }
     data.num_type = cardtype;
-    data.extends = this.state.extendsArray;
+    data.extends = arr;
 
     this.props.checkUser(data);
   }
+
+  objectFromeExtendsArray(arr,key) {
+
+  }
+
   handleCardClick() {
     this.setState({ ...this.state, cardtype: this.cardtype.value });
   }
@@ -664,7 +737,9 @@ class Verify extends React.Component {
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
-
+          {item.is_required === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
           <div className="page-my-profile-verify-fonts">{data.label}</div>
           <label htmlFor={`${key}`}>
             <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}>
@@ -727,7 +802,9 @@ class Verify extends React.Component {
       <div>
         <div>
           <div className="page-my-profile-verify-header-box">
-
+            {item.is_required === 1 ? (
+              <span className="page-my-profile-verify-header-start">*</span>
+            ) : null}
             {data.label}
           </div>
           <input
