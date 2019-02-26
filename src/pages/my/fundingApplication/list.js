@@ -127,7 +127,7 @@ class Projects extends React.Component {
 }
 
 
-Projects.title = '资助申请';
+Projects.title = '申请列表';
 
 Projects.propTypes = {
   projectAction: PropTypes.func,

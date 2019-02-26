@@ -159,21 +159,29 @@ class MyPage extends React.Component {
   }
   renderPageMyContainer() {
     const { user } = this.props;
+    let hasFundingApplication = false;
+    for (let arr in window.orgInfo.module_settings) {
+      for (let object in arr) {
+        if (object.key === "funding_application") {
+          hasFundingApplication = true;
+          break;
+        }
+      }
+    }
     return (
       <ul className="page-my-item-container">
-        <li>
+        {hasFundingApplication ? null : (<li>
           <div>
             <Link to="/my/fundingApplication/list">
               <div className="page-my-item-box">
-                  {/* {this.renderPageMymessagesTemplate()} */}
-                我的资助
-                {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
+                <i className="page-my-item-icon page-my-item-icon-fundingApplication" />社区友好基金
               </div>
               <span className="page-my-item-big" />
             </Link>
             <div className="line1px" />
           </div>
-        </li>
+        </li>)}
+        
         <li>
           <div>
             <Link to="/my/circle">
