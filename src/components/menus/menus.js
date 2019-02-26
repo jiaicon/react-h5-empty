@@ -20,7 +20,7 @@ const MODULE_LINK = {
   good_example: '/sanlitun/starModel',
   claim_project: '/sanlitun/projectClaim/list',
   community_interact: '/my/circlevisits',
-    funding_application: '/funding_application/step_one'
+  funding_application: '/funding_application/step_one',
 };
 
 class Menus extends React.Component {
