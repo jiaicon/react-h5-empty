@@ -163,6 +163,19 @@ class MyPage extends React.Component {
       <ul className="page-my-item-container">
         <li>
           <div>
+            <Link to="/my/fundingApplication/list">
+              <div className="page-my-item-box">
+                  {/* {this.renderPageMymessagesTemplate()} */}
+                我的资助
+                {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
+              </div>
+              <span className="page-my-item-big" />
+            </Link>
+            <div className="line1px" />
+          </div>
+        </li>
+        <li>
+          <div>
             <Link to="/my/circle">
               <div className="page-my-item-box">
                 <i className="page-my-item-icon page-my-item-icon-circle" >
