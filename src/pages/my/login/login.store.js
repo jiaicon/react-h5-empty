@@ -24,14 +24,10 @@ export const loginAction = data => (dispatch) => {
     fetch(`${data.type == 0 ?'/login/phone':'/login'}`, {
         data,
     }).then((json) => {
-        window.token = data.token;
-        if(json.token) {
-            setToken(data.token);
-        }
-        dispatch({type: LOGIN_FULFILLED, payload: json.data});
-
         // 获取到用户信息后单独处理（存储 token/用户信息）
         dispatch({type: USERINFO_FULFILLED, payload: json});
+
+        dispatch({type: LOGIN_FULFILLED, payload: json.data});
     }).catch((e) => {
         console.log(e);
         dispatch({type: LOGIN_REJECTED});
