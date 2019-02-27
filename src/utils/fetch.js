@@ -141,6 +141,7 @@ export default function request(requestUrl, requestOptions = {}) {
           console.log("请求成功-", url, json);
           resolve(json);
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
+          localStorage.removeItem("token");
           let from = window.location.pathname;
           store.dispatch(storeLoginSource(from));
           history.replace("/my/login");

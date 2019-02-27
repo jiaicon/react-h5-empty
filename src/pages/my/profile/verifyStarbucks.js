@@ -241,6 +241,7 @@ class Verify extends React.Component {
     if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
       this.initialPic(this.state.winOrgInfo.extends);
     }
+    this.password = "";
   }
 
   componentDidMount() {
@@ -807,6 +808,7 @@ class Verify extends React.Component {
             <div className="page-my-profile-verify-fonts">{data.label}</div>
           
           <input
+            type = "text"
             id={`${key}`}
             className="page-my-profile-verify-text"
             onChange={this.handleOtherInfoInputClick}
@@ -1190,13 +1192,16 @@ class Verify extends React.Component {
               <span className="page-my-profile-verify-header-start">*</span>
               <div className="page-my-profile-verify-fonts">设置密码</div>
               <input
-                type="password"
+                type="text"
+                // autocomplete="new-password"
+                // onfocus= "this.type='password'"
                 ref={c => {
                   this.password = c;
                 }}
                 className="page-my-profile-verify-text"
                 onChange={this.onTextChanged}
               />
+              
             </div>
             <div className="line1px" />
           </div>
@@ -1316,8 +1321,7 @@ class Verify extends React.Component {
               this.renderAddr()} */}
               {//密码
               this.renderPassword()}
-              {/* {//自定义信息
-              this.renderOtherInfo()} */}
+              {/* <input type="text" placeholder="请输入密码" onfocus="this.type='password'"></input> */}
             </div>
             <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
               提交
