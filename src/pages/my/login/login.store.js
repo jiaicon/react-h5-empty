@@ -43,6 +43,9 @@ export const logoutAction = () => (dispatch) => {
     fetch('/logout', {
         method: 'GET',
     }).then((json) => {
+        if(json.token) {
+            setToken(data.token);
+        }
         dispatch({type: LOGOUT_FULFILLED, payload: json.data});
 
         // 获取到用户信息后单独处理（存储 token/用户信息）
