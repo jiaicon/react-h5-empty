@@ -24,6 +24,7 @@ export const loginAction = data => (dispatch) => {
     fetch(`${data.type == 0 ?'/login/phone':'/login'}`, {
         data,
     }).then((json) => {
+        window.token = data.token;
         if(json.token) {
             setToken(data.token);
         }
