@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Wed Feb 27 2019 18:28:33 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Wed Feb 27 2019 18:32:43 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -37,6 +37,7 @@
     window.apiHost='{!! $apiHost !!}';
 
     // server 端下发 token 以及 uniqueKey
+    window.token = '{{$token}}';
 
     //server 下发的uniqueKey
     window.uniqueKey = '{{$uniqueKey}}';
@@ -72,6 +73,7 @@
     }
 
     window.orgInfo && (document.title = window.orgInfo.name);
+    window.dev = true;
   </script>
   <!-- <script>
   var _hmt = _hmt || [];
