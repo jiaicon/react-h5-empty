@@ -20,6 +20,7 @@ import './../fundingApplication.css';
 import './../eachStepStyle.css';
 import UploadPhoto from './../../../components/uploadPhoto/uploadPhoto';
 import { secondStep } from './../fundingApplication.store';
+import Alert from "react-s-alert";
 
 
 class FundingApplication extends React.Component {
@@ -54,10 +55,30 @@ class FundingApplication extends React.Component {
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
+            console.log(error, value);
+            if (error) {
+                let arr = ["group_name",
+                    "group_credit_num",
+                    "group_addr",
+                    "group_legal_person",
+                    "group_user",
+                    "group_user_phone",
+                    "group_user_email",
+                    "group_service",
+                    "group_info",
+                    "group_certificate"
+                ];
+                let errorMessage =  '';
+                for (let item of arr) {
+                    if (error[item] && error[item].errors && error[item].errors.length) {
+                        console.log(error[item].errors[0].message)
+                        errorMessage = error[item].errors[0].message;
+                        break;
+                    }
+                }
+                Alert.warning(errorMessage);
+                return;
+            }
             if(this.state.imagesArr && this.state.imagesArr.length) {
                 value.group_certificate=this.state.imagesArr;
             }

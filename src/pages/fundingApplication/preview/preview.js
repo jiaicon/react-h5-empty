@@ -409,7 +409,7 @@ class Preview extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">单价</div>
                     <InputItem
-                        type="money"
+                        type="number"
                         className="page-funding-application-input"
                         placeholder="请输入单价（保留2位小数）"
                         disabled={this.state.stepDisabled5}
@@ -448,7 +448,7 @@ class Preview extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">金额</div>
                     <InputItem
-                        type="money"
+                        type="number"
                         className="page-funding-application-input"
                         placeholder="请输入金额"
                         disabled={this.state.stepDisabled5}
@@ -1214,7 +1214,7 @@ class Preview extends React.Component {
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">项目总预算</div>
                                     <InputItem
-                                        type="money"
+                                        type="number"
                                         className="page-funding-application-input"
                                         placeholder="请输入资助项目总预算（保留两位小数）"
                                         disabled={this.state.stepDisabled3}

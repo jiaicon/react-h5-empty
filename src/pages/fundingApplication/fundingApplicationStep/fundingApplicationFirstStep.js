@@ -24,6 +24,7 @@ import './../eachStepStyle.css';
 import Image from "../../../components/image/image";
 import { getCity, getAreaProvince } from './../../home/home.store'
 import { firstStep } from './../fundingApplication.store';
+import Alert from "react-s-alert";
 
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -98,10 +99,29 @@ class FundingApplication extends React.Component {
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
             console.log(error, value);
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
+            if (error) {
+                let arr = ["user_name",
+                    "user_business_province",
+                    "user_business_city",
+                    "user_store",
+                    "user_position",
+                    "user_job_num",
+                    "user_phone",
+                    "user_email",
+                    "user_apply_rsason",
+                    "user_apply_monry"
+                ];
+                let errorMessage =  '';
+                for (let item of arr) {
+                    if (error[item] && error[item].errors && error[item].errors.length) {
+                        console.log(error[item].errors[0].message)
+                        errorMessage = error[item].errors[0].message;
+                        break;
+                    }
+                }
+                Alert.warning(errorMessage);
+                return;
+            }
             if(value.user_business_province) value.user_business_province = value.user_business_province[0];
             if(value.user_business_city) value.user_business_city = value.user_business_city[0];
             localStorage.setItem('firstStep', JSON.stringify(value));
@@ -179,7 +199,7 @@ class FundingApplication extends React.Component {
                                 ...getFieldProps('user_business_province', {
                                     rules: [{
                                         required: true,
-                                        message: '请输入所属业务区域',
+                                        message: '请输入所属业务区域(省)',
                                     }],
                                 })
                             }
@@ -200,7 +220,7 @@ class FundingApplication extends React.Component {
                                 ...getFieldProps('user_business_city', {
                                     rules: [{
                                         required: true,
-                                        message: '请输入所属业务区域',
+                                        message: '请输入所属业务区域(市)',
                                     }],
                                 })
                             }
@@ -324,7 +344,7 @@ class FundingApplication extends React.Component {
                             className="page-funding-application-input"
                             placeholder="请输入申请金额"
                             moneyKeyboardAlign="right"
-                            type='money'
+                            type='number'
                             {
                                 ...getFieldProps('user_apply_monry', {
                                     rules: [{

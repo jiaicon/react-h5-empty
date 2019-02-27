@@ -22,6 +22,7 @@ import {DX} from './../../../utils/funcs';
 import store from "../../../stores";
 import { fifthStep, secondStep, fourthStep, fundingApplicationPost } from './../fundingApplication.store';
 import './../eachStepStyle.css';
+import Alert from "react-s-alert";
 
 let count = 1;
 const budgetType = [
@@ -134,7 +135,7 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">单价</div>
                     <InputItem
-                        type="money"
+                        type="number"
                         className="page-funding-application-input"
                         placeholder="请输入单价（保留2位小数）"
                         moneyKeyboardAlign="right"
@@ -169,7 +170,7 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">金额</div>
                     <InputItem
-                        type="money"
+                        type="number"
                         className="page-funding-application-input"
                         placeholder="请输入金额"
                         moneyKeyboardAlign="right"
@@ -208,10 +209,30 @@ class Form extends React.Component {
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
+            console.log(error, value);
+            if (error) {
+                let arr = ["budget_type",
+                    "budget_purpose",
+                    "budget_price",
+                    "budget_num",
+                    "budget_money",
+                ];
+                let errorMessage = '';
+                for (let i = 0 ; i < count ; i++ ) {
+                    for (let item_str of arr) {
+                        let item = `${item_str}__${i+1}`;
+                        if (error[item] && error[item].errors && error[item].errors.length) {
+                            console.log(error[item].errors[0].message)
+                            errorMessage = `项目预算明细(${i+1})中${error[item].errors[0].message}`;
+                            break;
+                        }
+                    }
+                    if (errorMessage.length)  break;
+                }
+            
+                Alert.warning(errorMessage);
+                return;
+            }
             let data = [];
             let formContent = this.state.formContent;
             console.log(value);

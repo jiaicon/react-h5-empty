@@ -24,6 +24,7 @@ import moment from 'moment';
 import {DX} from './../../../utils/funcs';
 import store from "../../../stores";
 import { thirdStep } from './../fundingApplication.store';
+import Alert from "react-s-alert";
 
 const CheckboxItem = Checkbox.CheckboxItem;
 
@@ -65,10 +66,30 @@ class FundingApplication extends React.Component {
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
+            console.log(error, value);
+            if (error) {
+                let arr = ["project_name",
+                    "project_field",
+                    "project_start",
+                    "project_end",
+                    "project_addr",
+                    "project_money",
+                    "project_info",
+                    "project_effect",
+                    "project_object",
+                    "project_resources"
+                ];
+                let errorMessage =  '';
+                for (let item of arr) {
+                    if (error[item] && error[item].errors && error[item].errors.length) {
+                        console.log(error[item].errors[0].message)
+                        errorMessage = error[item].errors[0].message;
+                        break;
+                    }
+                }
+                Alert.warning(errorMessage);
+                return;
+            }
             if(this.state.hasChooseArea.length>0) {
                 value.project_field=this.state.hasChooseArea;
             }
@@ -215,7 +236,7 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">项目总预算</div>
                         <InputItem
-                            type="money"
+                            type="number"
                             className="page-funding-application-input"
                             placeholder="请输入资助项目总预算（保留两位小数）"
                             moneyKeyboardAlign="right"

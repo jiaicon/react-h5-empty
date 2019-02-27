@@ -799,25 +799,47 @@ class Verify extends React.Component {
     const data = item;
     const key = data.key;
     return (
-      <div>
         <div>
           <div className="page-my-profile-verify-header-box">
             {item.is_required === 1 ? (
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
-            {data.label}
-          </div>
+            <div className="page-my-profile-verify-fonts">{data.label}</div>
+          
           <input
             id={`${key}`}
-            className="page-my-profile-verify-double-text"
+            className="page-my-profile-verify-text"
             onChange={this.handleOtherInfoInputClick}
           />
-
-          <div className="line1px" />
         </div>
+        <div className="line1px" />
+        </div>
+    );
+  }
+
+
+  renderName() {
+    return (
+      <div>
+        <div className="page-my-profile-verify-header-box">
+          {this.state.winOrgInfo.open_real_name === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
+          <div className="page-my-profile-verify-fonts">姓名</div>
+          <input
+            type="text"
+            ref={c => {
+              this.realname = c;
+            }}
+            className="page-my-profile-verify-text"
+            onChange={this.onTextChanged}
+          />
+       </div>
+      <div className="line1px" />
       </div>
     );
   }
+
 
   handleOtherInfoInputClick(e) {
     const key = e.target.id;
@@ -1260,6 +1282,10 @@ class Verify extends React.Component {
               
               {/* {//头像
               this.renderAvatars()} */}
+              {//名字
+                this.renderName()}
+              {//身份证
+              this.renderIdCard()}
 
               {//是否是星巴克
                 this.renderOtherInfoSelect(this.state.isStarbucksPartner)
@@ -1279,14 +1305,10 @@ class Verify extends React.Component {
               {//门店名称
                 this.state.store_name.is_required == 0 ? null :this.renderOtherInfoInput(this.state.store_name)
               }
-              {//名字
-                this.renderName()}
+
               {//员工id
                 this.state.staff_id.is_required == 0 ? null :this.renderOtherInfoInput(this.state.staff_id)
               }
-
-              {//身份证
-              this.renderIdCard()}
 
               {/* {//民族
               this.renderNation()}

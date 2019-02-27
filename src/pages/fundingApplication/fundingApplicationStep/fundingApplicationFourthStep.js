@@ -21,6 +21,7 @@ import './../fundingApplication.css';
 import store from "../../../stores";
 import { fourthStep } from './../fundingApplication.store';
 import './../eachStepStyle.css';
+import Alert from "react-s-alert";
 
 
 let count = 1;
@@ -199,11 +200,31 @@ class Form extends React.Component {
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
-            console.log(error)
-            // if(error) {
-            //     console.log('error');
-            //     return;
-            // }
+            console.log(error, value);
+            if (error) {
+                let arr = ["activity_name",
+                    "activity_start",
+                    "activity_end",
+                    "activity_objective",
+                    "activity_people",
+                    "activity_info",
+                ];
+                let errorMessage = '';
+                for (let i = 0 ; i < count ; i++ ) {
+                    for (let item_str of arr) {
+                        let item = `${item_str}__${i+1}`;
+                        if (error[item] && error[item].errors && error[item].errors.length) {
+                            console.log(error[item].errors[0].message)
+                            errorMessage = `项目执行计划(${i+1})中${error[item].errors[0].message}`;
+                            break;
+                        }
+                    }
+                    if (errorMessage.length)  break;
+                }
+            
+                Alert.warning(errorMessage);
+                return;
+            }
             let data = [];
             let formContent = this.state.formContent;
             for(let j = 0; j < formContent.length; j++) {
