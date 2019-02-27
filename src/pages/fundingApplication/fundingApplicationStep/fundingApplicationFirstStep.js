@@ -25,6 +25,7 @@ import Image from "../../../components/image/image";
 import { getCity, getAreaProvince } from './../../home/home.store'
 import { firstStep } from './../fundingApplication.store';
 import Alert from "react-s-alert";
+import { userCenterAction } from './../../my/my.store';
 
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -78,6 +79,9 @@ class FundingApplication extends React.Component {
         this.slider.slickPrev();
     }
     componentWillMount() {
+        if(!this.props.isLogin) {
+            this.props.userCenterAction();
+        }
         this.props.getCity();
     }
 
@@ -86,8 +90,6 @@ class FundingApplication extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps)
-
     }
 
     componentWillUnmount() {
@@ -401,6 +403,8 @@ export default connect(
         firstStepData: state.fundingApplication.firstStep,
         cityData: state.home.getCity,
         areaData: state.home.getAreaProvince,
+        userCenterData: state.my.userCenter,
+        userInfo: state.user
     }),
-    dispatch => bindActionCreators({ firstStep, getCity, getAreaProvince }, dispatch),
+    dispatch => bindActionCreators({ firstStep, getCity, getAreaProvince, userCenterAction }, dispatch),
 )(FundingApplicationForm);

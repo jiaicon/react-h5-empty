@@ -111,6 +111,17 @@ class HomePage extends React.Component {
   renderHeaderBar() {
     const { user } = this.props;
     const switchView = user.isLogin;
+    //点击登录跳转判断
+      let target = '/my/entry';
+    if(window.dev) {
+        if(window.orgCode === 'VWPe9xdLyw') {
+            target='/my/login'
+        }
+    }else {
+        if(window.orgCode === 'oBDbDkxal2') {
+            target='/my/login'
+        }
+    }
     return (
       <div className="header-bar">
         <Link to="/selectcity">
@@ -143,7 +154,9 @@ class HomePage extends React.Component {
                 disabled="disabled"
               />
             </Link>
-            <Link to="/my/entry">
+            <Link
+                to={target}
+              >
               <div className="login-button">登录</div>
             </Link>
           </div>
