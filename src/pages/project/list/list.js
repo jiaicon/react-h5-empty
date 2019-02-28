@@ -10,6 +10,8 @@ import Link from '../../../components/link/link';
 import Filter, { TYPES_VALUE } from '../../../components/filter/filter';
 import Projects from '../../../components/projects/projects';
 import { isWindowReachBottom } from '../../../utils/funcs';
+import { getCity, getLocation } from "../../../utils/funcs";
+import Alert from 'react-s-alert';
 
 import {
   requestProjectList,
@@ -35,6 +37,12 @@ class ProjectListPage extends React.Component {
   }
 
   componentWillMount() {
+    getLocation(((position) => {
+      console.log("project list页面获取定位成功", position);
+    }), (() => {
+      console.log("project list页面获取定位失败");
+    }));
+
     let { type, category, target } = this.props.route.params;
     type = parseInt(type, 10);
     category = parseInt(category, 10);
@@ -46,6 +54,7 @@ class ProjectListPage extends React.Component {
       service_object: window.serviceTarget[target],
       service_category: window.serviceCategory[category],
     };
+
     this.requestList(false, !!isRecommend);
   }
 

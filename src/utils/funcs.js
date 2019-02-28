@@ -130,18 +130,18 @@ export function parseDistance(distance) {
 }
 
 export function getLocation(success, fail, noCache) {
-  if (window.dev) {
-    setCookie(
-      "location",
-      JSON.stringify({ lat: "40.065560", lng: "116.314820" }),
-      1
-    );
-    success({
-      lng: "116.314820",
-      lat: "40.065560"
-    });
-    return;
-  }
+  // if (window.dev) {
+  //   setCookie(
+  //     "location",
+  //     JSON.stringify({ lat: "40.065560", lng: "116.314820" }),
+  //     1
+  //   );
+  //   success({
+  //     lng: "116.314820",
+  //     lat: "40.065560"
+  //   });
+  //   return;
+  // }
 
   // let cachedLoc = localStorage.getItem('location');
   // cachedLoc = cachedLoc ? JSON.parse(cachedLoc) : cachedLoc;
@@ -156,6 +156,7 @@ export function getLocation(success, fail, noCache) {
       "myapp"
     );
     let options = { timeout: 8000 };
+    console.log("调用geolocation.getLocation");
     geolocation.getLocation(function(position) {
       const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
       const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
@@ -166,7 +167,12 @@ export function getLocation(success, fail, noCache) {
       if (success) {
         success({ lat, lng });
       }
-    }, options);
+      else {
+        fail();
+      }
+    },function(error) {
+      console.log("获取新位置失败", error);
+    } ,options);
   } else if (success) {
     success({
       lat: cachedLoc.lat,
@@ -176,13 +182,13 @@ export function getLocation(success, fail, noCache) {
 }
 
 export function getCity(success, fail) {
-  if (window.dev) {
-    const city = "北京市";
-    const province = "北京";
-    setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
-    success(city || "北京");
-    return;
-  }
+  // if (window.dev) {
+  //   const city = "北京市";
+  //   const province = "北京";
+  //   setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
+  //   success(city || "北京");
+  //   return;
+  // }
 
   getLocation(
     loc => {
