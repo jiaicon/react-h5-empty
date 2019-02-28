@@ -107,9 +107,9 @@
 }
 
 .page-my-profile-verify-fonts {
-    font-size: 15px;
+    font-size: 14px;
     color: #666;
-    width: 90px;
+    width: 100px;
     text-align: justify;
     text-align-last: justify;
     white-space:nowrap; 
@@ -119,7 +119,7 @@
 
 .page-my-profile-verify-text {
     height: 50px;
-    font-size: 15px;
+    font-size: 14px;
     text-align: left;
     flex: 1;
     display: block;
@@ -242,4 +242,27 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+.page-my-profile-verify-header-box .uploadAvatar {
+    flex: 1;
+}
+.page-post-container-photo-container {
+    height: 80px;
+}
+.page-post-container-photo-container .page-profile-header-uploade-box-div {
+    width: 80px;
+    height: 80px;
+    background-image: url("/images/my/add.png");
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+.page-post-container-photo-container .page-profile-header-uploade-box-iptbox {
+    height: 100%;
+}
+.page-post-container-photo-container input {
+    opacity: 0;
+    height: 100%;
 }

@@ -10,12 +10,15 @@ import autoBind from "react-autobind";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import uploadToWX from "../../../utils/wxupload";
+import UploadAvatar from "./../../../components/uploadAvatar/uploadAvatar";
+import UploadPhoto from "./../../../components/uploadPhoto/uploadPhoto";
 import history from "../../history";
 import { requestUserInfo } from "../../../stores/common";
 import Avatar from "../../../components/avatar/avatar";
 import { checkUser, addressDataAction, userDefinedInfo } from "./profile.store";
 import { loginAction } from "../login/login.store";
 import { getQueryString } from "../../../utils/funcs";
+import uploadImage from "../../../utils/uploadImage";
 import "./verify.css";
 import { List, Checkbox, DatePicker, Radio } from "antd-mobile";
 
@@ -23,6 +26,10 @@ import "antd-mobile/lib/date-picker/style/css";
 import "antd-mobile/lib/checkbox/style/css";
 import "antd-mobile/lib/Radio/style/css";
 import "./verifyAntd.css";
+import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
+import "weui/dist/style/weui.css";
+import "react-weui/build/packages/react-weui.css";
+
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
 const people = [
@@ -84,6 +91,13 @@ const people = [
   { id: "56", name: "基诺族" }
 ];
 
+const cardtype = [
+  { id: "1", name: "内地居民身份证" },
+  { id: "2", name: "香港居民身份证" },
+  { id: "3", name: "澳门居民身份证" },
+  { id: "4", name: "台湾居民身份证" },
+  { id: "5", name: "护照" }
+];
 let isEmpty = false;
 
 function checkEmpty(value, label) {
@@ -146,7 +160,30 @@ function iscard(card) {
   }
   return false;
 }
-
+function isaomencard(card) {
+  const reg = /^[1|5|7][0-9]{6}\([0-9Aa]\)/;
+  if (!reg.test(card)) {
+    Alert.warning("身份证输入不合法");
+    return true;
+  }
+  return false;
+}
+function isxiangancard(card) {
+  const reg = /^((\s?[A-Za-z])|([A-Za-z]{2}))\d{6}(([0−9aA])|([0-9aA]))$/;
+  if (!reg.test(card)) {
+    Alert.warning("身份证输入不合法");
+    return true;
+  }
+  return false;
+}
+function istaiwancard(card) {
+  const reg = /^[a-zA-Z][0-9]{9}$/;
+  if (!reg.test(card)) {
+    Alert.warning("身份证输入不合法");
+    return true;
+  }
+  return false;
+}
 function formatDate(x, y) {
   /* eslint no-confusing-arrow: 0 */
   const pad = n => (n < 10 ? `0${n}` : n);
@@ -167,11 +204,15 @@ class Verify extends React.Component {
     super(props);
     autoBind(this);
     this.state = {
+      password: null,
       province: 0,
       city: 0,
       county: 0,
       extendsArray: {},
-      winOrgInfo: window.orgInfo.custom_config
+      winOrgInfo: window.orgInfo.custom_config,
+      showMultiple: false,
+      previewData: [],
+      cardtype: 1
     };
     this.CustomChildren = ({ extra, onClick }) => (
       <div
@@ -237,7 +278,6 @@ class Verify extends React.Component {
   initialPic(data) {
     data.map((item, index) => {
       if (item.type == 5) {
-        // this.state[item.key] = [];
         this.setState({
           [item.key]: [],
           ...this.state
@@ -250,38 +290,40 @@ class Verify extends React.Component {
     const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, "");
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, "");
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, "");
+    const password = this.password
+      ? this.password.value.replace(/(^\s+)|(\s+$)/g, "")
+      : null;
     this.setState({
       address,
       realname,
-      idcard
+      idcard,
+      password
     });
   }
 
-  // 上传照片
-  onAvatarClick() {
-    uploadToWX({
-      success: urls => {
-        this.setState({
-          ...this.state,
-          photo: urls[0]
-        });
-        this.photo = urls[0];
-      }
+  // 上传头像
+  onAvatarChange(avatar) {
+    this.setState({
+      photo: avatar
     });
+    this.photo = avatar;
   }
 
   onSubmit() {
-    const stateOrgData = this.state.winOrgInfo;
-
-    const realname = this.state.realname;
-    const idcard = this.state.idcard;
-    const people = this.state.people;
-    const photo = this.state.photo;
-
-    const address = this.state.address;
-    const province = this.state.province;
-    const city = this.state.city;
-    const county = this.state.county;
+    const {
+      winOrgInfo: stateOrgData,
+      realname,
+      idcard,
+      people,
+      photo,
+      cardtype,
+      address,
+      province,
+      city,
+      county,
+      password
+    } = this.state;
+    const { user } = this.props;
     if (
       (stateOrgData.open_avatars && checkEmpty(photo, "头像")) ||
       (stateOrgData.open_real_name && checkEmpty(realname, "姓名")) ||
@@ -292,9 +334,19 @@ class Verify extends React.Component {
       (stateOrgData.open_addr && checkEmpty(county, "区县")) ||
       (stateOrgData.open_addr && checkEmpty(address, "详细地址")) ||
       (stateOrgData.open_real_name && checkStr(realname)) ||
-      (stateOrgData.open_id_number && iscard(idcard))
+      (user.have_pwd == 0 && checkEmpty(password, "密码"))
     ) {
-      return;
+    }
+    if (stateOrgData.open_id_number) {
+      if (cardtype == 1 && iscard(idcard)) {
+        return;
+      } else if (cardtype == 2 && isxiangancard(idcard)) {
+        return;
+      } else if (cardtype == 3 && isaomencard(idcard)) {
+        return;
+      } else if (cardtype == 4 && istaiwancard(idcard)) {
+        return;
+      }
     }
     if (
       this.state.winOrgInfo.extends &&
@@ -329,14 +381,19 @@ class Verify extends React.Component {
     }
 
     if (photo != undefined && photo != "") {
-      console.log("photo: " + photo);
       data.avatars = photo;
     }
+    if (password) {
+      data.pwd = password;
+    }
+    data.num_type = cardtype;
     data.extends = this.state.extendsArray;
 
     this.props.checkUser(data);
   }
-
+  handleCardClick() {
+    this.setState({ ...this.state, cardtype: this.cardtype.value });
+  }
   handlePeopleClick() {
     this.setState({
       ...this.state,
@@ -368,10 +425,7 @@ class Verify extends React.Component {
   }
 
   renderAvatars() {
-    return ((
-      // <div>
-      //     {
-      //         this.state.winOrgInfo.open_avatars === 1 ?
+    return (
       <div>
         <div className="page-my-profile-verify-header-box page-my-profile-verify-photo-box">
           {this.state.winOrgInfo.open_avatars === 1 ? (
@@ -379,65 +433,62 @@ class Verify extends React.Component {
           ) : null}
 
           <div className="page-my-profile-verify-fonts">头像</div>
-          <div
-            className="page-my-profile-verify-photo"
-            onClick={this.onAvatarClick}
-          >
-            <div>
-              <Avatar
-                src={this.state.photo}
-                size={{ width: 40, radius: 4 }}
-                defaultSrc="/images/my/register.png"
-              />
-            </div>
-            <div>
-              <i className="" />
-            </div>
-          </div>
+          <UploadAvatar onChange={this.onAvatarChange} />
         </div>
         <div className="line1px" />
       </div>
-      //             : null
-      //     }
-      // </div>
-    ) /*: null*/);
+    );
   }
 
   renderName() {
     return (
-      // <div>
-      //     {
-
-      ((
-        <div>
-          <div className="page-my-profile-verify-header-box">
-            {this.state.winOrgInfo.open_real_name === 1 ? (
-              <span className="page-my-profile-verify-header-start">*</span>
-            ) : null}
-            <div className="page-my-profile-verify-fonts">姓名</div>
-            <input
-              type="text"
-              ref={c => {
-                this.realname = c;
-              }}
-              className="page-my-profile-verify-text"
-              onChange={this.onTextChanged}
-            />
-          </div>
-          <div className="line1px" />
+      <div>
+        <div className="page-my-profile-verify-header-box">
+          {this.state.winOrgInfo.open_real_name === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
+          <div className="page-my-profile-verify-fonts">姓名</div>
+          <input
+            type="text"
+            ref={c => {
+              this.realname = c;
+            }}
+            className="page-my-profile-verify-text"
+            onChange={this.onTextChanged}
+          />
         </div>
-      ): null)
-      //     }
-      // </div>
+        <div className="line1px" />
+      </div>
     );
   }
 
   renderIdCard() {
-    return ((
-      // <div>
-      //     {
-
+    return (
       <div>
+        <div className="page-my-profile-verify-header-box">
+          {this.state.winOrgInfo.open_id_number === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
+          <div className="page-my-profile-verify-fonts">证件类型</div>
+          <label htmlFor="cardtype">
+            <select 
+              
+              id="cardtype"
+              onChange={this.handleCardClick}
+              ref={c => {
+                this.cardtype = c;
+              }}
+            >
+              {cardtype &&
+                cardtype.map((item, keys) => (
+                  <option value={item.id} key={keys}>
+                    {item.name}
+                  </option>
+                ))}
+            </select>
+          </label>
+        </div>
+        <div className="line1px" />
         <div className="page-my-profile-verify-header-box">
           {this.state.winOrgInfo.open_id_number === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
@@ -455,17 +506,11 @@ class Verify extends React.Component {
         </div>
         <div className="line1px" />
       </div>
-      //             : null
-      //     }
-      // </div>
-    ) /*: null*/);
+    );
   }
 
   renderNation() {
-    return ((
-      // <div>
-      //     {
-
+    return (
       <div>
         <div className="page-my-profile-verify-header-box">
           {this.state.winOrgInfo.open_nation === 1 ? (
@@ -493,10 +538,7 @@ class Verify extends React.Component {
         </div>
         <div className="line1px" />
       </div>
-      //             : null
-      //     }
-      // </div>
-    ) /*: null*/);
+    );
   }
 
   renderAddr() {
@@ -505,8 +547,6 @@ class Verify extends React.Component {
     const county = this.props.address.data.county;
     return (
       <div>
-        {/* {
-                    this.state.winOrgInfo.open_addr === 1 ? */}
         <div>
           <div className="page-my-profile-verify-header-box">
             {this.state.winOrgInfo.open_addr === 1 ? (
@@ -597,8 +637,6 @@ class Verify extends React.Component {
           </div>
           <div className="line1px" />
         </div>
-        {/* //             : null
-            //     } */}
       </div>
     );
   }
@@ -819,6 +857,27 @@ class Verify extends React.Component {
       }
     });
   }
+  uploadPhotoClick(e) {
+    console.log(e);
+  }
+  onPhotoChange(e) {
+    console.log(e.target.id);
+    let key = e.target.id;
+    uploadImage(`/api/imgupload`, {
+      method: "POST",
+      data: { file: { file: e.target.files[0] } }
+    }).then(json => {
+      if (json.error_code === 0) {
+        const attachment = this.state[key];
+        attachment.push(json.data.url);
+        this.setState({
+          ...this.state,
+          [key]: attachment
+        });
+        this.pushExtendsArray(key, attachment);
+      }
+    });
+  }
 
   onPicDel(e) {
     const num = e.target.id;
@@ -828,17 +887,18 @@ class Verify extends React.Component {
     this.setState({ ...this.state, [key]: attachment }),
       this.pushExtendsArray(key, attachment);
   }
+
   onPreview(e) {
     const num = e.target.id;
     var key = e.target.getAttribute("data-key");
     const imagesArr = this.state[key];
-    wx.ready(() => {
-      wx.previewImage({
-        current: imagesArr[num], // 当前显示图片的http链接
-        urls: imagesArr // 需要预览的图片http链接列表
-      });
+    this.setState({
+      previewData: imagesArr,
+      showMultiple: true,
+      defaultIndex: 0
     });
   }
+
   renderOtherPic(item) {
     const data = item;
     const key = data.key;
@@ -854,7 +914,7 @@ class Verify extends React.Component {
         </div>
         <div className="page-post-container-photo-container">
           {this.state[key].map((item, keys) => (
-            <div className="page-applys-item-render-container">
+            <div className="page-applys-item-render-container" key={keys}>
               <div className="page-applys-item-view">
                 <Avatar
                   src={item}
@@ -877,11 +937,22 @@ class Verify extends React.Component {
           {this.state[key].length === 1 ? (
             <div />
           ) : (
-            <div
-              className="page-post-item-upload-container"
-              id={`${key}`}
-              onClick={this.onPicClick}
-            />
+            <div className="page-profile-header-uploade-box-div">
+              <div className="page-profile-header-uploade-box-iptbox">
+                <input
+                  id={key}
+                  onChange={this.onPhotoChange}
+                  accept="image/png, image/jpeg, image/jpg"
+                  ref={c => {
+                    this.uploadImages = c;
+                  }}
+                  className="page-profile-header-uploade-box-ipt"
+                  type="file"
+                />
+              </div>
+              {/*<div className="page-profile-header-uploade-box-img"*/}
+              {/*style={{backgroundImage: `url(${this.state.avatar ? this.state.avatar : '/images/my/register.png'})`}}></div>*/}
+            </div>
           )}
         </div>
         <div className="line1px" />
@@ -965,7 +1036,30 @@ class Verify extends React.Component {
       extendsArray
     });
   }
-
+  renderPassword() {
+    const { user } = this.props;
+    return (
+      <div>
+        {user.have_pwd == 0 ? (
+          <div>
+            <div className="page-my-profile-verify-header-box">
+              <span className="page-my-profile-verify-header-start">*</span>
+              <div className="page-my-profile-verify-fonts">设置密码</div>
+              <input
+                type="password"
+                ref={c => {
+                  this.password = c;
+                }}
+                className="page-my-profile-verify-text"
+                onChange={this.onTextChanged}
+              />
+            </div>
+            <div className="line1px" />
+          </div>
+        ) : null}
+      </div>
+    );
+  }
   renderOtherInfo() {
     const winOrgStateInfo = this.state.winOrgInfo;
     return (
@@ -1025,6 +1119,15 @@ class Verify extends React.Component {
   }
 
   render() {
+    const BackButtonStyle = {
+      display: "block",
+      width: "100%",
+      color: "white",
+      border: "none",
+      position: "absolute",
+      top: "-55px",
+      left: "0"
+    };
     return (
       <div className="page-my-profile-verify-container">
         {this.state.winOrgInfo === null ? null : (
@@ -1042,6 +1145,8 @@ class Verify extends React.Component {
               this.renderNation()}
               {//地址
               this.renderAddr()}
+              {//密码
+              this.renderPassword()}
               {//自定义信息
               this.renderOtherInfo()}
             </div>
@@ -1050,6 +1155,19 @@ class Verify extends React.Component {
             </div>
           </div>
         )}
+        <Gallery
+          src={this.state.previewData}
+          show={this.state.showMultiple}
+          defaultIndex={this.state.defaultIndex}
+        >
+          <Button
+            style={BackButtonStyle}
+            onClick={e => this.setState({ showMultiple: false })}
+            plain
+          >
+            Back
+          </Button>
+        </Gallery>
       </div>
     );
   }

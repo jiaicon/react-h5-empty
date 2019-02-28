@@ -7,7 +7,7 @@
     "npm": ">=3.8"
   },
   "dependencies": {
-    "antd-mobile": "^2.2.0",
+    "antd-mobile": "^2.2.8",
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "eventemitter3": "^2.0.3",
@@ -15,7 +15,9 @@
     "fastclick": "^1.0.6",
     "history": "^4.6.1",
     "html2canvas": "^1.0.0-alpha.12",
+    "moment": "^2.24.0",
     "query-string": "^5.0.0",
+    "rc-form": "^2.4.2",
     "rc-swipeout": "^2.0.1",
     "react": "^15.4.2",
     "react-autobind": "^1.0.6",

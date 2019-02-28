@@ -4,7 +4,7 @@ import { addAysncTask, removeAysncTask } from "../stores/common";
 import { storeLoginSource } from "../pages/my/login/login.store";
 import store from "../stores";
 import history, { USING_HISTORY_HASH } from "../pages/history";
-import { getToken } from "./funcs";
+import { getToken,getCookie } from "./funcs";
 
 function encodeUnicode(str) {
   const res = [];
@@ -50,12 +50,9 @@ export default function request(requestUrl, requestOptions = {}) {
   // 需要服务端进行设置，参考https://stackoverflow.com/questions/40900977/custom-request-heade
   // r s-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
-  const location = localStorage.location
-    ? JSON.parse(localStorage.location)
-    : null;
-  const city = localStorage.provinceAndCityName
-    ? JSON.parse(localStorage.provinceAndCityName).city
-    : "北京";
+  const location = getCookie("location") ? JSON.parse(getCookie("location")) : null;
+  const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "北京市";
+   
   let headersObj = {
     ...headers,
     "X-auth-token": getToken() || "",
@@ -69,11 +66,9 @@ export default function request(requestUrl, requestOptions = {}) {
     "X-city": `${encodeURI(city)}`
   }
   if (!location) {
-    delete headersObj["X - location"];
-    console.log(headersObj);
+    delete headersObj["X-location"];
   }
   options.headers = headersObj;
-  console.log(options.headers);
   // 自定义头必须设置 mode 为 cors
   options.mode = "cors";
 
@@ -111,7 +106,13 @@ export default function request(requestUrl, requestOptions = {}) {
     options.headers["Content-Type"] = "application/x-www-form-urlencoded";
     options.body = params.join("&");
   } else {
-    url = `${url}?${params.join("&")}`;
+      if(params) {
+          if(url.indexOf('?')>-1) {
+              url = `${url}&${params.join("&")}`;
+          }else {
+              url = `${url}?${params.join("&")}`;
+          }
+      }
   }
 
   if (options.loading) {
@@ -140,17 +141,10 @@ export default function request(requestUrl, requestOptions = {}) {
           console.log("请求成功-", url, json);
           resolve(json);
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
+          localStorage.removeItem("token");
           let from = window.location.pathname;
           store.dispatch(storeLoginSource(from));
-          // if (USING_HISTORY_HASH) {
-          //   from = window
-          //     .location
-          //     .hash
-          //     .replace('#', '');
-          // }
-          // store.dispatch(storeLoginSource(from));
-          history.replace("/my/entry");
-          // window.location.replace('/my/entry');
+          history.replace("/my/login");
         } else {
           console.log("请求返回失败-", url, json);
 
@@ -172,6 +166,5 @@ export default function request(requestUrl, requestOptions = {}) {
       });
   });
 
-  // TODO: 如果没有经纬度信息则需要调用微信 JSSDK 获取经纬度之后再发起请求，对调用者透明 return fetch(url, options)
 
 }

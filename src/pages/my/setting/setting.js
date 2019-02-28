@@ -31,18 +31,21 @@ class Setting extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    return (
-      <div className="page-setting">
+    const { user } = this.props;
+    return <div className="page-setting">
         <Link to="/my/forget">
           <div className="page-setting-forget">
-            <div className="page-setting-fonts">修改密码</div>
+            <div className="page-setting-fonts">
+            {user.have_pwd === 0 ? "设置密码" : null}
+            {user.have_pwd === 1 ? "修改密码" : null}
+            </div>
             <div className="page-setting-icon" />
           </div>
-
         </Link>
-        <a className="page-setting-quit" onClick={this.props.logoutAction}>退出登录</a>
-      </div>
-    );
+        <a className="page-setting-quit" onClick={this.props.logoutAction}>
+          退出登录
+        </a>
+      </div>;
   }
 }
 
@@ -54,6 +57,8 @@ Setting.propTypes = {
 };
 
 export default connect(
-  state => state.my || {},
-  dispatch => bindActionCreators({ logoutAction }, dispatch),
+  state => ({
+    user: state.user
+  }),
+  dispatch => bindActionCreators({ logoutAction }, dispatch)
 )(Setting);

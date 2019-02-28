@@ -91,6 +91,7 @@ class ProjectDetailPage extends React.Component {
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
             this.props.storeLoginSource(`/project/detail/${this.projectId}`)
+            
             history.replace('/my/entry')
           },
         },
@@ -129,14 +130,16 @@ class ProjectDetailPage extends React.Component {
         && detailData.id === parseInt(this.projectId, 10)
         && !this.wxRegistered) {
       document.title = detailData.name;
-      wx.ready(() => {
-        WXShare({
-          title: detailData.name,
-          desc: detailData.content,
-          image: detailData.photo && detailData.photo[0],
-          success: () => this.hideShareTip(),
-        });
-      });
+        if(window.userAgent) {
+            wx.ready(() => {
+                WXShare({
+                    title: detailData.name,
+                    desc: detailData.content,
+                    image: detailData.photo && detailData.photo[0],
+                    success: () => this.hideShareTip(),
+                });
+            });
+        }
 
       this.wxRegistered = true;
     }
@@ -233,9 +236,13 @@ class ProjectDetailPage extends React.Component {
         // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
           this.props.storeLoginSource(`/project/detail/${this.projectId}`)
-          window.location.replace(`/my/profile/verify`);
+          if(window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {
+            window.location.replace(`/my/profile/verifyStarbucks`);
+          }
+          else {
+            window.location.replace(`/my/profile/verify`);
+          }
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
-
           this.handleActionClickSitch(action,projectId,customConfig,paymentConfig)
         }
       } else if (user.isLogin && user.in_blacklist) {
@@ -440,10 +447,17 @@ class ProjectDetailPage extends React.Component {
               })} />
             <span>收藏</span>
           </Link>
-          <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
-            <span />
-            <span>分享</span>
-          </Link>
+            {
+                window.userAgent
+                    ?
+                    <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
+                        <span />
+                        <span>分享</span>
+                    </Link>
+                    :
+                    null
+            }
+
           {action === "two" ? this.renderTwoBtn() : <Link to="" onClick={this.handleActionClick(action)} className={`project-action-main ${actionClassName}`}>
               {actionLabel}
             </Link>}

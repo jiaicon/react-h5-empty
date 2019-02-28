@@ -34,19 +34,24 @@ class Entry extends React.Component {
 
   componentWillUnmount() {}
   onLogin(){
-    // window.location.push='/my/login';
-    history.replace('/my/login')
+    window.location.href='/my/login';
+    // history.replace('/my/login')
   }
   render() {
     let loginRegisterClassName = "page-entry-team-btn-default";
     if (window.orgCode === "EKQe1RaJYv") {
       loginRegisterClassName = "page-entry-team-btn-dalu"
     }
+
+    let personLoginRegisterClassName = "page-entry-person-btn"
+    if (window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {//测试正式环境的星巴克
+      personLoginRegisterClassName = "page-entry-person-btn-Starbucks"
+    }
     return (
       <div className="page-entry">
         <div className="page-entry-person" />
           <a onClick={this.onLogin}>
-            <div className="page-entry-person-btn" />
+            <div className={personLoginRegisterClassName} />
           </a>
         <div className="page-line-box">
           <div className="line1px" style={{ width: '56px' }} />

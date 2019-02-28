@@ -28,6 +28,8 @@
   <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="7de7de184affb1a29b9a766df87ac3420018a2e870a7cc91278229aaeeaccedb"></script>
 
   <script>
+    window.userAgent = @if ($env == 'wx') true @else false @endif;
+    
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {!! $jsConfig !!}; // 或者 '{}'
 
@@ -58,7 +60,7 @@
     // server 下发的机构编号
     window.orgCode = '{!! $orgCode !!}';
 
-    if (window.wxConfig) {
+    if (window.userAgent&&window.wxConfig) {
       try{
         if (typeof window.wxConfig === 'string') {
           window.wxConfig = JSON.parse(window.wxConfig);
@@ -89,6 +91,7 @@
   <div id="container">
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
+  <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
   <script src="<%= bundle %>"></script>
 </body>
 

@@ -54,7 +54,7 @@ class TeamListPage extends React.Component {
         this.props.getAreaCity(city);
       },
       () => {
-        Alert.error("定位失败，请确认同意微信定位授权");
+        Alert.error("定位失败，请确认同意定位授权");
       }
     );
   }

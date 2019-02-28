@@ -4,6 +4,8 @@ import fetch from '../../../utils/fetch';
 import history from '../../history';
 import {USERINFO_FULFILLED, USERINFO_CLEAR} from '../../../stores/common';
 import {API_HOST} from '../../../utils/config';
+import {setToken} from '../../../utils/funcs';
+
 
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
@@ -22,10 +24,10 @@ export const loginAction = data => (dispatch) => {
     fetch(`${data.type == 0 ?'/login/phone':'/login'}`, {
         data,
     }).then((json) => {
-        dispatch({type: LOGIN_FULFILLED, payload: json.data});
-
         // 获取到用户信息后单独处理（存储 token/用户信息）
         dispatch({type: USERINFO_FULFILLED, payload: json});
+
+        dispatch({type: LOGIN_FULFILLED, payload: json.data});
     }).catch((e) => {
         console.log(e);
         dispatch({type: LOGIN_REJECTED});

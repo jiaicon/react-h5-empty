@@ -12,7 +12,7 @@ import { requestCheckinList, checkin } from '../signin/signin.store';
 import './signin.css';
 import history from '../history';
 
-import { getCity, getLocation } from '../../utils/funcs';
+import { setCookie} from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 Date.prototype.Format = function (fmt) { // author: meizz
@@ -38,39 +38,31 @@ class SigninPage extends React.Component {
 
   componentWillMount() {
     this.props.requestCheckinList();
-    wx.ready(() => {
-      wx.getLocation({
-        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        success: (res) => {
-          const lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-          const lng = res.longitude; // 经度，浮点数，范围为180 ~ -180
-          const expires = Date.now() + (5 * 60 * 1000); // 5分钟过期
 
-          console.log('获取新位置成功', res);
+    let geolocation = new qq.maps.Geolocation(
+      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+      "myapp"
+    );
+    let options = { timeout: 8000 };
+    geolocation.getLocation(function (position) {
+      const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
+      const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
+      const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
+      console.log("获取新位置成功", position);
+      setCookie("location", JSON.stringify({ lat, lng }), 1);
 
-          localStorage.setItem('location', JSON.stringify({
-            lat,
-            lng,
-            expires,
-          }));
-
-
-          getCity((city) => {
-            this.props.saveCity(city);
-            this.props.getAreaCity(city);
-          });
-        },
-        fail: (error) => {
-          Alert.error('定位失败，请确认同意微信定位授权');
-        },
-      });
-    });
+      if (success) {
+        success({ lat, lng });
+      }
+    }, options);
   }
 
   componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
+    if (window.userAgent) {
+      wx.ready(() => {
+        WXShare();
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,7 +73,7 @@ class SigninPage extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   handleSignin() {
     wx.ready(() => {
@@ -137,7 +129,7 @@ class SigninPage extends React.Component {
                   </div>
                 </div>
               </li>
-            : null
+              : null
           }
           {
             records.map(record =>
@@ -167,9 +159,9 @@ class SigninPage extends React.Component {
           <Link to="/signin/password" className="signin-btn" >
             密令签到
           </Link>
-          <a className="signin-btn" onClick={this.handleSignin}>
+          {/* <a className="signin-btn" onClick={this.handleSignin}>
             扫码签到
-          </a>
+          </a> */}
         </div>
       </div>
     );

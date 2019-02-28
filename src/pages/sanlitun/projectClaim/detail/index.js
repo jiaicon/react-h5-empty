@@ -65,15 +65,16 @@ class projectClaimDetail extends React.Component {
     if (detailData
         && detailData.id === parseInt(this.projectId, 10)
         && !this.wxRegistered) {
-      wx.ready(() => {
-        WXShare({
-          title: detailData.name,
-          desc: detailData.content,
-          image: detailData.photo && detailData.photo[0],
-          success: () => this.hideShareTip(),
-        });
-      });
-
+        if(window.userAgent) {
+            wx.ready(() => {
+                WXShare({
+                    title: detailData.name,
+                    desc: detailData.content,
+                    image: detailData.photo && detailData.photo[0],
+                    success: () => this.hideShareTip(),
+                });
+            });
+        }
       this.wxRegistered = true;
     }
   }

@@ -13,7 +13,12 @@ import Avatar from "../../components/avatar/avatar";
 import Projects from "../../components/projects/projects";
 import Menus from "../../components/menus/menus";
 import Announcement from "../../components/announcement/announcement";
-import { getCity, deleteSanlitunMoudling } from "../../utils/funcs";
+import {
+  getCity,
+  deleteSanlitunMoudling,
+  getCookie,
+  setCookie
+} from "../../utils/funcs";
 import { requestHomeData, saveCity, getAreaCity } from "./home.store";
 
 import { Dialog } from "react-weui";
@@ -26,11 +31,8 @@ class HomePage extends React.Component {
     autoBind(this);
     this.state = {
       newcity: null,
-      city: localStorage.getItem("provinceAndCityName")
-        ? JSON.parse(localStorage.getItem("provinceAndCityName")).city.replace(
-            "市",
-            ""
-          )
+      city: getCookie("provinceAndCityName")
+        ? JSON.parse(getCookie("provinceAndCityName")).city.replace("市", "")
         : "北京",
       showDialog: false
     };
@@ -65,8 +67,7 @@ class HomePage extends React.Component {
             const { newcity, pc, city } = this.state;
             this.props.requestHomeData();
             this.props.saveCity(newcity);
-            // this.props.getAreaCity(newcity);
-            localStorage.setItem("provinceAndCityName", pc);
+            setCookie("provinceAndCityName", pc, 1);
             this.setState({
               city: newcity
             });
@@ -79,20 +80,15 @@ class HomePage extends React.Component {
   componentWillMount() {
     // TODO:
     this.props.requestHomeData();
-    const { pathname } = window.location;
-    console.log(pathname);
-    getCity(
-      (city, str) => {
-        const { city: initaialCity } = this.state;
-        if (pathname == "/home") {
-          this.props.requestHomeData();
-          return;
-        } else {
+    if (!getCookie("provinceAndCityName")) {
+      getCity(
+        (city, str) => {
+          const { city: initaialCity } = this.state;
+
           if (initaialCity == city.replace("市", "")) {
             this.props.requestHomeData();
             return;
           } else {
-            console.log("-----", str);
             this.setState({
               ...this.state,
               showDialog: true,
@@ -100,12 +96,12 @@ class HomePage extends React.Component {
               pc: str
             });
           }
+        },
+        () => {
+          Alert.error("定位失败，请确认同意定位授权");
         }
-      },
-      () => {
-        Alert.error("定位失败，请确认同意微信定位授权");
-      }
-    );
+      );
+    }
   }
 
   componentWillReceiveProps() {}
@@ -115,29 +111,58 @@ class HomePage extends React.Component {
   renderHeaderBar() {
     const { user } = this.props;
     const switchView = user.isLogin;
-    return <div className="header-bar">
+    //点击登录跳转判断
+      let target = '/my/entry';
+    if(window.dev) {
+        if(window.orgCode === 'VWPe9xdLyw') {
+            target='/my/login'
+        }
+    }else {
+        if(window.orgCode === 'oBDbDkxal2') {
+            target='/my/login'
+        }
+    }
+    return (
+      <div className="header-bar">
         <Link to="/selectcity">
           <div className="city-name">{this.state.city}</div>
         </Link>
 
-        {switchView ? <div style={{ display: "flex", flex: "1" }}>
+        {switchView ? (
+          <div style={{ display: "flex", flex: "1" }}>
             <div className="content-boxpadding">
               <Link className="component-search-bar dirmargin" to="/homesearch">
-                <input className="input" style={{ marginLeft: "35px" }} placeholder="搜索项目/团队" disabled="disabled" />
+                <input
+                  className="input"
+                  style={{ marginLeft: "35px" }}
+                  placeholder="搜索项目/团队"
+                  disabled="disabled"
+                />
               </Link>
             </div>
             <Link to="/my">
               <Avatar src={user.avatars} size={{ width: 28 }} />
             </Link>
-          </div> : <div style={{ display: "flex", width: "280px" }}>
+          </div>
+        ) : (
+          <div style={{ display: "flex", width: "280px" }}>
             <Link className="component-search-newbar" to="/homesearch">
-            <input className="input" style={{ marginLeft: "35px" }}  placeholder="搜索项目/团队" disabled="disabled" />
+              <input
+                className="input"
+                style={{ marginLeft: "35px" }}
+                placeholder="搜索项目/团队"
+                disabled="disabled"
+              />
             </Link>
-            <Link to="/my/entry">
+            <Link
+                to={target}
+              >
               <div className="login-button">登录</div>
             </Link>
-          </div>}
-      </div>;
+          </div>
+        )}
+      </div>
+    );
   }
 
   play() {
@@ -288,6 +313,17 @@ class HomePage extends React.Component {
     if (!home.data) {
       return null;
     }
+
+    let activities_nearby_image = "/images/activities_nearby.png";
+    let activities_new_image = "/images/activities_new.png";
+    let activities_hot_image = "/images/activities_hot.png";
+
+    if (window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {
+      activities_nearby_image = "/images/activities_nearby_Starbucks.png";
+      activities_new_image = "/images/activities_new_Starbucks.png";
+      activities_hot_image = "/images/activities_hot_Starbucks.png";
+    }
+
     return (
       <div className="page-home">
         <div className="page-home-header">
@@ -353,16 +389,16 @@ class HomePage extends React.Component {
                   <div style={{ width: "100%", height: "10px" }} />
                 </div>
               ) : null}
-              {home.data && home.data.sanlitun ? null : (
+              {home.data && home.data.sanlitun && window.orgCode === "mxkazpYdJ0" ? null : (
                 <div className="menus-activity">
                   <Link to="/project/list/type/1/category/1000/target/1000">
-                    <img src="/images/activities_nearby.png" alt="附近" />
+                    <img src={activities_nearby_image} alt="附近" />
                   </Link>
                   <Link to="/project/list/type/0/category/1000/target/1000">
-                    <img src="/images/activities_new.png" alt="最新" />
+                    <img src={activities_new_image} alt="最新" />
                   </Link>
                   <Link to="/project/list/type/2/category/1000/target/1000">
-                    <img src="/images/activities_hot.png" alt="最热" />
+                    <img src={activities_hot_image} alt="最热" />
                   </Link>
                 </div>
               )}

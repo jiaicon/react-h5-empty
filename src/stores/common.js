@@ -50,7 +50,11 @@ export const requestUserInfo = noRedirect => (dispatch) => {
  * 用户
  * 
  */
-export function userReducer(state = { isLogin: !!getToken() }, action) {
+if (localStorage.getItem("volunteer-userInfo")) {
+  var storageData = JSON.parse(localStorage.getItem("volunteer-userInfo"));
+}
+
+export function userReducer(state = { isLogin: !!getToken(), ...storageData}, action) {
   const payload = action.payload;
   const data = payload && payload.data;
   switch (action.type) {
@@ -62,7 +66,15 @@ export function userReducer(state = { isLogin: !!getToken() }, action) {
       if (data.token) {
         setToken(data.token);
       }
-      return { ...action.payload.data, isLogin: true };
+      if (data && data.id) {
+        localStorage.setItem("volunteer-userInfo", JSON.stringify(data));
+      }
+
+      if (localStorage.getItem("volunteer-userInfo")) {
+        var storageData = JSON.parse(localStorage.getItem("volunteer-userInfo"));
+      }
+
+      return { ...storageData,...action.payload.data, isLogin: true };
     case USERINFO_UPDATED:
       return {
         ...state,
@@ -74,7 +86,7 @@ export function userReducer(state = { isLogin: !!getToken() }, action) {
       }
 
       setToken(null);
-
+      localStorage.removeItem("volunteer-userInfo");
       return {
         isLogin: false,
       };

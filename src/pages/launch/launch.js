@@ -44,10 +44,11 @@ class LaunchPage extends React.Component {
   }
 
   componentDidMount() {
-    wx.ready(() => {
-      WXShare();
-    });
-    
+      if(window.userAgent) {
+          wx.ready(() => {
+              WXShare();
+          });
+      }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,6 +70,18 @@ class LaunchPage extends React.Component {
     const { page } = this.state;
     const { path } = this.props.route;
 
+
+    var daduhui = false;
+    // VWPe9xdLyw 星巴克
+    // mxkazpYdJ0 大都会
+    if (!window.dev) {
+      if (window.orgCode === "mxkazpYdJ0") {
+        daduhui = true;
+      }
+    }
+
+
+
     return (
       <div className="page-launch">
         <div className="content">
@@ -82,6 +95,7 @@ class LaunchPage extends React.Component {
                   'tab-icon': true,
                   'tab-icon-home': true,
                   active: path === '/' || path === "/home",
+                  daduhui : daduhui,
                 })}
               />
               <span>首页</span>
@@ -94,6 +108,7 @@ class LaunchPage extends React.Component {
                   'tab-icon': true,
                   'tab-icon-signin': true,
                   active: path === '/signin',
+                  "daduhui" : daduhui,
                 })}
               />
               <span>签到打卡</span>
@@ -106,6 +121,7 @@ class LaunchPage extends React.Component {
                   'tab-icon': true,
                   'tab-icon-me': true,
                   active: path === '/my',
+                  "daduhui" : daduhui,
                 })}
               />
               <span>个人中心</span>

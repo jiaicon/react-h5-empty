@@ -10,7 +10,7 @@
 
 .page-signin .no-record img {
   width: 150px;
-  margin-top: 150px;
+  margin-top: 86px;
 }
 
 .page-signin .signin-btn-container {
@@ -18,12 +18,13 @@
   padding: 0 25px;
   position: absolute;
   display: flex;
-  justify-content: space-between;
-  /* justify-content: center; */
+  /* justify-content: space-between; */
+  justify-content: center;
   align-items: center;
   bottom: 100px;
   left: 0;
   right: 0;
+  
 }
 
 .page-signin .signin-btn {
@@ -33,10 +34,10 @@
   background: #C7EAFD;
   border-radius: 100px;
   height: 50px;
-  width: 150px;
+  width: 300pt;
   /* width: 300px; */
   font-size: 16px;
-  color: #666666;
+  color: #FFF;
 }
 
 .page-signin .signin-list li {
