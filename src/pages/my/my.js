@@ -171,7 +171,7 @@ class MyPage extends React.Component {
     }
     return (
       <ul className="page-my-item-container">
-        {hasFundingApplication ? null : (<li>
+        {hasFundingApplication == false ? null : (<li>
           <div>
             <Link to="/my/fundingApplication/list">
               <div className="page-my-item-box">
