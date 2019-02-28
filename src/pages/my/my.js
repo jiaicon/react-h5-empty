@@ -162,7 +162,7 @@ class MyPage extends React.Component {
     const { user } = this.props;
     let hasFundingApplication = false;
     for (let arr in window.orgInfo.module_settings) {
-      for (let object in arr) {
+      for (let object of arr) {
         if (object.key === "funding_application") {
           hasFundingApplication = true;
           break;
