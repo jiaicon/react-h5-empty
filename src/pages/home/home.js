@@ -318,7 +318,7 @@ class HomePage extends React.Component {
     let activities_new_image = "/images/activities_new.png";
     let activities_hot_image = "/images/activities_hot.png";
 
-    if (window.orgCode === "VWPe9xdLyw") {
+    if (window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {
       activities_nearby_image = "/images/activities_nearby_Starbucks.png";
       activities_new_image = "/images/activities_new_Starbucks.png";
       activities_hot_image = "/images/activities_hot_Starbucks.png";

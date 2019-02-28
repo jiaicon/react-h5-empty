@@ -12,7 +12,7 @@ class ShareTip extends React.Component {
 
   render() {
     let shere_bg_image = "/images/share_bg.png";
-    if (window.orgCode === "VWPe9xdLyw") {
+    if (window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {
       shere_bg_image = "/images/share_bg_Starbucks.png"
     }
     return (<div className="component-share-tip" onClick={this.props.onClick}>

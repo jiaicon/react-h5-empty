@@ -44,7 +44,7 @@ class Entry extends React.Component {
     }
 
     let personLoginRegisterClassName = "page-entry-person-btn"
-    if (window.orgCode === "VWPe9xdLyw") {//测试环境的星巴克
+    if (window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {//测试正式环境的星巴克
       personLoginRegisterClassName = "page-entry-person-btn-Starbucks"
     }
     return (

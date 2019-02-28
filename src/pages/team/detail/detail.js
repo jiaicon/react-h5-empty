@@ -221,8 +221,12 @@ class TeamDetailPage extends React.Component {
                     // 要求实名切用户未实名过，通过ID判断
                 } else if (realRegister == 1 && user.isLogin && !user.id_number) {
                     this.props.storeLoginSource(`/project/detail/${this.teamId}`)
-                    window.location.replace(`/my/profile/verify`);
-                    // history.replace(`/my/profile/verify/team/${this.teamId}`);
+                    if(window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {
+                        window.location.replace(`/my/profile/verifyStarbucks`);
+                      }
+                      else {
+                        window.location.replace(`/my/profile/verify`);
+                      }
                 } else if (realRegister == 1 && user.isLogin && user.id_number) {
                     if (action === 'join') {
                         this.props.joinTeam(teamId, detailData);
