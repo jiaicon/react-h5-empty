@@ -236,7 +236,8 @@ class ProjectDetailPage extends React.Component {
         // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
           this.props.storeLoginSource(`/project/detail/${this.projectId}`)
-          if(window.orgCode === "VWPe9xdLyw" || window.orgCode === "oBDbDkxal2") {
+
+          if((window.orgCode === "VWPe9xdLyw" && window.dev) || (window.orgCode === "oBDbDkxal2"&& !window.dev)) {
             window.location.replace(`/my/profile/verifyStarbucks`);
           }
           else {
