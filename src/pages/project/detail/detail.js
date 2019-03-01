@@ -449,7 +449,7 @@ class ProjectDetailPage extends React.Component {
             <span>收藏</span>
           </Link>
             {
-                window.userAgent
+                (window.userAgent||window.orgCode==="oBDbDkxal2")
                     ?
                     <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
                         <span />
