@@ -3,7 +3,7 @@ import fetch from "../../utils/fetch";
 export const clocking = data => ({
   type: "V2_CHECKIN_ING",
   payload: fetch(`/clock/${data.id}`, {
-    method: "post",
+    method: 'POST',
     switchUrl: `${window.apiHost}/api/v2`
   })
 });

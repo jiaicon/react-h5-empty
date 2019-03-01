@@ -58,9 +58,9 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
     //   index++;
     //   ImageToBase64(imageArrays, defaultArrays, callback, index);
     //   return;
-    // }  
-    
-    img.onload = function () {
+    // }
+
+    img.onload = function() {
       var w = img.width;
       var h = img.height;
       canvas.height = 200;
@@ -69,11 +69,11 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
       if (w > h) {
         let diff = (w - h) / 2;
 
-        ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200)
+        ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200);
       } else if (w < h) {
         let diff = (h - w) / 2;
 
-        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200)
+        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200);
       } else if (w == h) {
         ctx.drawImage(img, 0, 0, w, w, 0, 0, 200, 200);
       }
@@ -84,7 +84,7 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
       ImageToBase64(imageArrays, defaultArrays, callback, index);
       canvas = null;
     };
-    img.onerror = function (e) {
+    img.onerror = function(e) {
       if (defaultArrays[index]) {
         img.src = defaultArrays[index];
       } else {
@@ -140,6 +140,7 @@ export function parseDistance(distance) {
 }
 
 export function getLocation(success, fail, noCache) {
+  console.log('获取经纬开始')
   if (window.dev) {
     setCookie(
       "location",
@@ -166,7 +167,12 @@ export function getLocation(success, fail, noCache) {
       "myapp"
     );
     let options = { timeout: 8000 };
+<<<<<<< HEAD
     geolocation.getLocation(function(position) {
+=======
+    geolocation.getLocation(function (position) {
+      console.log(position);
+>>>>>>> feature/sign
       const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
       const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
       const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
@@ -190,12 +196,21 @@ export function getCity(success, fail) {
     const city = "北京市";
     const province = "北京";
     setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
-    success(city || "北京");
+    success(city || "北京",
+      JSON.stringify({
+        city: "北京",
+        province: "北京",
+        detail: {
+          lng: "116.314820",
+          lat: "40.065560",
+        },
+      })
+    );
     return;
   }
-
   getLocation(
     loc => {
+      console.log(loc)
       const geocoder = new qq.maps.Geocoder({
         complete: result => {
           console.log(result);
@@ -209,11 +224,13 @@ export function getCity(success, fail) {
             }
             const city = result.detail.addressComponents.city;
             const province = result.detail.addressComponents.province;
+            console.log(result.detail.addressComponents);
             success(
               result.detail.addressComponents.city.replace("市", ""),
               JSON.stringify({
                 city,
-                province
+                province,
+                detail: result.detail.addressComponents
               })
             );
           } else if (fail) {

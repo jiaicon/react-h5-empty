@@ -479,6 +479,7 @@ class Verify extends React.Component {
                 this.cardtype = c;
               }}
             >
+             
               {cardtype &&
                 cardtype.map((item, keys) => (
                   <option value={item.id} key={keys}>

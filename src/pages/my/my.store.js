@@ -479,7 +479,7 @@ const userCenterReducer = (state = {
 // 补录时长项目列表get
 export const projectapplyAction = () => ({
   type: 'PROJECTAPPLY_DATA',
-  payload: fetch('/project/apply', { method: 'GET' }),
+  payload: fetch('/clock/apply/project', { method: 'GET', switchUrl: `${window.apiHost}/api/v2` }),
 });
 const projectapplyReducer = (state = {
   fetching: false,
@@ -510,7 +510,42 @@ const projectapplyReducer = (state = {
       return state;
   }
 };
-
+export const projectapplyclockAction = (id) => ({
+         type: "PROJECTAPPLY_CLOCK_DATA",
+         payload: fetch(
+           `/project/${id}/clock/list`,
+           { method: "GET", switchUrl: `${window.apiHost}/api/v2` }
+         )
+       });
+const projectapplyclockReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'PROJECTAPPLY_CLOCK_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'PROJECTAPPLY_CLOCK_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'PROJECTAPPLY_CLOCK_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 
 // project_id: [integer] 项目id 【必填】
 // reward_time: [float] 补录时长 【必填】
@@ -518,7 +553,7 @@ const projectapplyReducer = (state = {
 // attachment: [array] 申请附件【非必填】
 export const postapplyAction = data => ({
   type: 'POSTAPPLY_DATA',
-  payload: fetch('/user/apply', { data }),
+  payload: fetch(`/clock/${data.id}/apply`, { data, switchUrl: `${window.apiHost}/api/v2`  }),
 });
 const postApplyReducer = (state = {
   fetching: false,
@@ -551,9 +586,12 @@ const postApplyReducer = (state = {
 };
 // 补录时长申请列表get
 export const applyAction = () => ({
-  type: 'APPLY_DATA',
-  payload: fetch('/user/apply', { method: 'GET' }),
-});
+         type: "APPLY_DATA",
+         payload: fetch("/apply/list", {
+           method: "GET",
+           switchUrl: `${window.apiHost}/api/v2`
+         })
+       });
 const applyReducer = (state = {
   fetching: false,
   failed: false,
@@ -710,7 +748,8 @@ const reducer = combineReducers({
   deletefamily: deleteFamilyReducer,
   alertFamilyPeopleInfo: alertFamilyPeopleInfoReducer,
   score: scoreReducer,
-    achievement: achievementReducer,
-    userAchieve:userAchieveReducer
+  achievement: achievementReducer,
+  userAchieve:userAchieveReducer,
+  projectapplyclock:projectapplyclockReducer
 });
 export default reducer;

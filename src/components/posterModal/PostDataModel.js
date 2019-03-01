@@ -51,7 +51,7 @@ export function PostDataModel_ProjectSign(projectData,userData){
 }
 
 function getProjectPhoto(projectData) {
-    return projectData.photo?(projectData.photo[0]):"/images/default_banner.png";
+    return projectData.list_photo ? projectData.list_photo : "/images/default_banner.png";
 }
 
 function getAvatar(userData) {
@@ -76,5 +76,5 @@ function getUserName(userData){
 }
 
 function getTeamPhoto(teamData){
-    return teamData.team_photo?(teamData.team_photo[0]):"/images/default_banner.png";
+    return teamData.team_photo || teamData.team_photo[0] || teamData.logo || window.orgInfo.logo || "/images/default_banner.png";
 }
