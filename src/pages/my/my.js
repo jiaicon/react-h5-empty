@@ -198,7 +198,12 @@ class MyPage extends React.Component {
                         }
                     />
                 }
+                </i>
             </div>
+            </Link>
+            </div>
+        </li>
+            </ul>
         );
     }
 
