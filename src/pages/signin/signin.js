@@ -159,9 +159,11 @@ class SigninPage extends React.Component {
           <Link to="/signin/password" className="signin-btn" >
             密令签到
           </Link>
-          {/* <a className="signin-btn" onClick={this.handleSignin}>
+          {
+            (window.userAgent && window.userAgent) ? (<a className="signin-btn" onClick={this.handleSignin}>
             扫码签到
-          </a> */}
+            </a>) : null
+          }
         </div>
       </div>
     );
