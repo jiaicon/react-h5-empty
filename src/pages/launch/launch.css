@@ -71,6 +71,31 @@
   background-image: url(/images/tab_me_active.png);
 }
 
+/*大都会人寿*/
+.page-launch .tabs li .tab-icon-home.daduhui  {
+  background-image: url(/images/tab_home_daduhui.png);
+}
+
+.page-launch .tabs li .tab-icon-home.active.daduhui{
+  background-image: url(/images/tab_home_active_daduhui.png);
+}
+
+.page-launch .tabs li .tab-icon-signin.daduhui{
+  background-image: url(/images/tab_signin_daduhui.png);
+}
+
+.page-launch .tabs li .tab-icon-signin.active.daduhui{
+  background-image: url(/images/tab_signin_active_daduhui.png);
+}
+
+.page-launch .tabs li .tab-icon-me.daduhui{
+  background-image: url(/images/tab_me_daduhui.png);
+}
+
+.page-launch .tabs li .tab-icon-me.active.daduhui{
+  background-image: url(/images/tab_me_active_daduhui.png);
+}
+
 
 .page-launch .tabs li a span {
   font-size: 10px;

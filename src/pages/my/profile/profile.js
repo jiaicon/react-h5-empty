@@ -335,6 +335,11 @@ class Profile extends React.Component {
 
     renderHost() {
         const user = this.props.user;
+        let verifyRouter = "/my/profile/verify";
+
+        if (window.orgCode === 'oBDbDkxal2') {
+            verifyRouter = "/my/profile/verifyStarbucks";
+        }
         return <div className="page-profile">
             <div>
                 <div className="page-profile-title">基本信息</div>
@@ -444,7 +449,7 @@ class Profile extends React.Component {
                 !user.id_number && this.state.winOrgInfo !== null,
                 "page-profile-display-extends-none": user.id_number
             })}>
-                <Link to="/my/profile/verify">
+                <Link to={verifyRouter}>
                     <div className="page-profile-bottom-btn">
                         申请成为实名注册志愿者
                     </div>

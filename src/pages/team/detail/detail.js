@@ -262,6 +262,48 @@ class TeamDetailPage extends React.Component {
   onTabChange(idx) {
     this.props.saveTeamTabIndex(idx);
   }
+    handleActionClick(action) {
+        const {teamId} = this;
+        const {detail: {team: detailData}, user} = this.props;
+        const realRegister = window.orgInfo.real_name_register;
+        // in_blacklist 黑名单 0不在，1在
+        // realRegister 机构实名 1 要求  0 否
+        return () => {
+            if (!user.isLogin) {
+                if (action === 'join') {
+                    this.props.joinTeam(teamId, detailData);
+                } else if (action === 'quit') {
+                    this.setState({...this.state, showDialog: true});
+                }
+            } else if (user.isLogin && !user.in_blacklist) {
+                // 不要求实名
+                if (realRegister == 0) {
+                    if (action === 'join') {
+                        this.props.joinTeam(teamId, detailData);
+                    } else if (action === 'quit') {
+                        this.setState({...this.state, showDialog: true});
+                    }
+                    // 要求实名切用户未实名过，通过ID判断
+                } else if (realRegister == 1 && user.isLogin && !user.id_number) {
+                    this.props.storeLoginSource(`/project/detail/${this.teamId}`)
+                    if(window.orgCode === "oBDbDkxal2") {
+                        window.location.replace(`/my/profile/verifyStarbucks`);
+                      }
+                      else {
+                        window.location.replace(`/my/profile/verify`);
+                      }
+                } else if (realRegister == 1 && user.isLogin && user.id_number) {
+                    if (action === 'join') {
+                        this.props.joinTeam(teamId, detailData);
+                    } else if (action === 'quit') {
+                        this.setState({...this.state, showDialog: true});
+                    }
+                }
+            } else if (user.isLogin && user.in_blacklist) {
+                Alert.warning('您已被添加到黑名单，请联系客服');
+            }
+        };
+    }
 
   handleFavoriteClick() {
     const {

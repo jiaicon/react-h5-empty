@@ -31,42 +31,166 @@ const scoreName = window.orgInfo.score_name;
 
 class MyPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-        autoBind(this);
-        this.state = ({
-            showMultiple: false,
-            previewData: [],
-            visible: false,
-            visibleInstruction: false
-        });
+  constructor(props) {
+    super(props);
+    autoBind(this);
+    this.state = ({
+      showMultiple: false,
+      previewData: []
+    });
+  }
+
+  componentWillMount() {
+    // this.props.requestUserInfo();
+    // this.props.userCenterAction();
+  }
+
+  componentDidMount() {
+      this.props.requestUserInfo();
+      this.props.userCenterAction();
+  }
+
+  componentWillReceiveProps() {}
+
+  componentWillUnmount() {}
+
+  renderPageMymessagesTemplate() {
+    return (
+      <div className="page-my-header-messages-container">
+        {this.props.usercenter.data === null ?
+          <span /> :
+          <span
+            className={classnames({
+              'page-my-header-messages-red-point': this.props.usercenter.data.msg_count >= 1,
+            })
+          }
+          />
+        }
+      </div>
+    );
+  }
+  onPreview(e) {
+    var key = e.target.getAttribute("data-key");
+    var arr = [];
+    if (!key) {
+      key = '/images/my/register.png';
     }
+    arr.push(key);
+    this.setState({
+      previewData: arr,
+      showMultiple: true,
+      defaultIndex: 0
+    });
+  }
+  renderPageMyphotoTemplate() {
+    const { user } = this.props;
+    return (
+      <div className="page-my-photo-container">
+        <Avatar src={user.avatars ? user.avatars : ''} 
+        data-key={user.avatars||''} size={{ width: 80, radius: 8 }} 
+        defaultSrc="/images/my/register.png"  onClick={this.onPreview}/>
+        <div className="page-my-user-info">
+          <p className="page-my-user-info-nick">{user.real_name || user.username || '未设置昵称'}</p>
+          <p className="page-my-user-info-signature">{ user.slogan || '未设置口号'}</p>
+          <div className="page-my-user-info-star">
+          {
+            user.stars? <Star size={{width:15,height:14,score:user.stars}} isBlockEmptyStar/>:null
+          }
+       
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderPageMyRecordTemplate() {
+    const { user } = this.props;
+    return (
+      <div className="page-my-record-container">
 
-    componentWillMount() {
-        this.props.requestUserInfo();
-        this.props.userCenterAction();
-        this.props.userAchieve();
+        <Link to="/my/teams">
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.team_count }</b>个</p>
+            <p className="page-my-record-item-bottom">我的团队</p>
+          </div>
+        </Link>
+
+        <Link to="/my/projects">
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.project_count}</b>个</p>
+            <p className="page-my-record-item-bottom">我的项目</p>
+          </div>
+        </Link>
+        <Link to="/my/duration">
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
+            <p className="page-my-record-item-bottom">志愿时长</p>
+          </div>
+        </Link>
+        {/* <!-- 积分入口 --> */}
+        <Link to="/my/point">
+          <div className="page-my-record-item">
+            <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</b> {scoreName || '星币'}</p>
+            <p className="page-my-record-item-bottom">志愿{scoreName ||  '星币'}</p>
+          </div>
+        </Link>
+      </div>
+    );
+  }
+  renderPageMyTop() {
+    const { user } = this.props;
+    return (
+      <div>
+        {/*<div className="page-my-header">*/}
+
+          {/*<Link to="/my/setting">*/}
+            {/*<div className="page-my-header-setting" />*/}
+          {/*</Link>*/}
+
+          {/*<Link to="/my/messages">*/}
+            {/*{this.renderPageMymessagesTemplate()}*/}
+          {/*</Link>*/}
+
+        {/*</div>*/}
+
+        <div>
+          {this.renderPageMyphotoTemplate()}
+        </div>
+        {this.renderPageMyRecordTemplate()}
+      </div>
+    );
+  }
+  renderPageMyContainer() {
+    const { user } = this.props;
+    let hasFundingApplication = false;
+    for (let arr in window.orgInfo.module_settings) {
+      for (let object of arr) {
+        if (object.key === "funding_application") {
+          hasFundingApplication = true;
+          break;
+        }
+      }
     }
-
-    componentDidMount() {
-
-    }
-
-    componentWillReceiveProps() {
-    }
-
-    componentWillUnmount() {
-        this.setState({
-            visible: false,
-            visibleInstruction: false
-        })
-    }
-
-    renderPageMymessagesTemplate() {
-        return (
-            <div className="page-my-header-messages-container">
-                {this.props.usercenter.data === null ?
-                    <span/> :
+    return (
+      <ul className="page-my-item-container">
+        {hasFundingApplication == false ? null : (<li>
+          <div>
+            <Link to="/my/fundingApplication/list">
+              <div className="page-my-item-box">
+                <i className="page-my-item-icon page-my-item-icon-fundingApplication" />社区友好基金
+              </div>
+              <span className="page-my-item-big" />
+            </Link>
+            <div className="line1px" />
+          </div>
+        </li>)}
+        
+        <li>
+          <div>
+            <Link to="/my/circle">
+              <div className="page-my-item-box">
+                <i className="page-my-item-icon page-my-item-icon-circle" >
+                  {this.props.usercenter.data === null ?
+                    <span /> :
                     <span
                         className={classnames({
                             'page-my-header-messages-red-point': this.props.usercenter.data.msg_count >= 1,

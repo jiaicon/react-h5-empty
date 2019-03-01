@@ -32,8 +32,12 @@ class UploadPhoto extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+      let files = [];
+      this.props.defaultPhoto&&this.props.defaultPhoto.length>0&&this.props.defaultPhoto.map(item=>{
+          files.push({url: item});
+      });
     this.state = {
-      files: [],
+      files: files,
       multiple: false,
       showMultiple: false,
       previewData: []
@@ -50,6 +54,16 @@ class UploadPhoto extends React.Component {
 
   onChange = (files, type, index) => {
     if (type === "remove") {
+        if('selectable' in this.props) {
+            if(!this.props.selectable) {
+                return;
+            }
+            this.props.onChange(files);
+            this.setState({
+                files
+            });
+            return;
+        }
       this.props.onChange(files);
       this.setState({
         files
@@ -127,7 +141,7 @@ class UploadPhoto extends React.Component {
           files={files}
           onChange={this.onChange}
           onImageClick={(index, fs) => this.onImageClick(index, fs)}
-          selectable={files.length < (this.props.totle || 7)}
+          selectable={'selectable' in this.props ? this.props.selectable : files.length < (this.props.totle || 7)}
           multiple={this.props.multiple || false}
           onFail={this.onFail}
           onAddImageClick={this.onAddImageClick}

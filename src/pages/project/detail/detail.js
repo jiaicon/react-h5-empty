@@ -406,8 +406,12 @@ class ProjectDetailPage extends React.Component {
         window.location.href = "http://lxi.me/4hwr6";
         return;
       } else if (projectId == 2129) {
+<<<<<<< HEAD
         window.location.href =
           "http://wx2.gongyibao.cn/H5page/SubmitDonate.aspx?tid=0&uid=c8831755-2c7e-4f8c-854d-302a3c4d8719&id=3f94d47d-6843-4d2e-b3d9-114814b45855&type=";
+=======
+        window.location.href = 'http://wx.zgzyzfw.n.gongyibao.cn/#/donform?accId=cc0b9f9a-2cef-4b0c-829f-d2f29ee87534&proId=bdb2cac7-ac34-4446-bcd9-5d3ee4f4c3ad&paymethod=1&projectTitle=%E5%BE%AE%E7%88%B1%E7%89%B5%E6%89%8B';
+>>>>>>> dev
         return;
       }
       if (!customConfig && !paymentConfig) {
@@ -450,15 +454,16 @@ class ProjectDetailPage extends React.Component {
           );
           // 要求实名切用户未实名过，通过ID判断
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-          this.props.storeLoginSource(`/project/detail/${this.projectId}`);
-          window.location.replace(`/my/profile/verify`);
+          this.props.storeLoginSource(`/project/detail/${this.projectId}`)
+
+          if(window.orgCode === "oBDbDkxal2") {
+            window.location.replace(`/my/profile/verifyStarbucks`);
+          }
+          else {
+            window.location.replace(`/my/profile/verify`);
+          }
         } else if (realRegister == 1 && user.isLogin && user.id_number) {
-          this.handleActionClickSitch(
-            action,
-            projectId,
-            customConfig,
-            paymentConfig
-          );
+          this.handleActionClickSitch(action,projectId,customConfig,paymentConfig)
         }
       } else if (user.isLogin && user.in_blacklist) {
         Alert.warning("您已被添加到黑名单，请联系客服");
@@ -511,8 +516,12 @@ class ProjectDetailPage extends React.Component {
     return <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  />;
   }
   handleActionClickTwo() {
+<<<<<<< HEAD
     window.location.href =
       "http://wx2.gongyibao.cn/H5page/ProdetailsNew.aspx?id=bf014416-f7c9-49ff-a326-c18e77f223b0";
+=======
+    window.location.href = "http://wx.zgzyzfw.n.gongyibao.cn/#/projectdetail?id=40eec0a5-ee3a-4027-8525-f0a68a77399a";
+>>>>>>> dev
   }
   renderTwoBtn() {
     return (
@@ -629,6 +638,7 @@ class ProjectDetailPage extends React.Component {
                 {detailData.addr}
               </div>
             </div>
+<<<<<<< HEAD
           ) : null}
 
           <ProjectDetailContent data={detailData} />
@@ -640,6 +650,17 @@ class ProjectDetailPage extends React.Component {
                 <span>{detailData.join_people_count}</span>/
                 <span>{detailData.people_count}</span>
               </div>
+=======
+          </div>
+          <div className="project-report">
+            <span>已报名人数</span>
+            <div>
+              <span>
+                {Number(this.projectId) == 2009
+                  ? 588
+                  : detailData.join_people_count}
+              </span>/<span>{detailData.people_count}</span>
+>>>>>>> dev
             </div>
           ) : null}
           {!detailData.people_count_public ? (
@@ -676,12 +697,24 @@ class ProjectDetailPage extends React.Component {
             />
             <span>收藏</span>
           </Link>
+<<<<<<< HEAD
           <Link
             to=""
             onClick={e =>
               this.setState({
                 actionSheet: true
               })
+=======
+            {
+                (window.userAgent||window.orgCode==="oBDbDkxal2")
+                    ?
+                    <Link to="" onClick={this.handleShareClick} className="project-action project-action-share">
+                        <span />
+                        <span>分享</span>
+                    </Link>
+                    :
+                    null
+>>>>>>> dev
             }
             className="project-action project-action-share"
           >

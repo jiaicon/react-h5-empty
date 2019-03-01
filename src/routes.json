@@ -136,6 +136,31 @@
     "chunk": "main"
   },
   {
+    "path": "/my/fundingApplication/list",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_check",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_pass",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_reject",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/fundingApplication/list_revoke",
+    "page": "./pages/my/fundingApplication/list",
+    "chunk": "main"
+  },
+  {
     "path": "/my/collects/",
     "page": "./pages/my/collects/collects",
     "chunk": "main"
@@ -213,6 +238,11 @@
   {
     "path": "/my/profile/bind/:type",
     "page": "./pages/my/profile/bind",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/profile/verifyStarbucks",
+    "page": "./pages/my/profile/verifyStarbucks",
     "chunk": "main"
   },
   {
@@ -388,6 +418,36 @@
   {
     "path": "/announcee/detail/:Id",
     "page": "./pages/announce/detail",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_one",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_two",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_three",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_four",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/step_five",
+    "page": "./pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep",
+    "chunk": "main"
+  },
+  {
+    "path": "/funding_application/preview",
+    "page": "./pages/fundingApplication/preview/preview",
     "chunk": "main"
   }
 ]

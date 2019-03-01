@@ -82,6 +82,9 @@
 .component-projects .project-main .project-status-employed-wait{
   background-image: url(/images/employed_wait.png);
 }
+.component-projects .project-main .project-status-employed-reject{
+  background-image: url(/images/employed_reject.png);
+}
 .component-projects .project-main .project-status-employed{
   background-image: url(/images/employed.png);
 }

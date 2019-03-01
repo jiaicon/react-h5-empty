@@ -54,7 +54,7 @@ export default function request(requestUrl, requestOptions = {}) {
   // r s-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
   const location = getCookie("location") ? JSON.parse(getCookie("location")) : null;
-  const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : null;
+  const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "北京市";
    
   let headersObj = {
     ...headers,
@@ -109,8 +109,13 @@ export default function request(requestUrl, requestOptions = {}) {
     options.headers["Content-Type"] = "application/x-www-form-urlencoded";
     options.body = params.join("&");
   } else {
-      console.log(params)
-    url = `${url}${params&&params.length ? '?'+params.join("&"):''}`;
+      if(params) {
+          if(url.indexOf('?')>-1) {
+              url = `${url}&${params.join("&")}`;
+          }else {
+              url = `${url}?${params.join("&")}`;
+          }
+      }
   }
 
   if (options.loading) {
@@ -139,6 +144,7 @@ export default function request(requestUrl, requestOptions = {}) {
           console.log("请求成功-", url, json);
           resolve(json);
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
+          localStorage.removeItem("token");
           let from = window.location.pathname;
           store.dispatch(storeLoginSource(from));
           history.replace("/my/login");

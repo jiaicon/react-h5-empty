@@ -67,6 +67,15 @@ class LaunchPage extends React.Component {
     const { page } = this.state;
     const { path } = this.props.route;
 
+
+    var daduhui = false;
+    // VWPe9xdLyw 星巴克
+    // mxkazpYdJ0 大都会
+    if (window.orgCode === "mxkazpYdJ0") {
+      daduhui = true;
+    }
+
+
     return (
       <div className="page-launch">
         <div className="content">{page}</div>
@@ -75,9 +84,10 @@ class LaunchPage extends React.Component {
             <Link to="/">
               <div
                 className={classnames({
-                  "tab-icon": true,
-                  "tab-icon-home": true,
-                  active: path === "/" || path === "/home"
+                  'tab-icon': true,
+                  'tab-icon-home': true,
+                  active: path === '/' || path === "/home",
+                  daduhui : daduhui,
                 })}
               />
               <span>首页</span>
@@ -87,9 +97,10 @@ class LaunchPage extends React.Component {
             <Link to="/sign">
               <div
                 className={classnames({
-                  "tab-icon": true,
-                  "tab-icon-sign": true,
-                  active: path === "/sign" || path === "/sign/signclass/:Id"
+                  'tab-icon': true,
+                  'tab-icon-signin': true,
+                  active: path === '/signin',
+                  "daduhui" : daduhui,
                 })}
               />
               <span>签到打卡</span>
@@ -99,9 +110,10 @@ class LaunchPage extends React.Component {
             <Link to="/my">
               <div
                 className={classnames({
-                  "tab-icon": true,
-                  "tab-icon-me": true,
-                  active: path === "/my"
+                  'tab-icon': true,
+                  'tab-icon-me': true,
+                  active: path === '/my',
+                  "daduhui" : daduhui,
                 })}
               />
               <span>个人中心</span>

@@ -51,15 +51,6 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
     let ctx = canvas.getContext("2d");
     let img = new Image();
     img.crossOrigin = "*";
-    console.log(imageArrays[index])
-    // console.log(typeof imageArrays[index])
-    // if (imageArrays[index].startWith("data:image")) {
-    //   imageArrays[index] = imageArrays[index];
-    //   index++;
-    //   ImageToBase64(imageArrays, defaultArrays, callback, index);
-    //   return;
-    // }
-
     img.onload = function() {
       var w = img.width;
       var h = img.height;
@@ -77,7 +68,6 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
       } else if (w == h) {
         ctx.drawImage(img, 0, 0, w, w, 0, 0, 200, 200);
       }
-
       var dataURL = canvas.toDataURL("image/png");
       imageArrays[index] = dataURL;
       index++;
@@ -140,19 +130,18 @@ export function parseDistance(distance) {
 }
 
 export function getLocation(success, fail, noCache) {
-  console.log('获取经纬开始')
-  if (window.dev) {
-    setCookie(
-      "location",
-      JSON.stringify({ lat: "40.065560", lng: "116.314820" }),
-      1
-    );
-    success({
-      lng: "116.314820",
-      lat: "40.065560"
-    });
-    return;
-  }
+  // if (window.dev) {
+  //   setCookie(
+  //     "location",
+  //     JSON.stringify({ lat: "40.065560", lng: "116.314820" }),
+  //     1
+  //   );
+  //   success({
+  //     lng: "116.314820",
+  //     lat: "40.065560"
+  //   });
+  //   return;
+  // }
 
   // let cachedLoc = localStorage.getItem('location');
   // cachedLoc = cachedLoc ? JSON.parse(cachedLoc) : cachedLoc;
@@ -167,8 +156,8 @@ export function getLocation(success, fail, noCache) {
       "myapp"
     );
     let options = { timeout: 8000 };
-    geolocation.getLocation(function (position) {
-      console.log(position);
+    console.log("调用geolocation.getLocation");
+    geolocation.getLocation(function(position) {
       const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
       const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
       const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
@@ -178,7 +167,12 @@ export function getLocation(success, fail, noCache) {
       if (success) {
         success({ lat, lng });
       }
-    }, options);
+      else {
+        fail();
+      }
+    },function(error) {
+      console.log("获取新位置失败", error);
+    } ,options);
   } else if (success) {
     success({
       lat: cachedLoc.lat,
@@ -188,22 +182,14 @@ export function getLocation(success, fail, noCache) {
 }
 
 export function getCity(success, fail) {
-  if (window.dev) {
-    const city = "北京市";
-    const province = "北京";
-    setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
-    success(city || "北京",
-      JSON.stringify({
-        city: "北京",
-        province: "北京",
-        detail: {
-          lng: "116.314820",
-          lat: "40.065560",
-        },
-      })
-    );
-    return;
-  }
+  // if (window.dev) {
+  //   const city = "北京市";
+  //   const province = "北京";
+  //   setCookie("provinceAndCityName", JSON.stringify({ city, province }), 1);
+  //   success(city || "北京");
+  //   return;
+  // }
+
   getLocation(
     loc => {
       console.log(loc)
@@ -307,4 +293,17 @@ export function isVolunteerInsure(str) {
     return true;
   }
   return false;
+}
+export function DX(n) {
+    if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
+        return "数据非法";
+    var unit = "千百拾亿千百拾万千百拾元角分", str = "";
+    n += "00";
+    var p = n.indexOf('.');
+    if (p >= 0)
+        n = n.substring(0, p) + n.substr(p+1, 2);
+    unit = unit.substr(unit.length - n.length);
+    for (var i=0; i < n.length; i++)
+        str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+    return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
 }
