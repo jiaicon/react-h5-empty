@@ -74,12 +74,9 @@ class LaunchPage extends React.Component {
     var daduhui = false;
     // VWPe9xdLyw 星巴克
     // mxkazpYdJ0 大都会
-    if (!window.dev) {
-      if (window.orgCode === "mxkazpYdJ0") {
-        daduhui = true;
-      }
+    if (window.orgCode === "mxkazpYdJ0") {
+      daduhui = true;
     }
-
 
 
     return (

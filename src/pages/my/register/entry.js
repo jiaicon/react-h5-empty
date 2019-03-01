@@ -45,14 +45,8 @@ class Entry extends React.Component {
 
     let personLoginRegisterClassName = "page-entry-person-btn";
 
-    if (window.dev) {
-      if (window.orgCode === 'VWPe9xdLyw') {
-        personLoginRegisterClassName = "page-entry-person-btn-Starbucks";
-      }
-    } else {
-      if (window.orgCode === 'oBDbDkxal2') {
-        personLoginRegisterClassName = "page-entry-person-btn-Starbucks";
-      }
+    if (window.orgCode === 'oBDbDkxal2') {
+      personLoginRegisterClassName = "page-entry-person-btn-Starbucks";
     }
     
     return (

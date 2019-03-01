@@ -337,15 +337,9 @@ class Profile extends React.Component {
         const user = this.props.user;
         let verifyRouter = "/my/profile/verify";
 
-        if (window.dev) {
-            if (window.orgCode === 'VWPe9xdLyw') {
-                verifyRouter = "/my/profile/verifyStarbucks";
-            }
-          } else {
-            if (window.orgCode === 'oBDbDkxal2') {
-                verifyRouter = "/my/profile/verifyStarbucks";
-            }
-          }
+        if (window.orgCode === 'oBDbDkxal2') {
+            verifyRouter = "/my/profile/verifyStarbucks";
+        }
         return <div className="page-profile">
             <div>
                 <div className="page-profile-title">基本信息</div>

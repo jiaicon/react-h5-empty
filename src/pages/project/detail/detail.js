@@ -237,7 +237,7 @@ class ProjectDetailPage extends React.Component {
         } else if (realRegister == 1 && user.isLogin && !user.id_number) {
           this.props.storeLoginSource(`/project/detail/${this.projectId}`)
 
-          if((window.orgCode === "VWPe9xdLyw" && window.dev) || (window.orgCode === "oBDbDkxal2"&& !window.dev)) {
+          if(window.orgCode === "oBDbDkxal2") {
             window.location.replace(`/my/profile/verifyStarbucks`);
           }
           else {
