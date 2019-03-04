@@ -89,7 +89,7 @@ class SignItem extends React.Component {
     console.log(data);
     if (!data) {
       return null;
-    } else if (data && !data.three_day_project && !data.project) {
+    } else if (data && (data.three_day_project&&!data.three_day_project.length) && (data.project&&!data.project.length)) {
       return (
         <div className="page-sign">
           <div className="component-sign">{this.renderEmpty()}</div>
