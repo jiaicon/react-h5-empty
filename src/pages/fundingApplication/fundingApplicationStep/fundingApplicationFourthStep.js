@@ -149,6 +149,7 @@ class Form extends React.Component {
                         className="page-funding-application-input"
                         placeholder="请输入预估受益人数"
                         moneyKeyboardAlign="right"
+                        type="number"
                         {
                             ...getFieldProps(`activity_people__${item}`, {
                                 rules: [{
