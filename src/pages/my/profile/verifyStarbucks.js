@@ -1162,7 +1162,7 @@ class Verify extends React.Component {
       options = "南东区,南西区";
     }
     if (region_first === "北区") {
-      options = "华北区,东北区";
+      options = "北一,北二,北三";
     }
     if (region_first === "中西区") {
       options = "中区,西区";
