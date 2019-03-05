@@ -4,11 +4,14 @@ import classnames from "classnames";
 import Link from "../link/link";
 import "./style.css";
 import moment from "moment";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 
 class SignItem extends React.Component {
   static propTypes = {
-    data: PropTypes.shape({})
+    data: PropTypes.shape({}),
+      proid: PropTypes.string
   };
   constructor(props) {
     super(props);
@@ -22,7 +25,7 @@ class SignItem extends React.Component {
     );
   }
   renderProjectList(data) {
-    console.log(data);
+      const proid = this.props.proid;
     return (
       <div>
         {data.map((record, index) => {
@@ -47,10 +50,9 @@ class SignItem extends React.Component {
             actionClassName = "project-info-time-card";
             actionLabel = "待补卡";
           }
-
           return (
             <li key={index} className="sign-record">
-              <Link to={`/sign/signdetail/detail/${record.id}`}>
+              <Link to={`/sign/signdetail/detail/${proid}/${record.id}`}>
                 <div className="sign-header">
                   <div style={{ color: "#4A4A4A", fontSize: "16px" }}>
                     {moment(record.begin).format("YYYY/MM/DD HH:mm")} -{" "}
@@ -79,6 +81,7 @@ class SignItem extends React.Component {
 
   render() {
     const { data } = this.props;
+    console.log(this.props)
     if (!data) {
       return null;
     } else if (data && !data.three_day_clock.length && !data.clock.length) {
@@ -108,4 +111,9 @@ class SignItem extends React.Component {
   }
 }
 
-export default SignItem;
+export default connect(
+    state => ({
+
+    }),
+    dispatch => bindActionCreators({  }, dispatch)
+)(SignItem);
