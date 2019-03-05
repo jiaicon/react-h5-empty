@@ -47,7 +47,7 @@ class SignClassPage extends React.Component {
     const { data } = this.props.clockclasslist;
 
     return <div>
-      <SignClassItem data={data} />
+      <SignClassItem data={data} proid={this.Id}/>
       </div>;
   }
 }

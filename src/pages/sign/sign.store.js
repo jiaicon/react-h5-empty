@@ -212,12 +212,126 @@ const checkinReducer = (
       return state;
   }
 };
+//申请补卡接口
+export const projectCheckedSubmit = (data) => ({
+    type: "PROJECT_CHECKED_SUBMIT",
+    payload: fetch(`${window.apiHost}/api/v2/clock/${data.id}/apply`, {method: 'POST', data})
+});
+const projectCheckedSubmitReducer = (
+    state = {
+        fetching: false,
+        failed: false,
+        data: null
+    },
+    action
+)=>{
+    switch (action.type) {
+        case "PROJECT_CHECKED_SUBMIT_PENDING":
+            return {
+                ...state,
+                fetching: true,
+                failed: false
+            };
+        case "PROJECT_CHECKED_SUBMIT_FULFILLED":
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data
+            };
+        case "PROJECT_CHECKED_SUBMIT_REJECTED":
+            return {
+                ...state,
+                failed: true,
+                fetching: false
+            };
+        default:
+            return state;
+    }
+};
+//获取能申请补签过的项目接口
+export const projectCheckedApply = () => ({
+    type: "PROJECT_CHECKED_Apply",
+    payload: fetch(`${window.apiHost}/api/v2/clock/apply/project`, {method: 'GET'})
+});
+const projectCheckedApplyReducer = (
+    state = {
+        fetching: false,
+        failed: false,
+        data: null
+    },
+    action
+)=>{
+    switch (action.type) {
+        case "PROJECT_CHECKED_Apply_PENDING":
+            return {
+                ...state,
+                fetching: true,
+                failed: false
+            };
+        case "PROJECT_CHECKED_Apply_FULFILLED":
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload.data.list
+            };
+        case "PROJECT_CHECKED_Apply_REJECTED":
+            return {
+                ...state,
+                failed: true,
+                fetching: false
+            };
+        default:
+            return state;
+    }
+};
+// 获取项目的所能补卡的班次接口
+export const getProjectClockList = (id) => ({
+    type: "GET_PRO_CLOCK_LIST",
+    payload: fetch(`${window.apiHost}/api/v2/project/${id}/clock/list`, {method: 'GET'})
+});
+const getProjectClockListReducer = (
+    state = {
+        fetching: false,
+        failed: false,
+        list: null
+    },
+    action
+)=>{
+    switch (action.type) {
+        case "GET_PRO_CLOCK_LIST_PENDING":
+            return {
+                ...state,
+                fetching: true,
+                failed: false
+            };
+        case "GET_PRO_CLOCK_LIST_FULFILLED":
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                list: action.payload.data&&action.payload.data.list
+            };
+        case "GET_PRO_CLOCK_LIST_REJECTED":
+            return {
+                ...state,
+                failed: true,
+                fetching: false
+            };
+        default:
+            return state;
+    }
+};
 const reducer = combineReducers({
   checkin: checkinReducer,
   ckeckinList: requestCheckinListReducer,
   clocklist: clocklistReducer,
   clockclasslist: clockclasslistReducer,
   clickinfo: clockinfoReducer,
-  clocking: clockingReducer
+  clocking: clockingReducer,
+    projectCheckedSubmit: projectCheckedSubmitReducer,
+    projectCheckedApply: projectCheckedApplyReducer,
+    getProjectClockList: getProjectClockListReducer,
 });
 export default reducer;

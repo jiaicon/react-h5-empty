@@ -21,6 +21,7 @@ class SignPage extends React.Component {
     super(props);
     autoBind(this);
     this.Id = props.route.params.Id;
+    this.proid = props.route.params.proid;
     this.state = { turnMap: false };
   }
 
@@ -137,7 +138,7 @@ class SignPage extends React.Component {
       } else {
         // 没打卡，超出时间显示补卡
         renderDom = (
-          <div>
+          <Link to={`/sign/replacement/${this.proid}/${this.Id}`}>
             <div
               style={{
                 display: "flex",
@@ -155,7 +156,7 @@ class SignPage extends React.Component {
                 style={{ width: "4px", marginLeft: "4px" }}
               />
             </div>
-          </div>
+          </Link>
         );
       }
       firstPoint = true;
@@ -187,7 +188,7 @@ class SignPage extends React.Component {
           //显示补卡
           firstPoint = true;
           renderDom = (
-            <div>
+            <Link to={`/sign/replacement/${this.proid}/${this.Id}`}>
               <div
                 style={{
                   display: "flex",
@@ -205,7 +206,7 @@ class SignPage extends React.Component {
                   style={{ width: "4px", marginLeft: "4px" }}
                 />
               </div>
-            </div>
+            </Link>
           );
         }
       } else if (userData.verify_status === 0) {
@@ -275,7 +276,7 @@ class SignPage extends React.Component {
               {userData.clock_in_addr}
             </div>
             <div style={{ color: "#9B9B9B", fontSize: "12px" }}>补卡·驳回</div>
-            <div
+            <Link to={`/sign/replacement/${this.proid}/${this.Id}`}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -291,7 +292,7 @@ class SignPage extends React.Component {
                 src="/images/sign/signmore.png"
                 style={{ width: "4px", marginLeft: "4px" }}
               />
-            </div>
+            </Link>
           </div>
         );
       }
@@ -369,7 +370,7 @@ class SignPage extends React.Component {
       } else {
         // 没打卡，超出时间显示补卡
         renderfirstDom = (
-          <div>
+          <Link to={`/sign/replacement/${this.proid}/${this.Id}`}>
             <div
               style={{
                 display: "flex",
@@ -387,7 +388,7 @@ class SignPage extends React.Component {
                 style={{ width: "4px", marginLeft: "4px" }}
               />
             </div>
-          </div>
+          </Link>
         );
       }
       firstPoint = true;
@@ -493,7 +494,7 @@ class SignPage extends React.Component {
               </div>
             );
             rendersecondDom = (
-              <div>
+              <Link to={`/sign/replacement/${this.proid}/${this.Id}`}>
                 <div
                   style={{
                     display: "flex",
@@ -511,7 +512,7 @@ class SignPage extends React.Component {
                     style={{ width: "4px", marginLeft: "4px" }}
                   />
                 </div>
-              </div>
+              </Link>
             );
           }
         }
@@ -922,6 +923,7 @@ class SignPage extends React.Component {
   }
 
   render=()=>{
+      console.log(this.props)
     const { turnMap } = this.state;
     const { type } = this.state;
     return (

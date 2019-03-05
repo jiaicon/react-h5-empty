@@ -81,7 +81,7 @@ class Apply extends React.Component {
           <ApplyItem data={listData ? listData.list : null} />
           <div className="page-apply-take-up" />
         </div>
-        <Link to="/my/duration/post" className="page-apply-bottom-btn">
+        <Link to="/sign/replacement/proid/class" className="page-apply-bottom-btn">
           <div className="page-apply-main">申请补卡</div>
         </Link>
       </div>

@@ -40,9 +40,14 @@
       "chunk": "main"
     },
   {
-      "path": "/sign/signdetail/detail/:Id",
+      "path": "/sign/signdetail/detail/:proid/:Id",
       "page": "./pages/sign/signdetail/detail",
       "chunk": "main"
+  },
+  {
+    "path": "/sign/replacement/:proid/:Id",
+    "page": "./pages/sign/replacement",
+    "chunk": "main"
   },
   {
     "path": "/selectcity",
