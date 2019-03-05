@@ -567,7 +567,7 @@ class TeamDetailPage extends React.Component {
             to=""
             onClick={e =>
               this.setState({
-                actionSheet: true
+                visible: true
               })
             }
             className="team-action team-action-share"
