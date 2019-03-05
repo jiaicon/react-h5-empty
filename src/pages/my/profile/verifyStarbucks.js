@@ -1168,7 +1168,7 @@ class Verify extends React.Component {
       options = "中区,西区";
     }
     if (region_first === "支持中心") {
-      options = "上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心";
+      options = "上海支持中心";
     }
     let is_required = isStarbucksPartner === "是" ? 1:0;
 
