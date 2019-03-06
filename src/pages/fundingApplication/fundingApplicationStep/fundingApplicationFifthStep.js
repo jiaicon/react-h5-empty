@@ -84,7 +84,7 @@ class Form extends React.Component {
     };
 
     doHtml() {
-        const { getFieldProps, getFieldValue } = this.props.form;
+        const { getFieldProps, getFieldValue, setFieldsValue } = this.props.form;
         const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
             <div className={classnames({
                 'page-funding-application-allBox': index == this.state.formContent.length
@@ -135,12 +135,17 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">单价</div>
                     <InputItem
-                        type="number"
+                        type="digit"
                         className="page-funding-application-input"
                         placeholder="请输入单价（保留2位小数）"
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_price__${item}`, {
+                                onChange: (val)=>{
+                                    this.setState({
+                                        [`budget_money__${item}`]: (Number(val) * Number(getFieldProps(`budget_num__${item}`).value)).toFixed(2)
+                                    })
+                                },
                                 rules: [{
                                     required: true,
                                     message: '请输入单价',
@@ -153,11 +158,17 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">数量</div>
                     <InputItem
+                        type="number"
                         className="page-funding-application-input"
                         placeholder="请输入预算预计购买数量"
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_num__${item}`, {
+                                onChange: (val)=>{
+                                    this.setState({
+                                        [`budget_money__${item}`]: (Number(val) * Number(getFieldProps(`budget_price__${item}`).value)).toFixed(2)
+                                    })
+                                },
                                 rules: [{
                                     required: true,
                                     message: '请输入预算预计购买数量',
@@ -170,21 +181,15 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">金额</div>
                     <InputItem
-                        type="number"
+                        type="digit"
                         className="page-funding-application-input"
                         placeholder="请输入金额"
+                        disabled={true}
                         moneyKeyboardAlign="right"
-                        {
-                            ...getFieldProps(`budget_money__${item}`, {
-                                rules: [{
-                                    required: true,
-                                    message: '请输入金额',
-                                }],
-                            })
-                        }
+                        value={this.state[`budget_money__${item}`]}
                     />
                 </div>
-                <div className="page-funding-application-item-DX">{getFieldProps(`budget_money__${item}`)&&getFieldProps(`budget_money__${item}`).value&&getFieldProps(`budget_money__${item}`).value.length>0 ? DX(getFieldProps(`budget_money__${item}`).value):'此处自动显示项目总预算的大写数值'}</div>
+                <div className="page-funding-application-item-DX">{this.state[`budget_money__${item}`] ? DX(this.state[`budget_money__${item}`]):'此处自动显示项目总预算的大写数值'}</div>
                 <div className="line1px"></div>
             </div>
         )) : <div></div>;
@@ -235,15 +240,20 @@ class Form extends React.Component {
             }
             let data = [];
             let formContent = this.state.formContent;
-            console.log(value);
             for(let j = 0; j < formContent.length; j++) {
                 let obj = {};
+                // this.state[`budget_money__${item}`]
                 for(let i in value) {
                     if(formContent[j] === Number(i.split('__')[1])) {
                         if(i.indexOf('type') > -1) {
                             value[i] = value[i][0];
                         }
                         obj[i.split('__')[0]] = value[i];
+                    }
+                }
+                for(let m in this.state) {
+                    if(formContent[j] === Number(m.split('__')[1])) {
+                        obj[m.split('__')[0]] = this.state[m];
                     }
                 }
                 data.push(obj);

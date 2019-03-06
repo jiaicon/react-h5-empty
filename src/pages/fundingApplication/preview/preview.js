@@ -108,7 +108,7 @@ class Preview extends React.Component {
                         return line;
                     });
                     allData.user_business_province = [item.user_business_province];
-                    // allData.project_field = [item.project_field];
+                    allData.project_field = [item.project_field];
                     allData.user_business_city = [item.user_business_city];
                     if(allData.user_business_province.length) {
                         this.props.getAreaProvince(allData.user_business_province[0]);
@@ -134,7 +134,7 @@ class Preview extends React.Component {
             });
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
-            // allData.project_field = [allData.project_field];
+            allData.project_field = [allData.project_field];
             if(allData.user_business_province.length) {
                 this.props.getAreaProvince(allData.user_business_province[0]);
             }
@@ -322,6 +322,7 @@ class Preview extends React.Component {
                         placeholder="请输入预估受益人数"
                         disabled={this.state.stepDisabled4}
                         moneyKeyboardAlign="right"
+                        type="number"
                         {
                             ...getFieldProps(`activity_people__${item}`, {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_people : null,
@@ -360,7 +361,7 @@ class Preview extends React.Component {
                 'page-funding-application-allBox': index == this.state.formContentBudget.length
             })} key={item} data-index={item}>
                 <div className="page-funding-application-item">
-                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{this.state.alertBtn&&this.state.formContentBudget.length>1?<div id={item} onClick={(e)=>{this.deleteBudgetThis(e)}}>删除</div>:null}</div>
+                    <div className="page-funding-application-item-label page-funding-application-item-title"><div>项目预算明细（{index+1}）</div>{!this.state.stepDisabled5&&this.state.formContentBudget.length>1?<div id={item} onClick={(e)=>{this.deleteBudgetThis(e)}}>删除</div>:null}</div>
                 </div>
                 <div className="line1px"></div>
                 <div className={classnames({
@@ -409,13 +410,36 @@ class Preview extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">单价</div>
                     <InputItem
-                        type="number"
+                        type="money"
                         className="page-funding-application-input"
                         placeholder="请输入单价（保留2位小数）"
                         disabled={this.state.stepDisabled5}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_price__${item}`, {
+                                normalize: (v, prev) => {
+                                    if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                                        if (v === '.') {
+                                            return '0.';
+                                        }
+                                        return prev;
+                                    }
+                                    return v;
+                                },
+                                onChange: (val)=>{
+                                    if (val && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(val)) {
+                                        if (val === '.') {
+                                            val= '0.';
+                                        }
+                                        val = `${val.split('.')[0]}.${val.split('.')[1].substring(0, 2)}`;
+                                    }
+                                    console.log(val)
+                                    let money = getFieldProps(`budget_num__${item}`).value ?
+                                        getFieldProps(`budget_num__${item}`).value : this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num : 0;
+                                    this.setState({
+                                        [`budget_money__${item}`]: (Number(val) * Number(money)).toFixed(2)
+                                    })
+                                },
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price : null,
                                 rules: [{
                                     required: true,
@@ -429,12 +453,21 @@ class Preview extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">数量</div>
                     <InputItem
+                        type="digit"
                         className="page-funding-application-input"
                         placeholder="请输入预算预计购买数量"
                         disabled={this.state.stepDisabled5}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_num__${item}`, {
+                                onChange: (val)=>{
+                                    let money = getFieldProps(`budget_price__${item}`).value ?
+                                        getFieldProps(`budget_price__${item}`).value : this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price : 0;
+                                    console.log(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num)
+                                    this.setState({
+                                        [`budget_money__${item}`]: (Number(val) * Number(money)).toFixed(2)
+                                    })
+                                },
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num : null,
                                 rules: [{
                                     required: true,
@@ -448,23 +481,16 @@ class Preview extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">金额</div>
                     <InputItem
-                        type="number"
                         className="page-funding-application-input"
                         placeholder="请输入金额"
-                        disabled={this.state.stepDisabled5}
+                        disabled={true}
+                        value={this.state[`budget_money__${item}`] ? this.state[`budget_money__${item}`] : (Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price) * Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num))}
                         moneyKeyboardAlign="right"
-                        {
-                            ...getFieldProps(`budget_money__${item}`, {
-                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_money : null,
-                                rules: [{
-                                    required: true,
-                                    message: '请输入金额',
-                                }],
-                            })
-                        }
                     />
                 </div>
-                <div className="page-funding-application-item-DX">{getFieldProps(`budget_money__${item}`)&&getFieldProps(`budget_money__${item}`).value&&getFieldProps(`budget_money__${item}`).value.length>0 ? DX(getFieldProps(`budget_money__${item}`).value):'此处自动显示项目总预算的大写数值'}</div>
+                <div className="page-funding-application-item-DX">{
+                    this.state[`budget_money__${item}`] ? DX(Number(this.state[`budget_money__${item}`])) : DX(Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price) * Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num))
+                    }</div>
                 <div className="line1px"></div>
             </div>
         )) : <div></div>;
@@ -595,6 +621,11 @@ class Preview extends React.Component {
                         obj[i.split('__')[0]] = value[i];
                     }
                 }
+                for(let m in this.state) {
+                    if(formContent[j] === Number(m.split('__')[1])) {
+                        obj[m.split('__')[0]] = this.state[m];
+                    }
+                }
                 formContentBudgetData.push(obj);
             }
             for(let i in value) {
@@ -659,14 +690,40 @@ class Preview extends React.Component {
             }
             return item;
         });
-        hasChooseArea.push(val);
+        if(hasChooseArea.length>0) {
+            let flag = false;
+            for(let i = 0; i < hasChooseArea.length; i++) {
+                if(hasChooseArea[i] == val) {
+                    hasChooseArea.splice(i,1);
+                    this.setState({
+                        hasChooseArea: hasChooseArea,
+                        serviceArea: serviceArea
+                    });
+                    return;
+                }else {
+                    flag=true;
+                }
+            }
+            if(flag) {
+                hasChooseArea.push(val);
+            }
+        }else {
+            hasChooseArea.push(val);
+        }
         this.setState({
             hasChooseArea: hasChooseArea,
             serviceArea: serviceArea
         })
     };
+    projectMoneyChange() {
+        if(this.state.project_money_DX&&this.state.project_money_DX.length) {
+            this.setState({
+                project_money_DX: Number(this.state.project_money_DX).toFixed(2)
+            })
+        }
+    }
     render() {
-        const { getFieldProps } = this.props.form;
+        const { getFieldProps, getFieldValue } = this.props.form;
         const { cityData: { data: listData },areaData: { data: areaListData } } = this.props;
         let provinceList = listData&&listData.list.map((line)=>{
             return {
@@ -681,7 +738,7 @@ class Preview extends React.Component {
             };
         });
         return (
-            <div className="page-funding-application-preview">
+            <div className="page-funding-application-preview" style={{paddingBottom: 44}}>
                 <Accordion accordion defaultActiveKey="0" openAnimation={{}} className="my-accordion" onChange={this.onChange}>
                     <Accordion.Panel header="申请人信息">
                         <div className="page-funding-application">
@@ -893,9 +950,18 @@ class Preview extends React.Component {
                                         placeholder="请输入申请金额"
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
-                                        type='money'
+                                        type='digit'
                                         {
                                             ...getFieldProps('user_apply_monry', {
+                                                normalize: (v, prev) => {
+                                                    if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                                                        if (v === '.') {
+                                                            return '0.';
+                                                        }
+                                                        return prev;
+                                                    }
+                                                    return v;
+                                                },
                                                 initialValue: this.state.previewData&&this.state.previewData.user_apply_monry,
                                                 rules: [{
                                                     required: true,
@@ -1017,6 +1083,7 @@ class Preview extends React.Component {
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">联系人电话</div>
                                     <InputItem
+                                        type="number"
                                         className="page-funding-application-input"
                                         placeholder="请输入受益组织联系人电话"
                                         disabled={this.state.stepDisabled2}
@@ -1214,23 +1281,32 @@ class Preview extends React.Component {
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">项目总预算</div>
                                     <InputItem
-                                        type="number"
+                                        type="digit"
                                         className="page-funding-application-input"
                                         placeholder="请输入资助项目总预算（保留两位小数）"
                                         disabled={this.state.stepDisabled3}
                                         moneyKeyboardAlign="right"
                                         {
                                             ...getFieldProps('project_money', {
+                                                normalize: (v, prev) => {
+                                                    if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                                                        if (v === '.') {
+                                                            return '0.';
+                                                        }
+                                                        return prev;
+                                                    }
+                                                    return v;
+                                                },
                                                 initialValue: this.state.previewData&&this.state.previewData.project_money,
                                                 rules: [{
                                                     required: true,
-                                                    message: '请输入项目总预算',
+                                                    message: '请输入资助项目实施地点',
                                                 }],
                                             })
                                         }
                                     />
                                 </div>
-                                <div className="page-funding-application-item-DX">{getFieldProps('project_money')&&getFieldProps('project_money').value&&getFieldProps('project_money').value.length>0 ? DX(getFieldProps('project_money').value):'此处自动显示项目总预算的大写数值'}</div>
+                                <div className="page-funding-application-item-DX">{this.state.previewData&&this.state.previewData.project_money ? DX(this.state.previewData.project_money): getFieldValue('project_money') ? Number(Number(getFieldValue('project_money'))) : '此处自动显示项目总预算的大写数值'}</div>
                                 <div className="line1px"></div>
                                 <div className={classnames({
                                     "page-funding-application-item-textarea": true,
@@ -1327,7 +1403,9 @@ class Preview extends React.Component {
                         </div>
                         <div className="line1px"></div>
                         {this.doHtml()}
-                        <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div>
+                        {
+                            !this.state.stepDisabled4 ? <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div> : null
+                        }
                     </Accordion.Panel>
                     <Accordion.Panel header="项目预算明细" className="pad">
                         <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
@@ -1353,7 +1431,9 @@ class Preview extends React.Component {
                                 autoHeight
                             />
                         </div>
-                        <div className="addActive" onClick={this.onAddBudgetActive}><span style={{marginRight: '18px'}}>+</span><span>增加预算项目</span></div>
+                        {
+                            !this.state.stepDisabled5 ? <div className="addActive" onClick={this.onAddBudgetActive}><span style={{marginRight: '18px'}}>+</span><span>增加预算明细</span></div> : null
+                        }
                     </Accordion.Panel>
                 </Accordion>
                 {
@@ -1377,7 +1457,7 @@ class Preview extends React.Component {
                     onClose={this.onCloseModalProjectFiled}
                     afterClose={() => { console.log('afterClose'); }}
                 >
-                    <List renderHeader={() => <div>选择服务领域</div>} className="popup-list">
+                    <List renderHeader={() => <div>选择项目领域</div>} className="popup-list">
                         {
                             this.state.serviceArea.map((item, index)=>(
                                 <CheckboxItem
