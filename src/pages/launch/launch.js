@@ -99,7 +99,7 @@ class LaunchPage extends React.Component {
                 className={classnames({
                   'tab-icon': true,
                   'tab-icon-signin': true,
-                  active: path === '/signin',
+                  active: path === '/signin' || path === '/sign',
                   "daduhui" : daduhui,
                 })}
               />
