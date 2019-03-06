@@ -104,14 +104,12 @@ class UploadPhoto extends React.Component {
       }, 300);
     }
     if (index < imgArr.length) {
-      var file = this.files[index];
     var that = this;
-    console.info(file);
+    console.info(imgArr[index]);
+    var Orientation = imgArr[index].orientation;
+    var file = this.dataURLtoFile(imgArr[index].url, index)
     getData(file, function() {
-      getAllTags(this);
-      console.log(this);
-
-      var Orientation = getTag(this, "Orientation");
+      console.info(file);
       console.info(Orientation);
       // 确认选择的文件是图片
       if (file.type.indexOf("image") == 0) {
@@ -132,12 +130,11 @@ class UploadPhoto extends React.Component {
             var data2;
             img2.onload = function() {
                 data2 = compress(img2, Orientation);
-                localStorage.setItem("uploadImage", `${data2}`);
-                let conversions = base64ToBlob(data2, "image/png");
-                //这里是最后的Image的生成 img2 为最终目标文件
+                let conversions = base64ToBlob(data2, "image/jpeg");
+                console.log(data2,conversions);
                 uploadImage(`/api/imgupload`, {
                   method: "POST",
-                  data: { file: conversions }
+                  data: { file: { file: conversions } }
                 }).then(json => {
                   if (json.error_code === 0) {
                     index++;
@@ -152,6 +149,15 @@ class UploadPhoto extends React.Component {
       });
     }
   }
+
+  dataURLtoFile(dataurl, filename) {//将base64转换为文件
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+}
 
 
   onFail = () => {
