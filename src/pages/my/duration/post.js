@@ -131,6 +131,7 @@ class Post extends React.Component {
    
   }
     onPhotoChange(images) {
+      console.info(images);
         this.setState({
             attachment: images.map(item=>item.url)
         })

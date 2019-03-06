@@ -1046,7 +1046,7 @@ class Verify extends React.Component {
               <span className="page-my-profile-verify-header-start">*</span>
               <div className="page-my-profile-verify-fonts">设置密码</div>
               <input
-                type="password"
+                type="text"
                 ref={c => {
                   this.password = c;
                 }}
