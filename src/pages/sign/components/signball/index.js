@@ -129,7 +129,7 @@ export default class SignBall extends React.Component {
     if (!isSign) return;
     let postMessages = {
       id: data.id,
-      addr: `${locDetail.city}${locDetail.district}${locDetail.addr}`
+      addr: `${locDetail.city&&locDetail.city}${locDetail.district&&locDetail.district}${locDetail.addr&&locDetail.addr}`
     };
     this.props.clickFunc(postMessages);
   }
