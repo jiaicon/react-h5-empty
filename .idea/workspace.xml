@@ -60,8 +60,8 @@
       <file leaf-file-name="detail.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="956" column="18" lean-forward="false" selection-start-line="956" selection-start-column="6" selection-end-line="956" selection-end-column="18" />
+            <state relative-caret-position="123">
+              <caret line="897" column="18" lean-forward="true" selection-start-line="897" selection-start-column="18" selection-end-line="897" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -123,8 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PROJECT_CHECKED</find>
-      <find>projectCheckedSubmitReducer</find>
       <find>projectChecked</find>
       <find>this.Id</find>
       <find>moment</find>
@@ -150,9 +148,11 @@
       <find>location</find>
       <find>签到打卡</find>
       <find>clockingReducer</find>
-      <find>handleBallClick</find>
       <find>componentWillReceiveProps</find>
       <find>clocking</find>
+      <find>handleBallClick</find>
+      <find>签退'}时间</find>
+      <find>签到时间</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -405,7 +405,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="266080000" />
+    <option name="totallyTimeSpent" value="267415000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -681,14 +681,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/signclassItem/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="54" column="41" lean-forward="false" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/replacement.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -849,10 +841,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/signclassItem/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="54" column="41" lean-forward="false" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="956" column="18" lean-forward="false" selection-start-line="956" selection-start-column="6" selection-end-line="956" selection-end-column="18" />
+        <state relative-caret-position="123">
+          <caret line="897" column="18" lean-forward="true" selection-start-line="897" selection-start-column="18" selection-end-line="897" selection-end-column="18" />
           <folding />
         </state>
       </provider>
