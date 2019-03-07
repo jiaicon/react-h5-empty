@@ -214,7 +214,7 @@ export function getCity(success, fail) {
                 province,
                 detail: result.detail.addressComponents
               }),
-                JSON.stringify(location)
+                location
             );
           } else if (fail) {
             fail({});
