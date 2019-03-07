@@ -55,8 +55,8 @@ class SignPage extends React.Component {
         isBeyond
       });
     }
-    const { failed: tFailed, fetching: tFetching } = this.props;
-    const { failed: nFailed, fetching: nFetching } = nextProps;
+    const { failed: tFailed, fetching: tFetching } = this.props.clockinginfo;
+    const { failed: nFailed, fetching: nFetching } = nextProps.clockinginfo;
     if(!tFailed && tFetching && !nFailed && !nFetching) {
         // location.replace(`/sign/signclass/${this.proid}`);
     }else {
