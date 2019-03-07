@@ -40,15 +40,16 @@ class SignItem extends React.Component {
     return (
       <div>
         {data.map((record, index) => {
+            console.log(record)
           return (
             <li key={index} className="sign-record">
               <Link to={`/sign/signclass/${record.id}`}>
                 <div
                   className={classnames({
                     "sign-record-status-shape": true,
-                    "sign-record-status-shape-ing": record.progress == 2,
-                    "sign-record-status-shape-recru": record.progress == 1,
-                    "sign-record-status-shape-end": record.progress == 4,
+                    "sign-record-status-shape-ing": record.project_status == 4 || record.project_status == 3,
+                    "sign-record-status-shape-recru": record.project_status == 1 || record.project_status == 2,
+                    "sign-record-status-shape-end": record.project_status == 5,
                   })}
                 />
                 <div className="sign-header">

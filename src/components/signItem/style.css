@@ -111,6 +111,10 @@
   background: url(/images/activities_status_recruit.png) no-repeat;
   background-size: cover;
 }
+.sign-record-status-shape-full{
+  background: url(/images/activities_status_full.png) no-repeat;
+  background-size: cover;
+}
 .sign-record-status-shape-end{
   background: url(/images/activities_status_end.png) no-repeat;
   background-size: cover;
