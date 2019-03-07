@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" afterPath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" afterPath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,7 +57,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="detail.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="267">
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="262">
-              <caret line="131" column="119" lean-forward="true" selection-start-line="131" selection-start-column="119" selection-end-line="131" selection-end-column="119" />
+              <caret line="131" column="125" lean-forward="true" selection-start-line="131" selection-start-column="125" selection-end-line="131" selection-end-column="125" />
               <folding />
             </state>
           </provider>
@@ -202,8 +202,8 @@
         <option value="$PROJECT_DIR$/src/utils/funcs.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.css" />
         <option value="$PROJECT_DIR$/src/pages/sign/sign.store.js" />
-        <option value="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
+        <option value="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
       </list>
     </option>
   </component>
@@ -401,7 +401,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269262000" />
+    <option name="totallyTimeSpent" value="269480000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -842,18 +842,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="131" column="119" lean-forward="true" selection-start-line="131" selection-start-column="119" selection-end-line="131" selection-end-column="119" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
           <caret line="132" column="26" lean-forward="false" selection-start-line="132" selection-start-column="26" selection-end-line="132" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="131" column="125" lean-forward="true" selection-start-line="131" selection-start-column="125" selection-end-line="131" selection-end-column="125" />
           <folding />
         </state>
       </provider>
