@@ -58,7 +58,7 @@ class SignPage extends React.Component {
     const { failed: tFailed, fetching: tFetching } = this.props.clockinginfo;
     const { failed: nFailed, fetching: nFetching } = nextProps.clockinginfo;
     if(!tFailed && tFetching && !nFailed && !nFetching) {
-        location.replace(`/sign/signclass/${this.proid}/${this.id}`);
+        location.replace(`/sign/signclass/${this.proid}/${this.Id}`);
         Alert.success('打卡成功');
     }
 
@@ -130,7 +130,7 @@ class SignPage extends React.Component {
     let renderDom = null;
     let firstPoint = false;
     let endPoint = false;
-
+    console.log(detaildata)
     if (Object.keys(userData).length === 0) {
       // 没超过时间，没打卡，显示打卡球
       if (!isBeyond) {
