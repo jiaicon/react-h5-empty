@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" afterPath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.css" afterPath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/funcs.js" afterPath="$PROJECT_DIR$/src/utils/funcs.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,18 +70,18 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="28" />
+            <state relative-caret-position="110">
+              <caret line="13" column="20" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="funcs.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="funcs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/funcs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="177" column="25" lean-forward="true" selection-start-line="177" selection-start-column="25" selection-end-line="177" selection-end-column="25" />
+            <state relative-caret-position="104">
+              <caret line="197" column="51" lean-forward="false" selection-start-line="197" selection-start-column="51" selection-end-line="197" selection-end-column="51" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -101,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="detail.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="78" column="13" lean-forward="false" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
+            <state relative-caret-position="233">
+              <caret line="76" column="19" lean-forward="false" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -123,10 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/sign/signdetail/detail/</find>
-      <find>sign</find>
-      <find>route</find>
-      <find>projectCheckedApplyReducer</find>
       <find>classnames</find>
       <find>clockclasslistReducer</find>
       <find>/clock/list</find>
@@ -152,7 +146,11 @@
       <find>renderEmpty</find>
       <find>sign-record-status-shape</find>
       <find>sign-record-status-shape-end</find>
+      <find>page-signball-shape</find>
+      <find>success</find>
       <find>GetDistance</find>
+      <find>coord</find>
+      <find>getLocation</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -176,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/pages/sanlitun/projectClaim/detail/index.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/subpage/password_sign.js" />
         <option value="$PROJECT_DIR$/src/pages/team/detail/detail.js" />
-        <option value="$PROJECT_DIR$/src/utils/funcs.js" />
         <option value="$PROJECT_DIR$/src/pages/my/circle/subpage/publish.css" />
         <option value="$PROJECT_DIR$/src/pages/my/circle/circle.store.js" />
         <option value="$PROJECT_DIR$/src/pages/my/my.store.js" />
@@ -216,6 +213,7 @@
         <option value="$PROJECT_DIR$/src/pages/sign/sign.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.css" />
+        <option value="$PROJECT_DIR$/src/utils/funcs.js" />
       </list>
     </option>
   </component>
@@ -403,7 +401,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263365000" />
+    <option name="totallyTimeSpent" value="263799000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -463,13 +461,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/wxupload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="42" column="34" lean-forward="false" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/avatar/avatar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -824,14 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
@@ -842,9 +825,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="78" column="13" lean-forward="false" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
+        <state relative-caret-position="233">
+          <caret line="76" column="19" lean-forward="false" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="13" column="20" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/funcs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="197" column="51" lean-forward="false" selection-start-line="197" selection-start-column="51" selection-end-line="197" selection-end-column="51" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

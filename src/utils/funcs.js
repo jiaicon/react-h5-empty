@@ -195,7 +195,7 @@ export function getCity(success, fail) {
       console.log(loc)
       const geocoder = new qq.maps.Geocoder({
         complete: result => {
-          console.log(result);
+          console.log('resultresultresult::',result);
           if (
             result.detail.addressComponents &&
             result.detail.addressComponents.city
