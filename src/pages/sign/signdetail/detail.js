@@ -32,6 +32,8 @@ class SignPage extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
+      console.log('this.props::::', this.props)
+      console.log('nextProps::::', nextProps)
     if (nextProps.clickinfo && nextProps.clickinfo.data) {
       // isBeyond判断时间是否超出，true为第二天
       let isBeyond = false;
@@ -53,6 +55,7 @@ class SignPage extends React.Component {
         isBeyond
       });
     }
+    const {} = this.props;
   }
 
   componentWillUnmount() {
@@ -111,7 +114,6 @@ class SignPage extends React.Component {
   
   }
   handleBallClick=(data)=>{
-      console.log('data::::', data);
     this.props.clocking(data);
   }
   renderClock=()=>{
@@ -951,7 +953,8 @@ SignPage.propTypes = {
 };
 export default connect(
   state => ({
-    clickinfo: state.sign.clickinfo
+    clickinfo: state.sign.clickinfo,
+      clockinginfo: state.sign.clocking,
   }),
   dispatch => bindActionCreators({ requestClockInfo, clocking }, dispatch)
 )(SignPage);
