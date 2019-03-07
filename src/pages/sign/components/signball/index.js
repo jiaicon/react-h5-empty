@@ -69,9 +69,9 @@ export default class SignBall extends React.Component {
       isToday = true;
     }
     getCity(
-      (city, detaildata) => {
+      (city, detaildata, location) => {
         console.log(city);
-        let { detail } = JSON.parse(detaildata);
+        let { detail } = JSON.parse(location);
         console.log(detail);
         let distance = GetDistance(detail.lat, detail.lng, data.lat, data.lng);
         console.log(distance, data);

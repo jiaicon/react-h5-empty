@@ -213,7 +213,8 @@ export function getCity(success, fail) {
                 city,
                 province,
                 detail: result.detail.addressComponents
-              })
+              }),
+                JSON.stringify(location)
             );
           } else if (fail) {
             fail({});
