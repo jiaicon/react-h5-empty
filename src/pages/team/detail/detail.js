@@ -525,13 +525,16 @@ class TeamDetailPage extends React.Component {
                 <span>{detailData.contact_name}</span>
                 <div className="line1px" />
               </li>
-              <li>
-                <span>联系电话</span>
-                <a href={`tel:${detailData.contact_phone}`}>
-                  {detailData.contact_phone}
-                </a>
-                <div className="line1px" />
-              </li>
+              {
+                detailData.contact_phone_public ? (<li>
+                  <span>联系电话</span>
+                  <a href={`tel:${detailData.contact_phone}`}>
+                    {detailData.contact_phone}
+                  </a>
+                  <div className="line1px" />
+                </li>):null
+              }
+              
               <li>
                 <span>团队地址</span>
                 <span>{`${detailData.province_name}${detailData.city_name}${
