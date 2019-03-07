@@ -182,7 +182,7 @@ export default class SignBall extends React.Component {
             alignItems: "center"
           }}
         >
-          <img src="images/sign/signfail.png" className="sign-first" />
+          <img src="/images/sign/signfail.png" className="sign-first" />
           当前无法定位:请开启定位权限
           <img src="/images/sign/signaw.png" style={{ width: "9px" }} />
         </div>

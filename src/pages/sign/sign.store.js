@@ -4,6 +4,7 @@ export const clocking = data => ({
   type: "V2_CHECKIN_ING",
   payload: fetch(`/clock/${data.id}`, {
     method: 'POST',
+      data: {...data},
     switchUrl: `${window.apiHost}/api/v2`
   })
 });

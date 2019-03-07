@@ -111,6 +111,7 @@ class SignPage extends React.Component {
   
   }
   handleBallClick=(data)=>{
+      console.log('data::::', data);
     this.props.clocking(data);
   }
   renderClock=()=>{
