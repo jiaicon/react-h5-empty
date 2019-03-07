@@ -12,8 +12,10 @@ import { getCity, getLocation } from "../../../../utils/funcs";
 import "./detail.css";
 // 定位距离
 function GetDistance(lat1, lng1, lat2, lng2) {
+    console.log(lat1, lng1, lat2, lng2)
   var radLat1 = (lat1 * Math.PI) / 180.0;
   var radLat2 = (lat2 * Math.PI) / 180.0;
+  console.log(radLat1, radLat2)
   var a = radLat1 - radLat2;
   var b = (lng1 * Math.PI) / 180.0 - (lng2 * Math.PI) / 180.0;
   var s =
