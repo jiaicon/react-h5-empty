@@ -72,7 +72,7 @@ export default class SignBall extends React.Component {
         let { detail } = JSON.parse(detaildata);
         console.log(detail);
         let distance = GetDistance(detail.lat, detail.lng, data.lat, data.lng);
-
+        console.log(distance, data);
         if (distance <= data.distance) {
           if (isToday) {
             this.setState({
