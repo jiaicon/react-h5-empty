@@ -351,7 +351,7 @@ class Verify extends React.Component {
       (stateOrgData.open_addr && checkEmpty(city, "城市")) ||
       (stateOrgData.open_addr && checkEmpty(county, "区县")) ||
       (stateOrgData.open_addr && checkEmpty(address, "详细地址")) ||
-      (stateOrgData.open_real_name && checkStr(realname)) ||
+      // (stateOrgData.open_real_name && checkStr(realname)) ||
       (user.have_pwd == 0 && checkEmpty(password, "密码"))
     ) {
       return;
@@ -1156,19 +1156,19 @@ class Verify extends React.Component {
   getRegionSecond (isStarbucksPartner, region_first) {
     let options = "";
     if (region_first === "东区") {
-      options = "浙江,江苏,上海东,上海西";
+      options = "浙江,江苏,上海东,上海西,支持中心";
     }
     if (region_first === "南区") {
-      options = "南东区,南西区";
+      options = "南东,南西，支持中心";
     }
     if (region_first === "北区") {
-      options = "华北区,东北区";
+      options = "北一,北二,北三,支持中心";
     }
     if (region_first === "中西区") {
-      options = "中区,西区";
+      options = "中区,西区,支持中心";
     }
-    if (region_first === "支持中心") {
-      options = "上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心";
+    if (region_first === "上海支持中心") {
+      options = "上海支持中心";
     }
     let is_required = isStarbucksPartner === "是" ? 1:0;
 

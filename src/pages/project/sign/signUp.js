@@ -27,6 +27,14 @@ import {
     joinPayProject,
     joinProjectAction
 } from '../sign/sign.store';
+import {
+    getData,
+    getAllTags,
+    getTag,
+    compress,
+    rotateImage,
+    base64ToBlob
+  } from "../../../utils/exif";
 
 
 import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
@@ -462,16 +470,55 @@ class SignUpPage extends React.Component {
     onPhotoChange(e) {
         console.log(e.target.id);
         let key = e.target.id;
-        uploadImage(`/api/imgupload`, { method: 'POST', data: { file: { file: e.target.files[0] } } }).then((json) => {
-            if (json.error_code === 0) {
-                const attachment = this.state[key];
-                attachment.push(json.data.url);
-                this.setState({
-                    ...this.state, [key]: attachment
-                });
-                this.pushExtendsArray(key, attachment);
-            }
-        });
+
+        var file = e.target.files[0];
+    var that = this;
+    console.info(file);
+    getData(file, function() {
+      getAllTags(this);
+      console.log(this);
+
+      var Orientation = getTag(this, "Orientation");
+      console.info(Orientation);
+      // 确认选择的文件是图片
+      if (file.type.indexOf("image") == 0) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e) {
+          var result = this.result;
+          var img = new Image();
+          img.src = result;
+          console.info(img, Orientation);
+          var data = result;
+          img.onload = function() {
+            data = rotateImage(img, Orientation);
+
+            var img2 = new Image();
+            img2.src = data;
+            console.info(img2);
+            var data2;
+            img2.onload = function() {
+              data2 = compress(img2, Orientation);
+
+              let conversions = base64ToBlob(data2, "image/png");
+              uploadImage(`/api/imgupload`, { method: 'POST', data: { file: { file: conversions } } }).then((json) => {
+                if (json.error_code === 0) {
+                    const attachment = that.state[key];
+                    attachment.push(json.data.url);
+                    that.setState({
+                        ...that.state, [key]: attachment
+                    });
+                    that.pushExtendsArray(key, attachment);
+                }
+            });
+              //这里是最后的Image的生成 data2 为最终目标文件
+            };
+          };
+        };
+      }
+    });
+
+        
     }
     renderOtherPic(item) {
         const data = item;
@@ -505,6 +552,7 @@ class SignUpPage extends React.Component {
                         this.state[key].length === 1 ?
                             <div /> :
                             <div className="page-project-signUp-item-upload-container">
+                            
                                 <input id={key} onChange={this.onPhotoChange} accept="image/png, image/jpeg, image/jpg"
                                     ref={c => {
                                         this.uploadImages = c

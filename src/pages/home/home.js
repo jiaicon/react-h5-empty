@@ -266,7 +266,7 @@ class HomePage extends React.Component {
     }
     return (
       <div className="slick-container">
-        {home.data.banner && home.data.banner.length ? (
+        {home.data.banner && home.data.banner.length ?
           <Slick {...this.slickSettings}>
             {home.data.banner.map(item => {
               let url = "";
@@ -297,7 +297,7 @@ class HomePage extends React.Component {
               );
             })}
           </Slick>
-        ) : null}
+         : null}
       </div>
     );
   }

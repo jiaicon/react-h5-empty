@@ -66,7 +66,17 @@ class FundingApplication extends React.Component {
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
-            console.log(error, value);
+            // if(this.state.project_money_DX&&this.state.project_money_DX.length) {
+            //     value.project_money = this.state.project_money_DX;
+            // }else {
+            //     error.project_money = {
+            //         errors: [{
+            //             field: "project_money",
+            //             message: "请填写项目总预算"
+            //         }]
+            //     }
+            // }
+            // console.log(error, value);
             if (error) {
                 let arr = ["project_name",
                     "project_field",
@@ -123,14 +133,40 @@ class FundingApplication extends React.Component {
             }
             return item;
         });
-        hasChooseArea.push(val);
+        if(hasChooseArea.length>0) {
+            let flag = false;
+            for(let i = 0; i < hasChooseArea.length; i++) {
+                if(hasChooseArea[i] == val) {
+                    hasChooseArea.splice(i,1);
+                    this.setState({
+                        hasChooseArea: hasChooseArea,
+                        serviceArea: serviceArea
+                    });
+                    return;
+                }else {
+                    flag=true;
+                }
+            }
+            if(flag) {
+                hasChooseArea.push(val);
+            }
+        }else {
+            hasChooseArea.push(val);
+        }
         this.setState({
             hasChooseArea: hasChooseArea,
             serviceArea: serviceArea
         })
     };
+    projectMoneyChange() {
+        if(this.state.project_money_DX&&this.state.project_money_DX.length) {
+            this.setState({
+                project_money_DX: Number(this.state.project_money_DX).toFixed(2)
+            })
+        }
+    }
     render() {
-        const { getFieldProps, getFieldValue } = this.props.form;
+        const { getFieldProps, getFieldValue,  } = this.props.form;
 
         return (
             <div className="page-funding-application">
@@ -164,20 +200,6 @@ class FundingApplication extends React.Component {
                                 return'请选择项目领域';
                             }
                         }} onClick={this.openProjectFiled}/>
-                        {/*<Picker*/}
-                            {/*data={this.state.serviceArea}*/}
-                            {/*cols={1}*/}
-                            {/*{*/}
-                                {/*...getFieldProps('project_field', {*/}
-                                    {/*rules: [{*/}
-                                        {/*required: true,*/}
-                                        {/*message: '请选择资助项目项目领域',*/}
-                                    {/*}],*/}
-                                {/*})*/}
-                            {/*}*/}
-                        {/*>*/}
-                            {/*<List.Item arrow="horizontal"></List.Item>*/}
-                        {/*</Picker>*/}
                     </div>
                     <div className="line1px"></div>
                     <div className={classnames({
@@ -236,21 +258,30 @@ class FundingApplication extends React.Component {
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">项目总预算</div>
                         <InputItem
-                            type="number"
+                            type="digit"
                             className="page-funding-application-input"
                             placeholder="请输入资助项目总预算（保留两位小数）"
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('project_money', {
+                                    normalize: (v, prev) => {
+                                        if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                                            if (v === '.') {
+                                                return '0.';
+                                            }
+                                            return prev;
+                                        }
+                                        return v;
+                                    },
                                     rules: [{
                                         required: true,
-                                        message: '请输入项目总预算',
+                                        message: '请输入资助项目实施地点',
                                     }],
                                 })
                             }
                         />
                     </div>
-                    <div className="page-funding-application-item-DX">{getFieldProps('project_money')&&getFieldProps('project_money').value&&getFieldProps('project_money').value.length>0 ? DX(getFieldProps('project_money').value):'此处自动显示项目总预算的大写数值'}</div>
+                    <div className="page-funding-application-item-DX">{getFieldValue('project_money') ? DX(Number(getFieldValue('project_money'))):'此处自动显示项目总预算的大写数值'}</div>
                     <div className="line1px"></div>
                     <div className={classnames({
                         "page-funding-application-item-textarea": true,
@@ -327,12 +358,15 @@ class FundingApplication extends React.Component {
                 <Modal
                     className="review-modal-css"
                     popup
+                    platform="ios"
+                    closable={true}
                     visible={this.state.modal_project_field}
                     animationType="slide-up"
                     onClose={this.onCloseModalProjectFiled}
                     afterClose={() => { console.log('afterClose'); }}
+                    title="选择服务领域"
                 >
-                    <List renderHeader={() => <div>选择服务领域</div>} className="popup-list">
+                    <List className="popup-list">
                         {
                             this.state.serviceArea.map((item, index)=>(
                                 <CheckboxItem

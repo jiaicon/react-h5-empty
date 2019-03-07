@@ -346,7 +346,7 @@ class FundingApplication extends React.Component {
                             className="page-funding-application-input"
                             placeholder="请输入申请金额"
                             moneyKeyboardAlign="right"
-                            type='number'
+                            type='digit'
                             {
                                 ...getFieldProps('user_apply_monry', {
                                     rules: [{

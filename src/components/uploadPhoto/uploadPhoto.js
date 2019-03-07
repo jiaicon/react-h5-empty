@@ -9,6 +9,14 @@ import "./uploadPhoto.css";
 import { Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
+import {
+  getData,
+  getAllTags,
+  getTag,
+  compress,
+  rotateImage,
+  base64ToBlob
+} from "../../utils/exif";
 
 function getArrDifference(arr1, arr2) {
   return arr1.concat(arr2).filter(function(v, i, arr) {
@@ -96,18 +104,62 @@ class UploadPhoto extends React.Component {
       }, 300);
     }
     if (index < imgArr.length) {
-      uploadImage(`/api/imgupload`, {
-        method: "POST",
-        data: { file: imgArr[index] }
-      }).then(json => {
-        if (json.error_code === 0) {
-          index++;
-          callback(json.data);
-          this.uploadPhoto(imgArr, callback, index);
+    var that = this;
+    console.info(imgArr[index]);
+    var Orientation = imgArr[index].orientation;
+    var file = this.dataURLtoFile(imgArr[index].url, index)
+    getData(file, function() {
+      console.info(file);
+      console.info(Orientation);
+      // 确认选择的文件是图片
+      if (file.type.indexOf("image") == 0) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e) {
+          var result = this.result;
+          var img = new Image();
+          img.src = result;
+          console.info(img, Orientation);
+          var data = result;
+          img.onload = function() {
+            data = rotateImage(img, Orientation);
+
+            var img2 = new Image();
+            img2.src = data;
+            console.info(img2);
+            var data2;
+            img2.onload = function() {
+                data2 = compress(img2, Orientation);
+                let conversions = base64ToBlob(data2, "image/jpeg");
+                console.log(data2,conversions);
+                uploadImage(`/api/imgupload`, {
+                  method: "POST",
+                  data: { file: { file: conversions } }
+                }).then(json => {
+                  if (json.error_code === 0) {
+                    index++;
+                    callback(json.data);
+                    that.uploadPhoto(imgArr, callback, index);
+                  }
+                });
+              };
+            };
+          };
         }
       });
     }
   }
+
+  dataURLtoFile(dataurl, filename) {//将base64转换为文件
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+}
+
+
   onFail = () => {
     console.log("选择失败");
   };
@@ -118,7 +170,11 @@ class UploadPhoto extends React.Component {
   onImageClick = (index, fs) => {
     const { files } = this.state;
     const data = files.map(item => item.url);
-    this.setState({ previewData: data.slice(0), showMultiple: true ,defaultIndex:index});
+    this.setState({
+      previewData: data.slice(0),
+      showMultiple: true,
+      defaultIndex: index
+    });
   };
   render() {
     const { files } = this.state;
@@ -147,7 +203,11 @@ class UploadPhoto extends React.Component {
           onAddImageClick={this.onAddImageClick}
           length={this.props.length || 3}
         />
-        <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
+        <Gallery
+          src={this.state.previewData}
+          show={this.state.showMultiple}
+          defaultIndex={this.state.defaultIndex}
+        >
           <Button
             style={BackButtonStyle}
             onClick={e => this.setState({ showMultiple: false })}

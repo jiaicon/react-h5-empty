@@ -15,6 +15,9 @@
     font-size: 15px;
     color: #030303;
 }
+.page-funding-application .am-list-item .am-input-control input:disabled {
+    background-color: transparent;
+}
 .page-funding-application-input {
     text-align: right;
     width: 100%;
