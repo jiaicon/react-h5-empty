@@ -98,7 +98,7 @@ export default class SignBall extends React.Component {
                       signIndex: 2
                   });
               }
-          }else if(detail.city.indexOf(distanceData.city_name)){
+          }else if(distanceData.city_name.indexOf(detail.city)){
               //市名为当前的
               this.setState({
                   isSign: true,
