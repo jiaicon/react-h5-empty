@@ -429,6 +429,7 @@ class SignPage extends React.Component {
       if (userData.verify_status === -1) {
         // verify_status -1没申请，没超过时间，有值正常显示
         if (userData.clock_end_time !== "0000-00-00 00:00:00") {
+            //已签退
           endPoint = true;
           renderfirstDom = (
             <div>

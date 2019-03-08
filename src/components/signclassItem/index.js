@@ -31,7 +31,7 @@ class SignItem extends React.Component {
         {data.map((record, index) => {
           let actionClassName = "";
           let actionLabel = "";
-          if (record.status == 0 || record.status == 1 || record.status == 3) {
+          if (record.status == 0 || record.status == 1) {
             actionClassName = "project-info-time-wait";
             actionLabel = "待打卡";
           } else if (record.status == 6) {
@@ -43,10 +43,10 @@ class SignItem extends React.Component {
           } else if (record.status == 7) {
             actionClassName = "project-info-time-reject";
             actionLabel = "被驳回";
-          } else if (record.status == 4 || record.status == -1) {
+          } else if (record.status == 4) {
             actionClassName = "project-info-time-done";
             actionLabel = "已签到";
-          } else if (record.status == 1 || record.status == 2) {
+          } else if (record.status == 3 || record.status == 2) {
             actionClassName = "project-info-time-card";
             actionLabel = "待补卡";
           }
