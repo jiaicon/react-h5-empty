@@ -54,7 +54,7 @@ export default class SignBall extends React.Component {
   }
 
   componentWillMount() {
-    this.getloc();
+      this.getloc();
   }
   getloc = (props) => {
     const { data } = this.props;
@@ -73,28 +73,44 @@ export default class SignBall extends React.Component {
         console.log('获取到的位置信息',city, detaildata, location);
         let { detail } = JSON.parse(detaildata);
         console.log(location);
-        let distance = GetDistance(location.lat, location.lng, data.lat, data.lng);
-        console.log(distance, data);
-        if (distance <= data.distance) {
-          if (isToday) {
-            this.setState({
-              isSign: true,
-              signIndex: 1,
-              locDetail: detail
-            });
-          } else {
-            this.setState({
-              isSign: false,
-              signIndex: 1,
-              locDetail: detail
-            });
+          const distanceData = this.props.data;
+          if(Number(distanceData.distance) !== 0) {
+              //后台设置全市时，data.distance=0；这时候判断市名字就OK
+              let distance = GetDistance(location.lat, location.lng, data.lat, data.lng);
+              console.log(distance, data);
+              if (distance <= data.distance) {
+                  if (isToday) {
+                      this.setState({
+                          isSign: true,
+                          signIndex: 1,
+                          locDetail: detail
+                      });
+                  } else {
+                      this.setState({
+                          isSign: false,
+                          signIndex: 1,
+                          locDetail: detail
+                      });
+                  }
+              } else {
+                  this.setState({
+                      isSign: false,
+                      signIndex: 2
+                  });
+              }
+          }else if(detail.city.indexOf(distanceData.city_name)){
+              //市名为当前的
+              this.setState({
+                  isSign: true,
+                  signIndex: 1,
+                  locDetail: detail
+              });
+          }else {
+              this.setState({
+                  isSign: false,
+                  signIndex: 2
+              });
           }
-        } else {
-          this.setState({
-            isSign: false,
-            signIndex: 2
-          });
-        }
       },
       error => {
         console.log(error);
@@ -108,13 +124,13 @@ export default class SignBall extends React.Component {
     );
   };
   componentDidMount() {
-    this.getloc();
-    const that = this;
-    this.timer = setInterval(() => {
-      that.setState({
-        time: `${moment().format("HH:mm:ss")}`
-      });
-    }, 1000);
+      this.getloc();
+      const that = this;
+      this.timer = setInterval(() => {
+          that.setState({
+              time: `${moment().format("HH:mm:ss")}`
+          });
+      }, 1000);
   }
 
  componentWillReceiveProps(nextProps) {
