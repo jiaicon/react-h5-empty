@@ -59,7 +59,8 @@ class SignPage extends React.Component {
     const { failed: nFailed, fetching: nFetching } = nextProps.clockinginfo;
     if(!tFailed && tFetching && !nFailed && !nFetching) {
         Alert.success('打卡成功');
-        location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
+        // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
+        this.props.requestClockInfo(this.Id);
     }
 
   }
