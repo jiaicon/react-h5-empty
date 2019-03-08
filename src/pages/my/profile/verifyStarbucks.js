@@ -1145,8 +1145,8 @@ class Verify extends React.Component {
       extendsArray,
       region_first: extendsArray.isStarbucksPartner === "是" ? { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,支持中心", "is_required": 1 } : { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,支持中心", "is_required": 0 },
       region_second: region_second,
-      store_num: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "支持中心" ?  { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 1 }:{ "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 }, 
-      store_name: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "支持中心" ?   { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 1 } : { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 0 },
+      store_num: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "上海支持中心" && extendsArray.region_second != "支持中心" ?  { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 1 }:{ "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 }, 
+      store_name: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "上海支持中心" && extendsArray.region_second != "支持中心" ?   { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 1 } : { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 0 },
       staff_id: extendsArray.isStarbucksPartner === "是" ?  { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 1 }: { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 0 },
     } ,() => {
       console.log(extendsArray,this.state.region_first,this.state.region_second);

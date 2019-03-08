@@ -46,6 +46,7 @@ class Login extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        this.refreshCaptcha();
         const {login: cLogin} = this.props;
         const {login: nLogin} = nextProps;
         const realRegister =  window.orgInfo.real_name_register;
