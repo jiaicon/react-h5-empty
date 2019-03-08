@@ -15,6 +15,10 @@ import SignBall from "../components/signball/index";
 import { getCity, getLocation } from "../../../utils/funcs";
 import { requestHomeData, saveCity, getAreaCity } from "../../home/home.store";
 import "./detail.css";
+import { requestProjectDetail } from '../../project/detail/detail.store';
+import { requestUserInfo } from '../../../stores/common';
+import ModalNew from "../../../components/posterModal/ModalNew";
+import {PostDataModel_ProjectSign} from "../../../components/posterModal/PostDataModel";
 
 class SignPage extends React.Component {
   constructor(props) {
@@ -27,6 +31,7 @@ class SignPage extends React.Component {
 
   componentWillMount() {
     this.props.requestClockInfo(this.Id);
+    this.props.requestProjectDetail(this.proid);
   }
 
   componentDidMount() {}
@@ -60,11 +65,24 @@ class SignPage extends React.Component {
     if(!tFailed && tFetching && !nFailed && !nFetching) {
         Alert.success('打卡成功');
         // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
+        //打卡成功后重新获取数据，更新页面，页面state太多，不知道更新哪些，直接全部获取
         this.props.requestClockInfo(this.Id);
+        this.openShare();
     }
 
   }
-
+    //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
+    openShare(share) {
+        const { data: detaildata } = this.props.clickinfo;
+        const { clock_info: data, user_clock_info: userData } = detaildata;
+        // userData.type = 1
+        // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
+        if(userData.type = 1 || (userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length)) {
+            this.setState({
+                visible: true
+            })
+        }
+    }
   componentWillUnmount() {
  
   }
@@ -932,18 +950,32 @@ class SignPage extends React.Component {
       </div>
     );
   }
-
+    closeModal() {
+        this.setState({
+            visible: false
+        })
+    }
+    renderModal() {
+        const { data: data } = this.props.requestProjectDetailData;
+        const { user } = this.props;
+        const postData = PostDataModel_ProjectSign(data,user);
+      return <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  />
+    }
   render=()=>{
-      console.log(this.props)
     const { turnMap } = this.state;
-    const { type } = this.state;
-    return (
+      const { type } = this.state;
+      const { data: data } = this.props.requestProjectDetailData;
+      return (
       <div>
-        {!turnMap
+          <div onClick={this.onClick} style={{color: '#000', marginTop: '600px', position: 'relative', zIndex: '9999999'}}>测试按钮</div>
+          {!turnMap
           ? type == 1
             ? this.renderClock()
             : this.renderSignInSignOff()
           : this.renderMap()}
+          {
+              data ? this.renderModal() : null
+          }
       </div>
     );
   }
@@ -963,6 +995,8 @@ export default connect(
   state => ({
     clickinfo: state.sign.clickinfo,
       clockinginfo: state.sign.clocking,
+      requestProjectDetailData: state.project.detail,
+      user: state.user
   }),
-  dispatch => bindActionCreators({ requestClockInfo, clocking }, dispatch)
+  dispatch => bindActionCreators({ requestClockInfo, clocking, requestProjectDetail }, dispatch)
 )(SignPage);
