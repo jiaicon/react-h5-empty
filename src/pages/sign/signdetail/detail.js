@@ -69,7 +69,6 @@ class SignPage extends React.Component {
         this.props.requestClockInfo(this.Id);
         this.openShare();
     }
-
   }
     //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
     openShare(share) {
@@ -77,7 +76,7 @@ class SignPage extends React.Component {
         const { clock_info: data, user_clock_info: userData } = detaildata;
         // userData.type = 1
         // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
-        if(userData.type = 1 || (userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length)) {
+        if(userData.type == 1 || (userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00")) {
             this.setState({
                 visible: true
             })
@@ -967,7 +966,6 @@ class SignPage extends React.Component {
       const { data: data } = this.props.requestProjectDetailData;
       return (
       <div>
-          <div onClick={this.onClick} style={{color: '#000', marginTop: '600px', position: 'relative', zIndex: '9999999'}}>测试按钮</div>
           {!turnMap
           ? type == 1
             ? this.renderClock()
