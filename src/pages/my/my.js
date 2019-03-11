@@ -262,14 +262,27 @@ class MyPage extends React.Component {
                 <div className="page-my-user-info">
                     <p className="page-my-user-info-nick">
                         <p style={{display: 'flex',alignItems: 'center'}}
-                           onClick={this.showCommonweal}>
+                           >
                             {user.real_name || user.username || '未设置昵称'}
-                            <p className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p>
+                            {
+                                window.orgInfo.st_achieve_op == 1 ?
+                                    <p onClick={this.showCommonweal} className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p>
+                                    :
+                                    <span></span>
+                            }
+
                         </p>
-                        <div className="page-my-user-info-nick-commonweal-medal"><Link to={`/my/achievemet/${this.props.usercenter&&this.props.usercenter.data&&this.props.usercenter.data.project_count}`}><img
-                            src="/images/my/commonweal-medal.png" alt=""/><span
-                            className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
-                        </div>
+
+                        {
+                            window.orgInfo.st_rank_op == 1 ?
+                                <div className="page-my-user-info-nick-commonweal-medal"><Link to={`/my/achievemet/${this.props.usercenter&&this.props.usercenter.data&&this.props.usercenter.data.project_count}`}><img
+                                    src="/images/my/commonweal-medal.png" alt=""/><span
+                                    className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
+                                </div>
+                                :
+                                <span></span>
+                        }
+
 
                     </p>
                     <p className="page-my-user-info-signature">{user.slogan || '未设置口号'}</p>
