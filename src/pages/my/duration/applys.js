@@ -11,6 +11,12 @@ import Link from "../../../components/link/link";
 // import ApplyItem from '../../../components/duration_apply/applysItem';
 import { applyAction } from "../my.store";
 import "./applys.css";
+let verify_status = {
+    '-1': '未提审',
+    '0': '审核中',
+    '1': '通过',
+    '2': '驳回'
+};
 class ApplyItem extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +40,7 @@ class ApplyItem extends React.Component {
             <div className="page-apply-components-content">
               <div className="page-apply-components-content-top">
                 <div>
-                  志多星关注程序员健康活动志多星关注程序员健康活动
+                    {item.project.name}
                 </div>
 
                 <div>2017/9/20 09:00 - 10:00</div>
@@ -43,9 +49,9 @@ class ApplyItem extends React.Component {
               <div className="line1px" />
               <div className="page-apply-components-content-bottom">
                 <div>
-                  预计最多可获得志愿时长<span>2.00小时</span>
+                  预计最多可获得志愿时长<span>{item.reward_time}小时</span>
                 </div>
-                <div className="ing">审核中</div>
+                <div className="ing">{verify_status[item.verify_status]}</div>
               </div>
             </div>
           );
@@ -71,10 +77,7 @@ class Apply extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    // const { data: listData } = this.props.apply;
-    let listData = {
-      list: [{}, {}]
-    };
+    const { data: listData } = this.props.apply;
     return (
       <div className="page-apply">
         <div>
