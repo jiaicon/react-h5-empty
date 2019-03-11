@@ -4,11 +4,7 @@
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/duration/applys.js" afterPath="$PROJECT_DIR$/src/pages/my/duration/applys.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/verify.js" afterPath="$PROJECT_DIR$/src/pages/my/profile/verify.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/my.js" afterPath="$PROJECT_DIR$/src/pages/my/my.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,39 +24,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="fundingApplicationFirstStep.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js">
+      <file leaf-file-name="achievemet.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="296" column="130" lean-forward="true" selection-start-line="296" selection-start-column="130" selection-end-line="296" selection-end-column="130" />
+            <state relative-caret-position="261">
+              <caret line="184" column="22" lean-forward="false" selection-start-line="184" selection-start-column="22" selection-end-line="184" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="my.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-352">
+              <caret line="627" column="26" lean-forward="false" selection-start-line="627" selection-start-column="4" selection-end-line="627" selection-end-column="26" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#155#194#0" expanded="true" />
+                <element signature="n#!!block;n#renderPageMyphotoTemplate#1;n#MyPage#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="preview.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="883" column="34" lean-forward="true" selection-start-line="883" selection-start-column="34" selection-end-line="883" selection-end-column="34" />
-              <folding>
-                <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
-                <element signature="e#48491#61793#0" expanded="false" />
-                <element signature="e#76540#77651#0" expanded="false" />
-                <element signature="e#77672#79385#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applys.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/my/duration/applys.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -68,21 +53,9 @@
       <file leaf-file-name="my.store.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="611" column="30" lean-forward="false" selection-start-line="611" selection-start-column="30" selection-end-line="611" selection-end-column="30" />
+            <state relative-caret-position="254">
+              <caret line="698" column="24" lean-forward="false" selection-start-line="698" selection-start-column="13" selection-end-line="698" selection-end-column="24" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fundingApplicationSecondStep.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="195" column="60" lean-forward="true" selection-start-line="195" selection-start-column="60" selection-end-line="195" selection-end-column="60" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -99,10 +72,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>signIndex</find>
-      <find>detaildata</find>
-      <find>ModalNew</find>
-      <find>handleBallClick</find>
       <find>PostDataModel_Project</find>
       <find>requestProjectDetail</find>
       <find>renderModal</find>
@@ -129,6 +98,10 @@
       <find>isRequired</find>
       <find>/^1[345678]\d{9}$/</find>
       <find>applyAction</find>
+      <find>暂无</find>
+      <find>暂无等级</find>
+      <find>userAchieveList</find>
+      <find>userAchieve</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -141,7 +114,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/pages/my/login/login.store.js" />
         <option value="$PROJECT_DIR$/src/pages/my/login/login.js" />
         <option value="$PROJECT_DIR$/src/pages/my/login/login.css" />
         <option value="$PROJECT_DIR$/public/wechat.blade.php" />
@@ -192,6 +164,7 @@
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" />
         <option value="$PROJECT_DIR$/src/pages/my/duration/applys.js" />
+        <option value="$PROJECT_DIR$/src/pages/my/my.js" />
       </list>
     </option>
   </component>
@@ -266,14 +239,6 @@
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
-              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="duration" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -387,12 +352,12 @@
       <workItem from="1551794162471" duration="87000" />
       <workItem from="1552012768696" duration="15952000" />
       <workItem from="1552038445298" duration="891000" />
-      <workItem from="1552271114665" duration="3328000" />
+      <workItem from="1552271114665" duration="5578000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="290645000" />
+    <option name="totallyTimeSpent" value="292895000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -440,20 +405,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/uploadAvatar/uploadAvatar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="58" column="135" lean-forward="false" selection-start-line="58" selection-start-column="129" selection-end-line="58" selection-end-column="135" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stores/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-561">
-          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tools/build.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
@@ -696,6 +647,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -786,20 +738,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="296" column="130" lean-forward="true" selection-start-line="296" selection-start-column="130" selection-end-line="296" selection-end-column="130" />
+        <state relative-caret-position="251">
+          <caret line="296" column="130" lean-forward="false" selection-start-line="296" selection-start-column="130" selection-end-line="296" selection-end-column="130" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="195" column="60" lean-forward="true" selection-start-line="195" selection-start-column="60" selection-end-line="195" selection-end-column="60" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -816,8 +758,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="883" column="34" lean-forward="true" selection-start-line="883" selection-start-column="34" selection-end-line="883" selection-end-column="34" />
+        <state relative-caret-position="-974">
+          <caret line="883" column="34" lean-forward="false" selection-start-line="883" selection-start-column="34" selection-end-line="883" selection-end-column="34" />
           <folding>
             <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
             <element signature="e#48491#61793#0" expanded="false" />
@@ -827,19 +769,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/my/duration/applys.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="611" column="30" lean-forward="false" selection-start-line="611" selection-start-column="30" selection-end-line="611" selection-end-column="30" />
+        <state relative-caret-position="141">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/duration/applys.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="403">
+          <caret line="195" column="60" lean-forward="false" selection-start-line="195" selection-start-column="60" selection-end-line="195" selection-end-column="60" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="184" column="22" lean-forward="false" selection-start-line="184" selection-start-column="22" selection-end-line="184" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="698" column="24" lean-forward="false" selection-start-line="698" selection-start-column="13" selection-end-line="698" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-352">
+          <caret line="627" column="26" lean-forward="false" selection-start-line="627" selection-start-column="4" selection-end-line="627" selection-end-column="26" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#155#194#0" expanded="true" />
+            <element signature="n#!!block;n#renderPageMyphotoTemplate#1;n#MyPage#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

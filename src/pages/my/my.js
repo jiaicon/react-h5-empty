@@ -36,7 +36,9 @@ class MyPage extends React.Component {
     autoBind(this);
     this.state = ({
       showMultiple: false,
-      previewData: []
+      previewData: [],
+        visible: false,
+        visibleInstruction: false
     });
   }
 
@@ -48,11 +50,17 @@ class MyPage extends React.Component {
   componentDidMount() {
       this.props.requestUserInfo();
       this.props.userCenterAction();
+      this.props.userAchieve();
   }
 
   componentWillReceiveProps() {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+      this.setState({
+          visible: false,
+          visibleInstruction: false
+      })
+  }
 
   renderPageMymessagesTemplate() {
     return (
@@ -229,6 +237,7 @@ class MyPage extends React.Component {
     }
 
     renderPageMyphotoTemplate() {
+      console.log(this.props)
         let {userAchieveList, user} = this.props;
         let label = "";
         if (userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && user) {
