@@ -73,10 +73,15 @@ class SignPage extends React.Component {
     //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
     openShare(share) {
         const { data: detaildata } = this.props.clickinfo;
-        const { clock_info: data, clock_info: userData } = detaildata;
+        const { clock_info: data, user_clock_info: userData, clock_info: user_data } = detaildata;
         // userData.type = 1
         // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
-        if(userData.type == 1 || (userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00")) {
+        if(user_data.type == 1) {
+            this.setState({
+                visible: true
+            })
+        }
+        if(userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00") {
             this.setState({
                 visible: true
             })
