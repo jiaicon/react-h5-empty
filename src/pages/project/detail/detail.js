@@ -680,7 +680,7 @@ class ProjectDetailPage extends React.Component {
                         to=""
                         onClick={e =>
                             this.setState({
-                                actionSheet: true
+                                visible: true
                             })
                         }
                         className="project-action project-action-share"
