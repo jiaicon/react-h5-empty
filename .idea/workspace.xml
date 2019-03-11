@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" afterPath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" afterPath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="detail.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="152" column="18" lean-forward="true" selection-start-line="152" selection-start-column="18" selection-end-line="152" selection-end-column="18" />
+            <state relative-caret-position="438">
+              <caret line="65" column="61" lean-forward="true" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
               <folding>
                 <element signature="e#117#158#0" expanded="true" />
               </folding>
@@ -45,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="865">
-              <caret line="107" column="47" lean-forward="true" selection-start-line="107" selection-start-column="47" selection-end-line="107" selection-end-column="47" />
+            <state relative-caret-position="-152">
+              <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -107,9 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>item-point-color</find>
-      <find>firstPoint</find>
-      <find>签到'}时间</find>
       <find>item-point</find>
       <find>isBeyond</find>
       <find>YYYY-MM-DD</find>
@@ -136,7 +133,10 @@
       <find>distance</find>
       <find>achieve-share-avatar</find>
       <find>枚</find>
+      <find>handleBallClick</find>
       <find>全省</find>
+      <find>PostDataModel_ProjectSign</find>
+      <find>renderModal</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -189,7 +189,6 @@
         <option value="$PROJECT_DIR$/src/pages/sign/sign.store.js" />
         <option value="$PROJECT_DIR$/src/components/signItem/index.js" />
         <option value="$PROJECT_DIR$/src/pages/project/detail/detail.js" />
-        <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
         <option value="$PROJECT_DIR$/src/components/signclassItem/index.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/replacement.js" />
         <option value="$PROJECT_DIR$/src/pages/my/profile/verify.js" />
@@ -200,6 +199,7 @@
         <option value="$PROJECT_DIR$/src/pages/my/my.js" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
         <option value="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
       </list>
     </option>
   </component>
@@ -388,12 +388,12 @@
       <workItem from="1551794162471" duration="87000" />
       <workItem from="1552012768696" duration="15952000" />
       <workItem from="1552038445298" duration="891000" />
-      <workItem from="1552271114665" duration="9035000" />
+      <workItem from="1552271114665" duration="10264000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="296352000" />
+    <option name="totallyTimeSpent" value="297581000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1440" height="877" extended-state="6" />
@@ -827,21 +827,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="152" column="18" lean-forward="true" selection-start-line="152" selection-start-column="18" selection-end-line="152" selection-end-column="18" />
-          <folding>
-            <element signature="e#117#158#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-152">
+          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="865">
-          <caret line="107" column="47" lean-forward="true" selection-start-line="107" selection-start-column="47" selection-end-line="107" selection-end-column="47" />
-          <folding />
+        <state relative-caret-position="438">
+          <caret line="65" column="61" lean-forward="true" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
+          <folding>
+            <element signature="e#117#158#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

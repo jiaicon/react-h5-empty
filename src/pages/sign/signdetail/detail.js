@@ -37,8 +37,8 @@ class SignPage extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-      console.log('this.props::::', this.props)
-      console.log('nextProps::::', nextProps)
+      console.log('this.props::::', this.props);
+      console.log('nextProps::::', nextProps);
     if (nextProps.clickinfo && nextProps.clickinfo.data) {
       // isBeyond判断时间是否超出，true为第二天
       let isBeyond = false;
@@ -62,6 +62,8 @@ class SignPage extends React.Component {
     }
     const { failed: tFailed, fetching: tFetching } = this.props.clockinginfo;
     const { failed: nFailed, fetching: nFetching } = nextProps.clockinginfo;
+    console.log(!tFailed && tFetching && !nFailed && !nFetching)
+    console.log(!tFailed , tFetching , !nFailed , !nFetching)
     if(!tFailed && tFetching && !nFailed && !nFetching) {
         Alert.success('打卡成功');
         // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
@@ -76,6 +78,7 @@ class SignPage extends React.Component {
         const { clock_info: data, user_clock_info: userData } = detaildata;
         // userData.type = 1
         // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
+        console.log('userData:::::', userData)
         if(userData.type == 1 || (userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00")) {
             this.setState({
                 visible: true
