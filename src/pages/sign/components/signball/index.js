@@ -105,7 +105,7 @@ export default class SignBall extends React.Component {
                   signIndex: 1,
                   locDetail: detail
               });
-          }else if(distanceData.county_name == "全省"&&distanceData.province_name.replace("省", "") == detail.province.replace("省", "")){
+          }else if(distanceData.county_name == "全省"&&distanceData.province_name.replace("省", "") == detail.province.replace("省", "").replace("市", "")){
               //市名为当前的
               this.setState({
                   isSign: true,
