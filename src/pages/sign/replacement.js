@@ -79,7 +79,7 @@ class Replacement extends React.Component {
     render() {
         const { getFieldProps } = this.props.form;
         const { data: proApplyList } = this.props.projectCheckedApplyData;
-        const { list: getProjectClockListData } = this.props.getProjectClockListData;
+        let { list: getProjectClockListData } = this.props.getProjectClockListData;
         let proApplyListData = [];
         let getProjectClockList = [];
         proApplyList&&proApplyList.map((item)=>{
@@ -89,12 +89,10 @@ class Replacement extends React.Component {
             })
         });
         getProjectClockListData&&getProjectClockListData.map((item)=>{
-            item.begin.splice('-', '/');
-            item.end.splice('-', '/');
             getProjectClockList.push({
                 label: `${moment(item.begin).format("YYYY/MM/DD")} - ${moment(item.end).format("YYYY/MM/DD")}`,
                 value: item.id
-            })
+            });
         });
         return <div className="pages-sign-project-apply">
             <div className="pages-sign-project-apply-line">
@@ -148,8 +146,8 @@ class Replacement extends React.Component {
             <div className="pages-sign-project-apply-line">
                 <DatePicker
                     mode="datetime"
-                    minDate={new Date(this.state.clockTimeData&&this.state.clockTimeData.begin)}
-                    maxDate={this.state.clockTimeData&&this.state.clockTimeData.type == 2 ? new Date(this.state.clockTimeData&&this.state.clockTimeData.end) : new Date(this.state.clockTimeData&&this.state.clockTimeData.end)}
+                    minDate={new Date(this.state.clockTimeData&&this.state.clockTimeData.begin.replace(/-/g, '/'))}
+                    maxDate={this.state.clockTimeData&&this.state.clockTimeData.type == 2 ? new Date(this.state.clockTimeData&&this.state.clockTimeData.end) : new Date(this.state.clockTimeData&&this.state.clockTimeData.end.replace(/-/g, '/'))}
                     disabled={!this.state.clockTimeData}
                     {...getFieldProps('clock_in_time', {
                         rules: [{
