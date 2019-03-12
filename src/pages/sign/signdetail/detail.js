@@ -490,6 +490,7 @@ class SignPage extends React.Component {
           );
         } else {
           //未签退
+          firstPoint = true;
           if (!isAfterToday) {
             renderfirstDom = (
               <div>
