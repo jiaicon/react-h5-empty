@@ -122,7 +122,7 @@ export default class SignBall extends React.Component {
                   signIndex: 1,
                   locDetail: detail
               });
-          }else if(distanceData.city_name == "全国"){
+          }else if(distanceData.province_name == "全国"){
               //市名为当前的
               this.setState({
                   isSign: true,
