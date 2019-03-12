@@ -55,6 +55,9 @@ class UploadAvatar extends React.Component {
       console.info(Orientation);
       // 确认选择的文件是图片
       if (file.type.indexOf("image") == 0) {
+          loadingToast({
+              loading: '上传中...',
+          });
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(e) {
@@ -78,6 +81,7 @@ class UploadAvatar extends React.Component {
                 method: "POST",
                 data: { file: { file: conversions } }
               }).then(json => {
+                  Toast.hide();
                 if (json.error_code === 0) {
                   that.props.onChange(json.data.url);
                   that.setState({
