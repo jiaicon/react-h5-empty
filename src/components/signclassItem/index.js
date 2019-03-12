@@ -31,6 +31,7 @@ class SignItem extends React.Component {
         {data.map((record, index) => {
           let actionClassName = "";
           let actionLabel = "";
+          let timeDom = null;
           if (record.status == 0 || record.status == 1) {
             actionClassName = "project-info-time-wait";
             actionLabel = "待打卡";
@@ -50,6 +51,37 @@ class SignItem extends React.Component {
             actionClassName = "project-info-time-card";
             actionLabel = "待补卡";
           }
+
+          if (record.status == 6 || record.status == 4) {
+            timeDom = (
+                  <div className="project-info-time">
+                    获得志愿时长&nbsp;&nbsp;
+                    <span style={{ color: "#6AC6F8" }}>
+                      {record.user_reward_time}小时
+                    </span>
+                  </div>
+            );
+          } else if (record.status == 5){
+            timeDom = (
+              <div className="project-info-time">
+                预计可获得志愿时长&nbsp;&nbsp;
+                <span style={{ color: "#6AC6F8" }}>
+                  {record.user_reward_time}小时
+                </span>
+              </div>
+            );
+          } else {
+            timeDom = (
+              <div className="project-info-time">
+                    预计最多可获得志愿时长&nbsp;&nbsp;
+                    <span style={{ color: "#6AC6F8" }}>
+                      {record.reward_time}小时
+                    </span>
+               </div>
+            );
+          }
+          
+
           return (
             <li key={index} className="sign-record">
               <Link to={`/sign/signdetail/detail/${proid}/${record.id}`}>
@@ -61,12 +93,7 @@ class SignItem extends React.Component {
                 </div>
                 <div className="line1px" />
                 <div className="project-info">
-                  <div className="project-info-time">
-                    预计最多可获得志愿时长&nbsp;&nbsp;
-                    <span style={{ color: "#6AC6F8" }}>
-                      {record.reward_time}小时
-                    </span>
-                  </div>
+                  {timeDom}
                   <div className={`project-info-time-shape ${actionClassName}`}>
                     {actionLabel}
                   </div>
