@@ -49,15 +49,26 @@ class SignPage extends React.Component {
         .valueOf();
 
       let now = +new Date();
-      if (now <= secondDayEnd) {
+      if (now <= end) {
         isBeyond = false;
-      } else if (now > secondDayEnd) {
+      } else {
         isBeyond = true;
       }
+
+      let isAfterToday = false;
+      if (now <= secondDayEnd) {
+        isAfterToday = false;
+      } else {
+        isAfterToday = true;
+      }
+
+      console.log(begin,end,now,secondDayEnd);
+
       this.setState({
         ...this.state,
         type: nextProps.clickinfo.data.clock_info.type,
-        isBeyond
+        isBeyond,
+        isAfterToday
       });
     }
     const { failed: tFailed, fetching: tFetching } = this.props.clockinginfo;
@@ -153,7 +164,7 @@ class SignPage extends React.Component {
     let renderDom = null;
     let firstPoint = false;
     let endPoint = false;
-    console.log(detaildata)
+    console.log("=================================detaildata==================================",detaildata)
     if (Object.keys(userData).length === 0) {
       // 没超过时间，没打卡，显示打卡球
       if (!isBeyond) {
@@ -380,7 +391,7 @@ class SignPage extends React.Component {
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     const { clock_info: data, user_clock_info: userData } = detaildata;
-    const { type, isBeyond } = this.state;
+    const { type, isBeyond,isAfterToday } = this.state;
     let renderfirstDom = null;
     let rendersecondDom = null;
     let firstPoint = false;
@@ -397,6 +408,7 @@ class SignPage extends React.Component {
               mapFunc={this.turnOnMap}
               clickFunc={this.handleBallClick}
               data={detaildata.clock_info}
+              isSigninStatus={true}
             />
           </div>
         );
@@ -477,7 +489,8 @@ class SignPage extends React.Component {
             </div>
           );
         } else {
-          if (!isBeyond) {
+          //未签退
+          if (!isAfterToday) {
             renderfirstDom = (
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
@@ -504,6 +517,7 @@ class SignPage extends React.Component {
                   mapFunc={this.turnOnMap}
                   clickFunc={this.handleBallClick}
                   data={detaildata.clock_info}
+                  isSigninStatus={true}
                 />
               </div>
             );

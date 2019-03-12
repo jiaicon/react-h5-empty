@@ -37,7 +37,8 @@ export default class SignBall extends React.Component {
     clickFunc: PropTypes.func,
     data: PropTypes.shape({}),
     ballTitle: PropTypes.string,
-    mapFunc: PropTypes.func
+    mapFunc: PropTypes.func,
+    isSigninStatus: PropTypes.bool,
   };
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ export default class SignBall extends React.Component {
       this.getloc();
   }
   getloc = (props) => {
-    const { data } = this.props;
+    const { data ,isSigninStatus } = this.props;
     let isToday = false;
     let begin = moment(data.begin).valueOf();
     let end = moment(data.end).valueOf();
@@ -65,9 +66,18 @@ export default class SignBall extends React.Component {
       .add(1, "days")
       .valueOf();
     let now = +new Date();
-    if (begin <= now && now < secondDayEnd) {
-      isToday = true;
+    if (isSigninStatus && isSigninStatus) {
+      let tempBegin = moment(data.begin).add(-1,'hours').valueOf();
+      if (tempBegin <= now && now < secondDayEnd) {
+        isToday = true;
+      }
     }
+    else {
+      if (begin <= now && now < secondDayEnd) {
+        isToday = true;
+      }
+    }
+
     getCity(
       (city, detaildata, location) => {
         console.log('获取到的位置信息',city, detaildata, location);
