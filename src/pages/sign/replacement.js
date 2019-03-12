@@ -89,6 +89,8 @@ class Replacement extends React.Component {
             })
         });
         getProjectClockListData&&getProjectClockListData.map((item)=>{
+            item.begin.splice('-', '/');
+            item.end.splice('-', '/');
             getProjectClockList.push({
                 label: `${moment(item.begin).format("YYYY/MM/DD")} - ${moment(item.end).format("YYYY/MM/DD")}`,
                 value: item.id
