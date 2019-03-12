@@ -1,5 +1,5 @@
 /**
- * @file 志愿时长
+ * @file 服务时长
  */
 
 /* global wx:false */
@@ -70,7 +70,7 @@ class Duration extends React.Component {
 }
 
 
-Duration.title = '志愿时长';
+Duration.title = '服务时长';
 
 Duration.propTypes = {
   rewardTimeAction: PropTypes.func,

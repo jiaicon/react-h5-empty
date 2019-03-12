@@ -55,7 +55,7 @@ class SignItem extends React.Component {
           if (record.status == 6 || record.status == 4) {
             timeDom = (
                   <div className="project-info-time">
-                    获得志愿时长&nbsp;&nbsp;
+                    获得服务时长&nbsp;&nbsp;
                     <span style={{ color: "#6AC6F8" }}>
                       {record.user_reward_time}小时
                     </span>
@@ -64,7 +64,7 @@ class SignItem extends React.Component {
           } else if (record.status == 5){
             timeDom = (
               <div className="project-info-time">
-                预计可获得志愿时长&nbsp;&nbsp;
+                预计可获得服务时长&nbsp;&nbsp;
                 <span style={{ color: "#6AC6F8" }}>
                   {record.user_reward_time}小时
                 </span>
@@ -73,7 +73,7 @@ class SignItem extends React.Component {
           } else {
             timeDom = (
               <div className="project-info-time">
-                    预计最多可获得志愿时长&nbsp;&nbsp;
+                    预计最多可获得服务时长&nbsp;&nbsp;
                     <span style={{ color: "#6AC6F8" }}>
                       {record.reward_time}小时
                     </span>

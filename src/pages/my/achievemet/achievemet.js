@@ -108,22 +108,22 @@ class Achievement extends React.Component {
                         <div className="achievement-modal-box-level-box">
                             <div>
                                 <p>达到{data.achieve_info[0].settings.achieve1}小时</p>
-                                <p>志愿时长</p>
+                                <p>服务时长</p>
                             </div>
                             <div>
                                 <p>达到{data.achieve_info[0].settings.achieve2}小时</p>
-                                <p>志愿时长</p>
+                                <p>服务时长</p>
                             </div>
                             <div>
                                 <p>达到{data.achieve_info[0].settings.achieve3}小时</p>
-                                <p>志愿时长</p>
+                                <p>服务时长</p>
                             </div>
                         </div>
                     </div>
                     :
                     null
             }
-            <div className="achievement-modal-box-tips">志愿时长达到{reward_time}小时，快去晒成就吧！</div>
+            <div className="achievement-modal-box-tips">服务时长达到{reward_time}小时，快去晒成就吧！</div>
             <div className="achievement-modal-box-btn">
                 <div className={classnames({
                     'achievement-modal-box-btn-default': true,

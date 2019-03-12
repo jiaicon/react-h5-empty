@@ -378,7 +378,7 @@ class SignPage extends React.Component {
                 className={`item-point ${endPoint ? "item-point-color" : ""}`}
               />
               <div className="detail-title">
-                预计可获得志愿时长{data.reward_time}小时
+                预计可获得服务时长{data.reward_time}小时
               </div>
               <div className="detail-content" />
             </li>
@@ -923,7 +923,7 @@ class SignPage extends React.Component {
           endPoint = true;
           renderthirdDom = (
             <div className="detail-title">
-                  获得志愿时长{userData.reward_time}小时
+                  获得服务时长{userData.reward_time}小时
             </div>
           );
         }// 审核通过或者正常打卡获取时长了
@@ -933,7 +933,7 @@ class SignPage extends React.Component {
           endPoint = false;
           renderthirdDom = (
             <div className="detail-title">
-                  预计可获得志愿时长{userData.reward_time}小时
+                  预计可获得服务时长{userData.reward_time}小时
             </div>
           );
         }//审核中或者审核驳回
@@ -941,7 +941,7 @@ class SignPage extends React.Component {
       else {
         renderthirdDom = (
           <div className="detail-title">
-                预计可获得志愿时长{data.reward_time}小时
+                预计可获得服务时长{data.reward_time}小时
           </div>
         );
       }      
@@ -952,7 +952,7 @@ class SignPage extends React.Component {
       endPoint = false;
       renderthirdDom = (
         <div className="detail-title">
-              预计可获得志愿时长{data.reward_time}小时
+              预计可获得服务时长{data.reward_time}小时
         </div>
       );
     }

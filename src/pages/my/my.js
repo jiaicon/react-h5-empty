@@ -131,7 +131,7 @@ class MyPage extends React.Component {
         <Link to="/my/duration">
           <div className="page-my-record-item">
             <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时</p>
-            <p className="page-my-record-item-bottom">志愿时长</p>
+            <p className="page-my-record-item-bottom">服务时长</p>
           </div>
         </Link>
         {/* <!-- 积分入口 --> */}
@@ -326,7 +326,7 @@ class MyPage extends React.Component {
                         <p className="page-my-record-item-top"><b
                             className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.reward_time}</b>小时
                         </p>
-                        <p className="page-my-record-item-bottom">志愿时长</p>
+                        <p className="page-my-record-item-bottom">服务时长</p>
                     </div>
                 </Link>
                 {/* <!-- 积分入口 --> */}
@@ -455,7 +455,7 @@ class MyPage extends React.Component {
                     <div>
                         <Link to="/my/duration/applys">
                             <div className="page-my-item-box">
-                                <i className="page-my-item-icon page-my-item-icon-applys"/>申请志愿时长
+                                <i className="page-my-item-icon page-my-item-icon-applys"/>申请服务时长
                             </div>
                             <span className="page-my-item-big"/>
                         </Link>
@@ -605,7 +605,7 @@ class MyPage extends React.Component {
     }
 
     renderInstruction() {
-        const data = [{label: '志愿时长', value: '10'}, {label: '发表动态', value: '10'}, {
+        const data = [{label: '服务时长', value: '10'}, {label: '发表动态', value: '10'}, {
             label: '每日登陆',
             value: '10'
         }, {label: '连续登陆3天', value: '30'}, {label: '分享一次', value: '50'}, {

@@ -349,7 +349,7 @@ class Post extends React.Component {
   }
 }
 
-Post.title = "申请志愿时长";
+Post.title = "申请服务时长";
 
 Post.propTypes = {
   postapplyAction: PropTypes.func,

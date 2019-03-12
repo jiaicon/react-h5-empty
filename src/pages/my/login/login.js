@@ -242,7 +242,7 @@ class Login extends React.Component {
             <div className="page-login-box">
                 <div className="page-login">
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.quickUsername = c; }} onKeyUp={this.onTextChanged}
+                        <input type="number" ref={(c) => { this.quickUsername = c; }} onKeyUp={this.onTextChanged}
                                placeholder="请输入手机号" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
@@ -252,12 +252,11 @@ class Login extends React.Component {
                          alt="" onClick={this.refreshCaptcha} />
                     </div>
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
+                        <input type="number" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
                                placeholder="手机验证码" className="page-login-item-input"/>
                         <div className="page-login-item-code" onClick={this.onSend}>{this.state.buttonString}</div>
                     </div>
                     <div className="page-login-entry page-login-quick-login" onClick={this.submit}>登录/注册</div>
-                 
                 </div>
                 <div className="page-login-agree">
                     提交代表已阅读

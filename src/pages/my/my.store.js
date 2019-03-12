@@ -156,7 +156,7 @@ const projectReducer = (state = {
 };
 
 // 搜索团队
-// 获取志愿时长
+// 获取服务时长
 
 export const rewardTimeAction = () => ({
   type: 'REWARDTIME_DATA',

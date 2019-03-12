@@ -38,7 +38,7 @@ export function PostDataModel_SignSuccess(projectData,userData){
 
 
 export function PostDataModel_ProjectSign(projectData,userData){
-    var tempContentText = `我参与了《${projectData.name}》这个项目,累计获得${projectData.my_reward_time}个志愿时长,跟我一起做志愿服务吧~`;
+    var tempContentText = `我参与了《${projectData.name}》这个项目,累计获得${projectData.my_reward_time}个服务时长,跟我一起做志愿服务吧~`;
 
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),

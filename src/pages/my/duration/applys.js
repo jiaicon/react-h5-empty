@@ -1,5 +1,5 @@
 /**
- * @file 志愿时长
+ * @file 服务时长
  */
 
 /* global wx:false */
@@ -49,7 +49,7 @@ class ApplyItem extends React.Component {
               <div className="line1px" />
               <div className="page-apply-components-content-bottom">
                 <div>
-                  预计最多可获得志愿时长<span>{item.reward_time}小时</span>
+                  预计最多可获得服务时长<span>{item.reward_time}小时</span>
                 </div>
                 <div className="ing">{verify_status[item.verify_status]}</div>
               </div>

@@ -69,7 +69,7 @@ class PointPage extends React.Component {
         })
     }
     renderScoreMethod() {
-        const data = [{label: '志愿时长', value: '10'}, {label: '发表动态', value: '10'}, {
+        const data = [{label: '服务时长', value: '10'}, {label: '发表动态', value: '10'}, {
             label: '每日登陆',
             value: '10'
         }, {label: '连续登陆3天', value: '30'}, {label: '分享一次', value: '50'}, {

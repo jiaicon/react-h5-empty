@@ -82,7 +82,7 @@ class ProjectDetailContent extends React.Component {
                 detailData.reward_time_public
             ) {
                 arr.push({
-                    label: "志愿时长",
+                    label: "服务时长",
                     value: `${detailData.reward_time}小时`,
                     islast: false
                 });
