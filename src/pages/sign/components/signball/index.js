@@ -80,10 +80,10 @@ export default class SignBall extends React.Component {
 
     getCity(
       (city, detaildata, location) => {
-        console.log('获取到的位置信息',city, detaildata, location);
+        console.log('获取到的位置信息111',city, detaildata, location);
         let { detail } = JSON.parse(detaildata);
-        console.log(location);
           const distanceData = this.props.data;
+          console.log(':::::::distanceData:::::',distanceData)
           if(Number(distanceData.distance) !== 0) {
               //后台设置全市时，data.distance=0；这时候判断市名字就OK
               let distance = GetDistance(location.lat, location.lng, data.lat, data.lng);
