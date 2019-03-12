@@ -54,19 +54,19 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
     img.onload = function() {
       var w = img.width;
       var h = img.height;
-      canvas.height = 200;
-      canvas.width = 200;
+      canvas.height = 600;
+      canvas.width = 600;
 
       if (w > h) {
         let diff = (w - h) / 2;
 
-        ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200);
+        ctx.drawImage(img, diff, 0, h, h, 0, 0, 600, 600);
       } else if (w < h) {
         let diff = (h - w) / 2;
 
-        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200);
+        ctx.drawImage(img, 0, diff, w, w, 0, 0, 600, 600);
       } else if (w == h) {
-        ctx.drawImage(img, 0, 0, w, w, 0, 0, 200, 200);
+        ctx.drawImage(img, 0, 0, w, w, 0, 0, 600, 600);
       }
       var dataURL = canvas.toDataURL("image/png");
       imageArrays[index] = dataURL;
