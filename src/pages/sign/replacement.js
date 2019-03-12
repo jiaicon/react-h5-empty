@@ -31,6 +31,21 @@ class Replacement extends React.Component {
         this.getProjectClockList(this.proid);
     }
     componentWillReceiveProps(nextprops) {
+        const { failed: ngFailed, fetching: ngFetching } = nextprops.getProjectClockListData;
+        const { failed: pgFailed, fetching: pgFetching } = this.props.getProjectClockListData;
+        if(!pgFailed && pgFetching && !ngFailed && !ngFetching) {
+            this.change = false;
+            nextprops.getProjectClockListData.list.map(item=>{
+                if(item.id==this.Id) {
+                    console.log(item)
+                    this.change = false;
+                    this.setState({
+                        clockTimeData: item,   //补卡时为补卡时间   签到时为开始时间
+                    });
+                }
+            });
+        }
+
         const { failed: nFailed, fetching: nFetching } = nextprops.projectCheckedSubmitData;
         const { failed: pFailed, fetching: pFetching } = this.props.projectCheckedSubmitData;
         if(!pFailed && pFetching && !nFailed && !nFetching) {
@@ -122,7 +137,7 @@ class Replacement extends React.Component {
                     disabled={this.state.picker_one}
                     onOk={()=>{this.change = false;}}
                     {...getFieldProps('id', {
-                        initialValue: [-1],
+                        initialValue: [Number(this.Id)],
                         rules: [{
                             required: true
                         }],
@@ -146,8 +161,8 @@ class Replacement extends React.Component {
             <div className="pages-sign-project-apply-line">
                 <DatePicker
                     mode="datetime"
-                    minDate={new Date(this.state.clockTimeData&&this.state.clockTimeData.begin.replace(/-/g, '/'))}
-                    maxDate={this.state.clockTimeData&&this.state.clockTimeData.type == 2 ? new Date(this.state.clockTimeData&&this.state.clockTimeData.end) : new Date(this.state.clockTimeData&&this.state.clockTimeData.end.replace(/-/g, '/'))}
+                    minDate={new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.begin))}
+                    maxDate={this.state.clockTimeData&&this.state.clockTimeData.type == 2 ? new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.end)) : new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.end))}
                     disabled={!this.state.clockTimeData}
                     {...getFieldProps('clock_in_time', {
                         rules: [{
@@ -169,7 +184,7 @@ class Replacement extends React.Component {
                     <div className="pages-sign-project-apply-line">
                         <DatePicker
                             mode="datetime"
-                            minDate={new Date(this.state.clockTimeData&&this.state.clockTimeData.begin)}
+                            minDate={new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.begin))}
                             maxDate={new Date((moment(this.state.clockTimeData&&this.state.clockTimeData.end).subtract(-1, 'days').subtract(1, 'seconds')).format("YYYY/MM/DD HH:mm:ss"))}
                             disabled={!this.state.clockTimeData}
                             {...getFieldProps('clock_end_time', {
