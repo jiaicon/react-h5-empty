@@ -394,6 +394,7 @@ class SignPage extends React.Component {
     const { type, isBeyond,isAfterToday } = this.state;
     let renderfirstDom = null;
     let rendersecondDom = null;
+    let renderthirdDom = null;
     let firstPoint = false;
     let secondPoint = false;
     let endPoint = false;
@@ -438,7 +439,7 @@ class SignPage extends React.Component {
       }
       firstPoint = true;
       // TODO:
-    } else if (Object.keys(userData).length > 0) {
+    } else {
       // 打卡了，分审核，并且签退有打卡球
       // 先判断签退有没有值
       // 没有显示打卡球
@@ -490,7 +491,7 @@ class SignPage extends React.Component {
           );
         } else {
           //未签退
-          firstPoint = true;
+          endPoint = true;
           if (!isAfterToday) {
             renderfirstDom = (
               <div>
@@ -914,6 +915,48 @@ class SignPage extends React.Component {
       }
     }
 
+    if (Object.keys(userData).length > 0 ) {
+      if (userData.clock_end_time !== "0000-00-00 00:00:00") {
+        if (userData.verify_status === -1 || userData.verify_status === 1) {
+          firstPoint = false;
+          secondPoint = false;
+          endPoint = true;
+          renderthirdDom = (
+            <div className="detail-title">
+                  获得志愿时长{userData.reward_time}小时
+            </div>
+          );
+        }// 审核通过或者正常打卡获取时长了
+        else {
+          firstPoint = false;
+          secondPoint = true;
+          endPoint = false;
+          renderthirdDom = (
+            <div className="detail-title">
+                  预计可获得志愿时长{userData.reward_time}小时
+            </div>
+          );
+        }//审核中或者审核驳回
+      }//签退了
+      else {
+        renderthirdDom = (
+          <div className="detail-title">
+                预计可获得志愿时长{data.reward_time}小时
+          </div>
+        );
+      }      
+    }
+    else {
+      firstPoint = true;
+      secondPoint = false;
+      endPoint = false;
+      renderthirdDom = (
+        <div className="detail-title">
+              预计可获得志愿时长{data.reward_time}小时
+        </div>
+      );
+    }
+
     return (
       <div className="page-sign-detail">
         <div className="page-sign-title">
@@ -960,9 +1003,7 @@ class SignPage extends React.Component {
               <div
                 className={`item-point ${endPoint ? "item-point-color" : ""}`}
               />
-              <div className="detail-title">
-                预计可获得志愿时长{data.reward_time}小时
-              </div>
+              {renderthirdDom}
               <div className="detail-content" />
             </li>
           </ul>
