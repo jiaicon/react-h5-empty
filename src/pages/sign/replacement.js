@@ -35,7 +35,7 @@ class Replacement extends React.Component {
         const { failed: pgFailed, fetching: pgFetching } = this.props.getProjectClockListData;
         if(!pgFailed && pgFetching && !ngFailed && !ngFetching) {
             this.change = false;
-            nextprops.getProjectClockListData.list.map(item=>{
+            nextprops.getProjectClockListData.list&&nextprops.getProjectClockListData.list.map(item=>{
                 if(item.id==this.Id) {
                     console.log(item)
                     this.change = false;
@@ -105,7 +105,7 @@ class Replacement extends React.Component {
         });
         getProjectClockListData&&getProjectClockListData.map((item)=>{
             getProjectClockList.push({
-                label: `${moment(item.begin).format("YYYY/MM/DD")} - ${moment(item.end).format("YYYY/MM/DD")}`,
+                label: `${moment(item.begin).format("YYYY/MM/DD HH:mm")} - ${moment(item.end).format("YYYY/MM/DD HH:mm")}`,
                 value: item.id
             });
         });
@@ -158,7 +158,7 @@ class Replacement extends React.Component {
                     <List.Item arrow="horizontal">补卡班次</List.Item>
                 </Picker>
             </div>
-            <div className="pages-sign-project-apply-line">
+            <div className="pages-sign-project-apply-line pages-sign-project-apply-line-special">
                 <DatePicker
                     mode="datetime"
                     minDate={new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.begin))}
@@ -181,11 +181,11 @@ class Replacement extends React.Component {
             </div>
             {
                 this.state.clockTimeData&&this.state.clockTimeData.type == 2 ?
-                    <div className="pages-sign-project-apply-line">
+                    <div className="pages-sign-project-apply-line pages-sign-project-apply-line-special">
                         <DatePicker
                             mode="datetime"
                             minDate={new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.begin))}
-                            maxDate={new Date((moment(this.state.clockTimeData&&this.state.clockTimeData.end).subtract(-1, 'days').subtract(1, 'seconds')).format("YYYY/MM/DD HH:mm:ss"))}
+                            maxDate={new Date((moment(this.state.clockTimeData&&this.state.clockTimeData.end)).format("YYYY/MM/DD HH:mm:ss"))}
                             disabled={!this.state.clockTimeData}
                             {...getFieldProps('clock_end_time', {
                                 rules: [{

@@ -14,10 +14,16 @@
     color: #999999;
     font-size: 14px;
 }
+.pages-sign-project-apply-line-special .am-list-item .am-list-line .am-list-content{
+    flex: none;
+}
 .pages-sign-project-apply .am-list-item .am-list-line .am-list-extra {
     font-family: .PingFangSC-Light;
     color: #999999;
     font-size: 14px;
+}
+.pages-sign-project-apply-line-special .am-list-line .am-list-extra {
+    flex: 1;
 }
 .pages-sign-project-apply .am-textarea-control textarea {
     font-family: .PingFangSC-Light;

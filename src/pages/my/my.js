@@ -265,7 +265,7 @@ class MyPage extends React.Component {
                            >
                             {user.real_name || user.username || '未设置昵称'}
                             {
-                                window.orgInfo.st_achieve_op == 1 ?
+                                window.orgInfo.st_rank_op == 1 ?
                                     <p onClick={this.showCommonweal} className="page-my-user-info-nick-commonweal">{label || '暂无等级'}</p>
                                     :
                                     <span></span>
@@ -274,7 +274,7 @@ class MyPage extends React.Component {
                         </p>
 
                         {
-                            window.orgInfo.st_rank_op == 1 ?
+                            window.orgInfo.st_achieve_op == 1 ?
                                 <div className="page-my-user-info-nick-commonweal-medal"><Link to={`/my/achievemet/${this.props.usercenter&&this.props.usercenter.data&&this.props.usercenter.data.project_count}`}><img
                                     src="/images/my/commonweal-medal.png" alt=""/><span
                                     className="page-my-user-info-nick-commonweal-medal-word">{user && user.achievement}枚</span></Link>
