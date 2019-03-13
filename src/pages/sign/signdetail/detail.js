@@ -491,7 +491,7 @@ class SignPage extends React.Component {
           );
         } else {
           //未签退
-          endPoint = true;
+          secondPoint = true;
           if (!isAfterToday) {
             renderfirstDom = (
               <div>
