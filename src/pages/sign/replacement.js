@@ -185,7 +185,7 @@ class Replacement extends React.Component {
                         <DatePicker
                             mode="datetime"
                             minDate={new Date(moment(this.state.clockTimeData&&this.state.clockTimeData.begin))}
-                            maxDate={new Date((moment(this.state.clockTimeData&&this.state.clockTimeData.end).subtract(-1, 'days').subtract(1, 'seconds')).format("YYYY/MM/DD HH:mm:ss"))}
+                            maxDate={new Date((moment(this.state.clockTimeData&&this.state.clockTimeData.end)).format("YYYY/MM/DD HH:mm:ss"))}
                             disabled={!this.state.clockTimeData}
                             {...getFieldProps('clock_end_time', {
                                 rules: [{
