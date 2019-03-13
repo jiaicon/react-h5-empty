@@ -10,7 +10,7 @@ import Image from '../image/image';
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
-const scoreName = window.orgInfo.score_name;
+const scoreName = window.orgInfo.st_point_uint[1];
 function isInTimeArea(t1, t2, t3) {
 
     var begin = new Date(t1.replace(/-/g, "/"));

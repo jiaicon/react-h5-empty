@@ -24,7 +24,7 @@ const TAB_URL_MAPS = {
   '/my/point': <IncomePage />,
   '/my/point/pay': <PayPage />,
 };
-const scoreName =window.orgInfo.score_name;
+const scoreName =window.orgInfo.st_point_uint[1];
 class PointPage extends React.Component {
 
   constructor(props) {
