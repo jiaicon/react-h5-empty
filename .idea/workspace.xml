@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/replacement.js" afterPath="$PROJECT_DIR$/src/pages/sign/replacement.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/my.js" afterPath="$PROJECT_DIR$/src/pages/my/my.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="replacement.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/sign/replacement.js">
+      <file leaf-file-name="my.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="187" column="135" lean-forward="false" selection-start-line="187" selection-start-column="135" selection-end-line="187" selection-end-column="135" />
+            <state relative-caret-position="378">
+              <caret line="271" column="29" lean-forward="true" selection-start-line="271" selection-start-column="29" selection-end-line="271" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -45,7 +45,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/^1[345678]\d{9}$/</find>
       <find>applyAction</find>
       <find>暂无</find>
       <find>暂无等级</find>
@@ -75,6 +74,7 @@
       <find>clockTimeData</find>
       <find>this.change</find>
       <find>getProjectClockList</find>
+      <find>window.or</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -130,7 +130,6 @@
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
         <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
         <option value="$PROJECT_DIR$/public/index.ejs" />
-        <option value="$PROJECT_DIR$/src/pages/my/my.js" />
         <option value="$PROJECT_DIR$/src/components/uploadPhoto/uploadPhoto.js" />
         <option value="$PROJECT_DIR$/src/components/uploadAvatar/uploadAvatar.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
@@ -138,6 +137,7 @@
         <option value="$PROJECT_DIR$/src/utils/funcs.js" />
         <option value="$PROJECT_DIR$/src/components/posterModal/ModalNew.js" />
         <option value="$PROJECT_DIR$/src/pages/sign/replacement.js" />
+        <option value="$PROJECT_DIR$/src/pages/my/my.js" />
       </list>
     </option>
   </component>
@@ -211,15 +211,7 @@
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="sign" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
-              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="sign" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="signdetail" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
@@ -349,7 +341,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316340000" />
+    <option name="totallyTimeSpent" value="316735000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -548,6 +540,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
           <caret line="296" column="130" lean-forward="false" selection-start-line="296" selection-start-column="130" selection-end-line="296" selection-end-column="130" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -576,13 +571,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="403">
           <caret line="195" column="60" lean-forward="false" selection-start-line="195" selection-start-column="60" selection-end-line="195" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="698" column="24" lean-forward="false" selection-start-line="698" selection-start-column="13" selection-end-line="698" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -642,18 +630,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="107" column="10" lean-forward="false" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-289">
           <caret line="348" column="66" lean-forward="false" selection-start-line="348" selection-start-column="53" selection-end-line="348" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -756,8 +737,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/replacement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="187" column="135" lean-forward="false" selection-start-line="187" selection-start-column="135" selection-end-line="187" selection-end-column="135" />
+        <state relative-caret-position="142">
+          <caret line="180" column="18" lean-forward="true" selection-start-line="180" selection-start-column="18" selection-end-line="180" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="698" column="24" lean-forward="false" selection-start-line="698" selection-start-column="13" selection-end-line="698" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="271" column="29" lean-forward="true" selection-start-line="271" selection-start-column="29" selection-end-line="271" selection-end-column="29" />
           <folding />
         </state>
       </provider>
