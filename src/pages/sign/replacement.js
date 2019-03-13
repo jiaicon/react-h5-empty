@@ -105,7 +105,7 @@ class Replacement extends React.Component {
         });
         getProjectClockListData&&getProjectClockListData.map((item)=>{
             getProjectClockList.push({
-                label: `${moment(item.begin).format("YYYY/MM/DD")} - ${moment(item.end).format("YYYY/MM/DD")}`,
+                label: `${moment(item.begin).format("YYYY/MM/DD HH:mm")} - ${moment(item.end).format("YYYY/MM/DD HH:mm")}`,
                 value: item.id
             });
         });
