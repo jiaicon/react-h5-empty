@@ -31,7 +31,7 @@ export function PostDataModel_SignSuccess(projectData,userData){
         avatars : getAvatar(userData),
         username : getUserName(userData),
         contentText :tempContentText,
-        url :window.location.href,
+        url : `${window.location.host}/project/detail/${projectData.id}`,
     }
     return PostDataModel;
 }
@@ -45,20 +45,20 @@ export function PostDataModel_ProjectSign(projectData,userData){
         avatars : getAvatar(userData),
         username : getUserName(userData),
         contentText :tempContentText,
-        url :window.location.href,
+        url :`${window.location.host}/project/detail/${projectData.id}`,
     }
     return PostDataModel;
 }
 
 function getProjectPhoto(projectData) {
-    return projectData.list_photo ? projectData.list_photo : "/images/default_banner.png";
+    return projectData.list_photo ? projectData.list_photo : "/images/post_default_image.jpg";
 }
 
 function getAvatar(userData) {
     if (userData && userData.isLogin) {
       return userData.avatars ? userData.avatars : "/images/my/register.png";
     } else {
-      return window.orginfo && window.orgInfo.logo && window.orgInfo.logo.length ? window.orgInfo.logo : "/images/my/register.png";
+      return window.orgInfo && window.orgInfo.logo && window.orgInfo.logo.length ? window.orgInfo.logo : "/images/my/register.png";
     }
 }
 
@@ -71,7 +71,7 @@ function getUserName(userData){
         }
     }
     else {
-        return (window.orginfo&&window.orgInfo.name&&window.orgInfo.name.length)?window.orgInfo.name:'志多星';
+        return (window.orgInfo&&window.orgInfo.name&&window.orgInfo.name.length)?window.orgInfo.name:'志多星';
     }
 }
 
@@ -80,5 +80,5 @@ function getTeamPhoto(teamData){
     if (teamData.team_photo && teamData.team_photo[0]) return teamData.team_photo[0];
     if (teamData.logo) return teamData.logo;
     if (window.orgInfo.logo) return window.orgInfo.logo;
-    return "/images/default_banner.png";
+    return "/images/post_default_image.png";
 }
