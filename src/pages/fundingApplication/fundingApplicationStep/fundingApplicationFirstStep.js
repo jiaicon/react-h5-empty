@@ -294,7 +294,7 @@ class FundingApplication extends React.Component {
                                         required: true,
                                         message: '请输入联系电话',
                                     },{
-                                        pattern: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/,
+                                        pattern: /^1(3|4|5|6|7|8)\d{9}$/,
                                         message: '请输入正确格式的联系电话'
                                     }]
                                 })
