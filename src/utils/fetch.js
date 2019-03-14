@@ -51,7 +51,7 @@ export default function request(requestUrl, requestOptions = {}) {
   // r s-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
   const location = getCookie("location") ? JSON.parse(getCookie("location")) : null;
-  const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "北京市";
+  const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "全国";
    
   let headersObj = {
     ...headers,

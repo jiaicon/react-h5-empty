@@ -33,7 +33,7 @@ class HomePage extends React.Component {
       newcity: null,
       city: getCookie("provinceAndCityName")
         ? JSON.parse(getCookie("provinceAndCityName")).city.replace("市", "")
-        : "北京",
+        : "全国",
       showDialog: false
     };
     this.play = this.play.bind(this);
