@@ -27,7 +27,7 @@ import './my.css';
 
 // 机构码
 const orgCode = window.orgCode;
-const scoreName = window.orgInfo.score_name;
+const scoreName = window.orgInfo.st_point_uint[1];
 
 class MyPage extends React.Component {
 
@@ -138,7 +138,7 @@ class MyPage extends React.Component {
         <Link to="/my/point">
           <div className="page-my-record-item">
             <p className="page-my-record-item-top"><b className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</b> {scoreName || '星币'}</p>
-            <p className="page-my-record-item-bottom">志愿{scoreName ||  '星币'}</p>
+            <p className="page-my-record-item-bottom">{ window.orgInfo.st_point_uint[0] || '志愿'}{scoreName ||  '星币'}</p>
           </div>
         </Link>
       </div>
@@ -335,7 +335,7 @@ class MyPage extends React.Component {
                         <p className="page-my-record-item-top"><b
                             className="page-my-record-item-num">{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</b> {scoreName || '星币'}
                         </p>
-                        <p className="page-my-record-item-bottom">志愿{scoreName || '星币'}</p>
+                        <p className="page-my-record-item-bottom">{ window.orgInfo.st_point_uint[0] || '志愿'}{scoreName || '星币'}</p>
                     </div>
                 </Link>
             </div>
@@ -506,7 +506,6 @@ class MyPage extends React.Component {
         };
         let next_label = null;
         let last_label = null;
-        user.growth = 10;
         if (userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && user) {
             let userAchieveListLocal = userAchieveList.data.data.growth_level;
             console.log(userAchieveListLocal)

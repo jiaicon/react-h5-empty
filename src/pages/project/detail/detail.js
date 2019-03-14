@@ -635,7 +635,7 @@ class ProjectDetailPage extends React.Component {
 
                     {detailData.people_count_public ? (
                         <div className="project-report">
-                            <span>已报名人数</span>
+                            <span>已录用人数</span>
                             <div>
                                 <span>{detailData.join_people_count}</span>/
                                 <span>{detailData.people_count}</span>

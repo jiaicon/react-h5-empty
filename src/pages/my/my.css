@@ -318,12 +318,13 @@
 .commonweal-box-growUp-box-bar-top {
     position: absolute;
     font-family: PingFangSC-Regular;
-    font-size: 11px;
+    font-size: 12px;
     color: #DDBF8E;
     width: 60px;
     text-align: center;
-    top: -20px;
+    top: -18px;
     left: -24px;
+    -webkit-transform: scale(0.8);
 }
 .commonweal-box-growUp-box-bar-bot {
     font-family: AbadiMT-CondensedExtraBold;
