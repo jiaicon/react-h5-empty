@@ -41,7 +41,7 @@ class ModalNew extends React.Component {
             {
               contentText: this.props.postData.contentText,
               username: this.props.postData.username,
-              base64Array: base64Array.slice(0)[0]
+              base64Array: base64Array.slice(0)
             },
             () => {
               that.htm2Click();
@@ -128,6 +128,7 @@ htm2Click = () => {
   }
  
   render() {
+    console.log("Modal开始渲染",this.props);  
     return <div className={classnames({
           visible: this.props.visible,
           hidden: !this.props.visible,

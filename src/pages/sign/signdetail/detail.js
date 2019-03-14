@@ -1019,8 +1019,9 @@ class SignPage extends React.Component {
     renderModal() {
         const { data: data } = this.props.requestProjectDetailData;
         const { user } = this.props;
+        console.log(this.props);
         const postData = PostDataModel_ProjectSign(data,user);
-      return <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  />
+        return <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  />
     }
   render=()=>{
     const { turnMap } = this.state;
