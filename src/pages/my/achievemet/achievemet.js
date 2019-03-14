@@ -178,7 +178,6 @@ class Achievement extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         const {achievementList, achievementHasList, user} = this.props;
         let has = 0;
         let all = 0;
@@ -187,6 +186,7 @@ class Achievement extends React.Component {
             all = achievementHasList.data.list.length + achievementList.data.list.length;
         }
         let that = this;
+        console.log(this.state.visible)
         return (<div className="achievement">
             <div className="achievement-box">
                 <div className="achievement-box-title">
@@ -260,7 +260,7 @@ class Achievement extends React.Component {
                 </div>
             </div>
             <ModalNew
-                maskCloseable={true}
+                maskCloseable={()=>{this.setState({visible: false})}}
                 visible={this.state.visible}
                 platform="ios"
                 transparent={true}
