@@ -41,6 +41,10 @@ class ModalNew extends React.Component {
         if (!this.props.maskCloseable) {
             return;
         }
+        if(typeof this.props.maskCloseable == 'function') {
+            this.props.maskCloseable();
+            return;
+        }
         this.setState({
             visible: false
         })
