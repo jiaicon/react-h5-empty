@@ -243,13 +243,13 @@ class MyPage extends React.Component {
         if (userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && user) {
             let userAchieveListLocal = userAchieveList.data.data.growth_level;
             if (user.growth < userAchieveListLocal[0].growth) {
-                label = userAchieveListLocal[0].name;
+                label = '等级0';
             } else if (user.growth >= userAchieveListLocal[userAchieveListLocal.length - 1].growth) {
-                label = userAchieveListLocal[userAchieveListLocal.length - 1].name;
+                label = `等级${userAchieveListLocal.length - 1}`;
             } else {
                 for (let i = 0; i < userAchieveListLocal.length; i++) {
                     if (user.growth >= userAchieveListLocal[i].growth) {
-                        label = userAchieveListLocal[i+1].name;
+                        label = `等级${i+1}`;
                     }
                 }
             }
@@ -506,27 +506,29 @@ class MyPage extends React.Component {
         };
         let next_label = null;
         let last_label = null;
+        user.growth = 10;
         if (userAchieveList && userAchieveList.data && userAchieveList.data.data && userAchieveList.data.data.growth_level && userAchieveList.data.data.growth_level.length && user) {
             let userAchieveListLocal = userAchieveList.data.data.growth_level;
             console.log(userAchieveListLocal)
             last_label = userAchieveListLocal[userAchieveListLocal.length - 1];
             if (user.growth < userAchieveListLocal[0].growth) {
                 now_label = userAchieveListLocal[0];
-                now_label.level = userAchieveListLocal[0].name.replace('等级', '');
+
+                now_label.level = 0;
                 next_label = userAchieveListLocal[1];
                 next_label.growth=userAchieveListLocal[0].growth;
-                next_label.level = userAchieveListLocal[1].name.replace('等级', '');
+                next_label.level = 1;
             } else if (user.growth >= userAchieveListLocal[userAchieveListLocal.length - 2].growth) {
                 next_label=null;
                 now_label = userAchieveListLocal[userAchieveListLocal.length - 1];
-                now_label.level = userAchieveListLocal[userAchieveListLocal.length - 1].name.replace('等级', '');
+                now_label.level = userAchieveListLocal.length - 1
             } else {
                 for (let i = 0; i < userAchieveListLocal.length; i++) {
                     if (user.growth >= userAchieveListLocal[i].growth) {
                         now_label = userAchieveListLocal[i+1];
-                        now_label.level = userAchieveListLocal[i+1].name.replace('等级', '');
+                        now_label.level = 1;
                         next_label = userAchieveListLocal[i+2];
-                        next_label.level = userAchieveListLocal[i+2].name.replace('等级', '');
+                        next_label.level = i+2;
                     }
                 }
             }
@@ -605,13 +607,11 @@ class MyPage extends React.Component {
     }
 
     renderInstruction() {
-        const data = [{label: '服务时长', value: '10'}, {label: '发表动态', value: '10'}, {
-            label: '每日登陆',
-            value: '10'
-        }, {label: '连续登陆3天', value: '30'}, {label: '分享一次', value: '50'}, {
-            label: '实名认证',
-            value: '100'
-        }, {label: '解锁1级成就1次', value: '200'}, {label: '解锁1级成就2次', value: '400'}, {label: '解锁1级成就3次', value: '1000'}]
+        const {userAchieveList:{data: udata}, user} = this.props;
+        if(!udata) {
+            return null;
+        }
+        const data = udata.data&&udata.data.growth_value&&udata.data.growth_value;
         return <div className="commonweal-box">
             <div className="commonweal-box-close" onClick={this.closeModalNewInstruction}><img
                 src="/images/my/delete.png" alt=""/>
