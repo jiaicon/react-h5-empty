@@ -165,6 +165,14 @@ class FundingApplication extends React.Component {
             })
         }
     }
+
+    renderModalHeader() {
+        return <div className="renderModalHeader">
+            <div className="renderModalHeader-left" onClick={this.onCloseModalProjectFiled}>取消</div>
+            <div>选择服务领域</div>
+            <div className="renderModalHeader-right" onClick={this.onCloseModalProjectFiled}>确定</div>
+        </div>
+    }
     render() {
         const { getFieldProps, getFieldValue,  } = this.props.form;
 
@@ -359,12 +367,11 @@ class FundingApplication extends React.Component {
                     className="review-modal-css"
                     popup
                     platform="ios"
-                    closable={true}
                     visible={this.state.modal_project_field}
                     animationType="slide-up"
                     onClose={this.onCloseModalProjectFiled}
                     afterClose={() => { console.log('afterClose'); }}
-                    title="选择服务领域"
+                    title={this.renderModalHeader()}
                 >
                     <List className="popup-list">
                         {
