@@ -12,10 +12,10 @@ import { getCity, getLocation } from "../../../../utils/funcs";
 import "./detail.css";
 // 定位距离
 function GetDistance(lat1, lng1, lat2, lng2) {
-    console.log(lat1, lng1, lat2, lng2)
+  console.log(lat1, lng1, lat2, lng2);
   var radLat1 = (lat1 * Math.PI) / 180.0;
   var radLat2 = (lat2 * Math.PI) / 180.0;
-  console.log(radLat1, radLat2)
+  console.log(radLat1, radLat2);
   var a = radLat1 - radLat2;
   var b = (lng1 * Math.PI) / 180.0 - (lng2 * Math.PI) / 180.0;
   var s =
@@ -31,6 +31,7 @@ function GetDistance(lat1, lng1, lat2, lng2) {
   // return的距离单位为km;
   return s;
 }
+
 export default class SignBall extends React.Component {
   static propTypes = {
     isLight: PropTypes.bool,
@@ -38,12 +39,17 @@ export default class SignBall extends React.Component {
     data: PropTypes.shape({}),
     ballTitle: PropTypes.string,
     mapFunc: PropTypes.func,
-    isSigninStatus: PropTypes.bool,//这个是判断是不是签到的， 如果是签到需要提前一个小时算可以打卡
+    isSigninStatus: PropTypes.bool //这个是判断是不是签到的， 如果是签到需要提前一个小时算可以打卡
   };
   constructor(props) {
     super(props);
     autoBind(this);
     this.timer = null;
+
+    this.geolocation = new qq.maps.Geolocation(
+      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+      "myapp"
+    );
 
     this.locationTimer = null; //用来间隔十秒刷新定位和状态
 
@@ -57,10 +63,15 @@ export default class SignBall extends React.Component {
   }
 
   componentWillMount() {
-      this.getloc();
+    this.getloc();
   }
-  getloc = (props) => {
-    const { data ,isSigninStatus } = this.props;
+
+  getloc = props => {
+    this.geolocation.getLocation(this.showPosition);
+  };
+
+  getlocationPrivate(location) {
+    const { data, isSigninStatus } = this.props;
     let isToday = false;
     let begin = moment(data.begin).valueOf();
     let end = moment(data.end).valueOf();
@@ -69,98 +80,104 @@ export default class SignBall extends React.Component {
       .valueOf();
     let now = +new Date();
     if (isSigninStatus && isSigninStatus) {
-      let tempBegin = moment(data.begin).add(-1,'hours').valueOf();
+      let tempBegin = moment(data.begin)
+        .add(-1, "hours")
+        .valueOf();
       if (tempBegin <= now && now < secondDayEnd) {
         isToday = true;
       }
-      console.log('是签到的那种', tempBegin, begin, now);
-    }
-    else {
+      console.log("是签到的那种", tempBegin, begin, now);
+    } else {
       if (begin <= now && now < secondDayEnd) {
         isToday = true;
       }
     }
-    console.log(isToday,isSigninStatus,begin)
+    console.log(isToday, isSigninStatus, begin);
 
-    getCity(
-      (city, detaildata, location) => {
-        console.log('获取到的位置信息111',city, detaildata, location);
-        let { detail } = JSON.parse(detaildata);
-          const distanceData = this.props.data;
-          console.log(':::::::distanceData:::::',distanceData)
-          if(Number(distanceData.distance) != 0) {
-              //后台设置全市时，data.distance=0；这时候判断市名字就OK
-              let distance = GetDistance(location.lat, location.lng, data.lat, data.lng);
-              console.log(distance, data);
-              if (distance <= data.distance) {
-                this.setState({
-                  isSign: isToday,
-                  signIndex: 1,
-                  locDetail: detail
-                });
-              } else {
-                  this.setState({
-                      isSign: false,
-                      signIndex: 2
-                  });
-              }
-          }else if(distanceData.county_name == "全市"&&distanceData.city_name.replace("市", "") == detail.city.replace("市", "")){
-              //市名为当前的
-              this.setState({
-                  isSign: isToday,
-                  signIndex: 1,
-                  locDetail: detail
-              });
-          }else if(distanceData.city_name == "全省"&&distanceData.province_name.replace("省", "") == detail.province.replace("省", "").replace("市", "")){
-              //市名为当前的
-              this.setState({
-                  isSign: isToday,
-                  signIndex: 1,
-                  locDetail: detail
-              });
-          }else if(distanceData.province_name == "全国"){
-              //市名为当前的
-              this.setState({
-                  isSign: isToday,
-                  signIndex: 1,
-                  locDetail: detail
-              });
-          }else {
-              this.setState({
-                  isSign: false,
-                  signIndex: 2
-              });
-          }
-      },
-      error => {
-        console.log(error);
-        if (fail) {
-          this.setState({
-            isSign: false,
-            signIndex: 3
-          });
-        }
+    const distanceData = this.props.data;
+    console.log(":::::::distanceData:::::", distanceData);
+    if (Number(distanceData.distance) != 0) {
+      //后台设置全市时，data.distance=0；这时候判断市名字就OK
+      let distance = GetDistance(
+        location.lat,
+        location.lng,
+        data.lat,
+        data.lng
+      );
+      console.log(distance, data);
+      if (distance <= data.distance) {
+        this.setState({
+          isSign: isToday,
+          signIndex: 1,
+          locDetail: location
+        });
+      } else {
+        this.setState({
+          isSign: false,
+          signIndex: 2,
+          locDetail: location
+        });
       }
-    );
-  };
+    } else if (
+      distanceData.county_name == "全市" &&
+      distanceData.city_name.replace("市", "") == detail.city.replace("市", "")
+    ) {
+      //市名为当前的
+      this.setState({
+        isSign: isToday,
+        signIndex: 1,
+        locDetail: location
+      });
+    } else if (
+      distanceData.city_name == "全省" &&
+      distanceData.province_name.replace("省", "") ==
+        detail.province.replace("省", "").replace("市", "")
+    ) {
+      //市名为当前的
+      this.setState({
+        isSign: isToday,
+        signIndex: 1,
+        locDetail: location
+      });
+    } else if (distanceData.province_name == "全国") {
+      //市名为当前的
+      this.setState({
+        isSign: isToday,
+        signIndex: 1,
+        locDetail: location
+      });
+    } else {
+      this.setState({
+        isSign: false,
+        signIndex: 2,
+        locDetail: location
+      });
+    }
+  }
   componentDidMount() {
-      this.getloc();
-      const that = this;
-      this.timer = setInterval(() => {
-          that.setState({
-              time: `${moment().format("HH:mm:ss")}`
-          });
-      }, 1000);
-      this.locationTimer = setInterval(() => {
-         that.getloc();
-      })
+    // this.getloc();
+    this.geolocation.watchPosition(this.showPosition);
+    const that = this;
+    this.timer = setInterval(() => {
+      that.setState({
+        time: `${moment().format("HH:mm:ss")}`
+      });
+    }, 1000);
+    // this.locationTimer = setInterval(() => {
+    //    that.getloc();
+    // },10000)
   }
 
- componentWillReceiveProps(nextProps) {
+  showPosition(loc) {
+    console.log(loc);
+    this.getlocationPrivate(loc);
   }
+
+  componentWillReceiveProps(nextProps) {}
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    this.geolocation.clearWatch();
   }
   handleClick() {
     const { time, isSign, signIndex, locDetail } = this.state;
@@ -168,7 +185,8 @@ export default class SignBall extends React.Component {
     if (!isSign) return;
     let postMessages = {
       id: data.id,
-      addr: `${locDetail.city&&locDetail.city}${locDetail.district&&locDetail.district}${locDetail.street&&locDetail.street}`
+      addr: `${locDetail.city && locDetail.city}${locDetail.district &&
+        locDetail.district}${locDetail.street && locDetail.street}`
     };
     this.props.clickFunc(postMessages);
   }
