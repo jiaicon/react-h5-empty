@@ -20,6 +20,7 @@ import {loginAction, changeIndex ,storeLoginSource} from './login.store';
 import { requestVerifyCode, register } from '../register/register.store';
 import Avatar from '../../../components/avatar/avatar';
 import { API_HOST } from '../../../utils/config';
+import { format } from 'url';
 
 class Login extends React.Component {
 
@@ -74,10 +75,14 @@ class Login extends React.Component {
             }else{
                 
                 // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
+                
                 if (from) {
+                    console.log("登录状态设置了来源，from是：：：：：：",from);
                     target = from;
                 }
-                
+                if (from === '/my/login') {
+                    target = '/my';
+                }
                 window.location.replace(target);
                 // history.replace(target);
             }
