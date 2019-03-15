@@ -261,8 +261,99 @@
     font-family: PingFangSC-Regular;
     font-size: 13px;
 }
-
-
+.share-my-achievement {
+    width: 315px;
+    color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 100px;
+    text-align: center;
+    margin: 20px auto;
+    font-size: 14px;
+    background-color: #ff4b17;
+}
+.modal-this {
+    padding: 25px 0px 13px;
+    width: 310px;
+    margin: 0 auto;
+    position: relative;
+    background-color: #fff;
+    position: absolute;
+    top: -99999px;
+}
+.modal-this-name {
+    font-family: PingFangSC-Semibold;
+    font-size: 14px;
+    color: #4A4A4A;
+    margin: 18px auto;
+    text-align: center;
+}
+.modal-this-time {
+    font-family: PingFangSC-Semibold;
+    font-size: 17px;
+    color: #4A4A4A;
+    text-align: center;
+}
+.modal-this-line {
+    font-family: PingFangSC-Semibold;
+    font-size: 17px;
+    color: #9B9B9B;
+    text-align: center;
+    display: flex;
+    margin-top: 22px;
+    padding: 0px 17px;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-this-avatar {
+    width: 59px;
+    height: 59px;
+    border-radius: 100%;
+    margin: 0 auto;
+}
+.modal-this-two-line {
+    background: #e2e2e2;
+    height: 2px;
+    width: 72px;
+}
+.modal-this-big-img {
+    width: 100%;
+    height: 290px;
+    background: url("/images/modal_this_big_img.png")no-repeat;
+    background-size: contain;
+}
+.modal-this-achieve-name {
+    position: relative;
+    top: 24px;
+    font-family: PingFangSC-Semibold;
+    font-size: 20px;
+    color: #BB781D;
+    text-align: center;
+}
+.modal-this-achieve-img {
+    width: 145px;
+    height: 145px;
+    position: relative;
+    top: 50px;
+    background-color: transparent;
+    left: 50%;
+    margin-left: -72.5px;
+}
+.modal-this-footer {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #4A4A4A;
+    text-align: center;
+    margin-top: 22px;
+}
+.modal-this-share-qrcode {
+    position: absolute;
+    bottom: 32px;
+}
+.modal-this .modal-this-qrcode-size {
+    width: 65px;
+    height: 65px;
+}
 
 
 
