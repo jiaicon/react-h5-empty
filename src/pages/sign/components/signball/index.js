@@ -63,109 +63,11 @@ export default class SignBall extends React.Component {
   }
 
   componentWillMount() {
-    // this.getloc();
+    this.getloc();
   }
 
   getloc = props => {
-    const { data, isSigninStatus } = this.props;
-    let isToday = false;
-    let begin = moment(data.begin).valueOf();
-    let end = moment(data.end).valueOf();
-    let secondDayEnd = moment(data.end)
-      .add(1, "days")
-      .valueOf();
-    let now = +new Date();
-    if (isSigninStatus && isSigninStatus) {
-      let tempBegin = moment(data.begin)
-        .add(-1, "hours")
-        .valueOf();
-      if (tempBegin <= now && now < secondDayEnd) {
-        isToday = true;
-      }
-      console.log("是签到的那种", tempBegin, begin, now);
-    } else {
-      if (begin <= now && now < secondDayEnd) {
-        isToday = true;
-      }
-    }
-    console.log(isToday, isSigninStatus, begin);
-
-    getCity(
-      (city, detaildata, location) => {
-        console.log(
-          "获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111获取到的位置信息1111111",
-          city,
-          detaildata,
-          location
-        );
-        let { detail } = JSON.parse(detaildata);
-        const distanceData = this.props.data;
-        console.log(":::::::distanceData:::::", distanceData);
-        if (Number(distanceData.distance) != 0) {
-          //后台设置全市时，data.distance=0；这时候判断市名字就OK
-          let distance = GetDistance(
-            location.lat,
-            location.lng,
-            data.lat,
-            data.lng
-          );
-          console.log(distance, data);
-          if (distance <= data.distance) {
-            this.setState({
-              isSign: isToday,
-              signIndex: 1,
-              locDetail: detail
-            });
-          } else {
-            this.setState({
-              isSign: false,
-              signIndex: 2
-            });
-          }
-        } else if (
-          distanceData.county_name == "全市" &&
-          distanceData.city_name.replace("市", "") ==
-            detail.city.replace("市", "")
-        ) {
-          //市名为当前的
-          this.setState({
-            isSign: isToday,
-            signIndex: 1,
-            locDetail: detail
-          });
-        } else if (
-          distanceData.city_name == "全省" &&
-          distanceData.province_name.replace("省", "") ==
-            detail.province.replace("省", "").replace("市", "")
-        ) {
-          //市名为当前的
-          this.setState({
-            isSign: isToday,
-            signIndex: 1,
-            locDetail: detail
-          });
-        } else if (distanceData.province_name == "全国") {
-          //市名为当前的
-          this.setState({
-            isSign: isToday,
-            signIndex: 1,
-            locDetail: detail
-          });
-        } else {
-          this.setState({
-            isSign: false,
-            signIndex: 2
-          });
-        }
-      },
-      error => {
-        console.log("签到页面定位失败");
-        this.setState({
-          isSign: false,
-          signIndex: 3
-        });
-      }
-    );
+    this.geolocation.getLocation(this.showPosition);
   };
 
   getlocationPrivate(location) {
