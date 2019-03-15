@@ -27,7 +27,7 @@ import "./my.css";
 
 // 机构码
 const orgCode = window.orgCode;
-const scoreName = window.orgInfo.st_point_uint[1];
+const scoreName = window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[1];
 
 class MyPage extends React.Component {
   constructor(props) {
@@ -177,7 +177,7 @@ class MyPage extends React.Component {
                 {scoreName || "星币"}
               </p>
               <p className="page-my-record-item-bottom">
-                {window.orgInfo.st_point_uint[0] || "志愿"}
+                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || "志愿"}
                 {scoreName || "星币"}
               </p>
             </div>
@@ -360,7 +360,7 @@ class MyPage extends React.Component {
                 {scoreName || "星币"}
               </p>
               <p className="page-my-record-item-bottom">
-                {window.orgInfo.st_point_uint[0] || "志愿"}
+                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || "志愿"}
                 {scoreName || "星币"}
               </p>
             </div>
