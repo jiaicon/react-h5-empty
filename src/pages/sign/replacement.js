@@ -50,7 +50,11 @@ class Replacement extends React.Component {
         const { failed: pFailed, fetching: pFetching } = this.props.projectCheckedSubmitData;
         if(!pFailed && pFetching && !nFailed && !nFetching) {
             Alert.success('申请补卡成功');
-            location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
+            if(this.proid == 'proid') {
+                location.replace('/my/duration/applys');
+            }else {
+                location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
+            }
         }
     }
     getProjectSign() {
