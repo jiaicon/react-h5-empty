@@ -565,7 +565,6 @@ class MyPage extends React.Component {
       user
     ) {
       let userAchieveListLocal = userAchieveList.data.data.growth_level;
-      console.log(userAchieveListLocal);
       last_label = userAchieveListLocal[userAchieveListLocal.length - 1];
       if (user.growth < userAchieveListLocal[0].growth) {
         now_label = userAchieveListLocal[0];
@@ -585,7 +584,7 @@ class MyPage extends React.Component {
         for (let i = 0; i < userAchieveListLocal.length; i++) {
           if (user.growth >= userAchieveListLocal[i].growth) {
             now_label = userAchieveListLocal[i + 1];
-            now_label.level = 1;
+            now_label.level = i;
             next_label = userAchieveListLocal[i + 2];
             next_label.level = i + 2;
           }
