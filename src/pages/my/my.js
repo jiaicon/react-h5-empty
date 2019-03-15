@@ -14,6 +14,7 @@ import { bindActionCreators } from "redux";
 import history from "../history";
 
 import { userCenterAction, userAchieve } from "./my.store";
+import { logoutAction } from './login/login.store';
 import { requestUserInfo } from "../../stores/common";
 import Link from "../../components/link/link";
 import Star from "../../components/star/star";
@@ -189,49 +190,9 @@ class MyPage extends React.Component {
     const { user } = this.props;
     return (
       <div>
-        {/*<div className="page-my-header">*/}
-
-        {/*<Link to="/my/setting">*/}
-        {/*<div className="page-my-header-setting" />*/}
-        {/*</Link>*/}
-
-        {/*<Link to="/my/messages">*/}
-        {/*{this.renderPageMymessagesTemplate()}*/}
-        {/*</Link>*/}
-
-        {/*</div>*/}
-
         <div>{this.renderPageMyphotoTemplate()}</div>
         {this.renderPageMyRecordTemplate()}
       </div>
-    );
-  }
-  renderPageMyContainer() {
-    const { user } = this.props;
-    return (
-      <ul className="page-my-item-container">
-
-        <li>
-          <div>
-            <Link to="/my/circle">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-circle">
-                  {this.props.usercenter.data === null ? (
-                    <span />
-                  ) : (
-                    <span
-                      className={classnames({
-                        "page-my-header-messages-red-point":
-                          this.props.usercenter.data.msg_count >= 1
-                      })}
-                    />
-                  )}
-                </i>
-              </div>
-            </Link>
-          </div>
-        </li>
-      </ul>
     );
   }
 
@@ -434,148 +395,150 @@ class MyPage extends React.Component {
   renderPageMyContainer() {
     const { user } = this.props;
     return (
-      <ul className="page-my-item-container">
-      {window.orgInfo.funding_application === 0 ? null : (
+      <div>
+        <ul className="page-my-item-container">
+          {window.orgInfo.funding_application === 0 ? null : (
+            <li>
+              <div>
+                <Link to="/my/fundingApplication/list">
+                  <div className="page-my-item-box">
+                    <i className="page-my-item-icon page-my-item-icon-fundingApplication" />
+                    社区友好基金
+                  </div>
+                  <span className="page-my-item-big" />
+                </Link>
+                <div className="line1px" />
+              </div>
+            </li>
+          )}
           <li>
             <div>
-              <Link to="/my/fundingApplication/list">
+              <Link to="/my/circle">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-fundingApplication" />
-                  社区友好基金
+                  <i className="page-my-item-icon page-my-item-icon-circle">
+                    {this.props.usercenter.data === null ? (
+                      <span />
+                    ) : (
+                      <span
+                        className={classnames({
+                          "page-my-item-icon-circle-red-point":
+                            this.props.usercenter.data.comment_count >= 1
+                        })}
+                      />
+                    )}
+                  </i>
+                  我的志愿圈
                 </div>
                 <span className="page-my-item-big" />
               </Link>
               <div className="line1px" />
             </div>
           </li>
-        )}
-        <li>
-          <div>
-            <Link to="/my/circle">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-circle">
-                  {this.props.usercenter.data === null ? (
-                    <span />
-                  ) : (
-                    <span
-                      className={classnames({
-                        "page-my-item-icon-circle-red-point":
-                          this.props.usercenter.data.comment_count >= 1
-                      })}
-                    />
-                  )}
-                </i>
-                我的志愿圈
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
 
-        <li>
-          <div>
-            <Link to="/my/messages">
-              <div className="page-my-item-box">
-                {this.renderPageMymessagesTemplate()}
-                我的消息
-                {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-
-        <li>
-          <div>
-            <Link to="/my/profile/detail/user">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-data" />
-                个人资料
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-        <li>
-          <div onClick={this.hasntIdnumber}>
-            <Link to="/my/certificate">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-certificate" />
-                我的证书
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-        <li>
-          <div>
-            <Link to="/my/family">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-family" />
-                我的家庭
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-        <li>
-          <div>
-            <Link to="/my/collects">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-like" />
-                我的收藏
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-        <li>
-          <div>
-            <Link to="/my/duration/applys">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-applys" />
-                申请服务时长
-              </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-        {orgCode === "wMvbmOeYAl" ? (
-          <li />
-        ) : (
           <li>
             <div>
-              <Link to="/my/service">
+              <Link to="/my/messages">
                 <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-service" />
-                  服务中心
+                  {this.renderPageMymessagesTemplate()}
+                  我的消息
+                  {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
                 </div>
                 <span className="page-my-item-big" />
               </Link>
               <div className="line1px" />
             </div>
           </li>
-        )}
-        <li>
-          <div>
-            <Link to="/my/setting">
-              <div className="page-my-item-box">
-                <i className="page-my-item-icon page-my-item-icon-setting" />
-                设置
+
+          <li>
+            <div>
+              <Link to="/my/profile/detail/user">
+                <div className="page-my-item-box">
+                  <i className="page-my-item-icon page-my-item-icon-data" />
+                  个人资料
+                </div>
+                <span className="page-my-item-big" />
+              </Link>
+              <div className="line1px" />
+            </div>
+          </li>
+          <li>
+            <div onClick={this.hasntIdnumber}>
+              <Link to="/my/certificate">
+                <div className="page-my-item-box">
+                  <i className="page-my-item-icon page-my-item-icon-certificate" />
+                  我的证书
+                </div>
+                <span className="page-my-item-big" />
+              </Link>
+              <div className="line1px" />
+            </div>
+          </li>
+          <li>
+            <div>
+              <Link to="/my/family">
+                <div className="page-my-item-box">
+                  <i className="page-my-item-icon page-my-item-icon-family" />
+                  我的家庭
+                </div>
+                <span className="page-my-item-big" />
+              </Link>
+              <div className="line1px" />
+            </div>
+          </li>
+          <li>
+            <div>
+              <Link to="/my/collects">
+                <div className="page-my-item-box">
+                  <i className="page-my-item-icon page-my-item-icon-like" />
+                  我的收藏
+                </div>
+                <span className="page-my-item-big" />
+              </Link>
+              <div className="line1px" />
+            </div>
+          </li>
+          <li>
+            <div>
+              <Link to="/my/duration/applys">
+                <div className="page-my-item-box">
+                  <i className="page-my-item-icon page-my-item-icon-applys" />
+                  申请服务时长
+                </div>
+                <span className="page-my-item-big" />
+              </Link>
+              <div className="line1px" />
+            </div>
+          </li>
+          {orgCode === "wMvbmOeYAl" ? (
+            <li />
+          ) : (
+            <li>
+              <div>
+                <Link to="/my/service">
+                  <div className="page-my-item-box">
+                    <i className="page-my-item-icon page-my-item-icon-service" />
+                    服务中心
+                  </div>
+                  <span className="page-my-item-big" />
+                </Link>
+                <div className="line1px" />
               </div>
-              <span className="page-my-item-big" />
-            </Link>
-            <div className="line1px" />
-          </div>
-        </li>
-      </ul>
+            </li>
+          )}
+          <li>
+            <div>
+              <Link to="/my/setting">
+                <div className="page-my-item-box">
+                  <i className="page-my-item-icon page-my-item-icon-setting" />
+                  设置
+                </div>
+                <span className="page-my-item-big" />
+              </Link>
+              <div className="line1px" />
+            </div>
+          </li>
+        </ul>
+      </div>
     );
   }
 
@@ -829,27 +792,37 @@ class MyPage extends React.Component {
       left: "0"
     };
     return (
-      <div className="page-my">
-        <div className="page-my-top">{this.renderPageMyTop()}</div>
-        <div className="page-my-line" />
-        <div className="page-my-item-container-padding">
-          {this.renderPageMyContainer()}
-          <Gallery
-            src={this.state.previewData}
-            show={this.state.showMultiple}
-            defaultIndex={this.state.defaultIndex}
-          >
-            <Button
-              style={BackButtonStyle}
-              onClick={e => this.setState({ showMultiple: false })}
-              plain
+      <div>
+        <div className="page-my">
+          <div className="page-my-top">{this.renderPageMyTop()}</div>
+          <div className="page-my-line" />
+          <div className="page-my-item-container-padding">
+            {this.renderPageMyContainer()}
+            <Gallery
+              src={this.state.previewData}
+              show={this.state.showMultiple}
+              defaultIndex={this.state.defaultIndex}
             >
-              Back
-            </Button>
-          </Gallery>
+              <Button
+                style={BackButtonStyle}
+                onClick={e => this.setState({ showMultiple: false })}
+                plain
+              >
+                Back
+              </Button>
+            </Gallery>
+          </div>
+          {this.renderModal()}
+          {this.renderModalInstruction()}
         </div>
-        {this.renderModal()}
-        {this.renderModalInstruction()}
+        {window.orgCode === 'K4oeERva0B' ? (
+          <div>
+            <div className="page-my-line" />
+            <a className="page-setting-quit" onClick={this.props.logoutAction}>
+              退出登录
+            </a>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -933,8 +906,10 @@ export default connect(
       {
         userCenterAction,
         requestUserInfo,
-        userAchieve
+        userAchieve,
+        logoutAction
       },
       dispatch
     )
 )(MyPage);
+

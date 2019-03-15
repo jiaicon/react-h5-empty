@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/modal_this_big_img.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/duration/projects.js" afterPath="$PROJECT_DIR$/src/components/duration/projects.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/posterModal/ModalNew.css" afterPath="$PROJECT_DIR$/src/components/posterModal/ModalNew.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/posterModal/ModalNew.js" afterPath="$PROJECT_DIR$/src/components/posterModal/ModalNew.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/posterModal/PostDataModel.js" afterPath="$PROJECT_DIR$/src/components/posterModal/PostDataModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/login/login.js" afterPath="$PROJECT_DIR$/src/pages/my/login/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/my.css" afterPath="$PROJECT_DIR$/src/pages/my/my.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/my.js" afterPath="$PROJECT_DIR$/src/pages/my/my.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" afterPath="$PROJECT_DIR$/src/pages/sign/components/signball/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" afterPath="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/funcs.js" afterPath="$PROJECT_DIR$/src/utils/funcs.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +35,8 @@
       <file leaf-file-name="achievemet.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="203" column="50" lean-forward="false" selection-start-line="203" selection-start-column="50" selection-end-line="203" selection-end-column="50" />
+            <state relative-caret-position="295">
+              <caret line="192" column="33" lean-forward="false" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="33" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -70,8 +76,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>four</find>
-      <find>-20-</find>
       <find>st_point_uint</find>
       <find>renderModalHeader</find>
       <find>选择</find>
@@ -100,6 +104,8 @@
       <find>qrcodeURL</find>
       <find>createQrcode</find>
       <find>htm2Click</find>
+      <find>&lt;&lt;&lt;&lt;&lt;</find>
+      <find>&lt;&lt;&lt;</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -368,12 +374,12 @@
       <workItem from="1552298519962" duration="889000" />
       <workItem from="1552357581143" duration="6639000" />
       <workItem from="1552387178509" duration="543000" />
-      <workItem from="1552556093920" duration="18139000" />
+      <workItem from="1552556093920" duration="18294000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="335819000" />
+    <option name="totallyTimeSpent" value="335974000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -611,6 +617,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
           <caret line="120" column="16" lean-forward="true" selection-start-line="120" selection-start-column="16" selection-end-line="120" selection-end-column="16" />
+          <folding>
+            <element signature="e#117#158#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -798,8 +807,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="203" column="50" lean-forward="false" selection-start-line="203" selection-start-column="50" selection-end-line="203" selection-end-column="50" />
+        <state relative-caret-position="295">
+          <caret line="192" column="33" lean-forward="false" selection-start-line="192" selection-start-column="33" selection-end-line="192" selection-end-column="33" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

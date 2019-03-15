@@ -239,7 +239,7 @@ export function getCity(success, fail) {
 
 export function getToken() {
   if (window.dev) {
-    return localStorage.getItem("token");
+    return localStorage.getItem(`${location.host}/token`);
   }
 
   return window.token;
@@ -248,9 +248,9 @@ export function getToken() {
 export function setToken(token) {
   if (window.dev) {
     if (token) {
-      localStorage.setItem("token", token);
+      localStorage.setItem(`${location.host}/token`, token);
     } else {
-      localStorage.removeItem("token");
+      localStorage.removeItem(`${location.host}/token`);
     }
   } else {
     window.token = token;

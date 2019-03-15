@@ -45,6 +45,7 @@ class DurationProjects extends React.Component {
     this.props.HandleClick(data);
   }
   poster=(data)=>{
+    console.log(data,this.props);
     this.setState({
       ...this.state,
       visible: true,

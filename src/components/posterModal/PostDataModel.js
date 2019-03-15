@@ -47,6 +47,7 @@ export function PostDataModel_ProjectSign(projectData,userData){
         contentText :tempContentText,
         url :`${window.location.host}/project/detail/${projectData.id}`,
     }
+    console.log(PostDataModel);
     return PostDataModel;
 }
 
