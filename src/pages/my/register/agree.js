@@ -1356,14 +1356,7 @@ class Agree extends React.Component {
   }
 }
 
-if (window.orgCode == "EKQe1RaJYv") {
-  Agree.title = "Continental中国志愿者协议";
-}
-if (window.orgCode == "joQeZJepZV") {
-  Agree.title = "长春志愿者用户协议";
-} else {
-  Agree.title = "志多星协议";
-}
+Agree.title = "用户协议";
 Agree.propTypes = {};
 
 export default connect(
