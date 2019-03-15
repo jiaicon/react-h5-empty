@@ -45,6 +45,8 @@ export default class SignBall extends React.Component {
     autoBind(this);
     this.timer = null;
 
+    this.locationTimer = null; //用来间隔十秒刷新定位和状态
+
     this.state = {
       time: `${moment().format("HH:mm:ss")}`,
       locDetail: null,
@@ -71,12 +73,14 @@ export default class SignBall extends React.Component {
       if (tempBegin <= now && now < secondDayEnd) {
         isToday = true;
       }
+      console.log('是签到的那种', tempBegin, begin, now);
     }
     else {
       if (begin <= now && now < secondDayEnd) {
         isToday = true;
       }
     }
+    console.log(isToday,isSigninStatus,begin)
 
     getCity(
       (city, detaildata, location) => {
@@ -84,24 +88,16 @@ export default class SignBall extends React.Component {
         let { detail } = JSON.parse(detaildata);
           const distanceData = this.props.data;
           console.log(':::::::distanceData:::::',distanceData)
-          if(Number(distanceData.distance) !== 0) {
+          if(Number(distanceData.distance) != 0) {
               //后台设置全市时，data.distance=0；这时候判断市名字就OK
               let distance = GetDistance(location.lat, location.lng, data.lat, data.lng);
               console.log(distance, data);
               if (distance <= data.distance) {
-                  if (isToday) {
-                      this.setState({
-                          isSign: true,
-                          signIndex: 1,
-                          locDetail: detail
-                      });
-                  } else {
-                      this.setState({
-                          isSign: false,
-                          signIndex: 1,
-                          locDetail: detail
-                      });
-                  }
+                this.setState({
+                  isSign: isToday,
+                  signIndex: 1,
+                  locDetail: detail
+                });
               } else {
                   this.setState({
                       isSign: false,
@@ -111,21 +107,21 @@ export default class SignBall extends React.Component {
           }else if(distanceData.county_name == "全市"&&distanceData.city_name.replace("市", "") == detail.city.replace("市", "")){
               //市名为当前的
               this.setState({
-                  isSign: true,
+                  isSign: isToday,
                   signIndex: 1,
                   locDetail: detail
               });
           }else if(distanceData.city_name == "全省"&&distanceData.province_name.replace("省", "") == detail.province.replace("省", "").replace("市", "")){
               //市名为当前的
               this.setState({
-                  isSign: true,
+                  isSign: isToday,
                   signIndex: 1,
                   locDetail: detail
               });
           }else if(distanceData.province_name == "全国"){
               //市名为当前的
               this.setState({
-                  isSign: true,
+                  isSign: isToday,
                   signIndex: 1,
                   locDetail: detail
               });
@@ -155,6 +151,9 @@ export default class SignBall extends React.Component {
               time: `${moment().format("HH:mm:ss")}`
           });
       }, 1000);
+      this.locationTimer = setInterval(() => {
+         that.getloc();
+      })
   }
 
  componentWillReceiveProps(nextProps) {
