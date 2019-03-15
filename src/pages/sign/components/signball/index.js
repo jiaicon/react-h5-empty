@@ -38,7 +38,7 @@ export default class SignBall extends React.Component {
     data: PropTypes.shape({}),
     ballTitle: PropTypes.string,
     mapFunc: PropTypes.func,
-    isSigninStatus: PropTypes.bool,
+    isSigninStatus: PropTypes.bool,//这个是判断是不是签到的， 如果是签到需要提前一个小时算可以打卡
   };
   constructor(props) {
     super(props);
