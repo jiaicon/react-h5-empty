@@ -190,3 +190,21 @@ div.page-funding-application-allBox {
 .page-funding-application-item-disabled-default-color .am-list-header{
     color: #000;
 }
+.renderModalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.renderModalHeader-left {
+    color: #ff4d0f;
+    font-size: 14px;
+}
+.renderModalHeader-right {
+    color: #108ee9;
+    font-size: 14px;
+}
+.review-modal-css .am-modal-header {
+    padding: 10px 15px;
+}

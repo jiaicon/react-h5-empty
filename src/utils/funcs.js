@@ -54,19 +54,19 @@ export function ImageToBase64(imageArrays, defaultArrays, callback, index) {
     img.onload = function() {
       var w = img.width;
       var h = img.height;
-      canvas.height = 200;
-      canvas.width = 200;
+      canvas.height = 600;
+      canvas.width = 600;
 
       if (w > h) {
         let diff = (w - h) / 2;
 
-        ctx.drawImage(img, diff, 0, h, h, 0, 0, 200, 200);
+        ctx.drawImage(img, diff, 0, h, h, 0, 0, 600, 600);
       } else if (w < h) {
         let diff = (h - w) / 2;
 
-        ctx.drawImage(img, 0, diff, w, w, 0, 0, 200, 200);
+        ctx.drawImage(img, 0, diff, w, w, 0, 0, 600, 600);
       } else if (w == h) {
-        ctx.drawImage(img, 0, 0, w, w, 0, 0, 200, 200);
+        ctx.drawImage(img, 0, 0, w, w, 0, 0, 600, 600);
       }
       var dataURL = canvas.toDataURL("image/png");
       imageArrays[index] = dataURL;
@@ -192,9 +192,10 @@ export function getCity(success, fail) {
 
   getLocation(
     loc => {
+      console.log(loc)
       const geocoder = new qq.maps.Geocoder({
         complete: result => {
-          console.log(result);
+          console.log('resultresultresult::',result);
           if (
             result.detail.addressComponents &&
             result.detail.addressComponents.city
@@ -205,12 +206,15 @@ export function getCity(success, fail) {
             }
             const city = result.detail.addressComponents.city;
             const province = result.detail.addressComponents.province;
+            console.log(result.detail.addressComponents);
             success(
               result.detail.addressComponents.city.replace("市", ""),
               JSON.stringify({
                 city,
-                province
-              })
+                province,
+                detail: result.detail.addressComponents
+              }),
+                result.detail.location
             );
           } else if (fail) {
             fail({});
@@ -235,7 +239,7 @@ export function getCity(success, fail) {
 
 export function getToken() {
   if (window.dev) {
-    return localStorage.getItem("token");
+    return localStorage.getItem(`${location.host}/token`);
   }
 
   return window.token;
@@ -244,9 +248,9 @@ export function getToken() {
 export function setToken(token) {
   if (window.dev) {
     if (token) {
-      localStorage.setItem("token", token);
+      localStorage.setItem(`${location.host}/token`, token);
     } else {
-      localStorage.removeItem("token");
+      localStorage.removeItem(`${location.host}/token`);
     }
   } else {
     window.token = token;

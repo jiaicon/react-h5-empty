@@ -722,6 +722,13 @@ class Preview extends React.Component {
             })
         }
     }
+    renderModalHeader() {
+        return <div className="renderModalHeader">
+            <div className="renderModalHeader-left" onClick={this.onCloseModalProjectFiled}>取消</div>
+            <div>选择服务领域</div>
+            <div className="renderModalHeader-right" onClick={this.onCloseModalProjectFiled}>确定</div>
+        </div>
+    }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;
         const { cityData: { data: listData },areaData: { data: areaListData } } = this.props;
@@ -893,7 +900,7 @@ class Preview extends React.Component {
                                                     required: true,
                                                     message: '请输入联系电话',
                                                 },{
-                                                    pattern: /^1[345678]\d{9}$/,
+                                                    pattern: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/,
                                                     message: '请输入正确格式的联系电话'
                                                 }]
                                             })
@@ -1095,7 +1102,7 @@ class Preview extends React.Component {
                                                     required: true,
                                                     message: '请输入受益组织联系人电话',
                                                 },{
-                                                    pattern: /^1[345678]\d{9}$/,
+                                                    pattern: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/,
                                                     message: '请输入正确格式的联系电话'
                                                 }],
                                             })
@@ -1455,9 +1462,10 @@ class Preview extends React.Component {
                     visible={this.state.modal_project_field}
                     animationType="slide-up"
                     onClose={this.onCloseModalProjectFiled}
+                    title={this.renderModalHeader()}
                     afterClose={() => { console.log('afterClose'); }}
                 >
-                    <List renderHeader={() => <div>选择项目领域</div>} className="popup-list">
+                    <List className="popup-list">
                         {
                             this.state.serviceArea.map((item, index)=>(
                                 <CheckboxItem

@@ -2,35 +2,49 @@
  * @file 补录申请
  */
 
-
 /* eslint  "class-methods-use-this":"off",
 "jsx-a11y/no-static-element-interactions":"off",
 "react/no-array-index-key":"off" */
-import React, { PropTypes } from 'react';
-import autoBind from 'react-autobind';
-import Alert from 'react-s-alert';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
-import './post.css';
-import DutationProjects from '../../../components/duration/projects';
-import { postapplyAction, projectapplyAction } from '../my.store';
-import history from '../../history';
-import UploadPhoto from '../../../components/uploadPhoto/uploadPhoto';
+import React, { PropTypes } from "react";
+import autoBind from "react-autobind";
+import Alert from "react-s-alert";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import classnames from "classnames";
+import "./post.css";
+import DutationProjects from "../../../components/duration/projects";
+import {
+  postapplyAction,
+  projectapplyAction,
+  projectapplyclockAction
+} from "../my.store";
+import history from "../../history";
+import UploadPhoto from "../../../components/uploadPhoto/uploadPhoto";
+import { DatePicker, List } from "antd-mobile";
+import "antd-mobile/lib/date-picker/style/css";
+import moment from "moment";
+const isAndroid = /android/i.test(navigator.userAgent);
 
-import Avatar from '../../../components/avatar/avatar';
-
-const API_HOST = window.apiHost || 'http://alpha.api.volunteer.tmallwo.com';
 class Post extends React.Component {
-
   constructor(props) {
     super(props);
     autoBind(this);
     this.state = {
       popToggle: false,
       attachment: [],
+      clock: [],
+      begin: null,
       data: {},
+      selectItem: null
     };
+    this.CustomChildren = ({ extra, onClick }) => (
+      <div
+        onClick={onClick}
+        style={{ height: "40px", lineHeight: "40px", color: "#999" }}
+      >
+        <span style={{ color: "#999!important" }}>{extra}</span>
+      </div>
+    );
   }
 
   componentWillMount() {
@@ -38,27 +52,33 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
-
+    // Android 下 fastclick 影响 select 点击
+    if (window.fastclick && isAndroid) {
+      window.fastclick.destroy();
+      window.fastclick = null;
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const { postapply: Cpostapply } = this.props;
     const { postapply: Npostapply } = nextProps;
     if (Cpostapply.fetching && !Npostapply.fetching && !Npostapply.failed) {
-      window.location.replace('/my/duration/applys');
+      window.location.replace("/my/duration/applys");
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    if (!window.fastclick && isAndroid) {
+      window.fastclick = FastClick.attach(document.body);
+    }
+  }
 
   onTextChanged() {
-    const hours = this.hours.value.replace(/(^\s+)|(\s+$)/g, '');
-    const info = this.info.value.replace(/(^\s+)|(\s+$)/g, '');
+    const info = this.info.value.replace(/(^\s+)|(\s+$)/g, "");
 
     this.setState({
       ...this.state,
-      hours,
-      info,
+      info
     });
   }
 
@@ -67,105 +87,236 @@ class Post extends React.Component {
     const num = e.target.id;
     attachment.splice(num, 1);
 
-    this.setState(
-      ...this.state,
-      attachment,
-    );
+    this.setState(...this.state, attachment);
   }
   onPop() {
     this.setState({
       ...this.state,
-      popToggle: true,
+      popToggle: true
     });
   }
   Popnone() {
     this.setState({
       ...this.state,
-      popToggle: false,
+      popToggle: false
     });
   }
   HandleClick(item) {
     const data = item;
+    console.log(data);
     if (data) {
+      this.props.projectapplyclockAction(data.id);
       this.setState({
         data,
-        popToggle: false,
+        popToggle: false
       });
     }
   }
   onNext() {
-    
     const id = this.state.data.id;
-    const hours = this.state.hours;
-    const content = this.state.info;
-    const attachment = this.state.attachment;
+    const { selectItem, attachment, info: content } = this.state;
+    console.log(content);
     const data = {};
     if (!id) {
-      Alert.warning('请选择申请项目');
+      Alert.warning("请选择申请项目");
     }
-    if (!hours) {
-      Alert.warning('请输入正确的时间');
-      return;
+    if (!selectItem) {
+      Alert.warning("请选择申请班次");
+    }
+    if (selectItem.type == 1 && !this.state.cardtime) {
+      Alert.warning("请选择补卡时间");
+    } else if (selectItem.type == 2) {
+      if (!this.state.begin) {
+        Alert.warning("请选择签到时间");
+      }
+      if (!this.state.end) {
+        Alert.warning("请选择签退时间");
+      }
     }
     if (!content) {
-      Alert.warning('请输入详细说明');
+      Alert.warning("请输入详细说明");
       return;
     }
-    console.log(this.props)
-    this.props.dispatch({
-      type: 'POSTAPPLY_DATA_PENDING',
-    })
-  
+
     if (attachment.length !== 0) {
       data.attachment = attachment;
     }
     const { postapply: Cpostapply } = this.props;
-    console.log(Cpostapply)
+    console.log(Cpostapply);
     if (Cpostapply.fetching) {
       return;
     }
-    data.project_id = id;
-    data.reward_time = hours;
+    let arr = [];
+    
+    data.id = selectItem.id;
     data.content = content;
-    this.props.postapplyAction(data);
-   
-  }
-    onPhotoChange(images) {
-      console.info(images);
-        this.setState({
-            attachment: images.map(item=>item.url)
-        })
+    if (selectItem.type == 1) {
+      let arr = [];
+      arr.push(selectItem.begin.split(" ")[0]);
+      arr.push(moment(this.state.cardtime).format("HH:mm:ss"));
+      data.clock_in_time = arr.join(" ");
+    } else {
+      let sarr=[];
+      let earr = [];
+      sarr.push(selectItem.begin.split(" ")[0]);
+      sarr.push(moment(this.state.begin).format("HH:mm:ss"));
+      earr.push(selectItem.end.split(" ")[0]);
+      earr.push(moment(this.state.end).format("HH:mm:ss"));
+      data.clock_in_time = sarr.join(" ");
+      data.clock_end_time = earr.join(" ");
     }
+    this.props.postapplyAction(data);
+  }
+  onPhotoChange(images) {
+    this.setState({
+      attachment: images.map(item => item.url)
+    });
+  }
+  handleCardClick() {
+    let data = JSON.parse(this.clock.value);
+    console.log(data);
+    this.setState({
+      selectItem: data
+    });
+  }
   render() {
-    const popToggle = this.state.popToggle;
-
-    const attachment = this.state.attachment;
-    const data = this.state.data;
-    return <div className="page-post-bg">
+    const { data, attachment, popToggle } = this.state;
+    const { data: detaildata } = this.props.projectapplyclock;
+    return (
+      <div className="page-post-bg">
         <div className="page-post-container">
           <div className="page-post-container-top">
             <div className="page-post-container-item" onClick={this.onPop}>
-              <div className={classnames({
+              <div
+                className={classnames({
                   "page-post-font-color": data.name
-                })}>
-                {data.name ? data.name : "申请志愿项目"}
+                })}
+              >
+                {data.name ? data.name : "参加项目"}
               </div>
               <div className="page-post-container-item-more" />
             </div>
-            <input // type="tel" maxLength="3"
-              className="page-post-container-text" placeholder="申请志愿时长(小时)" ref={c => {
-                this.hours = c;
-            }} onBlur={this.onTextChanged} />
-            <textarea className="page-post-container-explain" placeholder="申请说明（200字内）" maxLength="200" ref={c => {
+            <div
+              className={classnames({
+                "page-post-container-item-select": this.state.selectItem,
+                "page-post-container-item-select-false": !this.state
+                  .selectItem
+              })}
+            >
+              <label htmlFor="clock">
+                <select
+                  id="clock"
+                  onChange={this.handleCardClick}
+                  ref={c => {
+                    this.clock = c;
+                  }}
+                >
+                  <option style={{ color: "#999" }} disabled selected>
+                    补卡班次
+                  </option>
+
+                  {detaildata &&
+                    detaildata.list &&
+                    detaildata.list.map((item, keys) => (
+                      <option
+                        value={JSON.stringify(item)}
+                        key={keys}
+                        onChange={this.handleClick}
+                        style={{ color: "#333" }}
+                      >
+                        {item.begin}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            </div>
+
+            {this.state.selectItem && this.state.selectItem.type == 1 ? (
+              <div className="page-post-container-item">
+                <DatePicker
+                  mode="time"
+                  format="HH:mm"
+                  value={this.state.cardtime}
+                  onChange={cardtime => {
+                    this.setState({ cardtime });
+                  }}
+                >
+                  {this.state.cardtime ? (
+                    <this.CustomChildren />
+                  ) : (
+                    <div
+                      className="page-profile-publish-container-input "
+                      style={{ color: "#999", lineHeight: "40px" }}
+                    >
+                      打卡时间
+                    </div>
+                  )}
+                </DatePicker>
+              </div>
+            ) : (
+              <div>
+                <div className="page-post-container-item">
+                  <DatePicker
+                    mode="time"
+                    format="HH:mm"
+                    value={this.state.begin}
+                    onChange={begin => this.setState({ begin })}
+                  >
+                    {this.state.begin ? (
+                      <this.CustomChildren />
+                    ) : (
+                      <div
+                        className="page-profile-publish-container-input "
+                        style={{ color: "#999", lineHeight: "40px" }}
+                      >
+                        签到补卡时间
+                      </div>
+                    )}
+                  </DatePicker>
+                </div>
+                <div className="page-post-container-item">
+                  <DatePicker
+                    mode="time"
+                    format="HH:mm"
+                    value={this.state.end}
+                    onChange={end => this.setState({ end })}
+                  >
+                    {this.state.end ? (
+                      <this.CustomChildren />
+                    ) : (
+                      <div
+                        className="page-profile-publish-container-input "
+                        style={{ color: "#999", lineHeight: "40px" }}
+                      >
+                        签退补卡时间
+                      </div>
+                    )}
+                  </DatePicker>
+                </div>
+              </div>
+            )}
+
+            <textarea
+              className="page-post-container-explain"
+              placeholder="申请说明（200字内）"
+              maxLength="200"
+              ref={c => {
                 this.info = c;
-              }} onBlur={this.onTextChanged} />
+              }}
+              onBlur={this.onTextChanged}
+            />
           </div>
-          <div>
+          <div style={{ background: "#fff", marginTop: "15px" }}>
             <div className="page-post-container-photo-text">
               工作证明图片(选填)
             </div>
             <div className="page-post-container-photo-container">
-                <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={3} />
+              <UploadPhoto
+                onChange={this.onPhotoChange}
+                multiple={false}
+                length={3}
+                totle={3}
+              />
             </div>
           </div>
 
@@ -173,44 +324,56 @@ class Post extends React.Component {
             提交
           </div>
           {/** 遮罩层* */}
-          <div className={classnames({ "page-post-mask-container": true,
-              "page-post-pop-block": popToggle })}>
+          <div
+            className={classnames({
+              "page-post-mask-container": true,
+              "page-post-pop-block": popToggle
+            })}
+          >
             <div className="page-post-take-up" onClick={this.Popnone} />
             <div className="page-post-mask-content">
-              <DutationProjects durationProject={this.props.projectapply.data ? this.props.projectapply.data.list : null} HandleClick={this.HandleClick} isEntry={false} />
+              <DutationProjects
+                durationProject={
+                  this.props.projectapply.data
+                    ? this.props.projectapply.data.list
+                    : null
+                }
+                HandleClick={this.HandleClick}
+                isEntry={false}
+              />
             </div>
           </div>
         </div>
-      </div>;
+      </div>
+    );
   }
 }
 
-
-Post.title = '申请志愿时长';
+Post.title = "申请服务时长";
 
 Post.propTypes = {
   postapplyAction: PropTypes.func,
   projectapplyAction: PropTypes.func,
   projectapply: PropTypes.shape({
     data: PropTypes.shape({
-      list: PropTypes.arrayOf(
-        PropTypes.shape({
-
-        })),
-
-
-    }),
+      list: PropTypes.arrayOf(PropTypes.shape({}))
+    })
   }),
   postapply: PropTypes.shape({
     fetching: PropTypes.bool,
-    failed: PropTypes.bool,
-  }),
+    failed: PropTypes.bool
+  })
 };
 
 export default connect(
   state => ({
     postapply: state.my.postapply,
     projectapply: state.my.projectapply,
+    projectapplyclock: state.my.projectapplyclock
   }),
-  dispatch => bindActionCreators({ postapplyAction, projectapplyAction , dispatch }, dispatch),
+  dispatch =>
+    bindActionCreators(
+      { postapplyAction, projectapplyAction, projectapplyclockAction },
+      dispatch
+    )
 )(Post);

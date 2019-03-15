@@ -15,6 +15,7 @@
 .component-duration-projects-main{
   background: #fff;
   padding:15px 15px 0 15px;
+
 }
 .component-duration-projects-main-name{
   font-size: 18px;
@@ -58,6 +59,13 @@
   align-items: center;
   font-size: 15px;
   color: #333333;
+
+
+   width:190px;
+  word-break:keep-all;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis; 
 }
 .component-duration-projects-footer-logo-right{
   margin-right: 10px;

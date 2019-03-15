@@ -11,7 +11,7 @@ import homeReducer from '../pages/home/home.store';
 import projectReducer from '../pages/project/project.store';
 
 import teamReducer from '../pages/team/team.store';
-import signinReducer from '../pages/signin/signin.store';
+import signReducer from "../pages/sign/sign.store";
 
 import myReducer from '../pages/my/my.store';
 import loginReducer from '../pages/my/login/login.store';
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
   pendingTasks: pendingTasksReducer,
   project: projectReducer,
   team: teamReducer,
-  signin: signinReducer,
+  sign: signReducer,
   my: myReducer,
   info: infoReducer,
   login: loginReducer,

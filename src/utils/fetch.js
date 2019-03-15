@@ -29,15 +29,18 @@ function isPlainObject(o) {
  *    @param {string}   successWords  接口调用成功后的提示语
  */
 export default function request(requestUrl, requestOptions = {}) {
+  console.log(requestOptions);
   let url = requestUrl;
+  let { switchUrl } = requestOptions;
   const options = {
     ...requestOptions
   };
 
-  if (url.indexOf("http") !== 0) {
+  if (url.indexOf("http") !== 0 && !switchUrl) {
     url = API_PREFIX + url;
+  }else if (switchUrl) {
+    url = switchUrl + url;
   }
-
   if (!options.method) {
     options.method = "POST";
   }

@@ -210,11 +210,11 @@ class TeamListPage extends React.Component {
               </Link>
             </li>
             <li>
-              <Link to="/signin">
+              <Link to="/sign">
                 <div
                   className={classnames({
                     'tab-icon': true,
-                    'tab-icon-signin': true,
+                    'tab-icon-sign': true,
                   })}
                 />
                 <span>签到打卡</span>

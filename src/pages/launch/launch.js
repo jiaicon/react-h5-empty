@@ -12,31 +12,30 @@ import classnames from 'classnames';
 import Link from '../../components/link/link';
 import './launch.css';
 import HomePage from '../home/home';
-import SigninPage from '../signin/signin';
-import PasswordPage from '../signin/subpage/password_signin';
+import SignPage from '../sign/sign';
+import SignClassPage from "../sign/signclass";
 import WXShare from '../../components/share';
 import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
 
-const TAB_URL_MAPS = {
-  "/": <HomePage />,
-  "/home": <HomePage />,
-  "/signin": <SigninPage />,
-  "/my": <MyPage />,
-  "/signin/password": <PasswordPage />
-};
+
 
 class LaunchPage extends React.Component {
-
   constructor(props) {
     super(props);
     autoBind(this);
 
     this.state = {
-      page: this.getTabName(this.props),
+      page: this.getTabName(this.props)
     };
   }
-
+  TAB_URL_MAPS = {
+    "/": <HomePage route={this.props.route} />,
+    "/sign/signclass/:Id": <SignClassPage route={this.props.route} />,
+    "/home": <HomePage route={this.props.route} />,
+    "/sign": <SignPage route={this.props.route} />,
+    "/my": <MyPage route={this.props.route} />
+  };
   componentWillMount() {
     if (!this.props.user.id) {
       this.props.requestUserInfo(true);
@@ -44,26 +43,24 @@ class LaunchPage extends React.Component {
   }
 
   componentDidMount() {
-      if(window.userAgent) {
-          wx.ready(() => {
-              WXShare();
-          });
-      }
+    if (window.userAgent) {
+      wx.ready(() => {
+        WXShare();
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       ...this.state,
-      page: this.getTabName(nextProps),
+      page: this.getTabName(nextProps)
     });
   }
 
-  componentWillUnmount() {
-
-  }
+  componentWillUnmount() {}
 
   getTabName(props) {
-    return TAB_URL_MAPS[(props || this.props).route.path];
+    return this.TAB_URL_MAPS[(props || this.props).route.path];
   }
 
   render() {
@@ -81,9 +78,7 @@ class LaunchPage extends React.Component {
 
     return (
       <div className="page-launch">
-        <div className="content">
-          {page}
-        </div>
+        <div className="content">{page}</div>
         <ul className="tabs">
           <li>
             <Link to="/">
@@ -99,12 +94,12 @@ class LaunchPage extends React.Component {
             </Link>
           </li>
           <li>
-            <Link to="/signin">
+            <Link to="/sign">
               <div
                 className={classnames({
                   'tab-icon': true,
                   'tab-icon-signin': true,
-                  active: path === '/signin',
+                  active: path === '/signin' || path === '/sign',
                   "daduhui" : daduhui,
                 })}
               />
@@ -125,7 +120,15 @@ class LaunchPage extends React.Component {
             </Link>
           </li>
         </ul>
-        <div className="line1px" style={{ width: '100%', position: 'absolute', bottom: '49px', left: '0' }} />
+        <div
+          className="line1px"
+          style={{
+            width: "100%",
+            position: "absolute",
+            bottom: "49px",
+            left: "0"
+          }}
+        />
       </div>
     );
   }

@@ -18,7 +18,7 @@
   align-items: center;
 }
 .page-ponit-pic-title{
-
+    text-align: center;
   height: 82px;
   margin: auto;
 }
@@ -84,6 +84,22 @@
   align-items: center;
 }
 
+
+.commonweal-box {
+    position: relative;
+    padding: 24px 29px;
+}
+.commonweal-box-close {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: -9px;
+    right: 9px;
+}
+.commonweal-box-close img {
+    width: 100%;
+    height: 100%;
+}
 .page-ponit-content{
   width: 100%;
   height: 100%;
@@ -110,4 +126,67 @@
   font-size: 14px;
   color: #666;
   justify-content: center;
+}
+
+.modal-new-wrap-container-padding {
+    border-radius: 0;
+}
+.commonweal-box-instruction-how {
+    font-family: PingFangSC-Semibold;
+    font-size: 17px;
+    color: #262A35;
+    text-align: left;
+}
+.commonweal-box-instruction-list {
+    font-family: PingFangSC-Semibold;
+    font-size: 11px;
+    color: #9B9B9B;
+    text-align: left;
+    margin-bottom: 15px;
+}
+.commonweal-box-instruction-table {
+    ont-family: PingFangSC-Medium;
+    font-size: 12.04px;
+    color: rgba(0,0,0,0.85);
+    text-align: left;
+}
+.commonweal-box-instruction-table table {
+    width: 100%;
+    background: #FFFFFF;
+}
+.commonweal-box-instruction-table table thead {
+    font-family: PingFangSC-Medium;
+    font-size: 12.04px;
+    color: rgba(0,0,0,0.85);
+}
+.commonweal-box-instruction-table table tbody {
+    font-family: PingFangSC-Regular;
+    font-size: 12.04px;
+    color: rgba(0,0,0,0.65);
+}
+table{
+    border-top: 1px solid #E8E8E8;
+    border-left: 1px solid #E8E8E8;
+    border-collapse: collapse;
+}
+td{
+    border-bottom: 1px solid #E8E8E8;
+    border-right: 1px solid #E8E8E8;
+    padding: 6.7px 6.7px;
+}
+.commonweal-box-instruction-btn {
+    margin-top: 28px;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    background: #A0D9F7;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+.checkScoreMethod {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: underline;
 }

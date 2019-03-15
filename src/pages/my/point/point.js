@@ -13,6 +13,7 @@ import classnames from 'classnames';
 import history from '../../history';
 import { userCenterAction } from '../my.store';
 import './point.css';
+import ModalNew from './../../../components/ModalNew/ModalNew';
 
 import Link from '../../../components/link/link';
 import IMAGE from '../../../components/image/image';
@@ -23,7 +24,7 @@ const TAB_URL_MAPS = {
   '/my/point': <IncomePage />,
   '/my/point/pay': <PayPage />,
 };
-const scoreName =window.orgInfo.score_name;
+const scoreName =window.orgInfo.st_point_uint[1];
 class PointPage extends React.Component {
 
   constructor(props) {
@@ -31,6 +32,7 @@ class PointPage extends React.Component {
     autoBind(this);
     this.state = {
       page: this.getTabName(this.props),
+        visible: false
     };
   }
 
@@ -41,7 +43,11 @@ class PointPage extends React.Component {
   componentDidMount() {
     document.title = `我的${scoreName || '星币'}明细`;
   }
-
+    componentWillUnmount() {
+        this.setState({
+            visible: false,
+        })
+    }
   componentWillReceiveProps(nextProps) {
     this.setState({
       ...this.state,
@@ -49,10 +55,61 @@ class PointPage extends React.Component {
     });
   }
 
-  componentWillUnmount() {}
   getTabName(props) {
     return TAB_URL_MAPS[(props || this.props).route.path];
   }
+    checkScoreMethod() {
+      this.setState({
+          visible: true,
+      })
+    }
+    closeModalNewInstruction() {
+        this.setState({
+            visible: false
+        })
+    }
+    renderScoreMethod() {
+        const data = [{label: '服务时长', value: '10'}, {label: '发表动态', value: '10'}, {
+            label: '每日登陆',
+            value: '10'
+        }, {label: '连续登陆3天', value: '30'}, {label: '分享一次', value: '50'}, {
+            label: '实名认证',
+            value: '100'
+        }, {label: '解锁1级成就1次', value: '200'}, {label: '解锁1级成就2次', value: '400'}, {label: '解锁1级成就3次', value: '1000'}];
+        return <div className="commonweal-box">
+            <div className="commonweal-box-close" onClick={this.closeModalNewInstruction}><img src="/images/my/delete.png" alt=""/>
+            </div>
+            <div className="commonweal-box-instruction-how">如何获得{scoreName || '星币'}？</div>
+            <div className="commonweal-box-instruction-list">下列操作可以帮你获得{scoreName || '星币'}：</div>
+            <div className="commonweal-box-instruction-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <td>操作</td>
+                        <td>获得成长值</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {data.map((item, index) => <tr>
+                        <td>{item.label}</td>
+                        <td>{item.value}</td>
+                    </tr>)}
+                    </tbody>
+                </table>
+            </div>
+            <div className="commonweal-box-instruction-btn" onClick={this.closeModalNewInstruction}>我知道了</div>
+        </div>
+    }
+    renderModalNewScore() {
+        return <ModalNew maskCloseable={true}
+                         visible={this.state.visible}
+                         platform="ios"
+                         transparent={true}
+                         animationType="slide"
+        >
+            {this.renderScoreMethod()}
+        </ModalNew>
+    }
   render() {
     const { page } = this.state;
     const { path } = this.props.route;
@@ -61,7 +118,8 @@ class PointPage extends React.Component {
         <div className="page-ponit-pic-container">
           <div className="page-ponit-pic-title">
             <span>我的{scoreName || '星币'}明细(个)</span>
-            <span>{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</span>
+            <span style={{margin: '13px 0 13px' }}>{this.props.usercenter.data == null ? 0 : this.props.usercenter.data.user.score}</span>
+            <span className="checkScoreMethod" onClick={this.checkScoreMethod}>查看{scoreName || '星币'}获取方法</span>
           </div>
         </div>
         <div className="page-ponit-tab-container">
@@ -90,7 +148,7 @@ class PointPage extends React.Component {
         <div className="page-ponit-content">
           {page}
         </div>
-
+          {this.renderModalNewScore()}
 
       </div>
     );

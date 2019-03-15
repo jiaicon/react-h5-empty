@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 import fetch from '../../utils/fetch';
 import { API_HOST } from '../../utils/config';
+import achievementReducer from './achievemet/achievement.store';
 // score
 
 export const scoreAction = num => ({
@@ -155,7 +156,7 @@ const projectReducer = (state = {
 };
 
 // 搜索团队
-// 获取志愿时长
+// 获取服务时长
 
 export const rewardTimeAction = () => ({
   type: 'REWARDTIME_DATA',
@@ -442,7 +443,7 @@ const correctUserInfoReducer = (state = {
 // 个人中心首页
 export const userCenterAction = () => ({
   type: 'USER_CENTER_DATA',
-  payload: fetch('/user/center', { method: 'GET' }),
+  payload: fetch('/user/center', { method: 'GET'}),
 });
 const userCenterReducer = (state = {
   fetching: false,
@@ -478,7 +479,7 @@ const userCenterReducer = (state = {
 // 补录时长项目列表get
 export const projectapplyAction = () => ({
   type: 'PROJECTAPPLY_DATA',
-  payload: fetch('/project/apply', { method: 'GET' }),
+  payload: fetch('/clock/apply/project', { method: 'GET', switchUrl: `${window.apiHost}/api/v2` }),
 });
 const projectapplyReducer = (state = {
   fetching: false,
@@ -509,7 +510,42 @@ const projectapplyReducer = (state = {
       return state;
   }
 };
-
+export const projectapplyclockAction = (id) => ({
+         type: "PROJECTAPPLY_CLOCK_DATA",
+         payload: fetch(
+           `/project/${id}/clock/list`,
+           { method: "GET", switchUrl: `${window.apiHost}/api/v2` }
+         )
+       });
+const projectapplyclockReducer = (state = {
+  fetching: false,
+  failed: false,
+  data: null,
+}, action) => {
+  switch (action.type) {
+    case 'PROJECTAPPLY_CLOCK_DATA_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'PROJECTAPPLY_CLOCK_DATA_FULFILLED':
+      return {
+        ...state,
+        fetching: false,
+        failed: false,
+        data: action.payload.data,
+      };
+    case 'PROJECTAPPLY_CLOCK_DATA_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
+};
 
 // project_id: [integer] 项目id 【必填】
 // reward_time: [float] 补录时长 【必填】
@@ -517,7 +553,7 @@ const projectapplyReducer = (state = {
 // attachment: [array] 申请附件【非必填】
 export const postapplyAction = data => ({
   type: 'POSTAPPLY_DATA',
-  payload: fetch('/user/apply', { data }),
+  payload: fetch(`/clock/${data.id}/apply`, { data, switchUrl: `${window.apiHost}/api/v2`  }),
 });
 const postApplyReducer = (state = {
   fetching: false,
@@ -550,9 +586,12 @@ const postApplyReducer = (state = {
 };
 // 补录时长申请列表get
 export const applyAction = () => ({
-  type: 'APPLY_DATA',
-  payload: fetch('/user/apply', { method: 'GET' }),
-});
+         type: "APPLY_DATA",
+         payload: fetch("/apply/list", {
+           method: "GET",
+           switchUrl: `${window.apiHost}/api/v2`
+         })
+       });
 const applyReducer = (state = {
   fetching: false,
   failed: false,
@@ -656,6 +695,40 @@ const alertFamilyPeopleInfoReducer = (state = {
       return state;
   }
 };
+//成就等级  所有的
+export const userAchieve = ()=>({
+    type: 'USER_ACHIEVE',
+    payload: fetch('/growth/config', {method: 'GET'})
+});
+const userAchieveReducer = (state={
+    fetching: false,
+    failed: false,
+    data: null
+}, action)=>{
+    switch(action.type){
+        case 'USER_ACHIEVE_PENDING':
+            return {
+                ...state,
+                fetching: true,
+                failed: false,
+            };
+        case 'USER_ACHIEVE_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload
+            };
+        case'USER_ACHIEVE_REJECTED':
+            return{
+                ...state,
+                fetching: false,
+                failed: false,
+            };
+        default:
+            return state;
+    }
+};
 const reducer = combineReducers({
   usercenter: userCenterReducer,
   team: teamReducer,
@@ -674,6 +747,9 @@ const reducer = combineReducers({
   projectapply: projectapplyReducer,
   deletefamily: deleteFamilyReducer,
   alertFamilyPeopleInfo: alertFamilyPeopleInfoReducer,
-  score: scoreReducer
+  score: scoreReducer,
+  achievement: achievementReducer,
+  userAchieve:userAchieveReducer,
+  projectapplyclock:projectapplyclockReducer
 });
 export default reducer;

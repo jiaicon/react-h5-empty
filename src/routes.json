@@ -30,18 +30,23 @@
     "chunk": "main"
   },
   {
-    "path": "/signin",
+    "path": "/sign",
     "page": "./pages/launch/launch",
     "chunk": "main"
   },
+    {
+      "path": "/sign/signclass/:Id",
+      "page": "./pages/launch/launch",
+      "chunk": "main"
+    },
   {
-    "path": "/signin/password",
-    "page": "./pages/launch/launch",
-    "chunk": "main"
+      "path": "/sign/signdetail/detail/:proid/:Id",
+      "page": "./pages/sign/signdetail/detail",
+      "chunk": "main"
   },
   {
-    "path": "/signin/signdetail/detail/:Id",
-    "page": "./pages/signin/signdetail/detail",
+    "path": "/sign/replacement/:proid/:Id",
+    "page": "./pages/sign/replacement",
     "chunk": "main"
   },
   {
@@ -123,6 +128,11 @@
   {
     "path": "/my",
     "page": "./pages/launch/launch",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/achievemet/:projectNum",
+    "page": "./pages/my/achievemet/achievemet",
     "chunk": "main"
   },
   {

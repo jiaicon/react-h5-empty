@@ -40,7 +40,7 @@ class FamilyItem extends React.Component {
             <div className="page-family-item-account">关系：{item.relation}</div>
           </div>
           <div className="page-family-item-time-container">
-            <p>志愿时长：<span>{item.reward_time}小时</span></p>
+            <p>服务时长：<span>{item.reward_time}小时</span></p>
           </div>
         </div>
         <div className="line1px" />

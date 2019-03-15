@@ -1,5 +1,5 @@
 /**
- * @file 志愿时长
+ * @file 服务时长
  */
 
 /* global wx:false */
@@ -60,7 +60,7 @@ class Duration extends React.Component {
         <div className="line1px" />
 
         <div className="page-duration-main-box">
-          <DutationProjects durationProject={this.props.reward.data ? listData.project : null} isEntry />
+          <DutationProjects durationProject={this.props.reward.data ? listData.project : null} user={this.props.user} isEntry />
         </div>
 
 
@@ -70,7 +70,7 @@ class Duration extends React.Component {
 }
 
 
-Duration.title = '志愿时长';
+Duration.title = '服务时长';
 
 Duration.propTypes = {
   rewardTimeAction: PropTypes.func,
@@ -90,6 +90,7 @@ Duration.propTypes = {
 export default connect(
   state => ({
     reward: state.my.reward,
+    user:state.user,
   }),
   dispatch => bindActionCreators({ rewardTimeAction }, dispatch),
 )(Duration);

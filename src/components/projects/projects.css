@@ -101,6 +101,7 @@
   padding-right: 30px; */
   display: flex;
   justify-content: space-between;
+    margin-bottom:10px;
 }
 .component-projects .project-main .project-name .project-name-logo{
   background: url(/images/icon_safeguard.png) no-repeat right center;
@@ -111,7 +112,7 @@
 .component-projects .project-main .project-date {
   font-size: 13px;
   color: #666666;
-  margin: 10px 0;
+  margin-bottom:10px;
   font-weight: 200;
 }
 

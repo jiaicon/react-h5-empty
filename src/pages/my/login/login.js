@@ -20,6 +20,7 @@ import {loginAction, changeIndex ,storeLoginSource} from './login.store';
 import { requestVerifyCode, register } from '../register/register.store';
 import Avatar from '../../../components/avatar/avatar';
 import { API_HOST } from '../../../utils/config';
+import { format } from 'url';
 
 class Login extends React.Component {
 
@@ -27,7 +28,7 @@ class Login extends React.Component {
         super(props);
         autoBind(this);
         this.state = {
-            captchaUrl: `${API_HOST}/api/captcha`,
+            captchaUrl: `${API_HOST}/api/captcha?t=${Date.now()}`,
             buttonString: '获取验证码',
             timer: null,
             countDownTrigger: true,
@@ -74,10 +75,14 @@ class Login extends React.Component {
             }else{
                 
                 // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
+                
                 if (from) {
+                    console.log("登录状态设置了来源，from是：：：：：：",from);
                     target = from;
                 }
-                
+                if (from === '/my/login') {
+                    target = '/my';
+                }
                 window.location.replace(target);
                 // history.replace(target);
             }
@@ -85,12 +90,17 @@ class Login extends React.Component {
         const { code: cCode, forget: cForget } = this.props;
         const { code: nCode, forget: nForget } = nextProps;
 
+        console.log(nextProps,this.props);
+
         if (cCode.fetching && !cCode.failed && !nCode.fetching && !nCode.failed) {
         this.onStartCountDown();
         this.setState({
             countDownTrigger: false,
         });
-        }
+        }//请求成功
+        if (cCode.fetching && !cCode.failed && !nCode.fetching && nCode.failed) {
+            this.refreshCaptcha();
+        }//请求失败
     }
 
     componentWillUnmount() {
@@ -120,12 +130,7 @@ class Login extends React.Component {
                 pwd,
             });
         }
-
-        
-
     }
-
-  
 
 
     componentWillUnmount() {
@@ -204,10 +209,10 @@ class Login extends React.Component {
         }else if(tabIndex == 1){
             const username = this.state.username;
             const pwd = this.state.pwd;
-            if (pwd.length <= 5 || pwd.length >= 19) {
-                Alert.warning('密码范围6-20位数字字母组成');
-                return;
-            }
+            // if (pwd.length <= 5 || pwd.length >= 20) {
+            //     Alert.warning('密码范围6-20位数字字母组成');
+            //     return;
+            // }
             data.username =username;
             data.pwd = pwd;
             data.type =tabIndex;
@@ -225,7 +230,7 @@ class Login extends React.Component {
                     </div>
                     <div className="page-login-item">
                         <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
-                               placeholder="输入密码" className="page-login-item-input"/>
+                               placeholder="输入密码" className="page-login-item-input" />
                     </div>
                     <div className="page-login-forget">
                         <Link to="/my/forget">
@@ -242,7 +247,7 @@ class Login extends React.Component {
             <div className="page-login-box">
                 <div className="page-login">
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.quickUsername = c; }} onKeyUp={this.onTextChanged}
+                        <input type="number" ref={(c) => { this.quickUsername = c; }} onKeyUp={this.onTextChanged}
                                placeholder="请输入手机号" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
@@ -252,12 +257,11 @@ class Login extends React.Component {
                          alt="" onClick={this.refreshCaptcha} />
                     </div>
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
+                        <input type="number" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
                                placeholder="手机验证码" className="page-login-item-input"/>
                         <div className="page-login-item-code" onClick={this.onSend}>{this.state.buttonString}</div>
                     </div>
                     <div className="page-login-entry page-login-quick-login" onClick={this.submit}>登录/注册</div>
-                 
                 </div>
                 <div className="page-login-agree">
                     提交代表已阅读
@@ -268,7 +272,7 @@ class Login extends React.Component {
                         </Link>
                         :
                         <Link to="/my/agree">
-                            <span className="page-login-agreement">《志多星用户协议》</span>
+                            <span className="page-login-agreement">《用户协议》</span>
                         </Link>
                     }
                   

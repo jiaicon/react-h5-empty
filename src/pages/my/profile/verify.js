@@ -152,6 +152,17 @@ function checkStr(str) {
   return false;
 }
 
+//验证姓名，允许中文、大小写字母、空格、-、·、_ ,,,,,请输入中文姓名或英文姓名
+function checkRealname(str) {
+    const reg = new RegExp(/^[a-zA-Z\u4e00-\u9fa5_\·\ \-]+$/);
+    if (!reg.test(str)) {
+        Alert.warning("请输入中文姓名或英文姓名");
+        return true;
+    }
+    return false;
+}
+// console.log(checkRealname('家icon_i i-oo-'));
+
 function iscard(card) {
   const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
   if (!reg.test(card)) {
@@ -287,7 +298,9 @@ class Verify extends React.Component {
   }
 
   onTextChanged() {
-    const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, "");
+      //姓名允许空格
+    // const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, "");
+    const realname = this.realname.value;
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, "");
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, "");
     const password = this.password
@@ -327,13 +340,13 @@ class Verify extends React.Component {
     if (
       (stateOrgData.open_avatars && checkEmpty(photo, "头像")) ||
       (stateOrgData.open_real_name && checkEmpty(realname, "姓名")) ||
-      (stateOrgData.open_id_number && checkEmpty(idcard, "身份证号码")) ||
+      (stateOrgData.open_id_number && checkEmpty(idcard, "证件号码")) ||
       (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
       (stateOrgData.open_addr && checkEmpty(province, "省份")) ||
       (stateOrgData.open_addr && checkEmpty(city, "城市")) ||
       (stateOrgData.open_addr && checkEmpty(county, "区县")) ||
       (stateOrgData.open_addr && checkEmpty(address, "详细地址")) ||
-      (stateOrgData.open_real_name && checkStr(realname)) ||
+      (stateOrgData.open_real_name && checkRealname(realname)) ||
       (user.have_pwd == 0 && checkEmpty(password, "密码"))
     ) {
     }
@@ -479,6 +492,7 @@ class Verify extends React.Component {
                 this.cardtype = c;
               }}
             >
+             
               {cardtype &&
                 cardtype.map((item, keys) => (
                   <option value={item.id} key={keys}>
@@ -493,7 +507,7 @@ class Verify extends React.Component {
           {this.state.winOrgInfo.open_id_number === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
-          <div className="page-my-profile-verify-fonts">身份证号</div>
+          <div className="page-my-profile-verify-fonts">证件号码</div>
           <input
             type="text"
             maxLength="18"
