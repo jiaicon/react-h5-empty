@@ -274,6 +274,9 @@ class Verify extends React.Component {
       if (from) {
         target = from;
       }
+      if (from === '/my/login') {
+        target = '/my';
+      }
       window.location.replace(target);
       // history.replace(target);
     }

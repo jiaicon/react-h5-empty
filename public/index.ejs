@@ -51,373 +51,256 @@
     // server 端下发 token
     window.token = null;
 
-
-
     // window.orgInfo = {
-    //   name: "机构1",
-    //   logo: "",
-    //   module_settings: [
-    //     [
-    //       {
-    //         label: "志愿团队",
-    //         key: "volunteer_team",
-    //         icon:
-    //           "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/848611507952464.png"
-    //       },
-    //       {
-    //         label: "志愿项目",
-    //         key: "volunteer_project",
-    //         icon:
-    //           "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/999161507952198.png"
-    //       },
-    //       {
-    //         label: "shop",
-    //         key: "volunteer_feedback",
-    //         icon:
-    //           "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/918461507952580.png"
-    //       }
-    //     ],
-    //     [
-    //       {
-    //         label: "志愿回馈",
-    //         key: "good_example",
-    //         icon:
-    //           "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/323921507952861.png"
-    //       },
-    //       {
-    //         label: "项目认领",
-    //         key: "claim_project",
-    //         icon:
-    //           "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/942591507952733.png"
-    //       },
-    //       {
-    //         label: "服务中心",
-    //         key: "help_center",
-    //         icon:
-    //           "http://alpha.api.volunteer.tmallwo.com/image/uploads/2017-10/583531507952882.png"
-    //       }
-    //     ]
-    //   ],
-    //   org_info: "<p>Test 123</p>",
-    //   org_manual: "<p>Test 234</p>",
-    //   org_service: "<p>Test 567</p>",
-    //   org_service_tel: "13111111111",
-    //   real_name_register: 1,
-    //   custom_config: {
-    //     open_real_name: 0,
-    //     open_avatars: 0,
-    //     open_id_number: 1,
-    //     open_nation: 0,
-    //     open_addr: 0,
-    //     extends: [
-    //       {
-    //         key: "test9",
-    //         label: "修改成测试上传图片2",
-    //         type: 5,
-    //         options: null,
-    //         is_required: 0
-    //       },
-    //       {
-    //         key: "test10",
-    //         label: "修改成测试上传图片2",
-    //         type: 5,
-    //         options: null,
-    //         is_required: 0
-    //       },
-    //     ]
-    //   }
-    // };
-
-    window.serviceArea = [{
-      value: '扶贫',
-      label: '扶贫'
-    }, {
-      value: '济困',
-      label: '济困'
-    }, {
-      value: '扶老',
-      label: '扶老'
-    }, {
-      value: '救孤',
-      label: '救孤'
-    }, {
-      value: '恤病',
-      label: '恤病'
-    }, {
-      value: '助残',
-      label: '助残'
-    }, {
-      value: '救灾',
-      label: '救灾'
-    }, {
-      value: '助医',
-      label: '助医'
-    }, {
-      value: '助学',
-      label: '助学'
-    }, {
-      value: '环保',
-      label: '环保'
-    }, {
-      value: '公共文化',
-      label: '公共文化'
-    }, {
-      value: '大型赛会',
-      label: '大型赛会'
-    }, {
-      value: '其他服务',
-      label: '其他服务'
-    }];
-
-    window.orgInfo = {
-      "name": "星巴克社区服务",
-      "logo": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/613571550130077.png",
-      "real_name_register": 1,
-      "module_settings": [
-        [{
-          "label": "志愿项目",
-          "key": "volunteer_project",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/725661550129612.png",
-          "settings": {
-            "label": "志愿活动",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/725661550129612.png"
-          }
-        }, {
-          "label": "志愿团队",
-          "key": "volunteer_team",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/586211550129662.png",
-          "settings": {
-            "label": "志愿团队",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/586211550129662.png"
-          }
-        }, {
-          "label": "志愿回馈",
-          "key": "volunteer_feedback",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/574851550129725.png",
-          "settings": {
-            "label": "志愿回馈",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/574851550129725.png"
-          }
-        }],
-        [{
-          "label": "志愿攻略",
-          "key": "volunteer_strategy",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/560201550129798.png",
-          "settings": {
-            "label": "志愿攻略",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/560201550129798.png"
-          }
-        }, {
-          "label": "社区互动",
-          "key": "community_interact",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/996411550129815.png",
-          "settings": {
-            "label": "社区互动",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/996411550129815.png"
-          }
-        }, {
-          "label": "社区友好基金",
-          "key": "funding_application",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/169231551165981.png",
-          "settings": {
-            "label": "社区友好基金",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/169231551165981.png"
-          }
-        }]
-      ],
-      "cert_title": "",
-      "cert_org": "",
-      "cert_cachet": "",
-      "cert_auth_org": "",
-      "score_name": "",
-      "open_volunteer_certificate": 0,
-      "in_blacklist": 0,
-      "org_info": "",
-      "org_manual": "",
-      "org_service": "",
-      "org_service_tel": "",
-      "org_service_guide": "",
-      "custom_config": {
-        "open_real_name": 1,
-        "open_avatars": 0,
-        "open_id_number": 1,
-        "open_nation": 0,
-        "open_addr": 0,
-        "extends": [{
-          "key": "isStarbucksPartner",
-          "label": "是否星巴克伙伴",
-          "type": "1",
-          "options": "是,否",
-          "is_required": 1
-        }, {
-          "key": "region_first",
-          "label": "区域",
-          "type": "1",
-          "options": "东区,南区,北区,中西区,支持中心",
-          "is_required": 0
-        }, {
-          "key": "region_second",
-          "label": "二级区域",
-          "type": "1",
-          "options": "浙江,江苏,上海东,上海西,南东区,南西区,华北区,东北区,中区,西区,上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心",
-          "is_required": 0
-        }, {
-          "key": "city_starbucks",
-          "label": "城市",
-          "type": "3",
-          "options": null,
-          "is_required": 1
-        }, {
-          "key": "store_num",
-          "label": "门店编号",
-          "type": "3",
-          "options": null,
-          "is_required": 0
-        }, {
-          "key": "store_name",
-          "label": "门店名称",
-          "type": "3",
-          "options": null,
-          "is_required": 0
-        }, {
-          "key": "staff_id",
-          "label": "员工号",
-          "type": "3",
-          "options": null,
-          "is_required": 0
-        }]
-      },
-      "open_stars": 0,
-      "st_point_uint": ["关爱", "积分"],
-      "st_achieve_op": 1,
-      "st_rank_op": 1,
-      "volunteer_feedback": 0,
-      "funding_application": 0
-    }
-    // window.orgInfo = {
-    //   "name": "志多星",
-    //   "logo": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-11/400251541057648.png",
+    //   "name": "星巴克社区服务",
+    //   "logo": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/613571550130077.png",
     //   "real_name_register": 1,
     //   "module_settings": [
     //     [{
-    //       "label": "志愿团队",
-    //       "key": "volunteer_team",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/848611507952464.png"
-    //     }, {
     //       "label": "志愿项目",
     //       "key": "volunteer_project",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/999161507952198.png"
+    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/725661550129612.png",
+    //       "settings": {
+    //         "label": "志愿活动",
+    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/725661550129612.png"
+    //       }
     //     }, {
-    //       "label": "志愿保障",
-    //       "key": "volunteer_ensure",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/918461507952580.png"
+    //       "label": "志愿团队",
+    //       "key": "volunteer_team",
+    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/586211550129662.png",
+    //       "settings": {
+    //         "label": "志愿团队",
+    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/586211550129662.png"
+    //       }
     //     }, {
     //       "label": "志愿回馈",
     //       "key": "volunteer_feedback",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/838651507952615.png",
+    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/574851550129725.png",
     //       "settings": {
     //         "label": "志愿回馈",
-    //         "icon": "/uploads/2017-10/838651507952615.png"
+    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/574851550129725.png"
     //       }
     //     }],
     //     [{
-    //       "label": "时长记录",
-    //       "key": "reward_history",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/323921507952861.png"
-    //     }, {
     //       "label": "志愿攻略",
     //       "key": "volunteer_strategy",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/942591507952733.png"
-    //     }, {
-    //       "label": "服务中心",
-    //       "key": "help_center",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/583531507952882.png",
+    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/560201550129798.png",
     //       "settings": {
-    //         "label": "客服中心"
-    //       }
-    //     }, {
-    //       "label": "星级榜样",
-    //       "key": "good_example",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-12/287281514167263.png",
-    //       "settings": {
-    //         "label": "星级榜样",
-    //         "icon": "/uploads/2017-12/287281514167263.png"
+    //         "label": "志愿攻略",
+    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/560201550129798.png"
     //       }
     //     }, {
     //       "label": "社区互动",
     //       "key": "community_interact",
-    //       "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/611041507952756.png",
+    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/996411550129815.png",
     //       "settings": {
     //         "label": "社区互动",
-    //         "icon": "/uploads/2017-10/611041507952756.png"
-    //       }
-    //     }],
-    //     [{
-    //       "label": "信息查询",
-    //       "key": "volunteer_info",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/864991538873247.png",
-    //       "settings": {
-    //         "label": "重新设置",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/864991538873247.png"
+    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/996411550129815.png"
     //       }
     //     }, {
-    //       "label": "志愿机构",
-    //       "key": "volunteer_platform",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/408331539159822.png",
+    //       "label": "社区友好基金",
+    //       "key": "funding_application",
+    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/169231551165981.png",
     //       "settings": {
-    //         "label": "志愿机构",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/408331539159822.png"
-    //       }
-    //     }, {
-    //       "label": "项目认领",
-    //       "key": "claim_project",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/470551539329049.png",
-    //       "settings": {
-    //         "label": "项目认领",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/470551539329049.png"
-    //       }
-    //     }, {
-    //       "label": "志愿项目",
-    //       "key": "volunteer_project",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/334661539328936.png",
-    //       "settings": {
-    //         "label": "志愿项目222",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/334661539328936.png"
+    //         "label": "社区友好基金",
+    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/169231551165981.png"
     //       }
     //     }]
     //   ],
-    //   "cert_title": "青岛市",
-    //   "cert_org": "\b青岛市",
-    //   "cert_cachet": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-11/957251509852803.png",
-    //   "cert_auth_org": "青岛市志愿服务学院",
-    //   "score_name": "牛币",
+    //   "cert_title": "",
+    //   "cert_org": "",
+    //   "cert_cachet": "",
+    //   "cert_auth_org": "",
+    //   "score_name": "",
     //   "open_volunteer_certificate": 0,
-    //   "org_info": "<p><img src=\"http://alpha.api.volunteer.tmallwo.com:8000/images/uploads/2018-01/484421515566903.png\" style=\"width: 300px;\" class=\"fr-dib\" data-status=\"0\" data-msg=\"ok\"></p><p>志多</p>",
-    //   "org_manual": "<p>Test 234</p>",
-    //   "org_service": "<p>请加微信&nbsp;</p><p><img src=\"http://alpha.api.volunteer.tmallwo.com:8000/images/uploads/2018-01/901661515566842.jpg\" style=\"width: 300px;\" class=\"fr-fil fr-dib\" data-status=\"0\" data-msg=\"ok\"></p><p><br></p><p><br></p>",
-    //   "org_service_tel": "17710210877",
+    //   "in_blacklist": 0,
+    //   "org_info": "",
+    //   "org_manual": "",
+    //   "org_service": "",
+    //   "org_service_tel": "",
     //   "org_service_guide": "",
     //   "custom_config": {
+    //     "open_real_name": 1,
+    //     "open_avatars": 0,
+    //     "open_id_number": 1,
+    //     "open_nation": 0,
+    //     "open_addr": 0,
     //     "extends": [{
     //       "key": "isStarbucksPartner",
     //       "label": "是否星巴克伙伴",
     //       "type": "1",
     //       "options": "是,否",
     //       "is_required": 1
-    //     }],
-    //     "open_real_name": 1,
-    //     "open_avatars": 0,
-    //     "open_id_number": 1,
-    //     "open_nation": 0,
-    //     "open_addr": 0,
-    //     "real_name_register": 0
+    //     }, {
+    //       "key": "region_first",
+    //       "label": "区域",
+    //       "type": "1",
+    //       "options": "东区,南区,北区,中西区,支持中心",
+    //       "is_required": 0
+    //     }, {
+    //       "key": "region_second",
+    //       "label": "二级区域",
+    //       "type": "1",
+    //       "options": "浙江,江苏,上海东,上海西,南东区,南西区,华北区,东北区,中区,西区,上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心",
+    //       "is_required": 0
+    //     }, {
+    //       "key": "city_starbucks",
+    //       "label": "城市",
+    //       "type": "3",
+    //       "options": null,
+    //       "is_required": 1
+    //     }, {
+    //       "key": "store_num",
+    //       "label": "门店编号",
+    //       "type": "3",
+    //       "options": null,
+    //       "is_required": 0
+    //     }, {
+    //       "key": "store_name",
+    //       "label": "门店名称",
+    //       "type": "3",
+    //       "options": null,
+    //       "is_required": 0
+    //     }, {
+    //       "key": "staff_id",
+    //       "label": "员工号",
+    //       "type": "3",
+    //       "options": null,
+    //       "is_required": 0
+    //     }]
     //   },
-    //   "open_stars": 1
+    //   "open_stars": 0,
+    //   "st_point_uint": ["关爱", "积分"],
+    //   "st_achieve_op": 1,
+    //   "st_rank_op": 1,
+    //   "volunteer_feedback": 0,
+    //   "funding_application": 0
     // }
+    window.orgInfo = {
+      "name": "志多星",
+      "logo": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-11/400251541057648.png",
+      "real_name_register": 1,
+      "module_settings": [
+        [{
+          "label": "志愿团队",
+          "key": "volunteer_team",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/848611507952464.png"
+        }, {
+          "label": "志愿项目",
+          "key": "volunteer_project",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/999161507952198.png"
+        }, {
+          "label": "志愿保障",
+          "key": "volunteer_ensure",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/918461507952580.png"
+        }, {
+          "label": "志愿回馈",
+          "key": "volunteer_feedback",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/838651507952615.png",
+          "settings": {
+            "label": "志愿回馈",
+            "icon": "/uploads/2017-10/838651507952615.png"
+          }
+        }],
+        [{
+          "label": "时长记录",
+          "key": "reward_history",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/323921507952861.png"
+        }, {
+          "label": "志愿攻略",
+          "key": "volunteer_strategy",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/942591507952733.png"
+        }, {
+          "label": "服务中心",
+          "key": "help_center",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/583531507952882.png",
+          "settings": {
+            "label": "客服中心"
+          }
+        }, {
+          "label": "星级榜样",
+          "key": "good_example",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-12/287281514167263.png",
+          "settings": {
+            "label": "星级榜样",
+            "icon": "/uploads/2017-12/287281514167263.png"
+          }
+        }, {
+          "label": "社区互动",
+          "key": "community_interact",
+          "icon": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-10/611041507952756.png",
+          "settings": {
+            "label": "社区互动",
+            "icon": "/uploads/2017-10/611041507952756.png"
+          }
+        }],
+        [{
+          "label": "信息查询",
+          "key": "volunteer_info",
+          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/864991538873247.png",
+          "settings": {
+            "label": "重新设置",
+            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/864991538873247.png"
+          }
+        }, {
+          "label": "志愿机构",
+          "key": "volunteer_platform",
+          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/408331539159822.png",
+          "settings": {
+            "label": "志愿机构",
+            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/408331539159822.png"
+          }
+        }, {
+          "label": "项目认领",
+          "key": "claim_project",
+          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/470551539329049.png",
+          "settings": {
+            "label": "项目认领",
+            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/470551539329049.png"
+          }
+        }, {
+          "label": "志愿项目",
+          "key": "volunteer_project",
+          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/334661539328936.png",
+          "settings": {
+            "label": "志愿项目222",
+            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/334661539328936.png"
+          }
+        }]
+      ],
+      "cert_title": "青岛市",
+      "cert_org": "\b青岛市",
+      "cert_cachet": "http://alpha.api.volunteer.tmallwo.com/images/uploads/2017-11/957251509852803.png",
+      "cert_auth_org": "青岛市志愿服务学院",
+      "score_name": "牛币",
+      "open_volunteer_certificate": 0,
+      "org_info": "<p><img src=\"http://alpha.api.volunteer.tmallwo.com:8000/images/uploads/2018-01/484421515566903.png\" style=\"width: 300px;\" class=\"fr-dib\" data-status=\"0\" data-msg=\"ok\"></p><p>志多</p>",
+      "org_manual": "<p>Test 234</p>",
+      "org_service": "<p>请加微信&nbsp;</p><p><img src=\"http://alpha.api.volunteer.tmallwo.com:8000/images/uploads/2018-01/901661515566842.jpg\" style=\"width: 300px;\" class=\"fr-fil fr-dib\" data-status=\"0\" data-msg=\"ok\"></p><p><br></p><p><br></p>",
+      "org_service_tel": "17710210877",
+      "org_service_guide": "",
+      "custom_config": {
+        "extends": [{
+          "key": "isStarbucksPartner",
+          "label": "是否星巴克伙伴",
+          "type": "1",
+          "options": "是,否",
+          "is_required": 1
+        }],
+        "open_real_name": 1,
+        "open_avatars": 0,
+        "open_id_number": 1,
+        "open_nation": 0,
+        "open_addr": 0,
+        "real_name_register": 0
+      },
+      "open_stars": 1
+    }
+    //VWPe9xdLyw
     // VolejRejNm
     // qM7e5Ba2vp
     // 4openRe7Az
-    window.orgCode = "VWPe9xdLyw";
+    window.orgCode = "VolejRejNm";
     // joQeZJepZV
     window.serviceCategory = [
       "赛事服务",
