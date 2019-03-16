@@ -395,7 +395,7 @@ const FundingApplicationForm = createForm()(FundingApplication);
 FundingApplicationForm.propTypes = {
 
 };
-FundingApplication.title = '填写资助项目信息';
+FundingApplicationForm.title = '填写资助项目信息';
 export default connect(
     state=>({
         thirdStepData: state.fundingApplication.thirdStep

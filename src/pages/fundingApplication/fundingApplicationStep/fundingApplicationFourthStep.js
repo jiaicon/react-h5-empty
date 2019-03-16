@@ -312,7 +312,7 @@ const FundingApplicationForm = createForm()(FundingApplication);
 FundingApplicationForm.propTypes = {
 
 };
-FundingApplication.title = '填写项目执行计划';
+FundingApplicationForm.title = '填写项目执行计划';
 // export default connect(
 //     state=>({
 //         fourthStepData: state.fundingApplication.fourthStep

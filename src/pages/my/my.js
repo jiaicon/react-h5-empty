@@ -575,12 +575,13 @@ class MyPage extends React.Component {
         next_label.level = 1;
       } else if (
         user.growth >=
-        userAchieveListLocal[userAchieveListLocal.length - 2].growth
+        Number(userAchieveListLocal[userAchieveListLocal.length - 2].growth)
       ) {
         next_label = null;
         now_label = userAchieveListLocal[userAchieveListLocal.length - 1];
         now_label.level = userAchieveListLocal.length - 1;
       } else {
+          console.log(user.growth, userAchieveListLocal)
         for (let i = 0; i < userAchieveListLocal.length; i++) {
           if (user.growth >= userAchieveListLocal[i].growth) {
             now_label = userAchieveListLocal[i + 1];
