@@ -113,8 +113,32 @@ class FundingApplication extends React.Component {
         });
     };
     openProjectFiled() {
+        let hasChooseArea = this.state.hasChooseArea;
+        let serviceArea = this.state.serviceArea;
+        if(!hasChooseArea.length) {
+            serviceArea.map(item=>{
+                item.defaultChecked = false;
+            })
+        }else {
+            for(let i = 0; i < serviceArea.length;i++) {
+                let flag = false;
+                for(let j = 0; j<hasChooseArea.length;j++) {
+                    if(serviceArea[i].value == hasChooseArea[j]) {
+                        //存在相等的  已选择
+                        flag = true;
+                    }
+                }
+                if(flag) {
+                    serviceArea[i].defaultChecked = true;
+                }else {
+                    serviceArea[i].defaultChecked = false;
+                }
+            }
+        }
+
         this.setState({
-            modal_project_field: true
+            ...serviceArea,
+            modal_project_field: true,
         })
     }
     onCloseModalProjectFiled() {
@@ -124,40 +148,40 @@ class FundingApplication extends React.Component {
         })
     }
     onChangeCheckbox = (val) => {
-        console.log(val);
-        let hasChooseArea = this.state.hasChooseArea;
-        let serviceArea = this.state.serviceArea;
-        serviceArea = serviceArea.map((item)=>{
+        let {hasChooseArea: hasChoose, serviceArea: serviceArea} = this.state;
+        serviceArea.map((item)=>{
             if(item.value == val) {
                 item.defaultChecked=!item.defaultChecked
             }
             return item;
         });
-        if(hasChooseArea.length>0) {
-            let flag = false;
-            for(let i = 0; i < hasChooseArea.length; i++) {
-                if(hasChooseArea[i] == val) {
-                    hasChooseArea.splice(i,1);
+        if(hasChoose.length>0) {
+            for(let i = 0; i < hasChoose.length; i++) {
+                if(hasChoose[i] == val) {
                     this.setState({
-                        hasChooseArea: hasChooseArea,
                         serviceArea: serviceArea
                     });
                     return;
-                }else {
-                    flag=true;
                 }
             }
-            if(flag) {
-                hasChooseArea.push(val);
-            }
-        }else {
-            hasChooseArea.push(val);
+
         }
         this.setState({
-            hasChooseArea: hasChooseArea,
             serviceArea: serviceArea
         })
     };
+
+    addChooseProjectFiled() {
+        let serviceArea = this.state.serviceArea;
+        let hasChooseArea = [];
+        serviceArea.map(item=>{
+            if(item.defaultChecked) hasChooseArea.push(item.value)
+        });
+        this.setState({
+            hasChooseArea: hasChooseArea,
+            modal_project_field: false
+        })
+    }
     projectMoneyChange() {
         if(this.state.project_money_DX&&this.state.project_money_DX.length) {
             this.setState({
@@ -170,12 +194,11 @@ class FundingApplication extends React.Component {
         return <div className="renderModalHeader">
             <div className="renderModalHeader-left" onClick={this.onCloseModalProjectFiled}>取消</div>
             <div>选择服务领域</div>
-            <div className="renderModalHeader-right" onClick={this.onCloseModalProjectFiled}>确定</div>
+            <div className="renderModalHeader-right" onClick={this.addChooseProjectFiled}>确定</div>
         </div>
     }
     render() {
         const { getFieldProps, getFieldValue,  } = this.props.form;
-
         return (
             <div className="page-funding-application">
                 <div style={{marginBottom: '62px'}}>
@@ -375,15 +398,15 @@ class FundingApplication extends React.Component {
                 >
                     <List className="popup-list">
                         {
-                            this.state.serviceArea.map((item, index)=>(
-                                <CheckboxItem
+                            this.state.serviceArea.map((item, index)=> {
+                                return <CheckboxItem
                                     key={index}
-                                    defaultChecked={item.defaultChecked}
-                                    onChange={()=>this.onChangeCheckbox(item.value)}
+                                    checked={item.defaultChecked}
+                                    onChange={() => this.onChangeCheckbox(item.value)}
                                 >
                                     {item.label}
                                 </CheckboxItem>
-                            ))
+                            })
                         }
                     </List>
                 </Modal>

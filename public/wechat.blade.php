@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Fri Mar 15 2019 23:26:00 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Sat Mar 16 2019 18:37:31 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -73,6 +73,46 @@
     }
 
     window.orgInfo && (document.title = window.orgInfo.name);
+     window.serviceArea = [{
+          value: '扶贫',
+          label: '扶贫'
+        }, {
+          value: '济困',
+          label: '济困'
+        }, {
+          value: '扶老',
+          label: '扶老'
+        }, {
+          value: '救孤',
+          label: '救孤'
+        }, {
+          value: '恤病',
+          label: '恤病'
+        }, {
+          value: '助残',
+          label: '助残'
+        }, {
+          value: '救灾',
+          label: '救灾'
+        }, {
+          value: '助医',
+          label: '助医'
+        }, {
+          value: '助学',
+          label: '助学'
+        }, {
+          value: '环保',
+          label: '环保'
+        }, {
+          value: '公共文化',
+          label: '公共文化'
+        }, {
+          value: '大型赛会',
+          label: '大型赛会'
+        }, {
+          value: '其他服务',
+          label: '其他服务'
+        }];
   </script>
   <!-- <script>
   var _hmt = _hmt || [];
@@ -92,7 +132,7 @@
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
   <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
-  <script src="/dist/main.40bc97133e99f915a1dd.js"></script>
+  <script src="/dist/main.9d62e91222791e561628.js"></script>
 </body>
 
 </html>
