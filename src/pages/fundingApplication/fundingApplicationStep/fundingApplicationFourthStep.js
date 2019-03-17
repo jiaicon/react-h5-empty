@@ -25,7 +25,7 @@ import Alert from "react-s-alert";
 
 
 let count = 1;
-
+let scrollTop = 0;
 class Form extends React.Component {
     static propTypes = {
         doAllActive: PropTypes.func,
@@ -63,6 +63,9 @@ class Form extends React.Component {
         });
     };
 
+    iPhoneBlur() {
+        window.scroll(0, scrollTop || 0);
+    }
     doHtml() {
         const { getFieldProps, getFieldValue } = this.props.form;
         const formItems = this.state.formContent.length > 0 ? this.state.formContent.map((item, index)=>(
@@ -78,6 +81,7 @@ class Form extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入活动名称"
+                        onBlur={this.iPhoneBlur}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_name__${item}`, {
@@ -131,6 +135,7 @@ class Form extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入活动目的"
+                        onBlur={this.iPhoneBlur}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`activity_objective__${item}`, {
@@ -148,6 +153,7 @@ class Form extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入预估受益人数"
+                        onBlur={this.iPhoneBlur}
                         moneyKeyboardAlign="right"
                         type="number"
                         {
@@ -173,6 +179,7 @@ class Form extends React.Component {
                                 message: '请输入申请理由',
                             }],
                         })}
+                        onBlur={this.iPhoneBlur}
                         placeholder="包括活动形式、地点、参与人数等"
                         autoHeight
                     />
@@ -247,7 +254,7 @@ class Form extends React.Component {
     };
     render() {
         return(
-            <div>
+            <div style={{paddingBottom: '44px'}}>
                 {this.doHtml()}
                 <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div>
                 <div className="nextStep" onClick={this.onNextStep}>下一步，填写项目预算明细</div>
@@ -277,9 +284,11 @@ class FundingApplication extends React.Component {
     componentWillMount() {
 
     }
-
+    onScrollHandle() {
+        scrollTop = window.scrollY;
+    }
     componentDidMount() {
-
+        window.addEventListener('scroll', this.onScrollHandle);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -287,7 +296,7 @@ class FundingApplication extends React.Component {
     }
 
     componentWillUnmount() {
-
+        window.removeEventListener('scroll', this.onScrollHandle);
     }
     onTextChanged() {
 

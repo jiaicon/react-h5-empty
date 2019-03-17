@@ -26,7 +26,7 @@ import { getCity, getAreaProvince } from './../../home/home.store'
 import { firstStep } from './../fundingApplication.store';
 import Alert from "react-s-alert";
 import { userCenterAction } from './../../my/my.store';
-
+let scrollTop = 0;
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
     while (el) {
@@ -86,14 +86,17 @@ class FundingApplication extends React.Component {
     }
 
     componentDidMount() {
-
+        window.addEventListener('scroll', this.onScrollHandle);
     }
 
     componentWillReceiveProps(nextProps) {
     }
 
     componentWillUnmount() {
-
+        window.removeEventListener('scroll', this.onScrollHandle);
+    }
+    onScrollHandle() {
+        scrollTop = window.scrollY;
     }
     onTextChanged() {
 
@@ -152,6 +155,13 @@ class FundingApplication extends React.Component {
         if (!pNode) {
             e.preventDefault();
         }
+    };
+    iPhoneBlur() {
+        console.log(this.scroll);
+        window.scroll(this.scroll || 0, 0);
+    }
+    iPhoneFocus() {
+        this.scroll = document.body.scrollTop;
     }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;
@@ -176,6 +186,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入你的姓名"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('user_name', {
@@ -236,6 +247,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入所属门店（部门）"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('user_store', {
@@ -253,6 +265,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入职位"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('user_position', {
@@ -270,6 +283,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入工号"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('user_job_num', {
@@ -287,6 +301,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入联系电话"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('user_phone', {
@@ -309,6 +324,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入电子邮箱"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('user_email', {
@@ -338,6 +354,8 @@ class FundingApplication extends React.Component {
                             })}
                             placeholder="请简要描述与该机构过去的合作，以及此次申请的理由（300字内）"
                             autoHeight
+                            onBlur={this.iPhoneBlur}
+                            rows="4"
                             count={300}
                         />
                     </div>
@@ -348,6 +366,8 @@ class FundingApplication extends React.Component {
                             className="page-funding-application-input"
                             placeholder="请输入申请金额"
                             moneyKeyboardAlign="right"
+                            onFocus={this.iPhoneFocus}
+                            onBlur={this.iPhoneBlur}
                             type='digit'
                             {
                                 ...getFieldProps('user_apply_monry', {

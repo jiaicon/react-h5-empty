@@ -295,9 +295,9 @@ export function isVolunteerInsure(str) {
   }
   return false;
 }
-export function DX(n) {
+export function DX(n, m) {
     if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
-        return "数据非法";
+        return m || 0;
     var unit = "千百拾亿千百拾万千百拾元角分", str = "";
     n += "00";
     var p = n.indexOf('.');

@@ -333,7 +333,7 @@ class Achievement extends React.Component {
                     </div>
                     <div className="modal-this-big-img" style={{backgroundImage: `url('${this.state.thisAchieveInfoImg&&this.state.thisAchieveInfoImg[0]}')`}}>
                         <p className="modal-this-achieve-name">{thisAchieveInfo&&thisAchieveInfo.achieve_key}</p>
-                        <img className="modal-this-achieve-img" src={this.state.base64Array&&this.state.base64Array[0] || this.state.thisAchieveInfoImg&&this.state.thisAchieveInfoImg[1]} alt=""/>
+                        <img className="modal-this-achieve-img" src={this.state.thisAchieveInfoImg&&this.state.thisAchieveInfoImg[1] || this.state.base64Array&&this.state.base64Array[0]} alt=""/>
                     </div>
                     <div className="achieve-share-qrcode modal-this-share-qrcode">
                         <img className="achieve-share-qrcode-img modal-this-qrcode-size" src={this.state.qrcodeURL} alt=""/>
