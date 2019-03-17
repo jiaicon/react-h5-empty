@@ -799,7 +799,7 @@ class Preview extends React.Component {
                         }
                     </div>}>
                         <div className="page-funding-application">
-                            <div style={{marginBottom: '62px'}}>
+                            <div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">申请人姓名</div>
                                     <InputItem
@@ -1033,7 +1033,7 @@ class Preview extends React.Component {
                         }
                     </div>} className="pad">
                         <div className="page-funding-application">
-                            <div style={{marginBottom: '62px'}}>
+                            <div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">组织名称</div>
                                     <InputItem
@@ -1230,7 +1230,7 @@ class Preview extends React.Component {
                         }
                     </div>} className="pad">
                         <div className="page-funding-application">
-                            <div style={{marginBottom: '62px'}}>
+                            <div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">项目名称</div>
                                     <InputItem
