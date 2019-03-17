@@ -36,9 +36,10 @@
       <file leaf-file-name="preview.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="793" column="24" lean-forward="true" selection-start-line="793" selection-start-column="24" selection-end-line="793" selection-end-column="24" />
+            <state relative-caret-position="327">
+              <caret line="104" column="52" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="52" />
               <folding>
+                <element signature="e#78#119#0" expanded="true" />
                 <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
                 <element signature="n#!!block;n#doHtmlBudget#0;n#Preview#0" expanded="false" />
                 <element signature="n#!!block;n#doValue#0;n#Preview#0" expanded="false" />
@@ -81,8 +82,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>formContentBudgetData</find>
-      <find>budget_money</find>
       <find>onAddBudgetActive</find>
       <find>onSubmitInfo</find>
       <find>62px</find>
@@ -111,6 +110,8 @@
       <find>TextareaItem</find>
       <find>onChange</find>
       <find>onAccordionChange</find>
+      <find>getAreaProvince</find>
+      <find>budget.map</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -406,7 +407,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="365379000" />
+    <option name="totallyTimeSpent" value="365811000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -842,9 +843,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="793" column="24" lean-forward="true" selection-start-line="793" selection-start-column="24" selection-end-line="793" selection-end-column="24" />
+        <state relative-caret-position="327">
+          <caret line="104" column="52" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="52" />
           <folding>
+            <element signature="e#78#119#0" expanded="true" />
             <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
             <element signature="n#!!block;n#doHtmlBudget#0;n#Preview#0" expanded="false" />
             <element signature="n#!!block;n#doValue#0;n#Preview#0" expanded="false" />

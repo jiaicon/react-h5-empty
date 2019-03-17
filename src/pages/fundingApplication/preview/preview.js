@@ -101,12 +101,14 @@ class Preview extends React.Component {
                     allData = item;
 
                     allData.plan=item.plan;
-                    allData.budget = item.budget.map((line, idx)=>{
-                        if(line.budget_type) {
-                            line.budget_type = [line.budget_type];
-                        }
-                        return line;
-                    });
+                    if(allData.budget&&allData.budget.length>0) {
+                        allData.budget = item.budget.map((line, idx) => {
+                            if (line.budget_type) {
+                                line.budget_type = [line.budget_type];
+                            }
+                            return line;
+                        });
+                    }
                     allData.user_business_province = [item.user_business_province];
                     allData.project_field = item.project_field;
                     allData.user_business_city = [item.user_business_city];
@@ -125,13 +127,14 @@ class Preview extends React.Component {
                 ...JSON.parse(localStorage.getItem('fourthStep')),
                 ...JSON.parse(localStorage.getItem('fifthStep')),
             };
-            allData.budget = allData.budget.map((line, idx)=>{
-
-                if(line.budget_type) {
-                    line.budget_type = [line.budget_type];
-                }
-                return line;
-            });
+             if(allData.budget&&allData.budget.length>0) {
+                 allData.budget = allData.budget.map((line, idx)=>{
+                     if(line.budget_type) {
+                         line.budget_type = [line.budget_type];
+                     }
+                     return line;
+                 });
+             }
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
             allData.project_field = allData.project_field;
