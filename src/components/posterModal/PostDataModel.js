@@ -6,6 +6,7 @@ export function PostDataModel_Project(projectData, userData) {
         username : getUserName(userData),
         contentText :tempContentText,
         url :window.location.href,
+        type: 'Project'
     }
     console.log(PostDataModel);
     return PostDataModel;
@@ -19,6 +20,7 @@ export function PostDataModel_Team(teamData,userData){
         username : getUserName(userData),
         contentText :tempContentText,
         url :window.location.href,
+        type: 'Team'
     }
     return PostDataModel;
 }
@@ -32,6 +34,7 @@ export function PostDataModel_SignSuccess(projectData,userData){
         username : getUserName(userData),
         contentText :tempContentText,
         url : `${window.location.host}/project/detail/${projectData.id}`,
+        type : 'SignSuccess'
     }
     return PostDataModel;
 }
@@ -46,6 +49,7 @@ export function PostDataModel_ProjectSign(projectData,userData){
         username : getUserName(userData),
         contentText :tempContentText,
         url :`${window.location.host}/project/detail/${projectData.id}`,
+        type : 'ProjectSign'
     }
     console.log(PostDataModel);
     return PostDataModel;
