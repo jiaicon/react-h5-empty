@@ -105,7 +105,7 @@ class FundingApplication extends React.Component {
 
         return (
             <div className="page-funding-application">
-                <div style={{marginBottom: '62px'}}>
+                <div style={{paddingBottom: '40px'}}>
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">组织名称</div>
                         <InputItem
