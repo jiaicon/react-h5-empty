@@ -22,7 +22,7 @@ import UploadPhoto from './../../../components/uploadPhoto/uploadPhoto';
 import { secondStep } from './../fundingApplication.store';
 import Alert from "react-s-alert";
 
-
+let scrollTop = 0;
 class FundingApplication extends React.Component {
 
     constructor(props) {
@@ -40,7 +40,7 @@ class FundingApplication extends React.Component {
     }
 
     componentDidMount() {
-
+        window.addEventListener('scroll', this.onScrollHandle);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -48,7 +48,10 @@ class FundingApplication extends React.Component {
     }
 
     componentWillUnmount() {
-
+        window.removeEventListener('scroll', this.onScrollHandle);
+    }
+    onScrollHandle() {
+        scrollTop = window.scrollY;
     }
     onTextChanged() {
 
@@ -88,6 +91,10 @@ class FundingApplication extends React.Component {
 
         });
     };
+    iPhoneBlur() {
+        console.log(this.scroll);
+        window.scroll(this.scroll || 0, 0);
+    }
     onPhotoChange(images) {
         console.log(images)
         this.setState({
@@ -105,6 +112,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入收益组织名称"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_name', {
@@ -122,6 +130,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入统一社会信用代码（选填）"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="group_credit_num"
                             {
                                 ...getFieldProps('projectPosition')
@@ -134,6 +143,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入受益组织地址"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_addr', {
@@ -151,6 +161,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入受益组织法人／负责人姓名"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_legal_person', {
@@ -168,6 +179,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入受益组织联系人姓名"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_user', {
@@ -185,6 +197,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入受益组织联系人电话"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_user_phone', {
@@ -207,6 +220,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入联系人邮箱"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_user_email', {
@@ -227,6 +241,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入服务领域"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_service', {
@@ -253,6 +268,8 @@ class FundingApplication extends React.Component {
                             })}
                             placeholder="请简要描述该机构的目标和愿景，开展的主要项目，
 资质等（300字内）"
+                            onBlur={this.iPhoneBlur}
+                            rows="4"
                             autoHeight
                             count={300}
                         />

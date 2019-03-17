@@ -32,6 +32,7 @@ import { getCity, getAreaProvince } from './../../home/home.store';
 import { fundingApplicationPost, resubmitApply, revokeApply } from './../fundingApplication.store';
 let count=1;
 let countBudget=1;
+let scrollTop = 0;
 const budgetType = [
     {
         label: '活动成本',
@@ -164,7 +165,7 @@ class Preview extends React.Component {
         return arr1;
     }
     componentDidMount() {
-
+        window.addEventListener('scroll', this.onScrollHandle);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -190,7 +191,14 @@ class Preview extends React.Component {
     }
 
     componentWillUnmount() {
-
+        window.removeEventListener('scroll', this.onScrollHandle);
+    }
+    onScrollHandle() {
+        scrollTop = window.scrollY;
+    }
+    iPhoneBlur() {
+        console.log(this.scroll);
+        window.scroll(this.scroll || 0, 0);
     }
     deleteThis(e) {
         let arr = this.state.formContent;
@@ -243,6 +251,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入活动名称"
+                        onBlur={this.iPhoneBlur}
                         disabled={this.state.stepDisabled4}
                         moneyKeyboardAlign="right"
                         {
@@ -300,6 +309,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入活动目的"
+                        onBlur={this.iPhoneBlur}
                         disabled={this.state.stepDisabled4}
                         moneyKeyboardAlign="right"
                         {
@@ -319,6 +329,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入预估受益人数"
+                        onBlur={this.iPhoneBlur}
                         disabled={this.state.stepDisabled4}
                         moneyKeyboardAlign="right"
                         type="number"
@@ -344,6 +355,8 @@ class Preview extends React.Component {
                                 message: '请输入申请理由',
                             }],
                         })}
+                        onBlur={this.iPhoneBlur}
+                        rows="4"
                         placeholder="包括活动形式、地点、参与人数等"
                         autoHeight
                     />
@@ -392,6 +405,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入预算用途"
+                        onBlur={this.iPhoneBlur}
                         disabled={this.state.stepDisabled5}
                         moneyKeyboardAlign="right"
                         {
@@ -412,6 +426,7 @@ class Preview extends React.Component {
                         type="money"
                         className="page-funding-application-input"
                         placeholder="请输入单价（保留2位小数）"
+                        onBlur={this.iPhoneBlur}
                         disabled={this.state.stepDisabled5}
                         moneyKeyboardAlign="right"
                         {
@@ -455,6 +470,7 @@ class Preview extends React.Component {
                         type="digit"
                         className="page-funding-application-input"
                         placeholder="请输入预算预计购买数量"
+                        onBlur={this.iPhoneBlur}
                         disabled={this.state.stepDisabled5}
                         moneyKeyboardAlign="right"
                         {
@@ -481,6 +497,7 @@ class Preview extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入金额"
+                        onBlur={this.iPhoneBlur}
                         disabled={true}
                         value={this.state[`budget_money__${item}`] ? this.state[`budget_money__${item}`] : ((this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? Number(this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price) : 0) * (this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? Number(this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num) : 0))}
                         moneyKeyboardAlign="right"
@@ -811,6 +828,7 @@ class Preview extends React.Component {
                                         placeholder="请输入你的姓名"
                                         ref={el=> this.inputRef = el}
                                         moneyKeyboardAlign="right"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         {
                                             ...getFieldProps('user_name', {
@@ -877,6 +895,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入所属门店（部门）"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
@@ -896,6 +915,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入职位"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
@@ -915,6 +935,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入工号"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
@@ -934,6 +955,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入联系电话"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
@@ -956,6 +978,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入电子邮箱"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         {
@@ -988,6 +1011,8 @@ class Preview extends React.Component {
                                         })}
                                         disabled={this.state.stepDisabled1}
                                         placeholder="请简要描述与该机构过去的合作，以及此次申请的理由（300字内）"
+                                        onBlur={this.iPhoneBlur}
+                                        rows="4"
                                         autoHeight
                                         count={300}
                                     />
@@ -998,6 +1023,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入申请金额"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled1}
                                         moneyKeyboardAlign="right"
                                         type='digit'
@@ -1043,6 +1069,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入收益组织名称"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1062,6 +1089,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入统一社会信用代码（选填）"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1077,6 +1105,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入受益组织地址"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1096,6 +1125,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入受益组织法人／负责人姓名"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1115,6 +1145,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入受益组织联系人姓名"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1135,6 +1166,7 @@ class Preview extends React.Component {
                                         type="number"
                                         className="page-funding-application-input"
                                         placeholder="请输入受益组织联系人电话"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1157,6 +1189,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入联系人邮箱"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1179,6 +1212,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入服务领域"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled2}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1209,6 +1243,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled2}
                                         placeholder="请简要描述该机构的目标和愿景，开展的主要项目，
 资质等（300字内）"
+                                        onBlur={this.iPhoneBlur}
+                                        rows="4"
                                         autoHeight
                                         count={300}
                                     />
@@ -1240,6 +1276,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入资助项目项目名称"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled3}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1312,6 +1349,7 @@ class Preview extends React.Component {
                                     <InputItem
                                         className="page-funding-application-input"
                                         placeholder="请输入实施地点"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled3}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1332,6 +1370,7 @@ class Preview extends React.Component {
                                         type="digit"
                                         className="page-funding-application-input"
                                         placeholder="请输入资助项目总预算（保留两位小数）"
+                                        onBlur={this.iPhoneBlur}
                                         disabled={this.state.stepDisabled3}
                                         moneyKeyboardAlign="right"
                                         {
@@ -1372,6 +1411,8 @@ class Preview extends React.Component {
                                         })}
                                         placeholder="简述项目针对问题，以及通过何种方式达到何种目标
 （400字内）"
+                                        onBlur={this.iPhoneBlur}
+                                        rows="4"
                                         autoHeight
                                         count={400}
                                     />
@@ -1393,6 +1434,8 @@ class Preview extends React.Component {
                                         disabled={this.state.stepDisabled3}
                                         placeholder="项目实现后期望达成的具体成效（300字内）"
                                         autoHeight
+                                        onBlur={this.iPhoneBlur}
+                                        rows="4"
                                         count={300}
                                     />
                                 </div>
@@ -1414,6 +1457,8 @@ class Preview extends React.Component {
                                         placeholder="要求清晰界定本项目可以服务到的对象，并提供基数量、
 基本特征、具体需求或问题状况等信息（400字内）"
                                         autoHeight
+                                        onBlur={this.iPhoneBlur}
+                                        rows="4"
                                         count={400}
                                     />
                                 </div>
@@ -1430,6 +1475,8 @@ class Preview extends React.Component {
                                         })}
                                         placeholder="请描述需要额外提供的其他资源，如场地、志愿者等
 （选填）"
+                                        onBlur={this.iPhoneBlur}
+                                        rows="4"
                                         autoHeight
                                         count={400}
                                     />
@@ -1472,6 +1519,8 @@ class Preview extends React.Component {
                                 {...getFieldProps(`budget_reason`, {
                                     initialValue: this.state.previewData&&this.state.previewData.budget_reason
                                 })}
+                                onBlur={this.iPhoneBlur}
+                                rows="4"
                                 placeholder="简述预算理由（选填）"
                                 autoHeight
                             />

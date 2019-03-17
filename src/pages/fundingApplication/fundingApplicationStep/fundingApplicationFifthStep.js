@@ -25,6 +25,7 @@ import './../eachStepStyle.css';
 import Alert from "react-s-alert";
 
 let count = 1;
+let scrollTop = 0;
 const budgetType = [
     {
         label: '活动成本',
@@ -97,8 +98,9 @@ class Form extends React.Component {
                     "page-funding-application-item": true,
                     "page-funding-application-item-picker": getFieldValue(`budget_type__${item}`) && getFieldValue(`budget_type__${item}`).length > 0
                 })}>
-                    <div className="page-funding-application-item-label">预算类型</div>
+                    <div className="page-funding-application-item-label" style={{width: '100px'}}>预算类型</div>
                     <Picker
+                        style={{width: '100%'}}
                         data={budgetType}
                         cols={1}
                         {
@@ -158,7 +160,7 @@ class Form extends React.Component {
                 <div className="page-funding-application-item">
                     <div className="page-funding-application-item-label">数量</div>
                     <InputItem
-                        type="number"
+                        type="digit"
                         className="page-funding-application-input"
                         placeholder="请输入预算预计购买数量"
                         moneyKeyboardAlign="right"
@@ -182,15 +184,15 @@ class Form extends React.Component {
                     <div className="page-funding-application-item-label">金额</div>
                     <InputItem
                         type="digit"
-                        className="page-funding-application-input"
-                        placeholder="请输入金额"
+                        className="page-funding-application-input page-funding-application-ipt"
+                        placeholder="此处自动显示本项预算的小写金额"
                         disabled={true}
                         moneyKeyboardAlign="right"
                         value={this.state[`budget_money__${item}`]}
                         style={{color: '#000'}}
                     />
                 </div>
-                <div className="page-funding-application-item-DX">{this.state[`budget_money__${item}`] ? <span style={{color: '#000'}}>{DX(this.state[`budget_money__${item}`])}</span>:'此处自动显示项目总预算的大写数值'}</div>
+                <div className="page-funding-application-item-DX">{this.state[`budget_money__${item}`] ? <span style={{color: '#000'}}>{DX(this.state[`budget_money__${item}`], '此处自动显示本项预算的大写金额')}</span>:'此处自动显示本项预算的大写金额'}</div>
                 <div className="line1px"></div>
             </div>
         )) : <div></div>;
@@ -318,13 +320,15 @@ class FundingApplication extends React.Component {
             htmlContent: []
         };
     }
-
+    onScrollHandle() {
+        scrollTop = window.scrollY;
+    }
     componentWillMount() {
 
     }
 
     componentDidMount() {
-
+        window.addEventListener('scroll', this.onScrollHandle);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -332,7 +336,7 @@ class FundingApplication extends React.Component {
     }
 
     componentWillUnmount() {
-
+        window.removeEventListener('scroll', this.onScrollHandle);
     }
     onTextChanged() {
 
@@ -345,7 +349,7 @@ class FundingApplication extends React.Component {
     }
     render() {
         return (
-            <div className="page-funding-application">
+            <div className="page-funding-application" style={{paddingBottom: '44px'}}>
                 <FormCreate
                     doAllActive={this.doAllActive}
                 />

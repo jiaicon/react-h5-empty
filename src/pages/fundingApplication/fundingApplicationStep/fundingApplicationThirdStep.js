@@ -29,7 +29,7 @@ import Alert from "react-s-alert";
 const isAndroid = /android/i.test(navigator.userAgent);
 
 const CheckboxItem = Checkbox.CheckboxItem;
-
+let scrollTop = 0;
 class FundingApplication extends React.Component {
 
     constructor(props) {
@@ -51,8 +51,10 @@ class FundingApplication extends React.Component {
     componentWillMount() {
 
     }
-
+    componentDidUpdate() {
+    }
     componentDidMount() {
+        window.addEventListener('scroll', this.onScrollHandle);
         // Android 下 fastclick 影响 select 点击
         if (window.fastclick && isAndroid) {
             window.fastclick.destroy();
@@ -63,12 +65,16 @@ class FundingApplication extends React.Component {
     componentWillReceiveProps(nextProps) {
 
     }
-
     componentWillUnmount() {
+        window.removeEventListener('scroll', this.onScrollHandle);
         if (!window.fastclick && isAndroid) {
             window.fastclick = FastClick.attach(document.body);
         }
     }
+    onScrollHandle() {
+        scrollTop = window.scrollY;
+    }
+
     onTextChanged() {
 
     }
@@ -197,7 +203,6 @@ class FundingApplication extends React.Component {
             })
         }
     }
-
     renderModalHeader() {
         return <div className="renderModalHeader">
             <div className="renderModalHeader-left" onClick={this.onCloseModalProjectFiled}>取消</div>
@@ -205,11 +210,14 @@ class FundingApplication extends React.Component {
             <div className="renderModalHeader-right" onClick={this.addChooseProjectFiled}>确定</div>
         </div>
     }
+    iPhoneBlur() {
+        window.scroll(0, scrollTop || 0);
+    }
     render() {
         const { getFieldProps, getFieldValue,  } = this.props.form;
         return (
             <div className="page-funding-application">
-                <div style={{marginBottom: '62px'}}>
+                <div style={{marginBottom: '62px'}} ref="LaunchContent">
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">项目名称</div>
                         <InputItem
@@ -282,6 +290,7 @@ class FundingApplication extends React.Component {
                         <InputItem
                             className="page-funding-application-input"
                             placeholder="请输入实施地点"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('project_addr', {
@@ -300,6 +309,7 @@ class FundingApplication extends React.Component {
                             type="digit"
                             className="page-funding-application-input"
                             placeholder="请输入资助项目总预算（保留两位小数）"
+                            onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('project_money', {
@@ -320,7 +330,7 @@ class FundingApplication extends React.Component {
                             }
                         />
                     </div>
-                    <div className="page-funding-application-item-DX">{getFieldValue('project_money') ? DX(Number(getFieldValue('project_money'))):'此处自动显示项目总预算的大写数值'}</div>
+                    <div className="page-funding-application-item-DX">{getFieldValue('project_money') ? <span style={{color: '#000'}}>{DX(Number(getFieldValue('project_money')))}</span>:'此处自动显示项目总预算的大写数值'}</div>
                     <div className="line1px"></div>
                     <div className={classnames({
                         "page-funding-application-item-textarea": true,
@@ -336,6 +346,8 @@ class FundingApplication extends React.Component {
                             })}
                             placeholder="简述项目针对问题，以及通过何种方式达到何种目标
 （400字内）"
+                            onBlur={this.iPhoneBlur}
+                            rows="4"
                             autoHeight
                             count={400}
                         />
@@ -354,6 +366,8 @@ class FundingApplication extends React.Component {
                                 }],
                             })}
                             placeholder="项目实现后期望达成的具体成效（300字内）"
+                            onBlur={this.iPhoneBlur}
+                            rows="4"
                             autoHeight
                             count={300}
                         />
@@ -373,6 +387,8 @@ class FundingApplication extends React.Component {
                             })}
                             placeholder="要求清晰界定本项目可以服务到的对象，并提供基数量、
 基本特征、具体需求或问题状况等信息（400字内）"
+                            onBlur={this.iPhoneBlur}
+                            rows="4"
                             autoHeight
                             count={400}
                         />
@@ -381,12 +397,16 @@ class FundingApplication extends React.Component {
                     <div className={classnames({
                         "page-funding-application-item-textarea": true,
                         "page-funding-application-item-picker": getFieldValue('project_resources')&&getFieldValue('project_resources').length > 0
-                    })}>
+                    })}
+                    style={{marginBottom: '44px'}}
+                    >
                         <div className="page-funding-application-item-label-special">需要额外提供的资源</div>
                         <TextareaItem
                             {...getFieldProps('project_resources')}
                             placeholder="请描述需要额外提供的其他资源，如场地、志愿者等
 （选填）"
+                            onBlur={this.iPhoneBlur}
+                            rows="5"
                             autoHeight
                             count={400}
                         />
