@@ -37,10 +37,6 @@ class SignPage extends React.Component {
           const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
           console.log("获取新位置成功", position);
           setCookie("location", JSON.stringify({ lat, lng }), 1);
-
-          if (success) {
-              success({ lat, lng });
-          }
       }, options);
       this.props.requestClockList();
   }

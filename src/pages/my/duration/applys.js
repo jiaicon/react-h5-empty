@@ -43,7 +43,7 @@ class ApplyItem extends React.Component {
                     {item.project.name}
                 </div>
 
-                <div>2017/9/20 09:00 - 10:00</div>
+                <div>{item.clock.begin} - {item.clock.end}</div>
               </div>
 
               <div className="line1px" />
