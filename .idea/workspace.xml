@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.css" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
@@ -38,12 +36,10 @@
       <file leaf-file-name="preview.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="587" column="0" lean-forward="false" selection-start-line="587" selection-start-column="0" selection-end-line="587" selection-end-column="0" />
+            <state relative-caret-position="380">
+              <caret line="185" column="40" lean-forward="false" selection-start-line="185" selection-start-column="40" selection-end-line="185" selection-end-column="40" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
-                <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
-                <element signature="n#!!block;n#doHtmlBudget#0;n#Preview#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -432,7 +428,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371492000" />
+    <option name="totallyTimeSpent" value="371951000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -868,12 +864,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="587" column="0" lean-forward="false" selection-start-line="587" selection-start-column="0" selection-end-line="587" selection-end-column="0" />
+        <state relative-caret-position="380">
+          <caret line="185" column="40" lean-forward="false" selection-start-line="185" selection-start-column="40" selection-end-line="185" selection-end-column="40" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
-            <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
-            <element signature="n#!!block;n#doHtmlBudget#0;n#Preview#0" expanded="false" />
           </folding>
         </state>
       </provider>

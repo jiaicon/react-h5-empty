@@ -181,17 +181,14 @@ class Preview extends React.Component {
         const { fetching: revokenFetch, failed: revokenFailed } = nextProps.revokeApplyData;
         if(tFetch && !tFailed && !nFetch && !nFailed) {
             console.log('提交成功');
-            return;
             location.replace('/my');
         }
         if(rtFetch && !rtFailed && !rnFetch && !rnFailed) {
             console.log('提交成功');
-            return;
             location.replace('/my');
         }
         if(revokerFetch && !revokerFailed && !revokenFetch && !revokenFailed) {
             console.log('撤销成功');
-            return;
             location.replace('/my');
         }
     }
@@ -264,7 +261,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_name : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入活动名称',
+                                    message: `请输入活动名称${item}`,
                                 }],
                             })
                         }
@@ -281,7 +278,7 @@ class Preview extends React.Component {
                         {...getFieldProps(`activity_start__${item}`, {
                             initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_start&&new Date(this.state.previewData.plan[index].activity_start) : null,
                             rules: [
-                                { required: true, message: '请选择活动开始时间' },
+                                { required: true, message: `请选择活动开始时间${item}` },
                             ],
                         })}
                     >
@@ -301,7 +298,7 @@ class Preview extends React.Component {
                         {...getFieldProps(`activity_end__${item}`, {
                             initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_end&&new Date(this.state.previewData.plan[index].activity_end) : null,
                             rules: [
-                                { required: true, message: '请选择活动结束时间' },
+                                { required: true, message: `请选择活动结束时间${item}` },
                             ],
                         })}
                     >
@@ -322,7 +319,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_objective : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入活动目的',
+                                    message: `请输入活动目的${item}`,
                                 }],
                             })
                         }
@@ -343,7 +340,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_people : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入预估受益人数',
+                                    message: `请输入预估受益人数${item}`,
                                 }],
                             })
                         }
@@ -357,7 +354,7 @@ class Preview extends React.Component {
                             initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_info : null,
                             rules: [{
                                 required: true,
-                                message: '请输入申请理由',
+                                message: `请输入申请理由${item}`,
                             }],
                         })}
                         onBlur={this.iPhoneBlur}
@@ -395,7 +392,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_type : [],
                                 rules: [{
                                     required: true,
-                                    message: '请选择预算类型',
+                                    message: `请选择预算类型${item}`,
                                 }],
                             })
                         }
@@ -418,7 +415,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_purpose : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入预算用途',
+                                    message: `请输入预算用途${item}`,
                                 }],
                             })
                         }
@@ -462,7 +459,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入单价',
+                                    message: `请输入单价${item}`,
                                 }],
                             })
                         }
@@ -490,7 +487,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入预算预计购买数量',
+                                    message: `请输入预算预计购买数量${item}`,
                                 }],
                             })
                         }
@@ -546,15 +543,11 @@ class Preview extends React.Component {
     }
     saveFirstStep(e) {
         e.stopPropagation();
-        this.setState({
-            [`stepDisabled${e.target.getAttribute('data-id')}`]: true
-        });
         //点击的时候判断校验
         this.props.form.validateFields((error, value) => {
             if (error) {
                 console.log('error', error);
                 const key = e.target.getAttribute('data-id')-1;
-                const allArr = [];
                 const arr0 = ['user_name', 'user_business_province', 'user_business_province', 'user_business_city', 'user_store', 'user_position', 'user_job_num', 'user_phone', 'user_email', 'user_apply_rsason', 'user_apply_monry'];
                 const arr1 = ['group_name', 'group_addr', 'group_legal_person', 'group_user', 'group_user_phone', 'group_user_email', 'group_service', 'group_info', ''];
                 const arr2 = ['project_name', 'project_field', 'project_start', 'project_end', 'project_addr', 'project_money', 'project_info', 'project_effect', 'project_object', 'project_resources'];
@@ -571,6 +564,10 @@ class Preview extends React.Component {
                 }else if(key == 4) {
                     this.doSaveValueDefault(error, arr4);
                 }
+            }else {
+                this.setState({
+                    [`stepDisabled${e.target.getAttribute('data-id')}`]: true
+                });
             }
         })
     }
