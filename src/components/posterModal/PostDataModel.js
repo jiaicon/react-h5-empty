@@ -52,7 +52,7 @@ export function PostDataModel_ProjectSign(projectData,userData){
 }
 
 function getProjectPhoto(projectData) {
-    return projectData.list_photo.length ? projectData.list_photo : "/images/post_default_image.jpg";
+    return projectData.list_photo.length ? projectData.list_photo : "/images/post_default_image.png";
 }
 
 function getAvatar(userData) {
