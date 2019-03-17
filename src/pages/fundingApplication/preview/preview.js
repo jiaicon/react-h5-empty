@@ -92,6 +92,9 @@ class Preview extends React.Component {
     }
 
     componentWillMount() {
+        this.thisPageData();
+    }
+    thisPageData() {
         this.props.getCity();
         let allData = {};
         if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
@@ -125,21 +128,21 @@ class Preview extends React.Component {
         }else {
             document.title="预览申请信息";
             this.titleInfo = "预览申请信息";
-             allData = {
+            allData = {
                 ...JSON.parse(localStorage.getItem('firstStep')),
                 ...JSON.parse(localStorage.getItem('secondStep')),
                 ...JSON.parse(localStorage.getItem('thirdStep')),
                 ...JSON.parse(localStorage.getItem('fourthStep')),
                 ...JSON.parse(localStorage.getItem('fifthStep')),
             };
-             if(allData.budget&&allData.budget.length>0) {
-                 allData.budget = allData.budget.map((line, idx)=>{
-                     if(line.budget_type) {
-                         line.budget_type = [line.budget_type];
-                     }
-                     return line;
-                 });
-             }
+            if(allData.budget&&allData.budget.length>0) {
+                allData.budget = allData.budget.map((line, idx)=>{
+                    if(line.budget_type) {
+                        line.budget_type = [line.budget_type];
+                    }
+                    return line;
+                });
+            }
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
             allData.project_field = allData.project_field;
