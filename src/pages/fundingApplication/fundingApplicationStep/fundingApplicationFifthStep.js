@@ -187,9 +187,10 @@ class Form extends React.Component {
                         disabled={true}
                         moneyKeyboardAlign="right"
                         value={this.state[`budget_money__${item}`]}
+                        style={{color: '#000'}}
                     />
                 </div>
-                <div className="page-funding-application-item-DX">{this.state[`budget_money__${item}`] ? DX(this.state[`budget_money__${item}`]):'此处自动显示项目总预算的大写数值'}</div>
+                <div className="page-funding-application-item-DX">{this.state[`budget_money__${item}`] ? <span style={{color: '#000'}}>{DX(this.state[`budget_money__${item}`])}</span>:'此处自动显示项目总预算的大写数值'}</div>
                 <div className="line1px"></div>
             </div>
         )) : <div></div>;

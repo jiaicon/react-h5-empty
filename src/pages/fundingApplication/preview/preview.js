@@ -127,6 +127,7 @@ class Preview extends React.Component {
             };
             allData.budget = allData.budget.map((line, idx)=>{
                 console.log(line)
+
                 if(line.budget_type) {
                     line.budget_type = [line.budget_type];
                 }
@@ -134,7 +135,7 @@ class Preview extends React.Component {
             });
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
-            allData.project_field = [allData.project_field];
+            allData.project_field = [...allData.project_field];
             if(allData.user_business_province.length) {
                 this.props.getAreaProvince(allData.user_business_province[0]);
             }
@@ -375,7 +376,7 @@ class Preview extends React.Component {
                         disabled={this.state.stepDisabled5}
                         {
                             ...getFieldProps(`budget_type__${item}`, {
-                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_type : [],
+                                initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_type : [],
                                 rules: [{
                                     required: true,
                                     message: '请选择预算类型',
@@ -397,7 +398,7 @@ class Preview extends React.Component {
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_purpose__${item}`, {
-                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_purpose : null,
+                                initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_purpose : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入预算用途',
@@ -435,12 +436,12 @@ class Preview extends React.Component {
                                     }
                                     console.log(val)
                                     let money = getFieldProps(`budget_num__${item}`).value ?
-                                        getFieldProps(`budget_num__${item}`).value : this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num : 0;
+                                        getFieldProps(`budget_num__${item}`).value : this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num : 0;
                                     this.setState({
                                         [`budget_money__${item}`]: (Number(val) * Number(money)).toFixed(2)
                                     })
                                 },
-                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price : null,
+                                initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入单价',
@@ -462,13 +463,12 @@ class Preview extends React.Component {
                             ...getFieldProps(`budget_num__${item}`, {
                                 onChange: (val)=>{
                                     let money = getFieldProps(`budget_price__${item}`).value ?
-                                        getFieldProps(`budget_price__${item}`).value : this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price : 0;
-                                    console.log(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num)
+                                        getFieldProps(`budget_price__${item}`).value : this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price : 0;
                                     this.setState({
                                         [`budget_money__${item}`]: (Number(val) * Number(money)).toFixed(2)
                                     })
                                 },
-                                initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num : null,
+                                initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num : null,
                                 rules: [{
                                     required: true,
                                     message: '请输入预算预计购买数量',
@@ -484,12 +484,12 @@ class Preview extends React.Component {
                         className="page-funding-application-input"
                         placeholder="请输入金额"
                         disabled={true}
-                        value={this.state[`budget_money__${item}`] ? this.state[`budget_money__${item}`] : (Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price) * Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num))}
+                        value={this.state[`budget_money__${item}`] ? this.state[`budget_money__${item}`] : ((this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? Number(this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price) : 0) * (this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? Number(this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num) : 0))}
                         moneyKeyboardAlign="right"
                     />
                 </div>
                 <div className="page-funding-application-item-DX">{
-                    this.state[`budget_money__${item}`] ? DX(Number(this.state[`budget_money__${item}`])) : DX(Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_price) * Number(this.state.previewData&&this.state.previewData.plan&&this.state.previewData.budget[index].budget_num))
+                    this.state[`budget_money__${item}`] ? DX(Number(this.state[`budget_money__${item}`])) : DX(((this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? Number(this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price) : 0) * (this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? Number(this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num) : 0)))
                     }</div>
                 <div className="line1px"></div>
             </div>
@@ -505,6 +505,7 @@ class Preview extends React.Component {
         }
     }
     alertFirstStep(e) {
+        e.stopPropagation();
         let obj = {
             stepDisabled1: true,
             stepDisabled2: true,
@@ -524,6 +525,7 @@ class Preview extends React.Component {
         });
     }
     saveFirstStep(e) {
+        e.stopPropagation();
         this.setState({
             [`stepDisabled${e.target.getAttribute('data-id')}`]: true
         });
@@ -554,8 +556,9 @@ class Preview extends React.Component {
             this.doHtml();
         });
     };
-    onAddBudgetActive() {
-        if(!this.state.alertBtn||this.state.stepDisabled5) {
+    onAddBudgetActive=()=> {
+        console.log(this)
+        if(!this.state.alertBtn || this.state.stepDisabled5) {
             return;
         }
         let formContent = this.state.formContentBudget;
@@ -613,13 +616,19 @@ class Preview extends React.Component {
                 }
                 formContentData.push(obj);
             }
+            console.log(this.state)
             for(let j = 0; j < formContentBudget.length; j++) {
                 let obj = {};
                 for(let i in value) {
+                    console.log(value)
                     if(formContentBudget[j] === Number(i.split('__')[1])&&i.split('_')[0]==='budget') {
-                        value[i] = value[i][0];
+                        // value[i] = value[i];
                         obj[i.split('__')[0]] = value[i];
                     }
+                }
+
+                for(let m = 0; m < this.state.previewData.budget.length;m++) {
+                    obj.budget_money = this.state.previewData.budget[m].budget_money
                 }
                 for(let m in this.state) {
                     if(formContent[j] === Number(m.split('__')[1])) {
@@ -670,8 +679,32 @@ class Preview extends React.Component {
         if(!this.state.alertBtn||this.state.stepDisabled3) {
             return;
         }
+        let hasChooseArea = this.state.hasChooseArea;
+        let serviceArea = this.state.serviceArea;
+        if(!hasChooseArea.length) {
+            serviceArea.map(item=>{
+                item.defaultChecked = false;
+            })
+        }else {
+            for(let i = 0; i < serviceArea.length;i++) {
+                let flag = false;
+                for(let j = 0; j<hasChooseArea.length;j++) {
+                    if(serviceArea[i].value == hasChooseArea[j]) {
+                        //存在相等的  已选择
+                        flag = true;
+                    }
+                }
+                if(flag) {
+                    serviceArea[i].defaultChecked = true;
+                }else {
+                    serviceArea[i].defaultChecked = false;
+                }
+            }
+        }
+
         this.setState({
-            modal_project_field: true
+            ...serviceArea,
+            modal_project_field: true,
         })
     }
     onCloseModalProjectFiled() {
@@ -681,40 +714,39 @@ class Preview extends React.Component {
         })
     }
     onChangeCheckbox = (val) => {
-        console.log(val);
-        let hasChooseArea = this.state.hasChooseArea;
-        let serviceArea = this.state.serviceArea;
-        serviceArea = serviceArea.map((item)=>{
+        let {hasChooseArea: hasChoose, serviceArea: serviceArea} = this.state;
+        serviceArea.map((item)=>{
             if(item.value == val) {
                 item.defaultChecked=!item.defaultChecked
             }
             return item;
         });
-        if(hasChooseArea.length>0) {
-            let flag = false;
-            for(let i = 0; i < hasChooseArea.length; i++) {
-                if(hasChooseArea[i] == val) {
-                    hasChooseArea.splice(i,1);
+        if(hasChoose.length>0) {
+            for(let i = 0; i < hasChoose.length; i++) {
+                if(hasChoose[i] == val) {
                     this.setState({
-                        hasChooseArea: hasChooseArea,
                         serviceArea: serviceArea
                     });
                     return;
-                }else {
-                    flag=true;
                 }
             }
-            if(flag) {
-                hasChooseArea.push(val);
-            }
-        }else {
-            hasChooseArea.push(val);
+
         }
         this.setState({
-            hasChooseArea: hasChooseArea,
             serviceArea: serviceArea
         })
     };
+    addChooseProjectFiled() {
+        let serviceArea = this.state.serviceArea;
+        let hasChooseArea = [];
+        serviceArea.map(item=>{
+            if(item.defaultChecked) hasChooseArea.push(item.value)
+        });
+        this.setState({
+            hasChooseArea: hasChooseArea,
+            modal_project_field: false
+        })
+    }
     projectMoneyChange() {
         if(this.state.project_money_DX&&this.state.project_money_DX.length) {
             this.setState({
@@ -726,8 +758,15 @@ class Preview extends React.Component {
         return <div className="renderModalHeader">
             <div className="renderModalHeader-left" onClick={this.onCloseModalProjectFiled}>取消</div>
             <div>选择服务领域</div>
-            <div className="renderModalHeader-right" onClick={this.onCloseModalProjectFiled}>确定</div>
+            <div className="renderModalHeader-right" onClick={this.addChooseProjectFiled}>确定</div>
         </div>
+    }
+    renderFirstTitle() {
+        ()=>{
+            return <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
+                <div>申请人信息</div>
+            </div>
+        }
     }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;
@@ -744,23 +783,23 @@ class Preview extends React.Component {
                 value: line.name
             };
         });
+
         return (
             <div className="page-funding-application-preview" style={{paddingBottom: 44}}>
                 <Accordion accordion defaultActiveKey="0" openAnimation={{}} className="my-accordion" onChange={this.onChange}>
-                    <Accordion.Panel header="申请人信息">
+                    <Accordion.Panel header={<div className="page-funding-application-header">
+                        <div>申请人信息</div>
+                        {
+                            this.state.alertBtn ?
+                                (this.state.stepDisabled1 ?
+                                    <div data-id="1" className="page-funding-application-item-label" style={{position: 'relative', zIndex: '99999'}} onClick={this.alertFirstStep}>修改</div>
+                                    :
+                                    <div data-id="1" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                :null
+                        }
+                    </div>}>
                         <div className="page-funding-application">
                             <div style={{marginBottom: '62px'}}>
-                                <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
-                                    {
-                                        this.state.alertBtn ?
-                                            (this.state.stepDisabled1 ?
-                                                <div data-id="1" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                                :
-                                                <div data-id="1" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
-                                            :null
-                                    }
-                                </div>
-                                <div className="line1px"></div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">申请人姓名</div>
                                     <InputItem
@@ -982,20 +1021,19 @@ class Preview extends React.Component {
                             </div>
                         </div>
                     </Accordion.Panel>
-                    <Accordion.Panel header="受益组织资料" className="pad">
+                    <Accordion.Panel header={<div className="page-funding-application-header">
+                        <div>受益组织资料</div>
+                        {
+                            this.state.alertBtn ?
+                                (this.state.stepDisabled2 ?
+                                    <div data-id="2" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                    :
+                                    <div data-id="2" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                :null
+                        }
+                    </div>} className="pad">
                         <div className="page-funding-application">
                             <div style={{marginBottom: '62px'}}>
-                                <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
-                                    {
-                                        this.state.alertBtn ?
-                                            (this.state.stepDisabled2 ?
-                                                <div data-id="2" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                                :
-                                                <div data-id="2" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
-                                            :null
-                                    }
-                                </div>
-                                <div className="line1px"></div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">组织名称</div>
                                     <InputItem
@@ -1180,20 +1218,19 @@ class Preview extends React.Component {
                             </div>
                         </div>
                     </Accordion.Panel>
-                    <Accordion.Panel header="资助项目信息" className="pad">
+                    <Accordion.Panel header={<div className="page-funding-application-header">
+                        <div>资助项目信息</div>
+                        {
+                            this.state.alertBtn ?
+                                (this.state.stepDisabled3 ?
+                                    <div data-id="3" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                    :
+                                    <div data-id="3" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                :null
+                        }
+                    </div>} className="pad">
                         <div className="page-funding-application">
                             <div style={{marginBottom: '62px'}}>
-                                <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
-                                    {
-                                        this.state.alertBtn ?
-                                            (this.state.stepDisabled3 ?
-                                                <div data-id="3" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                                :
-                                                <div data-id="3" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
-                                            :null
-                                    }
-                                </div>
-                                <div className="line1px"></div>
                                 <div className="page-funding-application-item">
                                     <div className="page-funding-application-item-label">项目名称</div>
                                     <InputItem
@@ -1397,36 +1434,33 @@ class Preview extends React.Component {
                             </div>
                         </div>
                     </Accordion.Panel>
-                    <Accordion.Panel header="项目执行计划" className="pad">
-                        <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
-                            {
-                                this.state.alertBtn ?
-                                    (this.state.stepDisabled4 ?
-                                        <div data-id="4" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
-                                        :
-                                        <div data-id="4" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
-                                    :null
-                            }
-                        </div>
-                        <div className="line1px"></div>
+                    <Accordion.Panel header={<div className="page-funding-application-header">
+                        <div>项目执行计划</div>
+                        {
+                            this.state.alertBtn ?
+                                (this.state.stepDisabled4 ?
+                                    <div data-id="4" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
+                                    :
+                                    <div data-id="4" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
+                                :null
+                        }
+                    </div>} className="pad">
                         {this.doHtml()}
                         {
                             !this.state.stepDisabled4 ? <div className="addActive" onClick={this.onAddActive}><span style={{marginRight: '18px'}}>+</span><span>增加活动</span></div> : null
                         }
                     </Accordion.Panel>
-                    <Accordion.Panel header="项目预算明细" className="pad">
-                        <div className="page-funding-application-item" style={{justifyContent: 'flex-end'}}>
-                            {
-                                this.state.alertBtn ?
-                                    (this.state.stepDisabled5 ?
+                    <Accordion.Panel header={<div className="page-funding-application-header">
+                        <div>项目执行计划</div>
+                        {
+                            this.state.alertBtn ?
+                                (this.state.stepDisabled5 ?
                                     <div data-id="5" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
                                     <div data-id="5" className="page-funding-application-item-label" onClick={this.saveFirstStep}>保存</div>)
-                                    :null
-                            }
-                        </div>
-                        <div className="line1px"></div>
-
+                                :null
+                        }
+                    </div>} className="pad">
                         {this.doHtmlBudget()}
                         <div className="page-funding-application-item-textarea">
                             <div className="page-funding-application-item-label-special">说明</div>
