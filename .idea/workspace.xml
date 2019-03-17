@@ -90,8 +90,8 @@
       <file leaf-file-name="preview.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="1035" column="32" lean-forward="false" selection-start-line="1035" selection-start-column="32" selection-end-line="1035" selection-end-column="32" />
+            <state relative-caret-position="333">
+              <caret line="518" column="13" lean-forward="true" selection-start-line="518" selection-start-column="13" selection-end-line="518" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -135,7 +135,6 @@
       <find>onChangeCheckbox</find>
       <find>onCloseModalProjectFiled</find>
       <find>renderModalHeader</find>
-      <find>alertFirstStep</find>
       <find>saveFirstStep</find>
       <find>项目执行计划</find>
       <find>project_field</find>
@@ -149,6 +148,7 @@
       <find>onAddBudgetActive</find>
       <find>onSubmitInfo</find>
       <find>62px</find>
+      <find>alertFirstStep</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -428,12 +428,12 @@
       <workItem from="1552632710675" duration="566000" />
       <workItem from="1552661941885" duration="6920000" />
       <workItem from="1552746718225" duration="4017000" />
-      <workItem from="1552788255416" duration="7024000" />
+      <workItem from="1552788255416" duration="7346000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="354789000" />
+    <option name="totallyTimeSpent" value="355111000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -842,8 +842,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="1035" column="32" lean-forward="false" selection-start-line="1035" selection-start-column="32" selection-end-line="1035" selection-end-column="32" />
+        <state relative-caret-position="333">
+          <caret line="518" column="13" lean-forward="true" selection-start-line="518" selection-start-column="13" selection-end-line="518" selection-end-column="13" />
           <folding />
         </state>
       </provider>

@@ -504,7 +504,7 @@ class Preview extends React.Component {
             this.props.getAreaProvince(val[0]);
         }
     }
-    alertFirstStep(e) {
+    alertFirstStep=(e)=> {
         e.stopPropagation();
         let obj = {
             stepDisabled1: true,
