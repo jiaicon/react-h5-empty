@@ -36,8 +36,8 @@
       <file leaf-file-name="preview.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="185" column="40" lean-forward="false" selection-start-line="185" selection-start-column="40" selection-end-line="185" selection-end-column="40" />
+            <state relative-caret-position="79">
+              <caret line="582" column="5" lean-forward="true" selection-start-line="582" selection-start-column="5" selection-end-line="582" selection-end-column="5" />
               <folding>
                 <element signature="e#78#119#0" expanded="true" />
               </folding>
@@ -111,7 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>applyData</find>
       <find>viewport</find>
       <find>64</find>
       <find>nextStep</find>
@@ -141,6 +140,7 @@
       <find>iPhoneBlur</find>
       <find>.page-funding-application-preview .am-list-item .am-input-control input:disabled</find>
       <find>saveFirstStep</find>
+      <find>alert</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -428,7 +428,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371951000" />
+    <option name="totallyTimeSpent" value="372104000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -864,8 +864,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="185" column="40" lean-forward="false" selection-start-line="185" selection-start-column="40" selection-end-line="185" selection-end-column="40" />
+        <state relative-caret-position="79">
+          <caret line="582" column="5" lean-forward="true" selection-start-line="582" selection-start-column="5" selection-end-line="582" selection-end-column="5" />
           <folding>
             <element signature="e#78#119#0" expanded="true" />
           </folding>

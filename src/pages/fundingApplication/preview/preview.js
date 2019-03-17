@@ -9,6 +9,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Accordion, List, Picker, InputItem, TextareaItem, DatePicker, Checkbox, Modal } from 'antd-mobile';
+import Alert from 'react-s-alert';
 import { createForm } from 'rc-form';
 import 'antd-mobile/lib/accordion/style/css';
 import 'antd-mobile/lib/list/style/css';
@@ -575,7 +576,7 @@ class Preview extends React.Component {
     doSaveValue(error, arr) {
         for(let i = 0; i < arr.length;i++) {
             if(error[arr[i]]) {
-                alert(error[arr[i]].errors[0].message);
+                Alert.error(error[arr[i]].errors[0].message);
                 return;
             }
         }
@@ -586,7 +587,7 @@ class Preview extends React.Component {
         for(let i = 0; i < keys.length; i++) {
             for(let j = 0; j < arr.length;j++) {
                 if(keys[i].indexOf(arr[j]) != -1) {
-                    alert(error[keys[i]].errors[0].message);
+                    Alert.error(error[keys[i]].errors[0].message);
                     return;
                 }
             }
@@ -659,7 +660,7 @@ class Preview extends React.Component {
             console.log(value)
             if(error) {
                 console.log('error', error);
-                alert('存在未填写信息，请填写后重试');
+                Alert.error('存在未填写信息，请填写后重试');
                 return;
             }
             let formContentData = [];
