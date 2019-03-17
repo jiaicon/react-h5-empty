@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.ejs" afterPath="$PROJECT_DIR$/public/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplication.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFirstStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFourthStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationSecondStep.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationThirdStep.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" afterPath="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/funcs.js" afterPath="$PROJECT_DIR$/src/utils/funcs.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,9 +36,13 @@
       <file leaf-file-name="preview.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="1447" column="49" lean-forward="false" selection-start-line="1447" selection-start-column="37" selection-end-line="1447" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="156">
+              <caret line="793" column="24" lean-forward="true" selection-start-line="793" selection-start-column="24" selection-end-line="793" selection-end-column="24" />
+              <folding>
+                <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
+                <element signature="n#!!block;n#doHtmlBudget#0;n#Preview#0" expanded="false" />
+                <element signature="n#!!block;n#doValue#0;n#Preview#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,8 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>resubmitApply</find>
-      <find>allData</find>
       <find>formContentBudgetData</find>
       <find>budget_money</find>
       <find>onAddBudgetActive</find>
@@ -116,6 +109,8 @@
       <find>InputItem</find>
       <find>iPhoneBlur</find>
       <find>TextareaItem</find>
+      <find>onChange</find>
+      <find>onAccordionChange</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -411,7 +406,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="364768000" />
+    <option name="totallyTimeSpent" value="365379000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -748,7 +743,7 @@
         <state relative-caret-position="233">
           <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -847,9 +842,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="1447" column="49" lean-forward="false" selection-start-line="1447" selection-start-column="37" selection-end-line="1447" selection-end-column="49" />
-          <folding />
+        <state relative-caret-position="156">
+          <caret line="793" column="24" lean-forward="true" selection-start-line="793" selection-start-column="24" selection-end-line="793" selection-end-column="24" />
+          <folding>
+            <element signature="n#!!block;n#doHtml#0;n#Preview#0" expanded="false" />
+            <element signature="n#!!block;n#doHtmlBudget#0;n#Preview#0" expanded="false" />
+            <element signature="n#!!block;n#doValue#0;n#Preview#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

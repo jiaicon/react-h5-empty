@@ -789,6 +789,12 @@ class Preview extends React.Component {
             </div>
         }
     }
+    onAccordionChange(key) {
+        if(key != undefined) {
+            console.log(key)
+            window.scroll(0, key * 44, 0);
+        }
+    }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;
         const { cityData: { data: listData },areaData: { data: areaListData } } = this.props;
@@ -807,7 +813,7 @@ class Preview extends React.Component {
 
         return (
             <div className="page-funding-application-preview" style={{paddingBottom: 44}}>
-                <Accordion accordion defaultActiveKey="0" openAnimation={{}} className="my-accordion" onChange={this.onChange}>
+                <Accordion accordion defaultActiveKey="0" openAnimation={{}} className="my-accordion" onChange={this.onAccordionChange}>
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>申请人信息</div>
                         {
