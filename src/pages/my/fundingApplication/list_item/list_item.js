@@ -45,22 +45,25 @@ class ListItem extends React.Component {
                     } style={{position: 'relative'}}
                     onClick={()=>{this.checkoutThisApply(item.id)}}
                     >
-                        <div className="funding_project_name">{item.project_name}</div>
-                        <div className="funding_org_name funding_org_pd">
-                            <Image
-                                src="/images/preview/org_icon.png"
-                                style={{width: 21, height: 21, marginRight: 17}}
-                            />
-                            {item.group_name}
+                        <div style={{paddingLeft: '35px'}}>
+                            <div className="funding_project_name">{item.project_name}</div>
+                            <div className="funding_org_name funding_org_pd">
+                                <Image
+                                    src="/images/preview/org_icon.png"
+                                    style={{width: 21, height: 21, marginRight: 17}}
+                                />
+                                {item.group_name}
+                            </div>
+                            <div className="funding_org_name">
+                                <Image
+                                    src="/images/preview/money_icon.png"
+                                    style={{width: 21, height: 21, marginRight: 17}}
+                                />
+                                {item.project_money}
+                            </div>
+                            <div className="funding-application-type" style={{backgroundImage: `url(/images/preview/${fundingType[item.status]}.png)`}}></div>
                         </div>
-                        <div className="funding_org_name">
-                            <Image
-                                src="/images/preview/money_icon.png"
-                                style={{width: 21, height: 21, marginRight: 17}}
-                            />
-                            {item.project_money}
-                        </div>
-                        <div className="funding-application-type" style={{backgroundImage: `url(/images/preview/${fundingType[item.status]}.png)`}}></div>
+                        <div className="line1px" style={{marginTop: '33px'}}></div>
                     </div>)
                 }
             </div>

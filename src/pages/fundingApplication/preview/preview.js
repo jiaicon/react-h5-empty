@@ -92,11 +92,16 @@ class Preview extends React.Component {
     }
 
     componentWillMount() {
+        this.thisPageData();
+    }
+    thisPageData() {
         this.props.getCity();
         let allData = {};
         if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
             //已提交的申请
             let allApplyData = JSON.parse(localStorage.getItem('applyData')).list;
+            document.title="申请详情";
+            this.titleInfo = "申请详情";
             allApplyData.map(item=>{
                 if(item.id == getQueryString('isHasApply')) {
                     allData = item;
@@ -121,21 +126,23 @@ class Preview extends React.Component {
                 }
             });
         }else {
-             allData = {
+            document.title="预览申请信息";
+            this.titleInfo = "预览申请信息";
+            allData = {
                 ...JSON.parse(localStorage.getItem('firstStep')),
                 ...JSON.parse(localStorage.getItem('secondStep')),
                 ...JSON.parse(localStorage.getItem('thirdStep')),
                 ...JSON.parse(localStorage.getItem('fourthStep')),
                 ...JSON.parse(localStorage.getItem('fifthStep')),
             };
-             if(allData.budget&&allData.budget.length>0) {
-                 allData.budget = allData.budget.map((line, idx)=>{
-                     if(line.budget_type) {
-                         line.budget_type = [line.budget_type];
-                     }
-                     return line;
-                 });
-             }
+            if(allData.budget&&allData.budget.length>0) {
+                allData.budget = allData.budget.map((line, idx)=>{
+                    if(line.budget_type) {
+                        line.budget_type = [line.budget_type];
+                    }
+                    return line;
+                });
+            }
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
             allData.project_field = allData.project_field;
@@ -743,6 +750,12 @@ class Preview extends React.Component {
     alertBtn() {
         this.setState({
             alertBtn: !this.state.alertBtn
+        }, ()=>{
+            if(this.state.alertBtn) {
+                document.title="修改申请信息";
+            }else {
+                document.title=this.titleInfo;
+            }
         })
     }
     openProjectFiled() {
@@ -1642,7 +1655,7 @@ const PreviewForm = createForm()(Preview);
 PreviewForm.propTypes = {
 
 };
-PreviewForm.title = '预览申请信息';
+// PreviewForm.title = '预览申请信息';
 export default connect(
     state=>({
         cityData: state.home.getCity,
