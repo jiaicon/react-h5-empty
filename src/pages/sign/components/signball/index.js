@@ -63,12 +63,8 @@ export default class SignBall extends React.Component {
   }
 
   componentWillMount() {
-    this.getloc();
-  }
-
-  getloc = props => {
     this.geolocation.getLocation(this.showPosition);
-  };
+  }
 
   getlocationPrivate(location) {
     const { data, isSigninStatus } = this.props;
@@ -155,7 +151,6 @@ export default class SignBall extends React.Component {
     }
   }
   componentDidMount() {
-    // this.getloc();
     this.geolocation.watchPosition(this.showPosition);
     const that = this;
     this.timer = setInterval(() => {
@@ -163,9 +158,6 @@ export default class SignBall extends React.Component {
         time: `${moment().format("HH:mm:ss")}`
       });
     }, 1000);
-    // this.locationTimer = setInterval(() => {
-    //    that.getloc();
-    // },10000)
   }
 
   showPosition(loc) {
@@ -186,7 +178,7 @@ export default class SignBall extends React.Component {
     let postMessages = {
       id: data.id,
       addr: `${locDetail.city && locDetail.city}${locDetail.district &&
-        locDetail.district}${locDetail.street && locDetail.street}`
+        locDetail.district}${locDetail.addr && locDetail.addr}`
     };
     this.props.clickFunc(postMessages);
   }
