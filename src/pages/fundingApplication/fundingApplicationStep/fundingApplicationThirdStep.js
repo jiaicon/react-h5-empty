@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FastClick from "fastclick";
 import { Picker, List, InputItem, TextareaItem, DatePicker, Modal, Checkbox } from 'antd-mobile';
 import { createForm } from 'rc-form'
 import classnames from 'classnames';
@@ -25,6 +26,7 @@ import {DX} from './../../../utils/funcs';
 import store from "../../../stores";
 import { thirdStep } from './../fundingApplication.store';
 import Alert from "react-s-alert";
+const isAndroid = /android/i.test(navigator.userAgent);
 
 const CheckboxItem = Checkbox.CheckboxItem;
 
@@ -51,7 +53,11 @@ class FundingApplication extends React.Component {
     }
 
     componentDidMount() {
-
+        // Android 下 fastclick 影响 select 点击
+        if (window.fastclick && isAndroid) {
+            window.fastclick.destroy();
+            window.fastclick = null;
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,7 +65,9 @@ class FundingApplication extends React.Component {
     }
 
     componentWillUnmount() {
-
+        if (!window.fastclick && isAndroid) {
+            window.fastclick = FastClick.attach(document.body);
+        }
     }
     onTextChanged() {
 

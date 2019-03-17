@@ -32,3 +32,8 @@
 .review-modal-css {
     height: 250px;
 }
+.page-funding-application-header {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
