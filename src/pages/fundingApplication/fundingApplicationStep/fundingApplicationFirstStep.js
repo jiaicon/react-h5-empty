@@ -157,11 +157,7 @@ class FundingApplication extends React.Component {
         }
     };
     iPhoneBlur() {
-        console.log(this.scroll);
-        window.scroll(this.scroll || 0, 0);
-    }
-    iPhoneFocus() {
-        this.scroll = document.body.scrollTop;
+        window.scroll(0 || scrollTop, 0);
     }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;

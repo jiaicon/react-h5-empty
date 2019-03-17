@@ -61,7 +61,6 @@ let doCountArr = function (count) {
     }
 };
 class Preview extends React.Component {
-
     constructor(props) {
         super(props);
         autoBind(this);
@@ -86,7 +85,8 @@ class Preview extends React.Component {
             html : [],
             formContentBudget: [],
             htmlBudget : [],
-            alertBtn: getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? false : true
+            alertBtn: getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? false : true,
+            openAccordion: 0,   //当前打开的手风琴
         };
     }
 
@@ -201,7 +201,7 @@ class Preview extends React.Component {
     }
     iPhoneBlur() {
         console.log(this.scroll);
-        window.scroll(this.scroll || 0, 0);
+        window.scroll(0 || scrollTop, 0);
     }
     deleteThis(e) {
         let arr = this.state.formContent;
@@ -792,10 +792,23 @@ class Preview extends React.Component {
             </div>
         }
     }
+    //点击手风琴，事件，保存了当前打开的openAccordion = 0;，并滚动到当前
     onAccordionChange(key) {
         if(key != undefined) {
-            console.log(key)
             window.scroll(0, key * 44, 0);
+            console.log(key)
+            this.setState({
+                openAccordion: key
+            })
+        }else {
+            this.setState({
+                openAccordion: -1,
+                stepDisabled1: true,
+                stepDisabled2: true,
+                stepDisabled3: true,
+                stepDisabled4: true,
+                stepDisabled5: true,
+            })
         }
     }
     render() {
@@ -820,7 +833,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>申请人信息</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 0 ?
                                 (this.state.stepDisabled1 ?
                                     <div data-id="1" className="page-funding-application-item-label" style={{position: 'relative', zIndex: '99999'}} onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1063,7 +1076,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>受益组织资料</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 1 ?
                                 (this.state.stepDisabled2 ?
                                     <div data-id="2" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1270,7 +1283,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>资助项目信息</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn  && this.state.openAccordion == 2 ?
                                 (this.state.stepDisabled3 ?
                                     <div data-id="3" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1497,7 +1510,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>项目执行计划</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 3 ?
                                 (this.state.stepDisabled4 ?
                                     <div data-id="4" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1511,9 +1524,9 @@ class Preview extends React.Component {
                         }
                     </Accordion.Panel>
                     <Accordion.Panel header={<div className="page-funding-application-header">
-                        <div>项目执行计划</div>
+                        <div>项目预算明细</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 4 ?
                                 (this.state.stepDisabled5 ?
                                     <div data-id="5" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :

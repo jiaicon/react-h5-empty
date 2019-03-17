@@ -92,8 +92,7 @@ class FundingApplication extends React.Component {
         });
     };
     iPhoneBlur() {
-        console.log(this.scroll);
-        window.scroll(this.scroll || 0, 0);
+        window.scroll(0 || scrollTop, 0);
     }
     onPhotoChange(images) {
         console.log(images)
