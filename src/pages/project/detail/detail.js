@@ -508,7 +508,7 @@ class ProjectDetailPage extends React.Component {
         } = this.props;
 
         const postData = PostDataModel_Project(detailData,user);
-        return <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  />;
+        return this.state.visible ? <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null;
     }
     handleActionClickTwo() {
         window.location.href =
