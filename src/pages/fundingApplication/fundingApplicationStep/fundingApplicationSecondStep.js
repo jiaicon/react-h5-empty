@@ -204,10 +204,10 @@ class FundingApplication extends React.Component {
                                         required: true,
                                         message: '请输入受益组织联系人电话',
                                     }
-                                    // ,{
-                                    //     pattern: /^1(3|4|5|6|7|8)\d{9}$/,
-                                    //     message: '请输入正确格式的联系电话'
-                                    // }
+                                    ,{
+                                        pattern: /^[0-9|-]*$/,
+                                        message: '请输入正确格式的联系电话'
+                                    }
                                 ],
                                 })
                             }
