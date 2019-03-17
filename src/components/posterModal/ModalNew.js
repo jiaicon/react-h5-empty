@@ -8,6 +8,7 @@ import "./ModalNew.css";
 import QRCode from "qrcode";
 import html2canvas from "html2canvas";
 import { ImageToBase64 } from "../../utils/funcs";
+import  fetch from "../../utils/fetch";
 class ModalNew extends React.Component {
   static propTypes = {
     
@@ -20,6 +21,7 @@ class ModalNew extends React.Component {
       username: PropTypes.string,
       contentText: PropTypes.string,
       url: PropTypes.string,
+      type:PropTypes.string
     }),
     
   };
@@ -51,7 +53,11 @@ class ModalNew extends React.Component {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.postData.type === 'Project' || this.props.postData.type === 'Team' || this.props.postData.type === 'ProjectSign') {
+      fetch("/index/share", { method: "GET" });
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     const that = this;
@@ -129,6 +135,7 @@ htm2Click = () => {
  
   render() {
     console.log("Modal开始渲染",this.props);  
+    
     return <div className={classnames({
           visible: this.props.visible,
           hidden: !this.props.visible,
