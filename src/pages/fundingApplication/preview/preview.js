@@ -181,14 +181,17 @@ class Preview extends React.Component {
         const { fetching: revokenFetch, failed: revokenFailed } = nextProps.revokeApplyData;
         if(tFetch && !tFailed && !nFetch && !nFailed) {
             console.log('提交成功');
+            return;
             location.replace('/my');
         }
         if(rtFetch && !rtFailed && !rnFetch && !rnFailed) {
             console.log('提交成功');
+            return;
             location.replace('/my');
         }
         if(revokerFetch && !revokerFailed && !revokenFetch && !revokenFailed) {
             console.log('撤销成功');
+            return;
             location.replace('/my');
         }
     }
@@ -546,6 +549,51 @@ class Preview extends React.Component {
         this.setState({
             [`stepDisabled${e.target.getAttribute('data-id')}`]: true
         });
+        //点击的时候判断校验
+        this.props.form.validateFields((error, value) => {
+            if (error) {
+                console.log('error', error);
+                const key = e.target.getAttribute('data-id')-1;
+                const allArr = [];
+                const arr0 = ['user_name', 'user_business_province', 'user_business_province', 'user_business_city', 'user_store', 'user_position', 'user_job_num', 'user_phone', 'user_email', 'user_apply_rsason', 'user_apply_monry'];
+                const arr1 = ['group_name', 'group_addr', 'group_legal_person', 'group_user', 'group_user_phone', 'group_user_email', 'group_service', 'group_info', ''];
+                const arr2 = ['project_name', 'project_field', 'project_start', 'project_end', 'project_addr', 'project_money', 'project_info', 'project_effect', 'project_object', 'project_resources'];
+                const arr3 = ['activity_name', 'activity_start', 'activity_end', 'activity_objective', 'activity_people', 'activity_info'];
+                const arr4 = ['budget_type', 'budget_purpose', 'budget_price', 'budget_num', ''];
+                if(key == 0) {
+                    this.doSaveValue(error, arr0);
+                }else if(key == 1) {
+                    this.doSaveValue(error, arr1);
+                }else if(key == 2) {
+                    this.doSaveValue(error, arr2);
+                }else if(key == 3) {
+                    this.doSaveValueDefault(error, arr3);
+                }else if(key == 4) {
+                    this.doSaveValueDefault(error, arr4);
+                }
+            }
+        })
+    }
+    //保存时验证当前的是否有错误的
+    doSaveValue(error, arr) {
+        for(let i = 0; i < arr.length;i++) {
+            if(error[arr[i]]) {
+                alert(error[arr[i]].errors[0].message);
+                return;
+            }
+        }
+    }
+    //3、4判断不一样，单独处理
+    doSaveValueDefault(error, arr) {
+        let keys = Object.keys(error);
+        for(let i = 0; i < keys.length; i++) {
+            for(let j = 0; j < arr.length;j++) {
+                if(keys[i].indexOf(arr[j]) != -1) {
+                    alert(error[keys[i]].errors[0].message);
+                    return;
+                }
+            }
+        }
     }
     onPhotoChange(images) {
         console.log(images.length);
@@ -611,6 +659,7 @@ class Preview extends React.Component {
 
     doValue(callback) {
         this.props.form.validateFields((error, value) => {
+            console.log(value)
             if(error) {
                 console.log('error', error);
                 alert('存在未填写信息，请填写后重试');
