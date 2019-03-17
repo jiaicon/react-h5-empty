@@ -101,14 +101,13 @@ class Preview extends React.Component {
 
                     allData.plan=item.plan;
                     allData.budget = item.budget.map((line, idx)=>{
-                        console.log(line)
                         if(line.budget_type) {
                             line.budget_type = [line.budget_type];
                         }
                         return line;
                     });
                     allData.user_business_province = [item.user_business_province];
-                    allData.project_field = [item.project_field];
+                    allData.project_field = item.project_field;
                     allData.user_business_city = [item.user_business_city];
                     if(allData.user_business_province.length) {
                         this.props.getAreaProvince(allData.user_business_province[0]);
@@ -126,7 +125,6 @@ class Preview extends React.Component {
                 ...JSON.parse(localStorage.getItem('fifthStep')),
             };
             allData.budget = allData.budget.map((line, idx)=>{
-                console.log(line)
 
                 if(line.budget_type) {
                     line.budget_type = [line.budget_type];
@@ -135,7 +133,7 @@ class Preview extends React.Component {
             });
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
-            allData.project_field = [...allData.project_field];
+            allData.project_field = allData.project_field;
             if(allData.user_business_province.length) {
                 this.props.getAreaProvince(allData.user_business_province[0]);
             }
@@ -179,14 +177,17 @@ class Preview extends React.Component {
         const { fetching: revokenFetch, failed: revokenFailed } = nextProps.revokeApplyData;
         if(tFetch && !tFailed && !nFetch && !nFailed) {
             console.log('提交成功');
+            return;
             location.replace('/my');
         }
         if(rtFetch && !rtFailed && !rnFetch && !rnFailed) {
             console.log('提交成功');
+            return;
             location.replace('/my');
         }
         if(revokerFetch && !revokerFailed && !revokenFetch && !revokenFailed) {
             console.log('撤销成功');
+            return;
             location.replace('/my');
         }
     }
@@ -620,7 +621,6 @@ class Preview extends React.Component {
             for(let j = 0; j < formContentBudget.length; j++) {
                 let obj = {};
                 for(let i in value) {
-                    console.log(value)
                     if(formContentBudget[j] === Number(i.split('__')[1])&&i.split('_')[0]==='budget') {
                         // value[i] = value[i];
                         obj[i.split('__')[0]] = value[i];
@@ -646,6 +646,13 @@ class Preview extends React.Component {
             value.budget=JSON.stringify(formContentBudgetData);
             if(this.state.hasChooseArea.length>0) {
                 value.project_field=this.state.hasChooseArea;
+            }else {
+                let serviceArea = this.state.serviceArea;
+                let hasChooseArea = [];
+                serviceArea.map(item=>{
+                    if(item.defaultChecked) hasChooseArea.push(item.value)
+                });
+                value.project_field = hasChooseArea;
             }
             value.group_certificate=[];
             if(this.state.imagesArr.length>0) {
