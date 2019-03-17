@@ -97,6 +97,7 @@ class Preview extends React.Component {
         if(getQueryString('isHasApply')&&getQueryString('isHasApply').length>0) {
             //已提交的申请
             let allApplyData = JSON.parse(localStorage.getItem('applyData')).list;
+            document.title="申请详情";
             allApplyData.map(item=>{
                 if(item.id == getQueryString('isHasApply')) {
                     allData = item;
@@ -121,6 +122,7 @@ class Preview extends React.Component {
                 }
             });
         }else {
+            document.title="预览申请信息";
              allData = {
                 ...JSON.parse(localStorage.getItem('firstStep')),
                 ...JSON.parse(localStorage.getItem('secondStep')),
@@ -741,6 +743,7 @@ class Preview extends React.Component {
         });
     }
     alertBtn() {
+        document.title="修改申请信息";
         this.setState({
             alertBtn: !this.state.alertBtn
         })
@@ -1642,7 +1645,7 @@ const PreviewForm = createForm()(Preview);
 PreviewForm.propTypes = {
 
 };
-PreviewForm.title = '预览申请信息';
+// PreviewForm.title = '预览申请信息';
 export default connect(
     state=>({
         cityData: state.home.getCity,
