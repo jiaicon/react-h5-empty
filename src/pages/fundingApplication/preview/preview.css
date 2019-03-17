@@ -37,3 +37,28 @@
     justify-content: space-between;
     width: 90%;
 }
+.page-funding-application .am-list-item .am-list-line .am-list-extra {
+    color: #000;
+}
+.page-funding-application .am-list-header {
+    color: #000;
+}
+.page-funding-application-preview .am-list-item .am-list-line .am-list-extra {
+    color: #000;
+}
+
+.page-funding-application .am-list-item .am-input-control input:disabled {
+    color: #000;
+}
+.page-funding-application-preview .am-list-item .am-input-control input:disabled {
+    color: #000;
+}
+.page-funding-application-item-textarea .am-textarea-control textarea {
+    color: #000;
+}
+.page-funding-application-item-DX {
+    color: #000;
+}
+.am-list-item .am-input-control .fake-input-container .fake-input.fake-input-disabled {
+    color: #000;
+}

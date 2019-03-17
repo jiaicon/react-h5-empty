@@ -92,8 +92,7 @@ class FundingApplication extends React.Component {
         });
     };
     iPhoneBlur() {
-        console.log(this.scroll);
-        window.scroll(this.scroll || 0, 0);
+        window.scroll(0, 0 || scrollTop);
     }
     onPhotoChange(images) {
         console.log(images)
@@ -106,7 +105,7 @@ class FundingApplication extends React.Component {
 
         return (
             <div className="page-funding-application">
-                <div style={{marginBottom: '62px'}}>
+                <div style={{paddingBottom: '40px'}}>
                     <div className="page-funding-application-item">
                         <div className="page-funding-application-item-label">组织名称</div>
                         <InputItem
@@ -205,10 +204,10 @@ class FundingApplication extends React.Component {
                                         required: true,
                                         message: '请输入受益组织联系人电话',
                                     }
-                                    // ,{
-                                    //     pattern: /^1(3|4|5|6|7|8)\d{9}$/,
-                                    //     message: '请输入正确格式的联系电话'
-                                    // }
+                                    ,{
+                                        pattern: /^[0-9|-]*$/,
+                                        message: '请输入正确格式的联系电话'
+                                    }
                                 ],
                                 })
                             }

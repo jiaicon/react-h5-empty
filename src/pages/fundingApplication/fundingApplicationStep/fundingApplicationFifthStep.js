@@ -107,7 +107,7 @@ class Form extends React.Component {
                             ...getFieldProps(`budget_type__${item}`, {
                                 rules: [{
                                     required: true,
-                                    message: '请输入预算类型',
+                                    message: '请选择预算类型',
                                 }],
                             })
                         }
@@ -122,6 +122,7 @@ class Form extends React.Component {
                     <InputItem
                         className="page-funding-application-input"
                         placeholder="请输入预算用途"
+                        onBlur={this.iPhoneBlur}
                         moneyKeyboardAlign="right"
                         {
                             ...getFieldProps(`budget_purpose__${item}`, {
@@ -139,6 +140,7 @@ class Form extends React.Component {
                     <InputItem
                         type="digit"
                         className="page-funding-application-input"
+                        onBlur={this.iPhoneBlur}
                         placeholder="请输入单价（保留2位小数）"
                         moneyKeyboardAlign="right"
                         {
@@ -162,6 +164,7 @@ class Form extends React.Component {
                     <InputItem
                         type="digit"
                         className="page-funding-application-input"
+                        onBlur={this.iPhoneBlur}
                         placeholder="请输入预算预计购买数量"
                         moneyKeyboardAlign="right"
                         {
@@ -187,6 +190,7 @@ class Form extends React.Component {
                         className="page-funding-application-input page-funding-application-ipt"
                         placeholder="此处自动显示本项预算的小写金额"
                         disabled={true}
+                        onBlur={this.iPhoneBlur}
                         moneyKeyboardAlign="right"
                         value={this.state[`budget_money__${item}`]}
                         style={{color: '#000'}}
@@ -214,6 +218,9 @@ class Form extends React.Component {
         }, ()=>{
             this.doHtml();
         });
+    }
+    iPhoneBlur() {
+        window.scroll(0, scrollTop || 0);
     }
     onNextStep = ()=>{
         this.props.form.validateFields((error, value) => {
@@ -292,6 +299,7 @@ class Form extends React.Component {
                     <TextareaItem
                         {...getFieldProps(`budget_reason`)}
                         placeholder="简述预算理由（选填）"
+                        onBlur={this.iPhoneBlur}
                         autoHeight
                     />
                 </div>

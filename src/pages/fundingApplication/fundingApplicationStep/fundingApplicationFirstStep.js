@@ -84,7 +84,9 @@ class FundingApplication extends React.Component {
         }
         this.props.getCity();
     }
-
+    onScrollHandle() {
+        scrollTop = window.scrollY;
+    }
     componentDidMount() {
         window.addEventListener('scroll', this.onScrollHandle);
     }
@@ -95,9 +97,7 @@ class FundingApplication extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScrollHandle);
     }
-    onScrollHandle() {
-        scrollTop = window.scrollY;
-    }
+
     onTextChanged() {
 
     }
@@ -157,11 +157,7 @@ class FundingApplication extends React.Component {
         }
     };
     iPhoneBlur() {
-        console.log(this.scroll);
-        window.scroll(this.scroll || 0, 0);
-    }
-    iPhoneFocus() {
-        this.scroll = document.body.scrollTop;
+        window.scroll(0, 0 || scrollTop);
     }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;
@@ -309,10 +305,10 @@ class FundingApplication extends React.Component {
                                         required: true,
                                         message: '请输入联系电话',
                                     }
-                                    // ,{
-                                    //     pattern: /^1(3|4|5|6|7|8)\d{9}$/,
-                                    //     message: '请输入正确格式的联系电话'
-                                    // }
+                                    ,{
+                                        pattern: /^[0-9|-]*$/,
+                                        message: '请输入正确格式的联系电话'
+                                    }
                                     ]
                                 })
                             }
@@ -366,7 +362,6 @@ class FundingApplication extends React.Component {
                             className="page-funding-application-input"
                             placeholder="请输入申请金额"
                             moneyKeyboardAlign="right"
-                            onFocus={this.iPhoneFocus}
                             onBlur={this.iPhoneBlur}
                             type='digit'
                             {

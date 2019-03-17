@@ -9,6 +9,7 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Accordion, List, Picker, InputItem, TextareaItem, DatePicker, Checkbox, Modal } from 'antd-mobile';
+import Alert from 'react-s-alert';
 import { createForm } from 'rc-form';
 import 'antd-mobile/lib/accordion/style/css';
 import 'antd-mobile/lib/list/style/css';
@@ -61,7 +62,6 @@ let doCountArr = function (count) {
     }
 };
 class Preview extends React.Component {
-
     constructor(props) {
         super(props);
         autoBind(this);
@@ -86,7 +86,8 @@ class Preview extends React.Component {
             html : [],
             formContentBudget: [],
             htmlBudget : [],
-            alertBtn: getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? false : true
+            alertBtn: getQueryString('isHasApply')&&getQueryString('isHasApply').length>0 ? false : true,
+            openAccordion: 0,   //当前打开的手风琴
         };
     }
 
@@ -200,8 +201,7 @@ class Preview extends React.Component {
         scrollTop = window.scrollY;
     }
     iPhoneBlur() {
-        console.log(this.scroll);
-        window.scroll(this.scroll || 0, 0);
+        window.scroll(0, scrollTop || 0);
     }
     deleteThis(e) {
         let arr = this.state.formContent;
@@ -262,7 +262,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_name : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入活动名称',
+                                    message: `请输入活动名称${item}`,
                                 }],
                             })
                         }
@@ -279,7 +279,7 @@ class Preview extends React.Component {
                         {...getFieldProps(`activity_start__${item}`, {
                             initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_start&&new Date(this.state.previewData.plan[index].activity_start) : null,
                             rules: [
-                                { required: true, message: '请选择活动开始时间' },
+                                { required: true, message: `请选择活动开始时间${item}` },
                             ],
                         })}
                     >
@@ -299,7 +299,7 @@ class Preview extends React.Component {
                         {...getFieldProps(`activity_end__${item}`, {
                             initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_end&&new Date(this.state.previewData.plan[index].activity_end) : null,
                             rules: [
-                                { required: true, message: '请选择活动结束时间' },
+                                { required: true, message: `请选择活动结束时间${item}` },
                             ],
                         })}
                     >
@@ -320,7 +320,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_objective : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入活动目的',
+                                    message: `请输入活动目的${item}`,
                                 }],
                             })
                         }
@@ -341,7 +341,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_people : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入预估受益人数',
+                                    message: `请输入预估受益人数${item}`,
                                 }],
                             })
                         }
@@ -355,7 +355,7 @@ class Preview extends React.Component {
                             initialValue: this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan.length>index ? this.state.previewData&&this.state.previewData.plan&&this.state.previewData.plan[index].activity_info : null,
                             rules: [{
                                 required: true,
-                                message: '请输入申请理由',
+                                message: `请输入申请理由${item}`,
                             }],
                         })}
                         onBlur={this.iPhoneBlur}
@@ -393,7 +393,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_type : [],
                                 rules: [{
                                     required: true,
-                                    message: '请选择预算类型',
+                                    message: `请选择预算类型${item}`,
                                 }],
                             })
                         }
@@ -416,7 +416,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_purpose : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入预算用途',
+                                    message: `请输入预算用途${item}`,
                                 }],
                             })
                         }
@@ -460,7 +460,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_price : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入单价',
+                                    message: `请输入单价${item}`,
                                 }],
                             })
                         }
@@ -488,7 +488,7 @@ class Preview extends React.Component {
                                 initialValue: this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget.length>index ? this.state.previewData&&this.state.previewData.budget&&this.state.previewData.budget[index].budget_num : null,
                                 rules: [{
                                     required: true,
-                                    message: '请输入预算预计购买数量',
+                                    message: `请输入预算预计购买数量${item}`,
                                 }],
                             })
                         }
@@ -544,9 +544,54 @@ class Preview extends React.Component {
     }
     saveFirstStep(e) {
         e.stopPropagation();
-        this.setState({
-            [`stepDisabled${e.target.getAttribute('data-id')}`]: true
-        });
+        //点击的时候判断校验
+        this.props.form.validateFields((error, value) => {
+            if (error) {
+                console.log('error', error);
+                const key = e.target.getAttribute('data-id')-1;
+                const arr0 = ['user_name', 'user_business_province', 'user_business_province', 'user_business_city', 'user_store', 'user_position', 'user_job_num', 'user_phone', 'user_email', 'user_apply_rsason', 'user_apply_monry'];
+                const arr1 = ['group_name', 'group_addr', 'group_legal_person', 'group_user', 'group_user_phone', 'group_user_email', 'group_service', 'group_info', ''];
+                const arr2 = ['project_name', 'project_field', 'project_start', 'project_end', 'project_addr', 'project_money', 'project_info', 'project_effect', 'project_object', 'project_resources'];
+                const arr3 = ['activity_name', 'activity_start', 'activity_end', 'activity_objective', 'activity_people', 'activity_info'];
+                const arr4 = ['budget_type', 'budget_purpose', 'budget_price', 'budget_num', ''];
+                if(key == 0) {
+                    this.doSaveValue(error, arr0);
+                }else if(key == 1) {
+                    this.doSaveValue(error, arr1);
+                }else if(key == 2) {
+                    this.doSaveValue(error, arr2);
+                }else if(key == 3) {
+                    this.doSaveValueDefault(error, arr3);
+                }else if(key == 4) {
+                    this.doSaveValueDefault(error, arr4);
+                }
+            }else {
+                this.setState({
+                    [`stepDisabled${e.target.getAttribute('data-id')}`]: true
+                });
+            }
+        })
+    }
+    //保存时验证当前的是否有错误的
+    doSaveValue(error, arr) {
+        for(let i = 0; i < arr.length;i++) {
+            if(error[arr[i]]) {
+                Alert.error(error[arr[i]].errors[0].message);
+                return;
+            }
+        }
+    }
+    //3、4判断不一样，单独处理
+    doSaveValueDefault(error, arr) {
+        let keys = Object.keys(error);
+        for(let i = 0; i < keys.length; i++) {
+            for(let j = 0; j < arr.length;j++) {
+                if(keys[i].indexOf(arr[j]) != -1) {
+                    Alert.error(error[keys[i]].errors[0].message);
+                    return;
+                }
+            }
+        }
     }
     onPhotoChange(images) {
         console.log(images.length);
@@ -612,9 +657,10 @@ class Preview extends React.Component {
 
     doValue(callback) {
         this.props.form.validateFields((error, value) => {
+            console.log(value)
             if(error) {
                 console.log('error', error);
-                alert('存在未填写信息，请填写后重试');
+                Alert.error('存在未填写信息，请填写后重试');
                 return;
             }
             let formContentData = [];
@@ -792,10 +838,23 @@ class Preview extends React.Component {
             </div>
         }
     }
+    //点击手风琴，事件，保存了当前打开的openAccordion = 0;，并滚动到当前
     onAccordionChange(key) {
         if(key != undefined) {
-            console.log(key)
             window.scroll(0, key * 44, 0);
+            console.log(key)
+            this.setState({
+                openAccordion: key
+            })
+        }else {
+            this.setState({
+                openAccordion: -1,
+                stepDisabled1: true,
+                stepDisabled2: true,
+                stepDisabled3: true,
+                stepDisabled4: true,
+                stepDisabled5: true,
+            })
         }
     }
     render() {
@@ -820,7 +879,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>申请人信息</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 0 ?
                                 (this.state.stepDisabled1 ?
                                     <div data-id="1" className="page-funding-application-item-label" style={{position: 'relative', zIndex: '99999'}} onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -974,7 +1033,7 @@ class Preview extends React.Component {
                                                     required: true,
                                                     message: '请输入联系电话',
                                                 },{
-                                                    pattern: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/,
+                                                    pattern: /^[0-9|-]*$/,
                                                     message: '请输入正确格式的联系电话'
                                                 }]
                                             })
@@ -1063,7 +1122,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>受益组织资料</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 1 ?
                                 (this.state.stepDisabled2 ?
                                     <div data-id="2" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1185,7 +1244,7 @@ class Preview extends React.Component {
                                                     required: true,
                                                     message: '请输入受益组织联系人电话',
                                                 },{
-                                                    pattern: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/,
+                                                    pattern: /^[0-9|-]*$/,
                                                     message: '请输入正确格式的联系电话'
                                                 }],
                                             })
@@ -1270,7 +1329,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>资助项目信息</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn  && this.state.openAccordion == 2 ?
                                 (this.state.stepDisabled3 ?
                                     <div data-id="3" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1497,7 +1556,7 @@ class Preview extends React.Component {
                     <Accordion.Panel header={<div className="page-funding-application-header">
                         <div>项目执行计划</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 3 ?
                                 (this.state.stepDisabled4 ?
                                     <div data-id="4" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
@@ -1511,9 +1570,9 @@ class Preview extends React.Component {
                         }
                     </Accordion.Panel>
                     <Accordion.Panel header={<div className="page-funding-application-header">
-                        <div>项目执行计划</div>
+                        <div>项目预算明细</div>
                         {
-                            this.state.alertBtn ?
+                            this.state.alertBtn && this.state.openAccordion == 4 ?
                                 (this.state.stepDisabled5 ?
                                     <div data-id="5" className="page-funding-application-item-label" onClick={this.alertFirstStep}>修改</div>
                                     :
