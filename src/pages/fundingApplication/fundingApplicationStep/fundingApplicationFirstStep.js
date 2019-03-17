@@ -84,7 +84,9 @@ class FundingApplication extends React.Component {
         }
         this.props.getCity();
     }
-
+    onScrollHandle() {
+        scrollTop = window.scrollY;
+    }
     componentDidMount() {
         window.addEventListener('scroll', this.onScrollHandle);
     }
@@ -95,9 +97,7 @@ class FundingApplication extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('scroll', this.onScrollHandle);
     }
-    onScrollHandle() {
-        scrollTop = window.scrollY;
-    }
+
     onTextChanged() {
 
     }
@@ -157,7 +157,7 @@ class FundingApplication extends React.Component {
         }
     };
     iPhoneBlur() {
-        window.scroll(0 || scrollTop, 0);
+        window.scroll(0, 0 || scrollTop);
     }
     render() {
         const { getFieldProps, getFieldValue } = this.props.form;
@@ -362,7 +362,6 @@ class FundingApplication extends React.Component {
                             className="page-funding-application-input"
                             placeholder="请输入申请金额"
                             moneyKeyboardAlign="right"
-                            onFocus={this.iPhoneFocus}
                             onBlur={this.iPhoneBlur}
                             type='digit'
                             {

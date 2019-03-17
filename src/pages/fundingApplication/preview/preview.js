@@ -198,10 +198,11 @@ class Preview extends React.Component {
     }
     onScrollHandle() {
         scrollTop = window.scrollY;
+        console.log(scrollTop)
     }
     iPhoneBlur() {
-        console.log(this.scroll);
-        window.scroll(0 || scrollTop, 0);
+        console.log(scrollTop);
+        window.scroll(0, scrollTop || 0);
     }
     deleteThis(e) {
         let arr = this.state.formContent;
