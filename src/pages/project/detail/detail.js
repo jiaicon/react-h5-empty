@@ -121,6 +121,20 @@ class ProjectDetailContent extends React.Component {
                             {content &&
                             content.length > 0 &&
                             content.map((item, index) => {
+                                if (item.label === '联系人电话'){
+                                    var temphref = `tel:${item.value}`;
+                                    return (
+                                        <li>
+                                            <div className="item-point" />
+                                            {item.islast ? null : <div className="line1px-v" />}
+    
+                                            <div style={{ display: "flex" }}>
+                                                <div className="detail-title">{item.label}</div>
+                                                <a className="detail-content" href={temphref}>{item.value}</a>
+                                            </div>
+                                        </li>
+                                    );
+                                }
                                 return (
                                     <li>
                                         <div className="item-point" />
