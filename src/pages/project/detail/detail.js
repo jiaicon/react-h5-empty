@@ -88,18 +88,14 @@ class ProjectDetailContent extends React.Component {
                     islast: false
                 });
             } else if (
-                attr == "contact_name_public" &&
-                detailData.contact_name_public
+                attr == "contact_phone_public" &&
+                detailData.contact_phone_public
             ) {
                 arr.push({
                     label: "联系人姓名",
                     value: detailData.contact_name,
                     islast: false
                 });
-            } else if (
-                attr == "contact_phone_public" &&
-                detailData.contact_phone_public
-            ) {
                 arr.push({
                     label: "联系人电话",
                     value: detailData.contact_phone,
