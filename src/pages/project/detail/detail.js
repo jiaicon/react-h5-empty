@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { bindActionCreators } from "redux";
 import WXShare from "../../../components/share";
-import { parseTimeStringToDateString } from "../../../utils/funcs";
+import { parseTimeStringToDateString , getQueryString} from "../../../utils/funcs";
 import "./detail.css";
 import Link from "../../../components/link/link";
 import Image from "../../../components/image/image";
@@ -26,6 +26,7 @@ import CommunityItem from "../../../components/community_item/index";
 import ShareTip from "../../../components/sharetip/sharetip";
 import ModalNew from "../../../components/posterModal/ModalNew";
 import {PostDataModel_Project} from "../../../components/posterModal/PostDataModel";
+
 import {
     feelingAction,
     observeAction,
@@ -366,7 +367,15 @@ class ProjectDetailPage extends React.Component {
             });
         }
     }
-    componentWillDidmount() {}
+    componentDidMount() {
+        console.log(getQueryString('visible'));
+        if (getQueryString('visible')) {
+            this.setState({
+                visible: true,
+            });
+        }
+    }
+
     componentWillUnmount() {
         // document.title = '标题';
     }
