@@ -58,12 +58,12 @@ export default class SignBall extends React.Component {
       locDetail: null,
       type: 0,
       isSign: false,
-      signIndex: 3
+      signIndex: 4
     };
   }
 
   componentWillMount() {
-    this.geolocation.getLocation(this.showPosition);
+    // this.geolocation.getLocation(this.showPosition);
   }
 
   getlocationPrivate(location) {
@@ -116,7 +116,7 @@ export default class SignBall extends React.Component {
       }
     } else if (
       distanceData.county_name == "全市" &&
-      distanceData.city_name.replace("市", "") == detail.city.replace("市", "")
+      distanceData.city_name.replace("市", "") == location.city.replace("市", "")
     ) {
       //市名为当前的
       this.setState({
@@ -127,7 +127,7 @@ export default class SignBall extends React.Component {
     } else if (
       distanceData.city_name == "全省" &&
       distanceData.province_name.replace("省", "") ==
-        detail.province.replace("省", "").replace("市", "")
+        location.province.replace("省", "").replace("市", "")
     ) {
       //市名为当前的
       this.setState({
@@ -232,7 +232,21 @@ export default class SignBall extends React.Component {
           }}
         >
           <img src="/images/sign/signfail.png" className="sign-first" />
-          当前无法定位:请开启定位权限
+          获取定位失败，请获取定位权限
+          <img src="/images/sign/signaw.png" style={{ width: "9px" }} />
+        </div>
+      );
+    } else if (signIndex == 4) {
+      dom = (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <img src="/images/sign/signfail.png" className="sign-first" />
+          定位中...
           <img src="/images/sign/signaw.png" style={{ width: "9px" }} />
         </div>
       );

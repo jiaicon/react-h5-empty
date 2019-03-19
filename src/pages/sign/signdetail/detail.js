@@ -61,9 +61,7 @@ class SignPage extends React.Component {
       } else {
         isAfterToday = true;
       }
-
-      console.log(begin,end,now,secondDayEnd);
-
+      
       this.setState({
         ...this.state,
         type: nextProps.clickinfo.data.clock_info.type,
