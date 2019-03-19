@@ -120,9 +120,6 @@ class ProjectDetailContent extends React.Component {
         console.log(content);
         return (
             <div>
-                {content &&
-                content.length > 0 &&
-                detailData.volunteer_security_public ? (
                     <div className="project-detail-list">
                         <ul>
                             {content &&
@@ -154,7 +151,6 @@ class ProjectDetailContent extends React.Component {
                             </div>
                         ) : null}
                     </div>
-                ) : null}
             </div>
         );
     }
