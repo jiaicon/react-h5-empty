@@ -320,7 +320,7 @@
     width: 100%;
     height: 290px;
     background: url("/images/modal_this_big_img.png")no-repeat;
-    background-size: contain;
+    background-size: 310px;
 }
 .modal-this-achieve-name {
     position: relative;
@@ -354,7 +354,16 @@
     width: 65px;
     height: 65px;
 }
-
+.achieve-name {
+    width: 110px;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    text-align: center;
+    margin-left: -55px;
+    color: #FFFFFF;
+    font-size: 14px;
+}
 
 
 

@@ -221,6 +221,7 @@ class MyPage extends React.Component {
     console.log(this.props);
     let { userAchieveList, user } = this.props;
     let label = "";
+    let query = "";
     if (
       userAchieveList &&
       userAchieveList.data &&
@@ -232,15 +233,18 @@ class MyPage extends React.Component {
       let userAchieveListLocal = userAchieveList.data.data.growth_level;
       if (user.growth < userAchieveListLocal[0].growth) {
         label = "等级0";
+          query = userAchieveListLocal[0].name;
       } else if (
         user.growth >=
         userAchieveListLocal[userAchieveListLocal.length - 1].growth
       ) {
         label = `等级${userAchieveListLocal.length - 1}`;
+          query = userAchieveListLocal[userAchieveListLocal.length - 1].name;
       } else {
         for (let i = 0; i < userAchieveListLocal.length; i++) {
           if (user.growth >= userAchieveListLocal[i].growth) {
             label = `等级${i + 1}`;
+              query = userAchieveListLocal[i+1].name;
           }
         }
       }
@@ -275,7 +279,7 @@ class MyPage extends React.Component {
                 <Link
                   to={`/my/achievemet/${this.props.usercenter &&
                     this.props.usercenter.data &&
-                    this.props.usercenter.data.project_count}`}
+                    this.props.usercenter.data.project_count}?querys=${encodeURIComponent(query)}`}
                 >
                   <img src="/images/my/commonweal-medal.png" alt="" />
                   <span className="page-my-user-info-nick-commonweal-medal-word">

@@ -10,7 +10,7 @@ import {getAchievement, getAchievementHas, getAchieveInfo} from './achievement.s
 import {requestUserInfo} from '../../../stores/common';
 import QRCode from "qrcode";
 import html2canvas from "html2canvas";
-import {ImageToBase64} from "../../../utils/funcs";
+import {ImageToBase64, getQueryString} from "../../../utils/funcs";
 import Link from '../../../components/link/link';
 
 
@@ -276,12 +276,17 @@ class Achievement extends React.Component {
             {/*蒙版层，分享使用，放在-99999处,需要提前加载*/}
             {/*position: 'absolute', top: '-99999px'*/}
             <div className="achieve-share"
-                 style={{width: '310px', 'margin': '0 auto',position: 'absolute', top: '-99999px'}}
+                 style={{width: '310px', 'margin': '0 auto', position: 'absolute', top: '-99999px'}}
                  ref="LaunchContent">
                 <div className="achieve-share-bigimg"></div>
                 <div className="achieve-share-avatar">
                     <img className="achieve-share-avatar-image" src={this.state.avatar&&this.state.avatar[0]} alt=""/>
                 </div>
+                {
+                    window.orgInfo.st_rank_op == 1 ? <div className="achieve-name">
+                            {decodeURIComponent(getQueryString("querys"))}
+                    </div> : null
+                }
                 <div className="achieve-share-num">
                     <div>
                         <p>支持志愿项目</p>
@@ -332,7 +337,7 @@ class Achievement extends React.Component {
                         <div className="modal-this-two-line"></div>
                     </div>
                     <div className="modal-this-big-img" style={{backgroundImage: `url('${this.state.thisAchieveInfoImg&&this.state.thisAchieveInfoImg[0]}')`}}>
-                        <p className="modal-this-achieve-name">{thisAchieveInfo&&thisAchieveInfo.achieve_key}</p>
+                        <p className="modal-this-achieve-name">{thisAchieveInfo&&thisAchieveInfo.name}</p>
                         <img className="modal-this-achieve-img" src={this.state.thisAchieveInfoImg&&this.state.thisAchieveInfoImg[1] || this.state.base64Array&&this.state.base64Array[0]} alt=""/>
                     </div>
                     <div className="achieve-share-qrcode modal-this-share-qrcode">
