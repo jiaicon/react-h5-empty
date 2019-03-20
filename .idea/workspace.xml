@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/my/acgievement-level-default.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/my.js" afterPath="$PROJECT_DIR$/src/pages/my/my.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +28,8 @@
       <file leaf-file-name="achievemet.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="280" column="27" lean-forward="false" selection-start-line="280" selection-start-column="27" selection-end-line="280" selection-end-column="27" />
+            <state relative-caret-position="255">
+              <caret line="136" column="37" lean-forward="false" selection-start-line="136" selection-start-column="37" selection-end-line="136" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -38,31 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="funcs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/funcs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="99" column="21" lean-forward="false" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="my.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="281" column="99" lean-forward="true" selection-start-line="281" selection-start-column="99" selection-end-line="281" selection-end-column="99" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="achievemet.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="364" column="20" lean-forward="true" selection-start-line="364" selection-start-column="20" selection-end-line="364" selection-end-column="20" />
+            <state relative-caret-position="266">
+              <caret line="115" column="36" lean-forward="false" selection-start-line="115" selection-start-column="1" selection-end-line="115" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -80,13 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>componentD</find>
-      <find>.page-funding-application .am-list-item .am-input-control input:disabled</find>
-      <find>iPhoneBlur()</find>
-      <find>TextareaItem</find>
-      <find>onChange</find>
-      <find>getAreaProvince</find>
-      <find>budget.map</find>
       <find>)).plan</find>
       <find>openAccordion</find>
       <find>this.state.alertBtn</find>
@@ -106,10 +78,17 @@
       <find>pages-funding-application-list-container</find>
       <find>alertFirstStep</find>
       <find>alertBtn</find>
-      <find>modal-this</find>
       <find>showCommonweal</find>
       <find>getQueryString</find>
       <find>枚</find>
+      <find>志愿成就</find>
+      <find>e.</find>
+      <find>openModalAchievementNone</find>
+      <find>getAchieveInfo</find>
+      <find>modal-this</find>
+      <find>openModalAchievement</find>
+      <find>achievement-modal-box-btn-left-flex1</find>
+      <find>achievement-modal-box-level-gold</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -170,9 +149,9 @@
         <option value="$PROJECT_DIR$/src/pages/my/fundingApplication/list.css" />
         <option value="$PROJECT_DIR$/src/pages/my/fundingApplication/list_item/list_item.js" />
         <option value="$PROJECT_DIR$/src/pages/fundingApplication/preview/preview.js" />
-        <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
         <option value="$PROJECT_DIR$/src/pages/my/my.js" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
+        <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
       </list>
     </option>
   </component>
@@ -231,28 +210,31 @@
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="images" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="images" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="achievemet" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
@@ -284,11 +266,12 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/icon/Documents/job/volunteer-h5/src/pages/my/achievemet/achievemet.js" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/images/my" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images/my" />
+      <recent name="$PROJECT_DIR$/public/images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -389,12 +372,12 @@
       <workItem from="1552661941885" duration="6920000" />
       <workItem from="1552746718225" duration="4017000" />
       <workItem from="1552788255416" duration="9289000" />
-      <workItem from="1553048036924" duration="2666000" />
+      <workItem from="1553048036924" duration="7613000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="377073000" />
+    <option name="totallyTimeSpent" value="382020000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -787,14 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="364" column="20" lean-forward="true" selection-start-line="364" selection-start-column="20" selection-end-line="364" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/funcs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -805,16 +780,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/my.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="281" column="99" lean-forward="true" selection-start-line="281" selection-start-column="99" selection-end-line="281" selection-end-column="99" />
+        <state relative-caret-position="-181">
+          <caret line="283" column="20" lean-forward="true" selection-start-line="283" selection-start-column="20" selection-end-line="283" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="115" column="36" lean-forward="false" selection-start-line="115" selection-start-column="1" selection-end-line="115" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="280" column="27" lean-forward="false" selection-start-line="280" selection-start-column="27" selection-end-line="280" selection-end-column="27" />
+        <state relative-caret-position="255">
+          <caret line="136" column="37" lean-forward="false" selection-start-line="136" selection-start-column="37" selection-end-line="136" selection-end-column="37" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

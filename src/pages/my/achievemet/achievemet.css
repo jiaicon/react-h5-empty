@@ -113,6 +113,9 @@
 .achievement-modal-box-level-iron {
     background-image: url("/images/my/acgievement-level-iron.png");
 }
+.achievement-modal-box-level-default {
+    background-image: url("/images/my/acgievement-level-default.png");
+}
 .achievement-modal-box-level-box {
     width: 250px;
     display: flex;
@@ -364,7 +367,9 @@
     color: #FFFFFF;
     font-size: 14px;
 }
-
+.achievement-modal-box-btn-left-hidden {
+    display: none;
+}
 
 
 
