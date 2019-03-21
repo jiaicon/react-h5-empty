@@ -5,7 +5,7 @@ export function PostDataModel_Project(projectData, userData) {
         avatars : getAvatar(userData),
         username : getUserName(userData),
         contentText :tempContentText,
-        url :window.location.href,
+        url :`${window.location.origin}/project/detail/${projectData.id}`,
         type: 'Project'
     }
     console.log(PostDataModel);
