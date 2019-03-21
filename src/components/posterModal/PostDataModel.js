@@ -33,7 +33,7 @@ export function PostDataModel_SignSuccess(projectData,userData){
         avatars : getAvatar(userData),
         username : getUserName(userData),
         contentText :tempContentText,
-        url : `${window.location.host}/project/detail/${projectData.id}`,
+        url : `${window.location.origin}/project/detail/${projectData.id}`,
         type : 'SignSuccess'
     }
     return PostDataModel;
@@ -48,7 +48,7 @@ export function PostDataModel_ProjectSign(projectData,userData){
         avatars : getAvatar(userData),
         username : getUserName(userData),
         contentText :tempContentText,
-        url :`${window.location.host}/project/detail/${projectData.id}`,
+        url :`${window.location.origin}/project/detail/${projectData.id}`,
         type : 'ProjectSign'
     }
     console.log(PostDataModel);
