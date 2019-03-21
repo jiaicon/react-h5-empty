@@ -226,7 +226,7 @@ class Login extends React.Component {
                 <div className="page-login">
                     <div className="page-login-item">
                         <input type="text" ref={(c) => { this.loginUsername = c; }} onKeyUp={this.onTextChanged}
-                               placeholder="手机号或身份证号" className="page-login-item-input"/>
+                               placeholder="手机号或证件号码" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
                         <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
