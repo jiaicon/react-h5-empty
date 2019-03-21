@@ -113,6 +113,9 @@
 .achievement-modal-box-level-iron {
     background-image: url("/images/my/acgievement-level-iron.png");
 }
+.achievement-modal-box-level-default {
+    background-image: url("/images/my/acgievement-level-default.png");
+}
 .achievement-modal-box-level-box {
     width: 250px;
     display: flex;
@@ -175,10 +178,18 @@
 }
 .achieve-share-avatar {
     position: absolute;
-    top: 106px;
+    top: 105px;
     left: 50%;
     margin-left: -29.5px;
 
+}
+.achieve-share-username {
+    position: absolute;
+    top: 175px;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
+    text-align: center;
 }
 .achieve-share-num {
     display: flex;
@@ -364,7 +375,12 @@
     color: #FFFFFF;
     font-size: 14px;
 }
-
+.achievement-modal-box-btn-left-hidden {
+    display: none;
+}
+.achievement-modal-box-level-box-width {
+    width: 70px;
+}
 
 
 

@@ -420,6 +420,17 @@ td{
   font-size: 16px;
   color: #6AC6F8;
 }
+.page-my-item-container-padding .weui-gallery__opr {
+    position: absolute;
+    right: 0;
+     bottom: auto;
+    left: 0;
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    line-height: 60px;
+    text-align: center;
+    top: 0;
+}
 
 
 

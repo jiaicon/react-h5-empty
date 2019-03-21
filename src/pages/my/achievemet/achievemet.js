@@ -111,56 +111,89 @@ class Achievement extends React.Component {
             }, 0);
         }
     }
-
     openModalAchievement(data) {
-        console.log(`${window.location.protocol}//${window.location.host}`)
+        console.log("打开的成就信息：：", data)
         const {user} = this.props;
         let reward_time = user.reward_time && Number(user.reward_time).toFixed(0);
         let modalMod = data ? <div className="achievement-modal-box">
             <div className={classnames({
                 'achievement-modal-box-all': true,
-                'achievement-modal-box-all-gold': data.level === 3,
+                'achievement-modal-box-all-gold': data.level === 3 || !data.level,
                 'achievement-modal-box-all-silver': data.level === 2,
                 'achievement-modal-box-all-iron': data.level === 1,
             })}>
                 <div className="achievement-modal-box-all-box">
                     <div
-                        style={{backgroundImage: `url(${data.icon})`}}></div>
-                    <p>{data.name}</p>
+                        style={{backgroundImage: `url(${data.icon || data.achieve_info[0].icon})`}}></div>
+                    <p>{data.achieve_info && data.achieve_info.length && data.achieve_info[0].name}</p>
                 </div>
             </div>
             {
                 data.achieve_info && data.achieve_info.length && data.achieve_info[0].settings ?
                     <div>
-                        <div className="achievement-modal-box-level achievement-modal-box-level-gold"></div>
-                        <div className="achievement-modal-box-level-box">
-                            <div>
-                                <p>达到{data.achieve_info[0].settings.achieve1}小时</p>
-                                <p>服务时长</p>
+                        <div className={classnames({
+                            "achievement-modal-box-level": true,
+                            "achievement-modal-box-level-gold": data.level === 3,
+                            "achievement-modal-box-level-silver": data.level === 2,
+                            "achievement-modal-box-level-iron": data.level === 1,
+                            "achievement-modal-box-level-default": !data.level,
+                        })}></div>
+                        {
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ? <div className="achievement-modal-box-level-box">
+                                <div className="achievement-modal-box-level-box-width">
+                                    <p>达到{data.achieve_info[0].settings.achieve1}小时</p>
+                                    <p>服务时长</p>
+                                </div>
+                                <div className="achievement-modal-box-level-box-width">
+                                    <p>达到{data.achieve_info[0].settings.achieve2}小时</p>
+                                    <p>服务时长</p>
+                                </div>
+                                <div className="achievement-modal-box-level-box-width">
+                                    <p>达到{data.achieve_info[0].settings.achieve3}小时</p>
+                                    <p>服务时长</p>
+                                </div>
                             </div>
-                            <div>
-                                <p>达到{data.achieve_info[0].settings.achieve2}小时</p>
-                                <p>服务时长</p>
-                            </div>
-                            <div>
-                                <p>达到{data.achieve_info[0].settings.achieve3}小时</p>
-                                <p>服务时长</p>
-                            </div>
-                        </div>
+                                :
+                                null
+                        }
+                        {
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ? <div className="achievement-modal-box-level-box">
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve1}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve2}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve3}次`}</p>
+                                    </div>
+                                </div>
+                                :
+                                null
+                        }
+
                     </div>
                     :
                     null
             }
-            <div className="achievement-modal-box-tips">服务时长达到{reward_time}小时，快去晒成就吧！</div>
+            {
+                data.name&&data.name.length ?
+                    <div className="achievement-modal-box-tips">服务时长达到{reward_time}小时，快去晒成就吧！</div>
+                    :
+                    null
+            }
+
             <div className="achievement-modal-box-btn">
                 <div className={classnames({
                     'achievement-modal-box-btn-default': true,
                     'achievement-modal-box-btn-left': true,
+                    'achievement-modal-box-btn-left-hidden': !data.name,
                     'achievement-modal-box-btn-left-flex1': data.level === 3,
                 })} onClick={this.modalThis2Img}>告诉大家</div>
                 <Link to="/project/list" className={classnames({
                     'achievement-modal-box-btn-default': true,
                     'achievement-modal-box-btn-right': true,
+                    'achievement-modal-box-btn-left-flex1': !data.name,
                     'hidden': data.level === 3
                 })}>继续做志愿</Link>
             </div>
@@ -264,7 +297,8 @@ class Achievement extends React.Component {
                     {
                         achievementList.data && achievementList.data.list && achievementList.data.list.length > 0 && achievementList.data.list.map((item, index) => (
                             <div className="achievement-array-item"
-                                 data-index={item.achieve_key}>
+                                 data-index={item.achieve_key}
+                                 onClick={this.getAchieveInfo}>
                                 <div style={{backgroundImage: `url(${item.icon})`}}></div>
                                 <p>{item.name}</p>
                             </div>
@@ -282,6 +316,9 @@ class Achievement extends React.Component {
                 <div className="achieve-share-avatar">
                     <img className="achieve-share-avatar-image" src={this.state.avatar&&this.state.avatar[0]} alt=""/>
                 </div>
+                <div className="achieve-share-username">
+                    <p>{user&&user.real_name || user&&user.username}</p>
+                </div>
                 {
                     window.orgInfo.st_rank_op == 1 ? <div className="achieve-name">
                             {decodeURIComponent(getQueryString("querys"))}
@@ -289,7 +326,7 @@ class Achievement extends React.Component {
                 }
                 <div className="achieve-share-num">
                     <div>
-                        <p>支持志愿项目</p>
+                        <p>参与志愿活动</p>
                         <p className="achieve-share-num-p"><span className="achieve-share-num-word">{this.props.route&&this.props.route.params&&this.props.route.params.projectNum}</span><span
                             className="achieve-share-num-p-span">个</span></p>
                     </div>
