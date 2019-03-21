@@ -290,6 +290,9 @@ class Achievement extends React.Component {
                 <div className="achieve-share-avatar">
                     <img className="achieve-share-avatar-image" src={this.state.avatar&&this.state.avatar[0]} alt=""/>
                 </div>
+                <div className="achieve-share-username">
+                    <p>{user&&user.real_name || user&&user.username}</p>
+                </div>
                 {
                     window.orgInfo.st_rank_op == 1 ? <div className="achieve-name">
                             {decodeURIComponent(getQueryString("querys"))}

@@ -178,10 +178,18 @@
 }
 .achieve-share-avatar {
     position: absolute;
-    top: 106px;
+    top: 180px;
     left: 50%;
     margin-left: -29.5px;
 
+}
+.achieve-share-username {
+    position: absolute;
+    top: 106px;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
+    text-align: center;
 }
 .achieve-share-num {
     display: flex;
