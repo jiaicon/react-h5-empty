@@ -24,6 +24,7 @@ import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
 import "./my.css";
+import Image from '../../components/image/image'
 
 // 机构码
 const orgCode = window.orgCode;
@@ -787,13 +788,10 @@ class MyPage extends React.Component {
 
   render() {
     const BackButtonStyle = {
-      display: "block",
-      width: "100%",
-      color: "white",
       border: "none",
       position: "absolute",
-      top: "-55px",
-      left: "0"
+      top: "40px",
+      right: "20px"
     };
     return (
       <div>
@@ -807,13 +805,14 @@ class MyPage extends React.Component {
               show={this.state.showMultiple}
               defaultIndex={this.state.defaultIndex}
             >
-              <Button
-                style={BackButtonStyle}
-                onClick={e => this.setState({ showMultiple: false })}
-                plain
-              >
-                Back
-              </Button>
+                <div
+                    style={BackButtonStyle}
+                    onClick={e => this.setState({ showMultiple: false })}
+                    plain
+                >
+                    <img src="/images/preview/close_modal.png" alt=""/>
+                    {/*<Image src="/images/preview/close_modal.png" resize={{width: 20, height: 20}} defaultSrc="/images/preview/close_modal.png" alt=""/>*/}
+                </div>
             </Gallery>
           </div>
           {this.renderModal()}

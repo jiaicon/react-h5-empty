@@ -378,6 +378,9 @@
 .achievement-modal-box-btn-left-hidden {
     display: none;
 }
+.achievement-modal-box-level-box-width {
+    width: 70px;
+}
 
 
 

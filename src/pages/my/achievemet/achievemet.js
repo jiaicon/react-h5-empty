@@ -138,25 +138,51 @@ class Achievement extends React.Component {
                             "achievement-modal-box-level-iron": data.level === 1,
                             "achievement-modal-box-level-default": !data.level,
                         })}></div>
-                        <div className="achievement-modal-box-level-box">
-                            <div>
-                                <p>达到{data.achieve_info[0].settings.achieve1}小时</p>
-                                <p>服务时长</p>
+                        {
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ? <div className="achievement-modal-box-level-box">
+                                <div className="achievement-modal-box-level-box-width">
+                                    <p>达到{data.achieve_info[0].settings.achieve1}小时</p>
+                                    <p>服务时长</p>
+                                </div>
+                                <div className="achievement-modal-box-level-box-width">
+                                    <p>达到{data.achieve_info[0].settings.achieve2}小时</p>
+                                    <p>服务时长</p>
+                                </div>
+                                <div className="achievement-modal-box-level-box-width">
+                                    <p>达到{data.achieve_info[0].settings.achieve3}小时</p>
+                                    <p>服务时长</p>
+                                </div>
                             </div>
-                            <div>
-                                <p>达到{data.achieve_info[0].settings.achieve2}小时</p>
-                                <p>服务时长</p>
-                            </div>
-                            <div>
-                                <p>达到{data.achieve_info[0].settings.achieve3}小时</p>
-                                <p>服务时长</p>
-                            </div>
-                        </div>
+                                :
+                                null
+                        }
+                        {
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ? <div className="achievement-modal-box-level-box">
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve1}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve2}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve3}次`}</p>
+                                    </div>
+                                </div>
+                                :
+                                null
+                        }
+
                     </div>
                     :
                     null
             }
-            <div className="achievement-modal-box-tips">服务时长达到{reward_time}小时，快去晒成就吧！</div>
+            {
+                data.name&&data.name.length ?
+                    <div className="achievement-modal-box-tips">服务时长达到{reward_time}小时，快去晒成就吧！</div>
+                    :
+                    null
+            }
+
             <div className="achievement-modal-box-btn">
                 <div className={classnames({
                     'achievement-modal-box-btn-default': true,
@@ -300,7 +326,7 @@ class Achievement extends React.Component {
                 }
                 <div className="achieve-share-num">
                     <div>
-                        <p>支持志愿项目</p>
+                        <p>参与志愿活动</p>
                         <p className="achieve-share-num-p"><span className="achieve-share-num-word">{this.props.route&&this.props.route.params&&this.props.route.params.projectNum}</span><span
                             className="achieve-share-num-p-span">个</span></p>
                     </div>
