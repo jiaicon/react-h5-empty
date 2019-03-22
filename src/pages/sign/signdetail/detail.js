@@ -37,8 +37,6 @@ class SignPage extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-      console.log('this.props::::', this.props);
-      console.log('nextProps::::', nextProps);
     if (nextProps.clickinfo && nextProps.clickinfo.data) {
       // isBeyond判断时间是否超出，true为第二天
       let isBeyond = false;
@@ -79,9 +77,16 @@ class SignPage extends React.Component {
         this.props.requestProjectDetail(this.proid);
         this.openShare();
     }
+      const { failed: dFailed, fetching: dFetching } = this.props.requestProjectDetailData;
+      const { failed: dnFailed, fetching: dnFetching } = nextProps.requestProjectDetailData;
+      if(!dFailed && dFetching && !dnFailed && !dnFetching) {
+          this.setState({
+              proData: nextProps.data
+          })
+      }
   }
     //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
-    openShare(share) {
+    openShare() {
         const { data: detaildata } = this.props.clickinfo;
         const { clock_info: data, user_clock_info: userData, clock_info: user_data } = detaildata;
         // userData.type = 1
@@ -1017,7 +1022,7 @@ class SignPage extends React.Component {
     }
     renderModal(data) {
         const { user } = this.props;
-        console.log(this.props);
+        console.log('项目详细详细：：：：', data);
         const postData = PostDataModel_ProjectSign(data,user);
         const { visible } = this.state;
         return  visible === true ? <ModalNew postData={postData} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null;
@@ -1025,8 +1030,7 @@ class SignPage extends React.Component {
   render=()=>{
     const { turnMap } = this.state;
       const { type } = this.state;
-      const { data: data } = this.props.requestProjectDetailData;
-      const { user } = this.props;
+      // const { data: data } = this.props.requestProjectDetailData;
       return (
       <div>
           {!turnMap
@@ -1034,11 +1038,8 @@ class SignPage extends React.Component {
             ? this.renderClock()
             : this.renderSignInSignOff()
           : this.renderMap()}
-          {/*{*/}
-              {/*data ? this.renderModal(data) : null*/}
-          {/*}*/}
           {
-              this.state.visible === true ? <ModalNew postData={PostDataModel_ProjectSign(data,user)} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null
+              this.state.proData&&this.state.proData ? this.renderModal(this.state.proData) : null
           }
       </div>
     );

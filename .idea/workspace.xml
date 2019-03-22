@@ -26,10 +26,25 @@
       <file leaf-file-name="detail.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="1031" column="19" lean-forward="true" selection-start-line="1031" selection-start-column="19" selection-end-line="1031" selection-end-column="19" />
+            <state relative-caret-position="233">
+              <caret line="1032" column="48" lean-forward="false" selection-start-line="1032" selection-start-column="48" selection-end-line="1032" selection-end-column="48" />
               <folding>
                 <element signature="e#117#158#0" expanded="true" />
+                <element signature="n#!!block;n#renderMap#0;n#SignPage#0" expanded="false" />
+                <element signature="e#5148#12872#0" expanded="false" />
+                <element signature="e#12899#32406#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="detail.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/project/detail/detail.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="316">
+              <caret line="360" column="38" lean-forward="true" selection-start-line="360" selection-start-column="38" selection-end-line="360" selection-end-column="38" />
+              <folding>
+                <element signature="e#119#160#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -38,8 +53,8 @@
       <file leaf-file-name="detail.store.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/project/detail/detail.store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="47">
-              <caret line="85" column="21" lean-forward="false" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="21" />
+            <state relative-caret-position="-335">
+              <caret line="107" column="28" lean-forward="false" selection-start-line="107" selection-start-column="21" selection-end-line="107" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -48,8 +63,8 @@
       <file leaf-file-name="PostDataModel.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/posterModal/PostDataModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="46" column="27" lean-forward="false" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
+            <state relative-caret-position="116">
+              <caret line="43" column="69" lean-forward="false" selection-start-line="43" selection-start-column="69" selection-end-line="43" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -95,8 +110,8 @@
       <find>PostDataModel_ProjectSign</find>
       <find>renderModal</find>
       <find>requestProjectDetailData</find>
-      <find>requestProjectDetail</find>
       <find>PROJECT_DETAIL</find>
+      <find>requestProjectDetail</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -225,6 +240,21 @@
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="project" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="project" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="detail" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
@@ -379,7 +409,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="396815000" />
+    <option name="totallyTimeSpent" value="398371000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -439,7 +469,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/dist/main.80c466a1b9fe1885ee93.js" />
     <entry file="file://$PROJECT_DIR$/src/pages/sign/components/signball/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
@@ -450,13 +479,6 @@
     <entry file="file://$PROJECT_DIR$/public/images/default_banner.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/project/detail/detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="30" column="17" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="17" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
@@ -789,28 +811,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/posterModal/PostDataModel.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/project/project.store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="46" column="27" lean-forward="false" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/project/detail/detail.store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="85" column="21" lean-forward="false" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="21" />
+        <state relative-caret-position="-335">
+          <caret line="107" column="28" lean-forward="false" selection-start-line="107" selection-start-column="21" selection-end-line="107" selection-end-column="28" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/posterModal/PostDataModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="43" column="69" lean-forward="false" selection-start-line="43" selection-start-column="69" selection-end-line="43" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/project/detail/detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="360" column="38" lean-forward="true" selection-start-line="360" selection-start-column="38" selection-end-line="360" selection-end-column="38" />
+          <folding>
+            <element signature="e#119#160#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="1031" column="19" lean-forward="true" selection-start-line="1031" selection-start-column="19" selection-end-line="1031" selection-end-column="19" />
+        <state relative-caret-position="233">
+          <caret line="1032" column="48" lean-forward="false" selection-start-line="1032" selection-start-column="48" selection-end-line="1032" selection-end-column="48" />
           <folding>
             <element signature="e#117#158#0" expanded="true" />
+            <element signature="n#!!block;n#renderMap#0;n#SignPage#0" expanded="false" />
+            <element signature="e#5148#12872#0" expanded="false" />
+            <element signature="e#12899#32406#0" expanded="false" />
           </folding>
         </state>
       </provider>
