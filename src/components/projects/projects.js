@@ -133,7 +133,7 @@ class Projects extends React.Component {
                   </Link>
                   <div className="project-footer">
                     <div className="project-location">
-                      {project.county_name} {project.distance > 0 ? parseDistance(project.distance) : `${project.province_name} 0km`}
+                      {project.county_name || project.province_name} {project.distance > 0 ? parseDistance(project.distance) : '0km'}
                     </div>
                     <div className="project-members">
                       <span>
