@@ -36,8 +36,8 @@
       <file leaf-file-name="projects.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/projects/projects.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="135" column="133" lean-forward="true" selection-start-line="135" selection-start-column="133" selection-end-line="135" selection-end-column="133" />
+            <state relative-caret-position="296">
+              <caret line="135" column="58" lean-forward="true" selection-start-line="135" selection-start-column="58" selection-end-line="135" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -383,7 +383,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="402514000" />
+    <option name="totallyTimeSpent" value="402698000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -826,8 +826,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/projects/projects.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="135" column="133" lean-forward="true" selection-start-line="135" selection-start-column="133" selection-end-line="135" selection-end-column="133" />
+        <state relative-caret-position="296">
+          <caret line="135" column="58" lean-forward="true" selection-start-line="135" selection-start-column="58" selection-end-line="135" selection-end-column="58" />
           <folding />
         </state>
       </provider>
