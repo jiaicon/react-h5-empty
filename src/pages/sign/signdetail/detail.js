@@ -1026,6 +1026,7 @@ class SignPage extends React.Component {
     const { turnMap } = this.state;
       const { type } = this.state;
       const { data: data } = this.props.requestProjectDetailData;
+      const { user } = this.props;
       return (
       <div>
           {!turnMap
@@ -1033,8 +1034,11 @@ class SignPage extends React.Component {
             ? this.renderClock()
             : this.renderSignInSignOff()
           : this.renderMap()}
+          {/*{*/}
+              {/*data ? this.renderModal(data) : null*/}
+          {/*}*/}
           {
-              data ? this.renderModal(data) : null
+              this.state.visible === true ? <ModalNew postData={PostDataModel_ProjectSign(data,user)} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null
           }
       </div>
     );
