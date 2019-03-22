@@ -76,6 +76,7 @@ class SignPage extends React.Component {
         // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
         //打卡成功后重新获取数据，更新页面，页面state太多，不知道更新哪些，直接全部获取
         this.props.requestClockInfo(this.Id);
+        this.props.requestProjectDetail(this.proid);
         this.openShare();
     }
   }
@@ -1020,7 +1021,7 @@ class SignPage extends React.Component {
         console.log(this.props);
         const postData = PostDataModel_ProjectSign(data,user);
         const { visible } = this.state;
-        return  visible === true ? <ModalNew postData={postData}  maskCloseable={true} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null;
+        return  visible === true ? <ModalNew postData={postData} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null;
     }
   render=()=>{
     const { turnMap } = this.state;
