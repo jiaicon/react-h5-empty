@@ -53,9 +53,17 @@ class Projects extends React.Component {
             const volunteer = isVolunteerInsure(project.volunteer_security);
             let name = "";
             if(!project.county_name.length) {
-                if(project.county_name == "全市") {
-                    name=project.city_name;
+                if(!project.city_name) {
+                    name=project.province_name;
                 }else {
+                    if(project.city_name=="全省") {
+                        name=project.province_name;
+                    }else {
+                        name=project.city_name;
+                    }
+                }
+            }else {
+                if(project.county_name==="全市") {
                     if(!project.city_name) {
                         name=project.province_name;
                     }else {
@@ -65,9 +73,9 @@ class Projects extends React.Component {
                             name=project.city_name;
                         }
                     }
+                }else {
+                    name=project.county_name;
                 }
-            }else {
-                name=project.county_name;
             }
             // let statusClassnames = 
             return <li key={project.id}>
