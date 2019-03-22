@@ -164,7 +164,7 @@ export function getLocation(success, fail, noCache) {
       const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
       console.log("获取新位置成功", position);
       setCookie("location", JSON.stringify({ lat, lng }), 1);
-      setCookie("X-original-location", JSON.stringify(position), 1);
+      // setCookie("X-original-location", JSON.stringify(position), 1);
 
       if (success) {
         success({ lat, lng });

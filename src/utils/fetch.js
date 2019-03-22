@@ -55,7 +55,10 @@ export default function request(requestUrl, requestOptions = {}) {
   const headers = options.headers || {};
   const location = getCookie("location") ? JSON.parse(getCookie("location")) : null;
   const position = getCookie("X-original-location") ? JSON.parse(getCookie("X-original-location")) : null;
+  const oriCity = position&&position.city? position.city:null;
   const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "全国";
+
+  console.log(position);
    
   let headersObj = {
     ...headers,
@@ -68,7 +71,7 @@ export default function request(requestUrl, requestOptions = {}) {
       : "116.403847-39.915526",
     "X-unique-key": window.uniqueKey || "demo",
     "X-city": `${encodeURI(city)}`,
-    "X-original-location":position.city
+    "X-original-city": `${encodeURI(oriCity)}` || ''
   }
   if (!location) {
     delete headersObj["X-location"];
