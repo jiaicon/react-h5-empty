@@ -8,7 +8,9 @@ import './ModalNew.css';
 
 
 class ModalNew extends React.Component {
-    static propTypes = {}
+    static propTypes = {
+        close: PropTypes.boolean
+    };
 
     constructor(props) {
         super(props);
@@ -71,6 +73,9 @@ class ModalNew extends React.Component {
         })}>
             <div className="modal-new-mask"></div>
             <div className="modal-new-wrap" onClick={this._closeModal}>
+                {
+                    this.props.close ? <div className="poster-modal-new-close-btn" onClick={()=>{this._closeModal()}}></div> : null
+                }
                 <div className="modal-new-wrap-container" onClick={this._clearEvent}>
                     <div className="modal-new-wrap-container-padding">
                         <div className="modal-new-wrap-container-title">{this.state.title}</div>

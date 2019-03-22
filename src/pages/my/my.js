@@ -448,7 +448,13 @@ class MyPage extends React.Component {
                   我的消息
                   {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
                 </div>
-                <span className="page-my-item-big" />
+                  <div style={{display: 'flex', alignItems: 'center'}}>
+                      {
+                          this.props.usercenter.data&&this.props.usercenter.data.msg_count > 0 ?
+                          <span className="page-my-message-msg_count">{this.props.usercenter.data&&this.props.usercenter.data.msg_count}</span> : null
+                      }
+                      <span className="page-my-item-big" />
+                  </div>
               </Link>
               <div className="line1px" />
             </div>

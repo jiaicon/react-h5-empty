@@ -392,6 +392,7 @@ class Achievement extends React.Component {
                 visible={this.state.visible}
                 platform="ios"
                 transparent={true}
+                close={true}
                 animationType="slide"
                 children={this.state.modalChildren}
             >
