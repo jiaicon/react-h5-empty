@@ -54,6 +54,7 @@ export default function request(requestUrl, requestOptions = {}) {
   // r s-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
   const location = getCookie("location") ? JSON.parse(getCookie("location")) : null;
+  const position = getCookie("X-original-location") ? JSON.parse(getCookie("X-original-location")) : null;
   const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "全国";
    
   let headersObj = {
@@ -66,7 +67,8 @@ export default function request(requestUrl, requestOptions = {}) {
       }-${location.lat}`
       : "116.403847-39.915526",
     "X-unique-key": window.uniqueKey || "demo",
-    "X-city": `${encodeURI(city)}`
+    "X-city": `${encodeURI(city)}`,
+    "X-original-location":position.city
   }
   if (!location) {
     delete headersObj["X-location"];

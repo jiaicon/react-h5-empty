@@ -158,11 +158,13 @@ export function getLocation(success, fail, noCache) {
     let options = { timeout: 8000 };
     console.log("调用geolocation.getLocation");
     geolocation.getLocation(function(position) {
+
       const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
       const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
       const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
       console.log("获取新位置成功", position);
       setCookie("location", JSON.stringify({ lat, lng }), 1);
+      setCookie("X-original-location", JSON.stringify(position), 1);
 
       if (success) {
         success({ lat, lng });
