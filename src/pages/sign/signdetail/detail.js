@@ -77,11 +77,12 @@ class SignPage extends React.Component {
         this.props.requestProjectDetail(this.proid);
         this.openShare();
     }
+    console.log(nextProps)
       const { failed: dFailed, fetching: dFetching } = this.props.requestProjectDetailData;
       const { failed: dnFailed, fetching: dnFetching } = nextProps.requestProjectDetailData;
       if(!dFailed && dFetching && !dnFailed && !dnFetching) {
           this.setState({
-              proData: nextProps.data
+              proData: nextProps.requestProjectDetailData.data
           })
       }
   }
@@ -1030,7 +1031,6 @@ class SignPage extends React.Component {
   render=()=>{
     const { turnMap } = this.state;
       const { type } = this.state;
-      // const { data: data } = this.props.requestProjectDetailData;
       return (
       <div>
           {!turnMap

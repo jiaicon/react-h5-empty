@@ -26,13 +26,13 @@
       <file leaf-file-name="detail.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="1032" column="48" lean-forward="false" selection-start-line="1032" selection-start-column="48" selection-end-line="1032" selection-end-column="48" />
+            <state relative-caret-position="193">
+              <caret line="1025" column="27" lean-forward="false" selection-start-line="1025" selection-start-column="21" selection-end-line="1025" selection-end-column="27" />
               <folding>
                 <element signature="e#117#158#0" expanded="true" />
                 <element signature="n#!!block;n#renderMap#0;n#SignPage#0" expanded="false" />
-                <element signature="e#5148#12872#0" expanded="false" />
-                <element signature="e#12899#32406#0" expanded="false" />
+                <element signature="e#5200#12924#0" expanded="false" />
+                <element signature="e#12951#32458#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -108,10 +108,10 @@
       <find>project-status-employed</find>
       <find>跟我一起</find>
       <find>PostDataModel_ProjectSign</find>
-      <find>renderModal</find>
       <find>requestProjectDetailData</find>
       <find>PROJECT_DETAIL</find>
       <find>requestProjectDetail</find>
+      <find>renderModal</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -240,21 +240,6 @@
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
-              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="project" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
-              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="project" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="detail" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
@@ -409,7 +394,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="398371000" />
+    <option name="totallyTimeSpent" value="400344000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -751,14 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/posterModal/ModalNew.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="145" column="97" lean-forward="false" selection-start-line="145" selection-start-column="97" selection-end-line="145" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/project/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -816,7 +793,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -847,15 +824,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/posterModal/ModalNew.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-368">
+          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="1032" column="48" lean-forward="false" selection-start-line="1032" selection-start-column="48" selection-end-line="1032" selection-end-column="48" />
+        <state relative-caret-position="193">
+          <caret line="1025" column="27" lean-forward="false" selection-start-line="1025" selection-start-column="21" selection-end-line="1025" selection-end-column="27" />
           <folding>
             <element signature="e#117#158#0" expanded="true" />
             <element signature="n#!!block;n#renderMap#0;n#SignPage#0" expanded="false" />
-            <element signature="e#5148#12872#0" expanded="false" />
-            <element signature="e#12899#32406#0" expanded="false" />
+            <element signature="e#5200#12924#0" expanded="false" />
+            <element signature="e#12951#32458#0" expanded="false" />
           </folding>
         </state>
       </provider>
