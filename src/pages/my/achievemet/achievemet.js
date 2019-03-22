@@ -118,9 +118,9 @@ class Achievement extends React.Component {
         let modalMod = data ? <div className="achievement-modal-box">
             <div className={classnames({
                 'achievement-modal-box-all': true,
-                'achievement-modal-box-all-gold': data.level === 3 || !data.level,
+                'achievement-modal-box-all-gold': data.level === 3,
                 'achievement-modal-box-all-silver': data.level === 2,
-                'achievement-modal-box-all-iron': data.level === 1,
+                'achievement-modal-box-all-iron': data.level === 1 || !data.level,
             })}>
                 <div className="achievement-modal-box-all-box">
                     <div
