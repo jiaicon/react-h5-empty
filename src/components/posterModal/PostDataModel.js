@@ -1,5 +1,5 @@
 export function PostDataModel_Project(projectData, userData) {
-    var tempContentText = `我参与了《${projectData.name}》这个项目，跟我一起做志愿服务吧~`;
+    var tempContentText = `我发现了《${projectData.name}》这个项目，跟我一起做志愿服务吧~`;
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),
         avatars : getAvatar(userData),
@@ -13,7 +13,7 @@ export function PostDataModel_Project(projectData, userData) {
 }
 
 export function PostDataModel_Team(teamData,userData){
-    var tempContentText = `我参与了《${teamData.name}》这个团队，跟我一起做志愿服务吧~`;
+    var tempContentText = `我发现了《${teamData.name}》这个团队，跟我一起做志愿服务吧~`;
     let PostDataModel = {
         postImage : getTeamPhoto(teamData),
         avatars : getAvatar(userData),
