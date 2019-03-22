@@ -51,6 +51,20 @@ class Projects extends React.Component {
           projects.map((project) => {
             const { team } = project;
             const volunteer = isVolunteerInsure(project.volunteer_security);
+            let name = "";
+            if(project.county_name == "全市") {
+                if(project.city_name=="全省") {
+                    name=project.province_name;
+                }else {
+                    if(project.city_name.length) {
+                        name = project.city_name;
+                    }
+                }
+            }else {
+                if(project.county_name.length) {
+                    name=project.county_name;
+                }
+            }
             // let statusClassnames = 
             return <li key={project.id}>
                 <div>
@@ -133,7 +147,7 @@ class Projects extends React.Component {
                   </Link>
                   <div className="project-footer">
                     <div className="project-location">
-                      {project.county_name || project.city_name || project.province_name} {project.distance > 0 ? parseDistance(project.distance) : '0km'}
+                      {name.length&&name || "全国"} {project.distance > 0 ? parseDistance(project.distance) : '0km'}
                     </div>
                     <div className="project-members">
                       <span>
