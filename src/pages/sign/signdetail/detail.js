@@ -1015,8 +1015,7 @@ class SignPage extends React.Component {
             visible: false
         })
     }
-    renderModal() {
-        const { data: data } = this.props.requestProjectDetailData;
+    renderModal(data) {
         const { user } = this.props;
         console.log(this.props);
         const postData = PostDataModel_ProjectSign(data,user);
@@ -1035,7 +1034,7 @@ class SignPage extends React.Component {
             : this.renderSignInSignOff()
           : this.renderMap()}
           {
-              data ? this.renderModal() : null
+              data ? this.renderModal(data) : null
           }
       </div>
     );
