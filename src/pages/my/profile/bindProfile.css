@@ -1,0 +1,43 @@
+.page-profile-bind-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 37px 0;
+    overflow-y: scroll;
+}
+.pages-add-new-family-box {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #666666;
+    height: 50px;
+}
+.pages-add-new-family-type {
+    width: 66px;
+    text-align: left;
+}
+.pages-add-new-family-ipt {
+    flex: 1;
+    display: flex;
+}
+.pages-add-new-family-ipt label {
+    flex: 1;
+}
+.pages-add-new-family-ipt label select{
+    width: 100%;
+}
+.page-profile-bind-info-container-submmit{
+    width: 300px;
+    height: 50px;
+    background: #C7EAFD;
+    border-radius: 100px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    color: #666666;
+    margin-top: 41px;
+}

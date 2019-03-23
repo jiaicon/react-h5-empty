@@ -21,7 +21,10 @@ import UploadAvatar from './../../../components/uploadAvatar/uploadAvatar';
 import Link from '../../../components/link/link';
 import Avatar from '../../../components/avatar/avatar';
 import './profile.css';
-
+import { DatePicker, List } from 'antd-mobile';
+import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
+import 'antd-mobile/lib/date-picker/style/css';
+import 'antd-mobile/lib/list/style/css';
 import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
@@ -113,7 +116,29 @@ class Profile extends React.Component {
 
     renderRealInfo() {
         const user = this.props.user;
-
+        let num_type = '';
+        if(user.num_type) {
+            switch(user.num_type) {
+                case 1:
+                    num_type='内地身份证';
+                    break;
+                case 2:
+                    num_type='香港';
+                    break;
+                case 3:
+                    num_type='澳门';
+                    break;
+                case 4:
+                    num_type='台湾';
+                    break;
+                case 5:
+                    num_type='护照';
+                    break;
+                default:
+                    num_type='内地身份证';
+                    break;
+            }
+        };
         return (
             <div className="page-profile-bottom-real-info-container">
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
@@ -123,6 +148,17 @@ class Profile extends React.Component {
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">姓名</div>
                                 <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
+                            </div>
+                            <div className="line1px"/>
+                        </div> :
+                        null
+                }
+                {
+                    user.num_type ?
+                        <div>
+                            <div className="page-profile-header-box">
+                                <div className="page-profile-fonts">证件类型</div>
+                                <div className="page-profile-initial-fonts">{num_type}</div>
                             </div>
                             <div className="line1px"/>
                         </div> :
@@ -139,9 +175,46 @@ class Profile extends React.Component {
                         </div> :
                         null
                 }
-
                 {
-                    user.sex ?
+                    user.num_type&&user.num_type==1 ?
+                        <div>
+                            <div className="page-profile-header-box default">
+                                <DatePicker
+                                    mode="date"
+                                    title="选择出生日期"
+                                    minDate={new Date('1870-01-01')}
+                                    maxDate={new Date()}
+                                    value={new Date(user.birthday)}
+                                    extra="请选择出生日期"
+                                    onChange={date => this.setState({ date })}
+                                >
+                                    <List.Item arrow="horizontal">出生日期</List.Item>
+                                </DatePicker>
+                            </div>
+                            <div className="line1px"/>
+                        </div> :
+                        null
+                }
+                {
+                    (!user.num_type||!user.num_type==1)&&user.sex ?
+                        <div>
+                            <Link to="/my/profile/bind_profile/sex">
+                                <div className="page-profile-header-box">
+                                    <div className="page-profile-fonts">性别</div>
+                                    <div className="page-profile-edit-box">
+                                        <div className="page-profile-initial-fonts">
+                                            {user.sex ? sexName(user.sex) : ''}
+                                        </div>
+                                        <div className="page-profile-edit-icon"/>
+                                    </div>
+                                </div>
+                            </Link>
+                            <div className="line1px"/>
+                        </div> :
+                        null
+                }
+                {
+                    user.num_type&&user.num_type==1&&user.sex ?
                         <div>
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">性别</div>
@@ -152,15 +225,15 @@ class Profile extends React.Component {
                         null
                 }
                 {
-                    user.nation ?
-                        <div>
+                    <div>
+                        <Link to={`/my/profile/bind_profile/nation/?nation=${user.nation&&user.nation.length ? user.nation : encodeURI('汉族')}`}>
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">民族</div>
                                 <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
                             </div>
-                            <div className="line1px"/>
-                        </div> :
-                        null
+                        </Link>
+                        <div className="line1px"/>
+                    </div>
                 }
                 {
                     user.province_name ?
@@ -182,7 +255,7 @@ class Profile extends React.Component {
                 {this.renderRealInfoExtends()}
 
                 <Link to="/my/profile/applyAlert">
-                    <div className="page-profile-apply-alert" onClick={this.applyAlert}>申请修改</div>
+                    <div className="page-profile-apply-alert" onClick={this.applyAlert}>需要帮助</div>
                 </Link>
             </div>
         );
@@ -196,9 +269,9 @@ class Profile extends React.Component {
         }
         arr.push(src)
         this.setState({
-          previewData: arr,
-          showMultiple: true,
-          defaultIndex: 0
+            previewData: arr,
+            showMultiple: true,
+            defaultIndex: 0
         });
     }
 
@@ -640,7 +713,7 @@ class Profile extends React.Component {
                         plain
                     >
                         Back
-          </Button>
+                    </Button>
                 </Gallery>
             </div>
         );
