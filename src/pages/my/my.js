@@ -816,7 +816,7 @@ class MyPage extends React.Component {
                     onClick={e => this.setState({ showMultiple: false })}
                     plain
                 >
-                    <img src="/images/preview/close_modal.png" alt=""/>
+                    <img src="/images/my/delete.png" alt=""/>
                     {/*<Image src="/images/preview/close_modal.png" resize={{width: 20, height: 20}} defaultSrc="/images/preview/close_modal.png" alt=""/>*/}
                 </div>
             </Gallery>
