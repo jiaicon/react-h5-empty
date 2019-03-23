@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ModalNew from './../../../components/ModalNew/ModalNew';
 import "./achievemet.css";
-import {getAchievement, getAchievementHas, getAchieveInfo} from './achievement.store';
+import {getAchievement, getAchievementHas, getAchieveInfo, getAchieveShareInfo} from './achievement.store';
 import {requestUserInfo} from '../../../stores/common';
 import QRCode from "qrcode";
 import html2canvas from "html2canvas";
@@ -177,10 +177,12 @@ class Achievement extends React.Component {
                     null
             }
             {
-                data.name&&data.name.length ?
-                    <div className="achievement-modal-box-tips">服务时长达到{reward_time}小时，快去晒成就吧！</div>
-                    :
-                    null
+                data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ?
+                    <div className="achievement-modal-box-tips">{data.tips}，快去晒成就吧！</div> : null
+            }
+            {
+                data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ?
+                    <div className="achievement-modal-box-tips">{data.tips}，快去晒成就吧！</div> : null
             }
 
             <div className="achievement-modal-box-btn">
@@ -241,6 +243,7 @@ class Achievement extends React.Component {
 
     getAchieveInfo(e) {
         this.props.getAchieveInfo(e.currentTarget.dataset.index);
+        // this.props.getAchieveShareInfo(e.currentTarget.dataset.index);
     }
     modalThis2Img = () => {
         var that = this;
@@ -415,6 +418,7 @@ export default connect(
         achievementList: state.my.achievement.achievementList,
         achievementHasList: state.my.achievement.achievementHasList,
         achieveInfo: state.my.achievement.getAchieveInfo,
+        achieveInfoShare: state.my.achievement.getAchieveShareInfo,
     }),
-    dispatch => bindActionCreators({getAchievement, getAchievementHas, requestUserInfo, getAchieveInfo}, dispatch),
+    dispatch => bindActionCreators({getAchievement, getAchievementHas, requestUserInfo, getAchieveInfo, getAchieveShareInfo}, dispatch),
 )(Achievement);

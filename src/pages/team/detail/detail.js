@@ -482,11 +482,11 @@ class TeamDetailPage extends React.Component {
               <div className="team-member-item">
                 <div>
                   <span>
-                    {detailData.reward_time >= 10000
-                      ? (detailData.reward_time / 10000).toFixed(2)
-                      : detailData.reward_time}
+                    {detailData.reward_sum >= 10000
+                      ? (detailData.reward_sum / 10000).toFixed(2)
+                      : detailData.reward_sum}
                   </span>
-                  {detailData.reward_time >= 10000 ? "万" : ""}
+                  {detailData.reward_sum >= 10000 ? "万" : ""}
                 </div>
                 <p>团队总时长(小时)</p>
               </div>
