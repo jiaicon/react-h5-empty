@@ -35,6 +35,14 @@ const people = [{ id: '01', name: '汉族' }, { id: '02', name: '蒙古族' }, {
     { id: '49', name: '京族' }, { id: '50', name: '塔塔尔族' }, { id: '51', name: '独龙族' },
     { id: '52', name: '鄂伦春族' }, { id: '53', name: '赫哲族' }, { id: '54', name: '门巴族' },
     { id: '55', name: '珞巴族' }, { id: '56', name: '基诺族' }];
+const cardtype = [
+    { id: "1", name: "内地居民身份证" },
+    { id: "2", name: "香港居民身份证" },
+    { id: "3", name: "澳门居民身份证" },
+    { id: "4", name: "台湾居民身份证" },
+    { id: "5", name: "护照" }
+    ];
+
 function checkEmpty(value, label) {
     if (!value || !value.length) {
         Alert.warning(`请填写${label}`);
@@ -59,14 +67,38 @@ function checkStr(str) {
     }
     return false;
 }
-function isCard(card) {
+function iscard(card) {
     const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if (!reg.test(card)) {
-        Alert.warning('身份证输入不合法');
-        return true;
+      Alert.warning("身份证输入不合法");
+      return true;
     }
     return false;
-}
+  }
+  function isaomencard(card) {
+    const reg = /^[1|5|7][0-9]{6}\([0-9Aa]\)/;
+    if (!reg.test(card)) {
+      Alert.warning("身份证输入不合法");
+      return true;
+    }
+    return false;
+  }
+  function isxiangancard(card) {
+    const reg = /^((\s?[A-Za-z])|([A-Za-z]{2}))\d{6}(([0−9aA])|([0-9aA]))$/;
+    if (!reg.test(card)) {
+      Alert.warning("身份证输入不合法");
+      return true;
+    }
+    return false;
+  }
+  function istaiwancard(card) {
+    const reg = /^[a-zA-Z][0-9]{9}$/;
+    if (!reg.test(card)) {
+      Alert.warning("身份证输入不合法");
+      return true;
+    }
+    return false;
+  }
 class NewFamily extends React.Component {
     constructor(props) {
         super(props);
@@ -75,6 +107,7 @@ class NewFamily extends React.Component {
             province: 0,
             city: 0,
             county: 0,
+            cardtype:1,
         });
     }
     componentWillMount() {
@@ -122,6 +155,9 @@ class NewFamily extends React.Component {
             relations: this.relations.value
         })
     }
+    handleCardClick() {
+        this.setState({ ...this.state, cardtype: this.cardtype.value });
+      }
     componentWillUnmount() {
         if (!window.fastclick && isAndroid) {
             window.fastclick = FastClick.attach(document.body);
@@ -150,13 +186,24 @@ class NewFamily extends React.Component {
         const city = this.state.city;
         const county = this.state.county;
         const addressDetail = this.state.addressDetail;
+        const cardtype = this.state.cardtype;
         if (checkEmpty(username, '姓名') || checkEmpty(userpassword, '密码')
             || checkEmpty(idNumber, '身份证号') || checkEmpty(addressDetail, '详细地址')
-            || checkStr(username, '姓名') || isCard(idNumber, '身份证号')) {
+            || checkStr(username, '姓名')) {
             return;
         }
-        if(isChoose(province, '省份')|| isChoose(relations, '关系') || isChoose(nation, '民族')
-            || isChoose(city, '城市') || isChoose(county, '区县')) {
+        if (idNumber) {
+            if (cardtype == 1 && iscard(idNumber)) {
+              return;
+            } else if (cardtype == 2 && isxiangancard(idNumber)) {
+              return;
+            } else if (cardtype == 3 && isaomencard(idNumber)) {
+              return;
+            } else if (cardtype == 4 && istaiwancard(idNumber)) {
+              return;
+            }
+          }
+        if(isChoose(nation, '民族') || isChoose(province, '省份') || isChoose(city, '城市') || isChoose(county, '区县') || isChoose(relations, '关系') ) {
             return
         }
         if (userpassword.length <= 5 || userpassword.length >= 19) {
@@ -178,6 +225,7 @@ class NewFamily extends React.Component {
         data.city_id = city;
         data.county_id = county;
         data.addr = addressDetail;
+        data.num_type = cardtype;
         this.props.addFamilyPeople(data);
     }
     render() {
@@ -194,7 +242,29 @@ class NewFamily extends React.Component {
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">身份证号</div>
+                    <div className="pages-add-new-family-type">证件类型</div>
+                    <div className="pages-add-new-family-ipt">
+                        <label htmlFor="people">
+                        <select 
+                            id="cardtype"
+                            onChange={this.handleCardClick}
+                            ref={c => {
+                                this.cardtype = c;
+                            }}
+                            >
+                            {cardtype &&
+                                cardtype.map((item, keys) => (
+                                <option value={item.id} key={keys}>
+                                    {item.name}
+                                </option>
+                                ))}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div className="line1px"></div>
+                <div className="pages-add-new-family-box">
+                    <div className="pages-add-new-family-type">证件号码</div>
                     <div className="pages-add-new-family-ipt">
                         <input type="text" ref={(c)=>{this.idNumber = c}} onKeyUp={this.onTextChanged}/>
                     </div>
