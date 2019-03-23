@@ -723,7 +723,7 @@ const userAchieveReducer = (state={
             return{
                 ...state,
                 fetching: false,
-                failed: false,
+                failed: true,
             };
         default:
             return state;
@@ -758,7 +758,7 @@ const checkEditReducer = (state={
             return{
                 ...state,
                 fetching: false,
-                failed: false,
+                failed: true,
             };
         default:
             return state;

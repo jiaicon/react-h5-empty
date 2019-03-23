@@ -21,7 +21,7 @@ import { checkEdit } from "./../my.store";
 import { getQueryString } from "../../../utils/funcs";
 import uploadImage from "../../../utils/uploadImage";
 import "./verify.css";
-import { List, Checkbox, DatePicker, Radio,  } from "antd-mobile";
+import { List, Checkbox, DatePicker, Radio, InputItem } from "antd-mobile";
 
 import "antd-mobile/lib/date-picker/style/css";
 import "antd-mobile/lib/checkbox/style/css";
@@ -267,13 +267,28 @@ class BindInfo extends React.Component {
                 city: this.props.user.city_id,
                 county: this.props.user.county_id,
                 birthday: this.props.user.birthday,
-                isStarbucksPartner: this.props.user.extends&&this.props.user.extends.isStarbucksPartner,
+                extendsArray: this.props.user.extends
             });
+            //展开extends里的字段
+            if(this.props.user.extends) {
+                const keys = Object.keys(this.props.user.extends);
+                keys.length&&keys.map(item=>{
+                    this[item]=this.props.user.extends[item]
+                });
+                this.setState({
+                    ...this.props.user.extends
+                })
+            }
         }
     }
 
     componentWillReceiveProps(nextProps) {
-
+        console.log(this.props,nextProps)
+        const { failed: tFailed, fetching: tFetching} = this.props.checkEditData;
+        const { failed: nFailed, fetching: nFetching} = nextProps.checkEditData;
+        if(!tFailed&&tFetching&&!nFailed&&!nFetching) {
+            location.replace("/my/profile/detail/user");
+        }
     }
 
     componentWillUnmount() {
@@ -309,9 +324,8 @@ class BindInfo extends React.Component {
             province,
             city,
             county,
-            birthday
+            birthday,
         } = this.state;
-        console.log(birthday)
         const { user } = this.props;
         if (
             (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
@@ -330,13 +344,13 @@ class BindInfo extends React.Component {
         if (people) {
             data.nation = people;
         }
-        if (province) {
+        if (province&&province!=-1) {
             data.province_id = province;
         }
-        if (city) {
+        if (city&&city!=-1) {
             data.city_id = city;
         }
-        if (county) {
+        if (county&&county!=-1) {
             data.county_id = county;
         }
         if (address) {
@@ -516,12 +530,11 @@ class BindInfo extends React.Component {
                         {this.state.winOrgInfo.open_addr === 1 ? (
                             <span className="page-my-profile-verify-header-start">*</span>
                         ) : null}
-
                         <div className="page-my-profile-verify-fonts">省份</div>
                         <label htmlFor="province">
                             <select
                                 id="province"
-                                value={this.state.province || user.province_id || -1}
+                                value={this.state.province || user.province_id || ''}
                                 onChange={this.handleProvinceClick}
                                 ref={c => {
                                     this.province = c;
@@ -546,7 +559,7 @@ class BindInfo extends React.Component {
                         <label htmlFor="city">
                             <select
                                 id="city"
-                                value={this.state.city || user.city_id || -1}
+                                value={this.state.city || user.city_id || ''}
                                 onChange={this.handleCityClick}
                                 ref={c => {
                                     this.city = c;
@@ -571,7 +584,7 @@ class BindInfo extends React.Component {
                         <label htmlFor="county">
                             <select
                                 id="county"
-                                value={this.state.county || user.county_id || -1}
+                                value={this.state.county || user.county_id || ''}
                                 onChange={this.handleCountryClick}
                                 ref={c => {
                                     this.county = c;
@@ -612,12 +625,12 @@ class BindInfo extends React.Component {
     handleOtherInfoSelectClick(e) {
         const key = e.target.id;
         const value = e.target.value;
+        this[key]=value;
         this.pushExtendsArray(key, value);
     }
 
     //单选控件
     renderOtherInfoSelect(item) {
-        console.log(this.state.isStarbucksPartner)
         const data = item;
         const key = data.key;
         const options = data.options.split(",");
@@ -628,8 +641,8 @@ class BindInfo extends React.Component {
                         <span className="page-my-profile-verify-header-start">*</span>
                     ) : null}
                     <div className="page-my-profile-verify-fonts">{data.label}</div>
-                    <label htmlFor={`${key}`} value={this.state.isStarbucksPartner}>
-                        <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}>
+                    <label htmlFor={`${key}`}>
+                        <select id={`${key}`} value={this[key] || this.state[key]} onChange={this.handleOtherInfoSelectClick}>
                             <option value="-1" />
                             {options.map((item1, keys) => (
                                 <option value={item1} key={keys}>
@@ -696,6 +709,7 @@ class BindInfo extends React.Component {
                     </div>
                     <input
                         id={`${key}`}
+                        value={this[key] || ''}
                         className="page-my-profile-verify-double-text"
                         onChange={this.handleOtherInfoInputClick}
                     />
@@ -709,6 +723,7 @@ class BindInfo extends React.Component {
     handleOtherInfoInputClick(e) {
         const key = e.target.id;
         const value = e.target.value;
+        this[key] = value;
         this.pushExtendsArray(key, value);
     }
 
@@ -730,6 +745,7 @@ class BindInfo extends React.Component {
                     id={`${key}`}
                     className="page-my-profile-edit-text"
                     maxLength="200"
+                    value={this[key] || this.state[key] || ''}
                     onBlur={this.handleOtherInfoManyInputClick}
                 />
 
@@ -741,6 +757,7 @@ class BindInfo extends React.Component {
     handleOtherInfoManyInputClick(e) {
         const key = e.target.id;
         const value = e.target.value;
+        this[key]=value;
         this.pushExtendsArray(key, value);
     }
 
@@ -1073,7 +1090,6 @@ class BindInfo extends React.Component {
             top: "-55px",
             left: "0"
         };
-        console.log(this.props.user)
         if(!this.props.user) {
             return null;
         }
