@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/my/profile/bindProfile.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/my/profile/bindProfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/bind.css" afterPath="$PROJECT_DIR$/src/pages/my/profile/bind.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/profile.css" afterPath="$PROJECT_DIR$/src/pages/my/profile/profile.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/my.store.js" afterPath="$PROJECT_DIR$/src/pages/my/my.store.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/bindProfile.css" afterPath="$PROJECT_DIR$/src/pages/my/profile/bindProfile.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/bindProfile.js" afterPath="$PROJECT_DIR$/src/pages/my/profile/bindProfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/profile/profile.js" afterPath="$PROJECT_DIR$/src/pages/my/profile/profile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes.json" afterPath="$PROJECT_DIR$/src/routes.json" />
     </list>
@@ -28,12 +27,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="verify.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="profile.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="26" column="21" lean-forward="false" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
-              <folding />
+            <state relative-caret-position="66">
+              <caret line="167" column="20" lean-forward="true" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
+              <folding>
+                <element signature="e#155#194#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -41,10 +52,10 @@
       <file leaf-file-name="bindProfile.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/profile/bindProfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="15" column="33" lean-forward="false" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="33" />
+            <state relative-caret-position="208">
+              <caret line="488" column="35" lean-forward="true" selection-start-line="488" selection-start-column="35" selection-end-line="488" selection-end-column="35" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#155#196#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -53,18 +64,28 @@
       <file leaf-file-name="bindProfile.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/my/profile/bindProfile.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="539">
+              <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bind.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/my/profile/bind.js">
+      <file leaf-file-name="my.store.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="222" column="30" lean-forward="true" selection-start-line="222" selection-start-column="30" selection-end-line="222" selection-end-column="30" />
+            <state relative-caret-position="27">
+              <caret line="733" column="22" lean-forward="false" selection-start-line="733" selection-start-column="13" selection-end-line="733" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="343">
+              <caret line="248" column="45" lean-forward="true" selection-start-line="248" selection-start-column="45" selection-end-line="248" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -73,8 +94,8 @@
       <file leaf-file-name="profile.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="271" column="17" lean-forward="true" selection-start-line="271" selection-start-column="17" selection-end-line="271" selection-end-column="17" />
+            <state relative-caret-position="209">
+              <caret line="273" column="0" lean-forward="true" selection-start-line="273" selection-start-column="0" selection-end-line="275" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -92,23 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>alert</find>
-      <find>page-projects-content-main</find>
-      <find>pages-funding-application-list-container</find>
-      <find>alertFirstStep</find>
-      <find>alertBtn</find>
-      <find>showCommonweal</find>
-      <find>getQueryString</find>
-      <find>枚</find>
-      <find>志愿成就</find>
-      <find>e.</find>
-      <find>openModalAchievementNone</find>
-      <find>getAchieveInfo</find>
-      <find>openModalAchievement</find>
-      <find>achievement-modal-box-btn-left-flex1</find>
-      <find>achievement-modal-box-level-gold</find>
-      <find>modal-this</find>
-      <find>onPreview</find>
       <find>showMultiple</find>
       <find>Gallery</find>
       <find>iserror</find>
@@ -121,7 +125,24 @@
       <find>antd-mobile/lib/ra</find>
       <find>page-profile-bind-info-container-submmit</find>
       <find>page-profile-bind-container</find>
+      <find>需要帮助</find>
+      <find>onAvatarChange</find>
+      <find>renderAvatars</find>
+      <find>renderNation</find>
+      <find>onTextChanged</find>
+      <find>renderPassword</find>
+      <find>renderOtherInfo</find>
+      <find>applyAlert</find>
+      <find>renderName</find>
       <find>身份证号</find>
+      <find>num_type</find>
+      <find>renderIdCard</find>
+      <find>loginAction</find>
+      <find>login</find>
+      <find>checkUser</find>
+      <find>userDefinedInfo</find>
+      <find>onSubmit</find>
+      <find>是否</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -135,7 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/uploadAvatar/uploadAvatar.css" />
         <option value="$PROJECT_DIR$/src/pages/my/profile/verify.css" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
@@ -180,12 +200,13 @@
         <option value="$PROJECT_DIR$/src/pages/my/my.js" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
-        <option value="$PROJECT_DIR$/src/routes.json" />
         <option value="$PROJECT_DIR$/src/pages/my/profile/profile.css" />
-        <option value="$PROJECT_DIR$/src/pages/my/profile/profile.js" />
-        <option value="$PROJECT_DIR$/src/pages/my/profile/bindProfile.js" />
         <option value="$PROJECT_DIR$/src/pages/my/profile/bind.css" />
+        <option value="$PROJECT_DIR$/src/routes.json" />
+        <option value="$PROJECT_DIR$/src/pages/my/profile/profile.js" />
         <option value="$PROJECT_DIR$/src/pages/my/profile/bindProfile.css" />
+        <option value="$PROJECT_DIR$/src/pages/my/my.store.js" />
+        <option value="$PROJECT_DIR$/src/pages/my/profile/bindProfile.js" />
       </list>
     </option>
   </component>
@@ -404,7 +425,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="388426000" />
+    <option name="totallyTimeSpent" value="393164000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -464,13 +485,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/signItem/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/sign/signdetail/detail.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3564">
@@ -509,13 +523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="141" column="29" lean-forward="true" selection-start-line="141" selection-start-column="29" selection-end-line="141" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="698" column="24" lean-forward="false" selection-start-line="698" selection-start-column="13" selection-end-line="698" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -561,19 +568,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/projects/projects.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="147" column="12" lean-forward="false" selection-start-line="147" selection-start-column="12" selection-end-line="147" selection-end-column="12" />
-          <folding>
-            <marker date="1553311132843" expanded="true" signature="518:6308" ph="{...}" />
-            <marker date="1553311132843" expanded="true" signature="829:6306" ph="{...}" />
-            <marker date="1553311132843" expanded="true" signature="1090:6295" ph="&lt;ul/&gt;" />
-            <marker date="1553311132843" expanded="true" signature="1172:6272" ph="{...}" />
-            <marker date="1553311132843" expanded="true" signature="6191:6216" ph="&lt;div/&gt;" />
-            <marker date="1553311132843" expanded="true" signature="6191:6239" ph="&lt;div/&gt;" />
-            <marker date="1553311132843" expanded="true" signature="6191:6259" ph="&lt;li/&gt;" />
-            <marker date="1553311132843" expanded="true" signature="6331:6419" ph="{&quot;showLabel&quot;: PropTypes.bool...}" />
-            <marker date="1553311132843" expanded="true" signature="6379:6385" ph="{...}" />
-          </folding>
+        <state relative-caret-position="369">
+          <caret line="123" column="43" lean-forward="true" selection-start-line="123" selection-start-column="43" selection-end-line="123" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -595,13 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -740,7 +730,7 @@
         <state relative-caret-position="205">
           <caret line="810" column="25" lean-forward="false" selection-start-line="810" selection-start-column="25" selection-end-line="810" selection-end-column="25" />
           <folding>
-            <element signature="e#155#196#0" expanded="true" />
+            <element signature="e#155#196#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -758,16 +748,8 @@
         <state relative-caret-position="296">
           <caret line="180" column="65" lean-forward="false" selection-start-line="180" selection-start-column="65" selection-end-line="180" selection-end-column="65" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/project/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="162" column="14" lean-forward="false" selection-start-line="162" selection-start-column="14" selection-end-line="162" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -775,22 +757,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="57" column="1" lean-forward="false" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="248" column="41" lean-forward="false" selection-start-line="248" selection-start-column="41" selection-end-line="248" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="271" column="17" lean-forward="true" selection-start-line="271" selection-start-column="17" selection-end-line="271" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -803,26 +769,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="26" column="21" lean-forward="false" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fundingApplication/fundingApplicationStep/fundingApplicationFifthStep.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/bindProfile.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -835,12 +785,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/project/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="162" column="18" lean-forward="false" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="248" column="45" lean-forward="true" selection-start-line="248" selection-start-column="45" selection-end-line="248" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/verify.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="167" column="20" lean-forward="true" selection-start-line="167" selection-start-column="20" selection-end-line="167" selection-end-column="20" />
+          <folding>
+            <element signature="e#155#194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/profile.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="273" column="0" lean-forward="true" selection-start-line="273" selection-start-column="0" selection-end-line="275" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/profile/bindProfile.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/my.store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="733" column="22" lean-forward="false" selection-start-line="733" selection-start-column="13" selection-end-line="733" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/profile/bindProfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="33" lean-forward="false" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="33" />
+        <state relative-caret-position="208">
+          <caret line="488" column="35" lean-forward="true" selection-start-line="488" selection-start-column="35" selection-end-line="488" selection-end-column="35" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#155#196#0" expanded="true" />
           </folding>
         </state>
       </provider>

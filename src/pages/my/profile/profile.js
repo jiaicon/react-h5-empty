@@ -176,45 +176,16 @@ class Profile extends React.Component {
                         null
                 }
                 {
-                    user.num_type&&user.num_type==1 ?
                         <div>
-                            <div className="page-profile-header-box default">
-                                <DatePicker
-                                    mode="date"
-                                    title="选择出生日期"
-                                    minDate={new Date('1870-01-01')}
-                                    maxDate={new Date()}
-                                    value={new Date(user.birthday)}
-                                    extra="请选择出生日期"
-                                    onChange={date => this.setState({ date })}
-                                >
-                                    <List.Item arrow="horizontal">出生日期</List.Item>
-                                </DatePicker>
+                            <div className="page-profile-header-box">
+                                <div className="page-profile-fonts">出生日期</div>
+                                <div className="page-profile-edit-right-box" style={{justifyContent: 'flex-end'}}>{user.birthday}</div>
                             </div>
                             <div className="line1px"/>
-                        </div> :
-                        null
+                        </div>
                 }
                 {
-                    (!user.num_type||!user.num_type==1)&&user.sex ?
-                        <div>
-                            <Link to="/my/profile/bind_profile/sex">
-                                <div className="page-profile-header-box">
-                                    <div className="page-profile-fonts">性别</div>
-                                    <div className="page-profile-edit-box">
-                                        <div className="page-profile-initial-fonts">
-                                            {user.sex ? sexName(user.sex) : ''}
-                                        </div>
-                                        <div className="page-profile-edit-icon"/>
-                                    </div>
-                                </div>
-                            </Link>
-                            <div className="line1px"/>
-                        </div> :
-                        null
-                }
-                {
-                    user.num_type&&user.num_type==1&&user.sex ?
+                    user.sex ?
                         <div>
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">性别</div>
@@ -225,15 +196,15 @@ class Profile extends React.Component {
                         null
                 }
                 {
+                    user.nation ?
                     <div>
-                        <Link to={`/my/profile/bind_profile/nation/?nation=${user.nation&&user.nation.length ? user.nation : encodeURI('汉族')}`}>
-                            <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">民族</div>
-                                <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
-                            </div>
-                        </Link>
+                        <div className="page-profile-header-box">
+                            <div className="page-profile-fonts">民族</div>
+                            <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
+                        </div>
                         <div className="line1px"/>
                     </div>
+                        : null
                 }
                 {
                     user.province_name ?
@@ -254,8 +225,11 @@ class Profile extends React.Component {
                 }
                 {this.renderRealInfoExtends()}
 
+                <Link to="/my/profile/bind_profile/alert">
+                    <div className="page-profile-apply-alert">修改资料</div>
+                </Link>
                 <Link to="/my/profile/applyAlert">
-                    <div className="page-profile-apply-alert" onClick={this.applyAlert}>需要帮助</div>
+                    <div style={{textAlign: 'center',marginTop: '10px',textDecoration: 'underline'}}><a href="javascript:;">需要帮助？</a></div>
                 </Link>
             </div>
         );

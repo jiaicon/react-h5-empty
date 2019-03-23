@@ -1,43 +1,39 @@
-.page-profile-bind-container{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 30px 37px 0;
-    overflow-y: scroll;
+.padding-left-15 {
+    padding-left: 15px;
 }
-.pages-add-new-family-box {
-    display: flex;
-    align-items: center;
+.default-picker .am-list-item .am-list-line .am-list-arrow {
+    background-image: url("/images/my/more.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+.default-picker .am-list-item .am-list-line {
+    padding: 0;
+}
+.default-picker>div {
+    width: 100%;
+}
+.default-picker .am-list-item {
+    padding: 0;
+}
+.default-picker .am-list-item .am-list-line .am-list-content {
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    color: #666;
+    width: 100px;
+    text-align: justify;
+    text-align-last: justify;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: none;
+}
+.default-picker .am-list-item .am-list-line .am-list-extra {
     font-size: 15px;
     color: #666666;
-    height: 50px;
-}
-.pages-add-new-family-type {
-    width: 66px;
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+    flex: 1;
     text-align: left;
-}
-.pages-add-new-family-ipt {
-    flex: 1;
-    display: flex;
-}
-.pages-add-new-family-ipt label {
-    flex: 1;
-}
-.pages-add-new-family-ipt label select{
-    width: 100%;
-}
-.page-profile-bind-info-container-submmit{
-    width: 300px;
-    height: 50px;
-    background: #C7EAFD;
-    border-radius: 100px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 16px;
-    color: #666666;
-    margin-top: 41px;
+    padding-left: 15px;
 }

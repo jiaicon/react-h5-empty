@@ -246,7 +246,7 @@
     "chunk": "main"
   },
   {
-    "path": "/my/profile/bind_profile/:type",
+    "path": "/my/profile/bind_profile/alert",
     "page": "./pages/my/profile/bindProfile",
     "chunk": "main"
   },
