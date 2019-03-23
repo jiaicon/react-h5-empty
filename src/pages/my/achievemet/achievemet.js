@@ -139,60 +139,144 @@ class Achievement extends React.Component {
                             "achievement-modal-box-level-iron": data.level === 1,
                             "achievement-modal-box-level-default": !data.level,
                         })}></div>
-                        {
+                        {//1
                             data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ? <div className="achievement-modal-box-level-box">
                                 <div className="achievement-modal-box-level-box-width">
-                                    <p>达到{data.achieve_info[0].settings.achieve1}小时</p>
-                                    <p>服务时长</p>
+                                    <p>累计服务时长{data.achieve_info[0].settings.achieve1}小时</p>
                                 </div>
                                 <div className="achievement-modal-box-level-box-width">
-                                    <p>达到{data.achieve_info[0].settings.achieve2}小时</p>
-                                    <p>服务时长</p>
+                                    <p>累计服务时长{data.achieve_info[0].settings.achieve2}小时</p>
                                 </div>
                                 <div className="achievement-modal-box-level-box-width">
-                                    <p>达到{data.achieve_info[0].settings.achieve3}小时</p>
-                                    <p>服务时长</p>
+                                    <p>累计服务时长{data.achieve_info[0].settings.achieve3}小时</p>
                                 </div>
                             </div>
                                 :
                                 null
                         }
-                        {
-                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ? <div className="achievement-modal-box-level-box">
+                        {//2
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='check_in' ? <div className="achievement-modal-box-level-box">
                                     <div className="achievement-modal-box-level-box-width">
-                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve1}次`}</p>
+                                        <p>{`签到打卡${data.achieve_info[0].settings.achieve1}次`}</p>
                                     </div>
                                     <div className="achievement-modal-box-level-box-width">
-                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve2}次`}</p>
+                                        <p>{`签到打卡${data.achieve_info[0].settings.achieve2}次`}</p>
                                     </div>
                                     <div className="achievement-modal-box-level-box-width">
-                                        <p>{`${data.achieve_info[0].name}达到${data.achieve_info[0].settings.achieve3}次`}</p>
+                                        <p>{`签到打卡${data.achieve_info[0].settings.achieve3}次`}</p>
                                     </div>
                                 </div>
                                 :
                                 null
                         }
-
+                        {//3
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='pro_join' ? <div className="achievement-modal-box-level-box">
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`参加项目${data.achieve_info[0].settings.achieve1}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`参加项目${data.achieve_info[0].settings.achieve2}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`参加项目${data.achieve_info[0].settings.achieve3}次`}</p>
+                                    </div>
+                                </div>
+                                :
+                                null
+                        }
+                        {//4
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ? <div className="achievement-modal-box-level-box">
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`参加${data.achieve_info[0].name}项目签到打卡${data.achieve_info[0].settings.achieve1}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`参加${data.achieve_info[0].name}项目签到打卡${data.achieve_info[0].settings.achieve2}次`}</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>{`参加${data.achieve_info[0].name}项目签到打卡${data.achieve_info[0].settings.achieve3}次`}</p>
+                                    </div>
+                                </div>
+                                :
+                                (data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_")!=-1 ?
+                                    <div className="achievement-modal-box-level-box">
+                                        <div className="achievement-modal-box-level-box-width">
+                                            <p>{`参加${data.achieve_info[0].name}项目${data.achieve_info[0].settings.achieve1}次`}</p>
+                                        </div>
+                                        <div className="achievement-modal-box-level-box-width">
+                                            <p>{`参加${data.achieve_info[0].name}项目${data.achieve_info[0].settings.achieve2}次`}</p>
+                                        </div>
+                                        <div className="achievement-modal-box-level-box-width">
+                                            <p>{`参加${data.achieve_info[0].name}项目${data.achieve_info[0].settings.achieve3}次`}</p>
+                                        </div>
+                                    </div>
+                                    : null)
+                        }
+                        {//5
+                            data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("reward_")!=-1 ? <div className="achievement-modal-box-level-box">
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>参加{data.achieve_info[0].name}项目累计服务时长{data.achieve_info[0].settings.achieve1}小时</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>参加{data.achieve_info[0].name}项目累计服务时长{data.achieve_info[0].settings.achieve2}小时</p>
+                                    </div>
+                                    <div className="achievement-modal-box-level-box-width">
+                                        <p>参加{data.achieve_info[0].name}项目累计服务时长{data.achieve_info[0].settings.achieve3}小时</p>
+                                    </div>
+                                </div>
+                                :
+                                null
+                        }
                     </div>
                     :
                     null
             }
-            {//获取到的
+            {//获取到的 1
                 data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ?
-                    <div className="achievement-modal-box-tips">达到{data.name}{data.tips}小时，快去晒成就吧！</div> : null
+                    <div className="achievement-modal-box-tips">服务时长已累计超过{data.tips}小时，快去晒成就吧！</div> : null
             }
-            {//获取到的
-                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ?
-                    <div className="achievement-modal-box-tips">{data.name}达到{data.tips}次，快去晒成就吧！</div> : null
+            {//获取到的 2
+                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='check_in' ?
+                    <div className="achievement-modal-box-tips">签到打卡次数已累计超过{data.tips}次，快去晒成就吧！</div> : null
             }
-            {//未获取的
+            {//获取到的 3
+                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='pro_join' ?
+                    <div className="achievement-modal-box-tips">参加项目次数已累计超过{data.tips}次，快去晒成就吧！</div> : null
+            }
+            {//获取到的 4
+                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.tips}次，快去晒成就吧！</div> : (data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目次数已累计超过{data.tips}次，快去晒成就吧！</div>
+                : null)
+            }
+            {//获取到的 5
+                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("reward_")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目服务时长已累计超过{data.tips}小时，快去晒成就吧！</div> : null
+            }
+
+
+            {//未获取的 1
                 !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ?
-                    <div className="achievement-modal-box-tips">达到{data.achieve_info[0].name}{data.count}小时。</div> : null
+                    <div className="achievement-modal-box-tips">服务时长已累计超过{data.count}小时。</div> : null
             }
-            {//未获取的
-                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ?
-                    <div className="achievement-modal-box-tips">{data.achieve_info[0].name}达到{data.achieve_info[0].count}次。</div> : null
+            {//未获取的 2
+                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='check_in' ?
+                    <div className="achievement-modal-box-tips">签到打卡次数已累计超过{data.achieve_info[0].count}次。</div> : null
             }
+            {//未获取的 3
+                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='pro_join' ?
+                    <div className="achievement-modal-box-tips">参加项目次数已累计超过{data.achieve_info[0].count}次。</div> : null
+            }
+            {//未获取的 4
+                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.tips}次。</div> : (!data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目次数已累计超过{data.tips}次，快去晒成就吧！</div>
+                    : null)
+            }
+            {//未获取的 5
+                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("reward_")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目服务时长已累计超过{data.tips}小时。</div> : null
+            }
+
             <div className="achievement-modal-box-btn">
                 <div className={classnames({
                     'achievement-modal-box-btn-default': true,
