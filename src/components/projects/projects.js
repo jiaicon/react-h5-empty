@@ -77,7 +77,7 @@ class Projects extends React.Component {
                     name=project.county_name;
                 }
             }
-            // let statusClassnames = 
+            // let statusClassnames =
             return <li key={project.id}>
                 <div>
                   <Link to={`/team/detail/${project.team.id}`} className="project-header">
@@ -116,16 +116,23 @@ class Projects extends React.Component {
                         })} /> : <div className={classnames({
                           "project-status": true,
                           "project-status-recruit":
+                          //招募中
                             project.project_status === 2,
                             // project.progress === 1,
                           "project-status-full":
-                            project.project_status === 3,
+                          //已爆满
+                            project.project_status === 4,
                             // project.progress === 3,
                           "project-status-progress":
-                            project.project_status === 4,
+                          //进行中
+                            project.project_status === 3,
                             // project.progress === 2,
                           "project-status-end":
-                            project.project_status === 5
+                          //已结束
+                            project.project_status === 5,
+                        "project-status-end-time":
+                        //报名截止
+                        project.project_status === 6
                             // project.progress === 4,
                         })} />}
                           {/*{showLabel ? <div className={classnames({*/}

@@ -74,6 +74,9 @@
 .component-projects .project-main .project-status-progress {
   background-image: url(/images/activities_status_progress.png);
 }
+.component-projects .project-main .project-status-end-time {
+  background-image: url(/images/activities_status_end_time.png);
+}
 
 .component-projects .project-main .project-status-end {
   background-image: url(/images/activities_status_end.png);
