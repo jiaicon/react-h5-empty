@@ -244,7 +244,7 @@ class NewFamily extends React.Component {
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">证件类型</div>
                     <div className="pages-add-new-family-ipt">
-                        <label htmlFor="people">
+                        <label htmlFor="cardtype">
                         <select 
                             id="cardtype"
                             onChange={this.handleCardClick}
