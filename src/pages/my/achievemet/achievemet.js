@@ -128,8 +128,9 @@ class Achievement extends React.Component {
                     <p>{data.achieve_info && data.achieve_info.length && data.achieve_info[0].name}</p>
                 </div>
             </div>
-            {
-                data.achieve_info && data.achieve_info.length && data.achieve_info[0].settings ?
+
+            {//当settings（对象）不存在第二个数据时，表示没有开启等级,此时不显示星星图
+                data.achieve_info && data.achieve_info.length && data.achieve_info[0].settings && data.achieve_info[0].settings.achieve2 ?
                     <div>
                         <div className={classnames({
                             "achievement-modal-box-level": true,
@@ -176,15 +177,22 @@ class Achievement extends React.Component {
                     :
                     null
             }
-            {
-                data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ?
-                    <div className="achievement-modal-box-tips">{data.tips}，快去晒成就吧！</div> : null
+            {//获取到的
+                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ?
+                    <div className="achievement-modal-box-tips">达到{data.name}{data.tips}小时，快去晒成就吧！</div> : null
             }
-            {
-                data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ?
-                    <div className="achievement-modal-box-tips">{data.tips}，快去晒成就吧！</div> : null
+            {//获取到的
+                data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ?
+                    <div className="achievement-modal-box-tips">{data.name}达到{data.tips}次，快去晒成就吧！</div> : null
             }
-
+            {//未获取的
+                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type=='reward' ?
+                    <div className="achievement-modal-box-tips">达到{data.achieve_info[0].name}{data.count}小时。</div> : null
+            }
+            {//未获取的
+                !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type!='reward' ?
+                    <div className="achievement-modal-box-tips">{data.achieve_info[0].name}达到{data.achieve_info[0].count}次。</div> : null
+            }
             <div className="achievement-modal-box-btn">
                 <div className={classnames({
                     'achievement-modal-box-btn-default': true,
