@@ -21,7 +21,7 @@ import { checkEdit } from "./../my.store";
 import { getQueryString } from "../../../utils/funcs";
 import uploadImage from "../../../utils/uploadImage";
 import "./verify.css";
-import { List, Checkbox, DatePicker, Radio } from "antd-mobile";
+import { List, Checkbox, DatePicker, Radio,  } from "antd-mobile";
 
 import "antd-mobile/lib/date-picker/style/css";
 import "antd-mobile/lib/checkbox/style/css";
@@ -240,6 +240,12 @@ class BindInfo extends React.Component {
 
     componentWillMount() {
         this.props.addressDataAction(0);
+        if(this.props.user&&this.props.user.province_id) {
+            this.props.addressDataAction(this.props.user.province_id);
+        }
+        if(this.props.user&&this.props.user.city_id) {
+            this.props.addressDataAction(this.props.user.city_id);
+        }
         const params = this.props.route.params;
 
         if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
@@ -495,7 +501,7 @@ class BindInfo extends React.Component {
                         <label htmlFor="province">
                             <select
                                 id="province"
-                                defaultValue={user.province_name}
+                                value={this.state.province || user.province_id || -1}
                                 onChange={this.handleProvinceClick}
                                 ref={c => {
                                     this.province = c;
@@ -520,7 +526,7 @@ class BindInfo extends React.Component {
                         <label htmlFor="city">
                             <select
                                 id="city"
-                                defaultValue={user.city_name || null}
+                                value={this.state.city || user.city_id || -1}
                                 onChange={this.handleCityClick}
                                 ref={c => {
                                     this.city = c;
@@ -545,7 +551,7 @@ class BindInfo extends React.Component {
                         <label htmlFor="county">
                             <select
                                 id="county"
-                                defaultValue={user.county_name || null}
+                                value={this.state.county || user.county_id || -1}
                                 onChange={this.handleCountryClick}
                                 ref={c => {
                                     this.county = c;
