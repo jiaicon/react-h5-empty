@@ -206,7 +206,7 @@
 .poster-modal-new-close-btn {
     width: 20px;
     height: 20px;
-    background-image: url("/images/preview/close_modal.png");
+    background-image: url("/images/my/delete.png");
     background-size: contain;
     position: absolute;
     top: 10px;
