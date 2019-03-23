@@ -161,13 +161,15 @@ class Projects extends React.Component {
                     <div className="project-location">
                       {name.length&&name || "全国"} {project.distance == -1 ? '' : (project.distance > 0 ? parseDistance(project.distance) : '0km')}
                     </div>
-                    <div className="project-members">
+                      {
+                          project.people_count_public == 1 ? <div className="project-members">
                       <span>
                       {Number(project.id) == 2009 ? 588 : project.join_people_count}
                       </span>
-                      &nbsp;/&nbsp;
-                      <span>{project.people_count}</span>
-                    </div>
+                              &nbsp;/&nbsp;
+                              <span>{project.people_count}</span>
+                          </div> : null
+                      }
                   </div>
                 </div>
               </li>;
