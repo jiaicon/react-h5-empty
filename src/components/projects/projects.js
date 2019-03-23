@@ -159,7 +159,7 @@ class Projects extends React.Component {
                   </Link>
                   <div className="project-footer">
                     <div className="project-location">
-                      {name.length&&name || "全国"} {project.distance > 0 ? parseDistance(project.distance) : '0km'}
+                      {name.length&&name || "全国"} {project.distance == -1 ? '' : (project.distance > 0 ? parseDistance(project.distance) : '0km')}
                     </div>
                     <div className="project-members">
                       <span>
