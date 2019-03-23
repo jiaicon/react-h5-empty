@@ -577,11 +577,14 @@ class ProjectDetailPage extends React.Component {
         if (detailData.activity_status === 3 || detailData.project_status === 5) {
             actionLabel = "已结束";
             actionClassName = "project-action-end";
-        } else if (!joined && fulled) {
+        } else if (!joined && detailData.project_status === 4) {
             actionLabel = "已满员";
             actionClassName = "project-action-full";
-        } else if (!joined && detailData.activity_status === 2) {
+        } else if (!joined && detailData.project_status === 3) {
             actionLabel = "进行中";
+            actionClassName = "project-action-full";
+        } else if (!joined && detailData.project_status === 6) {
+            actionLabel = "招募截止";
             actionClassName = "project-action-full";
         } else if (!joined) {
             actionLabel = "我要报名";
