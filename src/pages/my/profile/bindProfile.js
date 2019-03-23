@@ -259,6 +259,17 @@ class BindInfo extends React.Component {
             window.fastclick.destroy();
             window.fastclick = null;
         }
+        if(this.props.user) {
+            this.setState({
+                people: this.props.user.nation,
+                address: this.props.user.addr,
+                province: this.props.user.province_id,
+                city: this.props.user.city_id,
+                county: this.props.user.county_id,
+                birthday: this.props.user.birthday,
+                isStarbucksPartner: this.props.user.extends&&this.props.user.extends.isStarbucksPartner,
+            });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -298,7 +309,9 @@ class BindInfo extends React.Component {
             province,
             city,
             county,
+            birthday
         } = this.state;
+        console.log(birthday)
         const { user } = this.props;
         if (
             (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
@@ -310,6 +323,9 @@ class BindInfo extends React.Component {
         }
         let data = {};
         //出生日期、性别   需要判断身份证位数   18位的不可修改
+        if(user.num_type&&user.num_type!=1) {
+            data.birthday=birthday;
+        }
         //下面是统一的信息
         if (people) {
             data.nation = people;
@@ -344,7 +360,9 @@ class BindInfo extends React.Component {
     handleProvinceClick() {
         this.setState({
             ...this.state,
-            province: this.province.value
+            province: this.province.value,
+            city: -1,
+            county: -1
         });
         this.props.addressDataAction(this.province.value);
     }
@@ -352,7 +370,8 @@ class BindInfo extends React.Component {
     handleCityClick() {
         this.setState({
             ...this.state,
-            city: this.city.value
+            city: this.city.value,
+            county: -1
         });
         this.props.addressDataAction(this.city.value);
     }
@@ -421,30 +440,32 @@ class BindInfo extends React.Component {
     renderBirthday() {
         const { user } = this.props;
         if(user.num_type&&user.num_type==1) {
-            return <div>
-                <div className="page-my-profile-verify-header-box default-picker">
-                    <DatePicker
-                        mode="date"
-                        title="选择出生日期"
-                        minDate={new Date('1870-01-01')}
-                        maxDate={new Date()}
-                        value={new Date(user.birthday)}
-                        extra="请选择出生日期"
-                        onChange={date => this.setState({ date })}
-                    >
-                        <List.Item arrow="horizontal">出生日期</List.Item>
-                    </DatePicker>
-                </div>
-                <div className="line1px"/>
-            </div>
-        }else {
-            return (
+            return(
                 <div>
                     <div className="page-my-profile-verify-header-box">
                         <div className="page-my-profile-verify-fonts">出生日期</div>
                         <div className="padding-left-15">{user.birthday}</div>
                     </div>
                     <div className="line1px" />
+                </div>
+            )
+        }else {
+            return (
+                <div>
+                    <div className="page-my-profile-verify-header-box default-picker">
+                        <DatePicker
+                            mode="date"
+                            title="选择出生日期"
+                            minDate={new Date('1870-01-01')}
+                            maxDate={new Date()}
+                            value={new Date(this.state.birthday || user.birthday)}
+                            extra="请选择出生日期"
+                            onChange={date => this.setState({ birthday: date })}
+                        >
+                            <List.Item arrow="horizontal">出生日期</List.Item>
+                        </DatePicker>
+                    </div>
+                    <div className="line1px"/>
                 </div>
             );
         }
@@ -488,7 +509,6 @@ class BindInfo extends React.Component {
         const province = this.props.address.data.province;
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
-        console.log(user.province_name)
         return (
             <div>
                 <div>
@@ -597,6 +617,7 @@ class BindInfo extends React.Component {
 
     //单选控件
     renderOtherInfoSelect(item) {
+        console.log(this.state.isStarbucksPartner)
         const data = item;
         const key = data.key;
         const options = data.options.split(",");
@@ -607,7 +628,7 @@ class BindInfo extends React.Component {
                         <span className="page-my-profile-verify-header-start">*</span>
                     ) : null}
                     <div className="page-my-profile-verify-fonts">{data.label}</div>
-                    <label htmlFor={`${key}`}>
+                    <label htmlFor={`${key}`} value={this.state.isStarbucksPartner}>
                         <select id={`${key}`} onChange={this.handleOtherInfoSelectClick}>
                             <option value="-1" />
                             {options.map((item1, keys) => (
