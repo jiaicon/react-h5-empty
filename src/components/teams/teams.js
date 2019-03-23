@@ -61,7 +61,7 @@ class Teams extends React.Component {
                 </div>
 
                 <div className="team-info">
-                  <span>时长：{team.reward_time} 小时</span>
+                  <span>时长：{team.reward_sum} 小时</span>
                   <span>成员：{team.team_size} 人</span>
                 </div>
               </div>
