@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
@@ -27,8 +27,8 @@
       <file leaf-file-name="achievemet.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="236" column="21" lean-forward="true" selection-start-line="236" selection-start-column="21" selection-end-line="236" selection-end-column="21" />
+            <state relative-caret-position="114">
+              <caret line="468" column="145" lean-forward="false" selection-start-line="468" selection-start-column="145" selection-end-line="468" selection-end-column="145" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -126,6 +126,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="achievemet.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="56" column="22" lean-forward="false" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="detail.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/project/detail/detail.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -148,8 +158,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>达到</find>
-      <find>poster-modal-new-wrap-container</find>
       <find>poster-modal-new-close-btn</find>
       <find>ModalNew</find>
       <find>x-original-location</find>
@@ -178,6 +186,8 @@
       <find>poster-fonts</find>
       <find>poster-main</find>
       <find>9999</find>
+      <find>.achievement-array-item&gt;p</find>
+      <find>超过了</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -235,11 +245,11 @@
         <option value="$PROJECT_DIR$/src/components/teams/teams.js" />
         <option value="$PROJECT_DIR$/src/pages/team/detail/detail.js" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievement.store.js" />
-        <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
         <option value="$PROJECT_DIR$/src/components/projects/projects.css" />
         <option value="$PROJECT_DIR$/src/components/projects/projects.js" />
         <option value="$PROJECT_DIR$/src/pages/project/detail/detail.js" />
         <option value="$PROJECT_DIR$/src/components/posterModal/ModalNew.css" />
+        <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
       </list>
     </option>
@@ -306,20 +316,22 @@
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
-              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="posterModal" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
               <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="volunteer-h5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="volunteer-h5" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="my" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="achievemet" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -459,7 +471,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="416743000" />
+    <option name="totallyTimeSpent" value="417899000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3" y="23" width="1440" height="877" extended-state="0" />
@@ -808,13 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="116" column="52" lean-forward="false" selection-start-line="116" selection-start-column="52" selection-end-line="116" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/project/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -935,10 +940,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="56" column="22" lean-forward="false" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="236" column="21" lean-forward="true" selection-start-line="236" selection-start-column="21" selection-end-line="236" selection-end-column="21" />
+        <state relative-caret-position="114">
+          <caret line="468" column="145" lean-forward="false" selection-start-line="468" selection-start-column="145" selection-end-line="468" selection-end-column="145" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

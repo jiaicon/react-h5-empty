@@ -197,7 +197,7 @@ class Achievement extends React.Component {
                                     </div>
                                 </div>
                                 :
-                                (data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_")!=-1 ?
+                                (data.achieve_info[0].cond_type&&(data.achieve_info[0].cond_type.indexOf("pro_")!=-1&&data.achieve_info[0].cond_type.indexOf("join")==-1) ?
                                     <div className="achievement-modal-box-level-box">
                                         <div className="achievement-modal-box-level-box-width">
                                             <p>{`参加${data.achieve_info[0].name}项目${data.achieve_info[0].settings.achieve1}次`}</p>
@@ -244,7 +244,7 @@ class Achievement extends React.Component {
             }
             {//获取到的 4
                 data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ?
-                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.tips}次，快去晒成就吧！</div> : (data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.tips}次，快去晒成就吧！</div> : (data.level&&data.achieve_info[0].cond_type&&(data.achieve_info[0].cond_type.indexOf("pro_")!=-1&&data.achieve_info[0].cond_type.indexOf("join")==-1) ?
                     <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目次数已累计超过{data.tips}次，快去晒成就吧！</div>
                 : null)
             }
@@ -268,7 +268,7 @@ class Achievement extends React.Component {
             }
             {//未获取的 4
                 !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ?
-                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.achieve_info[0].count}次。</div> : (!data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_")!=-1 ?
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.achieve_info[0].count}次。</div> : (!data.level&&data.achieve_info[0].cond_type&&(data.achieve_info[0].cond_type.indexOf("pro_")!=-1&&data.achieve_info[0].cond_type.indexOf("join")==-1) ?
                     <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目次数已累计超过{data.achieve_info[0].count}次，快去晒成就吧！</div>
                     : null)
             }
@@ -372,6 +372,7 @@ class Achievement extends React.Component {
             all = achievementHasList.data.list.length + achievementList.data.list.length;
         }
         const thisAchieveInfo = this.state.thisAchieveInfo;
+        console.log(thisAchieveInfo)
         return (<div className="achievement">
             <div className="achievement-box">
                 <div className="achievement-box-title">
@@ -461,8 +462,18 @@ class Achievement extends React.Component {
                         <img className="achieve-share-avatar-image" src={this.state.avatar&&this.state.avatar[0]} alt=""/>
                     </div>
                     <p className="modal-this-name">{user&&(user.real_name||user.username)}</p>
-                    <p className="modal-this-time">志愿时长超过<span style={{color: 'rgb(183, 18, 33)'}}>{user&&user.reward_time&&Number(user.reward_time).toFixed(0)}</span>小时</p>
-                    <p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>97%</span>的志愿者</p>
+                    {/*<p className="modal-this-time">志愿时长超过<span style={{color: 'rgb(183, 18, 33)'}}>{user&&user.reward_time&&Number(user.reward_time).toFixed(0)}</span>小时</p>*/}
+                    {/*<p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>97%</span>的志愿者</p>*/}
+
+                    {
+                        thisAchieveInfo&&thisAchieveInfo.achieve_info&&thisAchieveInfo.achieve_info[0]&&thisAchieveInfo.achieve_info[0].cond_type ?
+                            <div>
+                                <p className="modal-this-time">志愿时长超过<span style={{color: 'rgb(183, 18, 33)'}}>{user&&user.reward_time&&Number(user.reward_time).toFixed(0)}</span>小时</p>
+                                <p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.scale}</span>的志愿者</p>
+                            </div>
+                            :
+                            null
+                    }
                     <div className="modal-this-line">
                         <div className="modal-this-two-line"></div>
                         <div style={{flex: 1}}>解锁成就</div>

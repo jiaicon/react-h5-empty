@@ -53,6 +53,8 @@
     font-family: PingFangSC-Regular;
     font-size: 13px;
     color: #4A4A4A;
+    max-width: 74px;
+    text-align: center;
 }
 .modal-new-wrap-container-padding {
     border-radius: 0;
@@ -131,6 +133,7 @@
     color: #4A4A4A;
     text-align: center;
     margin-bottom: 28px;
+    padding: 0 10px;
 }
 .achievement-modal-box-btn {
     font-family: PingFangSC-Regular;
