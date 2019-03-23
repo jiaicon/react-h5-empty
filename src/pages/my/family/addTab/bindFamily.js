@@ -96,7 +96,7 @@ class BindFamily extends React.Component {
               <div className="pages-add-bind-family-name">账号</div>
               <div className="pages-add-bind-family-ipt">
                   <input
-                      type="text" placeholder="手机号或身份证号" ref={(c) => { this.useraccount = c; }}
+                      type="text" placeholder="手机号或证件号码" ref={(c) => { this.useraccount = c; }}
                       onKeyUp={this.onTextChanged}
                     />
                 </div>
