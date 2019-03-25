@@ -37,3 +37,6 @@
     text-align: left;
     padding-left: 15px;
 }
+.page-my-profile-verify-header-box>div:last-child {
+    flex: 1;
+}

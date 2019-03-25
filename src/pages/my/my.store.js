@@ -733,7 +733,7 @@ const userAchieveReducer = (state={
 //新的修改实名信息的   需要一块提交，不提交的为null
 export const checkEdit = (data)=>({
     type: 'CHECK_EDIT',
-    payload: fetch('/check/edit', {method: 'POST', data})
+    payload: fetch('/check/edit', {data})
 });
 const checkEditReducer = (state={
     fetching: false,

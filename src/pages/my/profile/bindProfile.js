@@ -33,6 +33,7 @@ import "react-weui/build/packages/react-weui.css";
 import "./bindProfile.css";
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
+import monemt from "moment";
 const people = [
     { id: "01", name: "汉族" },
     { id: "02", name: "蒙古族" },
@@ -338,7 +339,7 @@ class BindInfo extends React.Component {
         let data = {};
         //出生日期、性别   需要判断身份证位数   18位的不可修改
         if(user.num_type&&user.num_type!=1) {
-            data.birthday=birthday;
+            data.birthday=monemt(birthday).format("YYYY-MM-DD");
         }
         //下面是统一的信息
         if (people) {
@@ -358,7 +359,6 @@ class BindInfo extends React.Component {
         }
 
         data.extends = this.state.extendsArray;
-
         this.props.checkEdit(data);
     }
     handleCardClick() {
@@ -667,12 +667,25 @@ class BindInfo extends React.Component {
         const CheckboxItem = Checkbox.CheckboxItem;
         let labels = item1.options.split(",");
         let data = [];
+        let userExtends;
+        if(this.props.user) {
+            userExtends = this.props.user.extends&&this.props.user.extends[item1.key]&&this.props.user.extends[item1.key].split(',');
+        }
         labels.map((item, index) => {
             let obj = {};
             obj.value = index;
             obj.label = item;
+            obj.checked = false;
+            if(userExtends&&userExtends.length) {
+                userExtends.map(i=>{
+                    if(i === item) {
+                        obj.checked=true;
+                    }
+                });
+            }
             data.push(obj);
         });
+
         return (
             <div className="page-my-profile-other-title">
                 {item1.is_required === 1 ? (
@@ -684,6 +697,7 @@ class BindInfo extends React.Component {
                     {data.map(i => (
                         <CheckboxItem
                             key={`${item1.key}${i.value}`}
+                            checked={i.checked}
                             onChange={() => this.onChange(item1.key, i.label)}
                         >
                             {i.label}
@@ -745,8 +759,8 @@ class BindInfo extends React.Component {
                     id={`${key}`}
                     className="page-my-profile-edit-text"
                     maxLength="200"
-                    value={this[key] || this.state[key] || ''}
-                    onBlur={this.handleOtherInfoManyInputClick}
+                    value={this[key] || ''}
+                    onChange={this.handleOtherInfoManyInputClick}
                 />
 
                 <div className="line1px" />
@@ -757,6 +771,7 @@ class BindInfo extends React.Component {
     handleOtherInfoManyInputClick(e) {
         const key = e.target.id;
         const value = e.target.value;
+        console.log(value)
         this[key]=value;
         this.pushExtendsArray(key, value);
     }
@@ -776,10 +791,11 @@ class BindInfo extends React.Component {
                     <DatePicker
                         mode="date"
                         format="YYYY-MM-DD"
-                        value={this.state[key]}
+                        value={this[key]&&new Date(this[key]) || new Date()}
                         extra={` `}
                         onOk={v => (
                             this.pushExtendsArray(key, formatDate(v)),
+                                this[key]=v,
                                 this.setState({
                                     ...this.state,
                                     [key]: v
@@ -807,10 +823,11 @@ class BindInfo extends React.Component {
                     <DatePicker
                         mode="datetime"
                         format="YYYY-MM-DD HH:mm"
-                        value={this.state[key]}
+                        value={this[key]&&new Date(this[key]) || new Date()}
                         extra={`  `}
                         onOk={v => (
                             this.pushExtendsArray(key, formatDate(v, true)),
+                                this[key]=v,
                                 this.setState({
                                     ...this.state,
                                     [key]: v
@@ -847,31 +864,40 @@ class BindInfo extends React.Component {
         console.log(e);
     }
     onPhotoChange(e) {
-        console.log(e.target.id);
         let key = e.target.id;
         uploadImage(`/api/imgupload`, {
             method: "POST",
             data: { file: { file: e.target.files[0] } }
         }).then(json => {
             if (json.error_code === 0) {
-                const attachment = this.state[key];
-                attachment.push(json.data.url);
+                // const attachment = this.state[key];
+                // attachment.push(json.data.url);
+                // this.setState({
+                //     ...this.state,
+                //     [key]: attachment
+                // });
+                // this.pushExtendsArray(key, attachment);
+                //修改   只上传一张图片
                 this.setState({
                     ...this.state,
-                    [key]: attachment
+                    [key]: json.data.url
                 });
-                this.pushExtendsArray(key, attachment);
+                this.pushExtendsArray(key, json.data.url);
             }
         });
     }
 
     onPicDel(e) {
-        const num = e.target.id;
+        // const num = e.target.id;
+        // var key = e.target.getAttribute("data-key");
+        // const attachment = this.state[key];
+        // attachment.splice(num, 1);
+        // this.setState({ ...this.state, [key]: attachment }),
+        //     this.pushExtendsArray(key, attachment);
         var key = e.target.getAttribute("data-key");
-        const attachment = this.state[key];
-        attachment.splice(num, 1);
-        this.setState({ ...this.state, [key]: attachment }),
-            this.pushExtendsArray(key, attachment);
+        delete this.state[key];
+        this.setState({ ...this.state});
+        delete this.state.extendsArray[key];
     }
 
     onPreview(e) {
@@ -899,28 +925,50 @@ class BindInfo extends React.Component {
                     {data.label}
                 </div>
                 <div className="page-post-container-photo-container">
-                    {this.state[key].map((item, keys) => (
-                        <div className="page-applys-item-render-container" key={keys}>
-                            <div className="page-applys-item-view">
-                                <Avatar
-                                    src={item}
-                                    size={{ width: 80, radius: 1 }}
-                                    id={keys}
-                                    key={item}
+                    {/*{this.state[key].map((item, keys) => (*/}
+                        {/*<div className="page-applys-item-render-container" key={keys}>*/}
+                            {/*<div className="page-applys-item-view">*/}
+                                {/*<Avatar*/}
+                                    {/*src={item}*/}
+                                    {/*size={{ width: 80, radius: 1 }}*/}
+                                    {/*id={keys}*/}
+                                    {/*key={item}*/}
+                                    {/*data-key={`${key}`}*/}
+                                    {/*onClick={this.onPreview}*/}
+                                {/*/>*/}
+                            {/*</div>*/}
+                            {/*<div*/}
+                                {/*className="page-applys-item-render-del"*/}
+                                {/*onClick={this.onPicDel}*/}
+                                {/*id={keys}*/}
+                                {/*key={item}*/}
+                                {/*data-key={`${key}`}*/}
+                            {/*/>*/}
+                        {/*</div>*/}
+                    {/*))}*/}
+                    {
+                        this.state[key]&&this.state[key].length ?
+                            <div className="page-applys-item-render-container">
+                                <div className="page-applys-item-view">
+                                    <Avatar
+                                        src={this.state[key]}
+                                        size={{ width: 80, radius: 1 }}
+                                        id={key}
+                                        data-key={`${key}`}
+                                        onClick={this.onPreview}
+                                    />
+                                </div>
+                                <div
+                                    className="page-applys-item-render-del"
+                                    onClick={this.onPicDel}
+                                    id={key}
                                     data-key={`${key}`}
-                                    onClick={this.onPreview}
                                 />
                             </div>
-                            <div
-                                className="page-applys-item-render-del"
-                                onClick={this.onPicDel}
-                                id={keys}
-                                key={item}
-                                data-key={`${key}`}
-                            />
-                        </div>
-                    ))}
-                    {this.state[key].length === 1 ? (
+                            :
+                            null
+                    }
+                    {this.state[key]&&this.state[key].length ? (
                         <div />
                     ) : (
                         <div className="page-profile-header-uploade-box-div">
