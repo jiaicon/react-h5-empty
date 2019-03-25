@@ -33,7 +33,8 @@
     align-items: center;
 }
 .achievement-array-item {
-    min-width: 70px;
+    /*min-width: 70px;*/
+    width: 70px;
     display: flex;
     flex-flow: column;
     align-items: center;

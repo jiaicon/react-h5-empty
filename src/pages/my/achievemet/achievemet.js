@@ -125,12 +125,13 @@ class Achievement extends React.Component {
                 <div className="achievement-modal-box-all-box">
                     <div
                         style={{backgroundImage: `url(${data.icon || data.achieve_info[0].icon})`}}></div>
-                    <p>{data.achieve_info && data.achieve_info.length && data.achieve_info[0].name}</p>
+                    <p>{data.orgset_name && data.orgset_name}</p>
+                    <p>{data.is_have==0 ? data.achieve_info&&data.achieve_info.length&&data.achieve_info[0].orgset_name&&data.achieve_info[0].orgset_name : ''}</p>
                 </div>
             </div>
 
-            {//当settings（对象）不存在第二个数据时，表示没有开启等级,此时不显示星星图
-                data.achieve_info && data.achieve_info.length && data.achieve_info[0].settings && data.achieve_info[0].settings.achieve2 ?
+            {//optional  用来判断有没有开启等级
+                data.achieve_info && data.achieve_info.length && data.achieve_info[0].optional == 1 ?
                     <div>
                         <div className={classnames({
                             "achievement-modal-box-level": true,
