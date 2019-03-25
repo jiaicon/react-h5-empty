@@ -121,7 +121,7 @@
 .achievement-modal-box-level-box {
     width: 250px;
     display: flex;
-    margin: 13px auto 14px;
+    margin: 13px auto 0;
     font-family: PingFangSC-Regular;
     font-size: 10px;
     color: #9B9B9B;
@@ -133,7 +133,7 @@
     color: #4A4A4A;
     text-align: center;
     margin-bottom: 28px;
-    padding: 0 10px;
+    padding: 14px 10px 0;
 }
 .achievement-modal-box-btn {
     font-family: PingFangSC-Regular;

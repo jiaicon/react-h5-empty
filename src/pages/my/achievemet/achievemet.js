@@ -464,16 +464,46 @@ class Achievement extends React.Component {
                     <p className="modal-this-name">{user&&(user.real_name||user.username)}</p>
                     {/*<p className="modal-this-time">志愿时长超过<span style={{color: 'rgb(183, 18, 33)'}}>{user&&user.reward_time&&Number(user.reward_time).toFixed(0)}</span>小时</p>*/}
                     {/*<p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>97%</span>的志愿者</p>*/}
-
-                    {
+                    {//最终的
                         thisAchieveInfo&&thisAchieveInfo.achieve_info&&thisAchieveInfo.achieve_info[0]&&thisAchieveInfo.achieve_info[0].cond_type ?
                             <div>
-                                <p className="modal-this-time">志愿时长超过<span style={{color: 'rgb(183, 18, 33)'}}>{user&&user.reward_time&&Number(user.reward_time).toFixed(0)}</span>小时</p>
-                                <p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.scale}</span>的志愿者</p>
+                                { //1
+                                    thisAchieveInfo.achieve_info[0].cond_type=='reward' ?
+                                        <p className="modal-this-time">服务时长已累计超过<span style={{color: 'rgb(183, 18, 33)'}}>{Number(thisAchieveInfo.tips).toFixed(0)}</span>小时</p> : null
+                                }
+                                { //2
+                                    thisAchieveInfo.achieve_info[0].cond_type=='check_in' ?
+                                        <p className="modal-this-time">签到打卡次数已累计超过<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.tips}次</span></p> : null
+                                }
+                                { //3
+                                    thisAchieveInfo.achieve_info[0].cond_type=='pro_join' ?
+                                        <p className="modal-this-time">参加项目次数已累计超过<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.tips}次</span></p> : null
+                                }
+                                { //4
+                                    thisAchieveInfo.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ?
+                                        <p className="modal-this-time">参加{thisAchieveInfo.achieve_info[0].name}项目签到打卡次数已累计超过<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.tips}</span>次</p> : thisAchieveInfo.achieve_info[0].cond_type.indexOf("pro_")!=-1&&thisAchieveInfo.achieve_info[0].cond_type.indexOf("join")==-1 ?
+                                        <p className="modal-this-time">参加{thisAchieveInfo.achieve_info[0].name}项目次数已累计超过<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.tips}</span>次</p>
+                                        : null
+                                }
+                                { //5
+                                    thisAchieveInfo.achieve_info[0].cond_type.indexOf("reward_")!=-1 ?
+                                        <p className="modal-this-time">参加{thisAchieveInfo.achieve_info[0].name}项目服务时长已累计超过<span style={{color: 'rgb(183, 18, 33)'}}>{Number(thisAchieveInfo.tips).toFixed(0)}</span>小时，快去晒成就吧！</p> : null
+                                }
+                                <p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.scale}%</span>的志愿者</p>
                             </div>
-                            :
-                            null
+                            :null
                     }
+
+
+                    {/*{*/}
+                        {/*thisAchieveInfo&&thisAchieveInfo.achieve_info&&thisAchieveInfo.achieve_info[0]&&thisAchieveInfo.achieve_info[0].cond_type ?*/}
+                            {/*<div>*/}
+                                {/*<p className="modal-this-time">志愿时长超过<span style={{color: 'rgb(183, 18, 33)'}}>{user&&user.reward_time&&Number(user.reward_time).toFixed(0)}</span>小时</p>*/}
+                                {/*<p className="modal-this-time">超过了志多星<span style={{color: 'rgb(183, 18, 33)'}}>{thisAchieveInfo.scale}%</span>的志愿者</p>*/}
+                            {/*</div>*/}
+                            {/*:*/}
+                            {/*null*/}
+                    {/*}*/}
                     <div className="modal-this-line">
                         <div className="modal-this-two-line"></div>
                         <div style={{flex: 1}}>解锁成就</div>
