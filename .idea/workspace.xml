@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c2db71ac-603f-44b1-b67c-2b814b216461" name="默认" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wechat.blade.php" afterPath="$PROJECT_DIR$/public/wechat.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" afterPath="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
     </list>
     <ignored path="volunteer-h5.iws" />
@@ -24,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="achievemet.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="achievemet.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="226" column="9" lean-forward="true" selection-start-line="226" selection-start-column="9" selection-end-line="226" selection-end-column="9" />
+            <state relative-caret-position="233">
+              <caret line="126" column="90" lean-forward="false" selection-start-line="126" selection-start-column="74" selection-end-line="126" selection-end-column="90" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -36,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="achievemet.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="achievemet.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+            <state relative-caret-position="123">
+              <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -58,9 +57,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>requestProjectDetailData</find>
-      <find>requestProjectDetail</find>
-      <find>PROJECT_DETAIL</find>
       <find>distance</find>
       <find>省份</find>
       <find>/user/achievement/</find>
@@ -88,6 +84,9 @@
       <find>PostDataModel_ProjectSign</find>
       <find>renderModal</find>
       <find>proData</find>
+      <find>.achievement-array-item</find>
+      <find>.achieve_info[0].name</find>
+      <find>orgset_name</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/utils</dir>
@@ -149,8 +148,8 @@
         <option value="$PROJECT_DIR$/src/pages/project/detail/detail.js" />
         <option value="$PROJECT_DIR$/src/components/posterModal/ModalNew.css" />
         <option value="$PROJECT_DIR$/src/pages/sign/signdetail/detail.js" />
-        <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
         <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css" />
+        <option value="$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js" />
       </list>
     </option>
   </component>
@@ -371,7 +370,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="425053000" />
+    <option name="totallyTimeSpent" value="425714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3" y="23" width="1440" height="877" extended-state="0" />
@@ -846,21 +845,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="226" column="9" lean-forward="true" selection-start-line="226" selection-start-column="9" selection-end-line="226" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="123">
+          <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.css">
+    <entry file="file://$PROJECT_DIR$/src/pages/my/achievemet/achievemet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="233">
+          <caret line="126" column="90" lean-forward="false" selection-start-line="126" selection-start-column="74" selection-end-line="126" selection-end-column="90" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
