@@ -75,30 +75,32 @@ class SignPage extends React.Component {
         //打卡成功后重新获取数据，更新页面，页面state太多，不知道更新哪些，直接全部获取
         this.props.requestClockInfo(this.Id);
         this.props.requestProjectDetail(this.proid);
-        this.openShare();
+        this.openShare(nextProps.clockinginfo.data);
     }
     console.log(nextProps)
       const { failed: dFailed, fetching: dFetching } = this.props.requestProjectDetailData;
       const { failed: dnFailed, fetching: dnFetching } = nextProps.requestProjectDetailData;
       if(!dFailed && dFetching && !dnFailed && !dnFetching) {
-          this.setState({
-              proData: nextProps.requestProjectDetailData.data
-          })
+          // this.setState({
+          //     proData: nextProps.requestProjectDetailData.data
+          // })
       }
   }
     //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
-    openShare() {
+    openShare(clock_data_back) {
         const { data: detaildata } = this.props.clickinfo;
         const { clock_info: data, user_clock_info: userData, clock_info: user_data } = detaildata;
         // userData.type = 1
         // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
         if(user_data.type == 1) {
             this.setState({
+                proData: clock_data_back,
                 visible: true
             })
         }
         if(userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00") {
             this.setState({
+                proData: clock_data_back,
                 visible: true
             })
         }
