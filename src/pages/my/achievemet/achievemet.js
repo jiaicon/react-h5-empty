@@ -269,7 +269,7 @@ class Achievement extends React.Component {
             {//未获取的 4
                 !data.level&&data.achieve_info[0].cond_type&&data.achieve_info[0].cond_type.indexOf("pro_check_in")!=-1 ?
                     <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目签到打卡次数已累计超过{data.achieve_info[0].count}次。</div> : (!data.level&&data.achieve_info[0].cond_type&&(data.achieve_info[0].cond_type.indexOf("pro_")!=-1&&data.achieve_info[0].cond_type.indexOf("join")==-1) ?
-                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目次数已累计超过{data.achieve_info[0].count}次，快去晒成就吧！</div>
+                    <div className="achievement-modal-box-tips">参加{data.achieve_info[0].name}项目次数已累计超过{data.achieve_info[0].count}次。</div>
                     : null)
             }
             {//未获取的 5
