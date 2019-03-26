@@ -723,7 +723,42 @@ const userAchieveReducer = (state={
             return{
                 ...state,
                 fetching: false,
+                failed: true,
+            };
+        default:
+            return state;
+    }
+};
+
+//新的修改实名信息的   需要一块提交，不提交的为null
+export const checkEdit = (data)=>({
+    type: 'CHECK_EDIT',
+    payload: fetch('/check/edit', {data})
+});
+const checkEditReducer = (state={
+    fetching: false,
+    failed: false,
+    data: null
+}, action)=>{
+    switch(action.type){
+        case 'CHECK_EDIT_PENDING':
+            return {
+                ...state,
+                fetching: true,
                 failed: false,
+            };
+        case 'CHECK_EDIT_FULFILLED':
+            return {
+                ...state,
+                fetching: false,
+                failed: false,
+                data: action.payload
+            };
+        case'CHECK_EDIT_REJECTED':
+            return{
+                ...state,
+                fetching: false,
+                failed: true,
             };
         default:
             return state;
@@ -750,6 +785,7 @@ const reducer = combineReducers({
   score: scoreReducer,
   achievement: achievementReducer,
   userAchieve:userAchieveReducer,
-  projectapplyclock:projectapplyclockReducer
+  projectapplyclock:projectapplyclockReducer,
+    checkEdit:checkEditReducer,
 });
 export default reducer;

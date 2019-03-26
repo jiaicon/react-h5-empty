@@ -1,0 +1,42 @@
+.padding-left-15 {
+    padding-left: 15px;
+}
+.default-picker .am-list-item .am-list-line .am-list-arrow {
+    background-image: url("/images/my/more.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+.default-picker .am-list-item .am-list-line {
+    padding: 0;
+}
+.default-picker>div {
+    width: 100%;
+}
+.default-picker .am-list-item {
+    padding: 0;
+}
+.default-picker .am-list-item .am-list-line .am-list-content {
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    color: #666;
+    width: 100px;
+    text-align: justify;
+    text-align-last: justify;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: none;
+}
+.default-picker .am-list-item .am-list-line .am-list-extra {
+    font-size: 15px;
+    color: #666666;
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+    flex: 1;
+    text-align: left;
+    padding-left: 15px;
+}
+.page-my-profile-verify-header-box>div:last-child {
+    flex: 1;
+}
