@@ -251,6 +251,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/bind_profile_starbucks/alert",
+    "page": "./pages/my/profile/bindProfileStarbucks",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/verifyStarbucks",
     "page": "./pages/my/profile/verifyStarbucks",
     "chunk": "main"

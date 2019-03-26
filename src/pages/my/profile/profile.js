@@ -139,6 +139,10 @@ class Profile extends React.Component {
                     break;
             }
         };
+        let bindlink = '/my/profile/bind_profile/alert';
+        if (window.orgCode === 'oBDbDkxal2') {
+            bindlink = '/my/profile/bind_profile_starbucks/alert';
+        }
         return (
             <div className="page-profile-bottom-real-info-container">
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
@@ -224,8 +228,7 @@ class Profile extends React.Component {
                         : null
                 }
                 {this.renderRealInfoExtends()}
-
-                <Link to="/my/profile/bind_profile/alert">
+                <Link to={bindlink}>
                     <div className="page-profile-apply-alert">修改资料</div>
                 </Link>
                 <Link to="/my/profile/applyAlert">
