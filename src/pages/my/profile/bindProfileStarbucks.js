@@ -302,7 +302,7 @@ class BindInfo extends React.Component {
     const { failed: tFailed, fetching: tFetching } = this.props.checkEditData;
     const { failed: nFailed, fetching: nFetching } = nextProps.checkEditData;
     if (!tFailed && tFetching && !nFailed && !nFetching) {
-      // location.replace("/my/profile/detail/user");
+      location.replace("/my/profile/detail/user");
     }
   }
 
