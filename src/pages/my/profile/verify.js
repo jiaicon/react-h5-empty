@@ -1159,10 +1159,11 @@ class Verify extends React.Component {
               this.renderIdCard()}
 
               {//民族
-                window.orgCode === 'K4oeERva0B' ? null : this.renderNation()
+                  this.renderNation()
               }
               {//地址
-                window.orgCode === 'K4oeERva0B' ? null : this.renderAddr()}
+                  this.renderAddr()
+              }
               {//密码
               this.renderPassword()}
               {//自定义信息
