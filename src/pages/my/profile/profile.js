@@ -228,7 +228,7 @@ class Profile extends React.Component {
                         : null
                 }
                 {this.renderRealInfoExtends()}
-                <Link to={bindlink}>
+                <Link to={bindlink} style={{marginTop: '41px',width: '100%',display: 'inline-block'}}>
                     <div className="page-profile-apply-alert">修改资料</div>
                 </Link>
                 <Link to="/my/profile/applyAlert">
