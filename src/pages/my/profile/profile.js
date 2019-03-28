@@ -140,7 +140,7 @@ class Profile extends React.Component {
             }
         };
         let bindlink = '/my/profile/bind_profile/alert';
-        if (window.orgCode === 'VWPe9xdLyw') {
+        if (window.orgCode === 'oBDbDkxal2') {
             bindlink = '/my/profile/bind_profile_starbucks/alert';
         }
         return (

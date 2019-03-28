@@ -225,11 +225,11 @@ class Login extends React.Component {
             <div className="page-login-box">
                 <div className="page-login">
                     <div className="page-login-item">
-                        <input type="text" ref={(c) => { this.loginUsername = c; }} onKeyUp={this.onTextChanged}
+                        <input type="text" ref={(c) => { this.loginUsername = c; }} onChange={this.onTextChanged}
                                placeholder="手机号或证件号码" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
-                        <input type="password" ref={(c) => { this.pwd = c; }} onKeyUp={this.onTextChanged}
+                        <input type="password" ref={(c) => { this.pwd = c; }} onChange={this.onTextChanged}
                                placeholder="输入密码" className="page-login-item-input" />
                     </div>
                     <div className="page-login-forget">
@@ -247,17 +247,17 @@ class Login extends React.Component {
             <div className="page-login-box">
                 <div className="page-login">
                     <div className="page-login-item">
-                        <input type="number" ref={(c) => { this.quickUsername = c; }} onKeyUp={this.onTextChanged}
+                        <input type="number" ref={(c) => { this.quickUsername = c; }} onChange={this.onTextChanged}
                                placeholder="请输入手机号" className="page-login-item-input"/>
                     </div>
                     <div className="page-login-item">
-                        <input type="text"ref={(c) => { this.captcha = c; }} onKeyUp={this.onTextChanged}
+                        <input type="text"ref={(c) => { this.captcha = c; }} onChange={this.onTextChanged}
                                placeholder="图形验证码" className="page-login-item-input"/>
                         <img className="page-login-item-code" src={this.state.captchaUrl} 
                          alt="" onClick={this.refreshCaptcha} />
                     </div>
                     <div className="page-login-item">
-                        <input type="number" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged}
+                        <input type="number" ref={(c) => { this.usercode = c; }} onChange={this.onTextChanged}
                                placeholder="手机验证码" className="page-login-item-input"/>
                         <div className="page-login-item-code" onClick={this.onSend}>{this.state.buttonString}</div>
                     </div>
