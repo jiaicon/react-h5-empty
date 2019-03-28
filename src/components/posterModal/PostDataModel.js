@@ -56,7 +56,16 @@ export function PostDataModel_ProjectSign(projectData,userData){
 }
 
 function getProjectPhoto(projectData) {
-    return projectData.list_photo.length ? projectData.list_photo : "/images/post_default_image.png";
+    if (projectData.list_photo.length) {
+        return projectData.list_photo;
+    }
+    if (projectData.photo&&Array.isArray(projectData.photo)&&projectData.photo.length) {
+        return projectData.photo[0];
+    }
+    if (window.orgInfo.logo.length) {
+        return window.orgInfo.logo;
+    }
+    return "/images/post_default_image.png";
 }
 
 function getAvatar(userData) {
