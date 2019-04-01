@@ -115,7 +115,7 @@ export default class SignBall extends React.Component {
         });
       }
     } else if (
-      distanceData.county_name == "全市" &&
+      (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
       distanceData.city_name.replace("市", "") == location.city.replace("市", "")
     ) {
       //市名为当前的
@@ -125,7 +125,7 @@ export default class SignBall extends React.Component {
         locDetail: location
       });
     } else if (
-      distanceData.city_name == "全省" &&
+      (distanceData.city_name == "全省" || distanceData.city_id) &&
       distanceData.province_name.replace("省", "") ==
         location.province.replace("省", "").replace("市", "")
     ) {
@@ -135,7 +135,7 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location
       });
-    } else if (distanceData.province_name == "全国") {
+    } else if (distanceData.province_name == "全国" ||distanceData.province_id == 0) {
       //市名为当前的
       this.setState({
         isSign: isToday,
