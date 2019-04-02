@@ -192,17 +192,14 @@ class Preview extends React.Component {
         const { fetching: revokenFetch, failed: revokenFailed } = nextProps.revokeApplyData;
         if(tFetch && !tFailed && !nFetch && !nFailed) {
             console.log('提交成功');
-            return;
             location.replace('/my');
         }
         if(rtFetch && !rtFailed && !rnFetch && !rnFailed) {
             console.log('提交成功');
-            return;
             location.replace('/my');
         }
         if(revokerFetch && !revokerFailed && !revokenFetch && !revokenFailed) {
             console.log('撤销成功');
-            return;
             location.replace('/my');
         }
     }
