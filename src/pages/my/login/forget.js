@@ -161,8 +161,7 @@ class Forget extends React.Component {
         </div>
 
         <div className="page-forget-submmit" onClick={this.onSubmit}>
-          {user.have_pwd === 0 ? "确认设置" : null}
-          {user.have_pwd === 1 ? "确认修改" : null}
+          {user&&user.have_pwd === 1 ? "确认修改" : "确认设置"}
         </div>
       </div>;
   }
