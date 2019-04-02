@@ -110,14 +110,14 @@ class FundingApplication extends React.Component {
                         <div className="page-funding-application-item-label">组织名称</div>
                         <InputItem
                             className="page-funding-application-input"
-                            placeholder="请输入收益组织名称"
+                            placeholder="请输入受益组织名称"
                             onBlur={this.iPhoneBlur}
                             moneyKeyboardAlign="right"
                             {
                                 ...getFieldProps('group_name', {
                                     rules: [{
                                         required: true,
-                                        message: '请输入收益组织名称',
+                                        message: '请输入受益组织名称',
                                     }],
                                 })
                             }
@@ -130,9 +130,9 @@ class FundingApplication extends React.Component {
                             className="page-funding-application-input"
                             placeholder="请输入统一社会信用代码（选填）"
                             onBlur={this.iPhoneBlur}
-                            moneyKeyboardAlign="group_credit_num"
+                            moneyKeyboardAlign="right"
                             {
-                                ...getFieldProps('projectPosition')
+                                ...getFieldProps('group_credit_num')
                             }
                         />
                     </div>
@@ -289,7 +289,7 @@ const FundingApplicationForm = createForm()(FundingApplication);
 FundingApplicationForm.propTypes = {
 
 };
-FundingApplicationForm.title = '填写收益组织资料';
+FundingApplicationForm.title = '填写受益组织资料';
 export default connect(
     state=>({
         secondStepData: state.fundingApplication.secondStep

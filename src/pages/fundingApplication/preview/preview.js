@@ -143,6 +143,9 @@ class Preview extends React.Component {
                     return line;
                 });
             }
+            if(localStorage.getItem('budget_reason')) {
+                allData.budget_reason = JSON.parse(localStorage.getItem('budget_reason'));
+            }
             allData.user_business_province = [allData.user_business_province];
             allData.user_business_city = [allData.user_business_city];
             allData.project_field = allData.project_field;
@@ -189,14 +192,17 @@ class Preview extends React.Component {
         const { fetching: revokenFetch, failed: revokenFailed } = nextProps.revokeApplyData;
         if(tFetch && !tFailed && !nFetch && !nFailed) {
             console.log('提交成功');
+            return;
             location.replace('/my');
         }
         if(rtFetch && !rtFailed && !rnFetch && !rnFailed) {
             console.log('提交成功');
+            return;
             location.replace('/my');
         }
         if(revokerFetch && !revokerFailed && !revokenFetch && !revokenFailed) {
             console.log('撤销成功');
+            return;
             location.replace('/my');
         }
     }
@@ -377,6 +383,7 @@ class Preview extends React.Component {
         return formItems;
     }
     doHtmlBudget() {
+        console.log(this.state);
         const { getFieldProps } = this.props.form;
         const formItems = this.state.formContentBudget.length > 0 ? this.state.formContentBudget.map((item, index)=>(
             <div className={classnames({
@@ -693,6 +700,9 @@ class Preview extends React.Component {
                 for(let i in value) {
                     if(formContentBudget[j] === Number(i.split('__')[1])&&i.split('_')[0]==='budget') {
                         // value[i] = value[i];
+                        if(i.indexOf('type') > -1) {
+                            value[i] = value[i][0];
+                        }
                         obj[i.split('__')[0]] = value[i];
                     }
                 }
@@ -730,7 +740,7 @@ class Preview extends React.Component {
             }
             value.user_business_province = value.user_business_province[0];
             value.user_business_city = value.user_business_city[0];
-            console.log('allData::::', value);
+            console.log('value::::', value);
             if(callback&&typeof callback === 'function') {
                 callback(value);
             }

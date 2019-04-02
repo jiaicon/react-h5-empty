@@ -279,6 +279,9 @@ class Form extends React.Component {
                 ...JSON.parse(localStorage.getItem('thirdStep')),
                 ...JSON.parse(localStorage.getItem('fourthStep')),
             };
+            if(value.budget_reason) {
+                localStorage.setItem('budget_reason', JSON.stringify(value.budget_reason));
+            }
             console.log(allData);
             location.replace('/funding_application/preview');
 

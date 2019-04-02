@@ -218,4 +218,6 @@ div.page-funding-application-allBox {
     flex-flow: column;
     justify-content: center;
 }
-
+.review-modal-css .am-modal-content .am-list-body {
+    padding-bottom: 46px;
+}
