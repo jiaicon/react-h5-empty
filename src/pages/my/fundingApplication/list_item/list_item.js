@@ -59,7 +59,7 @@ class ListItem extends React.Component {
                                     src="/images/preview/money_icon.png"
                                     style={{width: 21, height: 21, marginRight: 17}}
                                 />
-                                {item.project_money}
+                                {item.user_apply_monry}
                             </div>
                             <div className="funding-application-type" style={{backgroundImage: `url(/images/preview/${fundingType[item.status]}.png)`}}></div>
                         </div>
