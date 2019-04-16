@@ -348,6 +348,12 @@ class ProjectDetailPage extends React.Component {
         }
         const { deleteFeeling: LdeleteFeeling } = this.props;
         const { deleteFeeling: NdeleteFeeling } = nextProps;
+        console.log(nextProps, this.props);
+        // const { detail: {fetching: lastFetch, failed: lastFailed} } = this.props.de;
+        // const { detail: {fetching: nextFetch, failed: nextFailed} } = nextProps;
+        // if(!lastFailed && lastFetch && !nextFailed && !nextFetch) {
+        //     this.props.requestProjectDetail(this.projectId);
+        // }
         if (
             LdeleteFeeling.fetching &&
             !NdeleteFeeling.fetching &&
@@ -422,7 +428,7 @@ class ProjectDetailPage extends React.Component {
                 return;
             } else if (projectId == 2129) {
                 window.location.href =
-                    "http://wx2.gongyibao.cn/H5page/SubmitDonate.aspx?tid=0&uid=c8831755-2c7e-4f8c-854d-302a3c4d8719&id=3f94d47d-6843-4d2e-b3d9-114814b45855&type=";
+                    "http://wx.zgzyzfw.n.gongyibao.cn/#/donform?accId=cc0b9f9a-2cef-4b0c-829f-d2f29ee87534&proId=bdb2cac7-ac34-4446-bcd9-5d3ee4f4c3ad&paymethod=1&projectTitle=%E5%BE%AE%E7%88%B1%E7%89%B5%E6%89%8B&rf=0.30765105282089134";
                 return;
             }
             if (!customConfig && !paymentConfig) {
@@ -593,7 +599,7 @@ class ProjectDetailPage extends React.Component {
             actionLabel = "我要报名";
             actionClassName = "project-action-available";
             action = "join";
-        } else if (isLogin && detailData.join_status === 0) {
+        } else if (isLogin && detailData.join_status === 0 && detailData.join_verify_status === 1) {
             actionLabel = "等待审核";
             actionClassName = "project-action-audit";
         } else if (joined) {
