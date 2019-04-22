@@ -24,6 +24,7 @@ class Replacement extends React.Component {
         this.Id = props.route.params.Id;
         this.proid = props.route.params.proid;
         this.state = {turnMap: false};
+        this.canSubmit = true;
     }
 
     componentWillMount() {
@@ -50,11 +51,14 @@ class Replacement extends React.Component {
         const { failed: pFailed, fetching: pFetching } = this.props.projectCheckedSubmitData;
         if(!pFailed && pFetching && !nFailed && !nFetching) {
             Alert.success('申请补卡成功');
+            this.canSubmit = true;
             if(this.proid == 'proid') {
                 location.replace('/my/duration/applys');
             }else {
                 location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
             }
+        }else {
+            this.canSubmit = true;
         }
     }
     getProjectSign() {
@@ -76,9 +80,13 @@ class Replacement extends React.Component {
         })
     }
     onSubmit() {
+        if(!this.canSubmit) {
+            return;
+        }
         this.props.form.validateFields((error, value) => {
             if(error) {
                 Alert.error('存在必填项，请完善后重新提交');
+                this.canSubmit = true;
                 return;
             }
             let data = {
