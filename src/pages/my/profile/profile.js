@@ -172,7 +172,7 @@ class Profile extends React.Component {
                     user.id_number ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">身份证号</div>
+                                <div className="page-profile-fonts">证件号码</div>
                                 <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
                             </div>
                             <div className="line1px"/>
