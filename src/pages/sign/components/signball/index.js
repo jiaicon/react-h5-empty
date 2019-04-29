@@ -125,7 +125,7 @@ export default class SignBall extends React.Component {
         locDetail: location
       });
     } else if (
-      (distanceData.city_name == "全省" || distanceData.city_id) &&
+      (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
         location.province.replace("省", "").replace("市", "")
     ) {
