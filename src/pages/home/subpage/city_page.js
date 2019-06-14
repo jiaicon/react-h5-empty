@@ -110,7 +110,9 @@ class CityPage extends React.Component {
     const lat = data.lat;
     const lng = data.lon;
     setCookie("location", JSON.stringify({ lat, lng }),1);
-
+    let cityAndProvince = getCookie('provinceAndCityName');
+    const notChange = cityAndProvince&&cityAndProvince.length ? JSON.parse(cityAndProvince).city : '';
+    setCookie('notChange', notChange);  //用户不行切换的城市
     const city = data.name.replace("市", "");
     const province = this.state.province;
     setCookie("provinceAndCityName", JSON.stringify({
