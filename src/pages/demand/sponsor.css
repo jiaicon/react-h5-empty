@@ -1,0 +1,68 @@
+.sponsor {
+    background-color: rgb(248, 248, 248);
+    padding: 15px 15px 0;
+    box-sizing: border-box;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #999999;
+}
+.sponsor-line {
+    display: flex;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FFFFFF;
+    justify-content: space-between;
+    padding: 0 28px 0 12px;
+    align-items: center;
+}
+.sponsor-line-ipt {
+}
+.sponsor-line-ipt-label {
+    width: 80px;
+}
+.sponsor-line-ipt-value {
+    flex: 1;
+    height: 100%;
+    text-align: right;
+    outline: none;
+    direction: rtl;
+}
+.sponsor-line-textarea {
+    height: 125px;
+    background-color: #FFFFFF;
+    padding: 12px;
+    text-align: justify;
+}
+.sponsor-line-textarea-style {
+    width: 100%;
+    outline: none;
+}
+sponsor-line sponsor-line-ipt select option {
+    direction: rtl;
+}
+input::-webkit-input-placeholder {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #9B9B9B;
+}
+.sponsor-submit {
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #FFFFFF;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #A0D9F7;
+    border-radius: 100px;
+    margin: 25px auto 30px;
+}
+.sponsor-icon-right-arrow {
+    background: url("/images/demand/icon_more.png") no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    top: 0;
+    display: inline-block;
+}

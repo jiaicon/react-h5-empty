@@ -1,0 +1,90 @@
+.demand-result {
+    background-color: rgb(248, 248, 248);
+}
+.demand-result-top {
+    height: 200px;
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #666666;
+    background-color: #FFFFFF;
+    padding: 19px 15px;
+}
+.demand-result-top-title {
+    font-family: PingFangSC-Medium;
+    font-size: 22px;
+    color: #333333;
+}
+.demand-result-item-detail {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #666666;
+    display: flex;
+    justify-content: space-between;
+}
+.demand-icon-people {
+    background: url("/images/demand/people.png") no-repeat;
+    background-size: contain;
+    width: 13px;
+    height: 15px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    margin-right: 13px;
+    display: inline-block;
+}
+.demand-icon-time {
+    background: url("/images/demand/time.png") no-repeat;
+    background-size: contain;
+    width: 13px;
+    height: 15px;
+    vertical-align: middle;
+    position: relative;
+    top: 0px;
+    margin-right: 13px;
+    display: inline-block;
+}
+
+.demand-result-line {
+    display: flex;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FFFFFF;
+    justify-content: space-between;
+    padding: 0 28px 0 12px;
+    align-items: center;
+}
+.demand-result-line-label {
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #333333;
+}
+.demand-result-line-value {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #666666;
+}
+.sponsor-icon-right-arrow {
+    background: url("/images/demand/icon_more.png") no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    top: -2px;
+    position: relative;
+    display: inline-block;
+}
+.demand-result-line-text {
+    padding: 20px 14px;
+    background-color: #fff;
+}
+.demand-result-line-text-title {
+    font-family: PingFangSC-Regular;
+    font-size: 15px;
+    color: #333333;
+    margin-bottom: 11px;
+}
+.demand-result-line-text-content {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #333333;
+}

@@ -464,5 +464,20 @@
     "path": "/funding_application/preview",
     "page": "./pages/fundingApplication/preview/preview",
     "chunk": "main"
+  },
+  {
+    "path": "/demand",
+    "page": "./pages/demand/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/demand/sponsor",
+    "page": "./pages/demand/sponsor",
+    "chunk": "main"
+  },
+  {
+    "path": "/demand/result",
+    "page": "./pages/demand/result",
+    "chunk": "main"
   }
 ]

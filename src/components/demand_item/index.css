@@ -1,0 +1,91 @@
+.demand-list-item {
+
+}
+.demand-list-item-box {
+    height: 120px;
+    padding: 14px 17px 0;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+}
+.demand-list-item-space {
+    height: 10px;
+    background-color: rgb(248, 248, 248);
+}
+.demand-list-item-title {
+    font-family: PingFangSC-Regular;
+    font-size: 18px;
+    color: #333333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.demand-list-item-detail {
+    font-family: PingFangSC-Regular;
+    font-size: 13px;
+    color: #666666;
+    display: flex;
+    justify-content: space-between;
+}
+.demand-list-item-detail>div {
+    flex: 1;
+}
+.demand-list-item-detail {
+    margin-top: 13px;
+}
+.demand-icon-people {
+    background: url("/images/demand/people.png") no-repeat;
+    background-size: contain;
+    width: 13px;
+    height: 15px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    margin-right: 13px;
+    display: inline-block;
+}
+.demand-icon-time {
+    background: url("/images/demand/time.png") no-repeat;
+    background-size: contain;
+    width: 13px;
+    height: 15px;
+    vertical-align: middle;
+    position: relative;
+    top: 0px;
+    margin-right: 13px;
+    display: inline-block;
+}
+.demand-icon-team {
+    background: url("/images/demand/team.png") no-repeat;
+    background-size: contain;
+    width: 13px;
+    height: 15px;
+    vertical-align: middle;
+    position: relative;
+    top: 0px;
+    margin-right: 13px;
+    display: inline-block;
+}
+.demand-list-item-service {
+    background: url("/images/demand/service.png") no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+}
+.demand-list-item-complete {
+    background: url("/images/demand/complete.png") no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+}
