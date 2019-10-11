@@ -43,7 +43,28 @@
     margin-right: 13px;
     display: inline-block;
 }
-
+.demand-icon-category {
+    background: url("/images/demand/category.png") no-repeat;
+    background-size: contain;
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+    position: relative;
+    top: 0px;
+    margin-right: 13px;
+    display: inline-block;
+}
+.demand-icon-addr {
+    background: url("/images/demand/addr.png") no-repeat;
+    background-size: contain;
+    width: 11px;
+    height: 13px;
+    vertical-align: middle;
+    position: relative;
+    top: 0px;
+    margin-right: 13px;
+    display: inline-block;
+}
 .demand-result-line {
     display: flex;
     height: 50px;

@@ -45,8 +45,8 @@
     window.wxConfig = {}; // 或者 '{}'
     // http://api.volunteer.alpha.flashdiet.cn/api/v1
     // http://alpha.api.volunteer.tmallwo.com:8000
+    window.apiHost = "http://localhost:7878";
     // window.apiHost = "http://api.volunteer.alpha.flashdiet.cn";
-    window.apiHost = "http://api.volunteer.alpha.flashdiet.cn";
 
     // server 端下发 token
     window.token = null;
@@ -132,7 +132,9 @@
       "st_achieve_op": 1,
       "st_rank_op": 1,
       "volunteer_feedback": 1,
-      "funding_application": 1
+      "funding_application": 1,
+      "demand_category": ["政策宣讲", "培训", "困难帮扶"],
+      "demand_village": ["城关镇", "武安镇", "九集镇", "肖堰镇", "东巩镇"]
     }
     // window.orgInfo = {
     //   "name": "志多星",

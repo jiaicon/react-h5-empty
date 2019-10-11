@@ -476,7 +476,7 @@
     "chunk": "main"
   },
   {
-    "path": "/demand/result",
+    "path": "/demand/result/:demandId",
     "page": "./pages/demand/result",
     "chunk": "main"
   }

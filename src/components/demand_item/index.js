@@ -1,36 +1,43 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
+import classnames from 'classnames';
+import Link from './../link/link';
 import './index.css';
 
 class DemandItem extends React.Component {
 
   static propTypes = {
-    demand: PropTypes.shape({}),
+    data: PropTypes.shape({}),
   };
 
   render() {
-    return (<div className="demand-list-item">
+    const { data } = this.props;
+    return (<Link to={`/demand/result/${data.id}`} className="demand-list-item">
       <div className="demand-list-item-space"></div>
       <div className="demand-list-item-box">
-        <i className="demand-list-item-service"></i>
-        <div className="demand-list-item-title">项目名称项目名称项目名称项目名称项目名称项目名称项目名称项目名称</div>
+        <i className={classnames({
+          'demand-list-item-service': data.status == 1,
+          'demand-list-item-complete': data.status == 2,
+        })}></i>
+        <div className="demand-list-item-title">{data.title}</div>
         <div className="demand-list-item-detail" style={{marginTop: '17px'}}>
           <div>
             <i className="demand-icon-people"></i>
-            <span>发起人：某用户</span>
+            <span>发起人：{data.name}</span>
           </div>
           <div>
             <i className="demand-icon-time"></i>
-            <span>2019-10-19</span>
+            <span>{moment(data.created_at).format('YYYY-MM-DD')}</span>
           </div>
         </div>
         <div className="demand-list-item-detail" style={{marginTop: '7px'}}>
           <div>
             <i className="demand-icon-team"></i>
-            <span>服务团队：儿童基金会</span>
+            <span>服务团队：{data.team_name}</span>
           </div>
         </div>
       </div>
-    </div>);
+    </Link>);
   }
 
 }
