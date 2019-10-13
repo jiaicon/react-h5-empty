@@ -97,12 +97,15 @@ class DemandResult extends React.Component {
           </div>
         </div>
         {
-          data.result ? <div>
+          data.report ? <div>
             <div style={{height: '15px'}}></div>
             <div className="demand-result-line-text">
               <div className="demand-result-line-text-title">结项报告</div>
               <div className="demand-result-line-text-content">
                 {data.result}
+                <div dangerouslySetInnerHTML={{
+                  __html: data.report,
+                }}></div>
               </div>
             </div>
           </div> : null

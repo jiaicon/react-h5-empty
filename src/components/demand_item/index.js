@@ -18,6 +18,8 @@ class DemandItem extends React.Component {
         <i className={classnames({
           'demand-list-item-service': data.status == 1,
           'demand-list-item-complete': data.status == 2,
+          'demand-list-item-wait': data.status == 0,
+          'demand-list-item-reject': data.status == 3,
         })}></i>
         <div className="demand-list-item-title">{data.title}</div>
         <div className="demand-list-item-detail" style={{marginTop: '17px'}}>

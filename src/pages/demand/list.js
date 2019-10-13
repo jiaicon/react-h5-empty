@@ -6,6 +6,8 @@ import history from '../history';
 import { bindActionCreators } from "redux";
 import { saveDemandTabIndex, allDemandList, ownDemandList } from "./demand.store";
 import Tab from "../../components/tab/tab";
+import Link from "../../components/link/link";
+import Image from "../../components/image/image";
 import DemandItem from "../../components/demand_item/index";
 import { isWindowReachBottom } from '../../utils/funcs';
 
@@ -90,10 +92,10 @@ class DemandList extends React.Component {
     </div>)
   }
 
-  sponsor(e) {
-    e.preventDefault();
-    history.push('/demand/sponsor');
-  }
+  // sponsor(e) {
+  //   e.preventDefault();
+  //   history.push('/demand/sponsor');
+  // }
   render() {
     const { demand: { demandTab, allDemandList, ownDemandList} } = this.props;
     console.log(this.props);
@@ -108,7 +110,9 @@ class DemandList extends React.Component {
         onChange={this.onTabChange}
         selectedIndex={demandTab.tabIndex}
       />
-      <div className="demand-sponsor" onClick={(e)=>{this.sponsor(e)}}>发起</div>
+      <Link to='/demand/sponsor' className="demand-sponsor">
+        <Image src="/images/demand/set_up.png" resize={{width: 98, height: 98}} style={{width: '98px', height: '98px'}}/>
+      </Link>
       {
         showLoadingMore
           ?

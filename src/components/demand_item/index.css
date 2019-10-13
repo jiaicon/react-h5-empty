@@ -89,3 +89,25 @@
     right: 0;
     display: inline-block;
 }
+.demand-list-item-wait {
+    background: url("/images/demand/wait.png") no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+}
+.demand-list-item-reject {
+    background: url("/images/demand/reject.png") no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+}
