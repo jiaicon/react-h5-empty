@@ -21,6 +21,7 @@ const MODULE_LINK = {
   claim_project: '/sanlitun/projectClaim/list',
   community_interact: '/my/circlevisits',
   funding_application: '/funding_application/step_one',
+  volunteer_demand: '/demand',
 };
 
 class Menus extends React.Component {
