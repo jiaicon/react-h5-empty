@@ -22,9 +22,13 @@
 }
 .sponsor-line-ipt-value {
     flex: 1;
-    height: 100%;
+    /*height: 100%;*/
     text-align: right;
     outline: none;
+    height: 20px;
+    line-height: 20px;
+}
+.sponsor-line-select-value {
     direction: rtl;
 }
 .sponsor-line-textarea {

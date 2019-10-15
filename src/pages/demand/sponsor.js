@@ -5,7 +5,7 @@ import history from '../history';
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { bindActionCreators } from "redux";
-import { demandSubmit } from './demand.store';
+import { demandSubmit, ownDemandList } from './demand.store';
 import './sponsor.css';
 
 
@@ -21,6 +21,10 @@ class DemandSponsor extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+  }
+
+  componentDidMount() {
+    this.props.ownDemandList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +78,7 @@ class DemandSponsor extends React.Component {
       <div style={{height: '15px'}}></div>
       <div className="sponsor-line sponsor-line-ipt">
         <div className="sponsor-line-ipt-label">求助类别</div>
-        <select className="sponsor-line-ipt-value" ref={val => this.category = val} name="" id="">
+        <select className="sponsor-line-ipt-value sponsor-line-select-value" ref={val => this.category = val} name="" id="">
           <option value ="-1">选择求助类别</option>
           {
             orgInfo.demand_category && orgInfo.demand_category.map((item, index)=>(          <option value={item} key={index}>{item}</option>))
@@ -94,7 +98,7 @@ class DemandSponsor extends React.Component {
       <div style={{height: '15px'}}></div>
       <div className="sponsor-line sponsor-line-ipt">
         <div className="sponsor-line-ipt-label">服务地点</div>
-        <select className="sponsor-line-ipt-value" ref={val => this.village = val} required name="" id="">
+        <select className="sponsor-line-ipt-value sponsor-line-select-value" ref={val => this.village = val} required name="" id="">
           <option value ="-1">选择服务地点</option>
           {
             orgInfo.demand_village && orgInfo.demand_village.map((item, index)=>(          <option value={item} key={index}>{item}</option>))
@@ -113,6 +117,8 @@ class DemandSponsor extends React.Component {
 }
 
 DemandSponsor.propTypes = {
+  demandSubmit: PropTypes.func,
+  ownDemandList: PropTypes.func,
 };
 
 DemandSponsor.title = "求助申请";
@@ -120,11 +126,12 @@ DemandSponsor.title = "求助申请";
 export default connect(
   state => ({
     demandSubmitData: state.demand.demandSubmit,
+    user: state.user,
   }),
   dispatch =>
     bindActionCreators(
       {
-        demandSubmit
+        demandSubmit, ownDemandList
       },
       dispatch
     )

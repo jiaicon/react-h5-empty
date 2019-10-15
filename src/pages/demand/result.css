@@ -13,6 +13,12 @@
     font-family: PingFangSC-Medium;
     font-size: 22px;
     color: #333333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 .demand-result-item-detail {
     font-family: PingFangSC-Regular;
@@ -108,4 +114,13 @@
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: #333333;
+}
+.demand-result-item-detail-addr {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
