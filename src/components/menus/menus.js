@@ -12,7 +12,10 @@ const MODULE_LINK = {
   reward_history: '/my/duration/applys',
   help_center: '/my/service',
   联盟互动: 'https://buluo.qq.com/p/barindex.html?bid=334308&from=wechat',
-  volunteer_strategy: 'http://m.guide.volunteerzhiduoxing.cn',
+  // 判断是否是南漳
+  volunteer_strategy: window.orgCode != 'q9wdL9wejP' ? 'http://m.guide.volunteerzhiduoxing.cn' : 'http://nanzhang.m.guide.volunteerzhiduoxing.cn/',
+  // 南漳故事
+  nanzhang_story: 'http://nanzhang.m.guide.volunteerzhiduoxing.cn/subject-articlelist/10007',
   1234: 'http://sanlitunweb.parkingkj.com/showhtml/sayvillage.html',
   // volunteer_feedback: `http://${location.host}/tmall`,
   volunteer_feedback: '/shop',
