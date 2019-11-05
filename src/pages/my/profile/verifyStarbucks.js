@@ -214,10 +214,10 @@ class Verify extends React.Component {
       previewData: [],
       cardtype: 1,
       isStarbucksPartner : { "key": "isStarbucksPartner", "label": "是否星巴克伙伴", "type": "1", "options": "是,否", "is_required": 1 },
-      region_first :{ "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,上海支持中心", "is_required": 0 }, 
+      region_first :{ "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,上海支持中心", "is_required": 0 },
       region_second : { "key": "region_second", "label": "二级区域", "type": "1", "options": "浙江,江苏,上海东,上海西,南东区,南西区,华北区,东北区,中区,西区,上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心", "is_required": 0 },
       city_starbucks : { "key": "city_starbucks", "label": "城市", "type": "3", "options": null, "is_required": 1 },
-      store_num : { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 }, 
+      store_num : { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 },
       store_name : { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 0 },
       staff_id : { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 0 },
     };
@@ -417,7 +417,7 @@ class Verify extends React.Component {
       }
     }
     console.info(arr);
-    
+
     if (stateOrgData.open_id_number) {
       if (cardtype == 1 && iscard(idcard)) {
         return;
@@ -557,8 +557,8 @@ class Verify extends React.Component {
           ) : null}
           <div className="page-my-profile-verify-fonts">证件类型</div>
           <label htmlFor="cardtype">
-            <select 
-              
+            <select
+
               id="cardtype"
               onChange={this.handleCardClick}
               ref={c => {
@@ -809,7 +809,7 @@ class Verify extends React.Component {
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
             <div className="page-my-profile-verify-fonts">{data.label}</div>
-          
+
           <input
             type = "text"
             id={`${key}`}
@@ -1148,7 +1148,7 @@ class Verify extends React.Component {
       extendsArray,
       region_first: extendsArray.isStarbucksPartner === "是" ? { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,上海支持中心", "is_required": 1 } : { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,上海支持中心", "is_required": 0 },
       region_second: region_second,
-      store_num: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "上海支持中心" && extendsArray.region_second != "支持中心" ?  { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 1 }:{ "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 }, 
+      store_num: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "上海支持中心" && extendsArray.region_second != "支持中心" ?  { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 1 }:{ "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 },
       store_name: extendsArray.isStarbucksPartner === "是" && extendsArray.region_first != "上海支持中心" && extendsArray.region_second != "支持中心" ?   { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 1 } : { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 0 },
       staff_id: extendsArray.isStarbucksPartner === "是" ?  { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 1 }: { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 0 },
     } ,() => {
@@ -1182,7 +1182,7 @@ class Verify extends React.Component {
     tempRegionSecond.options = options;
     tempRegionSecond.is_required = is_required;
     return tempRegionSecond;
-    
+
   }
 
   renderPassword() {
@@ -1204,7 +1204,7 @@ class Verify extends React.Component {
                 className="page-my-profile-verify-text"
                 onChange={this.onTextChanged}
               />
-              
+
             </div>
             <div className="line1px" />
           </div>
@@ -1281,13 +1281,13 @@ class Verify extends React.Component {
       left: "0"
     };
 
-    
+
     return (
       <div className="page-my-profile-verify-container">
         {this.state.winOrgInfo === null ? null : (
           <div style={{ width: "100%", height: "100%" }}>
             <div className="page-my-profile-verify-main">
-              
+
               {/* {//头像
               this.renderAvatars()} */}
               {//名字
@@ -1299,23 +1299,23 @@ class Verify extends React.Component {
                 this.renderOtherInfoSelect(this.state.isStarbucksPartner)
               }
               {//区域
-                this.state.region_first.is_required == 0 ? null : this.renderOtherInfoSelect(this.state.region_first)
+                this.state.region_first ? this.renderOtherInfoSelect(this.state.region_first) : null
               }
               {//二级区域
-                this.state.region_second.is_required == 0 ? null : this.renderOtherInfoSelect(this.state.region_second)
+                this.state.region_second ? this.renderOtherInfoSelect(this.state.region_second) : null
               }
               {//城市
                 this.renderOtherInfoInput(this.state.city_starbucks)
               }
               {//门店编号
-                this.state.store_num.is_required == 0 ? null :this.renderOtherInfoInput(this.state.store_num)
+                this.state.store_num ? this.renderOtherInfoInput(this.state.store_num) : null
               }
               {//门店名称
-                this.state.store_name.is_required == 0 ? null :this.renderOtherInfoInput(this.state.store_name)
+                this.state.store_name ? this.renderOtherInfoInput(this.state.store_name) : null
               }
 
               {//员工id
-                this.state.staff_id.is_required == 0 ? null :this.renderOtherInfoInput(this.state.staff_id)
+                this.state.staff_id ? this.renderOtherInfoInput(this.state.staff_id) : null
               }
 
               {/* {//民族
