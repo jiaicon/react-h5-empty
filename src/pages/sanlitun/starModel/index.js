@@ -45,9 +45,10 @@ class starModelPage extends React.Component {
     if (!starModel.data) {
       return null;
     }
+    let src = window.orgCode == 'q9wdL9wejP' ? '/images/civilication.png' : '/images/model.png'
     return (
       <div className="page-starmodel">
-        <IMAGE src="/images/model.png" className="page-starmodel-header-pic" />
+        <IMAGE src={src} className="page-starmodel-header-pic" />
 
         <IndexItem data={starModel.data} />
 
@@ -57,7 +58,11 @@ class starModelPage extends React.Component {
 }
 
 
-starModelPage.title = '星级榜样';
+if(window.orgCode == 'q9wdL9wejP') {
+  starModelPage.title = "文明宣讲";
+} else {
+  starModelPage.title = '星级榜样';
+}
 
 starModelPage.propTypes = {
 

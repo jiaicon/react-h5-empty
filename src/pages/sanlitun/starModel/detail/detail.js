@@ -75,7 +75,11 @@ class starModelDetail extends React.Component {
 }
 
 
-starModelDetail.title = '星级榜样';
+if(window.orgCode == 'q9wdL9wejP') {
+  starModelDetail.title = "文明宣讲";
+} else {
+  starModelDetail.title = '星级榜样';
+}
 
 starModelDetail.propTypes = {
 
