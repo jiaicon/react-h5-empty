@@ -383,7 +383,7 @@ class HomePage extends React.Component {
                   <div style={{ width: "100%", height: "10px" }} />
                 </div>
               ) : null}
-              {home.data && home.data.sanlitun && window.orgCode === "mxkazpYdJ0" ? null : (
+              {home.data && home.data.sanlitun && (window.orgCode === "mxkazpYdJ0" || window.orgCode === "7N1aM8AeWm") ? null : (
                 <div className="menus-activity">
                   <Link to="/project/list/type/1/category/1000/target/1000">
                     <img src={activities_nearby_image} alt="附近" />

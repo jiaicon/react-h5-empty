@@ -472,30 +472,36 @@ class MyPage extends React.Component {
               <div className="line1px" />
             </div>
           </li>
-          <li>
-            <div onClick={this.hasntIdnumber}>
-              <Link to="/my/certificate">
-                <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-certificate" />
-                  我的证书
+          {
+            orgCode === "7N1aM8AeWm" ? null :
+              (<li>
+                <div onClick={this.hasntIdnumber}>
+                  <Link to="/my/certificate">
+                    <div className="page-my-item-box">
+                      <i className="page-my-item-icon page-my-item-icon-certificate" />
+                      我的证书
+                    </div>
+                    <span className="page-my-item-big" />
+                  </Link>
+                  <div className="line1px" />
                 </div>
-                <span className="page-my-item-big" />
-              </Link>
-              <div className="line1px" />
-            </div>
-          </li>
-          <li>
-            <div>
-              <Link to="/my/family">
-                <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-family" />
-                  我的家庭
-                </div>
-                <span className="page-my-item-big" />
-              </Link>
-              <div className="line1px" />
-            </div>
-          </li>
+              </li>)
+          }
+          {
+            orgCode === "7N1aM8AeWm" ? null :
+            (<li>
+              <div>
+                <Link to="/my/family">
+                  <div className="page-my-item-box">
+                    <i className="page-my-item-icon page-my-item-icon-family" />
+                    我的家庭
+                  </div>
+                  <span className="page-my-item-big" />
+                </Link>
+                <div className="line1px" />
+              </div>
+            </li>)
+          }
           <li>
             <div>
               <Link to="/my/collects">
@@ -508,19 +514,22 @@ class MyPage extends React.Component {
               <div className="line1px" />
             </div>
           </li>
-          <li>
-            <div>
-              <Link to="/my/duration/applys">
-                <div className="page-my-item-box">
-                  <i className="page-my-item-icon page-my-item-icon-applys" />
-                  申请服务时长
-                </div>
-                <span className="page-my-item-big" />
-              </Link>
-              <div className="line1px" />
-            </div>
-          </li>
-          {orgCode === "wMvbmOeYAl" ? (
+          {
+            orgCode === "7N1aM8AeWm" ? null :
+            (<li>
+              <div>
+                <Link to="/my/duration/applys">
+                  <div className="page-my-item-box">
+                    <i className="page-my-item-icon page-my-item-icon-applys" />
+                    申请服务时长
+                  </div>
+                  <span className="page-my-item-big" />
+                </Link>
+                <div className="line1px" />
+              </div>
+            </li>)
+          }
+          {orgCode === "wMvbmOeYAl" || orgCode === "7N1aM8AeWm" ? (
             <li />
           ) : (
             <li>
