@@ -56,10 +56,16 @@ class Menus extends React.Component {
     menus.forEach((menuLine, idx) => {
       newMenus.push([]);
       menuLine.forEach((menu) => {
-        newMenus[idx].push({
-          ...menu,
-          link: MODULE_LINK[menu.key] || DEFAULT_LINK,
-        });
+        if(!menu.link) {
+          newMenus[idx].push({
+            ...menu,
+            link: MODULE_LINK[menu.key] || DEFAULT_LINK,
+          });
+        } else {
+          newMenus[idx].push({
+            ...menu,
+          })
+        }
       });
     });
 
