@@ -47,6 +47,9 @@ const WXS = (option = {}) => {
   if (orgCode == "qM7e5Ba2vp") {
     desxName = "志愿小金人，用爱传温暖！";
   }
+  if (orgCode == "7N1aM8AeWm") {
+    desxName = "让我们携手共建更美好的世界！";
+  }
   const newOption = {
     title: `${option.title || orgInfo.name}`,
     desc: removeHTMLTag(option.desc || desxName),
