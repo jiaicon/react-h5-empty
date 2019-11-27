@@ -219,7 +219,6 @@ class MyPage extends React.Component {
   }
 
   renderPageMyphotoTemplate() {
-    console.log(this.props);
     let { userAchieveList, user } = this.props;
     let label = "";
     let query = "";
@@ -231,7 +230,13 @@ class MyPage extends React.Component {
       userAchieveList.data.data.growth_level.length &&
       user
     ) {
-      let userAchieveListLocal = userAchieveList.data.data.growth_level;
+      // 过滤一下，没有name的过滤掉，有的不需要6级，但都下发了。
+      let userAchieveListLocal = [];
+      userAchieveList.data.data.growth_level.forEach(item => {
+        if (item.name) {
+          userAchieveListLocal.push(item);
+        }
+      });
       if (user.growth < userAchieveListLocal[0].growth) {
         label = "等级0";
           query = userAchieveListLocal[0].name;
@@ -584,7 +589,13 @@ class MyPage extends React.Component {
       userAchieveList.data.data.growth_level.length &&
       user
     ) {
-      let userAchieveListLocal = userAchieveList.data.data.growth_level;
+      // 过滤一下，没有name的过滤掉，有的不需要6级，但都下发了。
+      let userAchieveListLocal = [];
+      userAchieveList.data.data.growth_level.forEach(item => {
+        if (item.name) {
+          userAchieveListLocal.push(item);
+        }
+      });
       last_label = userAchieveListLocal[userAchieveListLocal.length - 1];
       if (user.growth < userAchieveListLocal[0].growth) {
         now_label = userAchieveListLocal[0];
@@ -601,7 +612,6 @@ class MyPage extends React.Component {
         now_label = userAchieveListLocal[userAchieveListLocal.length - 1];
         now_label.level = userAchieveListLocal.length - 1;
       } else {
-          console.log(user.growth, userAchieveListLocal)
         for (let i = 0; i < userAchieveListLocal.length; i++) {
           if (user.growth >= userAchieveListLocal[i].growth) {
             now_label = userAchieveListLocal[i + 1];
