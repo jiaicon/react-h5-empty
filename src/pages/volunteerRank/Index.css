@@ -1,0 +1,140 @@
+.volunteer-rank-top {
+    height: 196px;
+    background-image: radial-gradient(50% 153%, #FFFFFF 0%, #EAE9E4 100%);
+}
+.volunteer-rank-top-avatar {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 122px;
+}
+.volunteer-rank-top-left,.volunteer-rank-top-right {
+    width: 72px;
+    height: 72px;
+    border-radius: 100%;
+    position: relative;
+}
+.volunteer-rank-top-center {
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    position: relative;
+}
+.volunteer-rank-top-first-king {
+    position: absolute;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url("/images/rank/first.png") no-repeat center;
+    background-size: cover;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.volunteer-rank-top-second-king {
+    position: absolute;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background: url("/images/rank/second.png") no-repeat center;
+    background-size: cover;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.volunteer-rank-top-third-king {
+    position: absolute;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background: url("/images/rank/third.png") no-repeat center;
+    background-size: cover;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.volunteer-rank-top-first-plate {
+    position: absolute;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("/images/rank/first-plate.png") no-repeat center;
+    background-size: contain;
+    bottom: 0px;
+}
+.volunteer-rank-top-second-plate {
+    position: absolute;
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background: url("/images/rank/second-plate.png") no-repeat center;
+    background-size: contain;
+    bottom: 0px;
+}
+.volunteer-rank-top-third-plate {
+    position: absolute;
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background: url("/images/rank/third-plate.png") no-repeat center;
+    background-size: contain;
+    bottom: 0px;
+}
+
+.volunteer-rank-top-name {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+.volunteer-rank-top-name a {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+}
+.volunteer-rank-top-name .volunteer-rank-top-name-time {
+    font-size: 12px;
+    color: #FFB103;
+}
+
+.volunteer-rank-bot-box {
+    display: flex;
+    height: 69px;
+    align-items: center;
+    padding: 0 43px;
+    justify-content: space-between;
+}
+.volunteer-rank-bot a {
+    font-family: PingFangSC-Regular;
+}
+.volunteer-rank-bot-box-sort {
+    font-size: 17px;
+    color: #9B9B9B;
+}
+.volunteer-rank-bot-box-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.volunteer-rank-bot-box-detail {
+    display: flex;
+    width: 179px;
+    height: 100%;
+    align-items: center;
+    padding: 0 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid #EDEDED;
+}
+.volunteer-rank-bot-box-detail-name {
+    font-size: 14px;
+    color: #000000;
+    width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.volunteer-rank-bot-box-detail-time {
+    font-size: 12px;
+    color: #FFB103;
+}
+

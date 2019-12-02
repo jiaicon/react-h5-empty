@@ -25,6 +25,7 @@ const MODULE_LINK = {
   community_interact: '/my/circlevisits',
   funding_application: '/funding_application/step_one',
   volunteer_demand: '/demand',
+  volunteer_rank: '/volunteer_rank',
 };
 
 class Menus extends React.Component {

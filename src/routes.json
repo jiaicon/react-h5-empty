@@ -479,5 +479,15 @@
     "path": "/demand/result/:demandId",
     "page": "./pages/demand/result",
     "chunk": "main"
+  },
+  {
+    "path": "/volunteer_rank",
+    "page": "./pages/volunteerRank/index",
+    "chunk": "main"
+  },
+  {
+    "path": "/volunteer_rank/:id",
+    "page": "./pages/volunteerRank/detail",
+    "chunk": "main"
   }
 ]

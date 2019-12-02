@@ -1,0 +1,198 @@
+.volunteer-rank-detail-top {
+    display: flex;
+    height: 150px;
+    padding: 24px 39px;
+    justify-content: space-between;
+    background-image: radial-gradient(50% 153%, #FFFFFF 0%, #EAE9E4 100%);
+}
+.volunteer-rank-detail-top-avatar {
+    width: 90px;
+    height: 90px;
+    margin-right: 33px;
+    border-radius: 100%;
+}
+.volunteer-rank-detail-top-detail-name {
+    font-family: PingFangSC-Regular;
+    font-size: 17px;
+    color: #000000;
+    margin-right: 14px;
+}
+.volunteer-rank-detail-top-detail-level {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #FFB103;
+}
+.volunteer-rank-detail-top-detail-slogan {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #9B9B9B;
+    margin: 8px 0 18px;
+}
+.volunteer-rank-detail-top-detail-time {
+    display: flex;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #5E5E5E;
+    justify-content: space-around;
+}
+.volunteer-rank-detail-top-detail-time>div {
+    flex: 1;
+    text-align: center;
+}
+.volunteer-rank-detail-top-detail-time>div:first-child {
+    border-right: 1px solid #D8D8D8;
+}
+.volunteer-rank-detail-top-detail-time>div p:last-child {
+    font-size: 12px;
+}
+.volunteer-rank-detail-achieve-title {
+    text-align: center;
+    position: relative;
+    margin: 18px 0 27px;
+}
+.volunteer-rank-detail-achieve-title::before {
+    content: '';
+    display: inline-block;
+    width: 98px;
+    height: 1px;
+    background-color: #E5E5E5;
+    top:-5px;
+    left: -20px;
+    position: relative;
+}
+.volunteer-rank-detail-achieve-title::after {
+    content: '';
+    display: inline-block;
+    width: 98px;
+    height: 1px;
+    background-color: #E5E5E5;
+    top:-5px;
+    right: -20px;
+    position: relative;
+}
+.volunteer-rank-detail-achieve-title-icon {
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url("/images/rank/achieve.png") no-repeat center;
+    background-size: contain;
+    margin-right: 4px;
+    position: relative;
+    top: 4px;
+}
+.volunteer-rank-detail-achieve-get {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+.volunteer-rank-detail-achieve-get>div {
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #4A4A4A;
+    width: 33%;
+}
+.volunteer-rank-detail-achieve-get-name {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.volunteer-rank-detail-achieve-get-icon {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 9px;
+}
+
+.volunteer-rank-detail-project-title-icon {
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url("/images/rank/project.png") no-repeat center;
+    background-size: contain;
+    margin-right: 4px;
+    position: relative;
+    top: 4px;
+}
+.volunteer-rank-detail-project-detail {
+    display: flex;
+    padding: 10px 18px;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #9B9B9B;
+    border-bottom: 1px solid #E5E5E5;
+}
+.volunteer-rank-detail-project-detail-info-title {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 14px;
+}
+.volunteer-rank-detail-project-detail-img {
+    width: 135px;
+    height: 78px;
+    margin-right: 15px;
+}
+
+.volunteer-rank-detail-team-title-icon {
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+    background: url("/images/rank/team.png") no-repeat center;
+    background-size: contain;
+    margin-right: 4px;
+    position: relative;
+    top: 4px;
+}
+.volunteer-rank-detail-team-detail {
+    display: flex;
+    padding: 10px 18px;
+    font-family: .PingFangSC-Light;
+    font-size: 13px;
+    color: #666666;
+    border-bottom: 1px solid #E5E5E5;
+}
+.volunteer-rank-detail-team-detail-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    background-color: #000;
+    margin-right: 15px;
+}
+.volunteer-rank-detail-team-detail-info-title {
+    font-family: .PingFangSC-Regular;
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 6px;
+}
+.volunteer-rank-detail-team-detail-info {
+    flex: 1;
+}
+.volunteer-rank-detail-team-detail-info-icon-time {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    background: url("/images/icon_duration.png") no-repeat center;
+    background-size: contain;
+    margin-right: 8px;
+    position: relative;
+    top: 4px;
+}
+.volunteer-rank-detail-team-detail-info-icon-people {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url("/images/icon_people.png") no-repeat center;
+    background-size: contain;
+    margin-right: 8px;
+    position: relative;
+    top: 6px;
+}
+.volunteer-rank-detail-team-detail-info-both {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
