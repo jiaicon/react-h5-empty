@@ -184,7 +184,18 @@ class COMMUNITYITEM extends React.Component {
           <div className="components-community-item">
             <AVATAR size={{ width: 40, height: 40, radius: 4 }} className="components-community-item-avatar" src={data.user_info.avatars} />
             <div className="components-community-item-main-right">
-              <p className="components-community-item-name">{data.user_info.real_name || data.user_info.username}</p>
+              <p className="components-community-item-name">
+                <span className="components-community-item-name-text">{data.user_info.real_name || data.user_info.username}</span>
+                {window.orgInfo.st_rank_op == 1 && data.model ? (
+                  <span
+                    className="volunteer-rank-detail-top-detail-level"
+                  >
+              {`用户等级: ${data.model.name}` || "暂无等级"}
+            </span>
+                ) : (
+                  <span />
+                )}
+              </p>
               <Link to={`/my/circledetail/${data.id}`}>
                 <div
                   ref={(dom) => { this.contentDom = dom; }}

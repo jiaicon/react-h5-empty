@@ -22,7 +22,7 @@ import { moreFeelingAction,
         unObserveAction,
         observeAction,
          } from './circle.store';
-import { userCenterAction } from '../my.store';
+import { userCenterAction, userAchieve } from '../my.store';
 
 
 import { Dialog } from 'react-weui';
@@ -63,6 +63,7 @@ class CircleVists extends React.Component {
   componentWillMount() {
     this.requestList(false);
     this.props.requestUserInfo();
+    this.props.userAchieve()
   }
 
   componentDidMount() {
@@ -118,12 +119,51 @@ class CircleVists extends React.Component {
     const { moreFeeling: { data: listData } } = this.props;
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
+    const {
+      userAchieveList: { data: udata },
+    } = this.props;
+    if (window.orgInfo.st_rank_op == 1) {
+      if(!udata || !udata.data) {
+        return <div></div>;
+      }
+      const { data: { growth_level } } = udata;
+      let userAchieveListLocal = [];
+      growth_level.forEach(item => {
+        if (item.name) {
+          userAchieveListLocal.push(item);
+        }
+      });
+      let model = null;
+      listData.list.map(item => {
+        if(item.type == 1) {
+          if(!item.user_info.growth) {
+            item.user_info.growth = 0;
+          }
+          if(item.user_info.growth >= userAchieveListLocal[userAchieveListLocal.length-1].growth) {
+            model = userAchieveListLocal[userAchieveListLocal.length-1];
+          } else if(item.user_info.growth < userAchieveListLocal[0].growth) {
+            model = {
+              name: '暂无等级'
+            }
+          } else {
+            for(let i = 0; i < userAchieveListLocal.length;i++) {
+              if(item.user_info.growth >= userAchieveListLocal[i].growth && item.user_info.growth < userAchieveListLocal[i+1].growth) {
+                model = userAchieveListLocal[i];
+                break;
+              }
+            }
+          }
+          item.model = model;
+        }
+        return item;
+      })
+    }
     return (
       <div>
         {
           this.props.moreFeeling.data && this.props.moreFeeling.data.list && this.props.moreFeeling.data.list.length >0 ?
             <div>{
-          this.props.moreFeeling.data.list.map(itm => (
+              listData.list.map(itm => (
             <CommunityItem
               data={itm} isDetailEntry key={itm.id} onDeleteClick={this.delete} routeData={this.props.route}
               onParseClick={this.onParse} onUnParseClick={this.unOnParse}
@@ -194,9 +234,10 @@ export default connect(
     observe: state.circle.observe,
     unObserve: state.circle.unObserve,
     moreFeeling: state.circle.moreFeeling,
+    userAchieveList: state.my.userAchieve,
   }),
   dispatch => bindActionCreators({
-
+      userAchieve,
     userCenterAction,
     requestUserInfo,
     deleteFeelingAction,

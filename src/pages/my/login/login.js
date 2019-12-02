@@ -55,7 +55,7 @@ class Login extends React.Component {
             let target = '/my';
             const {from} = nLogin;
          
-            if (realRegister && !nLogin.data.id_number) {
+            if (realRegister && !nLogin.data.id_number && window.orgInfo.custom_config.open_id_number == 1) {
                 if(from) {
                     target = from;
                 }

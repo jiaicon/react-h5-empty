@@ -141,3 +141,13 @@
   letter-spacing: 0;
   line-height: 13px;
 }
+
+.volunteer-rank-detail-top-detail-level {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #FFB103;
+}
+
+.components-community-item-name-text {
+    margin-right: 20px;
+}
