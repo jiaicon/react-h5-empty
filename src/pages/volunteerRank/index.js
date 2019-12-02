@@ -127,9 +127,9 @@ class Index extends React.Component {
       {
         list.map((item, index) => (<Link to={`/volunteer_rank/${item.user_id}`} key={index} className="volunteer-rank-bot-box">
           <div className="volunteer-rank-bot-box-sort">{index + 4}</div>
-          <Avatar size={{width: 50, height: 50}} src={item.user.avatars}/>
+          <Avatar size={{width: 50, height: 50}} src={item.user && item.user.avatars}/>
           <div className="volunteer-rank-bot-box-detail">
-            <div className="volunteer-rank-bot-box-detail-name">{item.real_name && item.real_name.length ? item.real_name : item.user.username}</div>
+            <div className="volunteer-rank-bot-box-detail-name">{item.real_name && item.real_name.length ? item.real_name : (item.user ? item.user.username : '')}</div>
             <div className="volunteer-rank-bot-box-detail-time">{Number(item.reward_time).toFixed(2)}时</div>
           </div>
         </Link>))
