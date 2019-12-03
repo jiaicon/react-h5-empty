@@ -21,6 +21,7 @@ import { requestVerifyCode, register } from '../register/register.store';
 import Avatar from '../../../components/avatar/avatar';
 import { API_HOST } from '../../../utils/config';
 import { format } from 'url';
+import { setToken } from '../../../utils/funcs'
 
 class Login extends React.Component {
 
@@ -114,6 +115,9 @@ class Login extends React.Component {
                 if (from === '/my/login') {
                   target = '/my';
                 }
+                if (nLogin.data.token) {
+                  setToken(nLogin.data.token)
+                }
                 window.location.replace(target);
               }
             }else{
@@ -127,6 +131,9 @@ class Login extends React.Component {
                 if (from === '/my/login') {
                     target = '/my';
                 }
+              if (nLogin.data.token) {
+                setToken(nLogin.data.token)
+              }
                 window.location.replace(target);
                 // history.replace(target);
             }
