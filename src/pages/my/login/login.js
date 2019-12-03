@@ -115,9 +115,6 @@ class Login extends React.Component {
                 if (from === '/my/login') {
                   target = '/my';
                 }
-                if (nLogin.data.token) {
-                  setToken(nLogin.data.token)
-                }
                 window.location.replace(target);
               }
             }else{
@@ -131,9 +128,6 @@ class Login extends React.Component {
                 if (from === '/my/login') {
                     target = '/my';
                 }
-              if (nLogin.data.token) {
-                setToken(nLogin.data.token)
-              }
                 window.location.replace(target);
                 // history.replace(target);
             }

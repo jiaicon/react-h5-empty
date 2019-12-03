@@ -85,12 +85,14 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
+    margin-top: 12px;
 }
 .volunteer-rank-top-name a {
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: #000000;
     text-align: center;
+    flex: 1;
 }
 .volunteer-rank-top-name .volunteer-rank-top-name-time {
     font-size: 12px;
