@@ -55,7 +55,7 @@ class Login extends React.Component {
             let target = '/my';
             const {from} = nLogin;
          
-            if (realRegister && !nLogin.data.id_number && window.orgInfo.custom_config.open_id_number == 1) {
+            if (realRegister && !nLogin.data) {
                 if(from) {
                     target = from;
                 }
@@ -72,6 +72,43 @@ class Login extends React.Component {
                
                
                 // history.replace('/my/profile/verify');
+            }else if(realRegister && nLogin.data) {
+              // 验证自定义信息必填
+              const custom_config = window.orgInfo.custom_config;
+              let isVerify = false;
+              if(custom_config.open_id_number && !nLogin.data.id_number.length) {
+                isVerify = true;
+              }
+              if(custom_config.open_real_name && !nLogin.data.real_name.length) {
+                isVerify = true;
+              }
+              if(custom_config.open_nation && !nLogin.data.nation.length) {
+                isVerify = true;
+              }
+              if(custom_config.open_avatars && !nLogin.data.avatars.length) {
+                isVerify = true;
+              }
+              if(custom_config.open_addr && !nLogin.data.addr.length) {
+                isVerify = true;
+              }
+
+              custom_config.extends.forEach(item=>{
+                if(item.is_required && !nLogin.data.extends[item.key].length) {
+                  isVerify = true;
+                }
+              })
+              if(isVerify) {
+                window.location.replace(`/my/profile/verify?target=${target}`);
+              } else {
+                if (from) {
+                  console.log("登录状态设置了来源，from是：：：：：：",from);
+                  target = from;
+                }
+                if (from === '/my/login') {
+                  target = '/my';
+                }
+                window.location.replace(target);
+              }
             }else{
                 
                 // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
