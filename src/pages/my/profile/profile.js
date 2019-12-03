@@ -158,7 +158,7 @@ class Profile extends React.Component {
                         null
                 }
                 {
-                    user.num_type ?
+                    user.id_number ?
                         <div>
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">证件类型</div>
@@ -180,13 +180,15 @@ class Profile extends React.Component {
                         null
                 }
                 {
-                        <div>
-                            <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">出生日期</div>
-                                <div className="page-profile-edit-right-box" style={{justifyContent: 'flex-end'}}>{user.birthday}</div>
-                            </div>
-                            <div className="line1px"/>
-                        </div>
+                  user.birthday ?
+                    <div>
+                      <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">出生日期</div>
+                        <div className="page-profile-edit-right-box" style={{justifyContent: 'flex-end'}}>{user.birthday}</div>
+                      </div>
+                      <div className="line1px"/>
+                    </div> :
+                    null
                 }
                 {
                     user.sex ?
@@ -489,30 +491,30 @@ class Profile extends React.Component {
                 </div>
             </div>
             {/* 通过开关判断用户是否实名注册显示渲染列表，或进去BTN */}
-            <div className={cx({
-                "page-profile-bottom": true,
-                "page-profile-display-block":
-                this.state.winOrgInfo !== null,
-                "page-profile-display-none":
-                this.state.winOrgInfo === null,
-                "page-profile-display-extends-block":
-                !user.id_number && this.state.winOrgInfo !== null,
-                "page-profile-display-extends-none": user.id_number
-            })}>
-                <Link to={verifyRouter}>
-                    <div className="page-profile-bottom-btn">
-                        申请成为实名注册志愿者
-                    </div>
-                </Link>
-            </div>
 
             <div className={cx({
                 "page-profile-bottom": true,
                 "page-profile-display-extends-block": user.id_number,
-                "page-profile-display-extends-none ": !user.id_number
+                // "page-profile-display-extends-none ": !user.id_number
             })}>
                 {this.renderRealInfo()}
             </div>
+          <div className={cx({
+            "page-profile-bottom": true,
+            "page-profile-display-block":
+            this.state.winOrgInfo !== null,
+            "page-profile-display-none":
+            this.state.winOrgInfo === null,
+            "page-profile-display-extends-block":
+            !user.id_number && this.state.winOrgInfo !== null,
+            "page-profile-display-extends-none": user.id_number
+          })}>
+            <Link to={verifyRouter}>
+              <div className="page-profile-bottom-btn">
+                申请成为实名注册志愿者
+              </div>
+            </Link>
+          </div>
         </div>;
     }
 
