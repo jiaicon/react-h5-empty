@@ -34,7 +34,7 @@ class Agree extends React.Component {
           <h5 className="page-introduce-title">一、定义</h5>
           <div className="page-introduce-content page-introduce-take-up">
             <div className="page-introduce-content">
-              SABIC志愿者服务平台（以下简称“本平台”）是SABIC为公司所有志愿者活动提供的一个数字平台。在确认注册前，请您务必仔细阅读、充分理解本协议全部内容。本平台是SABIC的一款社交媒体，由于社交媒体是一种快速变化的交流工具，次协议可能会发生更新和变化。
+              SABIC志愿者服务平台（以下简称“本平台”）是SABIC为公司志愿者活动管理提供的一个数字平台。在确认注册前，请您务必仔细阅读、充分理解本协议全部内容。
             </div>
           </div>
           <h5 className="page-introduce-title">二、账户注册与使用</h5>
@@ -48,18 +48,18 @@ class Agree extends React.Component {
             <div className="page-introduce-content">2、 用户权利</div>
 
             <div className="page-introduce-content">
-              用户可参与平台内活动。
+              用户可使用平台内提供的功能，包括参与志愿活动、浏览平台信息、发布志愿活动相关内容、积分并兑换等。
             </div>
             <div className="page-introduce-content">3、 用户义务</div>
 
             <div className="page-introduce-content">
-              用户务必遵守中华人民共和国法律法规及SABIC员工守则，并且遵守公司的价值观、政策，包括公司的道德准则，以及通过社交媒体进行交流时的最佳实践。如在本平台发布不当图片或文字内容，仅代表用户个人意见，本平台保留删除图片或文字及追究法律责任的权利，且由此导致的一切法律后果由用户个人承担。
+              用户务必遵守中华人民共和国法律法规及SABIC员工守则，并且遵守公司的价值观、政策，包括公司的道德准则、公司社交媒体政策等。用户在平台发布的所有内容仅代表个人观点，如在本平台发布不当图片或文字内容，本平台保留删除图片或文字及追究法律责任的权利，且由此导致的一切法律后果由用户个人承担。
             </div>
           </div>
           <h5 className="page-introduce-title">三、其他</h5>
           <div className="page-introduce-content page-introduce-take-up">
             <div className="page-introduce-content">
-              本平台与之相关的所有最终解释权归SABIC所有。
+              本平台及与之相关的所有内容最终解释权归SABIC所有
             </div>
           </div>
         </div>

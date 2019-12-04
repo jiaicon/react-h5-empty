@@ -98,9 +98,9 @@ class Login extends React.Component {
                   is_has_required = true;
                 }
               })
-              if(nLogin.data.extends && is_has_required && nLogin.data.extends.length) {
+              if(nLogin.data.extends && is_has_required) {
                 custom_config.extends.forEach(item=>{
-                  if(item.is_required && !nLogin.data.extends[item.key].length) {
+                  if(item.is_required && (!nLogin.data.extends[item.key] || (nLogin.data.extends[item.key] && !nLogin.data.extends[item.key].length))) {
                     isVerify = true;
                   }
                 })

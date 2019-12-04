@@ -115,6 +115,8 @@ class HomePage extends React.Component {
     let target = '/my/entry';
     if(window.orgCode === 'oBDbDkxal2') {
         target='/my/login';
+    } else if(window.orgCode === '7N1aM8AeWm') {
+      target='/my/login';
     }
     return (
       <div className="header-bar">
