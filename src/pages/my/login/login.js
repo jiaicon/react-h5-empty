@@ -105,7 +105,13 @@ class Login extends React.Component {
                   }
                 })
               }
-              if(isVerify) {
+              if(isVerify && nLogin.data.have_pwd == 1) {
+                let bindlink = '/my/profile/bind_profile/alert';
+                if (window.orgCode === 'oBDbDkxal2') {
+                  bindlink = '/my/profile/bind_profile_starbucks/alert';
+                }
+                window.location.replace(bindlink);
+              } else if(isVerify) {
                 window.location.replace(`/my/profile/verify?target=${target}`);
               } else {
                 if (from) {

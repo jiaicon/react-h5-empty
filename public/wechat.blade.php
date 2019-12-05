@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Tue Dec 03 2019 17:47:20 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Wed Dec 04 2019 11:25:31 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -132,7 +132,7 @@
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
   <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
-  <script src="/dist/main.9d2c7ef442f1724b6ab5.js"></script>
+  <script src="/dist/main.de0f8b89a741eff7614b.js"></script>
 </body>
 
 </html>
