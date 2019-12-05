@@ -268,7 +268,7 @@ class BindInfo extends React.Component {
                 city: this.props.user.city_id,
                 county: this.props.user.county_id,
                 birthday: this.props.user.birthday,
-                extendsArray: this.props.user.extends
+                extendsArray: this.props.user.extends || {}
             });
             //展开extends里的字段
             if(this.props.user.extends) {
@@ -1020,7 +1020,9 @@ class BindInfo extends React.Component {
     pushExtendsArray(key, value, isMany) {
         const extendsArray = this.state.extendsArray;
         const windowOrgConfig = this.state.winOrgInfo;
-        if (!isMany) {
+      console.log(extendsArray);
+
+      if (!isMany) {
             if (value == "-1") {
                 if (key in extendsArray) {
                     delete extendsArray[key];
