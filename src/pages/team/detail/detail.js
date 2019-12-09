@@ -284,20 +284,57 @@ class TeamDetailPage extends React.Component {
                         this.setState({...this.state, showDialog: true});
                     }
                     // 要求实名切用户未实名过，通过ID判断
-                } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-                    this.props.storeLoginSource(`/project/detail/${this.teamId}`)
-                    if(window.orgCode === "oBDbDkxal2") {
-                        window.location.replace(`/my/profile/verifyStarbucks`);
-                      }
-                      else {
-                        window.location.replace(`/my/profile/verify`);
-                      }
-                } else if (realRegister == 1 && user.isLogin && user.id_number) {
-                    if (action === 'join') {
-                        this.props.joinTeam(teamId, detailData);
-                    } else if (action === 'quit') {
-                        this.setState({...this.state, showDialog: true});
+                } else if (realRegister == 1 && user.isLogin) {
+                  // 验证自定义信息必填
+                  const custom_config = window.orgInfo.custom_config;
+                  let isVerify = false;
+                  if(custom_config.open_id_number && !user.id_number.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_real_name && !user.real_name.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_nation && !user.nation.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_avatars && !user.avatars.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_addr && !user.addr.length) {
+                    isVerify = true;
+                  }
+                  let is_has_required = false;
+                  custom_config.extends && custom_config.extends.length && custom_config.extends.forEach(item=>{
+                    if (item.is_required) {
+                      is_has_required = true;
                     }
+                  })
+                  if(is_has_required && !user.extends) {
+                    isVerify = true;
+                  }
+                  if(user.extends && is_has_required) {
+                    custom_config.extends.forEach(item=>{
+                      if(item.is_required && (!user.extends[item.key] || (user.extends[item.key] && !user.extends[item.key].length))) {
+                        isVerify = true;
+                      }
+                    })
+                  }
+                  this.props.storeLoginSource(`/project/detail/${this.teamId}`)
+                  if(isVerify && user.have_pwd == 1) {
+                    let bindlink = '/my/profile/bind_profile/alert';
+                    if (window.orgCode === 'oBDbDkxal2') {
+                      bindlink = '/my/profile/bind_profile_starbucks/alert';
+                    }
+                    window.location.replace(bindlink);
+                  } else if(isVerify) {
+                    window.location.replace(`/my/profile/verify`);
+                  } else {
+                    if (action === 'join') {
+                      this.props.joinTeam(teamId, detailData);
+                    } else if (action === 'quit') {
+                      this.setState({...this.state, showDialog: true});
+                    }
+                  }
                 }
             } else if (user.isLogin && user.in_blacklist) {
                 Alert.warning('您已被添加到黑名单，请联系客服');
@@ -330,48 +367,6 @@ class TeamDetailPage extends React.Component {
       ...this.state,
       showShareTip: true
     });
-  }
-
-  handleActionClick(action) {
-    const { teamId } = this;
-    const {
-      detail: { team: detailData },
-      user
-    } = this.props;
-    const realRegister = window.orgInfo.real_name_register;
-    // in_blacklist 黑名单 0不在，1在
-    // realRegister 机构实名 1 要求  0 否
-    return () => {
-      if (!user.isLogin) {
-        if (action === "join") {
-          this.props.joinTeam(teamId, detailData);
-        } else if (action === "quit") {
-          this.setState({ ...this.state, showDialog: true });
-        }
-      } else if (user.isLogin && !user.in_blacklist) {
-        // 不要求实名
-        if (realRegister == 0) {
-          if (action === "join") {
-            this.props.joinTeam(teamId, detailData);
-          } else if (action === "quit") {
-            this.setState({ ...this.state, showDialog: true });
-          }
-          // 要求实名切用户未实名过，通过ID判断
-        } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-          this.props.storeLoginSource(`/project/detail/${this.teamId}`);
-          window.location.replace(`/my/profile/verify`);
-          // history.replace(`/my/profile/verify/team/${this.teamId}`);
-        } else if (realRegister == 1 && user.isLogin && user.id_number) {
-          if (action === "join") {
-            this.props.joinTeam(teamId, detailData);
-          } else if (action === "quit") {
-            this.setState({ ...this.state, showDialog: true });
-          }
-        }
-      } else if (user.isLogin && user.in_blacklist) {
-        Alert.warning("您已被添加到黑名单，请联系客服");
-      }
-    };
   }
 
   renderSlick() {

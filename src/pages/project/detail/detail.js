@@ -470,16 +470,58 @@ class ProjectDetailPage extends React.Component {
                         paymentConfig
                     );
                     // 要求实名切用户未实名过，通过ID判断
-                } else if (realRegister == 1 && user.isLogin && !user.id_number) {
-                    this.props.storeLoginSource(`/project/detail/${this.projectId}`);
+                } else if (realRegister == 1 && user.isLogin) {
+                  // 验证自定义信息必填
+                  const custom_config = window.orgInfo.custom_config;
+                  let isVerify = false;
+                  if(custom_config.open_id_number && !user.id_number.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_real_name && !user.real_name.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_nation && !user.nation.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_avatars && !user.avatars.length) {
+                    isVerify = true;
+                  }
+                  if(custom_config.open_addr && !user.addr.length) {
+                    isVerify = true;
+                  }
+                  let is_has_required = false;
+                  custom_config.extends && custom_config.extends.length && custom_config.extends.forEach(item=>{
+                    if (item.is_required) {
+                      is_has_required = true;
+                    }
+                  })
+                  if(is_has_required && !user.extends) {
+                    isVerify = true;
+                  }
+                  if(user.extends && is_has_required) {
+                    custom_config.extends.forEach(item=>{
+                      if(item.is_required && (!user.extends[item.key] || (user.extends[item.key] && !user.extends[item.key].length))) {
+                        isVerify = true;
+                      }
+                    })
+                  }
+                  this.props.storeLoginSource(`/project/detail/${this.projectId}`);
+                  if(isVerify && user.have_pwd == 1) {
+                    let bindlink = '/my/profile/bind_profile/alert';
+                    if (window.orgCode === 'oBDbDkxal2') {
+                      bindlink = '/my/profile/bind_profile_starbucks/alert';
+                    }
+                    window.location.replace(bindlink);
+                  } else if(isVerify) {
                     window.location.replace(`/my/profile/verify`);
-                } else if (realRegister == 1 && user.isLogin && user.id_number) {
+                  } else {
                     this.handleActionClickSitch(
-                        action,
-                        projectId,
-                        customConfig,
-                        paymentConfig
+                      action,
+                      projectId,
+                      customConfig,
+                      paymentConfig
                     );
+                  }
                 }
             } else if (user.isLogin && user.in_blacklist) {
                 Alert.warning("您已被添加到黑名单，请联系客服");
