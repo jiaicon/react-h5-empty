@@ -134,10 +134,10 @@ class Detail extends React.Component {
       </div>
       {
         data.project.map((item, index) => (<Link to={`/project/detail/${item.project_id}`} key={index} className="volunteer-rank-detail-project-detail">
-          <Image src={item.project.list_photo} resize={{width: 135, height: 78}} className="volunteer-rank-detail-project-detail-img"/>
+          <Image defaultSrc={window.orgInfo.logo} src={item.project.list_photo} resize={{width: 135, height: 78}} className="volunteer-rank-detail-project-detail-img"/>
           <div className="volunteer-rank-detail-project-detail-info">
             <div className="volunteer-rank-detail-project-detail-info-title">{item.project.name}</div>
-            <div>活动日期：{moment(new Date(item.project.begin)).format('YYYY.MM.DD')} - {moment(new Date(item.project.end)).format('YYYY.MM.DD')}</div>
+            <div>活动日期：{moment(item.project.begin).format('YYYY.MM.DD')} - {moment(item.project.end).format('YYYY.MM.DD')}</div>
             <div>已获得时长：{Number(item.reward_time).toFixed(2)}时</div>
           </div>
         </Link>))
@@ -159,7 +159,7 @@ class Detail extends React.Component {
       </div>
       {
         data.team.map((item, index)=>(<Link to={`/team/detail/${item.team_id}`} className="volunteer-rank-detail-team-detail" key={index}>
-          <Image src={item.team.logo} resize={{width: 60, height: 60}} className="volunteer-rank-detail-team-detail-img"/>
+          <Image defaultSrc={window.orgInfo.logo} src={item.team.logo} resize={{width: 60, height: 60}} className="volunteer-rank-detail-team-detail-img"/>
           <div className="volunteer-rank-detail-team-detail-info">
             <div className="volunteer-rank-detail-team-detail-info-title">{item.team.name}</div>
             <div className="volunteer-rank-detail-team-detail-info-both">
