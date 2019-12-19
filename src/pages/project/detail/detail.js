@@ -432,7 +432,10 @@ class ProjectDetailPage extends React.Component {
                 return;
             }
             if (!customConfig && !paymentConfig) {
-                this.props.joinProject(projectId);
+              const {
+                detail: { data: detailData }
+              } = this.props;
+                this.props.joinProject(projectId, detailData.join_verify_status);
             } else if (customConfig || paymentConfig) {
                 // window.location.replace(`/project/signup/${projectId}`)
                 window.location.href = `/project/signup/${projectId}`;

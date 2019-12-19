@@ -60,14 +60,14 @@ export const unCollectProject = projectId => ({
 /**
  * 项目加入/退出 Action
  */
-export const joinProject = projectId => ({
+export const joinProject = (projectId, join_verify_status) => ({
   type: 'PROJECT_JOIN',
   payload: fetch(`/project/join/${projectId}`, {
     data: {
       id: projectId,
       type: 1, // 0-退出, 1-加入
     },
-    successWords: '已成功申请，请耐心等待审核',
+    successWords: join_verify_status ? '已成功申请，请耐心等待审核' : '已成功申请',
   }),
 });
 

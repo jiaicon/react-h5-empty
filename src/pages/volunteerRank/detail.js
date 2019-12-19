@@ -78,7 +78,7 @@ class Detail extends React.Component {
       model = userAchieveListLocal[userAchieveListLocal.length-1];
     } else if(data.growth < userAchieveListLocal[0].growth) {
       model = {
-        name: '暂无等级'
+        name: ''
       }
     } else {
       for(let i = 0; i < userAchieveListLocal.length;i++) {
@@ -98,7 +98,7 @@ class Detail extends React.Component {
             <span
               className="volunteer-rank-detail-top-detail-level"
             >
-              {`用户等级: ${model.name}` || "暂无等级"}
+              {model.name || ""}
             </span>
           ) : (
             <span />
