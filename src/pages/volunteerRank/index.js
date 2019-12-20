@@ -47,9 +47,14 @@ class Index extends React.Component {
   }
 
   allRank() {
-    const { volunteerRank: { volunteerRankAllList: { data } } } = this.props
+    let { volunteerRank: { volunteerRankAllList: { data } } } = this.props
     if (!data) {
       return null;
+    }
+    for(let i = 0; i < data.length; i++) {
+      if(data[i].user_id === 425616) {
+        data.splice(i, 1);
+      }
     }
     // 拆分，顶部三个
     const top = data.splice(0, 3);
@@ -64,6 +69,11 @@ class Index extends React.Component {
     const { volunteerRank: { volunteerRankYearList: { data } } } = this.props
     if (!data) {
       return null;
+    }
+    for(let i = 0; i < data.length; i++) {
+      if(data[i].user_id === 425616) {
+        data.splice(i, 1);
+      }
     }
     // 拆分，顶部三个
     const top = data.splice(0, 3);
