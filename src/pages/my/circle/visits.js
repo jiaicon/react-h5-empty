@@ -143,7 +143,7 @@ class CircleVists extends React.Component {
             model = userAchieveListLocal[userAchieveListLocal.length-1];
           } else if(item.user_info.growth < userAchieveListLocal[0].growth) {
             model = {
-              name: '暂无等级'
+              name: ''
             }
           } else {
             for(let i = 0; i < userAchieveListLocal.length;i++) {

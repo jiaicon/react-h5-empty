@@ -190,7 +190,7 @@ class COMMUNITYITEM extends React.Component {
                   <span
                     className="volunteer-rank-detail-top-detail-level"
                   >
-              {`用户等级: ${data.model.name}` || "暂无等级"}
+              {`${data.model.name}` || ""}
             </span>
                 ) : (
                   <span />
