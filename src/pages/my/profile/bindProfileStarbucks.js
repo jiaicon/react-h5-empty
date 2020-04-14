@@ -278,7 +278,7 @@ class BindInfo extends React.Component {
         birthday: this.props.user.birthday,
         extendsArray: this.props.user.extends
       },()=>{
-        that.pushExtendsArray();
+        // that.pushExtendsArray();
       });
       //展开extends里的字段
       if (this.props.user.extends) {
