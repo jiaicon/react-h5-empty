@@ -24,21 +24,22 @@ class SignPage extends React.Component {
   }
 
   componentWillMount() {
+    console.log('打开了 sign/sign.js 页面')
       this.props.requestCheckinList();
 
-      let geolocation = new qq.maps.Geolocation(
-          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-          "myapp"
-      );
-      let options = { timeout: 8000 };
-      geolocation.getLocation(function (position) {
-          const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
-          const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
-          const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
-          console.log("获取新位置成功", position);
-          setCookie("location", JSON.stringify({ lat, lng }), 1);
-      }, options);
-      this.props.requestClockList();
+      // let geolocation = new qq.maps.Geolocation(
+      //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+      //     "myapp"
+      // );
+      // let options = { timeout: 8000 };
+      // geolocation.getLocation(function (position) {
+      //     const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
+      //     const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
+      //     const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
+      //     console.log("获取新位置成功", position);
+      //     setCookie("location", JSON.stringify({ lat, lng }), 1);
+      // }, options);
+      // this.props.requestClockList();
   }
 
   componentDidMount() {

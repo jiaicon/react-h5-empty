@@ -37,6 +37,7 @@ class SigninPage extends React.Component {
   }
 
   componentWillMount() {
+    console.log('打开了 sign/signin.js 页面')
     this.props.requestCheckinList();
 
     let geolocation = new qq.maps.Geolocation(
