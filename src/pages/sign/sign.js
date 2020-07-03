@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
 import Link from '../../components/link/link';
-import { requestCheckinList, checkin, requestClockList} from '../sign/sign.store';
+import { requestCheckinList, checkin, requestClockList } from '../sign/sign.store';
 import history from '../history';
 
-import { setCookie} from '../../utils/funcs';
+import { setCookie } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 import SignItem from '../../components/signItem/index.js'
@@ -21,25 +21,53 @@ class SignPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    this.state = {
+      longitude: null,
+      latitude: null,
+    }
   }
 
   componentWillMount() {
     console.log('打开了 sign/sign.js 页面')
-      // this.props.requestCheckinList();
 
-      // let geolocation = new qq.maps.Geolocation(
-      //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-      //     "myapp"
-      // );
-      // let options = { timeout: 8000 };
-      // geolocation.getLocation(function (position) {
-      //     const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
-      //     const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
-      //     const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
-      //     console.log("获取新位置成功", position);
-      //     setCookie("location", JSON.stringify({ lat, lng }), 1);
-      // }, options);
-      this.props.requestClockList();
+    var options = {
+      enableHighAccuracy: true, //boolean 是否要求高精度的地理信息，默认为false
+      maximumAge: 1000 //应用程序的缓存时间
+    }
+
+    console.log(navigator.geolocation)
+    if (navigator.geolocation) {
+      //浏览器支持geolocation
+      navigator.geolocation.getCurrentPosition((position) => {
+        //经度
+        const longitude = position.coords.longitude;
+        //纬度
+        const latitude = position.coords.latitude;
+        this.setState({ longitude, latitude });
+        console.log("::::::::::::::::::::::::::::", longitude, latitude)
+      }, (error) => {
+        console.log("::::::::::::::::::::::::::::", error);
+      }, options);
+
+    } else {
+      //浏览器不支持geolocation
+      console.log("浏览器不支持!");
+    }
+    // this.props.requestCheckinList();
+
+    // let geolocation = new qq.maps.Geolocation(
+    //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+    //     "myapp"
+    // );
+    // let options = { timeout: 8000 };
+    // geolocation.getLocation(function (position) {
+    //     const lat = position.lat; // 纬度，浮点数，范围为90 ~ -90
+    //     const lng = position.lng; // 经度，浮点数，范围为180 ~ -180
+    //     const expires = Date.now() + 5 * 60 * 1000; // 5分钟过期
+    //     console.log("获取新位置成功", position);
+    //     setCookie("location", JSON.stringify({ lat, lng }), 1);
+    // }, options);
+    this.props.requestClockList();
   }
 
   componentDidMount() {
@@ -51,19 +79,20 @@ class SignPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
- 
+
   }
 
   componentWillUnmount() { }
 
-  
+
   render() {
     console.log(this.props);
     const { data } = this.props.clocklist;
 
     return <div>
-        <SignItem data={data} />
-      </div>;
+      <div>经度:{this.state.longitude}维度:{this.state.latitude}</div>
+      <SignItem data={data} />
+    </div>;
   }
 }
 
