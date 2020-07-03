@@ -43,59 +43,59 @@
     window.userAgent = false //true:微信浏览器   false:h5
     // 微信 config，类型可以是 JS Object 或者 JSON 字符串
     window.wxConfig = {}; // 或者 '{}'
-    // http://api.volunteer.alpha.flashdiet.cn/api/v1
+    // http://api.volunteer.alpha.guangying.link/api/v1
     // http://alpha.api.volunteer.tmallwo.com:8000
-    window.apiHost = "http://192.168.1.104:7878";
-    // window.apiHost = "http://api.volunteer.alpha.flashdiet.cn";
+    // window.apiHost = "http://192.168.1.104:7878";
+    window.apiHost = "https://api.volunteer.alpha.guangying.link";
 
     // server 端下发 token
     window.token = null;
 
     window.orgInfo = {
       "name": "星巴克社区服务",
-      "logo": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/613571550130077.png",
+      "logo": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/613571550130077.png",
       "real_name_register": 1,
       "module_settings": [
         [{
           "label": "<p>志愿活动</p><p style='text-align: center'>志愿活动</p>",
           "key": "volunteer_project",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/725661550129612.png",
+          "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/725661550129612.png",
           "settings": {
             "label": "<p>志愿活动</p><p style='text-align: center'>志愿活动</p>",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/725661550129612.png"
+            "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/725661550129612.png"
           }
         }, {
           "label": "志愿团队",
           "key": "volunteer_team",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/586211550129662.png",
+          "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/586211550129662.png",
           "settings": {
             "label": "志愿团队",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/586211550129662.png"
+            "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/586211550129662.png"
           }
         }, {
           "label": "志愿回馈",
           "key": "volunteer_feedback",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/574851550129725.png",
+          "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/574851550129725.png",
           "settings": {
             "label": "志愿回馈",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/574851550129725.png"
+            "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/574851550129725.png"
           }
         }],
         [{
           "label": "志愿攻略",
           "key": "volunteer_strategy",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/560201550129798.png",
+          "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/560201550129798.png",
           "settings": {
             "label": "志愿攻略",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/560201550129798.png"
+            "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/560201550129798.png"
           }
         }, {
           "label": "社区互动",
           "key": "community_interact",
-          "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/996411550129815.png",
+          "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/996411550129815.png",
           "settings": {
             "label": "社区互动",
-            "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/996411550129815.png"
+            "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/996411550129815.png"
           }
         }, {
           "label": "志愿排行",
@@ -138,7 +138,7 @@
     }
     // window.orgInfo = {
     //   "name": "志多星",
-    //   "logo": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-11/400251541057648.png",
+    //   "logo": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-11/400251541057648.png",
     //   "real_name_register": 1,
     //   "module_settings": [
     //     [{
@@ -197,42 +197,42 @@
     //     [{
     //       "label": "信息查询",
     //       "key": "volunteer_info",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/864991538873247.png",
+    //       "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/864991538873247.png",
     //       "settings": {
     //         "label": "重新设置",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/864991538873247.png"
+    //         "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/864991538873247.png"
     //       }
     //     }, {
     //       "label": "志愿机构",
     //       "key": "volunteer_platform",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/408331539159822.png",
+    //       "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/408331539159822.png",
     //       "settings": {
     //         "label": "志愿机构",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/408331539159822.png"
+    //         "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/408331539159822.png"
     //       }
     //     }, {
     //       "label": "项目认领",
     //       "key": "claim_project",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/470551539329049.png",
+    //       "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/470551539329049.png",
     //       "settings": {
     //         "label": "项目认领",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/470551539329049.png"
+    //         "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/470551539329049.png"
     //       }
     //     }, {
     //       "label": "志愿项目",
     //       "key": "volunteer_project",
-    //       "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/334661539328936.png",
+    //       "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/334661539328936.png",
     //       "settings": {
     //         "label": "志愿项目222",
-    //         "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2018-10/334661539328936.png"
+    //         "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2018-10/334661539328936.png"
     //       }
     //     }, {
     //                "label": "社区友好基金",
     //                "key": "funding_application",
-    //                "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/169231551165981.png",
+    //                "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/169231551165981.png",
     //                "settings": {
     //                  "label": "社区友好基金",
-    //                  "icon": "http://api.volunteer.alpha.flashdiet.cn/images/uploads/2019-02/169231551165981.png"
+    //                  "icon": "http://api.volunteer.alpha.guangying.link/images/uploads/2019-02/169231551165981.png"
     //                }
     //              }]
     //   ],

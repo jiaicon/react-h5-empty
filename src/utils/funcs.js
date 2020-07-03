@@ -150,8 +150,10 @@ export function isWeChatMiniApp() {
 }
 
 export function getLocation(success, fail, noCache) {
+  return;
+  console.log('调用地理位置的接口')
   if (isWeChatMiniApp()) {
-    
+    console.log('在小程序')
     return;
   }
   // if (window.dev) {
