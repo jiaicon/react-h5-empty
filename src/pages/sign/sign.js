@@ -38,11 +38,11 @@ class SignPage extends React.Component {
 
     let that = this;
 
-    isWeChatMiniApp((isWeChatMiniApp) => {
+    isWeChatMiniApp().then((res) => {
       that.setState({
-        isWeChatMiniApp,
+        isWeChatMiniApp: res ? '是' : "否",
       })
-      console.log(navigator.geolocation, isWeChatMiniApp);
+      console.log(':::::::::::::::::::::::::isWeChatMiniApp', isWeChatMiniApp);
     });
 
     if (navigator.geolocation) {
