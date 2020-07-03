@@ -25,7 +25,7 @@ class SignPage extends React.Component {
 
   componentWillMount() {
     console.log('打开了 sign/sign.js 页面')
-      this.props.requestCheckinList();
+      // this.props.requestCheckinList();
 
       // let geolocation = new qq.maps.Geolocation(
       //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
@@ -39,7 +39,7 @@ class SignPage extends React.Component {
       //     console.log("获取新位置成功", position);
       //     setCookie("location", JSON.stringify({ lat, lng }), 1);
       // }, options);
-      // this.props.requestClockList();
+      this.props.requestClockList();
   }
 
   componentDidMount() {
