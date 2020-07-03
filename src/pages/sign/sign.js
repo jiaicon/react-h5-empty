@@ -11,7 +11,7 @@ import Link from '../../components/link/link';
 import { requestCheckinList, checkin, requestClockList } from '../sign/sign.store';
 import history from '../history';
 
-import { setCookie } from '../../utils/funcs';
+import { setCookie, isWeChatMiniApp } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 import SignItem from '../../components/signItem/index.js'
@@ -24,6 +24,7 @@ class SignPage extends React.Component {
     this.state = {
       longitude: null,
       latitude: null,
+      isWeChatMiniApp: null,
     }
   }
 
@@ -35,7 +36,15 @@ class SignPage extends React.Component {
       maximumAge: 1000 //应用程序的缓存时间
     }
 
-    console.log(navigator.geolocation)
+    let that = this;
+
+    isWeChatMiniApp((isWeChatMiniApp) => {
+      that.setState({
+        isWeChatMiniApp,
+      })
+      console.log(navigator.geolocation, isWeChatMiniApp);
+    });
+
     if (navigator.geolocation) {
       //浏览器支持geolocation
       navigator.geolocation.getCurrentPosition((position) => {
@@ -90,7 +99,7 @@ class SignPage extends React.Component {
     const { data } = this.props.clocklist;
 
     return <div>
-      <div>经度:{this.state.longitude}维度:{this.state.latitude}</div>
+      <div>经度:{this.state.longitude}维度:{this.state.latitude},是否在小程序中？{this.state.isWeChatMiniApp}</div>
       <SignItem data={data} />
     </div>;
   }
