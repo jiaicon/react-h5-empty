@@ -62,24 +62,6 @@ export default class SignBall extends React.Component {
 
   componentWillMount() {
     const that = this;
-    isWeChatMiniApp().then((res) => {
-      this.setState({ isWeChatMiniApp: res })
-      console.log('isWeChatMiniApp????', res)
-      if (res) {
-        setInterval(() => {
-          that.watchPositionNative()
-        }, 10000);
-      }
-      else {
-        that.geolocation = new qq.maps.Geolocation(
-          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-          "myapp"
-        );
-        setTimeout(() => {
-          that.geolocation.watchPosition(this.showPosition);
-        }, 0);
-      }
-    });
 
   }
 
@@ -200,6 +182,24 @@ export default class SignBall extends React.Component {
         time: `${moment().format("HH:mm:ss")}`
       });
     }, 1000);
+    isWeChatMiniApp().then((res) => {
+      this.setState({ isWeChatMiniApp: res })
+      console.log('isWeChatMiniApp????', res)
+      if (res) {
+        setInterval(() => {
+          that.watchPositionNative()
+        }, 10000);
+      }
+      else {
+        that.geolocation = new qq.maps.Geolocation(
+          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+          "myapp"
+        );
+        setTimeout(() => {
+          that.geolocation.watchPosition(this.showPosition);
+        }, 0);
+      }
+    });
   }
 
   showPosition(loc) {
