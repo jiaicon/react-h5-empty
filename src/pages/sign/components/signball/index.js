@@ -183,7 +183,7 @@ export default class SignBall extends React.Component {
       });
     }, 1000);
     isWeChatMiniApp().then((res) => {
-      this.setState({ isWeChatMiniApp: res })
+      that.setState({ isWeChatMiniApp: res })
       console.log('isWeChatMiniApp????', res)
       if (res) {
         setInterval(() => {
@@ -196,7 +196,7 @@ export default class SignBall extends React.Component {
           "myapp"
         );
         setTimeout(() => {
-          that.geolocation.watchPosition(this.showPosition);
+          that.geolocation.watchPosition(that.showPosition);
         }, 0);
       }
     });
