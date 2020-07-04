@@ -56,7 +56,7 @@ export default class SignBall extends React.Component {
       type: 0,
       isSign: false,
       signIndex: 4,
-      isWeChatMiniApp: true,
+      isWeChatMiniApp: null,
     };
   }
 
@@ -124,8 +124,9 @@ export default class SignBall extends React.Component {
       }
     }
     console.log(isToday, isSigninStatus, begin);
-
     const distanceData = this.props.data;
+    alert(`调用了getlocationPrivate,location是${JSON.stringify(location)},data是${JSON.stringify(data)},distanceData是${distanceData}`)
+
     console.log(":::::::distanceData:::::", distanceData);
     if (Number(distanceData.distance) != 0) {
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
@@ -151,7 +152,7 @@ export default class SignBall extends React.Component {
       }
     } else if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
-      distanceData.city_name.replace("市", "") == location.city.replace("市", "")
+      distanceData.city_name.replace("市", "") == location.city.replace("市", "") || this.state.isWeChatMiniApp === true
     ) {
       //市名为当前的
       this.setState({
@@ -162,7 +163,7 @@ export default class SignBall extends React.Component {
     } else if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
-      location.province.replace("省", "").replace("市", "")
+      location.province.replace("省", "").replace("市", "") || this.state.isWeChatMiniApp === true
     ) {
       //市名为当前的
       this.setState({
@@ -170,7 +171,7 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location
       });
-    } else if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
+    } else if (distanceData.province_name == "全国" || distanceData.province_id == 0 || this.state.isWeChatMiniApp === true) {
       //市名为当前的
       this.setState({
         isSign: isToday,
