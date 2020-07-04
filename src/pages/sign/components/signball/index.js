@@ -70,15 +70,16 @@ export default class SignBall extends React.Component {
         }, 10000);
       }
       else {
-        this.geolocation = new qq.maps.Geolocation(
-          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-          "myapp"
-        );
-        setTimeout(() => {
-          this.geolocation.watchPosition(this.showPosition);
-        }, 0);
+
       }
     });
+    this.geolocation = new qq.maps.Geolocation(
+      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+      "myapp"
+    );
+    setTimeout(() => {
+      this.geolocation.watchPosition(this.showPosition);
+    }, 0);
   }
 
   watchPositionNative() {
@@ -123,10 +124,13 @@ export default class SignBall extends React.Component {
         isToday = true;
       }
     }
-    console.log(isToday, isSigninStatus, begin);
+    // console.log(isToday, isSigninStatus, begin);
     const distanceData = this.props.data;
-    alert(`调用了getlocationPrivate,location是${JSON.stringify(location)},data是${JSON.stringify(data)},distanceData是${distanceData}`)
-
+    this.setState({
+      locationJSON: JSON.stringify(location),
+      dataJSON: JSON.stringify(data),
+      distanceDataJSON: JSON.stringify(distanceData)
+    })
     console.log(":::::::distanceData:::::", distanceData);
     if (Number(distanceData.distance) != 0) {
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
@@ -310,8 +314,13 @@ export default class SignBall extends React.Component {
         >
           <div className="page-signball-title">{this.props.ballTitle}</div>
           <div className="page-signball-date">{time}</div>
+          {this.renderDistanceInfo()}
         </div>
-        {this.renderDistanceInfo()}
+        <div style={{ backgroud: 'black', width: '375px ' }}>
+          {this.state.locationJSON}
+          {this.state.dataJSON}
+          {this.state.distanceDataJSON}
+        </div>
       </div>
     );
   }
