@@ -63,6 +63,7 @@ export default class SignBall extends React.Component {
   componentWillMount() {
     isWeChatMiniApp().then((res) => {
       this.setState({ isWeChatMiniApp: res })
+      console.log('isWeChatMiniApp????', res)
       if (res) {
         setInterval(() => {
           this.watchPositionNative()

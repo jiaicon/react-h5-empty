@@ -18,7 +18,7 @@ import "./detail.css";
 import { requestProjectDetail } from '../../project/detail/detail.store';
 import { requestUserInfo } from '../../../stores/common';
 import ModalNew from "../../../components/posterModal/ModalNew";
-import {PostDataModel_ProjectSign} from "../../../components/posterModal/PostDataModel";
+import { PostDataModel_ProjectSign } from "../../../components/posterModal/PostDataModel";
 
 class SignPage extends React.Component {
   constructor(props) {
@@ -26,15 +26,18 @@ class SignPage extends React.Component {
     autoBind(this);
     this.Id = props.route.params.Id;
     this.proid = props.route.params.proid;
-    this.state = { turnMap: false };
+    this.state = { turnMap: false, isWeChatMiniApp: true };
   }
 
   componentWillMount() {
     this.props.requestClockInfo(this.Id);
     this.props.requestProjectDetail(this.proid);
+    isWeChatMiniApp().then((res) => {
+      this.setState({ isWeChatMiniApp: res })
+    });
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clickinfo && nextProps.clickinfo.data) {
@@ -59,7 +62,7 @@ class SignPage extends React.Component {
       } else {
         isAfterToday = true;
       }
-      
+
       this.setState({
         ...this.state,
         type: nextProps.clickinfo.data.clock_info.type,
@@ -69,54 +72,57 @@ class SignPage extends React.Component {
     }
     const { failed: tFailed, fetching: tFetching } = this.props.clockinginfo;
     const { failed: nFailed, fetching: nFetching } = nextProps.clockinginfo;
-    if(!tFailed && tFetching && !nFailed && !nFetching) {
-        Alert.success('打卡成功');
-        // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
-        //打卡成功后重新获取数据，更新页面，页面state太多，不知道更新哪些，直接全部获取
-        this.props.requestClockInfo(this.Id);
-        this.props.requestProjectDetail(this.proid);
-        this.openShare(nextProps.clockinginfo.data);
+    if (!tFailed && tFetching && !nFailed && !nFetching) {
+      Alert.success('打卡成功');
+      // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
+      //打卡成功后重新获取数据，更新页面，页面state太多，不知道更新哪些，直接全部获取
+      this.props.requestClockInfo(this.Id);
+      this.props.requestProjectDetail(this.proid);
+      this.openShare(nextProps.clockinginfo.data);
     }
     console.log(nextProps)
-      const { failed: dFailed, fetching: dFetching } = this.props.requestProjectDetailData;
-      const { failed: dnFailed, fetching: dnFetching } = nextProps.requestProjectDetailData;
-      if(!dFailed && dFetching && !dnFailed && !dnFetching) {
-          // this.setState({
-          //     proData: nextProps.requestProjectDetailData.data
-          // })
-      }
-  }
-    //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
-    openShare(clock_data_back) {
-        const { data: detaildata } = this.props.clickinfo;
-        const { clock_info: data, user_clock_info: userData, clock_info: user_data } = detaildata;
-        // userData.type = 1
-        // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
-        if(user_data.type == 1) {
-            this.setState({
-                proData: clock_data_back,
-                visible: true
-            })
-        }
-        if(userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00") {
-            this.setState({
-                proData: clock_data_back,
-                visible: true
-            })
-        }
+    const { failed: dFailed, fetching: dFetching } = this.props.requestProjectDetailData;
+    const { failed: dnFailed, fetching: dnFetching } = nextProps.requestProjectDetailData;
+    if (!dFailed && dFetching && !dnFailed && !dnFetching) {
+      // this.setState({
+      //     proData: nextProps.requestProjectDetailData.data
+      // })
     }
+  }
+  //分享图片 打卡成功后打开  需判断1. 打卡的方式   2. 签到方式的签退
+  openShare(clock_data_back) {
+    const { data: detaildata } = this.props.clickinfo;
+    const { clock_info: data, user_clock_info: userData, clock_info: user_data } = detaildata;
+    // userData.type = 1
+    // userData.type = 2 && userData.ori_clock_end_time && userData.ori_clock_end_time.length
+    if (user_data.type == 1) {
+      this.setState({
+        proData: clock_data_back,
+        visible: true
+      })
+    }
+    if (userData.type == 2 && userData.ori_clock_end_time && userData.ori_clock_end_time == "0000-00-00 00:00:00") {
+      this.setState({
+        proData: clock_data_back,
+        visible: true
+      })
+    }
+  }
   componentWillUnmount() {
- 
+
   }
 
   renderMap() {
+    if (this.state.isWeChatMiniApp) {
+      return null;
+    }
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     let source = `https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${
       detaildata.clock_info.lat
-    },${
+      },${
       detaildata.clock_info.lng
-    };&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI&referer=myapp`;
+      };&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI&referer=myapp`;
 
     return (
       <div
@@ -131,8 +137,8 @@ class SignPage extends React.Component {
           ref="mapbtn"
           style={{
             width: '80px',
-            textAlign:'center',
-            fontSize:'14px',
+            textAlign: 'center',
+            fontSize: '14px',
             padding: "5px",
             border: "2px solid rgb(134, 172, 242)",
             background: "rgb(255, 255, 255)",
@@ -140,9 +146,9 @@ class SignPage extends React.Component {
             position: "absolute",
             left: '0',
             right: '0',
-            margin:'2px auto'
+            margin: '2px auto'
           }}
-          onClick={() => { this.setState({ turnMap:false})}}
+          onClick={() => { this.setState({ turnMap: false }) }}
         >
           关闭地图
         </div>
@@ -158,12 +164,12 @@ class SignPage extends React.Component {
   }
   turnOnMap = () => {
     this.setState({ turnMap: true })
-  
+
   }
-  handleBallClick=(data)=>{
+  handleBallClick = (data) => {
     this.props.clocking(data);
   }
-  renderClock=()=>{
+  renderClock = () => {
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     const { clock_info: data, user_clock_info: userData } = detaildata;
@@ -171,7 +177,7 @@ class SignPage extends React.Component {
     let renderDom = null;
     let firstPoint = false;
     let endPoint = false;
-    console.log("=================================detaildata==================================",detaildata)
+    console.log("=================================detaildata==================================", detaildata)
     if (Object.keys(userData).length === 0) {
       // 没超过时间，没打卡，显示打卡球
       if (!isBeyond) {
@@ -218,7 +224,7 @@ class SignPage extends React.Component {
           renderDom = (
             <div>
               <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
               </div>
               <div
                 style={{
@@ -265,7 +271,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div>
             <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+              {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
             </div>
             <div
               style={{
@@ -288,7 +294,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div>
             <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+              {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
             </div>
             <div
               style={{
@@ -311,7 +317,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div>
             <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+              {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
             </div>
             <div
               style={{
@@ -394,11 +400,11 @@ class SignPage extends React.Component {
       </div>
     );
   }
-  renderSignInSignOff=()=>{
+  renderSignInSignOff = () => {
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     const { clock_info: data, user_clock_info: userData } = detaildata;
-    const { type, isBeyond,isAfterToday } = this.state;
+    const { type, isBeyond, isAfterToday } = this.state;
     let renderfirstDom = null;
     let rendersecondDom = null;
     let renderthirdDom = null;
@@ -454,12 +460,12 @@ class SignPage extends React.Component {
       if (userData.verify_status === -1) {
         // verify_status -1没申请，没超过时间，有值正常显示
         if (userData.clock_end_time !== "0000-00-00 00:00:00") {
-            //已签退
+          //已签退
           endPoint = true;
           renderfirstDom = (
             <div>
               <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
               </div>
               <div
                 style={{
@@ -503,7 +509,7 @@ class SignPage extends React.Component {
             renderfirstDom = (
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -534,7 +540,7 @@ class SignPage extends React.Component {
             renderfirstDom = (
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -584,7 +590,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -611,7 +617,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -662,7 +668,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                    {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -688,7 +694,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -715,7 +721,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -766,7 +772,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                    {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -792,7 +798,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -819,7 +825,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                    {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -887,7 +893,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                    {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -922,7 +928,7 @@ class SignPage extends React.Component {
       }
     }
 
-    if (Object.keys(userData).length > 0 ) {
+    if (Object.keys(userData).length > 0) {
       if (userData.clock_end_time !== "0000-00-00 00:00:00") {
         if (userData.verify_status === -1 || userData.verify_status === 1) {
           firstPoint = false;
@@ -930,7 +936,7 @@ class SignPage extends React.Component {
           endPoint = true;
           renderthirdDom = (
             <div className="detail-title">
-                  获得服务时长{userData.reward_time}小时
+              获得服务时长{userData.reward_time}小时
             </div>
           );
         }// 审核通过或者正常打卡获取时长了
@@ -940,7 +946,7 @@ class SignPage extends React.Component {
           endPoint = false;
           renderthirdDom = (
             <div className="detail-title">
-                  预计可获得服务时长{userData.reward_time}小时
+              预计可获得服务时长{userData.reward_time}小时
             </div>
           );
         }//审核中或者审核驳回
@@ -948,10 +954,10 @@ class SignPage extends React.Component {
       else {
         renderthirdDom = (
           <div className="detail-title">
-                预计可获得服务时长{data.reward_time}小时
+            预计可获得服务时长{data.reward_time}小时
           </div>
         );
-      }      
+      }
     }
     else {
       firstPoint = true;
@@ -959,7 +965,7 @@ class SignPage extends React.Component {
       endPoint = false;
       renderthirdDom = (
         <div className="detail-title">
-              预计可获得服务时长{data.reward_time}小时
+          预计可获得服务时长{data.reward_time}小时
         </div>
       );
     }
@@ -997,7 +1003,7 @@ class SignPage extends React.Component {
               <div
                 className={`item-point ${
                   secondPoint ? "item-point-color" : ""
-                }`}
+                  }`}
               />
               <div className="line1px-v" />
               <div className="detail-title">
@@ -1018,31 +1024,32 @@ class SignPage extends React.Component {
       </div>
     );
   }
-    closeModal() {
-        this.setState({
-            visible: false
-        })
-    }
-    renderModal(data) {
-        const { user } = this.props;
-        console.log('项目详细详细：：：：', data);
-        const postData = PostDataModel_ProjectSign(data,user);
-        const { visible } = this.state;
-        return  visible === true ? <ModalNew postData={postData} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null;
-    }
-  render=()=>{
+  closeModal() {
+    this.setState({
+      visible: false
+    })
+  }
+  renderModal(data) {
+    const { user } = this.props;
+    console.log('项目详细详细：：：：', data);
+    const postData = PostDataModel_ProjectSign(data, user);
+    const { visible } = this.state;
+    return visible === true ? <ModalNew postData={postData} visible={this.state.visible} maskCloseable={this.closeModal} /> : null;
+  }
+  render = () => {
     const { turnMap } = this.state;
-      const { type } = this.state;
-      return (
+    const { type } = this.state;
+    return (
       <div>
-          {!turnMap
+        {!turnMap
           ? type == 1
             ? this.renderClock()
             : this.renderSignInSignOff()
-          : this.renderMap()}
-          {
-              this.state.proData&&this.state.proData ? this.renderModal(this.state.proData) : null
-          }
+          : this.renderMap()
+        }
+        {
+          this.state.proData && this.state.proData ? this.renderModal(this.state.proData) : null
+        }
       </div>
     );
   }
@@ -1061,9 +1068,9 @@ SignPage.propTypes = {
 export default connect(
   state => ({
     clickinfo: state.sign.clickinfo,
-      clockinginfo: state.sign.clocking,
-      requestProjectDetailData: state.project.detail,
-      user: state.user
+    clockinginfo: state.sign.clocking,
+    requestProjectDetailData: state.project.detail,
+    user: state.user
   }),
   dispatch => bindActionCreators({ requestClockInfo, clocking, requestProjectDetail }, dispatch)
 )(SignPage);
