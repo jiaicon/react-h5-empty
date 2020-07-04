@@ -140,7 +140,7 @@ export default class SignBall extends React.Component {
       }
     } else if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
-      distanceData.city_name.replace("市", "") == location.city.replace("市", "") || this.state.isWeChatMiniApp === true
+      distanceData.city_name.replace("市", "") == location.city.replace("市", "")
     ) {
       //市名为当前的
       this.setState({
@@ -151,7 +151,7 @@ export default class SignBall extends React.Component {
     } else if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
-      location.province.replace("省", "").replace("市", "") || this.state.isWeChatMiniApp === true
+      location.province.replace("省", "").replace("市", "")
     ) {
       //市名为当前的
       this.setState({
@@ -159,8 +159,14 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location
       });
-    } else if (distanceData.province_name == "全国" || distanceData.province_id == 0 || this.state.isWeChatMiniApp === true) {
+    } else if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
       //市名为当前的
+      this.setState({
+        isSign: isToday,
+        signIndex: 1,
+        locDetail: location
+      });
+    } else if (this.state.isWeChatMiniApp) {
       this.setState({
         isSign: isToday,
         signIndex: 1,
@@ -186,9 +192,7 @@ export default class SignBall extends React.Component {
       that.setState({ isWeChatMiniApp: res })
       console.log('isWeChatMiniApp????', res)
       if (res) {
-        setInterval(() => {
-          that.watchPositionNative()
-        }, 10000);
+        that.watchPositionNative()
       }
       else {
         that.geolocation = new qq.maps.Geolocation(
