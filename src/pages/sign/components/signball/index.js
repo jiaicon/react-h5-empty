@@ -70,16 +70,16 @@ export default class SignBall extends React.Component {
         }, 10000);
       }
       else {
-
+        this.geolocation = new qq.maps.Geolocation(
+          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+          "myapp"
+        );
+        setTimeout(() => {
+          this.geolocation.watchPosition(this.showPosition);
+        }, 0);
       }
     });
-    this.geolocation = new qq.maps.Geolocation(
-      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-      "myapp"
-    );
-    setTimeout(() => {
-      this.geolocation.watchPosition(this.showPosition);
-    }, 0);
+
   }
 
   watchPositionNative() {
