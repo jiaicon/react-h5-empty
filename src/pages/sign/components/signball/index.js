@@ -86,12 +86,13 @@ export default class SignBall extends React.Component {
   watchPositionNative() {
     if (navigator.geolocation) {
       //浏览器支持geolocation
+      const that = this;
       navigator.geolocation.getCurrentPosition((position) => {
         //经度
         const longitude = position.coords.longitude;
         //纬度
         const latitude = position.coords.latitude;
-        this.getlocationPrivate({ lng: longitude, lat: latitude })
+        that.getlocationPrivate({ lng: longitude, lat: latitude })
 
         console.log("::::::::::::::::::::::::::::", longitude, latitude)
       }, (error) => {
@@ -317,7 +318,8 @@ export default class SignBall extends React.Component {
           <div className="page-signball-date">{time}</div>
           {this.renderDistanceInfo()}
         </div>
-        <div style={{ backgroud: 'black', width: '375px ' }}>
+        <div style={{ backgroud: 'black', width: '375px' }}>
+          {this.state.isWeChatMiniApp === null ? '没判断成功' : (this.state.isWeChatMiniApp ? '是小程序里了':'没在小程序')}
           {this.state.locationJSON}
           {this.state.dataJSON}
           {this.state.distanceDataJSON}
