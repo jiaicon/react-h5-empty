@@ -12,7 +12,7 @@ import classnames from "classnames";
 import moment from "moment";
 import history from "../../history";
 import SignBall from "../components/signball/index";
-import { getCity, getLocation } from "../../../utils/funcs";
+import { getCity, getLocation, isWeChatMiniApp } from "../../../utils/funcs";
 import { requestHomeData, saveCity, getAreaCity } from "../../home/home.store";
 import "./detail.css";
 import { requestProjectDetail } from '../../project/detail/detail.store';
