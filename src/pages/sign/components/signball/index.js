@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import classnames from "classnames";
 import moment from "moment";
 
-import { getCity, getLocation } from "../../../../utils/funcs";
+import { getCity, getLocation, isWeChatMiniApp } from "../../../../utils/funcs";
 import "./detail.css";
 // 定位距离
 function GetDistance(lat1, lng1, lat2, lng2) {
@@ -23,7 +23,7 @@ function GetDistance(lat1, lng1, lat2, lng2) {
     Math.asin(
       Math.sqrt(
         Math.pow(Math.sin(a / 2), 2) +
-          Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)
+        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)
       )
     );
   s = s * 6378.137; // EARTH_RADIUS;
@@ -46,10 +46,7 @@ export default class SignBall extends React.Component {
     autoBind(this);
     this.timer = null;
 
-    this.geolocation = new qq.maps.Geolocation(
-      "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-      "myapp"
-    );
+    this.geolocation = null;
 
     this.locationTimer = null; //用来间隔十秒刷新定位和状态
 
@@ -58,12 +55,49 @@ export default class SignBall extends React.Component {
       locDetail: null,
       type: 0,
       isSign: false,
-      signIndex: 4
+      signIndex: 4,
+      isWeChatMiniApp: true,
     };
   }
 
   componentWillMount() {
-    // this.geolocation.getLocation(this.showPosition);
+    isWeChatMiniApp().then((res) => {
+      this.setState({ isWeChatMiniApp: res })
+      if (res) {
+        setInterval(() => {
+          this.watchPositionNative()
+        }, 10000);
+      }
+      else {
+        this.geolocation = new qq.maps.Geolocation(
+          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+          "myapp"
+        );
+        setTimeout(() => {
+          this.geolocation.watchPosition(this.showPosition);
+        }, 0);
+      }
+    });
+  }
+
+  watchPositionNative() {
+    if (navigator.geolocation) {
+      //浏览器支持geolocation
+      navigator.geolocation.getCurrentPosition((position) => {
+        //经度
+        const longitude = position.coords.longitude;
+        //纬度
+        const latitude = position.coords.latitude;
+        this.getlocationPrivate({ lng: longitude, lat: latitude })
+
+        console.log("::::::::::::::::::::::::::::", longitude, latitude)
+      }, (error) => {
+        console.log("::::::::::::::::::::::::::::", error);
+      }, {
+        enableHighAccuracy: true,
+        maximumAge: 1000
+      });
+    }
   }
 
   getlocationPrivate(location) {
@@ -127,7 +161,7 @@ export default class SignBall extends React.Component {
     } else if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
-        location.province.replace("省", "").replace("市", "")
+      location.province.replace("省", "").replace("市", "")
     ) {
       //市名为当前的
       this.setState({
@@ -135,7 +169,7 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location
       });
-    } else if (distanceData.province_name == "全国" ||distanceData.province_id == 0) {
+    } else if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
       //市名为当前的
       this.setState({
         isSign: isToday,
@@ -150,8 +184,8 @@ export default class SignBall extends React.Component {
       });
     }
   }
+
   componentDidMount() {
-    this.geolocation.watchPosition(this.showPosition);
     const that = this;
     this.timer = setInterval(() => {
       that.setState({
@@ -165,7 +199,7 @@ export default class SignBall extends React.Component {
     this.getlocationPrivate(loc);
   }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) { }
 
   componentWillUnmount() {
     clearInterval(this.timer);
