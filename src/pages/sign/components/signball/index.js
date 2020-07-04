@@ -61,21 +61,22 @@ export default class SignBall extends React.Component {
   }
 
   componentWillMount() {
+    const that = this;
     isWeChatMiniApp().then((res) => {
       this.setState({ isWeChatMiniApp: res })
       console.log('isWeChatMiniApp????', res)
       if (res) {
         setInterval(() => {
-          this.watchPositionNative()
+          that.watchPositionNative()
         }, 10000);
       }
       else {
-        this.geolocation = new qq.maps.Geolocation(
+        that.geolocation = new qq.maps.Geolocation(
           "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
           "myapp"
         );
         setTimeout(() => {
-          this.geolocation.watchPosition(this.showPosition);
+          that.geolocation.watchPosition(this.showPosition);
         }, 0);
       }
     });
