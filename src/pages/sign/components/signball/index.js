@@ -121,7 +121,7 @@ export default class SignBall extends React.Component {
     })
 
     console.log("进入了1");
-    if (Number(distanceData.distance) != 0) {
+    if (distanceData.distance != 0) {
       console.log("进入了2");
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
       let distance = GetDistance(
