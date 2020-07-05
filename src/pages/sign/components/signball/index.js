@@ -117,6 +117,7 @@ export default class SignBall extends React.Component {
       dataJSON: JSON.stringify(data),
       distanceDataJSON: JSON.stringify(distanceData)
     })
+    let step = '还没开始';
     console.log(":::::::distanceData:::::", distanceData);
     if (Number(distanceData.distance) != 0) {
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
@@ -126,21 +127,22 @@ export default class SignBall extends React.Component {
         data.lat,
         data.lng
       );
+      step = `distance = ${distance}`
       console.log(distance, data);
       if (distance <= data.distance) {
         this.setState({
           isSign: isToday,
           signIndex: 1,
           locDetail: location,
-          console: '走的判断1',
         });
+        step = '步骤1';
       } else {
         this.setState({
           isSign: false,
           signIndex: 2,
           locDetail: location,
-          console: '走的判断2',
         });
+        step = '步骤2';
       }
     } else if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
@@ -151,8 +153,8 @@ export default class SignBall extends React.Component {
         isSign: isToday,
         signIndex: 1,
         locDetail: location,
-        console: '走的判断3',
       });
+      step = '步骤3';
     } else if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
@@ -163,15 +165,14 @@ export default class SignBall extends React.Component {
         isSign: isToday,
         signIndex: 1,
         locDetail: location,
-        console: '走的判断4',
       });
+      step = '步骤4';
     } else if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
       //市名为当前的
       this.setState({
         isSign: isToday,
         signIndex: 1,
         locDetail: location,
-        console: '走的判断5',
       });
     } else if (this.state.isWeChatMiniApp === true) {
       this.setState({
@@ -179,17 +180,18 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location,
       });
-      this.setState({
-        console: `走的判断6`,
-      })
+      step = '步骤5';
     } else {
       this.setState({
         isSign: false,
         signIndex: 2,
         locDetail: location,
-        console: '走的判断7',
       });
+      step = '步骤6';
     }
+    this.setState({
+      console: step,
+    })
   }
 
   componentDidMount() {
