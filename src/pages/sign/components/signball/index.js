@@ -189,20 +189,21 @@ export default class SignBall extends React.Component {
       });
     }, 1000);
     isWeChatMiniApp().then((res) => {
-      that.setState({ isWeChatMiniApp: res })
-      console.log('isWeChatMiniApp????', res)
-      if (res) {
-        that.watchPositionNative()
-      }
-      else {
-        that.geolocation = new qq.maps.Geolocation(
-          "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-          "myapp"
-        );
-        setTimeout(() => {
-          that.geolocation.watchPosition(that.showPosition);
-        }, 0);
-      }
+      that.watchPositionNative()
+      // that.setState({ isWeChatMiniApp: res })
+      // console.log('isWeChatMiniApp????', res)
+      // if (res) {
+      //   that.watchPositionNative()
+      // }
+      // else {
+      //   that.geolocation = new qq.maps.Geolocation(
+      //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+      //     "myapp"
+      //   );
+      //   setTimeout(() => {
+      //     that.geolocation.watchPosition(that.showPosition);
+      //   }, 0);
+      // }
     });
   }
 
