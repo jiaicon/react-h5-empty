@@ -149,6 +149,9 @@ export default class SignBall extends React.Component {
       return;
     }
     console.log("if判断间隙1");
+    console.log(distanceData.county_name == "全市" || distanceData.county_id == 0);
+    console.log(distanceData.city_name.replace("市", ""));
+    console.log(location.city && location.city.replace("市", ""))
     if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
       (distanceData.city_name.replace("市", "") == (location.city && location.city.replace("市", "")))
