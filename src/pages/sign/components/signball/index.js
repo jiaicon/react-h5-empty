@@ -151,7 +151,7 @@ export default class SignBall extends React.Component {
     console.log("if判断间隙1");
     if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
-      distanceData.city_name.replace("市", "") == location.city.replace("市", "")
+      (distanceData.city_name.replace("市", "") == (location.city && location.city.replace("市", "")))
     ) {
       //市名为当前的
       this.setState({
@@ -165,7 +165,7 @@ export default class SignBall extends React.Component {
     if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
-      location.province.replace("省", "").replace("市", "")
+      (location.province && location.province.replace("省", "").replace("市", ""))
     ) {
       //市名为当前的
       this.setState({
