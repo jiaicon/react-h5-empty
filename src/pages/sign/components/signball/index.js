@@ -57,6 +57,8 @@ export default class SignBall extends React.Component {
       isSign: false,
       signIndex: 4,
       isWeChatMiniApp: null,
+
+      console: '没走判断',
     };
   }
 
@@ -129,13 +131,15 @@ export default class SignBall extends React.Component {
         this.setState({
           isSign: isToday,
           signIndex: 1,
-          locDetail: location
+          locDetail: location,
+          console: '走的判断1',
         });
       } else {
         this.setState({
           isSign: false,
           signIndex: 2,
-          locDetail: location
+          locDetail: location,
+          console: '走的判断2',
         });
       }
     } else if (
@@ -146,7 +150,8 @@ export default class SignBall extends React.Component {
       this.setState({
         isSign: isToday,
         signIndex: 1,
-        locDetail: location
+        locDetail: location,
+        console: '走的判断3',
       });
     } else if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
@@ -157,26 +162,30 @@ export default class SignBall extends React.Component {
       this.setState({
         isSign: isToday,
         signIndex: 1,
-        locDetail: location
+        locDetail: location,
+        console: '走的判断4',
       });
     } else if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
       //市名为当前的
       this.setState({
         isSign: isToday,
         signIndex: 1,
-        locDetail: location
+        locDetail: location,
+        console: '走的判断5',
       });
     } else if (this.state.isWeChatMiniApp) {
       this.setState({
         isSign: isToday,
         signIndex: 1,
-        locDetail: location
+        locDetail: location,
+        console: '走的判断6',
       });
     } else {
       this.setState({
         isSign: false,
         signIndex: 2,
-        locDetail: location
+        locDetail: location,
+        console: '走的判断7',
       });
     }
   }
@@ -189,21 +198,22 @@ export default class SignBall extends React.Component {
       });
     }, 1000);
     isWeChatMiniApp().then((res) => {
-      that.watchPositionNative()
-      // that.setState({ isWeChatMiniApp: res })
-      // console.log('isWeChatMiniApp????', res)
-      // if (res) {
-      //   that.watchPositionNative()
-      // }
-      // else {
-      //   that.geolocation = new qq.maps.Geolocation(
-      //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-      //     "myapp"
-      //   );
-      //   setTimeout(() => {
-      //     that.geolocation.watchPosition(that.showPosition);
-      //   }, 0);
-      // }
+      that.setState({ isWeChatMiniApp: res },()=>{
+        that.watchPositionNative()
+          // console.log('isWeChatMiniApp????', res)
+          // if (res) {
+          //   that.watchPositionNative()
+          // }
+          // else {
+          //   that.geolocation = new qq.maps.Geolocation(
+          //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+          //     "myapp"
+          //   );
+          //   setTimeout(() => {
+          //     that.geolocation.watchPosition(that.showPosition);
+          //   }, 0);
+          // }
+      })
     });
   }
 
@@ -325,6 +335,7 @@ export default class SignBall extends React.Component {
         </div>
         <div style={{ backgroud: 'black', width: '375px' }}>
           {this.state.isWeChatMiniApp === null ? '没判断成功' : (this.state.isWeChatMiniApp ? '是小程序里了':'没在小程序')}
+          {this.state.console}
           {this.state.locationJSON}
           {this.state.dataJSON}
           {this.state.distanceDataJSON}
