@@ -204,22 +204,45 @@ export default class SignBall extends React.Component {
       });
     }, 1000);
     isWeChatMiniApp().then((res) => {
-      that.setState({ isWeChatMiniApp: res },()=>{
+      that.setState({ isWeChatMiniApp: res }, () => {
+        this.setState({
+          console: 'isWeChatMiniApp的完成后'
+        })
         that.watchPositionNative()
-          // console.log('isWeChatMiniApp????', res)
-          // if (res) {
-          //   that.watchPositionNative()
-          // }
-          // else {
-          //   that.geolocation = new qq.maps.Geolocation(
-          //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-          //     "myapp"
-          //   );
-          //   setTimeout(() => {
-          //     that.geolocation.watchPosition(that.showPosition);
-          //   }, 0);
-          // }
+        // console.log('isWeChatMiniApp????', res)
+        // if (res) {
+        //   that.watchPositionNative()
+        // }
+        // else {
+        //   that.geolocation = new qq.maps.Geolocation(
+        //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+        //     "myapp"
+        //   );
+        //   setTimeout(() => {
+        //     that.geolocation.watchPosition(that.showPosition);
+        //   }, 0);
+        // }
       })
+
+      that.setState({ isWeChatMiniApp: res }).then(() => {
+        this.setState({
+          console: 'isWeChatMiniApp的完成后then'
+        })
+        that.watchPositionNative()
+        // console.log('isWeChatMiniApp????', res)
+        // if (res) {
+        //   that.watchPositionNative()
+        // }
+        // else {
+        //   that.geolocation = new qq.maps.Geolocation(
+        //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+        //     "myapp"
+        //   );
+        //   setTimeout(() => {
+        //     that.geolocation.watchPosition(that.showPosition);
+        //   }, 0);
+        // }
+      });
     });
   }
 
@@ -340,7 +363,7 @@ export default class SignBall extends React.Component {
           {this.renderDistanceInfo()}
         </div>
         <div style={{ backgroud: 'black', width: '375px' }}>
-          {this.state.isWeChatMiniApp === null ? '没判断成功' : (this.state.isWeChatMiniApp ? '是小程序里了':'没在小程序')}
+          {this.state.isWeChatMiniApp === null ? '没判断成功' : (this.state.isWeChatMiniApp ? '是小程序里了' : '没在小程序')}
           {this.state.console}
           {this.state.locationJSON}
           {this.state.dataJSON}
