@@ -99,7 +99,7 @@ class SignPage extends React.Component {
     const { data } = this.props.clocklist;
 
     return <div>
-      <div>经度:{this.state.longitude}维度:{this.state.latitude},是否在小程序中18:48版本？{this.state.isWeChatMiniApp}</div>
+      {/* <div>经度:{this.state.longitude}维度:{this.state.latitude},是否在小程序中18:48版本？{this.state.isWeChatMiniApp}</div> */}
       <SignItem data={data} />
     </div>;
   }
