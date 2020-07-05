@@ -148,7 +148,7 @@ export default class SignBall extends React.Component {
       }
       return;
     }
-
+    console.log("if判断间隙1");
     if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
       distanceData.city_name.replace("市", "") == location.city.replace("市", "")
@@ -161,6 +161,7 @@ export default class SignBall extends React.Component {
       });
       return;
     }
+    console.log("if判断间隙2");
     if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
@@ -175,6 +176,7 @@ export default class SignBall extends React.Component {
       console.log("进入了5");
       return;
     }
+    console.log("if判断间隙3");
     if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
       //市名为当前的
       this.setState({
@@ -185,6 +187,7 @@ export default class SignBall extends React.Component {
       console.log("进入了6");
       return;
     }
+    console.log("if判断间隙4");
     if (this.state.isWeChatMiniApp === true) {
       this.setState({
         isSign: isToday,
@@ -194,6 +197,7 @@ export default class SignBall extends React.Component {
       console.log("进入了7");
       return;
     }
+    console.log("if判断间隙5");
     this.setState({
       isSign: false,
       signIndex: 2,
