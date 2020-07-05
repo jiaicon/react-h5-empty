@@ -89,9 +89,6 @@ export default class SignBall extends React.Component {
   }
 
   getlocationPrivate(location) {
-    this.setState({
-      console: `走了getlocationPrivate${JSON.stringify(location)}`
-    })
     const { data, isSigninStatus } = this.props;
     let isToday = false;
     let begin = moment(data.begin).valueOf();
@@ -176,13 +173,15 @@ export default class SignBall extends React.Component {
         locDetail: location,
         console: '走的判断5',
       });
-    } else if (this.state.isWeChatMiniApp) {
+    } else if (this.state.isWeChatMiniApp === true) {
       this.setState({
         isSign: isToday,
         signIndex: 1,
         locDetail: location,
-        console: '走的判断6',
       });
+      this.setState({
+        console: `走的判断6`,
+      })
     } else {
       this.setState({
         isSign: false,
