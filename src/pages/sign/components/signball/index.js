@@ -68,11 +68,17 @@ export default class SignBall extends React.Component {
   }
 
   watchPositionNative() {
+    this.setState({
+      console: '走了watchPositionNative'
+    })
     if (navigator.geolocation) {
       //浏览器支持geolocation
       const that = this;
       navigator.geolocation.getCurrentPosition((position) => {
         //经度
+        this.setState({
+          console: '走了watchPositionNative的getCurrentPosition'
+        })
         const longitude = position.coords.longitude;
         //纬度
         const latitude = position.coords.latitude;
