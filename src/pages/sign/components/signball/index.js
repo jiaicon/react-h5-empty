@@ -208,41 +208,22 @@ export default class SignBall extends React.Component {
         this.setState({
           console: 'isWeChatMiniApp的完成后'
         })
-        that.watchPositionNative()
-        // console.log('isWeChatMiniApp????', res)
-        // if (res) {
-        //   that.watchPositionNative()
-        // }
-        // else {
-        //   that.geolocation = new qq.maps.Geolocation(
-        //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-        //     "myapp"
-        //   );
-        //   setTimeout(() => {
-        //     that.geolocation.watchPosition(that.showPosition);
-        //   }, 0);
-        // }
+        // that.watchPositionNative()
+        console.log('isWeChatMiniApp????', res)
+        if (res) {
+          that.watchPositionNative()
+        }
+        else {
+          that.geolocation = new qq.maps.Geolocation(
+            "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
+            "myapp"
+          );
+          setTimeout(() => {
+            that.geolocation.watchPosition(that.showPosition);
+          }, 0);
+        }
       })
 
-      that.setState({ isWeChatMiniApp: res }).then(() => {
-        this.setState({
-          console: 'isWeChatMiniApp的完成后then'
-        })
-        that.watchPositionNative()
-        // console.log('isWeChatMiniApp????', res)
-        // if (res) {
-        //   that.watchPositionNative()
-        // }
-        // else {
-        //   that.geolocation = new qq.maps.Geolocation(
-        //     "GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI",
-        //     "myapp"
-        //   );
-        //   setTimeout(() => {
-        //     that.geolocation.watchPosition(that.showPosition);
-        //   }, 0);
-        // }
-      });
     });
   }
 
