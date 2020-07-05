@@ -68,10 +68,10 @@ export default class SignBall extends React.Component {
   }
 
   watchPositionNative() {
-    this.setState({
-      console: '走了watchPositionNative'
-    })
     if (navigator.geolocation) {
+      this.setState({
+        console: '走了watchPositionNative判断geolocation可用'
+      })
       //浏览器支持geolocation
       const that = this;
       navigator.geolocation.getCurrentPosition((position) => {
