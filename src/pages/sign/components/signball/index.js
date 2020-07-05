@@ -118,10 +118,6 @@ export default class SignBall extends React.Component {
       distanceDataJSON: JSON.stringify(distanceData)
     })
     let step = '还没开始';
-    this.setState({
-      console: step,
-    })
-    console.log(":::::::distanceData:::::", distanceData);
     if (Number(distanceData.distance) != 0) {
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
       let distance = GetDistance(
@@ -139,9 +135,6 @@ export default class SignBall extends React.Component {
           locDetail: location,
         });
         step = '步骤1';
-        this.setState({
-          console: step,
-        })
       } else {
         this.setState({
           isSign: false,
@@ -149,10 +142,10 @@ export default class SignBall extends React.Component {
           locDetail: location,
         });
         step = '步骤2';
-        this.setState({
-          console: step,
-        })
       }
+      this.setState({
+        console: step,
+      })
       return;
     }
 
