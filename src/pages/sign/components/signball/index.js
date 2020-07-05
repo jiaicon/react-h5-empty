@@ -118,6 +118,9 @@ export default class SignBall extends React.Component {
       distanceDataJSON: JSON.stringify(distanceData)
     })
     let step = '还没开始';
+    this.setState({
+      console: step,
+    })
     console.log(":::::::distanceData:::::", distanceData);
     if (Number(distanceData.distance) != 0) {
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
@@ -136,6 +139,9 @@ export default class SignBall extends React.Component {
           locDetail: location,
         });
         step = '步骤1';
+        this.setState({
+          console: step,
+        })
       } else {
         this.setState({
           isSign: false,
@@ -143,8 +149,14 @@ export default class SignBall extends React.Component {
           locDetail: location,
         });
         step = '步骤2';
+        this.setState({
+          console: step,
+        })
       }
-    } else if (
+      return;
+    }
+
+    if (
       (distanceData.county_name == "全市" || distanceData.county_id == 0) &&
       distanceData.city_name.replace("市", "") == location.city.replace("市", "")
     ) {
@@ -155,7 +167,12 @@ export default class SignBall extends React.Component {
         locDetail: location,
       });
       step = '步骤3';
-    } else if (
+      this.setState({
+        console: step,
+      })
+      return;
+    }
+    if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
       location.province.replace("省", "").replace("市", "")
@@ -167,28 +184,42 @@ export default class SignBall extends React.Component {
         locDetail: location,
       });
       step = '步骤4';
-    } else if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
+      this.setState({
+        console: step,
+      })
+      return;
+    }
+    if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
       //市名为当前的
       this.setState({
         isSign: isToday,
         signIndex: 1,
         locDetail: location,
       });
-    } else if (this.state.isWeChatMiniApp === true) {
+      step = '步骤  全国';
+      this.setState({
+        console: step,
+      })
+      return;
+    }
+    if (this.state.isWeChatMiniApp === true) {
       this.setState({
         isSign: isToday,
         signIndex: 1,
         locDetail: location,
       });
       step = '步骤5';
-    } else {
       this.setState({
-        isSign: false,
-        signIndex: 2,
-        locDetail: location,
-      });
-      step = '步骤6';
+        console: step,
+      })
+      return;
     }
+    this.setState({
+      isSign: false,
+      signIndex: 2,
+      locDetail: location,
+    });
+    step = '步骤6';
     this.setState({
       console: step,
     })
@@ -203,11 +234,6 @@ export default class SignBall extends React.Component {
     }, 1000);
     isWeChatMiniApp().then((res) => {
       that.setState({ isWeChatMiniApp: res }, () => {
-        this.setState({
-          console: 'isWeChatMiniApp的完成后'
-        })
-        // that.watchPositionNative()
-        console.log('isWeChatMiniApp????', res)
         if (res) {
           that.watchPositionNative()
         }
