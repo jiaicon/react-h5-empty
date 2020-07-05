@@ -97,6 +97,7 @@ export default class SignBall extends React.Component {
       .add(1, "days")
       .valueOf();
     let now = +new Date();
+    console.log("进入了getlocationPrivate");
     if (isSigninStatus && isSigninStatus) {
       let tempBegin = moment(data.begin)
         .add(-1, "hours")
@@ -109,6 +110,7 @@ export default class SignBall extends React.Component {
       if (begin <= now && now < secondDayEnd) {
         isToday = true;
       }
+      console.log("签退的那种？？代码没看忘记了");
     }
     // console.log(isToday, isSigninStatus, begin);
     const distanceData = this.props.data;
@@ -117,8 +119,10 @@ export default class SignBall extends React.Component {
       dataJSON: JSON.stringify(data),
       distanceDataJSON: JSON.stringify(distanceData)
     })
-    let step = '还没开始';
+
+    console.log("进入了1");
     if (Number(distanceData.distance) != 0) {
+      console.log("进入了2");
       //后台设置全市时，data.distance=0；这时候判断市名字就OK
       let distance = GetDistance(
         location.lat,
@@ -126,7 +130,6 @@ export default class SignBall extends React.Component {
         data.lat,
         data.lng
       );
-      step = `distance = ${distance}`
       console.log(distance, data);
       if (distance <= data.distance) {
         this.setState({
@@ -134,18 +137,15 @@ export default class SignBall extends React.Component {
           signIndex: 1,
           locDetail: location,
         });
-        step = '步骤1';
+        console.log("进入了3");
       } else {
         this.setState({
           isSign: false,
           signIndex: 2,
           locDetail: location,
         });
-        step = '步骤2';
+        console.log("进入了4");
       }
-      this.setState({
-        console: step,
-      })
       return;
     }
 
@@ -159,10 +159,6 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location,
       });
-      step = '步骤3';
-      this.setState({
-        console: step,
-      })
       return;
     }
     if (
@@ -176,10 +172,7 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location,
       });
-      step = '步骤4';
-      this.setState({
-        console: step,
-      })
+      console.log("进入了5");
       return;
     }
     if (distanceData.province_name == "全国" || distanceData.province_id == 0) {
@@ -189,10 +182,7 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location,
       });
-      step = '步骤  全国';
-      this.setState({
-        console: step,
-      })
+      console.log("进入了6");
       return;
     }
     if (this.state.isWeChatMiniApp === true) {
@@ -201,10 +191,7 @@ export default class SignBall extends React.Component {
         signIndex: 1,
         locDetail: location,
       });
-      step = '步骤5';
-      this.setState({
-        console: step,
-      })
+      console.log("进入了7");
       return;
     }
     this.setState({
@@ -212,10 +199,7 @@ export default class SignBall extends React.Component {
       signIndex: 2,
       locDetail: location,
     });
-    step = '步骤6';
-    this.setState({
-      console: step,
-    })
+    console.log("结束");
   }
 
   componentDidMount() {
@@ -361,11 +345,11 @@ export default class SignBall extends React.Component {
           {this.renderDistanceInfo()}
         </div>
         <div style={{ backgroud: 'black', width: '375px' }}>
-          {this.state.isWeChatMiniApp === null ? '没判断成功' : (this.state.isWeChatMiniApp ? '是小程序里了' : '没在小程序')}
+          {/* {this.state.isWeChatMiniApp === null ? '没判断成功' : (this.state.isWeChatMiniApp ? '是小程序里了' : '没在小程序')}
           {this.state.console}
           {this.state.locationJSON}
           {this.state.dataJSON}
-          {this.state.distanceDataJSON}
+          {this.state.distanceDataJSON} */}
         </div>
       </div>
     );
