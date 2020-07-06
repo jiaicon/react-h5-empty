@@ -236,7 +236,7 @@ class SignPage extends React.Component {
                   backgroundPosition: "left center"
                 }}
               >
-                {userData.clock_in_addr}
+                {userData.clock_in_addr && userData.clock_in_addr.length && (userData.clock_in_addr.indexOf('undefined') != -1) ? `${data.province_name} ${data.city_name} ${data.county_name}` : userData.clock_in_addr}
               </div>
             </div>
           );

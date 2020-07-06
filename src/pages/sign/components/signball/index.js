@@ -258,8 +258,9 @@ export default class SignBall extends React.Component {
     this.props.clickFunc(postMessages);
   }
   renderDistanceInfo() {
-    const { time, isSign, signIndex } = this.state;
+    const { signIndex } = this.state;
     let dom = null;
+    // const signIndex = 2;
     if (signIndex == 1) {
       dom = (
         <div
@@ -279,22 +280,35 @@ export default class SignBall extends React.Component {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            'flex-wrap': 'wrap'
           }}
           onClick={() => {
             this.props.mapFunc();
           }}
         >
-          <img src="/images/sign/signal.png" className="sign-first" />
-          当前不在签到地点范围：
-          <span style={{ color: " #230000" }}>查看签到地点</span>{" "}
-          <img
-            src="/images/sign/signmore.png"
-            style={{
-              width: "4px",
-              marginLeft: "4px"
-            }}
-          />
+          <div style={{
+            'display': 'flex',
+            'align-items': 'center'
+          }}>
+            <img src="/images/sign/signal.png" className="sign-first" />
+            当前不在签到地点范围
+          </div>
+          <div style={{
+            'display': 'flex',
+            'align-items': 'center'
+          }}>
+            {
+              this.state.isWeChatMiniApp === true ? null : <span style={{ color: " #230000" }}>查看签到地点</span>
+            }
+            {/* <img
+              src="/images/sign/signmore.png"
+              style={{
+                width: "4px",
+                marginLeft: "4px"
+              }}
+            /> */}
+          </div>
         </div>
       );
     } else if (signIndex == 3) {
