@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
-  <meta name="last-build-time" content="Sun Jul 05 2020 15:33:45 GMT+0800 (GMT+08:00)">
+  <meta name="last-build-time" content="Mon Jul 06 2020 15:54:47 GMT+0800 (GMT+08:00)">
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -24,7 +24,7 @@
         document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
     })();
   </script>
-  <script src="/lib/jweixin-1.0.0.js"></script> 
+  <script src="/lib/jweixin-1.6.0.js"></script> 
   <script src="https://js.fundebug.cn/fundebug.1.5.0.min.js" apikey="7de7de184affb1a29b9a766df87ac3420018a2e870a7cc91278229aaeeaccedb"></script>
 
   <script>
@@ -132,7 +132,7 @@
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
   <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
-  <script src="/dist/main.c01326140ee7d168239f.js"></script>
+  <script src="/dist/main.50dfebbd77da6136d36c.js"></script>
 </body>
 
 </html>
