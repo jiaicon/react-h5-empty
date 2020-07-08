@@ -212,9 +212,56 @@ class BindInfo extends React.Component {
                 });
                 this.setState({
                     ...this.props.user.extends
+                },()=> {
+                    this.resetIsRequied('user_type',this.user_type);
                 })
             }
         }
+    }
+
+    resetIsRequied (key , value) {
+        const {
+            winOrgInfo: { extends: extendsFormArr },
+        } = this.state;
+        if (key === 'user_type') {
+            switch (value) {
+                case '宝马员工': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+                case '经销商员工': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+                case '宝马车主': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+                case '公众': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email') {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+            }
+        }
+        this.setState({
+            winOrgInfo: this.state.winOrgInfo,
+        })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -262,6 +309,7 @@ class BindInfo extends React.Component {
             birthday,
         } = this.state;
         const { user } = this.props;
+        console.info(this.state);
         if (
             (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
             (stateOrgData.open_addr && checkEmpty(`${province}`, "省份")) ||
@@ -272,6 +320,21 @@ class BindInfo extends React.Component {
             return;
         }
         let data = {};
+
+        const filterArr = Object.entries(this.state.extendsArray).filter(pv => this.state.winOrgInfo.extends.filter(v => (v.key === pv[0] && v.is_required > 0)).length);
+
+        let extendsObj = {}
+        filterArr.forEach(item => {
+            extendsObj[item[0]] = item[1];
+        })
+
+        console.info(filterArr, extendsObj)
+
+        if (extendsObj.employee_id && !(extendsObj.employee_id && extendsObj.employee_id.length >= 6 && extendsObj.employee_id.length <= 7 && (extendsObj.employee_id.indexOf('P') > -1 || extendsObj.employee_id.indexOf('QQT') > -1 || extendsObj.employee_id.indexOf('QTA') > -1 || extendsObj.employee_id.indexOf('QZ') > -1))) {
+            Alert.warning(`员工号有误，请检查`);
+            return;
+        }
+        data.extends = extendsObj;
         //出生日期、性别   需要判断身份证位数   18位的不可修改
         if (user.num_type && user.num_type != 1) {
             data.birthday = monemt(birthday).format("YYYY-MM-DD");
@@ -293,7 +356,7 @@ class BindInfo extends React.Component {
             data.addr = address;
         }
 
-        data.extends = this.state.extendsArray;
+        // data.extends = this.state.extendsArray;
         this.props.checkEdit(data);
     }
     handleCardClick() {
@@ -539,6 +602,50 @@ class BindInfo extends React.Component {
         const key = e.target.id;
         const value = e.target.value;
         this[key] = value;
+
+        const {
+            winOrgInfo: { extends: extendsFormArr },
+        } = this.state;
+
+        if (key === 'user_type') {
+            switch (value) {
+                case '宝马员工': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+                case '经销商员工': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+                case '宝马车主': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+                case '公众': {
+                    extendsFormArr.filter(v => {
+                        if (v.key === 'user_type' || v.key === 'email') {
+                            v.is_required = 1;
+                        }
+                        else v.is_required = 0;
+                    })
+                } break;
+            }
+        }
+        this.setState({
+            winOrgInfo: this.state.winOrgInfo,
+        })
         this.pushExtendsArray(key, value);
     }
 
@@ -969,59 +1076,83 @@ class BindInfo extends React.Component {
         });
     }
     renderOtherInfo() {
-        const winOrgStateInfo = this.state.winOrgInfo;
+        const {
+            winOrgInfo: { extends: extendsFormArr },
+            extendsArray,
+        } = this.state;
+
+        let renderArr = [];
+
+        if (!extendsArray.user_type) {
+            renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type"));
+        }
+
+        if (extendsArray.user_type === '宝马员工') {
+            renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "company_affiliation" || v.key === "employee_id" || v.key === "email"))
+        }
+
+        if (extendsArray.user_type === '经销商员工') {
+            renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "dealer_name" || v.key === "email"))
+        }
+
+        if (extendsArray.user_type === '宝马车主') {
+            renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "car_model" || v.key === "email"))
+        }
+
+        if (extendsArray.user_type === '公众') {
+            renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "email"))
+        }
         return (
             <div>
-                {winOrgStateInfo.extends && winOrgStateInfo.extends.length
-                    ? this.state.winOrgInfo.extends.map((item, index) => {
-                        switch (
-                        Number(item.type) //单项选择
-                        ) {
-                            case 1:
-                                return (
-                                    <div key={index}>{this.renderOtherInfoSelect(item)}</div>
-                                );
-                                break;
-                            //多项选择
-                            case 2:
-                                return (
-                                    <div key={index}>{this.renderOtherInfoCheckbox(item)}</div>
-                                );
-                                break;
-                            //单行输入
-                            case 3:
-                                return (
-                                    <div key={index}>{this.renderOtherInfoInput(item)}</div>
-                                );
-                                break;
-                            //多行输
-                            case 4:
-                                return (
-                                    <div key={index}>{this.renderOtherInfoManyInput(item)}</div>
-                                );
-                                break;
+                {renderArr.map((item, index) => {
+                    switch (
+                    Number(item.type) //单项选择
+                    ) {
+                        case 1:
+                            return (
+                                <div key={item.key}>{this.renderOtherInfoSelect(item)}</div>
+                            );
+                            break;
+                        //多项选择
+                        case 2:
+                            return (
+                                <div key={item.key}>{this.renderOtherInfoCheckbox(item)}</div>
+                            );
+                            break;
+                        //单行输入
+                        case 3:
+                            return (
+                                <div key={item.key}>{this.renderOtherInfoInput(item)}</div>
+                            );
+                            break;
+                        //多行输
+                        case 4:
+                            return (
+                                <div key={item.key}>{this.renderOtherInfoManyInput(item)}</div>
+                            );
+                            break;
 
-                            //上传图片
-                            case 5:
-                                return <div key={index}>{this.renderOtherPic(item)}</div>;
-                                break;
-                            //日期空间
-                            case 6:
-                                return (
-                                    <div key={index}>{this.renderOtherInfoDate(item)}</div>
-                                );
-                                break;
-                            //日期时间空间
-                            case 7:
-                                return (
-                                    <div key={index}>{this.renderOtherInfoDateTime(item)}</div>
-                                );
-                                break;
-                            default:
-                                return;
-                        }
-                    })
-                    : null}
+                        //上传图片
+                        case 5:
+                            return <div key={item.key}>{this.renderOtherPic(item)}</div>;
+                            break;
+                        //日期空间
+                        case 6:
+                            return (
+                                <div key={item.key}>{this.renderOtherInfoDate(item)}</div>
+                            );
+                            break;
+                        //日期时间空间
+                        case 7:
+                            return (
+                                <div key={item.key}>{this.renderOtherInfoDateTime(item)}</div>
+                            );
+                            break;
+                        default:
+                            return;
+                    }
+                })
+                }
             </div>
         );
     }

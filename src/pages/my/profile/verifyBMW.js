@@ -1,10 +1,8 @@
 /**
- * @file 手机号绑定/邮箱
+ * @file 我的消息
  */
 
-/* eslint  "class-methods-use-this":"off",
-"jsx-a11y/no-static-element-interactions":"off",
-"react/no-array-index-key":"off" */
+/* eslint  "jsx-a11y/no-static-element-interactions":"off", "react/no-array-index-key":"off" */
 import React, { PropTypes } from "react";
 import FastClick from "fastclick";
 import Alert from "react-s-alert";
@@ -13,15 +11,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import uploadToWX from "../../../utils/wxupload";
 import UploadAvatar from "./../../../components/uploadAvatar/uploadAvatar";
+import UploadPhoto from "./../../../components/uploadPhoto/uploadPhoto";
+import history from "../../history";
 import { requestUserInfo } from "../../../stores/common";
 import Avatar from "../../../components/avatar/avatar";
-import { addressDataAction } from "./profile.store";
-import { checkEdit } from "./../my.store";
-
+import { checkUser, addressDataAction, userDefinedInfo } from "./profile.store";
+import { loginAction } from "../login/login.store";
 import { getQueryString } from "../../../utils/funcs";
 import uploadImage from "../../../utils/uploadImage";
 import "./verify.css";
-import { List, Checkbox, DatePicker, Radio, InputItem } from "antd-mobile";
+import { List, Checkbox, DatePicker, Radio } from "antd-mobile";
 
 import "antd-mobile/lib/date-picker/style/css";
 import "antd-mobile/lib/checkbox/style/css";
@@ -30,11 +29,10 @@ import "./verifyAntd.css";
 import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
-import "./bindProfile.css";
 import { cardtype, people } from '../../../utils/config'
+
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
-import monemt from "moment";
 
 let isEmpty = false;
 
@@ -147,7 +145,8 @@ function formatDate(x, y) {
     return `${dateStr}`;
   }
 }
-class BindInfo extends React.Component {
+
+class Verify extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -160,14 +159,7 @@ class BindInfo extends React.Component {
       winOrgInfo: window.orgInfo.custom_config,
       showMultiple: false,
       previewData: [],
-      cardtype: 1,
-      isStarbucksPartner_local: { "key": "isStarbucksPartner", "label": "是否星巴克伙伴", "type": "1", "options": "是,否", "is_required": 1 },
-      region_first_local: { "key": "region_first", "label": "区域", "type": "1", "options": "东区,南区,北区,中西区,上海支持中心", "is_required": 0 },
-      region_second_local: { "key": "region_second", "label": "二级区域", "type": "1", "options": "浙江,江苏,上海东,上海西,南东区,南西区,华北区,东北区,中区,西区,上海支持中心,华东支持中心,北京支持中心,沈阳支持中心,广州支持中心,深圳支持中心,成都支持中心,武汉支持中心,杭州支持中心,苏州支持中心,南京支持中心,宁波支持中心", "is_required": 0 },
-      city_starbucks_local: { "key": "city_starbucks", "label": "城市", "type": "3", "options": null, "is_required": 1 },
-      store_num_local: { "key": "store_num", "label": "门店编号", "type": "3", "options": null, "is_required": 0 },
-      store_name_local: { "key": "store_name", "label": "门店名称", "type": "3", "options": null, "is_required": 0 },
-      staff_id_local: { "key": "staff_id", "label": "员工号", "type": "3", "options": null, "is_required": 0 },
+      cardtype: 1
     };
     this.CustomChildren = ({ extra, onClick }) => (
       <div
@@ -184,12 +176,6 @@ class BindInfo extends React.Component {
 
   componentWillMount() {
     this.props.addressDataAction(0);
-    if (this.props.user && this.props.user.province_id) {
-      this.props.addressDataAction(this.props.user.province_id);
-    }
-    if (this.props.user && this.props.user.city_id) {
-      this.props.addressDataAction(this.props.user.city_id);
-    }
     const params = this.props.route.params;
 
     if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
@@ -199,46 +185,36 @@ class BindInfo extends React.Component {
 
   componentDidMount() {
     // Android 下 fastclick 影响 select 点击
-    let that = this;
     if (window.fastclick && isAndroid) {
       window.fastclick.destroy();
       window.fastclick = null;
     }
-    if (this.props.user) {
-      this.setState({
-        people: this.props.user.nation,
-        address: this.props.user.addr,
-        province: this.props.user.province_id,
-        city: this.props.user.city_id,
-        county: this.props.user.county_id,
-        birthday: this.props.user.birthday,
-        extendsArray: this.props.user.extends
-      }, () => {
-        // that.pushExtendsArray();
-      });
-      //展开extends里的字段
-      if (this.props.user.extends) {
-        const keys = Object.keys(this.props.user.extends);
-        keys.length &&
-          keys.map(item => {
-            this[item] = this.props.user.extends[item];
-          });
-        this.setState({
-          ...this.props.user.extends
-        }, () => {
-          console.log(this.props);
-        });
-      }
-    }
-
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props, nextProps);
-    const { failed: tFailed, fetching: tFetching } = this.props.checkEditData;
-    const { failed: nFailed, fetching: nFetching } = nextProps.checkEditData;
-    if (!tFailed && tFetching && !nFailed && !nFetching) {
-      location.replace("/my");
+    const { check: Ccheck } = this.props;
+    const { check: Ncheck } = nextProps;
+    const { login: cLogin } = this.props;
+    const { login: nLogin } = nextProps;
+
+    let target = getQueryString("target") ? getQueryString("target") : "/my";
+
+    const { from } = nLogin;
+
+    if (
+      Ccheck.fetching &&
+      !Ccheck.failed &&
+      !Ncheck.fetching &&
+      !Ncheck.failed
+    ) {
+      if (from) {
+        target = from;
+      }
+      if (from === '/my/login') {
+        target = '/my';
+      }
+      window.location.replace(target);
+      // history.replace(target);
     }
   }
 
@@ -261,10 +237,28 @@ class BindInfo extends React.Component {
   }
 
   onTextChanged() {
+    //姓名允许空格
+    // const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, "");
+    const realname = this.realname.value;
+    const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, "");
     const address = this.address.value.replace(/(^\s+)|(\s+$)/g, "");
+    const password = this.password
+      ? this.password.value.replace(/(^\s+)|(\s+$)/g, "")
+      : null;
     this.setState({
-      address
+      address,
+      realname,
+      idcard,
+      password
     });
+  }
+
+  // 上传头像
+  onAvatarChange(avatar) {
+    this.setState({
+      photo: avatar
+    });
+    this.photo = avatar;
   }
 
   onSubmit() {
@@ -279,106 +273,93 @@ class BindInfo extends React.Component {
       province,
       city,
       county,
-      password,
-      extendsArray,
-      isStarbucksPartner_local,
-      region_first_local,
-      region_second_local,
-      city_starbucks_local,
-      store_num_local,
-      store_name_local,
-      staff_id_local
+      password
     } = this.state;
     const { user } = this.props;
+
+    let data = {};
+
+    const filterArr = Object.entries(this.state.extendsArray).filter(pv => this.state.winOrgInfo.extends.filter(v => (v.key === pv[0] && v.is_required > 0)).length);
+
+    let extendsObj = {}
+    filterArr.forEach(item => {
+      extendsObj[item[0]] = item[1];
+    })
+
+    console.info(filterArr, extendsObj)
+
+    if (extendsObj.employee_id && !(extendsObj.employee_id && extendsObj.employee_id.length >= 6 && extendsObj.employee_id.length <= 7 && (extendsObj.employee_id.indexOf('P') > -1 || extendsObj.employee_id.indexOf('QQT') > -1 || extendsObj.employee_id.indexOf('QTA') > -1 || extendsObj.employee_id.indexOf('QZ') > -1))) {
+      Alert.warning(`员工号有误，请检查`);
+      return;
+    }
+    data.extends = extendsObj;
+
     if (
+      (stateOrgData.open_avatars && checkEmpty(photo, "头像")) ||
+      (stateOrgData.open_real_name && checkEmpty(realname, "姓名")) ||
+      (stateOrgData.open_id_number && checkEmpty(idcard, "证件号码")) ||
       (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
       (stateOrgData.open_addr && checkEmpty(province, "省份")) ||
       (stateOrgData.open_addr && checkEmpty(city, "城市")) ||
       (stateOrgData.open_addr && checkEmpty(county, "区县")) ||
-      (stateOrgData.open_addr && checkEmpty(address, "详细地址"))
+      (stateOrgData.open_addr && checkEmpty(address, "详细地址")) ||
+      (stateOrgData.open_real_name && checkRealname(realname)) ||
+      (user.have_pwd == 0 && checkEmpty(password, "密码"))
     ) {
     }
-    let arr = {};
-    if (isStarbucksPartner_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.isStarbucksPartner, "是否是星巴克员工")) {
-        arr.isStarbucksPartner = this.state.extendsArray.isStarbucksPartner;
-      }
-      else {
+    if (stateOrgData.open_id_number) {
+      if (cardtype == 1 && iscard(idcard)) {
+        return;
+      } else if (cardtype == 2 && isxiangancard(idcard)) {
+        return;
+      } else if (cardtype == 3 && isaomencard(idcard)) {
+        return;
+      } else if (cardtype == 4 && istaiwancard(idcard)) {
         return;
       }
     }
-    if (this.state.region_first_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.region_first, "区域")) {
-        arr.region_first = this.state.extendsArray.region_first;
-      }
-      else {
+    if (
+      this.state.winOrgInfo.extends &&
+      this.state.winOrgInfo.extends.length > 0
+    ) {
+      if (isRequired(this.state.winOrgInfo.extends, this.state.extendsArray)) {
+        isEmpty = false;
         return;
       }
     }
-    if (this.state.region_second_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.region_second, "二级区域")) {
-        arr.region_second = this.state.extendsArray.region_second;
-      }
-      else {
-        return;
-      }
+
+    if (realname) {
+      data.real_name = realname;
     }
-    if (this.state.city_starbucks_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.city_starbucks, "城市")) {
-        arr.city_starbucks = this.state.extendsArray.city_starbucks;
-      }
-      else {
-        return;
-      }
+    if (idcard) {
+      data.id_number = idcard;
     }
-    if (this.state.store_num_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.store_num, "门店编号")) {
-        arr.store_num = this.state.extendsArray.store_num;
-      }
-      else {
-        return;
-      }
-    }
-    if (this.state.store_name_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.store_name, "门店名称")) {
-        arr.store_name = this.state.extendsArray.store_name;
-      }
-      else {
-        return;
-      }
-    }
-    if (this.state.staff_id_local.is_required) {
-      if (!checkEmpty(this.state.extendsArray.staff_id, "员工号")) {
-        arr.staff_id = this.state.extendsArray.staff_id;
-      }
-      else {
-        return;
-      }
-    }
-    let data = {};
-    //出生日期、性别   需要判断身份证位数   18位的不可修改
-    if (user.num_type && user.num_type != 1) {
-      data.birthday = monemt(birthday).format("YYYY-MM-DD");
-    }
-    //下面是统一的信息
     if (people) {
       data.nation = people;
     }
-    if (province && province != -1) {
+    if (province) {
       data.province_id = province;
     }
-    if (city && city != -1) {
+    if (city) {
       data.city_id = city;
     }
-    if (county && county != -1) {
+    if (county) {
       data.county_id = county;
     }
     if (address) {
       data.addr = address;
     }
 
-    data.extends = arr;
-    this.props.checkEdit(data);
+    if (photo != undefined && photo != "") {
+      data.avatars = photo;
+    }
+    if (password) {
+      data.pwd = password;
+    }
+    data.num_type = cardtype;
+    data.extends = this.state.extendsArray;
+
+    this.props.checkUser(data);
   }
   handleCardClick() {
     this.setState({ ...this.state, cardtype: this.cardtype.value });
@@ -393,9 +374,7 @@ class BindInfo extends React.Component {
   handleProvinceClick() {
     this.setState({
       ...this.state,
-      province: this.province.value,
-      city: -1,
-      county: -1
+      province: this.province.value
     });
     this.props.addressDataAction(this.province.value);
   }
@@ -403,8 +382,7 @@ class BindInfo extends React.Component {
   handleCityClick() {
     this.setState({
       ...this.state,
-      city: this.city.value,
-      county: -1
+      city: this.city.value
     });
     this.props.addressDataAction(this.city.value);
   }
@@ -416,15 +394,38 @@ class BindInfo extends React.Component {
     });
   }
 
+  renderAvatars() {
+    return (
+      <div>
+        <div className="page-my-profile-verify-header-box page-my-profile-verify-photo-box">
+          {this.state.winOrgInfo.open_avatars === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
+
+          <div className="page-my-profile-verify-fonts">头像</div>
+          <UploadAvatar onChange={this.onAvatarChange} />
+        </div>
+        <div className="line1px" />
+      </div>
+    );
+  }
+
   renderName() {
-    const { user } = this.props;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
+          {this.state.winOrgInfo.open_real_name === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
           <div className="page-my-profile-verify-fonts">姓名</div>
-          <div className="padding-left-15">
-            {user.real_name || user.username}
-          </div>
+          <input
+            type="text"
+            ref={c => {
+              this.realname = c;
+            }}
+            className="page-my-profile-verify-text"
+            onChange={this.onTextChanged}
+          />
         </div>
         <div className="line1px" />
       </div>
@@ -432,81 +433,54 @@ class BindInfo extends React.Component {
   }
 
   renderIdCard() {
-    const { user } = this.props;
-    let num_type = "";
-    if (user.num_type) {
-      switch (user.num_type) {
-        case 1:
-          num_type = "内地身份证";
-          break;
-        case 2:
-          num_type = "香港";
-          break;
-        case 3:
-          num_type = "澳门";
-          break;
-        case 4:
-          num_type = "台湾";
-          break;
-        case 5:
-          num_type = "护照";
-          break;
-        default:
-          num_type = "内地身份证";
-          break;
-      }
-    }
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
+          {this.state.winOrgInfo.open_id_number === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
           <div className="page-my-profile-verify-fonts">证件类型</div>
-          <div className="padding-left-15">{num_type}</div>
+          <label htmlFor="cardtype">
+            <select
+
+              id="cardtype"
+              onChange={this.handleCardClick}
+              ref={c => {
+                this.cardtype = c;
+              }}
+            >
+
+              {cardtype &&
+                cardtype.map((item, keys) => (
+                  <option value={item.id} key={keys}>
+                    {item.name}
+                  </option>
+                ))}
+            </select>
+          </label>
         </div>
         <div className="line1px" />
         <div className="page-my-profile-verify-header-box">
+          {this.state.winOrgInfo.open_id_number === 1 ? (
+            <span className="page-my-profile-verify-header-start">*</span>
+          ) : null}
           <div className="page-my-profile-verify-fonts">证件号码</div>
-          <div className="padding-left-15">{user.id_number}</div>
+          <input
+            type="text"
+            maxLength="18"
+            ref={c => {
+              this.idcard = c;
+            }}
+            className="page-my-profile-verify-text"
+            onChange={this.onTextChanged}
+          />
         </div>
         <div className="line1px" />
       </div>
     );
   }
-  //出生日期  需判断用户的证件类型，18位的不可修改
-  renderBirthday() {
-    const { user } = this.props;
-    if (user.num_type && user.num_type == 1) {
-      return (
-        <div>
-          <div className="page-my-profile-verify-header-box">
-            <div className="page-my-profile-verify-fonts">出生日期</div>
-            <div className="padding-left-15">{user.birthday}</div>
-          </div>
-          <div className="line1px" />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <div className="page-my-profile-verify-header-box default-picker">
-            <DatePicker
-              mode="date"
-              title="选择出生日期"
-              minDate={new Date("1870-01-01")}
-              maxDate={new Date()}
-              value={new Date(this.state.birthday || user.birthday)}
-              extra="请选择出生日期"
-              onChange={date => this.setState({ birthday: date })}
-            >
-              <List.Item arrow="horizontal">出生日期</List.Item>
-            </DatePicker>
-          </div>
-          <div className="line1px" />
-        </div>
-      );
-    }
-  }
+
   renderNation() {
-    const { user } = this.props;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
@@ -518,7 +492,6 @@ class BindInfo extends React.Component {
           <label htmlFor="people">
             <select
               id="people"
-              defaultValue={user.nation || null}
               onChange={this.handlePeopleClick}
               ref={c => {
                 this.people = c;
@@ -540,7 +513,6 @@ class BindInfo extends React.Component {
   }
 
   renderAddr() {
-    const { user } = this.props;
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
     const county = this.props.address.data.county;
@@ -551,11 +523,11 @@ class BindInfo extends React.Component {
             {this.state.winOrgInfo.open_addr === 1 ? (
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
+
             <div className="page-my-profile-verify-fonts">省份</div>
             <label htmlFor="province">
               <select
                 id="province"
-                value={this.state.province || user.province_id || ""}
                 onChange={this.handleProvinceClick}
                 ref={c => {
                   this.province = c;
@@ -580,7 +552,6 @@ class BindInfo extends React.Component {
             <label htmlFor="city">
               <select
                 id="city"
-                value={this.state.city || user.city_id || ""}
                 onChange={this.handleCityClick}
                 ref={c => {
                   this.city = c;
@@ -605,7 +576,6 @@ class BindInfo extends React.Component {
             <label htmlFor="county">
               <select
                 id="county"
-                value={this.state.county || user.county_id || ""}
                 onChange={this.handleCountryClick}
                 ref={c => {
                   this.county = c;
@@ -632,7 +602,6 @@ class BindInfo extends React.Component {
               ref={c => {
                 this.address = c;
               }}
-              defaultValue={user.addr}
               className="page-my-profile-verify-text"
               onChange={this.onTextChanged}
             />
@@ -646,7 +615,49 @@ class BindInfo extends React.Component {
   handleOtherInfoSelectClick(e) {
     const key = e.target.id;
     const value = e.target.value;
-    this[key] = value;
+    const {
+      winOrgInfo: { extends: extendsFormArr },
+    } = this.state;
+
+    if (key === 'user_type') {
+      switch (value) {
+        case '宝马员工': {
+          extendsFormArr.filter(v => {
+            if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
+              v.is_required = 1;
+            }
+            else v.is_required = 0;
+          })
+        } break;
+        case '经销商员工': {
+          extendsFormArr.filter(v => {
+            if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
+              v.is_required = 1;
+            }
+            else v.is_required = 0;
+          })
+        } break;
+        case '宝马车主': {
+          extendsFormArr.filter(v => {
+            if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
+              v.is_required = 1;
+            }
+            else v.is_required = 0;
+          })
+        } break;
+        case '公众': {
+          extendsFormArr.filter(v => {
+            if (v.key === 'user_type' || v.key === 'email') {
+              v.is_required = 1;
+            }
+            else v.is_required = 0;
+          })
+        } break;
+      }
+    }
+    this.setState({
+      winOrgInfo: this.state.winOrgInfo,
+    })
     this.pushExtendsArray(key, value);
   }
 
@@ -654,7 +665,6 @@ class BindInfo extends React.Component {
   renderOtherInfoSelect(item) {
     const data = item;
     const key = data.key;
-    console.info(data);
     const options = data.options.split(",");
     return (
       <div>
@@ -664,12 +674,8 @@ class BindInfo extends React.Component {
           ) : null}
           <div className="page-my-profile-verify-fonts">{data.label}</div>
           <label htmlFor={`${key}`}>
-            <select
-              id={`${key}`}
-              value={this[key] || this.state[key]}
-              onChange={this.handleOtherInfoSelectClick}
-            >
-              <option value="-1" />
+            <select id={`${key}`} onChange={this.handleOtherInfoSelectClick} value={this.state.extendsArray[key] && this.state.extendsArray[key].length && this.state.extendsArray[key] || undefined}>
+              <option value="-1" style={{ display: 'none' }} />
               {options.map((item1, keys) => (
                 <option value={item1} key={keys}>
                   {item1}
@@ -693,28 +699,12 @@ class BindInfo extends React.Component {
     const CheckboxItem = Checkbox.CheckboxItem;
     let labels = item1.options.split(",");
     let data = [];
-    let userExtends;
-    if (this.props.user) {
-      userExtends =
-        this.props.user.extends &&
-        this.props.user.extends[item1.key] &&
-        this.props.user.extends[item1.key].split(",");
-    }
     labels.map((item, index) => {
       let obj = {};
       obj.value = index;
       obj.label = item;
-      obj.checked = false;
-      if (userExtends && userExtends.length) {
-        userExtends.map(i => {
-          if (i === item) {
-            obj.checked = true;
-          }
-        });
-      }
       data.push(obj);
     });
-
     return (
       <div className="page-my-profile-other-title">
         {item1.is_required === 1 ? (
@@ -726,7 +716,6 @@ class BindInfo extends React.Component {
           {data.map(i => (
             <CheckboxItem
               key={`${item1.key}${i.value}`}
-              checked={i.checked}
               onChange={() => this.onChange(item1.key, i.label)}
             >
               {i.label}
@@ -752,9 +741,9 @@ class BindInfo extends React.Component {
           </div>
           <input
             id={`${key}`}
-            value={this[key] || ""}
             className="page-my-profile-verify-double-text"
             onChange={this.handleOtherInfoInputClick}
+            value={this.state.extendsArray[key] && this.state.extendsArray[key].length && this.state.extendsArray[key] || undefined}
           />
 
           <div className="line1px" />
@@ -766,7 +755,6 @@ class BindInfo extends React.Component {
   handleOtherInfoInputClick(e) {
     const key = e.target.id;
     const value = e.target.value;
-    this[key] = value;
     this.pushExtendsArray(key, value);
   }
 
@@ -788,8 +776,8 @@ class BindInfo extends React.Component {
           id={`${key}`}
           className="page-my-profile-edit-text"
           maxLength="200"
-          value={this[key] || ""}
-          onChange={this.handleOtherInfoManyInputClick}
+          onBlur={this.handleOtherInfoManyInputClick}
+          value={this.state.extendsArray[key] && this.state.extendsArray[key].length && this.state.extendsArray[key] || undefined}
         />
 
         <div className="line1px" />
@@ -800,8 +788,6 @@ class BindInfo extends React.Component {
   handleOtherInfoManyInputClick(e) {
     const key = e.target.id;
     const value = e.target.value;
-    console.log(value);
-    this[key] = value;
     this.pushExtendsArray(key, value);
   }
 
@@ -820,11 +806,10 @@ class BindInfo extends React.Component {
           <DatePicker
             mode="date"
             format="YYYY-MM-DD"
-            value={(this[key] && new Date(this[key])) || new Date()}
+            value={this.state[key]}
             extra={` `}
             onOk={v => (
               this.pushExtendsArray(key, formatDate(v)),
-              (this[key] = v),
               this.setState({
                 ...this.state,
                 [key]: v
@@ -852,11 +837,10 @@ class BindInfo extends React.Component {
           <DatePicker
             mode="datetime"
             format="YYYY-MM-DD HH:mm"
-            value={(this[key] && new Date(this[key])) || new Date()}
+            value={this.state[key]}
             extra={`  `}
             onOk={v => (
               this.pushExtendsArray(key, formatDate(v, true)),
-              (this[key] = v),
               this.setState({
                 ...this.state,
                 [key]: v
@@ -893,40 +877,31 @@ class BindInfo extends React.Component {
     console.log(e);
   }
   onPhotoChange(e) {
+    console.log(e.target.id);
     let key = e.target.id;
     uploadImage(`/api/imgupload`, {
       method: "POST",
       data: { file: { file: e.target.files[0] } }
     }).then(json => {
       if (json.error_code === 0) {
-        // const attachment = this.state[key];
-        // attachment.push(json.data.url);
-        // this.setState({
-        //     ...this.state,
-        //     [key]: attachment
-        // });
-        // this.pushExtendsArray(key, attachment);
-        //修改   只上传一张图片
+        const attachment = this.state[key];
+        attachment.push(json.data.url);
         this.setState({
           ...this.state,
-          [key]: json.data.url
+          [key]: attachment
         });
-        this.pushExtendsArray(key, json.data.url);
+        this.pushExtendsArray(key, attachment);
       }
     });
   }
 
   onPicDel(e) {
-    // const num = e.target.id;
-    // var key = e.target.getAttribute("data-key");
-    // const attachment = this.state[key];
-    // attachment.splice(num, 1);
-    // this.setState({ ...this.state, [key]: attachment }),
-    //     this.pushExtendsArray(key, attachment);
+    const num = e.target.id;
     var key = e.target.getAttribute("data-key");
-    delete this.state[key];
-    this.setState({ ...this.state });
-    delete this.state.extendsArray[key];
+    const attachment = this.state[key];
+    attachment.splice(num, 1);
+    this.setState({ ...this.state, [key]: attachment }),
+      this.pushExtendsArray(key, attachment);
   }
 
   onPreview(e) {
@@ -954,34 +929,14 @@ class BindInfo extends React.Component {
           {data.label}
         </div>
         <div className="page-post-container-photo-container">
-          {/*{this.state[key].map((item, keys) => (*/}
-          {/*<div className="page-applys-item-render-container" key={keys}>*/}
-          {/*<div className="page-applys-item-view">*/}
-          {/*<Avatar*/}
-          {/*src={item}*/}
-          {/*size={{ width: 80, radius: 1 }}*/}
-          {/*id={keys}*/}
-          {/*key={item}*/}
-          {/*data-key={`${key}`}*/}
-          {/*onClick={this.onPreview}*/}
-          {/*/>*/}
-          {/*</div>*/}
-          {/*<div*/}
-          {/*className="page-applys-item-render-del"*/}
-          {/*onClick={this.onPicDel}*/}
-          {/*id={keys}*/}
-          {/*key={item}*/}
-          {/*data-key={`${key}`}*/}
-          {/*/>*/}
-          {/*</div>*/}
-          {/*))}*/}
-          {this.state[key] && this.state[key].length ? (
-            <div className="page-applys-item-render-container">
+          {this.state[key].map((item, keys) => (
+            <div className="page-applys-item-render-container" key={keys}>
               <div className="page-applys-item-view">
                 <Avatar
-                  src={this.state[key]}
+                  src={item}
                   size={{ width: 80, radius: 1 }}
-                  id={key}
+                  id={keys}
+                  key={item}
                   data-key={`${key}`}
                   onClick={this.onPreview}
                 />
@@ -989,12 +944,13 @@ class BindInfo extends React.Component {
               <div
                 className="page-applys-item-render-del"
                 onClick={this.onPicDel}
-                id={key}
+                id={keys}
+                key={item}
                 data-key={`${key}`}
               />
             </div>
-          ) : null}
-          {this.state[key] && this.state[key].length ? (
+          ))}
+          {this.state[key].length === 1 ? (
             <div />
           ) : (
               <div className="page-profile-header-uploade-box-div">
@@ -1043,7 +999,6 @@ class BindInfo extends React.Component {
    * value 值
    * isMany 是否多选 true是 false否
    * */
-
   pushExtendsArray(key, value, isMany) {
     const extendsArray = this.state.extendsArray;
     const windowOrgConfig = this.state.winOrgInfo;
@@ -1092,177 +1047,114 @@ class BindInfo extends React.Component {
         extendsArray[key] = value;
       }
     }
-    let region_second = this.getRegionSecond(
-      extendsArray.isStarbucksPartner,
-      extendsArray.region_first
-    );
-    console.log(region_second);
-    this.setState(
-      {
-        ...this.state,
-        extendsArray,
-        region_first_local:
-          extendsArray.isStarbucksPartner === "是"
-            ? {
-              key: "region_first",
-              label: "区域",
-              type: "1",
-              options: "东区,南区,北区,中西区,上海支持中心",
-              is_required: 1
-            }
-            : {
-              key: "region_first",
-              label: "区域",
-              type: "1",
-              options: "东区,南区,北区,中西区,上海支持中心",
-              is_required: 0
-            },
-        region_second_local: region_second,
-        store_num_local:
-          extendsArray.isStarbucksPartner === "是" &&
-            extendsArray.region_first != "上海支持中心" &&
-            extendsArray.region_second != "支持中心"
-            ? {
-              key: "store_num",
-              label: "门店编号",
-              type: "3",
-              options: null,
-              is_required: 1
-            }
-            : {
-              key: "store_num",
-              label: "门店编号",
-              type: "3",
-              options: null,
-              is_required: 0
-            },
-        store_name_local:
-          extendsArray.isStarbucksPartner === "是" &&
-            extendsArray.region_first != "上海支持中心" &&
-            extendsArray.region_second != "支持中心"
-            ? {
-              key: "store_name",
-              label: "门店名称",
-              type: "3",
-              options: null,
-              is_required: 1
-            }
-            : {
-              key: "store_name",
-              label: "门店名称",
-              type: "3",
-              options: null,
-              is_required: 0
-            },
-        staff_id_local:
-          extendsArray.isStarbucksPartner === "是"
-            ? {
-              key: "staff_id",
-              label: "员工号",
-              type: "3",
-              options: null,
-              is_required: 1
-            }
-            : {
-              key: "staff_id",
-              label: "员工号",
-              type: "3",
-              options: null,
-              is_required: 0
-            }
-      },
-      () => {
-        console.log(
-          extendsArray,
-          this.state.region_first_local,
-          this.state.region_second_local
-        );
-      }
-    );
+    this.setState({
+      ...this.state,
+      extendsArray
+    });
   }
-
-  getRegionSecond(isStarbucksPartner, region_first) {
-    let options = "";
-    if (region_first === "东区") {
-      options = "浙江,江苏,上海东,上海西,支持中心";
-    }
-    if (region_first === "南区") {
-      options = "南东,南西,支持中心";
-    }
-    if (region_first === "北区") {
-      options = "北一,北二,北三,支持中心";
-    }
-    if (region_first === "中西区") {
-      options = "中区,西区,支持中心";
-    }
-    if (region_first === "上海支持中心") {
-      options = "上海支持中心";
-    }
-    let is_required = isStarbucksPartner === "是" ? 1 : 0;
-
-    let tempRegionSecond = {};
-    tempRegionSecond.key = "region_second";
-    tempRegionSecond.label = "二级区域";
-    tempRegionSecond.type = "1";
-    tempRegionSecond.options = options;
-    tempRegionSecond.is_required = is_required;
-    return tempRegionSecond;
-  }
-
-  renderOtherInfo() {
-    const winOrgStateInfo = this.state.winOrgInfo;
+  renderPassword() {
+    const { user } = this.props;
     return (
       <div>
-        {winOrgStateInfo.extends && winOrgStateInfo.extends.length
-          ? this.state.winOrgInfo.extends.map((item, index) => {
-            switch (
-            Number(item.type) //单项选择
-            ) {
-              case 1:
-                return (
-                  <div key={index}>{this.renderOtherInfoSelect(item)}</div>
-                );
-                break;
-              //多项选择
-              case 2:
-                return (
-                  <div key={index}>{this.renderOtherInfoCheckbox(item)}</div>
-                );
-                break;
-              //单行输入
-              case 3:
-                return (
-                  <div key={index}>{this.renderOtherInfoInput(item)}</div>
-                );
-                break;
-              //多行输
-              case 4:
-                return (
-                  <div key={index}>{this.renderOtherInfoManyInput(item)}</div>
-                );
-                break;
+        {user.have_pwd == 0 ? (
+          <div>
+            <div className="page-my-profile-verify-header-box">
+              <span className="page-my-profile-verify-header-start">*</span>
+              <div className="page-my-profile-verify-fonts">设置密码</div>
+              <input
+                type="text"
+                ref={c => {
+                  this.password = c;
+                }}
+                className="page-my-profile-verify-text"
+                onChange={this.onTextChanged}
+              />
+            </div>
+            <div className="line1px" />
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+  renderOtherInfo() {
+    const {
+      winOrgInfo: { extends: extendsFormArr },
+      extendsArray,
+    } = this.state;
 
-              //上传图片
-              case 5:
-                return <div key={index}>{this.renderOtherPic(item)}</div>;
-                break;
-              //日期空间
-              case 6:
-                return (
-                  <div key={index}>{this.renderOtherInfoDate(item)}</div>
-                );
-                break;
-              //日期时间空间
-              case 7:
-                return (
-                  <div key={index}>{this.renderOtherInfoDateTime(item)}</div>
-                );
-                break;
-              default:
-                return;
-            }
-          })
-          : null}
+    let renderArr = [];
+
+    if (!extendsArray.user_type) {
+      renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type"));
+    }
+
+    if (extendsArray.user_type === '宝马员工') {
+      renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "company_affiliation" || v.key === "employee_id" || v.key === "email"))
+    }
+
+    if (extendsArray.user_type === '经销商员工') {
+      renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "dealer_name" || v.key === "email"))
+    }
+
+    if (extendsArray.user_type === '宝马车主') {
+      renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "car_model" || v.key === "email"))
+    }
+
+    if (extendsArray.user_type === '公众') {
+      renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "email"))
+    }
+
+    return (
+      <div>
+        {renderArr.map((item, index) => {
+          switch (
+          Number(item.type) //单项选择
+          ) {
+            case 1:
+              return (
+                <div key={item.key}>{this.renderOtherInfoSelect(item)}</div>
+              );
+              break;
+            //多项选择
+            case 2:
+              return (
+                <div key={item.key}>{this.renderOtherInfoCheckbox(item)}</div>
+              );
+              break;
+            //单行输入
+            case 3:
+              return (
+                <div key={item.key}>{this.renderOtherInfoInput(item)}</div>
+              );
+              break;
+            //多行输
+            case 4:
+              return (
+                <div key={item.key}>{this.renderOtherInfoManyInput(item)}</div>
+              );
+              break;
+
+            //上传图片
+            case 5:
+              return <div key={item.key}>{this.renderOtherPic(item)}</div>;
+              break;
+            //日期空间
+            case 6:
+              return (
+                <div key={item.key}>{this.renderOtherInfoDate(item)}</div>
+              );
+              break;
+            //日期时间空间
+            case 7:
+              return (
+                <div key={item.key}>{this.renderOtherInfoDateTime(item)}</div>
+              );
+              break;
+            default:
+              return;
+          }
+        })
+        }
       </div>
     );
   }
@@ -1277,45 +1169,29 @@ class BindInfo extends React.Component {
       top: "-55px",
       left: "0"
     };
-    if (!this.props.user) {
-      return null;
-    }
-    console.log(this.state);
     return (
       <div className="page-my-profile-verify-container">
         {this.state.winOrgInfo === null ? null : (
           <div style={{ width: "100%", height: "100%" }}>
             <div className="page-my-profile-verify-main">
+              {//头像
+                this.renderAvatars()}
               {//名字
                 this.renderName()}
+
               {//身份证
                 this.renderIdCard()}
 
-              {//是否是星巴克
-                this.renderOtherInfoSelect(this.state.isStarbucksPartner_local)}
-              {//区域
-                this.state.region_first_local.is_required == 0
-                  ? null
-                  : this.renderOtherInfoSelect(this.state.region_first_local)}
-              {//二级区域
-                this.state.region_second_local.is_required == 0
-                  ? null
-                  : this.renderOtherInfoSelect(this.state.region_second_local)}
-              {//城市
-                this.renderOtherInfoInput(this.state.city_starbucks_local)}
-              {//门店编号
-                this.state.store_num_local.is_required == 0
-                  ? null
-                  : this.renderOtherInfoInput(this.state.store_num_local)}
-              {//门店名称
-                this.state.store_name_local.is_required == 0
-                  ? null
-                  : this.renderOtherInfoInput(this.state.store_name_local)}
-
-              {//员工id
-                this.state.staff_id_local.is_required == 0
-                  ? null
-                  : this.renderOtherInfoInput(this.state.staff_id_local)}
+              {//民族
+                this.renderNation()
+              }
+              {//地址
+                this.renderAddr()
+              }
+              {//密码
+                this.renderPassword()}
+              {//自定义信息
+                this.renderOtherInfo()}
             </div>
             <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
               提交
@@ -1340,8 +1216,9 @@ class BindInfo extends React.Component {
   }
 }
 
-BindInfo.title = "个人信息绑定";
-BindInfo.propTypes = {
+Verify.title = "完善个人资料";
+Verify.propTypes = {
+  checkUser: PropTypes.func,
   requestUserInfo: PropTypes.func,
   addressDataAction: PropTypes.func,
   address: PropTypes.shape({
@@ -1402,15 +1279,18 @@ export default connect(
   state => ({
     user: state.user,
     address: state.info.address,
-    checkEditData: state.my.checkEdit
+    check: state.info.checkUser,
+    login: state.login.login
   }),
   dispatch =>
     bindActionCreators(
       {
         requestUserInfo,
+        checkUser,
         addressDataAction,
-        checkEdit
+        userDefinedInfo,
+        loginAction
       },
       dispatch
     )
-)(BindInfo);
+)(Verify);

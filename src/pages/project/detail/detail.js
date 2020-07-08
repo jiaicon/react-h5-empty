@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { bindActionCreators } from "redux";
 import WXShare from "../../../components/share";
-import { parseTimeStringToDateString , getQueryString} from "../../../utils/funcs";
+import { parseTimeStringToDateString, getQueryString } from "../../../utils/funcs";
 import "./detail.css";
 import Link from "../../../components/link/link";
 import Image from "../../../components/image/image";
@@ -25,7 +25,7 @@ import Tab from "../../../components/tab/tab";
 import CommunityItem from "../../../components/community_item/index";
 import ShareTip from "../../../components/sharetip/sharetip";
 import ModalNew from "../../../components/posterModal/ModalNew";
-import {PostDataModel_Project} from "../../../components/posterModal/PostDataModel";
+import { PostDataModel_Project } from "../../../components/posterModal/PostDataModel";
 
 import {
     feelingAction,
@@ -116,18 +116,18 @@ class ProjectDetailContent extends React.Component {
         console.log(content);
         return (
             <div>
-                    <div className="project-detail-list">
-                        <ul>
-                            {content &&
+                <div className="project-detail-list">
+                    <ul>
+                        {content &&
                             content.length > 0 &&
                             content.map((item, index) => {
-                                if (item.label === '联系人电话'){
+                                if (item.label === '联系人电话') {
                                     var temphref = `tel:${item.value}`;
                                     return (
                                         <li>
                                             <div className="item-point" />
                                             {item.islast ? null : <div className="line1px-v" />}
-    
+
                                             <div style={{ display: "flex" }}>
                                                 <div className="detail-title">{item.label}</div>
                                                 <a className="detail-content" href={temphref}>{item.value}</a>
@@ -147,20 +147,20 @@ class ProjectDetailContent extends React.Component {
                                     </li>
                                 );
                             })}
-                        </ul>
-                        {detailData.volunteer_security_public ? (
-                            <div className="project-guard">
-                                <img src="/images/icon_safeguard.png" alt="保障" />
-                                <span>志愿保障</span>
-                                <div className="line1px-v" />
-                                <div className="guard-detail">
-                                    {detailData.volunteer_security
-                                        ? detailData.volunteer_security
-                                        : "无"}
-                                </div>
+                    </ul>
+                    {detailData.volunteer_security_public ? (
+                        <div className="project-guard">
+                            <img src="/images/icon_safeguard.png" alt="保障" />
+                            <span>志愿保障</span>
+                            <div className="line1px-v" />
+                            <div className="guard-detail">
+                                {detailData.volunteer_security
+                                    ? detailData.volunteer_security
+                                    : "无"}
                             </div>
-                        ) : null}
-                    </div>
+                        </div>
+                    ) : null}
+                </div>
             </div>
         );
     }
@@ -286,7 +286,8 @@ class ProjectDetailPage extends React.Component {
                                     console.log(this.state.visible)
                                     // this.showModal();
                                 }
-                            );}
+                            );
+                        }
                     }
                 ]
             });
@@ -432,9 +433,9 @@ class ProjectDetailPage extends React.Component {
                 return;
             }
             if (!customConfig && !paymentConfig) {
-              const {
-                detail: { data: detailData }
-              } = this.props;
+                const {
+                    detail: { data: detailData }
+                } = this.props;
                 this.props.joinProject(projectId, detailData.join_verify_status);
             } else if (customConfig || paymentConfig) {
                 // window.location.replace(`/project/signup/${projectId}`)
@@ -474,57 +475,69 @@ class ProjectDetailPage extends React.Component {
                     );
                     // 要求实名切用户未实名过，通过ID判断
                 } else if (realRegister == 1 && user.isLogin) {
-                  // 验证自定义信息必填
-                  const custom_config = window.orgInfo.custom_config;
-                  let isVerify = false;
-                  if(custom_config.open_id_number && !user.id_number.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_real_name && !user.real_name.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_nation && !user.nation.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_avatars && !user.avatars.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_addr && !user.addr.length) {
-                    isVerify = true;
-                  }
-                  let is_has_required = false;
-                  custom_config.extends && custom_config.extends.length && custom_config.extends.forEach(item=>{
-                    if (item.is_required) {
-                      is_has_required = true;
-                    }
-                  })
-                  if(is_has_required && !user.extends) {
-                    isVerify = true;
-                  }
-                  if(user.extends && is_has_required) {
-                    custom_config.extends.forEach(item=>{
-                      if(item.is_required && (!user.extends[item.key] || (user.extends[item.key] && !user.extends[item.key].length))) {
+                    // 验证自定义信息必填
+                    const custom_config = window.orgInfo.custom_config;
+                    let isVerify = false;
+                    if (custom_config.open_id_number && !user.id_number.length) {
                         isVerify = true;
-                      }
-                    })
-                  }
-                  this.props.storeLoginSource(`/project/detail/${this.projectId}`);
-                  if(isVerify && user.have_pwd == 1) {
-                    let bindlink = '/my/profile/bind_profile/alert';
-                    if (window.orgCode === 'oBDbDkxal2') {
-                      bindlink = '/my/profile/bind_profile_starbucks/alert';
                     }
-                    window.location.replace(bindlink);
-                  } else if(isVerify) {
-                    window.location.replace(`/my/profile/verify`);
-                  } else {
-                    this.handleActionClickSitch(
-                      action,
-                      projectId,
-                      customConfig,
-                      paymentConfig
-                    );
-                  }
+                    if (custom_config.open_real_name && !user.real_name.length) {
+                        isVerify = true;
+                    }
+                    if (custom_config.open_nation && !user.nation.length) {
+                        isVerify = true;
+                    }
+                    if (custom_config.open_avatars && !user.avatars.length) {
+                        isVerify = true;
+                    }
+                    if (custom_config.open_addr && !user.addr.length) {
+                        isVerify = true;
+                    }
+                    let is_has_required = false;
+                    custom_config.extends && custom_config.extends.length && custom_config.extends.forEach(item => {
+                        if (item.is_required) {
+                            is_has_required = true;
+                        }
+                    })
+                    if (is_has_required && !user.extends) {
+                        isVerify = true;
+                    }
+                    if (user.extends && is_has_required) {
+                        custom_config.extends.forEach(item => {
+                            if (item.is_required && (!user.extends[item.key] || (user.extends[item.key] && !user.extends[item.key].length))) {
+                                isVerify = true;
+                            }
+                        })
+                    }
+                    this.props.storeLoginSource(`/project/detail/${this.projectId}`);
+                    if (isVerify && user.have_pwd == 1) {
+                        let bindlink = '/my/profile/bind_profile/alert';
+                        if (window.orgCode === 'oBDbDkxal2') {
+                          bindlink = '/my/profile/bind_profile_starbucks/alert';
+                        }
+                        if (window.orgCode === 'yMYerkEaOB') {
+                          bindlink = '/my/profile/bind_profile_BMW/alert';
+                        }
+                        window.location.replace(bindlink);
+                    } else if (isVerify) {
+                        window.location.replace(`/my/profile/verify`);
+
+                        let bindlink = '/my/profile/verify';
+                        if (window.orgCode === 'oBDbDkxal2') {
+                            bindlink = '/my/profile/verifyStarbucks';
+                        }
+                        if (window.orgCode === 'yMYerkEaOB') {
+                            bindlink = '/my/profile/verifyBMW';
+                        }
+                        window.location.replace(bindlink);
+                    } else {
+                        this.handleActionClickSitch(
+                            action,
+                            projectId,
+                            customConfig,
+                            paymentConfig
+                        );
+                    }
                 }
             } else if (user.isLogin && user.in_blacklist) {
                 Alert.warning("您已被添加到黑名单，请联系客服");
@@ -573,8 +586,8 @@ class ProjectDetailPage extends React.Component {
             user
         } = this.props;
 
-        const postData = PostDataModel_Project(detailData,user);
-        return this.state.visible ? <ModalNew postData={postData} visible={this.state.visible} maskCloseable={this.closeModal}  /> : null;
+        const postData = PostDataModel_Project(detailData, user);
+        return this.state.visible ? <ModalNew postData={postData} visible={this.state.visible} maskCloseable={this.closeModal} /> : null;
     }
     handleActionClickTwo() {
         window.location.href =
@@ -680,7 +693,7 @@ class ProjectDetailPage extends React.Component {
                 <div className="body">
                     <div className="project-name">{detailData.name}</div>
                     <div className="project-category">
-                        <div style={{ color: "#666666",marginBottom: "4px" }}>
+                        <div style={{ color: "#666666", marginBottom: "4px" }}>
                             {detailData.category_public
                                 ? `# ${serviceCategories.join("、")}`
                                 : null}
@@ -741,11 +754,11 @@ class ProjectDetailPage extends React.Component {
                         onClick={this.handleFavoriteClick}
                         className="project-action project-action-favorite"
                     >
-            <span
-                className={classnames({
-                    selected: detailData.collection_status
-                })}
-            />
+                        <span
+                            className={classnames({
+                                selected: detailData.collection_status
+                            })}
+                        />
                         <span>收藏</span>
                     </Link>
                     <Link
@@ -764,14 +777,14 @@ class ProjectDetailPage extends React.Component {
                     {action === "two" ? (
                         this.renderTwoBtn()
                     ) : (
-                        <Link
-                            to=""
-                            onClick={this.handleActionClick(action)}
-                            className={`project-action-main ${actionClassName}`}
-                        >
-                            {actionLabel}
-                        </Link>
-                    )}
+                            <Link
+                                to=""
+                                onClick={this.handleActionClick(action)}
+                                className={`project-action-main ${actionClassName}`}
+                            >
+                                {actionLabel}
+                            </Link>
+                        )}
                 </div>
             </div>
         );
@@ -783,7 +796,7 @@ class ProjectDetailPage extends React.Component {
         if (isLogin) {
             window.location.replace(`/my/circlepublish/2/${this.projectId}`);
         } else {
-            this.setState({ ...this.state, dialogType:false,showDialog: true });
+            this.setState({ ...this.state, dialogType: false, showDialog: true });
         }
     }
     delete(id) {
@@ -799,32 +812,32 @@ class ProjectDetailPage extends React.Component {
         return (
             <div>
                 {this.props.feeling.data &&
-                this.props.feeling.data.list &&
-                this.props.feeling.data.list.length > 0 &&
-                this.props.feeling.type == "project" ? (
-                    this.props.feeling.data.list.map(listData => (
-                        <CommunityItem
-                            data={listData}
-                            isDetailEntry={false}
-                            key={listData.id}
-                            routeData={this.props.route}
-                            isDescTrigger={false}
-                            onDeleteClick={this.delete}
-                            onParseClick={this.onParse}
-                            onUnParseClick={this.unOnParse}
-                        />
-                    ))
-                ) : (
-                    <div className="page-circle-rendercommunity-container">
-                        <img
-                            src="/images/my/information.png"
-                            className="page-circle-rendercommunity-img"
-                        />
-                        <div className="page-circle-rendercommunity-info">
-                            还没有动态信息
+                    this.props.feeling.data.list &&
+                    this.props.feeling.data.list.length > 0 &&
+                    this.props.feeling.type == "project" ? (
+                        this.props.feeling.data.list.map(listData => (
+                            <CommunityItem
+                                data={listData}
+                                isDetailEntry={false}
+                                key={listData.id}
+                                routeData={this.props.route}
+                                isDescTrigger={false}
+                                onDeleteClick={this.delete}
+                                onParseClick={this.onParse}
+                                onUnParseClick={this.unOnParse}
+                            />
+                        ))
+                    ) : (
+                        <div className="page-circle-rendercommunity-container">
+                            <img
+                                src="/images/my/information.png"
+                                className="page-circle-rendercommunity-img"
+                            />
+                            <div className="page-circle-rendercommunity-info">
+                                还没有动态信息
                         </div>
-                    </div>
-                )}
+                        </div>
+                    )}
 
                 <div
                     className="page-project-detail-community-link"

@@ -256,8 +256,18 @@
     "chunk": "main"
   },
   {
+    "path": "/my/profile/bind_profile_BMW/alert",
+    "page": "./pages/my/profile/bindProfileBMW",
+    "chunk": "main"
+  },
+  {
     "path": "/my/profile/verifyStarbucks",
     "page": "./pages/my/profile/verifyStarbucks",
+    "chunk": "main"
+  },
+  {
+    "path": "/my/profile/verifyBMW",
+    "page": "./pages/my/profile/verifyBMW",
     "chunk": "main"
   },
   {

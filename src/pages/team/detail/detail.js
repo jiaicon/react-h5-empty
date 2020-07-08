@@ -197,7 +197,7 @@ class TeamDetailPage extends React.Component {
     });
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillReceiveProps(nextProps) {
     const newTeamId = nextProps.route.params.teamId;
@@ -257,90 +257,100 @@ class TeamDetailPage extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   onTabChange(idx) {
     this.props.saveTeamTabIndex(idx);
   }
-    handleActionClick(action) {
-        const {teamId} = this;
-        const {detail: {team: detailData}, user} = this.props;
-        const realRegister = window.orgInfo.real_name_register;
-        // in_blacklist 黑名单 0不在，1在
-        // realRegister 机构实名 1 要求  0 否
-        return () => {
-            if (!user.isLogin) {
-                if (action === 'join') {
-                    this.props.joinTeam(teamId, detailData);
-                } else if (action === 'quit') {
-                    this.setState({...this.state, showDialog: true});
-                }
-            } else if (user.isLogin && !user.in_blacklist) {
-                // 不要求实名
-                if (realRegister == 0) {
-                    if (action === 'join') {
-                        this.props.joinTeam(teamId, detailData);
-                    } else if (action === 'quit') {
-                        this.setState({...this.state, showDialog: true});
-                    }
-                    // 要求实名切用户未实名过，通过ID判断
-                } else if (realRegister == 1 && user.isLogin) {
-                  // 验证自定义信息必填
-                  const custom_config = window.orgInfo.custom_config;
-                  let isVerify = false;
-                  if(custom_config.open_id_number && !user.id_number.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_real_name && !user.real_name.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_nation && !user.nation.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_avatars && !user.avatars.length) {
-                    isVerify = true;
-                  }
-                  if(custom_config.open_addr && !user.addr.length) {
-                    isVerify = true;
-                  }
-                  let is_has_required = false;
-                  custom_config.extends && custom_config.extends.length && custom_config.extends.forEach(item=>{
-                    if (item.is_required) {
-                      is_has_required = true;
-                    }
-                  })
-                  if(is_has_required && !user.extends) {
-                    isVerify = true;
-                  }
-                  if(user.extends && is_has_required) {
-                    custom_config.extends.forEach(item=>{
-                      if(item.is_required && (!user.extends[item.key] || (user.extends[item.key] && !user.extends[item.key].length))) {
-                        isVerify = true;
-                      }
-                    })
-                  }
-                  this.props.storeLoginSource(`/project/detail/${this.teamId}`)
-                  if(isVerify && user.have_pwd == 1) {
-                    let bindlink = '/my/profile/bind_profile/alert';
-                    if (window.orgCode === 'oBDbDkxal2') {
-                      bindlink = '/my/profile/bind_profile_starbucks/alert';
-                    }
-                    window.location.replace(bindlink);
-                  } else if(isVerify) {
-                    window.location.replace(`/my/profile/verify`);
-                  } else {
-                    if (action === 'join') {
-                      this.props.joinTeam(teamId, detailData);
-                    } else if (action === 'quit') {
-                      this.setState({...this.state, showDialog: true});
-                    }
-                  }
-                }
-            } else if (user.isLogin && user.in_blacklist) {
-                Alert.warning('您已被添加到黑名单，请联系客服');
+  handleActionClick(action) {
+    const { teamId } = this;
+    const { detail: { team: detailData }, user } = this.props;
+    const realRegister = window.orgInfo.real_name_register;
+    // in_blacklist 黑名单 0不在，1在
+    // realRegister 机构实名 1 要求  0 否
+    return () => {
+      if (!user.isLogin) {
+        if (action === 'join') {
+          this.props.joinTeam(teamId, detailData);
+        } else if (action === 'quit') {
+          this.setState({ ...this.state, showDialog: true });
+        }
+      } else if (user.isLogin && !user.in_blacklist) {
+        // 不要求实名
+        if (realRegister == 0) {
+          if (action === 'join') {
+            this.props.joinTeam(teamId, detailData);
+          } else if (action === 'quit') {
+            this.setState({ ...this.state, showDialog: true });
+          }
+          // 要求实名切用户未实名过，通过ID判断
+        } else if (realRegister == 1 && user.isLogin) {
+          // 验证自定义信息必填
+          const custom_config = window.orgInfo.custom_config;
+          let isVerify = false;
+          if (custom_config.open_id_number && !user.id_number.length) {
+            isVerify = true;
+          }
+          if (custom_config.open_real_name && !user.real_name.length) {
+            isVerify = true;
+          }
+          if (custom_config.open_nation && !user.nation.length) {
+            isVerify = true;
+          }
+          if (custom_config.open_avatars && !user.avatars.length) {
+            isVerify = true;
+          }
+          if (custom_config.open_addr && !user.addr.length) {
+            isVerify = true;
+          }
+          let is_has_required = false;
+          custom_config.extends && custom_config.extends.length && custom_config.extends.forEach(item => {
+            if (item.is_required) {
+              is_has_required = true;
             }
-        };
-    }
+          })
+          if (is_has_required && !user.extends) {
+            isVerify = true;
+          }
+          if (user.extends && is_has_required) {
+            custom_config.extends.forEach(item => {
+              if (item.is_required && (!user.extends[item.key] || (user.extends[item.key] && !user.extends[item.key].length))) {
+                isVerify = true;
+              }
+            })
+          }
+          this.props.storeLoginSource(`/project/detail/${this.teamId}`)
+          if (isVerify && user.have_pwd == 1) {
+            let bindlink = '/my/profile/bind_profile/alert';
+            if (window.orgCode === 'oBDbDkxal2') {
+              bindlink = '/my/profile/bind_profile_starbucks/alert';
+            }
+            if (window.orgCode === 'yMYerkEaOB') {
+              bindlink = '/my/profile/bind_profile_BMW/alert';
+            }
+            window.location.replace(bindlink);
+          } else if (isVerify) {
+            let bindlink = `/my/profile/verify?target=${target}`;
+            if (window.orgCode === 'oBDbDkxal2') {
+              bindlink = `/my/profile/verifyStarbucks?target=${target}`;
+            }
+            if (window.orgCode === 'yMYerkEaOB') {
+              bindlink = `/my/profile/verifyBMW?target=${target}`;
+            }
+            window.location.replace(bindlink);
+          } else {
+            if (action === 'join') {
+              this.props.joinTeam(teamId, detailData);
+            } else if (action === 'quit') {
+              this.setState({ ...this.state, showDialog: true });
+            }
+          }
+        }
+      } else if (user.isLogin && user.in_blacklist) {
+        Alert.warning('您已被添加到黑名单，请联系客服');
+      }
+    };
+  }
 
   handleFavoriteClick() {
     const {
@@ -441,23 +451,23 @@ class TeamDetailPage extends React.Component {
               </div>
             </div>
           ) : (
-            <div className="header-addition-new">
-              <div className="team-info">
-                <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
-                <div className="header-addition-new-container">
-                  <div className="header-addition-new-container-title">
-                    <span>{detailData.name}</span>
-                  </div>
-                  <div className="header-addition-new-container-star">
-                    <Star
-                      size={{ width: 15, height: 14, score: detailData.stars }}
-                      isBlockEmptyStar
-                    />
+              <div className="header-addition-new">
+                <div className="team-info">
+                  <Avatar src={detailData.logo} size={{ width: 30, radius: 4 }} />
+                  <div className="header-addition-new-container">
+                    <div className="header-addition-new-container-title">
+                      <span>{detailData.name}</span>
+                    </div>
+                    <div className="header-addition-new-container-star">
+                      <Star
+                        size={{ width: 15, height: 14, score: detailData.stars }}
+                        isBlockEmptyStar
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         <div className="body">
           <div className="team-info-list">
@@ -527,14 +537,14 @@ class TeamDetailPage extends React.Component {
                     {detailData.contact_phone}
                   </a>
                   <div className="line1px" />
-                </li>):null
+                </li>) : null
               }
-              
+
               <li>
                 <span>团队地址</span>
                 <span>{`${detailData.province_name}${detailData.city_name}${
                   detailData.county_name
-                }${detailData.addr}`}</span>
+                  }${detailData.addr}`}</span>
               </li>
             </ul>
           </div>
@@ -666,32 +676,32 @@ class TeamDetailPage extends React.Component {
     return (
       <div>
         {this.props.feeling.data &&
-        this.props.feeling.data.list &&
-        this.props.feeling.data.list.length > 0 &&
-        this.props.feeling.type == "team" ? (
-          this.props.feeling.data.list.map(listData => (
-            <CommunityItem
-              data={listData}
-              isDetailEntry={false}
-              key={listData.id}
-              routeData={this.props.route}
-              isDescTrigger={false}
-              onDeleteClick={this.delete}
-              onParseClick={this.onParse}
-              onUnParseClick={this.unOnParse}
-            />
-          ))
-        ) : (
-          <div className="page-circle-rendercommunity-no-info-container">
-            <img
-              src="/images/my/information.png"
-              className="page-circle-rendercommunity-img"
-            />
-            <div className="page-circle-rendercommunity-info">
-              还没有动态信息
+          this.props.feeling.data.list &&
+          this.props.feeling.data.list.length > 0 &&
+          this.props.feeling.type == "team" ? (
+            this.props.feeling.data.list.map(listData => (
+              <CommunityItem
+                data={listData}
+                isDetailEntry={false}
+                key={listData.id}
+                routeData={this.props.route}
+                isDescTrigger={false}
+                onDeleteClick={this.delete}
+                onParseClick={this.onParse}
+                onUnParseClick={this.unOnParse}
+              />
+            ))
+          ) : (
+            <div className="page-circle-rendercommunity-no-info-container">
+              <img
+                src="/images/my/information.png"
+                className="page-circle-rendercommunity-img"
+              />
+              <div className="page-circle-rendercommunity-info">
+                还没有动态信息
             </div>
-          </div>
-        )}
+            </div>
+          )}
 
         <div
           className="page-team-detail-community-link"

@@ -141,8 +141,12 @@ class Profile extends React.Component {
         };
         let bindlink = '/my/profile/bind_profile/alert';
         if (window.orgCode === 'oBDbDkxal2') {
-            bindlink = '/my/profile/bind_profile_starbucks/alert';
+          bindlink = '/my/profile/bind_profile_starbucks/alert';
         }
+        if (window.orgCode === 'yMYerkEaOB') {
+          bindlink = '/my/profile/bind_profile_BMW/alert';
+        }
+        window.location.replace(bindlink);
         return (
             <div className="page-profile-bottom-real-info-container">
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
@@ -391,6 +395,9 @@ class Profile extends React.Component {
 
         if (window.orgCode === 'oBDbDkxal2') {
             verifyRouter = "/my/profile/verifyStarbucks";
+        }
+        if (window.orgCode === 'yMYerkEaOB') {
+            verifyRouter = "/my/profile/verifyBMW";
         }
         return <div className="page-profile">
             <div>
