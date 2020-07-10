@@ -288,7 +288,7 @@ class Verify extends React.Component {
 
     console.info(filterArr, extendsObj)
 
-    if (extendsObj.employee_id && !(extendsObj.employee_id && extendsObj.employee_id.length >= 6 && extendsObj.employee_id.length <= 7 && (extendsObj.employee_id.indexOf('P') > -1 || extendsObj.employee_id.indexOf('QQT') > -1 || extendsObj.employee_id.indexOf('QTA') > -1 || extendsObj.employee_id.indexOf('QZ') > -1))) {
+    if (extendsObj.employee_id && !(/^[a-zA-Z]\w{5,6}$/.test(extendsObj.employee_id))) {
       Alert.warning(`员工号有误，请检查`);
       return;
     }

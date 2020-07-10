@@ -330,10 +330,11 @@ class BindInfo extends React.Component {
 
         console.info(filterArr, extendsObj)
 
-        if (extendsObj.employee_id && !(extendsObj.employee_id && extendsObj.employee_id.length >= 6 && extendsObj.employee_id.length <= 7 && (extendsObj.employee_id.indexOf('P') > -1 || extendsObj.employee_id.indexOf('QQT') > -1 || extendsObj.employee_id.indexOf('QTA') > -1 || extendsObj.employee_id.indexOf('QZ') > -1))) {
+        if (extendsObj.employee_id && !( /^[a-zA-Z]\w{5,6}$/.test(extendsObj.employee_id))) {
             Alert.warning(`员工号有误，请检查`);
             return;
         }
+
         data.extends = extendsObj;
         //出生日期、性别   需要判断身份证位数   18位的不可修改
         if (user.num_type && user.num_type != 1) {
