@@ -481,7 +481,7 @@ class MyPage extends React.Component {
             orgCode === "7N1aM8AeWm" ? null :
               (<li>
                 <div onClick={this.hasntIdnumber}>
-                  <Link to="/my/certificate">
+                  <Link to={window.orgCode === "yMYerkEaOB" ? "/my/certificateBMW":"/my/certificate"} >
                     <div className="page-my-item-box">
                       <i className="page-my-item-icon page-my-item-icon-certificate" />
                       我的证书

@@ -140,6 +140,12 @@
     "page": "./pages/my/certificate/certificate",
     "chunk": "main"
   },
+
+  {
+    "path": "/my/certificateBMW",
+    "page": "./pages/my/certificate/certificateBMW",
+    "chunk": "main"
+  },
   {
     "path": "/my/fundingApplication/list",
     "page": "./pages/my/fundingApplication/list",
