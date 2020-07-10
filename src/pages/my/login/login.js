@@ -68,7 +68,7 @@ class Login extends React.Component {
           return;
         }
 
-        if (window.orgCode === 'yMYerkEaOB') {
+        if (window.orgCode === 'mWZdPNwaKg') {
           window.location.replace(`/my/profile/verifyBMW?target=${target}`);
           return;
         }
@@ -118,7 +118,7 @@ class Login extends React.Component {
           if (window.orgCode === 'oBDbDkxal2') {
             bindlink = '/my/profile/bind_profile_starbucks/alert';
           }
-          if (window.orgCode === 'yMYerkEaOB') {
+          if (window.orgCode === 'mWZdPNwaKg') {
             bindlink = '/my/profile/bind_profile_BMW/alert';
           }
           window.location.replace(bindlink);
@@ -128,7 +128,7 @@ class Login extends React.Component {
           if (window.orgCode === 'oBDbDkxal2') {
             bindlink = `/my/profile/verifyStarbucks?target=${target}`;
           }
-          if (window.orgCode === 'yMYerkEaOB') {
+          if (window.orgCode === 'mWZdPNwaKg') {
             bindlink = `/my/profile/verifyBMW?target=${target}`;
           }
           window.location.replace(bindlink);

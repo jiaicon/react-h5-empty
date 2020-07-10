@@ -143,7 +143,7 @@ class Profile extends React.Component {
         if (window.orgCode === 'oBDbDkxal2') {
           bindlink = '/my/profile/bind_profile_starbucks/alert';
         }
-        if (window.orgCode === 'yMYerkEaOB') {
+        if (window.orgCode === 'mWZdPNwaKg') {
           bindlink = '/my/profile/bind_profile_BMW/alert';
         }
         window.location.replace(bindlink);
@@ -396,7 +396,7 @@ class Profile extends React.Component {
         if (window.orgCode === 'oBDbDkxal2') {
             verifyRouter = "/my/profile/verifyStarbucks";
         }
-        if (window.orgCode === 'yMYerkEaOB') {
+        if (window.orgCode === 'mWZdPNwaKg') {
             verifyRouter = "/my/profile/verifyBMW";
         }
         return <div className="page-profile">
