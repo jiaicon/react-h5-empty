@@ -203,25 +203,13 @@ class Certificate extends React.Component {
             <div className="page-certificate-container-bottom-infobox">
               <div className="page-certificate-container-bussiness">
                 宝马企业志愿者协会
-            </div>
+              </div>
               <div
                 className="page-certificate-container-content"
                 style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
               >
                 {this.state.now}
               </div>
-              {this.state.certCachet ? (
-                <img
-                  src={this.state.base64Array && this.state.base64Array[0]}
-                  alt=""
-                  className="first"
-                />
-              ) : (
-                  <div />
-                )}
-              {window.orgCode == "qM7e5Ba2vp" ? (
-                <img src="/images/my/zdx.png" className="second" />
-              ) : null}
             </div>
           </div>
         </div>
