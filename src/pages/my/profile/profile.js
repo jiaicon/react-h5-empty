@@ -146,7 +146,6 @@ class Profile extends React.Component {
         if (window.orgCode === 'mWZdPNwaKg') {
           bindlink = '/my/profile/bind_profile_BMW/alert';
         }
-        window.location.replace(bindlink);
         return (
             <div className="page-profile-bottom-real-info-container">
                 <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
