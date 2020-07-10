@@ -118,29 +118,28 @@
   height         : 59px;
   display        : flex;
   justify-content: space-around;
-  margin-top: 23px;
-  margin-bottom: 53px;
-  padding-bottom: 106px;
-  border-bottom: 1px solid #dddd;
+  margin-top     : 23px;
+  margin-bottom  : 53px;
+  padding-bottom : 106px;
+  border-bottom  : 1px solid #dddd;
 }
 
-.page-certificate-container-hours-box div {
-  font-size     : 11px;
-  color         : #676767;
-  letter-spacing: 0;
-  font-weight   : 400;
-  display       : flex;
-  align-items   : center;
+.page-certificate-container-hours-item-number {
+  font-size      : 11px;
+  color          : #676767;
+  letter-spacing : 0;
+  font-weight    : 400;
+  display        : flex;
+  align-items    : center;
+  text-align     : center;
+  justify-content: center;
 }
 
 .page-certificate-container-hours {
   display        : flex;
   flex-direction : column;
   justify-content: space-between;
-}
-
-.page-certificate-container-hours-item {
-  text-align: center;
+  height         : 76px;
 }
 
 .page-certificate-container-hours-item-subTitle {
@@ -149,9 +148,12 @@
   padding      : 0px 5px;
   border-radius: 5px;
   line-height  : 14px;
+  font-size    : 11px;
+  text-align   : center;
+  margin       : 0 auto;
 }
 
-.page-certificate-container-hours-item span {
+.page-certificate-container-hours-item-number span {
   font-size  : 54px;
   color      : #194472;
   font-weight: 400;
@@ -173,9 +175,9 @@
 }
 
 .page-certificate-container-bottom-infobox-parent {
-  display: flex;
+  display        : flex;
   justify-content: flex-end;
-  width: 82%;
+  width          : 82%;
 }
 
 .page-certificate-container-bottom-infobox {

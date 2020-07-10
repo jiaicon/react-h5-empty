@@ -173,7 +173,7 @@ class Certificate extends React.Component {
 
           <div className="page-certificate-container-hours-box">
             <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item">
+              <div className="page-certificate-container-hours-item-number">
                 <span>{this.props.user.join_project_count}</span>
                 <div style={{
                   paddingTop: '24px',
@@ -186,7 +186,7 @@ class Certificate extends React.Component {
               </div>
             </div>
             <div className="page-certificate-container-hours">
-              <div className="page-certificate-container-hours-item">
+              <div className="page-certificate-container-hours-item-number">
                 <span>{`${this.props.user.reward_time}`.length > 5 ? `${this.props.user.reward_time}`.split('.')[0] : `${this.props.user.reward_time}`}</span>
                 <div style={{
                   paddingTop: '12px',
@@ -226,45 +226,7 @@ class Certificate extends React.Component {
     console.log(listData);
     return (
       <div>
-        <div
-          style={{
-            position: "absolute",
-            left: "0",
-            top: "0",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          {dataUrl ? (
-            <img
-              style={{
-                width: "357px",
-                display: "block",
-                position: "relative",
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                margin: "auto"
-              }}
-              src={`${this.state.dataUrl}`}
-            />
-          ) : (
-              <div className="page-certificate-main-container">
-                {/** TODO: */}
-                {this.renderCertificate()}
-              </div>
-            )}
-          {dataUrl ? null : (
-            <div className="page-certificate-main-mask">
-              <img className="loading-img" src="/images/loadingimg.png" />
-            </div>
-          )}
-        </div>
-
+        {this.renderCertificate()}
       </div>
     );
   }
