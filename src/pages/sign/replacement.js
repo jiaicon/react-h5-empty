@@ -8,7 +8,7 @@ import classnames from "classnames";
 import moment from "moment";
 import history from "../history";
 import { createForm, formShape } from 'rc-form';
-import { Picker, List, DatePicker, TextareaItem } from 'antd-mobile';
+import { Picker, List, DatePicker, TextareaItem, InputItem } from 'antd-mobile';
 import 'antd-mobile/lib/picker/style/css';
 import 'antd-mobile/lib/list/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
@@ -23,7 +23,7 @@ class Replacement extends React.Component {
         autoBind(this);
         this.Id = props.route.params.Id;
         this.proid = props.route.params.proid;
-        this.state = {turnMap: false};
+        this.state = { turnMap: false };
         this.canSubmit = true;
     }
 
@@ -34,10 +34,10 @@ class Replacement extends React.Component {
     componentWillReceiveProps(nextprops) {
         const { failed: ngFailed, fetching: ngFetching } = nextprops.getProjectClockListData;
         const { failed: pgFailed, fetching: pgFetching } = this.props.getProjectClockListData;
-        if(!pgFailed && pgFetching && !ngFailed && !ngFetching) {
+        if (!pgFailed && pgFetching && !ngFailed && !ngFetching) {
             this.change = false;
-            nextprops.getProjectClockListData.list&&nextprops.getProjectClockListData.list.map(item=>{
-                if(item.id==this.Id) {
+            nextprops.getProjectClockListData.list && nextprops.getProjectClockListData.list.map(item => {
+                if (item.id == this.Id) {
                     console.log(item)
                     this.change = false;
                     this.setState({
@@ -49,15 +49,15 @@ class Replacement extends React.Component {
 
         const { failed: nFailed, fetching: nFetching } = nextprops.projectCheckedSubmitData;
         const { failed: pFailed, fetching: pFetching } = this.props.projectCheckedSubmitData;
-        if(!pFailed && pFetching && !nFailed && !nFetching) {
+        if (!pFailed && pFetching && !nFailed && !nFetching) {
             Alert.success('申请补卡成功');
             this.canSubmit = true;
-            if(this.proid == 'proid') {
+            if (this.proid == 'proid') {
                 location.replace('/my/duration/applys');
-            }else {
+            } else {
                 location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
             }
-        }else {
+        } else {
             this.canSubmit = true;
         }
     }
@@ -76,28 +76,33 @@ class Replacement extends React.Component {
     }
     onPhotoChange(images) {
         this.setState({
-            imagesArr: images.map(item=>item.url)
+            imagesArr: images.map(item => item.url)
         })
     }
     onSubmit() {
-        if(!this.canSubmit) {
+        if (!this.canSubmit) {
             return;
         }
         this.props.form.validateFields((error, value) => {
-            if(error) {
+            const project = this.props.projectCheckedApplyData.data.filter(v => `${v.id}` === `${value.proApplyPicker[0]}`)[0];
+            if (!project) {
+                Alert.error('项目信息获取失败，请刷新页面');
+                return;
+            }
+            console.info(error, this.state, value, project);
+            if (error) {
                 Alert.error('存在必填项，请完善后重新提交');
                 this.canSubmit = true;
                 return;
             }
             let data = {
+                addr: `${project.province_name} ${project.city_name} ${project.county_name} ${project.addr}`,
                 content: value.content,
-                id: value.id[0],
-                clock_in_time: moment(value.clock_in_time).format('YYYY-MM-DD HH:mm:ss')
+                id: project.id,
+                join_day: moment(value.join_day).format('YYYY-MM-DD'),
+                reward_time: value.reward_time,
             };
-            if('clock_end_time' in value) {
-                data.clock_end_time = moment(value.clock_end_time).format('YYYY-MM-DD HH:mm:ss');
-            }
-            if(this.state.imagesArr&&this.state.imagesArr.length) {
+            if (this.state.imagesArr && this.state.imagesArr.length) {
                 data.attachment = this.state.imagesArr;
             }
             this.props.projectCheckedSubmit(data);
@@ -109,13 +114,13 @@ class Replacement extends React.Component {
         let { list: getProjectClockListData } = this.props.getProjectClockListData;
         let proApplyListData = [];
         let getProjectClockList = [];
-        proApplyList&&proApplyList.map((item)=>{
+        proApplyList && proApplyList.map((item) => {
             proApplyListData.push({
                 label: item.name,
                 value: item.id
             })
         });
-        getProjectClockListData&&getProjectClockListData.map((item)=>{
+        getProjectClockListData && getProjectClockListData.map((item) => {
             getProjectClockList.push({
                 label: `${moment(item.begin).format("YYYY/MM/DD HH:mm")} - ${moment(item.end).format("YYYY/MM/DD HH:mm")}`,
                 value: item.id
@@ -126,12 +131,12 @@ class Replacement extends React.Component {
                 <Picker
                     data={proApplyListData}
                     cols={1}
-                    {...getFieldProps('proApplyPicker',{
+                    {...getFieldProps('proApplyPicker', {
                         rules: [{
                             required: true
                         }],
-                        onChange: (val)=> {
-                            if(val.length) {
+                        onChange: (val) => {
+                            if (val.length) {
                                 this.change = true;
                                 this.getProjectClockList(val[0]);
                             }
@@ -142,7 +147,56 @@ class Replacement extends React.Component {
                     <List.Item arrow="horizontal">参加项目</List.Item>
                 </Picker>
             </div>
+
             <div className="pages-sign-project-apply-line">
+                <DatePicker
+                    mode="date"
+                    format="YYYY-MM-DD"
+                    {...getFieldProps('join_day', {
+                        initialValue: undefined,
+                        rules: [{
+                            required: true
+                        }],
+                        onChange: (val) => {
+                            if (val.length) {
+                                getProjectClockListData && getProjectClockListData.map((item) => {
+                                    if (item.id == val[0]) {
+                                        this.change = true;
+                                        this.setState({
+                                            clockTimeData: item,   //补卡时为补卡时间   签到时为开始时间
+                                        });
+                                    }
+                                })
+                            }
+                        }
+                    })}
+                >
+                    <List.Item arrow="horizontal">活动日期</List.Item>
+                </DatePicker>
+            </div>
+
+            <div className="pages-sign-project-apply-line" style={{
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
+                <List.Item>申请时长(小时)</List.Item>
+                <InputItem
+                    {...getFieldProps('reward_time', {
+                        rules: [{
+                            required: true,
+                            max: 8,
+                            min: 0.5,
+                        }],
+                    })}
+                    onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
+                    type="number"
+                    placeholder="0-8"
+                    style={{ minWidth: '120px', textAlign: 'right' }}
+                >
+                </InputItem>
+            </div>
+
+            {/* <div className="pages-sign-project-apply-line">
                 <Picker
                     data={getProjectClockList}
                     cols={1}
@@ -215,7 +269,7 @@ class Replacement extends React.Component {
                         </DatePicker>
                     </div>
                     : null
-            }
+            } */}
             <div className="pages-sign-project-apply-line">
                 <TextareaItem
                     placeholder="申请说明（200字内）"

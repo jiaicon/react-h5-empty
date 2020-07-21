@@ -11,11 +11,13 @@ import Link from "../../../components/link/link";
 // import ApplyItem from '../../../components/duration_apply/applysItem';
 import { applyAction } from "../my.store";
 import "./applys.css";
+import { timestampToDateText } from "../../../utils/funcs";
+import moment from "moment";
 let verify_status = {
-    '-1': '未提审',
-    '0': '审核中',
-    '1': '通过',
-    '2': '驳回'
+  '-1': '未提审',
+  '0': '审核中',
+  '1': '通过',
+  '2': '驳回'
 };
 class ApplyItem extends React.Component {
   constructor(props) {
@@ -23,27 +25,29 @@ class ApplyItem extends React.Component {
     autoBind(this);
   }
 
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentWillReceiveProps() {}
+  componentWillReceiveProps() { }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   render() {
+
     if (!this.props.data) return null;
     return (
       <div className="page-apply-components">
         {this.props.data.map((item, index) => {
+          console.info(item, index);
           return (
             <div className="page-apply-components-content">
               <div className="page-apply-components-content-top">
                 <div>
-                    {item.project.name}
+                  {item.project.name}
                 </div>
-
-                <div>{item.clock.begin} - {item.clock.end}</div>
+                <div>{moment(item.clock_in_time).format('YYYY-MM-DD')}    </div>
+                {/* <div>{item && item.clock.begin} - {item && item.clock.end}</div> */}
               </div>
 
               <div className="line1px" />
@@ -67,17 +71,18 @@ class Apply extends React.Component {
   }
 
   componentWillMount() {
-    this.props.applyAction();
+    this.props.applyAction().then(() => { this.forceUpdate(); });
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentWillReceiveProps() {}
+  componentWillReceiveProps() { }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   render() {
     const { data: listData } = this.props.apply;
+    console.info(listData);
     return (
       <div className="page-apply">
         <div>
