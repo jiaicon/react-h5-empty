@@ -84,21 +84,16 @@ class Replacement extends React.Component {
             return;
         }
         this.props.form.validateFields((error, value) => {
-            const project = this.props.projectCheckedApplyData.data.filter(v => `${v.id}` === `${value.proApplyPicker[0]}`)[0];
-            if (!project) {
-                Alert.error('项目信息获取失败，请刷新页面');
-                return;
-            }
-            console.info(error, this.state, value, project);
+            console.info(error, this.state, value);
             if (error) {
                 Alert.error('存在必填项，请完善后重新提交');
                 this.canSubmit = true;
                 return;
             }
             let data = {
-                addr: `${project.province_name} ${project.city_name} ${project.county_name} ${project.addr}`,
+                addr: value.addr,
                 content: value.content,
-                id: project.id,
+                id: value.proApplyPicker[0],
                 join_day: moment(value.join_day).format('YYYY-MM-DD'),
                 reward_time: value.reward_time,
             };
@@ -191,6 +186,27 @@ class Replacement extends React.Component {
                     onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
                     type="number"
                     placeholder="0-8"
+                    style={{ minWidth: '120px', textAlign: 'right' }}
+                >
+                </InputItem>
+            </div>
+
+            <div className="pages-sign-project-apply-line" style={{
+                display: 'flex',
+                justifyContent: 'space-between'
+            }}>
+                <List.Item>参加活动地点</List.Item>
+                <InputItem
+                    {...getFieldProps('addr', {
+                        rules: [{
+                            required: true,
+                        },
+                        {
+                            initialValue: this.props.projectCheckedApplyData && this.props.projectCheckedApplyData.data && this.props.projectCheckedApplyData.data.filter(v => `${v.id}` === `${this.props.form.getFieldValue('proApplyPicker')[0]}`)[0] && this.props.projectCheckedApplyData.data.filter(v => `${v.id}` === `${this.props.form.getFieldValue('proApplyPicker')[0]}`)[0].addr || undefined,
+                        }
+                        ],
+                    })}
+                    placeholder="参加活动地点"
                     style={{ minWidth: '120px', textAlign: 'right' }}
                 >
                 </InputItem>
