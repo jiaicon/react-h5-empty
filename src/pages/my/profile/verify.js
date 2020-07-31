@@ -90,12 +90,12 @@ function checkStr(str) {
 
 //验证姓名，允许中文、大小写字母、空格、-、·、_ ,,,,,请输入中文姓名或英文姓名
 function checkRealname(str) {
-    const reg = new RegExp(/^[a-zA-Z\u4e00-\u9fa5_\·\ \-]+$/);
-    if (!reg.test(str)) {
-        Alert.warning("请输入中文姓名或英文姓名");
-        return true;
-    }
-    return false;
+  const reg = new RegExp(/^[a-zA-Z\u4e00-\u9fa5_\·\ \-]+$/);
+  if (!reg.test(str)) {
+    Alert.warning("请输入中文姓名或英文姓名");
+    return true;
+  }
+  return false;
 }
 // console.log(checkRealname('家icon_i i-oo-'));
 
@@ -237,7 +237,7 @@ class Verify extends React.Component {
   }
 
   onTextChanged() {
-      //姓名允许空格
+    //姓名允许空格
     // const realname = this.realname.value.replace(/(^\s+)|(\s+$)/g, "");
     const realname = this.realname.value;
     const idcard = this.idcard.value.replace(/(^\s+)|(\s+$)/g, "");
@@ -273,6 +273,7 @@ class Verify extends React.Component {
       province,
       city,
       county,
+      township,
       password
     } = this.state;
     const { user } = this.props;
@@ -284,6 +285,7 @@ class Verify extends React.Component {
       (stateOrgData.open_addr && checkEmpty(province, "省份")) ||
       (stateOrgData.open_addr && checkEmpty(city, "城市")) ||
       (stateOrgData.open_addr && checkEmpty(county, "区县")) ||
+      (stateOrgData.open_addr && window.orgInfo.area_level === 4 && checkEmpty(township, "街道")) ||
       (stateOrgData.open_addr && checkEmpty(address, "详细地址")) ||
       (stateOrgData.open_real_name && checkRealname(realname)) ||
       (user.have_pwd == 0 && checkEmpty(password, "密码"))
@@ -328,6 +330,9 @@ class Verify extends React.Component {
     if (county) {
       data.county_id = county;
     }
+    if (township) {
+      data.township_id = township;
+    }
     if (address) {
       data.addr = address;
     }
@@ -369,10 +374,18 @@ class Verify extends React.Component {
     this.props.addressDataAction(this.city.value);
   }
 
-  handleCountryClick() {
+  handleCountyClick() {
     this.setState({
       ...this.state,
       county: this.county.value
+    });
+    window.orgInfo.area_level === 4 && this.props.addressDataAction(this.county.value);
+  }
+
+  handleTownshipClick() {
+    this.setState({
+      ...this.state,
+      township: this.township.value
     });
   }
 
@@ -498,6 +511,7 @@ class Verify extends React.Component {
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
     const county = this.props.address.data.county;
+    const township = this.props.address.data.township;
     return (
       <div>
         <div>
@@ -558,7 +572,7 @@ class Verify extends React.Component {
             <label htmlFor="county">
               <select
                 id="county"
-                onChange={this.handleCountryClick}
+                onChange={this.handleCountyClick}
                 ref={c => {
                   this.county = c;
                 }}
@@ -573,6 +587,34 @@ class Verify extends React.Component {
               </select>
             </label>
           </div>
+          {
+            window.orgInfo.area_level === 4 && <div className="line1px" />
+          }
+          {
+            <div className="page-my-profile-verify-header-box">
+              {this.state.winOrgInfo.open_addr === 1 ? (
+                <span className="page-my-profile-verify-header-start">*</span>
+              ) : null}
+              <div className="page-my-profile-verify-fonts">街道</div>
+              <label htmlFor="township">
+                <select
+                  id="township"
+                  onChange={this.handleTownshipClick}
+                  ref={c => {
+                    this.township = c;
+                  }}
+                >
+                  <option value="-1" />
+                  {township &&
+                    township.map((item, keys) => (
+                      <option value={item.id} key={keys}>
+                        {item.name}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            </div>
+          }
           <div className="line1px" />
           <div className="page-my-profile-verify-header-box">
             {this.state.winOrgInfo.open_addr === 1 ? (
@@ -835,7 +877,7 @@ class Verify extends React.Component {
   onPicDel(e) {
     var key = e.target.getAttribute("data-key");
     delete this.state[key];
-    this.setState({ ...this.state});
+    this.setState({ ...this.state });
     delete this.state.extendsArray[key];
   }
 
@@ -888,23 +930,23 @@ class Verify extends React.Component {
           {this.state[key].length === 1 ? (
             <div />
           ) : (
-            <div className="page-profile-header-uploade-box-div">
-              <div className="page-profile-header-uploade-box-iptbox">
-                <input
-                  id={key}
-                  onChange={this.onPhotoChange}
-                  accept="image/png, image/jpeg, image/jpg"
-                  ref={c => {
-                    this.uploadImages = c;
-                  }}
-                  className="page-profile-header-uploade-box-ipt"
-                  type="file"
-                />
+              <div className="page-profile-header-uploade-box-div">
+                <div className="page-profile-header-uploade-box-iptbox">
+                  <input
+                    id={key}
+                    onChange={this.onPhotoChange}
+                    accept="image/png, image/jpeg, image/jpg"
+                    ref={c => {
+                      this.uploadImages = c;
+                    }}
+                    className="page-profile-header-uploade-box-ipt"
+                    type="file"
+                  />
+                </div>
+                {/*<div className="page-profile-header-uploade-box-img"*/}
+                {/*style={{backgroundImage: `url(${this.state.avatar ? this.state.avatar : '/images/my/register.png'})`}}></div>*/}
               </div>
-              {/*<div className="page-profile-header-uploade-box-img"*/}
-              {/*style={{backgroundImage: `url(${this.state.avatar ? this.state.avatar : '/images/my/register.png'})`}}></div>*/}
-            </div>
-          )}
+            )}
         </div>
         <div className="line1px" />
       </div>
@@ -1017,53 +1059,53 @@ class Verify extends React.Component {
       <div>
         {winOrgStateInfo.extends && winOrgStateInfo.extends.length
           ? this.state.winOrgInfo.extends.map((item, index) => {
-              switch (
-                Number(item.type) //单项选择
-              ) {
-                case 1:
-                  return (
-                    <div key={index}>{this.renderOtherInfoSelect(item)}</div>
-                  );
-                  break;
-                //多项选择
-                case 2:
-                  return (
-                    <div key={index}>{this.renderOtherInfoCheckbox(item)}</div>
-                  );
-                  break;
-                //单行输入
-                case 3:
-                  return (
-                    <div key={index}>{this.renderOtherInfoInput(item)}</div>
-                  );
-                  break;
-                //多行输
-                case 4:
-                  return (
-                    <div key={index}>{this.renderOtherInfoManyInput(item)}</div>
-                  );
-                  break;
+            switch (
+            Number(item.type) //单项选择
+            ) {
+              case 1:
+                return (
+                  <div key={index}>{this.renderOtherInfoSelect(item)}</div>
+                );
+                break;
+              //多项选择
+              case 2:
+                return (
+                  <div key={index}>{this.renderOtherInfoCheckbox(item)}</div>
+                );
+                break;
+              //单行输入
+              case 3:
+                return (
+                  <div key={index}>{this.renderOtherInfoInput(item)}</div>
+                );
+                break;
+              //多行输
+              case 4:
+                return (
+                  <div key={index}>{this.renderOtherInfoManyInput(item)}</div>
+                );
+                break;
 
-                //上传图片
-                case 5:
-                  return <div key={index}>{this.renderOtherPic(item)}</div>;
-                  break;
-                //日期空间
-                case 6:
-                  return (
-                    <div key={index}>{this.renderOtherInfoDate(item)}</div>
-                  );
-                  break;
-                //日期时间空间
-                case 7:
-                  return (
-                    <div key={index}>{this.renderOtherInfoDateTime(item)}</div>
-                  );
-                  break;
-                default:
-                  return;
-              }
-            })
+              //上传图片
+              case 5:
+                return <div key={index}>{this.renderOtherPic(item)}</div>;
+                break;
+              //日期空间
+              case 6:
+                return (
+                  <div key={index}>{this.renderOtherInfoDate(item)}</div>
+                );
+                break;
+              //日期时间空间
+              case 7:
+                return (
+                  <div key={index}>{this.renderOtherInfoDateTime(item)}</div>
+                );
+                break;
+              default:
+                return;
+            }
+          })
           : null}
       </div>
     );
@@ -1085,23 +1127,23 @@ class Verify extends React.Component {
           <div style={{ width: "100%", height: "100%" }}>
             <div className="page-my-profile-verify-main">
               {//头像
-              this.renderAvatars()}
+                this.renderAvatars()}
               {//名字
-              this.renderName()}
+                this.renderName()}
 
               {//身份证
-              this.renderIdCard()}
+                this.renderIdCard()}
 
               {//民族
-                  this.renderNation()
+                this.renderNation()
               }
               {//地址
-                  this.renderAddr()
+                this.renderAddr()
               }
               {//密码
-              this.renderPassword()}
+                this.renderPassword()}
               {//自定义信息
-              this.renderOtherInfo()}
+                this.renderOtherInfo()}
             </div>
             <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
               提交

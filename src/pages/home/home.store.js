@@ -50,7 +50,7 @@ const homeReducer = (state = {
 //城市
 export const getCity = () => ({
     type: 'GET_CITY',
-    payload: fetch(`${API_HOST}/api/city`, { method: 'GET' }),
+    payload: fetch(`${API_HOST}/api/area`, { method: 'GET' }),
 });
 const getCityReducer = (state = {
     fetching: false,

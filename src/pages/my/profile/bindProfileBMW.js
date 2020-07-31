@@ -389,7 +389,7 @@ class BindInfo extends React.Component {
         this.props.addressDataAction(this.city.value);
     }
 
-    handleCountryClick() {
+    handleCountyClick() {
         this.setState({
             ...this.state,
             county: this.county.value
@@ -562,7 +562,7 @@ class BindInfo extends React.Component {
                             <select
                                 id="county"
                                 value={this.state.county || user.county_id || ''}
-                                onChange={this.handleCountryClick}
+                                onChange={this.handleCountyClick}
                                 ref={c => {
                                     this.county = c;
                                 }}

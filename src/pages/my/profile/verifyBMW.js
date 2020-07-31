@@ -387,7 +387,7 @@ class Verify extends React.Component {
     this.props.addressDataAction(this.city.value);
   }
 
-  handleCountryClick() {
+  handleCountyClick() {
     this.setState({
       ...this.state,
       county: this.county.value
@@ -576,7 +576,7 @@ class Verify extends React.Component {
             <label htmlFor="county">
               <select
                 id="county"
-                onChange={this.handleCountryClick}
+                onChange={this.handleCountyClick}
                 ref={c => {
                   this.county = c;
                 }}

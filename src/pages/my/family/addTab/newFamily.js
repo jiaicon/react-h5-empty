@@ -1,7 +1,7 @@
 /**
  * Created by jxt on 2018/4/12.
  */
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
@@ -9,39 +9,39 @@ import history from '../../../history';
 import { bindActionCreators } from 'redux';
 import { addFamilyPeople } from './../../my.store';
 import FastClick from 'fastclick';
-import {addressDataAction} from './../../profile/profile.store';
+import { addressDataAction } from './../../profile/profile.store';
 
 import './newFamily.css';
 const isAndroid = /android/i.test(navigator.userAgent);
-const relations = [{name: '儿子', id: 0},{name: '女儿',id: 1},{name: '丈夫',id: 2},{name: '妻子',id: 3}
-    ,{name: '母亲',id: 4},{name: '父亲',id: 5},{name: '爷爷',id: 6},{name: '奶奶',id: 7},{name: '其他',id: 8}];
+const relations = [{ name: '儿子', id: 0 }, { name: '女儿', id: 1 }, { name: '丈夫', id: 2 }, { name: '妻子', id: 3 }
+    , { name: '母亲', id: 4 }, { name: '父亲', id: 5 }, { name: '爷爷', id: 6 }, { name: '奶奶', id: 7 }, { name: '其他', id: 8 }];
 
 const people = [{ id: '01', name: '汉族' }, { id: '02', name: '蒙古族' }, { id: '03', name: '回族' },
-    { id: '04', name: '藏族' }, { id: '05', name: '维吾尔族' }, { id: '06', name: '苗族' },
-    { id: '07', name: '彝族' }, { id: '08', name: '壮族' }, { id: '09', name: '布依族' },
-    { id: '10', name: '朝鲜族' }, { id: '11', name: '满族' }, { id: '12', name: '侗族' },
-    { id: '13', name: '瑶族' }, { id: '14', name: '白族' }, { id: '15', name: '土家族' },
-    { id: '16', name: '哈尼族' }, { id: '17', name: '哈萨克族' }, { id: '18', name: '傣族' },
-    { id: '19', name: '黎族' }, { id: '20', name: '傈僳族' }, { id: '21', name: '佤族' },
-    { id: '22', name: '畲族' }, { id: '23', name: '高山族' }, { id: '24', name: '拉祜族' },
-    { id: '25', name: '水族' }, { id: '26', name: '东乡族' }, { id: '27', name: '纳西族' },
-    { id: '28', name: '景颇族' }, { id: '29', name: '柯尔克孜族' }, { id: '30', name: '土族' },
-    { id: '31', name: '达斡尔族' }, { id: '32', name: '仫佬族' }, { id: '33', name: '羌族' },
-    { id: '34', name: '布朗族' }, { id: '35', name: '撒拉族' }, { id: '36', name: '毛难族' },
-    { id: '37', name: '仡佬族' }, { id: '38', name: '锡伯族' }, { id: '39', name: '阿昌族' },
-    { id: '40', name: '普米族' }, { id: '41', name: '塔吉克族' }, { id: '42', name: '怒族' },
-    { id: '43', name: '乌孜别克族' }, { id: '44', name: '俄罗斯族' }, { id: '45', name: '鄂温克族' },
-    { id: '46', name: '崩龙族' }, { id: '47', name: '保安族' }, { id: '48', name: '裕固族' },
-    { id: '49', name: '京族' }, { id: '50', name: '塔塔尔族' }, { id: '51', name: '独龙族' },
-    { id: '52', name: '鄂伦春族' }, { id: '53', name: '赫哲族' }, { id: '54', name: '门巴族' },
-    { id: '55', name: '珞巴族' }, { id: '56', name: '基诺族' }];
+{ id: '04', name: '藏族' }, { id: '05', name: '维吾尔族' }, { id: '06', name: '苗族' },
+{ id: '07', name: '彝族' }, { id: '08', name: '壮族' }, { id: '09', name: '布依族' },
+{ id: '10', name: '朝鲜族' }, { id: '11', name: '满族' }, { id: '12', name: '侗族' },
+{ id: '13', name: '瑶族' }, { id: '14', name: '白族' }, { id: '15', name: '土家族' },
+{ id: '16', name: '哈尼族' }, { id: '17', name: '哈萨克族' }, { id: '18', name: '傣族' },
+{ id: '19', name: '黎族' }, { id: '20', name: '傈僳族' }, { id: '21', name: '佤族' },
+{ id: '22', name: '畲族' }, { id: '23', name: '高山族' }, { id: '24', name: '拉祜族' },
+{ id: '25', name: '水族' }, { id: '26', name: '东乡族' }, { id: '27', name: '纳西族' },
+{ id: '28', name: '景颇族' }, { id: '29', name: '柯尔克孜族' }, { id: '30', name: '土族' },
+{ id: '31', name: '达斡尔族' }, { id: '32', name: '仫佬族' }, { id: '33', name: '羌族' },
+{ id: '34', name: '布朗族' }, { id: '35', name: '撒拉族' }, { id: '36', name: '毛难族' },
+{ id: '37', name: '仡佬族' }, { id: '38', name: '锡伯族' }, { id: '39', name: '阿昌族' },
+{ id: '40', name: '普米族' }, { id: '41', name: '塔吉克族' }, { id: '42', name: '怒族' },
+{ id: '43', name: '乌孜别克族' }, { id: '44', name: '俄罗斯族' }, { id: '45', name: '鄂温克族' },
+{ id: '46', name: '崩龙族' }, { id: '47', name: '保安族' }, { id: '48', name: '裕固族' },
+{ id: '49', name: '京族' }, { id: '50', name: '塔塔尔族' }, { id: '51', name: '独龙族' },
+{ id: '52', name: '鄂伦春族' }, { id: '53', name: '赫哲族' }, { id: '54', name: '门巴族' },
+{ id: '55', name: '珞巴族' }, { id: '56', name: '基诺族' }];
 const cardtype = [
     { id: "1", name: "内地居民身份证" },
     { id: "2", name: "香港居民身份证" },
     { id: "3", name: "澳门居民身份证" },
     { id: "4", name: "台湾居民身份证" },
     { id: "5", name: "护照" }
-    ];
+];
 
 function checkEmpty(value, label) {
     if (!value || !value.length) {
@@ -70,35 +70,35 @@ function checkStr(str) {
 function iscard(card) {
     const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if (!reg.test(card)) {
-      Alert.warning("身份证输入不合法");
-      return true;
+        Alert.warning("身份证输入不合法");
+        return true;
     }
     return false;
-  }
-  function isaomencard(card) {
+}
+function isaomencard(card) {
     const reg = /^[1|5|7][0-9]{6}\([0-9Aa]\)/;
     if (!reg.test(card)) {
-      Alert.warning("身份证输入不合法");
-      return true;
+        Alert.warning("身份证输入不合法");
+        return true;
     }
     return false;
-  }
-  function isxiangancard(card) {
+}
+function isxiangancard(card) {
     const reg = /^((\s?[A-Za-z])|([A-Za-z]{2}))\d{6}(([0−9aA])|([0-9aA]))$/;
     if (!reg.test(card)) {
-      Alert.warning("身份证输入不合法");
-      return true;
+        Alert.warning("身份证输入不合法");
+        return true;
     }
     return false;
-  }
-  function istaiwancard(card) {
+}
+function istaiwancard(card) {
     const reg = /^[a-zA-Z][0-9]{9}$/;
     if (!reg.test(card)) {
-      Alert.warning("身份证输入不合法");
-      return true;
+        Alert.warning("身份证输入不合法");
+        return true;
     }
     return false;
-  }
+}
 class NewFamily extends React.Component {
     constructor(props) {
         super(props);
@@ -107,7 +107,7 @@ class NewFamily extends React.Component {
             province: 0,
             city: 0,
             county: 0,
-            cardtype:1,
+            cardtype: 1,
         });
     }
     componentWillMount() {
@@ -123,7 +123,7 @@ class NewFamily extends React.Component {
     componentWillReceiveProps(nextProps) {
         const { failed: tFailed, fetching: tFetch } = this.props.addPeople;
         const { failed: nFailed, fetching: nFetch } = nextProps.addPeople;
-        if(tFetch && !nFetch && !nFailed) {
+        if (tFetch && !nFetch && !nFailed) {
             window.location.replace('/my/family');
         }
     }
@@ -146,8 +146,16 @@ class NewFamily extends React.Component {
             ...this.state,
             county: this.county.value
         });
-        this.props.addressDataAction(this.county.value);
+        window.orgInfo.area_level === 4 && this.props.addressDataAction(this.county.value);
     }
+
+    handleTownshipClick() {
+        this.setState({
+            ...this.state,
+            township: this.township.value
+        });
+    }
+    
     handlePeopleClick() {
         this.setState({
             ...this.state,
@@ -157,7 +165,7 @@ class NewFamily extends React.Component {
     }
     handleCardClick() {
         this.setState({ ...this.state, cardtype: this.cardtype.value });
-      }
+    }
     componentWillUnmount() {
         if (!window.fastclick && isAndroid) {
             window.fastclick = FastClick.attach(document.body);
@@ -185,6 +193,7 @@ class NewFamily extends React.Component {
         const province = this.state.province;
         const city = this.state.city;
         const county = this.state.county;
+        const { township } = this.state;
         const addressDetail = this.state.addressDetail;
         const cardtype = this.state.cardtype;
         if (checkEmpty(username, '姓名') || checkEmpty(userpassword, '密码')
@@ -194,16 +203,16 @@ class NewFamily extends React.Component {
         }
         if (idNumber) {
             if (cardtype == 1 && iscard(idNumber)) {
-              return;
+                return;
             } else if (cardtype == 2 && isxiangancard(idNumber)) {
-              return;
+                return;
             } else if (cardtype == 3 && isaomencard(idNumber)) {
-              return;
+                return;
             } else if (cardtype == 4 && istaiwancard(idNumber)) {
-              return;
+                return;
             }
-          }
-        if(isChoose(nation, '民族') || isChoose(province, '省份') || isChoose(city, '城市') || isChoose(county, '区县') || isChoose(relations, '关系') ) {
+        }
+        if (isChoose(nation, '民族') || isChoose(province, '省份') || isChoose(city, '城市') || isChoose(county, '区县') || (window.orgInfo.area_level === 4 && isChoose(township, '街道')) || isChoose(relations, '关系')) {
             return
         }
         if (userpassword.length <= 5 || userpassword.length >= 19) {
@@ -224,6 +233,9 @@ class NewFamily extends React.Component {
         data.province_id = province;
         data.city_id = city;
         data.county_id = county;
+        if (window.orgInfo.area_level === 4) {
+            data.township_id = township;
+        }
         data.addr = addressDetail;
         data.num_type = cardtype;
         this.props.addFamilyPeople(data);
@@ -232,7 +244,9 @@ class NewFamily extends React.Component {
         const province = this.props.address.data.province;
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
-        return(
+        const township = this.props.address.data.township;
+
+        return (
             <div>
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">姓名</div>
@@ -245,19 +259,19 @@ class NewFamily extends React.Component {
                     <div className="pages-add-new-family-type">证件类型</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="cardtype">
-                        <select 
-                            id="cardtype"
-                            onChange={this.handleCardClick}
-                            ref={c => {
-                                this.cardtype = c;
-                            }}
+                            <select
+                                id="cardtype"
+                                onChange={this.handleCardClick}
+                                ref={c => {
+                                    this.cardtype = c;
+                                }}
                             >
-                            {cardtype &&
-                                cardtype.map((item, keys) => (
-                                <option value={item.id} key={keys}>
-                                    {item.name}
-                                </option>
-                                ))}
+                                {cardtype &&
+                                    cardtype.map((item, keys) => (
+                                        <option value={item.id} key={keys}>
+                                            {item.name}
+                                        </option>
+                                    ))}
                             </select>
                         </label>
                     </div>
@@ -266,7 +280,7 @@ class NewFamily extends React.Component {
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">证件号码</div>
                     <div className="pages-add-new-family-ipt">
-                        <input type="text" ref={(c)=>{this.idNumber = c}} onKeyUp={this.onTextChanged}/>
+                        <input type="text" ref={(c) => { this.idNumber = c }} onKeyUp={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="line1px"></div>
@@ -276,7 +290,7 @@ class NewFamily extends React.Component {
                         <label htmlFor="people">
                             <select id="people" onChange={this.handlePeopleClick} ref={(c) => { this.people = c; }}>
                                 <option value="-1" />
-                                { people && people.map((item, keys) =>
+                                {people && people.map((item, keys) =>
                                     <option value={item.name} key={keys}>{item.name}</option>)}
                             </select>
                         </label>
@@ -289,7 +303,7 @@ class NewFamily extends React.Component {
                         <label htmlFor="province">
                             <select id="province" onChange={this.handleProvinceClick} ref={(c) => { this.province = c; }}>
                                 <option value="-1" />
-                                { province && province.map((item, keys) =>
+                                {province && province.map((item, keys) =>
                                     <option value={item.id} key={keys}>{item.name}</option>)}
                             </select>
                         </label>
@@ -302,7 +316,7 @@ class NewFamily extends React.Component {
                         <label htmlFor="city">
                             <select id="city" onChange={this.handleCityClick} ref={(c) => { this.city = c; }}>
                                 <option value="-1" />
-                                { city && city.map((item, keys) =>
+                                {city && city.map((item, keys) =>
                                     <option value={item.id} key={keys}>{item.name}</option>)}
                             </select>
                         </label>
@@ -315,24 +329,41 @@ class NewFamily extends React.Component {
                         <label htmlFor="county">
                             <select id="county" onChange={this.handleCountyClick} ref={(c) => { this.county = c; }}>
                                 <option value="-1" />
-                                { county && county.map((item, keys) =>
+                                {county && county.map((item, keys) =>
                                     <option value={item.id} key={keys}>{item.name}</option>)}
                             </select>
                         </label>
                     </div>
                 </div>
+                {
+                    window.orgInfo.area_level === 4 && <div className="line1px" />
+                }
+                {
+                    window.orgInfo.area_level === 4 && <div className="pages-add-new-family-box">
+                        <div className="pages-add-new-family-type">街道</div>
+                        <div className="pages-add-new-family-ipt">
+                            <label htmlFor="township">
+                                <select id="county" onChange={this.handleTownshipClick} ref={(c) => { this.township = c; }}>
+                                    <option value="-1" />
+                                    {township && township.map((item, keys) =>
+                                        <option value={item.id} key={keys}>{item.name}</option>)}
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                }
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">详细地址</div>
                     <div className="pages-add-new-family-ipt">
-                        <input type="text" ref={(c)=>{this.addressDetail = c}} onKeyUp={this.onTextChanged}/>
+                        <input type="text" ref={(c) => { this.addressDetail = c }} onKeyUp={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="pages-add-new-family-space"></div>
                 <div className="pages-add-new-family-box">
                     <div className="pages-add-new-family-type">密码</div>
                     <div className="pages-add-new-family-ipt">
-                        <input type="password" ref={(c)=>{this.userpassword = c}} onKeyUp={this.onTextChanged}/>
+                        <input type="password" ref={(c) => { this.userpassword = c }} onKeyUp={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="line1px"></div>
@@ -342,7 +373,7 @@ class NewFamily extends React.Component {
                         <label htmlFor="relations">
                             <select id="relations" onChange={this.handlePeopleClick} ref={(c) => { this.relations = c; }}>
                                 <option value="-1" />
-                                { relations && relations.map((item, keys) =>
+                                {relations && relations.map((item, keys) =>
                                     <option value={item.name} key={keys}>{item.name}</option>)}
                             </select>
                         </label>
@@ -354,7 +385,7 @@ class NewFamily extends React.Component {
         )
     }
 }
-NewFamily.title= '新建家庭成员';
+NewFamily.title = '新建家庭成员';
 NewFamily.PropTypes = {
     addressDataAction: PropTypes.func,
     addFamilyPeople: PropTypes.func,
@@ -386,6 +417,6 @@ export default connect(
         addPeople: state.my.addPeople
     }),
     dispatch => bindActionCreators({
-        addressDataAction,addFamilyPeople
+        addressDataAction, addFamilyPeople
     }, dispatch),
 )(NewFamily);

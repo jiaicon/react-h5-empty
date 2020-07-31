@@ -163,12 +163,13 @@ const addressReducer = (state = {
     province: null,
     city: null,
     county: null,
+    township: null,
   },
 }, action) => {
   const addressData = action.payload && action.payload.data;
   // 1 - province 2 - city 3 - county
   const level = addressData && addressData.list && addressData.list.length
-                ? addressData.list[0].level : -1;
+    ? addressData.list[0].level : -1;
   let levelKey;
 
   switch (level) {
@@ -180,6 +181,9 @@ const addressReducer = (state = {
       break;
     case 3:
       levelKey = 'county';
+      break;
+    case 4:
+      levelKey = 'township';
       break;
     default:
       levelKey = '';
@@ -248,48 +252,48 @@ const otherFamilReducer = (state = {
 };
 
 //自定义的实名信息字段获取
-export const userDefinedInfo = ()=>({
-      type: 'USERDEFINEDINFO',
-      payload: fetch('/user/check', {method: 'POST'})
+export const userDefinedInfo = () => ({
+  type: 'USERDEFINEDINFO',
+  payload: fetch('/user/check', { method: 'POST' })
 });
 const userDefinedInfoReducer = (
-    state={
+  state = {
+    fetching: false,
+    failed: false,
+    data: null
+  }, action
+) => {
+  switch (action.type) {
+    case 'USERDEFINEDINFO_PENDING':
+      return {
+        ...state,
+        fetching: true,
+        failed: false,
+      };
+    case 'USERDEFINEDINFO_FULFILLED':
+      return {
+        ...state,
         fetching: false,
         failed: false,
-        data: null
-    },action
-)=>{
-    switch (action.type) {
-        case 'USERDEFINEDINFO_PENDING':
-            return {
-                ...state,
-                fetching: true,
-                failed: false,
-            };
-        case 'USERDEFINEDINFO_FULFILLED':
-            return {
-                ...state,
-                fetching: false,
-                failed: false,
-                data: action.payload.data,
-            };
-        case 'USERDEFINEDINFO_REJECTED':
-            return {
-                ...state,
-                failed: true,
-                fetching: false,
-            };
-        default:
-            return state;
-    }
+        data: action.payload.data,
+      };
+    case 'USERDEFINEDINFO_REJECTED':
+      return {
+        ...state,
+        failed: true,
+        fetching: false,
+      };
+    default:
+      return state;
+  }
 };
 const reducer = combineReducers({
-    person: personInfoReducer,
-    checkUser: checkUserReducer,
-    address: addressReducer,
-    register: registerReducer,
-    otherfamily: otherFamilReducer,
-    updatePhone: updataPhoneReducer,
-    userDefinedInfo: userDefinedInfoReducer
+  person: personInfoReducer,
+  checkUser: checkUserReducer,
+  address: addressReducer,
+  register: registerReducer,
+  otherfamily: otherFamilReducer,
+  updatePhone: updataPhoneReducer,
+  userDefinedInfo: userDefinedInfoReducer
 });
 export default reducer;

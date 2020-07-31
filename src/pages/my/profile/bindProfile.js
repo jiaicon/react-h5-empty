@@ -181,6 +181,9 @@ class BindInfo extends React.Component {
         if (this.props.user && this.props.user.city_id) {
             this.props.addressDataAction(this.props.user.city_id);
         }
+        if (window.orgInfo.area_level === 4 && this.props.user && this.props.user.county_id) {
+            this.props.addressDataAction(this.props.user.county_id);
+        }
         const params = this.props.route.params;
 
         if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
@@ -201,6 +204,7 @@ class BindInfo extends React.Component {
                 province: this.props.user.province_id,
                 city: this.props.user.city_id,
                 county: this.props.user.county_id,
+                township: this.props.user.township_id,
                 birthday: this.props.user.birthday,
                 extendsArray: this.props.user.extends || {}
             });
@@ -259,6 +263,7 @@ class BindInfo extends React.Component {
             province,
             city,
             county,
+            township,
             birthday,
         } = this.state;
         const { user } = this.props;
@@ -267,6 +272,7 @@ class BindInfo extends React.Component {
             (stateOrgData.open_addr && checkEmpty(`${province}`, "省份")) ||
             (stateOrgData.open_addr && checkEmpty(`${city}`, "城市")) ||
             (stateOrgData.open_addr && checkEmpty(`${county}`, "区县")) ||
+            (stateOrgData.open_addr && window.orgInfo.area_level === 4 && checkEmpty(township, "街道")) ||
             (stateOrgData.open_addr && checkEmpty(`${address}`, "详细地址"))
         ) {
             return;
@@ -288,6 +294,9 @@ class BindInfo extends React.Component {
         }
         if (county && county != -1) {
             data.county_id = county;
+        }
+        if (township && township != -1) {
+            data.township_id = township;
         }
         if (address) {
             data.addr = address;
@@ -325,10 +334,18 @@ class BindInfo extends React.Component {
         this.props.addressDataAction(this.city.value);
     }
 
-    handleCountryClick() {
+    handleCountyClick() {
         this.setState({
             ...this.state,
             county: this.county.value
+        });
+        window.orgInfo.area_level === 4 && this.props.addressDataAction(this.county.value);
+    }
+
+    handleTownshipClick() {
+        this.setState({
+            ...this.state,
+            township: this.township.value
         });
     }
 
@@ -436,6 +453,7 @@ class BindInfo extends React.Component {
         const province = this.props.address.data.province;
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
+        const township = this.props.address.data.township;
         return (
             <div>
                 <div>
@@ -498,7 +516,7 @@ class BindInfo extends React.Component {
                             <select
                                 id="county"
                                 value={this.state.county || user.county_id || ''}
-                                onChange={this.handleCountryClick}
+                                onChange={this.handleCountyClick}
                                 ref={c => {
                                     this.county = c;
                                 }}
@@ -513,6 +531,35 @@ class BindInfo extends React.Component {
                             </select>
                         </label>
                     </div>
+                    {
+                        window.orgInfo.area_level === 4 && <div className="line1px" />
+                    }
+                    {
+                        window.orgInfo.area_level === 4 && <div className="page-my-profile-verify-header-box">
+                            {this.state.winOrgInfo.open_addr === 1 ? (
+                                <span className="page-my-profile-verify-header-start">*</span>
+                            ) : null}
+                            <div className="page-my-profile-verify-fonts">街道</div>
+                            <label htmlFor="township">
+                                <select
+                                    id="township"
+                                    value={this.state.township || user.township_id || ''}
+                                    onChange={this.handleTownshipClick}
+                                    ref={c => {
+                                        this.township = c;
+                                    }}
+                                >
+                                    <option value="-1" />
+                                    {township &&
+                                        township.map((item, keys) => (
+                                            <option value={item.id} key={keys}>
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                </select>
+                            </label>
+                        </div>
+                    }
                     <div className="line1px" />
                     <div className="page-my-profile-verify-header-box">
                         {this.state.winOrgInfo.open_addr === 1 ? (

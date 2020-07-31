@@ -7,16 +7,16 @@
  "class-methods-use-this": "off"
  */
 
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import cx from 'classnames';
 import history from '../../history';
 import Alert from 'react-s-alert';
-import {requestUserInfo} from '../../../stores/common';
-import {imporvePersonInfo, otherFamilyAction} from './profile.store';
-import {alertFamilyPeopleInfo} from './../my.store';
+import { requestUserInfo } from '../../../stores/common';
+import { imporvePersonInfo, otherFamilyAction } from './profile.store';
+import { alertFamilyPeopleInfo } from './../my.store';
 import UploadAvatar from './../../../components/uploadAvatar/uploadAvatar';
 import Link from '../../../components/link/link';
 import Avatar from '../../../components/avatar/avatar';
@@ -38,8 +38,8 @@ function sexName(sex) {
     return '未知';
 }
 
-const relations = [{name: '儿子', id: 0}, {name: '女儿', id: 1}, {name: '丈夫', id: 2}, {name: '妻子', id: 3},
-    {name: '母亲', id: 4}, {name: '父亲', id: 5}, {name: '爷爷', id: 6}, {name: '奶奶', id: 7}, {name: '其他', id: 8}];
+const relations = [{ name: '儿子', id: 0 }, { name: '女儿', id: 1 }, { name: '丈夫', id: 2 }, { name: '妻子', id: 3 },
+{ name: '母亲', id: 4 }, { name: '父亲', id: 5 }, { name: '爷爷', id: 6 }, { name: '奶奶', id: 7 }, { name: '其他', id: 8 }];
 
 class Profile extends React.Component {
 
@@ -61,13 +61,13 @@ class Profile extends React.Component {
                 {
                     type: 'default',
                     label: '取消',
-                    onClick: () => this.setState({...this.state, showDialog: false})
+                    onClick: () => this.setState({ ...this.state, showDialog: false })
                 },
                 {
                     type: 'primary',
                     label: '确认',
                     onClick: () => {
-                        this.setState({...this.state, showDialog: false});
+                        this.setState({ ...this.state, showDialog: false });
                         this.alertFamilyPeopleProfile();
                     }
                 }
@@ -117,34 +117,34 @@ class Profile extends React.Component {
     renderRealInfo() {
         const user = this.props.user;
         let num_type = '';
-        if(user.num_type) {
-            switch(user.num_type) {
+        if (user.num_type) {
+            switch (user.num_type) {
                 case 1:
-                    num_type='内地身份证';
+                    num_type = '内地身份证';
                     break;
                 case 2:
-                    num_type='香港';
+                    num_type = '香港';
                     break;
                 case 3:
-                    num_type='澳门';
+                    num_type = '澳门';
                     break;
                 case 4:
-                    num_type='台湾';
+                    num_type = '台湾';
                     break;
                 case 5:
-                    num_type='护照';
+                    num_type = '护照';
                     break;
                 default:
-                    num_type='内地身份证';
+                    num_type = '内地身份证';
                     break;
             }
         };
         let bindlink = '/my/profile/bind_profile/alert';
         if (window.orgCode === 'oBDbDkxal2') {
-          bindlink = '/my/profile/bind_profile_starbucks/alert';
+            bindlink = '/my/profile/bind_profile_starbucks/alert';
         }
         if (window.orgCode === 'mWZdPNwaKg') {
-          bindlink = '/my/profile/bind_profile_BMW/alert';
+            bindlink = '/my/profile/bind_profile_BMW/alert';
         }
         return (
             <div className="page-profile-bottom-real-info-container">
@@ -156,7 +156,7 @@ class Profile extends React.Component {
                                 <div className="page-profile-fonts">姓名</div>
                                 <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
                             </div>
-                            <div className="line1px"/>
+                            <div className="line1px" />
                         </div> :
                         null
                 }
@@ -167,7 +167,7 @@ class Profile extends React.Component {
                                 <div className="page-profile-fonts">证件类型</div>
                                 <div className="page-profile-initial-fonts">{num_type}</div>
                             </div>
-                            <div className="line1px"/>
+                            <div className="line1px" />
                         </div> :
                         null
                 }
@@ -178,20 +178,20 @@ class Profile extends React.Component {
                                 <div className="page-profile-fonts">证件号码</div>
                                 <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
                             </div>
-                            <div className="line1px"/>
+                            <div className="line1px" />
                         </div> :
                         null
                 }
                 {
-                  user.birthday ?
-                    <div>
-                      <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">出生日期</div>
-                        <div className="page-profile-edit-right-box" style={{justifyContent: 'flex-end'}}>{user.birthday}</div>
-                      </div>
-                      <div className="line1px"/>
-                    </div> :
-                    null
+                    user.birthday ?
+                        <div>
+                            <div className="page-profile-header-box">
+                                <div className="page-profile-fonts">出生日期</div>
+                                <div className="page-profile-edit-right-box" style={{ justifyContent: 'flex-end' }}>{user.birthday}</div>
+                            </div>
+                            <div className="line1px" />
+                        </div> :
+                        null
                 }
                 {
                     user.sex ?
@@ -200,19 +200,19 @@ class Profile extends React.Component {
                                 <div className="page-profile-fonts">性别</div>
                                 <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
                             </div>
-                            <div className="line1px"/>
+                            <div className="line1px" />
                         </div> :
                         null
                 }
                 {
                     user.nation ?
-                    <div>
-                        <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">民族</div>
-                            <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
+                        <div>
+                            <div className="page-profile-header-box">
+                                <div className="page-profile-fonts">民族</div>
+                                <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
+                            </div>
+                            <div className="line1px" />
                         </div>
-                        <div className="line1px"/>
-                    </div>
                         : null
                 }
                 {
@@ -223,21 +223,21 @@ class Profile extends React.Component {
                                 <div
                                     className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
                             </div>
-                            <div className="line1px"/>
+                            <div className="line1px" />
                             <div className="page-profile-header-box">
                                 <div className="page-profile-fonts">详细地址</div>
                                 <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
                             </div>
-                            <div className="line1px"/>
+                            <div className="line1px" />
                         </div>
                         : null
                 }
                 {this.renderRealInfoExtends()}
-                <Link to={bindlink} style={{marginTop: '41px',width: '100%',display: 'inline-block'}}>
+                <Link to={bindlink} style={{ marginTop: '41px', width: '100%', display: 'inline-block' }}>
                     <div className="page-profile-apply-alert">修改资料</div>
                 </Link>
                 <Link to="/my/profile/applyAlert">
-                    <div style={{textAlign: 'center',marginTop: '10px',textDecoration: 'underline'}}><a href="javascript:;">需要帮助？</a></div>
+                    <div style={{ textAlign: 'center', marginTop: '10px', textDecoration: 'underline' }}><a href="javascript:;">需要帮助？</a></div>
                 </Link>
             </div>
         );
@@ -279,7 +279,7 @@ class Profile extends React.Component {
                                                     </div>
                                                     <div className="page-profile-fonts-view">{item.value}</div>
 
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
                                                 </div>
                                             );
                                             break;
@@ -291,7 +291,7 @@ class Profile extends React.Component {
                                                         <div className="page-profile-fonts-single">{item.label}</div>
                                                     </div>
                                                     <div className="page-profile-fonts-view">{item.value}</div>
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
                                                 </div>
                                             );
                                             break;
@@ -303,7 +303,7 @@ class Profile extends React.Component {
                                                         <div className="page-profile-fonts-single">{item.label}</div>
                                                     </div>
                                                     <div className="page-profile-fonts-view">{item.value}</div>
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
                                                 </div>
                                             );
                                             break;
@@ -315,7 +315,7 @@ class Profile extends React.Component {
                                                         <div className="page-profile-fonts-single">{item.label}</div>
                                                     </div>
                                                     <div className="page-profile-fonts-view">{item.value}</div>
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
                                                 </div>
                                             );
                                             break;
@@ -329,10 +329,10 @@ class Profile extends React.Component {
                                                     </div>
                                                     <div className="page-profile-fonts-view-img">
                                                         <Avatar src={item.value} data-key={item.value}
-                                                                size={{width: 80, radius: 1}} onClick={this.onPreview}/>
+                                                            size={{ width: 80, radius: 1 }} onClick={this.onPreview} />
 
                                                     </div>
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
                                                 </div>
                                             );
                                             break;
@@ -344,7 +344,7 @@ class Profile extends React.Component {
                                                         <div className="page-profile-fonts">{item.label}</div>
                                                         <div className="page-profile-initial-fonts">{item.value}</div>
                                                     </div>
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
 
                                                 </div>
                                             );
@@ -357,7 +357,7 @@ class Profile extends React.Component {
                                                         <div className="page-profile-fonts">{item.label}</div>
                                                         <div className="page-profile-initial-fonts">{item.value}</div>
                                                     </div>
-                                                    <div className="line1px"/>
+                                                    <div className="line1px" />
                                                 </div>
 
                                             );
@@ -404,11 +404,11 @@ class Profile extends React.Component {
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">头像</div>
                     <div className="page-profile-header-uploade-box">
-                        <UploadAvatar onChange={this.onPhotoChange} avatar={user.avatars}/>
-                        <div className="page-profile-edit-icon"/>
+                        <UploadAvatar onChange={this.onPhotoChange} avatar={user.avatars} />
+                        <div className="page-profile-edit-icon" />
                     </div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 {this.realRegister !== null && this.realRegister.real_name_register ? null :
                     <div className="page-profile-header-box">
                         <div className="page-profile-fonts">账号</div>
@@ -416,10 +416,10 @@ class Profile extends React.Component {
                             <div className="page-profile-initial-fonts">
                                 {user.username}
                             </div>
-                            <div className="page-profile-initial-fonts-take-up"/>
+                            <div className="page-profile-initial-fonts-take-up" />
                         </div>
                     </div>}
-                {this.realRegister !== null && this.realRegister.real_name_register ? null : <div className="line1px"/>}
+                {this.realRegister !== null && this.realRegister.real_name_register ? null : <div className="line1px" />}
 
                 <Link to="/my/profile/bind/phone">
                     <div className="page-profile-header-box">
@@ -428,11 +428,11 @@ class Profile extends React.Component {
                             <div className="page-profile-initial-fonts">
                                 {user.phone || ""}
                             </div>
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
                     </div>
                 </Link>
-                <div className="line1px"/>
+                <div className="line1px" />
 
                 <Link to="/my/profile/bind/mail">
                     <div className="page-profile-header-box">
@@ -441,11 +441,11 @@ class Profile extends React.Component {
                             <div className="page-profile-initial-fonts">
                                 {user.email || ""}
                             </div>
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
                     </div>
                 </Link>
-                <div className="line1px"/>
+                <div className="line1px" />
 
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">志愿者编号</div>
@@ -453,10 +453,10 @@ class Profile extends React.Component {
                         <div className="page-profile-initial-fonts">
                             {user.identifier}
                         </div>
-                        <div className="page-profile-initial-fonts-take-up"/>
+                        <div className="page-profile-initial-fonts-take-up" />
                     </div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 {/* TODO: user.good_at == null*/}
                 <Link to="" onClick={() => {
                     user.good_at != null && localStorage.setItem("goodAt", `${JSON.stringify(user.good_at)}`);
@@ -471,24 +471,24 @@ class Profile extends React.Component {
                                         key={index}
                                         className="page-profile-initial-fonts"
                                     >
-                            {item.good_at_name}
+                                        {item.good_at_name}
                                         {index < user.good_at.length - 1
                                             ? "、"
                                             : ""}
-                          </span>
+                                    </span>
                                 )
-                            ) : <span/>}
-                            <div className="page-profile-edit-icon"/>
+                            ) : <span />}
+                            <div className="page-profile-edit-icon" />
                         </div>
                     </div>
                 </Link>
-                <div className="line1px"/>
+                <div className="line1px" />
 
                 <div>
                     <Link to="/my/profile/edit">
                         <div className="page-profile-header-box">
                             <div className="page-profile-fonts">志愿者口号</div>
-                            <div className="page-profile-edit-icon"/>
+                            <div className="page-profile-edit-icon" />
                         </div>
                         <div className="page-profile-fonts-view">
                             {user.slogan}
@@ -505,29 +505,29 @@ class Profile extends React.Component {
             })}>
                 {this.renderRealInfo()}
             </div>
-          <div className={cx({
-            "page-profile-bottom": true,
-            "page-profile-display-block":
-            this.state.winOrgInfo !== null,
-            "page-profile-display-none":
-            this.state.winOrgInfo === null,
-            "page-profile-display-extends-block":
-            !user.id_number && this.state.winOrgInfo !== null,
-            "page-profile-display-extends-none": user.id_number
-          })}>
-            <Link to={verifyRouter}>
-              <div className="page-profile-bottom-btn">
-                申请成为实名注册志愿者
+            <div className={cx({
+                "page-profile-bottom": true,
+                "page-profile-display-block":
+                    this.state.winOrgInfo !== null,
+                "page-profile-display-none":
+                    this.state.winOrgInfo === null,
+                "page-profile-display-extends-block":
+                    !user.id_number && this.state.winOrgInfo !== null,
+                "page-profile-display-extends-none": user.id_number
+            })}>
+                <Link to={verifyRouter}>
+                    <div className="page-profile-bottom-btn">
+                        申请成为实名注册志愿者
               </div>
-            </Link>
-          </div>
+                </Link>
+            </div>
         </div>;
     }
 
 
     componentWillReceiveProps(nextProps) {
-        const {failed: tFailed, fetching: tFetch} = this.props.alertPeopleInfo;
-        const {failed: nFailed, fetching: nFetch} = nextProps.alertPeopleInfo;
+        const { failed: tFailed, fetching: tFetch } = this.props.alertPeopleInfo;
+        const { failed: nFailed, fetching: nFetch } = nextProps.alertPeopleInfo;
         if (tFetch && !nFetch && !nFailed) {
             window.location.replace('/my/family');
         }
@@ -604,12 +604,12 @@ class Profile extends React.Component {
                     <div className="page-profile-fonts">姓名</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.real_name}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">身份证号</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.id_number.substring(0, 1)}***************{otherFamily.data.id_number.substring(17, 18)}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">民族</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.nation}</div>
@@ -619,17 +619,27 @@ class Profile extends React.Component {
                     <div className="page-profile-fonts">省份</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.province_name}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">城市</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.city_name}</div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">区县</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.county_name}</div>
                 </div>
-                <div className="line1px"/>
+                {
+                    otherFamily.data.township_name && <div className="line1px" />
+                }
+                {
+                    otherFamily.data.township_name &&
+                    <div className="page-profile-header-box">
+                        <div className="page-profile-fonts">街道</div>
+                        <div className="page-profile-edit-right-box">{otherFamily.data.township_name}</div>
+                    </div>
+                }
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts">详细地址</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.addr}</div>
@@ -640,10 +650,10 @@ class Profile extends React.Component {
                     <div className="page-profile-edit-right-box">
                         <input type="password" defaultValue="123456" onKeyUp={this.onTextChange} ref={c => {
                             this.userPassword = c
-                        }}/>
+                        }} />
                     </div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 <div className="page-profile-header-box">
                     <div className="page-profile-fonts page-profile-fonts-main">关系</div>
                     <div className="page-profile-edit-right-box">
@@ -653,16 +663,16 @@ class Profile extends React.Component {
                             }}>
                                 {relations && relations.map((item, keys) =>
                                     <option value={item.name}
-                                            selected={otherFamily.data.relation === item.name ? 'selected' : ''}
-                                            key={keys}>{item.name}</option>)}
+                                        selected={otherFamily.data.relation === item.name ? 'selected' : ''}
+                                        key={keys}>{item.name}</option>)}
                             </select>
                         </label>
                     </div>
                 </div>
-                <div className="line1px"/>
+                <div className="line1px" />
                 {this.renderRealInfoExtends()}
                 <div className="page-profile-edit-btn" onClick={() => {
-                    this.setState({...this.state, showDialog: true})
+                    this.setState({ ...this.state, showDialog: true })
                 }}>修改
                 </div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
