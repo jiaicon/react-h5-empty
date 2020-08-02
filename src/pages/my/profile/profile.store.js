@@ -151,7 +151,7 @@ const a = function (id) {
 
   })
 }
-export const addressDataAction = id => ({
+export const addressDataAction = (id) => ({
   type: 'ADDRESS_DATA',
   payload: fetch(`${API_HOST}/api/city?parent_id=${id}`, { method: 'GET' }),
 });

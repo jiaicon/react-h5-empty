@@ -175,12 +175,34 @@ class Verify extends React.Component {
   }
 
   componentWillMount() {
-    this.props.addressDataAction(0);
+    this.province = {};
+    this.city = {};
+    this.county = {};
+    this.props.addressDataAction(0).then(()=>{
+      if (window.orgInfo.default_province_id) {
+        this.province.value = window.orgInfo.default_province_id;
+        this.handleProvinceClick(() => {
+          if (window.orgInfo.default_city_id) {
+            this.city.value = window.orgInfo.default_city_id;
+            this.handleCityClick(()=>{
+              if (window.orgInfo.default_county_id) {
+                this.county.value = window.orgInfo.default_county_id;
+                this.handleCountyClick();
+              }
+            })
+          }
+        })
+      }
+    });
+
     const params = this.props.route.params;
 
     if (this.state.winOrgInfo !== null && this.state.winOrgInfo.extends) {
       this.initialPic(this.state.winOrgInfo.extends);
     }
+
+
+
   }
 
   componentDidMount() {
@@ -358,28 +380,28 @@ class Verify extends React.Component {
     });
   }
 
-  handleProvinceClick() {
+  handleProvinceClick(callback) {
     this.setState({
       ...this.state,
       province: this.province.value
     });
-    this.props.addressDataAction(this.province.value);
+    this.props.addressDataAction(this.province.value).then(() => { callback && callback(); });
   }
 
-  handleCityClick() {
+  handleCityClick(callback) {
     this.setState({
       ...this.state,
       city: this.city.value
     });
-    this.props.addressDataAction(this.city.value);
+    this.props.addressDataAction(this.city.value).then(() => { callback && callback(); });;
   }
 
-  handleCountyClick() {
+  handleCountyClick(callback) {
     this.setState({
       ...this.state,
       county: this.county.value
     });
-    window.orgInfo.area_level === 4 && this.props.addressDataAction(this.county.value);
+    window.orgInfo.area_level === 4 && this.props.addressDataAction(this.county.value).then(() => { callback && callback(); });;
   }
 
   handleTownshipClick() {
