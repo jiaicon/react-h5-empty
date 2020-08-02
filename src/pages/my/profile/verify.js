@@ -613,7 +613,7 @@ class Verify extends React.Component {
             window.orgInfo.area_level === 4 && <div className="line1px" />
           }
           {
-            <div className="page-my-profile-verify-header-box">
+            window.orgInfo.area_level === 4 && <div className="page-my-profile-verify-header-box">
               {this.state.winOrgInfo.open_addr === 1 ? (
                 <span className="page-my-profile-verify-header-start">*</span>
               ) : null}
