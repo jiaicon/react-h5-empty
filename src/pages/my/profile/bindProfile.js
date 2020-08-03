@@ -627,21 +627,14 @@ class BindInfo extends React.Component {
         const CheckboxItem = Checkbox.CheckboxItem;
         let labels = item1.options.split(",");
         let data = [];
-        let userExtends;
-        if (this.props.user) {
-            userExtends = this.props.user.extends && this.props.user.extends[item1.key] && this.props.user.extends[item1.key].split(',');
-        }
+        const { extendsArray } = this.state;
         labels.map((item, index) => {
             let obj = {};
             obj.value = index;
             obj.label = item;
             obj.checked = false;
-            if (userExtends && userExtends.length) {
-                userExtends.map(i => {
-                    if (i === item) {
-                        obj.checked = true;
-                    }
-                });
+            if ((item1.key in extendsArray) && (extendsArray[item1.key].indexOf(item) !== -1)) {
+                obj.checked = true
             }
             data.push(obj);
         });
@@ -965,6 +958,8 @@ class BindInfo extends React.Component {
     pushExtendsArray(key, value, isMany) {
         const extendsArray = this.state.extendsArray;
         const windowOrgConfig = this.state.winOrgInfo;
+
+        console.info(extendsArray, key, value, isMany)
         if (!isMany) {
             if (value == "-1") {
                 if (key in extendsArray) {
@@ -1010,6 +1005,7 @@ class BindInfo extends React.Component {
                 extendsArray[key] = value;
             }
         }
+        console.info(extendsArray)
         this.setState({
             ...this.state,
             extendsArray
