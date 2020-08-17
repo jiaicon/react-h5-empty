@@ -72,24 +72,55 @@ class Certificate extends React.Component {
         )
         : null;
       const that = this;
-      ImageToBase64(
-        [this.certCachet, nextProps.user.avatars],
-        ["/images/my/zdx.png", "/images/my/register.png"],
-        base64Array => {
-          that.setState(
-            {
-              base64Array: base64Array.slice(0),
-              register,
-              now
-            },
-            () => {
-              that.htm2Click();
-            }
-          );
-        },
-        0
-      );
+      this.createBase64BgImage(() => {
+        ImageToBase64(
+          [this.certCachet, nextProps.user.avatars],
+          ["/images/my/zdx.png", "/images/my/touxiangBMW.png"],
+          base64Array => {
+            console.info(base64Array);
+            that.setState(
+              {
+                base64Array: base64Array.slice(0),
+                register,
+                now
+              },
+              () => {
+                that.htm2Click();
+              }
+            );
+          },
+          0
+        );
+      })
+
     }
+  }
+
+  createBase64BgImage = (callback) => {
+    var that = this;
+    var shareContent = this.refs["bgImage"];
+    var width = shareContent.offsetWidth;
+    var height = shareContent.offsetHeight;
+    var canvas = document.createElement("canvas");
+    var scale = 4;
+    canvas.width = width * scale;
+    canvas.height = height * scale;
+    canvas.getContext("2d").scale(scale, scale);
+    var opts = {
+      scale: scale,
+      dpi: 300,
+      canvas: canvas,
+      width: width,
+      height: height,
+      useCORS: true
+    };
+    html2canvas(shareContent, opts).then(function (canvas) {
+      var dataUrl = canvas.toDataURL("image/jpeg", 4);
+      console.info(dataUrl);
+      window.open(dataUrl);
+      that.setState({ bgImage: dataUrl });
+      callback && callback()
+    });
   }
 
   componentWillUnmount() { }
@@ -105,6 +136,7 @@ class Certificate extends React.Component {
     canvas.getContext("2d").scale(scale, scale);
     var opts = {
       scale: scale,
+      dpi: 300,
       canvas: canvas,
       width: width,
       height: height,
@@ -128,13 +160,11 @@ class Certificate extends React.Component {
     return (
       <div className="page-certificate-bg">
         <div className="page-certificate-container-border" ref="LaunchContent">
+          <img src={this.state.bgImage || '/images/my/certificate-bgBMW2.png'} className='page-certificate-bg-img' ref="bgImage"></img>
           <div className="page-certificate-container-content-certnumber">
-            证书编号：{this.props.user.identifier}
+            证书编号：<span className="bmw-typnextlight">{this.props.user.identifier}</span>
           </div>
-          <h5 className="page-certificate-container-title">
-            宝马志愿服务证书
-          </h5>
-          <div>
+          <div className="page-certificate-container-content-avatar">
             <img
               src={
                 this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
@@ -144,17 +174,14 @@ class Certificate extends React.Component {
                 display: "block",
                 width: "80px",
                 height: "80px",
-                borderRadius: "50%",
+                // borderRadius: "50%",
                 objectFit: "cover"
               }}
             />
           </div>
-
-          {/* <div className="page-certificate-container-certificate" /> */}
           <div className="page-certificate-container-name">
             {this.props.user.real_name}
           </div>
-
           {this.props.user.stars ? (
             <div
               className="page-certificate-container-star"
@@ -165,8 +192,6 @@ class Certificate extends React.Component {
               />
             </div>
           ) : null}
-
-
           <div className="page-certificate-container-content-register">
             {this.state.register}注册成为宝马志愿者
           </div>
@@ -202,7 +227,7 @@ class Certificate extends React.Component {
           <div className='page-certificate-container-bottom-infobox-parent'>
             <div className="page-certificate-container-bottom-infobox">
               <div className="page-certificate-container-bussiness">
-                宝马企业志愿者协会
+                <span className="bmw-typnextlight">BMW</span>企业志愿者协会
               </div>
               <div
                 className="page-certificate-container-content"
@@ -263,6 +288,8 @@ class Certificate extends React.Component {
               <img className="loading-img" src="/images/loadingimg.png" />
             </div>
           )}
+
+
         </div>
       </div>
     );
