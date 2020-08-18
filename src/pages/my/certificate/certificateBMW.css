@@ -82,13 +82,14 @@
 
 .page-certificate-container-content {
   width         : 100%;
-  margin-top    : 3px;
+  margin-top    : 6px;
   font-size     : 10px;
   color         : #262626;
   letter-spacing: 0;
   font-weight   : 200;
   padding-left  : 15px;
   padding-right : 8px;
+  transform     : scale(0.9);
 }
 
 .page-certificate-container-content-certnumber {
@@ -163,7 +164,7 @@
 .page-certificate-container-hours-item-subTitle {
   background   : #0653b6;
   color        : #fff !important;
-  padding      : 2px 5px;
+  padding      : 3px 10px;
   border-radius: 5px;
   line-height  : 14px;
   font-size    : 10px;
@@ -174,13 +175,14 @@
 }
 
 .page-certificate-container-hours-item-number span {
-  font-size  : 54px;
+  font-size  : 50px;
   color      : #0653b6;
   font-weight: 400;
 }
 
 .page-certificate-container-bussiness {
   font-size     : 10px;
+  transform     : scale(0.9);
   color         : #262626;
   letter-spacing: 0;
   font-weight   : 200;
@@ -197,7 +199,7 @@
 .page-certificate-container-bottom-infobox-parent {
   display        : flex;
   justify-content: flex-end;
-  width          : 82%;
+  width          : 75%;
   position       : absolute;
   top            : 490px;
 }

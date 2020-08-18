@@ -204,6 +204,9 @@ class Certificate extends React.Component {
                   paddingTop: '24px',
                   paddingLeft: '2px',
                   fontWeight: 200,
+                  transform: 'scale(0.9)',
+                  fontSize: '10px',
+                  height: '33px'
                 }}>个
                 </div>
               </div>
@@ -218,6 +221,9 @@ class Certificate extends React.Component {
                   paddingTop: '12px',
                   paddingLeft: '2px',
                   fontWeight: 200,
+                  transform: 'scale(0.9)',
+                  fontSize: '10px',
+                  height: '41px'
                 }}>小<br />时
                 </div>
               </div>
@@ -290,8 +296,6 @@ class Certificate extends React.Component {
               <img className="loading-img" src="/images/loadingimg.png" />
             </div>
           )}
-
-
         </div>
       </div>
     );

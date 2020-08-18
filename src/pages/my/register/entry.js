@@ -43,12 +43,21 @@ class Entry extends React.Component {
     if (window.orgCode === "EKQe1RaJYv") {
       loginRegisterClassName = "page-entry-team-btn-dalu";
     }
-
     let personLoginRegisterClassName = "page-entry-person-btn";
+    let pageEntryPersonClassName = "page-entry-person";
+    let pageEntryTeamClassName = "page-entry-team";
+    if (window.orgCode === "mWZdPNwaKg") {
+      personLoginRegisterClassName = "page-entry-person-btn-bmw";
+      loginRegisterClassName = "page-entry-team-btn-bmw";
+      pageEntryPersonClassName = "page-entry-person-bmw";
+      pageEntryTeamClassName = "page-entry-team-bmw"
+    }
+
+
 
     return (
       <div className="page-entry">
-        <div className="page-entry-person"/>
+        <div className={pageEntryPersonClassName} />
         <a onClick={this.onLogin}>
           <div className={personLoginRegisterClassName} />
         </a>
@@ -57,9 +66,9 @@ class Entry extends React.Component {
           <p className="page-fonts">OR</p>
           <div className="line1px" style={{ width: '56px' }} />
         </div>
-        <div className="page-entry-team" />
+        <div className={pageEntryTeamClassName} />
         <div className="page-entry-team-box">
-          <a href={`${ADMIN_HOST} /login/${window.orgCode}`}>
+          <a href={`${ADMIN_HOST}/login/${window.orgCode}`}>
             <div className={loginRegisterClassName} />
           </a>
           <a href={`${ADMIN_HOST}/register/${window.orgCode}`}>

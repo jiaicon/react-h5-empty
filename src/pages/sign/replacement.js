@@ -288,7 +288,7 @@ class Replacement extends React.Component {
             } */}
             <div className="pages-sign-project-apply-line">
                 <TextareaItem
-                    placeholder="申请说明（200字内）"
+                    placeholder={window.orgCode === 'mWZdPNwaKg' ? "受益对象(幼儿园、小学等名称)/受益人数（老师+家长+学生人数）/活动说明":"申请说明（200字内）"}
                     rows={3}
                     {...getFieldProps('content', {
                         rules: [{
@@ -298,7 +298,7 @@ class Replacement extends React.Component {
                 />
             </div>
             <div className="pages-sign-project-apply-line">
-                <div className="pages-sign-project-apply-line-img-title">工作证明图片(选填)</div>
+    <div className="pages-sign-project-apply-line-img-title">{window.orgCode === 'mWZdPNwaKg' ? "活动证明图片（学生签到表、活动过程图片、合照均可，选填）":"工作证明图片(选填)"}</div>
                 <div className="pages-sign-project-apply-line-img-box">
                     <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={3} />
 

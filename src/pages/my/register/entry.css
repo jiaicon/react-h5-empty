@@ -14,6 +14,15 @@
   background-repeat: no-repeat;
   margin-bottom: 12px;
 }
+
+.page-entry-person-bmw{
+  width: 131px;
+  height: 136px;
+  background-image: url(/images/my/entry1_bmw.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 12px;
+}
 .page-entry-team{
   width: 131px;
   height: 138px;
@@ -22,10 +31,28 @@
   background-repeat: no-repeat;
   margin-bottom: 12px;
 }
+
+.page-entry-team-bmw{
+  width: 131px;
+  height: 138px;
+  background-image: url(/images/my/entry2_bmw.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 12px;
+}
 .page-entry-person-btn{
   width: 160px;
   height: 36px;
   background-image: url(/images/my/individual_Starbucks.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 34px;
+}
+
+.page-entry-person-btn-bmw{
+  width: 160px;
+  height: 36px;
+  background-image: url(/images/my/individual_bmw.png);
   background-size: contain;
   background-repeat: no-repeat;
   margin-bottom: 34px;
@@ -70,6 +97,22 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.page-entry-team-box a:nth-child(1) .page-entry-team-btn-bmw{
+  width: 110px;
+  height: 36px;
+  background-image: url(/images/my/individual3_bmw.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.page-entry-team-box a:nth-child(2) .page-entry-team-btn-bmw{
+  width: 110px;
+  height: 36px;
+  background-image: url(/images/my/individual2_bmw.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .page-entry-team-box a:nth-child(1) .page-entry-team-btn-default{
   width: 110px;
   height: 36px;
