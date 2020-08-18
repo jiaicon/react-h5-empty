@@ -10,7 +10,8 @@ import { ADMIN_HOST } from '../../../utils/config';
 import { requestUserInfo } from '../../../stores/common';
 import history from '../../history';
 import './entry.css';
-import {storeLoginSource} from '../login/login.store';
+import { storeLoginSource } from '../login/login.store';
+
 class Entry extends React.Component {
 
   constructor(props) {
@@ -19,8 +20,8 @@ class Entry extends React.Component {
   }
 
   componentWillMount() {
-    const {from}=this.props.login.login;
-    if(from){
+    const { from } = this.props.login.login;
+    if (from) {
       this.props.storeLoginSource(from)
     }
   }
@@ -32,9 +33,9 @@ class Entry extends React.Component {
   componentWillReceiveProps() {
   }
 
-  componentWillUnmount() {}
-  onLogin(){
-    window.location.href='/my/login';
+  componentWillUnmount() { }
+  onLogin() {
+    window.location.href = '/my/login';
     // history.replace('/my/login')
   }
   render() {
@@ -44,29 +45,29 @@ class Entry extends React.Component {
     }
 
     let personLoginRegisterClassName = "page-entry-person-btn";
-    
+
     return (
       <div className="page-entry">
-        <div className="page-entry-person" />
-          <a onClick={this.onLogin}>
-            <div className={personLoginRegisterClassName} />
-          </a>
+        <div className="page-entry-person"/>
+        <a onClick={this.onLogin}>
+          <div className={personLoginRegisterClassName} />
+        </a>
         <div className="page-line-box">
           <div className="line1px" style={{ width: '56px' }} />
-                <p className="page-fonts">OR</p>
+          <p className="page-fonts">OR</p>
           <div className="line1px" style={{ width: '56px' }} />
         </div>
         <div className="page-entry-team" />
         <div className="page-entry-team-box">
-          <a href={`${ADMIN_HOST}/login/${window.orgCode}`}>
+          <a href={`${ADMIN_HOST} /login/${window.orgCode}`}>
             <div className={loginRegisterClassName} />
           </a>
           <a href={`${ADMIN_HOST}/register/${window.orgCode}`}>
             <div className={loginRegisterClassName} />
           </a>
-        </div>
-       
-      </div>
+        </div >
+
+      </div >
     );
   }
 }
@@ -112,9 +113,9 @@ Entry.propTypes = {
 };
 
 export default connect(
-  state=> ({
+  state => ({
     user: state.user,
-    login:state.login,
+    login: state.login,
   }),
-  dispatch => bindActionCreators({requestUserInfo,storeLoginSource}, dispatch),
+  dispatch => bindActionCreators({ requestUserInfo, storeLoginSource }, dispatch),
 )(Entry);

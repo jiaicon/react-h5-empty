@@ -71,9 +71,9 @@
   line-height   : 19px;
   min-width     : 80px;
   height        : 19px;
-  font-weight   : 300;
+  font-weight   : 200;
   position      : absolute;
-  top           : 300px;
+  top           : 295px;
 }
 
 .page-certificate-container-star {
@@ -94,7 +94,10 @@
 .page-certificate-container-content-certnumber {
   width               : 100%;
   /* margin-top       : 11px; */
-  font-size           : 13px;
+  top                 : 8px;
+  left                : 10px;
+  font-size           : 10px;
+  line-height         : 10px;
   color               : #262626;
   letter-spacing      : 0;
   line-height         : 17px;
@@ -107,21 +110,21 @@
 }
 
 .page-certificate-container-content-avatar {
-  top     : 220px;
+  top     : 215px;
   position: absolute;
 }
 
 .page-certificate-container-content-register {
   width         : 100%;
-  font-size     : 14px;
+  font-size     : 10px;
   color         : #262626;
   letter-spacing: 0;
   line-height   : 38px;
-  font-weight   : 300;
+  font-weight   : 200;
   padding-left  : 15px;
   padding-right : 8px;
   text-align    : center;
-  top           : 330px;
+  top           : 325px;
   position      : absolute
 }
 
@@ -135,7 +138,7 @@
   /* padding-bottom : 106px; */
   /* border-bottom  : 1px solid #dddd; */
   position          : absolute;
-  top               : 368px;
+  top               : 358px;
 }
 
 .page-certificate-container-hours-item-number {
@@ -160,12 +163,14 @@
 .page-certificate-container-hours-item-subTitle {
   background   : #0653b6;
   color        : #fff !important;
-  padding      : 0px 5px;
+  padding      : 2px 5px;
   border-radius: 5px;
   line-height  : 14px;
-  font-size    : 11px;
+  font-size    : 10px;
+  font-weight  : 200;
   text-align   : center;
   margin       : 0 auto;
+  transform    : scale(0.7);
 }
 
 .page-certificate-container-hours-item-number span {
@@ -194,7 +199,7 @@
   justify-content: flex-end;
   width          : 82%;
   position       : absolute;
-  top            : 500px;
+  top            : 490px;
 }
 
 .page-certificate-container-bottom-infobox {

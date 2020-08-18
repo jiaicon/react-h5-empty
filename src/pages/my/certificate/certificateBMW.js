@@ -193,7 +193,7 @@ class Certificate extends React.Component {
             </div>
           ) : null}
           <div className="page-certificate-container-content-register">
-            {this.state.register}注册成为宝马志愿者
+            <span className="bmw-typnextlight">{this.state.register}注册成为宝马志愿者</span>
           </div>
 
           <div className="page-certificate-container-hours-box">
@@ -202,7 +202,8 @@ class Certificate extends React.Component {
                 <span>{this.props.user.join_project_count}</span>
                 <div style={{
                   paddingTop: '24px',
-                  paddingLeft: '2px'
+                  paddingLeft: '2px',
+                  fontWeight: 200,
                 }}>个
                 </div>
               </div>
@@ -215,7 +216,8 @@ class Certificate extends React.Component {
                 <span>{`${this.props.user.reward_time}`.length > 5 ? `${this.props.user.reward_time}`.split('.')[0] : `${this.props.user.reward_time}`}</span>
                 <div style={{
                   paddingTop: '12px',
-                  paddingLeft: '2px'
+                  paddingLeft: '2px',
+                  fontWeight: 200,
                 }}>小<br />时
                 </div>
               </div>
@@ -233,7 +235,7 @@ class Certificate extends React.Component {
                 className="page-certificate-container-content"
                 style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
               >
-                {this.state.now}
+                <span className="bmw-typnextlight">{this.state.now}</span>
               </div>
             </div>
           </div>
