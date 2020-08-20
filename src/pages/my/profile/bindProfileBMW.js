@@ -315,7 +315,7 @@ class BindInfo extends React.Component {
             (stateOrgData.open_addr && checkEmpty(`${province}`, "省份")) ||
             (stateOrgData.open_addr && checkEmpty(`${city}`, "城市")) ||
             (stateOrgData.open_addr && checkEmpty(`${county}`, "区县")) ||
-            (stateOrgData.open_addr && checkEmpty(`${address}`, "详细地址"))
+            (stateOrgData.open_addr && checkEmpty(`${address}`, "工作地点"))
         ) {
             return;
         }
@@ -582,7 +582,7 @@ class BindInfo extends React.Component {
                         {this.state.winOrgInfo.open_addr === 1 ? (
                             <span className="page-my-profile-verify-header-start">*</span>
                         ) : null}
-                        <div className="page-my-profile-verify-fonts">详细地址</div>
+                        <div className="page-my-profile-verify-fonts">工作地点</div>
                         <input
                             type="text"
                             ref={c => {
