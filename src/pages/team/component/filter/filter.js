@@ -123,10 +123,10 @@ class Filter extends React.Component {
             <a className={classnames({ opened: showOptionsType === 'categories' })} onClick={this.handleFilterHeaderClick('categories')}>
               <span>{selectedCategory}</span>
             </a>
-            <div className="line1px-v" />
+            {/* <div className="line1px-v" />
             <a className={classnames({ opened: showOptionsType === 'objects' })} onClick={this.handleFilterHeaderClick('objects')}>
               <span>{selectedObject}</span>
-            </a>
+            </a> */}
           </div>
           <div className="line1px line1px-bottom" />
         </div>

@@ -49,14 +49,16 @@ class TeamListPage extends React.Component {
       service_object: window.serviceTarget[category],
     };
     this.requestList(false);
-    getCity(
-      (city, str) => {
-        this.props.getAreaCity(city);
-      },
-      () => {
-        Alert.error("定位失败，请确认同意定位授权");
-      }
-    );
+
+    // getCity(
+    //   (city, str) => {
+        
+    //     this.props.getAreaCity(city);
+    //   },
+    //   () => {
+    //     Alert.error("定位失败，请确认同意定位授权");
+    //   }
+    // );
   }
 
   componentDidMount() {
