@@ -11,13 +11,15 @@ import Link from "../../../components/link/link";
 // import ApplyItem from '../../../components/duration_apply/applysItem';
 import { applyAction } from "../my.store";
 import "./applys.css";
-import { timestampToDateText } from "../../../utils/funcs";
 import moment from "moment";
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
+
 let verify_status = {
-  '-1': '未提审',
-  '0': '审核中',
-  '1': '通过',
-  '2': '驳回'
+  '-1': i18next.t('未提审'),
+  '0': i18next.t('审核中'),
+  '1': i18next.t('通过'),
+  '2': i18next.t('驳回')
 };
 class ApplyItem extends React.Component {
   constructor(props) {
@@ -36,10 +38,10 @@ class ApplyItem extends React.Component {
   render() {
 
     if (!this.props.data) return null;
+    const { t } = this.props;
     return (
       <div className="page-apply-components">
         {this.props.data.map((item, index) => {
-          console.info(item, index);
           return (
             <div className="page-apply-components-content">
               <div className="page-apply-components-content-top">
@@ -53,7 +55,7 @@ class ApplyItem extends React.Component {
               <div className="line1px" />
               <div className="page-apply-components-content-bottom">
                 <div>
-                  预计最多可获得服务时长<span>{item.reward_time}小时</span>
+                  {t('预计最多可获得服务时长')}<span>{item.reward_time}{t('小时')}</span>
                 </div>
                 <div className="ing">{verify_status[item.verify_status]}</div>
               </div>
@@ -97,7 +99,7 @@ class Apply extends React.Component {
   }
 }
 
-Apply.title = "补录申请";
+Apply.title = i18next.t('补录申请');
 
 Apply.propTypes = {
   applyAction: PropTypes.func,
@@ -113,4 +115,4 @@ export default connect(
     apply: state.my.apply
   }),
   dispatch => bindActionCreators({ applyAction }, dispatch)
-)(Apply);
+)(translate('translations')(Apply));

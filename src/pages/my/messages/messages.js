@@ -10,6 +10,8 @@ import { bindActionCreators } from 'redux';
 import './messages.css';
 import MessagesItem from './component/messagesItem';
 import { messagesAction } from '../my.store';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Messages extends React.Component {
 
@@ -32,11 +34,12 @@ class Messages extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const { t } = this.props;
     return (
       <div className="page-messages">
         {this.props.messages.data && this.props.messages.data.list && this.props.messages.data.list.length ?
           this.props.messages.data.list && this.props.messages.data.list.map((item, keys) => <MessagesItem index={keys} data={item} />) :
-          <div className="page-messages-no-info">还没有消息哟</div>}
+          <div className="page-messages-no-info">{t('还没有消息哟')}</div>}
 
       </div>
     );
@@ -44,7 +47,7 @@ class Messages extends React.Component {
 }
 
 
-Messages.title = '站内邮箱';
+Messages.title = i18next.t('站内邮箱');
 
 Messages.propTypes = {
   messagesAction: PropTypes.func,
@@ -93,4 +96,4 @@ export default connect(
     messages: state.my.messages,
   }),
   dispatch => bindActionCreators({ messagesAction }, dispatch),
-)(Messages);
+)(translate('translations')(Messages));

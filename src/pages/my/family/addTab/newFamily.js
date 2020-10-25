@@ -5,16 +5,17 @@ import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
-import history from '../../../history';
 import { bindActionCreators } from 'redux';
 import { addFamilyPeople } from './../../my.store';
 import FastClick from 'fastclick';
 import { addressDataAction } from './../../profile/profile.store';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import './newFamily.css';
+
 const isAndroid = /android/i.test(navigator.userAgent);
-const relations = [{ name: '儿子', id: 0 }, { name: '女儿', id: 1 }, { name: '丈夫', id: 2 }, { name: '妻子', id: 3 }
-    , { name: '母亲', id: 4 }, { name: '父亲', id: 5 }, { name: '爷爷', id: 6 }, { name: '奶奶', id: 7 }, { name: '其他', id: 8 }];
+const relations = [{ name: i18next.t('儿子'), id: 0 }, { name: i18next.t('女儿'), id: 1 }, { name: i18next.t('丈夫'), id: 2 }, { name: i18next.t('妻子'), id: 3 }
+    , { name: i18next.t('母亲'), id: 4 }, { name: i18next.t('父亲'), id: 5 }, { name: i18next.t('爷爷'), id: 6 }, { name: i18next.t('奶奶'), id: 7 }, { name: i18next.t('其他'), id: 8 }];
 
 const people = [{ id: '01', name: '汉族' }, { id: '02', name: '蒙古族' }, { id: '03', name: '回族' },
 { id: '04', name: '藏族' }, { id: '05', name: '维吾尔族' }, { id: '06', name: '苗族' },
@@ -36,16 +37,16 @@ const people = [{ id: '01', name: '汉族' }, { id: '02', name: '蒙古族' }, {
 { id: '52', name: '鄂伦春族' }, { id: '53', name: '赫哲族' }, { id: '54', name: '门巴族' },
 { id: '55', name: '珞巴族' }, { id: '56', name: '基诺族' }];
 const cardtype = [
-    { id: "1", name: "内地居民身份证" },
-    { id: "2", name: "香港居民身份证" },
-    { id: "3", name: "澳门居民身份证" },
-    { id: "4", name: "台湾居民身份证" },
-    { id: "5", name: "护照" }
+    { id: "1", name: i18next.t('内地居民身份证') },
+    { id: "2", name: i18next.t('香港居民身份证') },
+    { id: "3", name: i18next.t('澳门居民身份证') },
+    { id: "4", name: i18next.t('台湾居民身份证') },
+    { id: "5", name: i18next.t('护照') }
 ];
 
 function checkEmpty(value, label) {
     if (!value || !value.length) {
-        Alert.warning(`请填写${label}`);
+        Alert.warning(`${i18next.t('请填写')}${label}`);
         return true;
     }
 
@@ -53,7 +54,7 @@ function checkEmpty(value, label) {
 }
 function isChoose(value, label) {
     if (!value || !value.length) {
-        Alert.warning(`请选择${label}`);
+        Alert.warning(`${i18next.t('请选择')}${label}`);
         return true;
     }
 
@@ -62,7 +63,7 @@ function isChoose(value, label) {
 function checkStr(str) {
     const reg = new RegExp('^([\u4E00-\uFA29]|[\uE7C7-\uE7F3])*$');
     if (!reg.test(str)) {
-        Alert.warning('请输入中文姓名');
+        Alert.warning(i18next.t('请输入中文姓名'));
         return true;
     }
     return false;
@@ -70,7 +71,7 @@ function checkStr(str) {
 function iscard(card) {
     const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if (!reg.test(card)) {
-        Alert.warning("身份证输入不合法");
+        Alert.warning(i18next.t('身份证输入不合法'));
         return true;
     }
     return false;
@@ -78,7 +79,7 @@ function iscard(card) {
 function isaomencard(card) {
     const reg = /^[1|5|7][0-9]{6}\([0-9Aa]\)/;
     if (!reg.test(card)) {
-        Alert.warning("身份证输入不合法");
+        Alert.warning(i18next.t('身份证输入不合法'));
         return true;
     }
     return false;
@@ -86,7 +87,7 @@ function isaomencard(card) {
 function isxiangancard(card) {
     const reg = /^((\s?[A-Za-z])|([A-Za-z]{2}))\d{6}(([0−9aA])|([0-9aA]))$/;
     if (!reg.test(card)) {
-        Alert.warning("身份证输入不合法");
+        Alert.warning(i18next.t('身份证输入不合法'));
         return true;
     }
     return false;
@@ -94,7 +95,7 @@ function isxiangancard(card) {
 function istaiwancard(card) {
     const reg = /^[a-zA-Z][0-9]{9}$/;
     if (!reg.test(card)) {
-        Alert.warning("身份证输入不合法");
+        Alert.warning(i18next.t('身份证输入不合法'));
         return true;
     }
     return false;
@@ -185,6 +186,7 @@ class NewFamily extends React.Component {
         });
     }
     addFamilyPeople() {
+      const { t } = this.props;
         const username = this.state.username;
         const userpassword = this.state.userpassword;
         const idNumber = this.state.idNumber;
@@ -196,9 +198,9 @@ class NewFamily extends React.Component {
         const { township } = this.state;
         const addressDetail = this.state.addressDetail;
         const cardtype = this.state.cardtype;
-        if (checkEmpty(username, '姓名') || checkEmpty(userpassword, '密码')
-            || checkEmpty(idNumber, '身份证号') || checkEmpty(addressDetail, '详细地址')
-            || checkStr(username, '姓名')) {
+        if (checkEmpty(username, t('姓名')) || checkEmpty(userpassword, t('密码'))
+            || checkEmpty(idNumber, t('身份证号')) || checkEmpty(addressDetail, t('详细地址'))
+            || checkStr(username, t('姓名'))) {
             return;
         }
         if (idNumber) {
@@ -212,15 +214,15 @@ class NewFamily extends React.Component {
                 return;
             }
         }
-        if (isChoose(nation, '民族') || isChoose(province, '省份') || isChoose(city, '城市') || isChoose(county, '区县') || (window.orgInfo.area_level === 4 && isChoose(township, '街道')) || isChoose(relations, '关系')) {
+        if (isChoose(nation, t('民族')) || isChoose(province, t('省份')) || isChoose(city, t('城市')) || isChoose(county, t('区县')) || (window.orgInfo.area_level === 4 && isChoose(township, t('街道'))) || isChoose(relations, t('关系'))) {
             return
         }
         if (userpassword.length <= 5 || userpassword.length >= 19) {
-            Alert.warning('密码范围6-20位数字字母组成');
+            Alert.warning(t('密码范围6-20位数字字母组成'));
             return;
         }
         if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(username)) {
-            Alert.warning('请输入正确的用户名》');
+            Alert.warning(t('请输入正确的用户名'));
             return;
         }
 
@@ -245,18 +247,19 @@ class NewFamily extends React.Component {
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
         const township = this.props.address.data.township;
+        const { t } = this.props;
 
         return (
             <div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">姓名</div>
+                    <div className="pages-add-new-family-type">{t('姓名')}</div>
                     <div className="pages-add-new-family-ipt">
                         <input type="text" ref={(c) => { this.username = c; }} onBlur={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">证件类型</div>
+                    <div className="pages-add-new-family-type">{t('证件类型')}</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="cardtype">
                             <select
@@ -278,14 +281,14 @@ class NewFamily extends React.Component {
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">证件号码</div>
+                    <div className="pages-add-new-family-type">{t('证件号码')}</div>
                     <div className="pages-add-new-family-ipt">
                         <input type="text" ref={(c) => { this.idNumber = c }} onKeyUp={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">民族</div>
+                    <div className="pages-add-new-family-type">{t('民族')}</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="people">
                             <select id="people" onChange={this.handlePeopleClick} ref={(c) => { this.people = c; }}>
@@ -296,9 +299,9 @@ class NewFamily extends React.Component {
                         </label>
                     </div>
                 </div>
-                <div className="pages-add-new-family-address">现居住地址</div>
+                <div className="pages-add-new-family-address">{t('现居住地址')}</div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">省份</div>
+                    <div className="pages-add-new-family-type">{t('省份')}</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="province">
                             <select id="province" onChange={this.handleProvinceClick} ref={(c) => { this.province = c; }}>
@@ -311,7 +314,7 @@ class NewFamily extends React.Component {
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">城市</div>
+                    <div className="pages-add-new-family-type">{t('城市')}</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="city">
                             <select id="city" onChange={this.handleCityClick} ref={(c) => { this.city = c; }}>
@@ -324,7 +327,7 @@ class NewFamily extends React.Component {
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">区县</div>
+                    <div className="pages-add-new-family-type">{t('区县')}</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="county">
                             <select id="county" onChange={this.handleCountyClick} ref={(c) => { this.county = c; }}>
@@ -340,7 +343,7 @@ class NewFamily extends React.Component {
                 }
                 {
                     window.orgInfo.area_level === 4 && <div className="pages-add-new-family-box">
-                        <div className="pages-add-new-family-type">街道</div>
+                        <div className="pages-add-new-family-type">{t('街道')}</div>
                         <div className="pages-add-new-family-ipt">
                             <label htmlFor="township">
                                 <select id="county" onChange={this.handleTownshipClick} ref={(c) => { this.township = c; }}>
@@ -354,21 +357,21 @@ class NewFamily extends React.Component {
                 }
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">详细地址</div>
+                    <div className="pages-add-new-family-type">{t('详细地址')}</div>
                     <div className="pages-add-new-family-ipt">
                         <input type="text" ref={(c) => { this.addressDetail = c }} onKeyUp={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="pages-add-new-family-space"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">密码</div>
+                    <div className="pages-add-new-family-type">{t('密码')}</div>
                     <div className="pages-add-new-family-ipt">
                         <input type="password" ref={(c) => { this.userpassword = c }} onKeyUp={this.onTextChanged} />
                     </div>
                 </div>
                 <div className="line1px"></div>
                 <div className="pages-add-new-family-box">
-                    <div className="pages-add-new-family-type">关系</div>
+                    <div className="pages-add-new-family-type">{t('关系')}</div>
                     <div className="pages-add-new-family-ipt">
                         <label htmlFor="relations">
                             <select id="relations" onChange={this.handlePeopleClick} ref={(c) => { this.relations = c; }}>
@@ -379,13 +382,13 @@ class NewFamily extends React.Component {
                         </label>
                     </div>
                 </div>
-                <div className="pages-add-new-family-btn" onClick={this.addFamilyPeople}>确认</div>
-                <div className="pages-add-new-family-tips">说明：添加的成员，可以用身份证号和密码登录</div>
+                <div className="pages-add-new-family-btn" onClick={this.addFamilyPeople}>{t('确认')}</div>
+                <div className="pages-add-new-family-tips">{t('添加成员说明')}</div>
             </div>
         )
     }
 }
-NewFamily.title = '新建家庭成员';
+NewFamily.title = i18next.t('新建家庭成员');
 NewFamily.PropTypes = {
     addressDataAction: PropTypes.func,
     addFamilyPeople: PropTypes.func,

@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './point.css';
 import { scoreAction } from '../my.store';
-
+import { translate } from 'react-i18next';
 import POINTITEM from './component/pointItem';
 const scoreName = window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[1];
 
@@ -28,7 +28,8 @@ class PointIncome extends React.Component {
   }
 
   componentDidMount() {
-    document.title = `我的${scoreName || '星币'}明细`;
+    const { t } = this.props;
+    document.title = `${t('我的')}${scoreName || t('星币')}${t('明细')}`;
   }
 
   componentWillReceiveProps() {
@@ -37,19 +38,20 @@ class PointIncome extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const { data: listData, type } = this.props.score;
+    const { t, score } = this.props;
+    const { data: listData, type } = score;
     return (
       <div className="page-point-income-pay-container">
         <div className="line1px" />
         <div className="page-point-income-pay-title">
-          <span>项目</span>
-          <span>时间</span>
-          <span>{scoreName || '星币'}</span>
+          <span>{t('项目')}</span>
+          <span>{t('时间')}</span>
+          <span>{scoreName || t('星币')}</span>
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
           {listData && listData.list.length >= 1 && type === 'income' ?
-            <POINTITEM data={listData.list} /> : <span className="page-point-income-pay-main-empty">暂无记录</span>}
+            <POINTITEM data={listData.list} /> : <span className="page-point-income-pay-main-empty">{t('暂无记录')}</span>}
 
         </div>
       </div>
@@ -67,4 +69,4 @@ export default connect(
     score: state.my.score,
   }),
   dispatch => bindActionCreators({ scoreAction }, dispatch),
-)(PointIncome);
+)(translate('translations')('PointIncome'));

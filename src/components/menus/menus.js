@@ -75,7 +75,7 @@ class Menus extends React.Component {
 
   render() {
     const { menus } = this.state;
-console.log(menus);
+
     return (<ul className="component-menus">
       {
         menus.map((menusInLine, idx) => <li key={idx}>

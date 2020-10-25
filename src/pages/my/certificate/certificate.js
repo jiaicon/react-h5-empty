@@ -9,13 +9,10 @@ import React, { PropTypes } from "react";
 import autoBind from "react-autobind";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-import Avatar from "../../../components/avatar/avatar";
 import Star from "../../../components/star/star";
 import { dateTextToDateText } from "../../../utils/funcs";
 import { requestUserInfo } from "../../../stores/common";
 import "./certificate.css";
-import history from "../../history";
 import html2canvas from "html2canvas";
 import { ImageToBase64 } from "../../../utils/funcs";
 

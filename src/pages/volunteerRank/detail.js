@@ -8,6 +8,8 @@ import Link from "../../components/link/link";
 import Image from "../../components/image/image";
 import Avatar from "../../components/avatar/avatar";
 import moment from 'moment';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 import './detail.css';
 
@@ -28,8 +30,7 @@ class Detail extends React.Component {
   componentWillReceiveProps(nextProps) {
   }
   renderAchieve() {
-    console.log(this.props);
-    const { volunteerRank: { volunteerAchieve: { data } } } = this.props;
+    const { volunteerRank: { volunteerAchieve: { data } }, t } = this.props;
     if (!data) {
       return <div></div>
     }
@@ -38,7 +39,7 @@ class Detail extends React.Component {
     }
     return(<div className="volunteer-rank-detail-achieve">
       <div className="volunteer-rank-detail-achieve-title">
-        <i className="volunteer-rank-detail-achieve-title-icon"></i>Ta的成就
+        <i className="volunteer-rank-detail-achieve-title-icon"></i>{t('Ta的成就')}
       </div>
       <div className="volunteer-rank-detail-achieve-get">
         {
@@ -53,7 +54,7 @@ class Detail extends React.Component {
     </div>)
   }
   renderDetail() {
-    const { volunteerRank: { volunteerInfo: { data } } } = this.props;
+    const { volunteerRank: { volunteerInfo: { data } }, t } = this.props;
     const {
       userAchieveList: { data: udata },
     } = this.props;
@@ -108,12 +109,12 @@ class Detail extends React.Component {
         <div className="volunteer-rank-detail-top-detail-slogan">{data.slogan}</div>
         <div className="volunteer-rank-detail-top-detail-time">
           <div>
-            <p>{Number(data.reward_time_year).toFixed(2)}时</p>
-            <p>年度时长</p>
+            <p>{Number(data.reward_time_year).toFixed(2)}{t('时')}</p>
+            <p>{t('年度时长')}</p>
           </div>
           <div>
-            <p>{Number(data.reward_time).toFixed(2)}时</p>
-            <p>总时长</p>
+            <p>{Number(data.reward_time).toFixed(2)}{t('时')}</p>
+            <p>{t('总时长')}</p>
           </div>
         </div>
       </div>
@@ -121,7 +122,7 @@ class Detail extends React.Component {
   }
 
   renderProject() {
-    const { volunteerRank: { volunteerInfo: { data } } } = this.props;
+    const { volunteerRank: { volunteerInfo: { data } }, t } = this.props;
     if(!data) {
       return <div></div>
     }
@@ -130,15 +131,15 @@ class Detail extends React.Component {
     }
     return(<div className="volunteer-rank-detail-project">
       <div className="volunteer-rank-detail-achieve-title">
-        <i className="volunteer-rank-detail-project-title-icon"></i>Ta的项目
+        <i className="volunteer-rank-detail-project-title-icon"></i>{t('Ta的项目')}
       </div>
       {
         data.project.map((item, index) => (<Link to={`/project/detail/${item.project_id}`} key={index} className="volunteer-rank-detail-project-detail">
           <Image defaultSrc={window.orgInfo.logo} src={item.project.list_photo} resize={{width: 135, height: 78}} className="volunteer-rank-detail-project-detail-img"/>
           <div className="volunteer-rank-detail-project-detail-info">
             <div className="volunteer-rank-detail-project-detail-info-title">{item.project.name}</div>
-            <div>活动日期：{moment(item.project.begin).format('YYYY.MM.DD')} - {moment(item.project.end).format('YYYY.MM.DD')}</div>
-            <div>已获得时长：{Number(item.reward_time).toFixed(2)}时</div>
+            <div>{t('活动日期')}：{moment(item.project.begin).format('YYYY.MM.DD')} - {moment(item.project.end).format('YYYY.MM.DD')}</div>
+            <div>{t('已获得时长')}：{Number(item.reward_time).toFixed(2)}{t('时')}</div>
           </div>
         </Link>))
       }
@@ -146,7 +147,7 @@ class Detail extends React.Component {
   }
 
   renderTeam() {
-    const { volunteerRank: { volunteerInfo: { data } } } = this.props;
+    const { volunteerRank: { volunteerInfo: { data } }, t } = this.props;
     if(!data) {
       return <div></div>
     }
@@ -155,7 +156,7 @@ class Detail extends React.Component {
     }
     return(<div className="volunteer-rank-team-project">
       <div className="volunteer-rank-detail-achieve-title">
-        <i className="volunteer-rank-detail-team-title-icon"></i>Ta的团队
+        <i className="volunteer-rank-detail-team-title-icon"></i>{t('Ta的团队')}
       </div>
       {
         data.team.map((item, index)=>(<Link to={`/team/detail/${item.team_id}`} className="volunteer-rank-detail-team-detail" key={index}>
@@ -165,11 +166,11 @@ class Detail extends React.Component {
             <div className="volunteer-rank-detail-team-detail-info-both">
             <span>
               <i className="volunteer-rank-detail-team-detail-info-icon-time"></i>
-              时长：{Number(item.team.reward_time).toFixed(2)}小时
+              {t('时长')}：{Number(item.team.reward_time).toFixed(2)}{t('小时')}
             </span>
               <span>
               <i className="volunteer-rank-detail-team-detail-info-icon-people"></i>
-              成员：{item.team.team_size}人
+                {t('成员')}：{item.team.team_size}{t('人')}
             </span>
             </div>
           </div>
@@ -194,7 +195,7 @@ Detail.propTypes = {
   volunteerAchieve: PropTypes.func,
 };
 
-Detail.title = "志愿排行";
+Detail.title = i18next.t("志愿排行");
 
 export default connect(
   state => ({
@@ -210,5 +211,5 @@ export default connect(
       },
       dispatch
     )
-)(Detail);
+)(translate('translations')(Detail));
 

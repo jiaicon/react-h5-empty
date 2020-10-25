@@ -16,9 +16,10 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from '../../components/image/image';
 import Link from '../../components/link/link';
 import ShopItem from '../../components/shopItme/index';
-import { isWindowReachBottom } from '../../utils/funcs';
 import { bannerAction, requestGoodsList } from './shop.store';
 import { userCenterAction } from '../my/my.store';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import './index.css';
 const scoreName =window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[1];
 class ShopPage extends React.Component {
@@ -146,7 +147,7 @@ class ShopPage extends React.Component {
     )
   }
   render() {
-    const { goods: { data: listData }, user,usercenter } = this.props;
+    const { goods: { data: listData }, user,usercenter, t } = this.props;
     const showLoadingMore = listData &&
       listData.page && (listData.page.current_page < listData.page.total_page);
 
@@ -157,17 +158,17 @@ class ShopPage extends React.Component {
           {
             user.isLogin ?
 
-              <div className="left">我的{scoreName || '星币'}:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
+              <div className="left">{t('我的')}{scoreName || t('星币')}:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
 
               :
-              <div className="left">我的{scoreName || '星币'}:<span className="redfonts">请先登录</span></div>
+              <div className="left">{t('我的')}{scoreName || t('星币')}:<span className="redfonts">{t('请先登录')}</span></div>
 
           }
           {
             user.isLogin ?
-              <Link to="/shop/record"><div className="right">兑换记录</div></Link>
+              <Link to="/shop/record"><div className="right">{t('兑换记录')}</div></Link>
               :
-              <div className="right" onClick={this.onLogin}>前往登录</div>
+              <div className="right" onClick={this.onLogin}>{t('前往登录')}</div>
           }
         </div>
         <div className="page-shop-content-header" ref="LaunchContent">
@@ -181,7 +182,7 @@ class ShopPage extends React.Component {
               ?
               <div className="component-loading-more">
                 <img src="/images/icon_loading.png" alt="loading" />
-                正在加载
+                {t('正在加载')}
             </div>
               : null
           }
@@ -193,7 +194,7 @@ class ShopPage extends React.Component {
 }
 
 
-ShopPage.title = '志愿回馈';
+ShopPage.title = i18next.t('志愿回馈');
 
 ShopPage.propTypes = {
   bannerAction: PropTypes.func,
@@ -216,4 +217,4 @@ export default connect(
     userCenterAction
   },
     dispatch),
-)(ShopPage);
+)(translate('translations')(ShopPage));

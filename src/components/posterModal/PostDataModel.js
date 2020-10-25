@@ -1,5 +1,7 @@
+import i18next from 'i18next';
+
 export function PostDataModel_Project(projectData, userData) {
-    var tempContentText = `我发现了“${projectData.name}”这个项目，跟我一起做志愿服务吧~`;
+    var tempContentText = `${i18next.t('我发现了')}“${projectData.name}”${i18next.t('这个')}${i18next.t('项目')}，${i18next.t('跟我一起做志愿服务吧')}~`;
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),
         avatars : getAvatar(userData),
@@ -13,7 +15,7 @@ export function PostDataModel_Project(projectData, userData) {
 }
 
 export function PostDataModel_Team(teamData,userData){
-    var tempContentText = `我发现了“${teamData.name}”这个团队，跟我一起做志愿服务吧~`;
+    var tempContentText = `${i18next.t('我发现了')}“${teamData.name}”${i18next.t('这个')}${i18next.t('团队')}，${i18next.t('跟我一起做志愿服务吧')}~`;
     let PostDataModel = {
         postImage : getTeamPhoto(teamData),
         avatars : getAvatar(userData),
@@ -26,7 +28,7 @@ export function PostDataModel_Team(teamData,userData){
 }
 
 export function PostDataModel_SignSuccess(projectData,userData){
-    var tempContentText = `我参与了“${projectData.name}”这个项目，跟我一起做志愿服务吧~`;
+    var tempContentText = `${i18next.t('我参与了')}“${projectData.name}”${i18next.t('这个')}${i18next.t('项目')}，${i18next.t('跟我一起做志愿服务吧')}~`;
 
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),
@@ -41,7 +43,7 @@ export function PostDataModel_SignSuccess(projectData,userData){
 
 
 export function PostDataModel_ProjectSign(projectData,userData){
-    var tempContentText = `我参与了“${projectData.name}”这个项目,累计获得${projectData.my_reward_time}个服务时长,跟我一起做志愿服务吧~`;
+    var tempContentText = `${i18next.t('我参与了')}“${projectData.name}”${i18next.t('这个')}${i18next.t('项目')},${i18next.t('累计获得')}${projectData.my_reward_time}${i18next.t('个服务时长')},${i18next.t('跟我一起做志愿服务吧')}~`;
 
     let PostDataModel = {
         postImage : getProjectPhoto(projectData),
@@ -85,7 +87,7 @@ function getUserName(userData){
         }
     }
     else {
-        return (window.orgInfo&&window.orgInfo.name&&window.orgInfo.name.length)?window.orgInfo.name:'志多星';
+        return (window.orgInfo&&window.orgInfo.name&&window.orgInfo.name.length)?window.orgInfo.name:i18next.t('志多星');
     }
 }
 

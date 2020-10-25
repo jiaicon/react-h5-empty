@@ -1,12 +1,11 @@
 import autoBind from "react-autobind";
 import React, { PropTypes } from "react";
-import classnames from "classnames";
 import Link from "../link/link";
 import "./style.css";
 import moment from "moment";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+import { translate } from 'react-i18next';
 
 class SignItem extends React.Component {
   static propTypes = {
@@ -18,14 +17,15 @@ class SignItem extends React.Component {
     autoBind(this);
   }
   renderEmpty() {
+    const { t } = this.props;
     return (
       <div className="no-record">
-        <div>目前还没有班次</div>
+        <div>{t('目前还没有班次')}</div>
       </div>
     );
   }
   renderProjectList(data) {
-      const proid = this.props.proid;
+      const { proid, t } = this.props;
     return (
       <div>
         {data.map((record, index) => {
@@ -34,46 +34,46 @@ class SignItem extends React.Component {
           let timeDom = null;
           if (record.status == 0 || record.status == 1) {
             actionClassName = "project-info-time-wait";
-            actionLabel = "待打卡";
+            actionLabel = t('待打卡');
           } else if (record.status == 6) {
             actionClassName = "project-info-time-pass";
-            actionLabel = "已通过";
+            actionLabel = t('已通过');
           } else if (record.status == 5) {
             actionClassName = "project-info-time-audit";
-            actionLabel = "审核中";
+            actionLabel = t('审核中');
           } else if (record.status == 7) {
             actionClassName = "project-info-time-reject";
-            actionLabel = "被驳回";
+            actionLabel = t('被驳回');
           } else if (record.status == 4) {
             actionClassName = "project-info-time-done";
-            actionLabel = "已签到";
+            actionLabel = t('已签到');
           } else if (record.status == 3 || record.status == 2) {
             actionClassName = "project-info-time-card";
-            actionLabel = "待补卡";
+            actionLabel = t('待补卡');
           }
 
           if (record.status == 6 || record.status == 4) {
             timeDom = (
                   <div className="project-info-time">
-                    获得服务时长&nbsp;&nbsp;
+                    {t('获得服务时长')}&nbsp;&nbsp;
                     <span style={{ color: "#6AC6F8" }}>
-                      {record.user_reward_time}小时
+                      {record.user_reward_time}{t('小时')}
                     </span>
                   </div>
             );
           } else if (record.status == 5){
             timeDom = (
               <div className="project-info-time">
-                预计可获得服务时长&nbsp;&nbsp;
+                {t('预计可获得服务时长')}&nbsp;&nbsp;
                 <span style={{ color: "#6AC6F8" }}>
-                  {record.user_reward_time}小时
+                  {record.user_reward_time}{t('小时')}
                 </span>
               </div>
             );
           } else {
             timeDom = (
               <div className="project-info-time">
-                    预计最多可获得服务时长&nbsp;&nbsp;
+                {t('预计最多可获得服务时长')}&nbsp;&nbsp;
                     <span style={{ color: "#6AC6F8" }}>
                       {record.reward_time}小时
                     </span>
@@ -107,18 +107,17 @@ class SignItem extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
-    console.log(this.props)
+    const { data, t } = this.props;
     if (!data) {
       return null;
     } else if (data && !data.three_day_clock.length && !data.clock.length) {
-      return <div className="page-sign-class-empty-tip">目前还没有班次哟~</div>;
+      return <div className="page-sign-class-empty-tip">{t('目前还没有班次哟~')}</div>;
     }
     return (
       <div className="page-sign-class">
         <div className="component-sign-class">
           {data.three_day_project && data.three_day_project.length > 0 ? (
-            <div className="component-sign-class-title">近3天待打卡班次</div>
+            <div className="component-sign-class-title">{t('近3天待打卡班次')}</div>
           ) : null}
 
           <ul className="sign-list">
@@ -126,7 +125,7 @@ class SignItem extends React.Component {
               <div>{this.renderProjectList(data.three_day_project)}</div>
             ) : null}
             {data.clock && data.clock.length > 0 ? (
-              <div className="component-sign-class-title">所有班次</div>
+              <div className="component-sign-class-title">{t('所有班次')}</div>
             ) : null}
             {data.clock && data.clock.length > 0 ? (
               <div>{this.renderProjectList(data.clock)}</div>
@@ -143,4 +142,4 @@ export default connect(
 
     }),
     dispatch => bindActionCreators({  }, dispatch)
-)(SignItem);
+)(translate('translations')(SignItem));

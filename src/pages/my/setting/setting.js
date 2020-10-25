@@ -10,6 +10,8 @@ import { bindActionCreators } from 'redux';
 import Link from '../../../components/link/link';
 import './setting.css';
 import { logoutAction } from '../login/login.store';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Setting extends React.Component {
 
@@ -31,26 +33,26 @@ class Setting extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const { user } = this.props;
+    const { user, t } = this.props;
     return <div className="page-setting">
         <Link to="/my/forget">
           <div className="page-setting-forget">
             <div className="page-setting-fonts">
-            {user.have_pwd === 0 ? "设置密码" : null}
-            {user.have_pwd === 1 ? "修改密码" : null}
+            {user.have_pwd === 0 ? t('设置密码') : null}
+            {user.have_pwd === 1 ? t('修改密码') : null}
             </div>
             <div className="page-setting-icon" />
           </div>
         </Link>
         <a className="page-setting-quit" onClick={this.props.logoutAction}>
-          退出登录
+          {t('退出登录')}
         </a>
       </div>;
   }
 }
 
 
-Setting.title = '个人中心';
+Setting.title = i18next.t('个人中心');
 
 Setting.propTypes = {
   logoutAction: React.PropTypes.func,
@@ -61,4 +63,4 @@ export default connect(
     user: state.user
   }),
   dispatch => bindActionCreators({ logoutAction }, dispatch)
-)(Setting);
+)(translate('translations')(Setting));

@@ -5,16 +5,15 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Alert from 'react-s-alert';
 import WXShare from '../../components/share';
-import Link from '../../components/link/link';
 import { requestCheckinList, checkin, requestClockList } from '../sign/sign.store';
-import history from '../history';
 
-import { setCookie, isWeChatMiniApp } from '../../utils/funcs';
+import { isWeChatMiniApp } from '../../utils/funcs';
 import { requestHomeData, saveCity, getAreaCity } from '../home/home.store';
 
 import SignItem from '../../components/signItem/index.js'
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class SignPage extends React.Component {
 
@@ -95,7 +94,6 @@ class SignPage extends React.Component {
 
 
   render() {
-    console.log(this.props);
     const { data } = this.props.clocklist;
 
     return <div>
@@ -105,7 +103,7 @@ class SignPage extends React.Component {
   }
 }
 
-SignPage.title = '签到打卡';
+SignPage.title = i18next.t('签到打卡');
 
 SignPage.propTypes = {
   data: PropTypes.shape({
@@ -120,4 +118,4 @@ export default connect(
     clocklist: state.sign.clocklist,
   }),
   dispatch => bindActionCreators({ requestCheckinList, checkin, requestHomeData, saveCity, getAreaCity, requestClockList }, dispatch),
-)(SignPage);
+)(translate('translations')(SignPage));

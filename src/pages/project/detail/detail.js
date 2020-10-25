@@ -26,7 +26,6 @@ import CommunityItem from "../../../components/community_item/index";
 import ShareTip from "../../../components/sharetip/sharetip";
 import ModalNew from "../../../components/posterModal/ModalNew";
 import { PostDataModel_Project } from "../../../components/posterModal/PostDataModel";
-
 import {
     feelingAction,
     observeAction,
@@ -45,6 +44,8 @@ import { requestUserInfo } from "../../../stores/common";
 import history from "../../history";
 import { userCenterAction } from "../../my/my.store";
 import { storeLoginSource } from "../../my/login/login.store";
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class ProjectDetailContent extends React.Component {
     static propTypes = {
@@ -56,23 +57,23 @@ class ProjectDetailContent extends React.Component {
         this.state = {};
     }
     componentWillMount() {
-        const { data: detailData } = this.props;
+        const { data: detailData, t } = this.props;
         var arr = [];
         for (let attr in detailData) {
             if (attr == "service_object_public" && detailData.service_object_public) {
                 const serviceObjects = detailData.service_object
                     .map(obj => obj.service_object_name)
                     .join("、");
-                arr.push({ label: "服务对象", value: serviceObjects, islast: false });
+                arr.push({ label: t('服务对象'), value: serviceObjects, islast: false });
             } else if (attr == "join_end_public" && detailData.join_end_public) {
                 arr.push({
-                    label: "招募截止",
+                    label: t('招募截止'),
                     value: detailData.join_end,
                     islast: false
                 });
             } else if (attr == "begin_public" && detailData.begin_public) {
                 arr.push({
-                    label: "项目日期",
+                    label: t('项目日期'),
                     value: `${parseTimeStringToDateString(
                         detailData.begin
                     )}-${parseTimeStringToDateString(detailData.end)}`,
@@ -83,8 +84,8 @@ class ProjectDetailContent extends React.Component {
                 detailData.reward_time_public
             ) {
                 arr.push({
-                    label: "服务时长",
-                    value: `${detailData.reward_time}小时`,
+                    label: t('服务时长'),
+                    value: `${detailData.reward_time}${t('小时')}`,
                     islast: false
                 });
             } else if (
@@ -92,12 +93,12 @@ class ProjectDetailContent extends React.Component {
                 detailData.contact_phone_public
             ) {
                 arr.push({
-                    label: "联系人姓名",
+                    label: t('联系人姓名'),
                     value: detailData.contact_name,
                     islast: false
                 });
                 arr.push({
-                    label: "联系人电话",
+                    label: t('联系人电话'),
                     value: detailData.contact_phone,
                     islast: false
                 });
@@ -112,8 +113,7 @@ class ProjectDetailContent extends React.Component {
     }
     render() {
         const { content } = this.state;
-        const { data: detailData } = this.props;
-        console.log(content);
+        const { data: detailData, t } = this.props;
         return (
             <div>
                 <div className="project-detail-list">
@@ -121,7 +121,7 @@ class ProjectDetailContent extends React.Component {
                         {content &&
                             content.length > 0 &&
                             content.map((item, index) => {
-                                if (item.label === '联系人电话') {
+                                if (item.label === t('联系人电话')) {
                                     var temphref = `tel:${item.value}`;
                                     return (
                                         <li>
@@ -151,12 +151,12 @@ class ProjectDetailContent extends React.Component {
                     {detailData.volunteer_security_public ? (
                         <div className="project-guard">
                             <img src="/images/icon_safeguard.png" alt="保障" />
-                            <span>志愿保障</span>
+                            <span>{t('志愿保障')}</span>
                             <div className="line1px-v" />
                             <div className="guard-detail">
                                 {detailData.volunteer_security
                                     ? detailData.volunteer_security
-                                    : "无"}
+                                    : t('无')}
                             </div>
                         </div>
                     ) : null}
@@ -171,6 +171,7 @@ class ProjectDetailPage extends React.Component {
         super(props);
         autoBind(this);
         this.projectId = props.route.params.projectId;
+        const {t} = props;
         this.state = {
             showShareTip: false,
             actionSheet: false,
@@ -178,7 +179,7 @@ class ProjectDetailPage extends React.Component {
             menus: [],
             actions: [
                 {
-                    label: "取消",
+                    label: t('取消'),
                     onClick: this.hide
                 }
             ],
@@ -197,16 +198,16 @@ class ProjectDetailPage extends React.Component {
         };
 
         this.dialog = {
-            title: `${this.state.dialogType ? "退出报名" : "登录提示"}`,
+            title: `${this.state.dialogType ? t('退出报名') : t('登录提示')}`,
             buttons: [
                 {
                     type: "default",
-                    label: "取消",
+                    label: t('取消'),
                     onClick: () => this.setState({ ...this.state, showDialog: false })
                 },
                 {
                     type: "primary",
-                    label: "确认",
+                    label: t('确认'),
                     onClick: () => {
                         if (this.state.dialogType) {
                             this.setState({ ...this.state, showDialog: false });
@@ -224,12 +225,13 @@ class ProjectDetailPage extends React.Component {
     }
 
     componentWillMount() {
+      const {t} = this.props;
         if (window.userAgent) {
             this.setState({
                 ...this.state,
                 menus: [
                     {
-                        label: "转发给好友",
+                        label: t('转发给好友'),
                         onClick: () => {
                             this.setState(
                                 {
@@ -242,7 +244,7 @@ class ProjectDetailPage extends React.Component {
                         }
                     },
                     {
-                        label: "分享到朋友圈",
+                        label: t('分享到朋友圈'),
                         onClick: () => {
                             this.setState(
                                 {
@@ -255,7 +257,7 @@ class ProjectDetailPage extends React.Component {
                         }
                     },
                     {
-                        label: "保存海报",
+                        label: t('保存海报'),
                         onClick: () => {
                             this.setState(
                                 {
@@ -274,7 +276,7 @@ class ProjectDetailPage extends React.Component {
                 ...this.state,
                 menus: [
                     {
-                        label: "保存海报",
+                        label: t('保存海报'),
                         onClick: () => {
                             console.log(1222)
                             this.setState(
@@ -349,7 +351,6 @@ class ProjectDetailPage extends React.Component {
         }
         const { deleteFeeling: LdeleteFeeling } = this.props;
         const { deleteFeeling: NdeleteFeeling } = nextProps;
-        console.log(nextProps, this.props);
         // const { detail: {fetching: lastFetch, failed: lastFailed} } = this.props.de;
         // const { detail: {fetching: nextFetch, failed: nextFailed} } = nextProps;
         // if(!lastFailed && lastFetch && !nextFailed && !nextFetch) {
@@ -450,8 +451,9 @@ class ProjectDetailPage extends React.Component {
         const { projectId } = this;
         const realRegister = window.orgInfo.real_name_register;
         const {
-            user,
-            detail: { data: detailData }
+          user,
+          detail: { data: detailData },
+          t,
         } = this.props;
         const customConfig = detailData.custom_config || null;
         const paymentConfig = detailData.custom_payment_config || null;
@@ -540,7 +542,7 @@ class ProjectDetailPage extends React.Component {
                     }
                 }
             } else if (user.isLogin && user.in_blacklist) {
-                Alert.warning("您已被添加到黑名单，请联系客服");
+                Alert.warning(t('您已被添加到黑名单，请联系客服'));
             }
         };
     }
@@ -594,6 +596,7 @@ class ProjectDetailPage extends React.Component {
             "http://wx2.gongyibao.cn/H5page/ProdetailsNew.aspx?id=bf014416-f7c9-49ff-a326-c18e77f223b0";
     }
     renderTwoBtn() {
+      const {t} = this.props;
         return (
             <div className="project-action-main-two">
                 <Link
@@ -601,22 +604,23 @@ class ProjectDetailPage extends React.Component {
                     onClick={this.handleActionClickTwo}
                     className={`project-action-main project-action-main-color`}
                 >
-                    我要捐款
+                  {t('我要捐款')}
                 </Link>
                 <Link
                     to=""
                     onClick={this.handleActionClick("join")}
                     className={`project-action-main project-action-available`}
                 >
-                    我要报名
+                  {t('我要报名')}
                 </Link>
             </div>
         );
     }
     renderBasic() {
         const {
-            detail: { data: detailData, tabIndex },
-            user: { isLogin }
+          detail: { data: detailData, tabIndex },
+          user: { isLogin },
+          t,
         } = this.props;
         const currentProjectId = parseInt(this.projectId, 10);
         const dataProjectId = detailData ? detailData.id : "";
@@ -639,34 +643,34 @@ class ProjectDetailPage extends React.Component {
         let actionClassName = "";
         let action = "";
         if (detailData.activity_status === 3 || detailData.project_status === 5) {
-            actionLabel = "已结束";
+            actionLabel = t('已结束');
             actionClassName = "project-action-end";
         } else if (!joined && detailData.project_status === 4) {
-            actionLabel = "已满员";
+            actionLabel = t('已满员');
             actionClassName = "project-action-full";
         } else if (!joined && detailData.project_status === 3) {
-            actionLabel = "进行中";
+            actionLabel = t('进行中');
             actionClassName = "project-action-full";
         } else if (!joined && detailData.project_status === 6) {
-            actionLabel = "招募截止";
+            actionLabel = t('招募截止');
             actionClassName = "project-action-full";
         } else if (!joined && detailData.project_status > 9) {
-            actionLabel = "项目审核中";
+            actionLabel = t('项目审核中');
             actionClassName = "project-action-full";
         } else if (!joined) {
-            actionLabel = "我要报名";
+            actionLabel = t('我要报名');
             actionClassName = "project-action-available";
             action = "join";
         } else if (isLogin && detailData.join_status === 0 && detailData.join_verify_status === 1) {
-            actionLabel = "等待审核";
+            actionLabel = t('等待审核');
             actionClassName = "project-action-audit";
         } else if (joined) {
-            actionLabel = "我要退出";
+            actionLabel = t('我要退出');
             actionClassName = "project-action-quit";
             action = "quit";
         }
         if (detailData.id === 2129) {
-            actionLabel = "申请助养";
+            actionLabel = t('申请助养');
             action = "join";
         }
         if (detailData.id === 2009) {
@@ -716,11 +720,11 @@ class ProjectDetailPage extends React.Component {
                         </div>
                     ) : null}
 
-                    <ProjectDetailContent data={detailData} />
+                    <ProjectDetailContent data={detailData} t={t} />
 
                     {detailData.people_count_public ? (
                         <div className="project-report">
-                            <span>已录用人数</span>
+                            <span>{t('已录用人数')}</span>
                             <div>
                                 <span>{detailData.join_people_count}</span>/
                                 <span>{detailData.people_count}</span>
@@ -733,12 +737,12 @@ class ProjectDetailPage extends React.Component {
                         />
                     ) : null}
                     <div className="project-description">
-                        <div>项目介绍</div>
+                        <div>{t('项目介绍')}</div>
                         <p
                             dangerouslySetInnerHTML={{
                                 __html: content
                                     ? content.replace(/(\n+)/g, "<br/>")
-                                    : "暂无介绍"
+                                    : t('暂无介绍')
                             }}
                         />
                     </div>
@@ -759,7 +763,7 @@ class ProjectDetailPage extends React.Component {
                                 selected: detailData.collection_status
                             })}
                         />
-                        <span>收藏</span>
+                        <span>{t('收藏')}</span>
                     </Link>
                     <Link
                         to=""
@@ -771,7 +775,7 @@ class ProjectDetailPage extends React.Component {
                         className="project-action project-action-share"
                     >
                         <span />
-                        <span>分享</span>
+                        <span>{t('分享')}</span>
                     </Link>
 
                     {action === "two" ? (
@@ -809,6 +813,7 @@ class ProjectDetailPage extends React.Component {
         this.props.unObserveAction(id);
     }
     renderCommunity() {
+      const {t} = this.props;
         return (
             <div>
                 {this.props.feeling.data &&
@@ -834,7 +839,7 @@ class ProjectDetailPage extends React.Component {
                                 className="page-circle-rendercommunity-img"
                             />
                             <div className="page-circle-rendercommunity-info">
-                                还没有动态信息
+                              {t('还没有动态信息')}
                         </div>
                         </div>
                     )}
@@ -849,7 +854,7 @@ class ProjectDetailPage extends React.Component {
     render() {
         const {
             detail: { data: detailData, tabIndex },
-            user: { isLogin }
+          t
         } = this.props;
 
         const currentProjectId = parseInt(this.projectId, 10);
@@ -863,8 +868,8 @@ class ProjectDetailPage extends React.Component {
             <div className="page-project-detail">
                 <Tab
                     tabs={[
-                        { label: "项目详情", component: this.renderBasic() },
-                        { label: "项目社区", component: this.renderCommunity() }
+                        { label: t('项目详情'), component: this.renderBasic() },
+                        { label: t('项目社区'), component: this.renderCommunity() }
                     ]}
                     onChange={this.onTabChange}
                     selectedIndex={tabIndex}
@@ -886,8 +891,8 @@ class ProjectDetailPage extends React.Component {
                     show={this.state.showDialog}
                 >
                     {this.state.dialogType
-                        ? " 确定要退出项目吗？"
-                        : "只有登录的用户才能点赞和评论哦～"}
+                        ? t('确定要退出项目吗') + '？'
+                        : t('只有登录的用户才能点赞和评论哦～')}
                 </Dialog>
                 {this.renderModal()}
             </div>
@@ -919,7 +924,7 @@ ProjectDetailPage.propTypes = {
     })
 };
 
-ProjectDetailPage.title = "项目详情";
+ProjectDetailPage.title = i18next.t("项目详情");
 
 export default connect(
     state => ({
@@ -949,4 +954,4 @@ export default connect(
             },
             dispatch
         )
-)(ProjectDetailPage);
+)(translate('translations')(ProjectDetailPage));

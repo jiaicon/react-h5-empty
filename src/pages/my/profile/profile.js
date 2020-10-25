@@ -28,18 +28,20 @@ import 'antd-mobile/lib/list/style/css';
 import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 function sexName(sex) {
     if (sex === 1) {
-        return '男';
+        return i18next.t('男');
     } else if (sex === 2) {
-        return '女';
+        return i18next.t('女');
     }
 
-    return '未知';
+    return i18next.t('未知');
 }
 
-const relations = [{ name: '儿子', id: 0 }, { name: '女儿', id: 1 }, { name: '丈夫', id: 2 }, { name: '妻子', id: 3 },
-{ name: '母亲', id: 4 }, { name: '父亲', id: 5 }, { name: '爷爷', id: 6 }, { name: '奶奶', id: 7 }, { name: '其他', id: 8 }];
+const relations = [{ name: i18next.t('儿子'), id: 0 }, { name: i18next.t('女儿'), id: 1 }, { name: i18next.t('丈夫'), id: 2 }, { name: i18next.t('妻子'), id: 3 },
+{ name: i18next.t('母亲'), id: 4 }, { name: i18next.t('父亲'), id: 5 }, { name: i18next.t('爷爷'), id: 6 }, { name: i18next.t('奶奶'), id: 7 }, { name: i18next.t('其他'), id: 8 }];
 
 class Profile extends React.Component {
 
@@ -55,17 +57,18 @@ class Profile extends React.Component {
             showMultiple: false,
             previewData: []
         });
+        const { t } = props;
         this.dialog = {
-            title: '提示',
+            title: t('提示'),
             buttons: [
                 {
                     type: 'default',
-                    label: '取消',
+                    label: t('取消'),
                     onClick: () => this.setState({ ...this.state, showDialog: false })
                 },
                 {
                     type: 'primary',
-                    label: '确认',
+                    label: t('确认'),
                     onClick: () => {
                         this.setState({ ...this.state, showDialog: false });
                         this.alertFamilyPeopleProfile();
@@ -115,27 +118,27 @@ class Profile extends React.Component {
     }
 
     renderRealInfo() {
-        const user = this.props.user;
+        const { user, t } = this.props;
         let num_type = '';
         if (user.num_type) {
             switch (user.num_type) {
                 case 1:
-                    num_type = '内地身份证';
+                    num_type = t('内地居民身份证');
                     break;
                 case 2:
-                    num_type = '香港';
+                    num_type = t('香港居民身份证');
                     break;
                 case 3:
-                    num_type = '澳门';
+                    num_type = t('澳门居民身份证');
                     break;
                 case 4:
-                    num_type = '台湾';
+                    num_type = t('台湾居民身份证');
                     break;
                 case 5:
-                    num_type = '护照';
+                    num_type = t('护照');
                     break;
                 default:
-                    num_type = '内地身份证';
+                    num_type = t('内地居民身份证');
                     break;
             }
         };
@@ -148,12 +151,12 @@ class Profile extends React.Component {
         }
         return (
             <div className="page-profile-bottom-real-info-container">
-                <div className="page-profile-title page-profile-realinfo-padding-top">实名认证信息</div>
+                <div className="page-profile-title page-profile-realinfo-padding-top">{t('实名认证信息')}</div>
                 {
                     user.real_name ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">姓名</div>
+                                <div className="page-profile-fonts">{t('姓名')}</div>
                                 <div className="page-profile-initial-fonts">{user.real_name ? user.real_name : ''}</div>
                             </div>
                             <div className="line1px" />
@@ -164,7 +167,7 @@ class Profile extends React.Component {
                     user.id_number ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">证件类型</div>
+                                <div className="page-profile-fonts">{t('证件类型')}</div>
                                 <div className="page-profile-initial-fonts">{num_type}</div>
                             </div>
                             <div className="line1px" />
@@ -175,7 +178,7 @@ class Profile extends React.Component {
                     user.id_number ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">证件号码</div>
+                                <div className="page-profile-fonts">{t('证件号码')}</div>
                                 <div className="page-profile-initial-fonts">{user.id_number ? user.id_number : ''}</div>
                             </div>
                             <div className="line1px" />
@@ -186,7 +189,7 @@ class Profile extends React.Component {
                     user.birthday ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">出生日期</div>
+                                <div className="page-profile-fonts">{t('出生日期')}</div>
                                 <div className="page-profile-edit-right-box" style={{ justifyContent: 'flex-end' }}>{user.birthday}</div>
                             </div>
                             <div className="line1px" />
@@ -197,7 +200,7 @@ class Profile extends React.Component {
                     user.sex ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">性别</div>
+                                <div className="page-profile-fonts">{t('性别')}</div>
                                 <div className="page-profile-initial-fonts">{user.sex ? sexName(user.sex) : ''}</div>
                             </div>
                             <div className="line1px" />
@@ -208,7 +211,7 @@ class Profile extends React.Component {
                     user.nation ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">民族</div>
+                                <div className="page-profile-fonts">{t('民族')}</div>
                                 <div className="page-profile-initial-fonts">{user.nation ? user.nation : ''}</div>
                             </div>
                             <div className="line1px" />
@@ -219,13 +222,13 @@ class Profile extends React.Component {
                     user.province_name ?
                         <div>
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">现住地址</div>
+                                <div className="page-profile-fonts">{t('现居住地址')}</div>
                                 <div
                                     className="page-profile-initial-fonts">{user.province_name ? user.province_name : ''}-{user.city_name ? user.city_name : ''}-{user.county_name ? user.county_name : ''}</div>
                             </div>
                             <div className="line1px" />
                             <div className="page-profile-header-box">
-                                <div className="page-profile-fonts">详细地址</div>
+                                <div className="page-profile-fonts">{t('详细地址')}</div>
                                 <div className="page-profile-initial-fonts">{user.addr ? user.addr : ''}</div>
                             </div>
                             <div className="line1px" />
@@ -234,10 +237,10 @@ class Profile extends React.Component {
                 }
                 {this.renderRealInfoExtends()}
                 <Link to={bindlink} style={{ marginTop: '41px', width: '100%', display: 'inline-block' }}>
-                    <div className="page-profile-apply-alert">修改资料</div>
+                    <div className="page-profile-apply-alert">{t('修改资料')}</div>
                 </Link>
                 <Link to="/my/profile/applyAlert">
-                    <div style={{ textAlign: 'center', marginTop: '10px', textDecoration: 'underline' }}><a href="javascript:;">需要帮助？</a></div>
+                    <div style={{ textAlign: 'center', marginTop: '10px', textDecoration: 'underline' }}><a href="javascript:;">{t('需要帮助')}？</a></div>
                 </Link>
             </div>
         );
@@ -389,7 +392,7 @@ class Profile extends React.Component {
     }
 
     renderHost() {
-        const user = this.props.user;
+        const { user, t } = this.props;
         let verifyRouter = "/my/profile/verify";
 
         if (window.orgCode === 'oBDbDkxal2') {
@@ -400,9 +403,9 @@ class Profile extends React.Component {
         }
         return <div className="page-profile">
             <div>
-                <div className="page-profile-title">基本信息</div>
+                <div className="page-profile-title">{t('基本信息')}</div>
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">头像</div>
+                    <div className="page-profile-fonts">{t('头像')}</div>
                     <div className="page-profile-header-uploade-box">
                         <UploadAvatar onChange={this.onPhotoChange} avatar={user.avatars} />
                         <div className="page-profile-edit-icon" />
@@ -411,7 +414,7 @@ class Profile extends React.Component {
                 <div className="line1px" />
                 {this.realRegister !== null && this.realRegister.real_name_register ? null :
                     <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">账号</div>
+                        <div className="page-profile-fonts">{t('账号')}</div>
                         <div className="page-profile-edit-box">
                             <div className="page-profile-initial-fonts">
                                 {user.username}
@@ -423,7 +426,7 @@ class Profile extends React.Component {
 
                 <Link to="/my/profile/bind/phone">
                     <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">手机号</div>
+                        <div className="page-profile-fonts">{t('手机号')}</div>
                         <div className="page-profile-edit-box">
                             <div className="page-profile-initial-fonts">
                                 {user.phone || ""}
@@ -436,7 +439,7 @@ class Profile extends React.Component {
 
                 <Link to="/my/profile/bind/mail">
                     <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">邮箱</div>
+                        <div className="page-profile-fonts">{t('邮箱')}</div>
                         <div className="page-profile-edit-box">
                             <div className="page-profile-initial-fonts">
                                 {user.email || ""}
@@ -448,7 +451,7 @@ class Profile extends React.Component {
                 <div className="line1px" />
 
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">志愿者编号</div>
+                    <div className="page-profile-fonts">{t('志愿者编号')}</div>
                     <div className="page-profile-edit-box">
                         <div className="page-profile-initial-fonts">
                             {user.identifier}
@@ -463,7 +466,7 @@ class Profile extends React.Component {
                     window.location.href = "/my/profile/checkbox";
                 }}>
                     <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">个人擅长</div>
+                        <div className="page-profile-fonts">{t('个人擅长')}</div>
                         <div className="page-profile-edit-box">
                             {user.good_at != null ? user.good_at.map(
                                 (item, index) => (
@@ -487,7 +490,7 @@ class Profile extends React.Component {
                 <div>
                     <Link to="/my/profile/edit">
                         <div className="page-profile-header-box">
-                            <div className="page-profile-fonts">志愿者口号</div>
+                            <div className="page-profile-fonts">{t('志愿者口号')}</div>
                             <div className="page-profile-edit-icon" />
                         </div>
                         <div className="page-profile-fonts-view">
@@ -517,7 +520,7 @@ class Profile extends React.Component {
             })}>
                 <Link to={verifyRouter}>
                     <div className="page-profile-bottom-btn">
-                        申请成为实名注册志愿者
+                      {t('申请成为实名注册志愿者')}
               </div>
                 </Link>
             </div>
@@ -572,13 +575,14 @@ class Profile extends React.Component {
     }
 
     alertFamilyPeopleProfile() {
+      const { t } = this.props;
         const data = {};
         let userPassword;
         let relations;
         if (this.alertPassword) {
             userPassword = this.state.userPassword;
             if (userPassword.length <= 5) {
-                Alert.warning('密码最少6位');
+                Alert.warning(t('密码最少6位'));
                 return;
             }
             data.pwd = userPassword;
@@ -598,35 +602,36 @@ class Profile extends React.Component {
         if (!otherFamily.data) {
             return null;
         }
+        const { t } = this.props;
         return (
             <div className="page-profile-header-detail">
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">姓名</div>
+                    <div className="page-profile-fonts">{t('姓名')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.real_name}</div>
                 </div>
                 <div className="line1px" />
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">身份证号</div>
+                    <div className="page-profile-fonts">{t('身份证号')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.id_number.substring(0, 1)}***************{otherFamily.data.id_number.substring(17, 18)}</div>
                 </div>
                 <div className="line1px" />
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">民族</div>
+                    <div className="page-profile-fonts">{t('民族')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.nation}</div>
                 </div>
-                <div className="page-profile-header-line">现居住地址</div>
+                <div className="page-profile-header-line">{t('现居住地址')}</div>
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">省份</div>
+                    <div className="page-profile-fonts">{t('省份')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.province_name}</div>
                 </div>
                 <div className="line1px" />
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">城市</div>
+                    <div className="page-profile-fonts">{t('城市')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.city_name}</div>
                 </div>
                 <div className="line1px" />
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">区县</div>
+                    <div className="page-profile-fonts">{t('区县')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.county_name}</div>
                 </div>
                 {
@@ -635,18 +640,18 @@ class Profile extends React.Component {
                 {
                     otherFamily.data.township_name &&
                     <div className="page-profile-header-box">
-                        <div className="page-profile-fonts">街道</div>
+                        <div className="page-profile-fonts">{t('街道')}</div>
                         <div className="page-profile-edit-right-box">{otherFamily.data.township_name}</div>
                     </div>
                 }
                 <div className="line1px" />
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts">详细地址</div>
+                    <div className="page-profile-fonts">{t('详细地址')}</div>
                     <div className="page-profile-edit-right-box">{otherFamily.data.addr}</div>
                 </div>
                 <div className="page-profile-header-cut"></div>
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts page-profile-fonts-main">密码</div>
+                    <div className="page-profile-fonts page-profile-fonts-main">{t('密码')}</div>
                     <div className="page-profile-edit-right-box">
                         <input type="password" defaultValue="123456" onKeyUp={this.onTextChange} ref={c => {
                             this.userPassword = c
@@ -655,7 +660,7 @@ class Profile extends React.Component {
                 </div>
                 <div className="line1px" />
                 <div className="page-profile-header-box">
-                    <div className="page-profile-fonts page-profile-fonts-main">关系</div>
+                    <div className="page-profile-fonts page-profile-fonts-main">{t('关系')}</div>
                     <div className="page-profile-edit-right-box">
                         <label htmlFor="relations">
                             <select id="relations" onChange={this.handlePeopleClick} ref={(c) => {
@@ -673,10 +678,10 @@ class Profile extends React.Component {
                 {this.renderRealInfoExtends()}
                 <div className="page-profile-edit-btn" onClick={() => {
                     this.setState({ ...this.state, showDialog: true })
-                }}>修改
+                }}>{t('修改')}
                 </div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-                    确定要修改成员信息吗？
+                  {t('确定要修改成员信息吗')}？
                 </Dialog>
             </div>
         )
@@ -716,7 +721,7 @@ class Profile extends React.Component {
 }
 
 
-Profile.title = '个人资料';
+Profile.title = i18next.t('个人资料');
 
 Profile.propTypes = {
     requestUserInfo: PropTypes.func,
@@ -817,4 +822,4 @@ export default connect(
         otherFamilyAction,
         alertFamilyPeopleInfo
     }, dispatch),
-)(Profile);
+)(translate('translations')(Profile));

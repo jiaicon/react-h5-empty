@@ -10,15 +10,14 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { projectAction } from '../my.store';
-
 import Link from '../../../components/link/link';
-
 import classnames from 'classnames';
 import AllPage from './projects_all';
 import WaitPage from './projects_wait';
 import PassPage from './projects_pass';
 import EndPage from './projects_end';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import './projects.css';
 
 const TAB_URL_MAPS = {
@@ -58,7 +57,7 @@ class Projects extends React.Component {
   }
   render() {
     const { page } = this.state;
-    const { path } = this.props.route;
+    const { route: { path }, t } = this.props;
     return (
       <div className="page-projects-container">
         <div style={{ width: '100%', height: '50px' }}>
@@ -70,7 +69,7 @@ class Projects extends React.Component {
                     'page-projects-li-a-div-style': true,
                     active: path === '/my/projects/',
                   })}
-                >全部</div>
+                >{t('全部')}</div>
               </Link>
             </li>
             <li>
@@ -80,7 +79,7 @@ class Projects extends React.Component {
                     'page-projects-li-a-div-style': true,
                     active: path === '/my/projects/wait',
                   })}
-                >待录用</div>
+                >{t('待录用')}</div>
               </Link>
             </li>
             <li>
@@ -90,7 +89,7 @@ class Projects extends React.Component {
                     'page-projects-li-a-div-style': true,
                     active: path === '/my/projects/pass',
                   })}
-                >已录用</div>
+                >{t('已录用')}</div>
               </Link>
             </li>
             <li>
@@ -100,7 +99,7 @@ class Projects extends React.Component {
                     'page-projects-li-a-div-style': true,
                     active: path === '/my/projects/end',
                   })}
-                >已结束</div>
+                >{t('已结束')}</div>
               </Link>
             </li>
           </ul>
@@ -116,7 +115,7 @@ class Projects extends React.Component {
 }
 
 
-Projects.title = '志愿项目';
+Projects.title = i18next.t('志愿项目');
 
 Projects.propTypes = {
   projectAction: PropTypes.func,
@@ -167,4 +166,4 @@ export default connect(
   dispatch => bindActionCreators({
     projectAction,
   }, dispatch),
-)(Projects);
+)(translate('translations')(Projects));

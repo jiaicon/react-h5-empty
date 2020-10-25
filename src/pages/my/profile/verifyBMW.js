@@ -11,8 +11,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import uploadToWX from "../../../utils/wxupload";
 import UploadAvatar from "./../../../components/uploadAvatar/uploadAvatar";
-import UploadPhoto from "./../../../components/uploadPhoto/uploadPhoto";
-import history from "../../history";
 import { requestUserInfo } from "../../../stores/common";
 import Avatar from "../../../components/avatar/avatar";
 import { checkUser, addressDataAction, userDefinedInfo } from "./profile.store";
@@ -30,7 +28,8 @@ import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
 import { cardtype, people } from '../../../utils/config'
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
 
@@ -38,7 +37,7 @@ let isEmpty = false;
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
-    Alert.warning(`请填写${label}`);
+    Alert.warning(`${i18next.t('请填写')}${label}`);
     isEmpty = true;
     return true;
   } else {
@@ -67,7 +66,7 @@ function isRequired(arr, stateData) {
           return true;
         }
       } else {
-        Alert.warning(`请填写${arr[i].label}`);
+        Alert.warning(`${i18next.t('请填写')}${arr[i].label}`);
         isEmpty = true;
         break;
       }
@@ -92,7 +91,7 @@ function checkStr(str) {
 function checkRealname(str) {
   const reg = new RegExp(/^[a-zA-Z\u4e00-\u9fa5_\·\ \-]+$/);
   if (!reg.test(str)) {
-    Alert.warning("请输入中文姓名或英文姓名");
+    Alert.warning(i18next.t('请输入中文姓名或英文姓名'));
     return true;
   }
   return false;
@@ -102,7 +101,7 @@ function checkRealname(str) {
 function iscard(card) {
   const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
   if (!reg.test(card)) {
-    Alert.warning("身份证输入不合法");
+    Alert.warning(i18next.t("身份证输入不合法"));
     return true;
   }
   return false;
@@ -110,7 +109,7 @@ function iscard(card) {
 function isaomencard(card) {
   const reg = /^[1|5|7][0-9]{6}\([0-9Aa]\)/;
   if (!reg.test(card)) {
-    Alert.warning("身份证输入不合法");
+    Alert.warning(i18next.t("身份证输入不合法"));
     return true;
   }
   return false;
@@ -118,7 +117,7 @@ function isaomencard(card) {
 function isxiangancard(card) {
   const reg = /^((\s?[A-Za-z])|([A-Za-z]{2}))\d{6}(([0−9aA])|([0-9aA]))$/;
   if (!reg.test(card)) {
-    Alert.warning("身份证输入不合法");
+    Alert.warning(i18next.t("身份证输入不合法"));
     return true;
   }
   return false;
@@ -126,7 +125,7 @@ function isxiangancard(card) {
 function istaiwancard(card) {
   const reg = /^[a-zA-Z][0-9]{9}$/;
   if (!reg.test(card)) {
-    Alert.warning("身份证输入不合法");
+    Alert.warning(i18next.t("身份证输入不合法"));
     return true;
   }
   return false;
@@ -275,7 +274,7 @@ class Verify extends React.Component {
       county,
       password
     } = this.state;
-    const { user } = this.props;
+    const { user, t } = this.props;
 
     let data = {};
 
@@ -289,22 +288,22 @@ class Verify extends React.Component {
     console.info(filterArr, extendsObj)
 
     if (extendsObj.employee_id && !(/^[a-zA-Z]\w{5,6}$/.test(extendsObj.employee_id))) {
-      Alert.warning(`员工号有误，请检查`);
+      Alert.warning(t('员工号有误，请检查'));
       return;
     }
     data.extends = extendsObj;
 
     if (
-      (stateOrgData.open_avatars && checkEmpty(photo, "头像")) ||
-      (stateOrgData.open_real_name && checkEmpty(realname, "姓名")) ||
-      (stateOrgData.open_id_number && checkEmpty(idcard, "证件号码")) ||
-      (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
-      (stateOrgData.open_addr && checkEmpty(province, "省份")) ||
-      (stateOrgData.open_addr && checkEmpty(city, "城市")) ||
-      (stateOrgData.open_addr && checkEmpty(county, "区县")) ||
-      (stateOrgData.open_addr && checkEmpty(address, "工作地点")) ||
+      (stateOrgData.open_avatars && checkEmpty(photo, t('头像'))) ||
+      (stateOrgData.open_real_name && checkEmpty(realname, t('姓名'))) ||
+      (stateOrgData.open_id_number && checkEmpty(idcard, t('证件号码'))) ||
+      (stateOrgData.open_nation && checkEmpty(people, t('民族'))) ||
+      (stateOrgData.open_addr && checkEmpty(province, t('省份'))) ||
+      (stateOrgData.open_addr && checkEmpty(city, t('城市'))) ||
+      (stateOrgData.open_addr && checkEmpty(county, t('区县'))) ||
+      (stateOrgData.open_addr && checkEmpty(address, t('工作地点'))) ||
       (stateOrgData.open_real_name && checkRealname(realname)) ||
-      (user.have_pwd == 0 && checkEmpty(password, "密码"))
+      (user.have_pwd == 0 && checkEmpty(password, t('密码')))
     ) {
     }
     if (stateOrgData.open_id_number) {
@@ -395,6 +394,7 @@ class Verify extends React.Component {
   }
 
   renderAvatars() {
+    const { t } = this.props;
     return (
       <div>
         <div className="page-my-profile-verify-header-box page-my-profile-verify-photo-box">
@@ -402,7 +402,7 @@ class Verify extends React.Component {
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
 
-          <div className="page-my-profile-verify-fonts">头像</div>
+          <div className="page-my-profile-verify-fonts">{t('头像')}</div>
           <UploadAvatar onChange={this.onAvatarChange} />
         </div>
         <div className="line1px" />
@@ -411,13 +411,14 @@ class Verify extends React.Component {
   }
 
   renderName() {
+    const { t } = this.props;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
           {this.state.winOrgInfo.open_real_name === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
-          <div className="page-my-profile-verify-fonts">姓名</div>
+          <div className="page-my-profile-verify-fonts">{t('姓名')}</div>
           <input
             type="text"
             ref={c => {
@@ -433,13 +434,14 @@ class Verify extends React.Component {
   }
 
   renderIdCard() {
+    const { t } = this.props;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
           {this.state.winOrgInfo.open_id_number === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
-          <div className="page-my-profile-verify-fonts">证件类型</div>
+          <div className="page-my-profile-verify-fonts">{t('证件类型')}</div>
           <label htmlFor="cardtype">
             <select
 
@@ -464,7 +466,7 @@ class Verify extends React.Component {
           {this.state.winOrgInfo.open_id_number === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
-          <div className="page-my-profile-verify-fonts">证件号码</div>
+          <div className="page-my-profile-verify-fonts">{t('证件号码')}</div>
           <input
             type="text"
             maxLength="18"
@@ -481,6 +483,7 @@ class Verify extends React.Component {
   }
 
   renderNation() {
+    const { t } = this.props;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
@@ -488,7 +491,7 @@ class Verify extends React.Component {
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
 
-          <div className="page-my-profile-verify-fonts">民族</div>
+          <div className="page-my-profile-verify-fonts">{t('民族')}</div>
           <label htmlFor="people">
             <select
               id="people"
@@ -513,6 +516,7 @@ class Verify extends React.Component {
   }
 
   renderAddr() {
+    const { t } = this.props;
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
     const county = this.props.address.data.county;
@@ -524,7 +528,7 @@ class Verify extends React.Component {
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
 
-            <div className="page-my-profile-verify-fonts">省份</div>
+            <div className="page-my-profile-verify-fonts">{t('省份')}</div>
             <label htmlFor="province">
               <select
                 id="province"
@@ -548,7 +552,7 @@ class Verify extends React.Component {
             {this.state.winOrgInfo.open_addr === 1 ? (
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
-            <div className="page-my-profile-verify-fonts">城市</div>
+            <div className="page-my-profile-verify-fonts">{t('城市')}</div>
             <label htmlFor="city">
               <select
                 id="city"
@@ -572,7 +576,7 @@ class Verify extends React.Component {
             {this.state.winOrgInfo.open_addr === 1 ? (
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
-            <div className="page-my-profile-verify-fonts">区县</div>
+            <div className="page-my-profile-verify-fonts">{t('区县')}</div>
             <label htmlFor="county">
               <select
                 id="county"
@@ -596,7 +600,7 @@ class Verify extends React.Component {
             {this.state.winOrgInfo.open_addr === 1 ? (
               <span className="page-my-profile-verify-header-start">*</span>
             ) : null}
-            <div className="page-my-profile-verify-fonts">工作地点</div>
+            <div className="page-my-profile-verify-fonts">{t('工作地点')}</div>
             <input
               type="text"
               ref={c => {
@@ -1053,14 +1057,14 @@ class Verify extends React.Component {
     });
   }
   renderPassword() {
-    const { user } = this.props;
+    const { user, t } = this.props;
     return (
       <div>
         {user.have_pwd == 0 ? (
           <div>
             <div className="page-my-profile-verify-header-box">
               <span className="page-my-profile-verify-header-start">*</span>
-              <div className="page-my-profile-verify-fonts">设置密码</div>
+              <div className="page-my-profile-verify-fonts">{t('设置密码')}</div>
               <input
                 type="text"
                 ref={c => {
@@ -1216,7 +1220,7 @@ class Verify extends React.Component {
   }
 }
 
-Verify.title = "完善个人资料";
+Verify.title = i18next.t("完善个人资料");
 Verify.propTypes = {
   checkUser: PropTypes.func,
   requestUserInfo: PropTypes.func,
@@ -1293,4 +1297,4 @@ export default connect(
       },
       dispatch
     )
-)(Verify);
+)(translate('translations')(Verify));

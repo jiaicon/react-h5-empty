@@ -8,18 +8,19 @@ import autoBind from 'react-autobind';
 import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Link from '../../../components/link/link';
-import history from '../../history';
 import './forget.css';
 import { forgetAction, againVerifyCode } from './login.store';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Forget extends React.Component {
 
   constructor(props) {
     super(props);
     autoBind(this);
+    const { t } = props;
     this.state = {
-      buttonString: '获取',
+      buttonString: t('获取'),
       timer: null,
       countDownTrigger: true,
     };
@@ -55,8 +56,9 @@ class Forget extends React.Component {
   componentWillUnmount() {
     const timer = this.state.timer;
     clearInterval(timer);
+    const { t } = this.props;
     this.setState({
-      buttonString: '获取',
+      buttonString: t('获取'),
       timer: null,
     });
   }
@@ -77,9 +79,10 @@ class Forget extends React.Component {
       });
       if (num === 0) {
         clearInterval(timer);
+        const { t } = this.props;
         that.setState({
           ...this.state,
-          buttonString: '获取',
+          buttonString: t('获取'),
           timer: null,
           countDownTrigger: true,
         });
@@ -98,14 +101,15 @@ class Forget extends React.Component {
     });
   }
   onSend() {
+    const { t } = this.props;
     const phone = this.state.phone;
     const countDownTrigger = this.state.countDownTrigger;
     const data = {};
     if (phone && !/^\d{11}$/.test(phone)) {
-      Alert.warning('请输入合法的手机号');
+      Alert.warning(t('请输入合法的手机号'));
       return;
     } else if (!phone) {
-      Alert.warning('请输入手机号');
+      Alert.warning(t('请输入手机号'));
       return;
     }
     data.phone = phone;
@@ -125,16 +129,16 @@ class Forget extends React.Component {
     this.props.forgetAction(data);
   }
   render() {
-    const { user } = this.props;
+    const { user, t } = this.props;
     const buttonString = this.state.buttonString;
     return <div className="page-forget">
         <div className="page-forget-top">
-          {user.have_pwd === 0 ? "设置密码" : null}
-          {user.have_pwd === 1 ? "修改密码" : null}
+          {user.have_pwd === 0 ? t('设置密码') : null}
+          {user.have_pwd === 1 ? t('修改密码') : null}
         </div>
         <div className="page-forget-item">
           <label htmlFor="phone">
-            <span className="page-forget-fonts">手机号</span>
+            <span className="page-forget-fonts">{t('手机号')}</span>
             <input className="page-forget-input" type="number" id="phone" maxLength="11" ref={c => {
                 this.phone = c;
               }} onChange={this.onTextChanged} />
@@ -142,7 +146,7 @@ class Forget extends React.Component {
         </div>
         <div className="page-forget-item">
           <label htmlFor="verifyCode">
-            <span className="page-forget-fonts">验证码</span>
+            <span className="page-forget-fonts">{t('验证码')}</span>
             <input className="page-forget-input" id="verifyCode" type="number" ref={c => {
                 this.verifyCode = c;
               }} onChange={this.onTextChanged} />
@@ -153,7 +157,7 @@ class Forget extends React.Component {
         </div>
         <div className="page-forget-item">
           <label htmlFor="password">
-            <span className="page-forget-fonts">新密码</span>
+            <span className="page-forget-fonts">{t('新密码')}</span>
             <input className="page-forget-input" id="password" type="password" ref={c => {
                 this.pwd = c;
               }} onChange={this.onTextChanged} />
@@ -161,13 +165,13 @@ class Forget extends React.Component {
         </div>
 
         <div className="page-forget-submmit" onClick={this.onSubmit}>
-          {user&&user.have_pwd === 1 ? "确认修改" : "确认设置"}
+          {user&&user.have_pwd === 1 ? t('确认修改') : t('确认设置')}
         </div>
       </div>;
   }
 }
 
-Forget.title = '密码管理';
+Forget.title = i18next.t('密码管理');
 
 Forget.propTypes = {
   againVerifyCode: PropTypes.func,
@@ -195,4 +199,4 @@ export default connect(
     forget: state.login.forget,
   }),
   dispatch => bindActionCreators({ againVerifyCode, forgetAction }, dispatch),
-)(Forget);
+)(translate('translations')(Forget));

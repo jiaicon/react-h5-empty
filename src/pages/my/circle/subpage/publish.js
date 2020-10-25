@@ -9,19 +9,13 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Alert from 'react-s-alert';
-
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import './publish.css';
-import Link from '../../../../components/link/link';
-
-import Avatar from '../../../../components/avatar/avatar';
 import { upFeelingAction } from '../circle.store';
 import { saveProjectTabIndex } from '../../../project/detail/detail.store';
 import { saveTeamTabIndex } from '../../../team/detail/detail.store';
 import UploadPhoto from '../../../../components/uploadPhoto/uploadPhoto';
-import history from '../../../history';
-
 
 class CirclePublish extends React.Component {
 
@@ -119,6 +113,7 @@ class CirclePublish extends React.Component {
         })
     }
   render() {
+    const { t } = this.props;
     return (
       <div className="page-circlepublish-container">
         <textarea
@@ -129,7 +124,7 @@ class CirclePublish extends React.Component {
         <div className="page-circlepublish-images-container">
             <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={9} />
         </div>
-        <div className="page-circlepublish-btn" onClick={this.onPublish}>发表</div>
+        <div className="page-circlepublish-btn" onClick={this.onPublish}>{t('发表')}</div>
 
       </div>
     );
@@ -137,7 +132,7 @@ class CirclePublish extends React.Component {
 }
 
 
-CirclePublish.title = '动态发布';
+CirclePublish.title = i18next.t('发布动态');
 
 CirclePublish.propTypes = {
 
@@ -154,5 +149,5 @@ export default connect(
   }),
   dispatch => bindActionCreators({ upFeelingAction, saveTeamTabIndex, saveProjectTabIndex },
     dispatch),
-)(CirclePublish);
+)(translate('translations')(CirclePublish));
 

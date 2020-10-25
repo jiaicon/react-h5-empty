@@ -10,9 +10,8 @@ import autoBind from "react-autobind";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
-import history from "../history";
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import { userCenterAction, userAchieve } from "./my.store";
 import { logoutAction } from './login/login.store';
 import { requestUserInfo } from "../../stores/common";
@@ -24,7 +23,6 @@ import { Dialog, Gallery, GalleryDelete, Button, Icon } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
 import "./my.css";
-import Image from '../../components/image/image'
 
 // 机构码
 const orgCode = window.orgCode;
@@ -92,7 +90,7 @@ class MyPage extends React.Component {
     });
   }
   renderPageMyphotoTemplate() {
-    const { user } = this.props;
+    const { user, t } = this.props;
     return (
       <div className="page-my-photo-container">
         <Avatar
@@ -104,10 +102,10 @@ class MyPage extends React.Component {
         />
         <div className="page-my-user-info">
           <p className="page-my-user-info-nick">
-            {user.real_name || user.username || "未设置昵称"}
+            {user.real_name || user.username || t("未设置昵称")}
           </p>
           <p className="page-my-user-info-signature">
-            {user.slogan || "未设置口号"}
+            {user.slogan || t("未设置口号")}
           </p>
           <div className="page-my-user-info-star">
             {user.stars ? (
@@ -122,7 +120,7 @@ class MyPage extends React.Component {
     );
   }
   renderPageMyRecordTemplate() {
-    const { user } = this.props;
+    const { t } = this.props;
     return (
       <div className="page-my-record-container">
         <Link to="/my/teams">
@@ -135,7 +133,7 @@ class MyPage extends React.Component {
               </b>
               个
             </p>
-            <p className="page-my-record-item-bottom">我的团队</p>
+            <p className="page-my-record-item-bottom">{t('我的团队')}</p>
           </div>
         </Link>
 
@@ -149,7 +147,7 @@ class MyPage extends React.Component {
               </b>
               个
             </p>
-            <p className="page-my-record-item-bottom">我的项目</p>
+            <p className="page-my-record-item-bottom">{t('我的项目')}</p>
           </div>
         </Link>
         <Link to="/my/duration">
@@ -160,9 +158,9 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.user.reward_time}
               </b>
-              小时
+              {t('小时')}
             </p>
-            <p className="page-my-record-item-bottom">服务时长</p>
+            <p className="page-my-record-item-bottom">{t('服务时长(center)')}</p>
           </div>
         </Link>
         {/* <!-- 积分入口 --> */}
@@ -175,11 +173,11 @@ class MyPage extends React.Component {
                     ? 0
                     : this.props.usercenter.data.user.score}
                 </b>{" "}
-                {scoreName || "星币"}
+                {scoreName || t('星币(center)')}
               </p>
               <p className="page-my-record-item-bottom">
                 {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || "志愿"}
-                {scoreName || "星币"}
+                {scoreName || t('星币(center)')}
               </p>
             </div>
           </Link>
@@ -314,7 +312,7 @@ class MyPage extends React.Component {
   }
 
   renderPageMyRecordTemplate() {
-    const { user } = this.props;
+    const { user, t } = this.props;
     return (
       <div className="page-my-record-container">
         <Link to="/my/teams">
@@ -325,9 +323,9 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.team_count}
               </b>
-              个
+              {t('个')}
             </p>
-            <p className="page-my-record-item-bottom">我的团队</p>
+            <p className="page-my-record-item-bottom">{t('我的团队')}</p>
           </div>
         </Link>
 
@@ -339,9 +337,9 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.project_count}
               </b>
-              个
+              {t('个')}
             </p>
-            <p className="page-my-record-item-bottom">我的项目</p>
+            <p className="page-my-record-item-bottom">{t('我的项目')}</p>
           </div>
         </Link>
         <Link to="/my/duration">
@@ -352,9 +350,9 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.user.reward_time}
               </b>
-              小时
+              {t('小时')}
             </p>
-            <p className="page-my-record-item-bottom">服务时长</p>
+            <p className="page-my-record-item-bottom">{t('服务时长')}</p>
           </div>
         </Link>
         {/* <!-- 积分入口 --> */}
@@ -367,11 +365,11 @@ class MyPage extends React.Component {
                     ? 0
                     : this.props.usercenter.data.user.score}
                 </b>{" "}
-                {scoreName || "星币"}
+                {scoreName || t('星币')}
               </p>
               <p className="page-my-record-item-bottom">
-                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || "志愿"}
-                {scoreName || "星币"}
+                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || t('志愿')}
+                {scoreName || t('星币')}
               </p>
             </div>
           </Link>
@@ -403,7 +401,7 @@ class MyPage extends React.Component {
   }
 
   renderPageMyContainer() {
-    const { user } = this.props;
+    const { t } = this.props;
     return (
       <div>
         <ul className="page-my-item-container">
@@ -413,7 +411,7 @@ class MyPage extends React.Component {
                 <Link to="/my/fundingApplication/list">
                   <div className="page-my-item-box">
                     <i className="page-my-item-icon page-my-item-icon-fundingApplication" />
-                    社区友好基金
+                    {t('社区友好基金')}
                   </div>
                   <span className="page-my-item-big" />
                 </Link>
@@ -437,7 +435,7 @@ class MyPage extends React.Component {
                       />
                     )}
                   </i>
-                  我的志愿圈
+                  {t('我的志愿圈')}
                 </div>
                 <span className="page-my-item-big" />
               </Link>
@@ -450,7 +448,7 @@ class MyPage extends React.Component {
               <Link to="/my/messages">
                 <div className="page-my-item-box">
                   {this.renderPageMymessagesTemplate()}
-                  我的消息
+                  {t('我的消息')}
                   {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
                 </div>
                   <div style={{display: 'flex', alignItems: 'center'}}>
@@ -470,7 +468,7 @@ class MyPage extends React.Component {
               <Link to="/my/profile/detail/user">
                 <div className="page-my-item-box">
                   <i className="page-my-item-icon page-my-item-icon-data" />
-                  个人资料
+                  {t('个人资料')}
                 </div>
                 <span className="page-my-item-big" />
               </Link>
@@ -484,7 +482,7 @@ class MyPage extends React.Component {
                   <Link to={window.orgCode === "mWZdPNwaKg" ? "/my/certificateBMW":"/my/certificate"} >
                     <div className="page-my-item-box">
                       <i className="page-my-item-icon page-my-item-icon-certificate" />
-                      我的证书
+                      {t('我的证书')}
                     </div>
                     <span className="page-my-item-big" />
                   </Link>
@@ -499,7 +497,7 @@ class MyPage extends React.Component {
                 <Link to="/my/family">
                   <div className="page-my-item-box">
                     <i className="page-my-item-icon page-my-item-icon-family" />
-                    我的家庭
+                    {t('我的家庭')}
                   </div>
                   <span className="page-my-item-big" />
                 </Link>
@@ -512,7 +510,7 @@ class MyPage extends React.Component {
               <Link to="/my/collects">
                 <div className="page-my-item-box">
                   <i className="page-my-item-icon page-my-item-icon-like" />
-                  我的收藏
+                  {t('我的收藏')}
                 </div>
                 <span className="page-my-item-big" />
               </Link>
@@ -526,7 +524,7 @@ class MyPage extends React.Component {
                 <Link to="/my/duration/applys">
                   <div className="page-my-item-box">
                     <i className="page-my-item-icon page-my-item-icon-applys" />
-                    申请服务时长
+                    {t('申请服务时长')}
                   </div>
                   <span className="page-my-item-big" />
                 </Link>
@@ -542,7 +540,7 @@ class MyPage extends React.Component {
                 <Link to="/my/service">
                   <div className="page-my-item-box">
                     <i className="page-my-item-icon page-my-item-icon-service" />
-                    服务中心
+                    {t('服务中心')}
                   </div>
                   <span className="page-my-item-big" />
                 </Link>
@@ -555,7 +553,7 @@ class MyPage extends React.Component {
               <Link to="/my/setting">
                 <div className="page-my-item-box">
                   <i className="page-my-item-icon page-my-item-icon-setting" />
-                  设置
+                  {t('设置')}
                 </div>
                 <span className="page-my-item-big" />
               </Link>
@@ -574,7 +572,7 @@ class MyPage extends React.Component {
   }
 
   renderCommonwealLevel() {
-    const { userAchieveList, user } = this.props;
+    const { userAchieveList, user, t } = this.props;
     const height = [18, 37, 57, 78, 104, 126];
     let now_label = {
       name: ""
@@ -629,15 +627,15 @@ class MyPage extends React.Component {
         </div>
         <div className="commonweal-box-level">
           <div>
-            <p style={{ textAlign: "left" }}>当前等级</p>
+            <p style={{ textAlign: "left" }}>{t('当前等级')}</p>
             <p>
               {now_label.name === ""
-                ? "暂无等级"
+                ? t('暂无等级')
                 : `Lv.${now_label.level} ${now_label.name}`}
             </p>
           </div>
           <div>
-            <p style={{ textAlign: "right" }}>成长值</p>
+            <p style={{ textAlign: "right" }}>{t('成长值')}</p>
             <p>{`${
               next_label === null
                 ? user.growth
@@ -674,7 +672,7 @@ class MyPage extends React.Component {
         </div>
         <div className="line1px" />
         <div className="commonweal-box-growUp">
-          <div className="commonweal-box-growUp-word">成长体系</div>
+          <div className="commonweal-box-growUp-word">{t('成长体系')}</div>
           <div className="commonweal-box-growUp-box">
             {userAchieveList &&
               userAchieveList.data &&
@@ -712,10 +710,10 @@ class MyPage extends React.Component {
           </div>
         </div>
         <div className="commonweal-box-growUp-more">
-          您可以通过更多志愿行为来获得成长值
+          {t('您可以通过更多志愿行为来获得成长值')}
         </div>
         <div className="commonweal-box-growUp-red" onClick={this.instruction}>
-          查看成长值获得方法
+          {t('查看成长值获得方法')}
         </div>
       </div>
     );
@@ -736,7 +734,7 @@ class MyPage extends React.Component {
   renderInstruction() {
     const {
       userAchieveList: { data: udata },
-      user
+      t
     } = this.props;
     if (!udata) {
       return null;
@@ -751,16 +749,16 @@ class MyPage extends React.Component {
         >
           <img src="/images/my/delete.png" alt="" />
         </div>
-        <div className="commonweal-box-instruction-how">如何获得成长值？</div>
+        <div className="commonweal-box-instruction-how">{t('如何获得成长值')}？</div>
         <div className="commonweal-box-instruction-list">
-          下列操作可以帮你获得成长值：
+          {t('下列操作可以帮你获得成长值')}：
         </div>
         <div className="commonweal-box-instruction-table">
           <table>
             <thead>
               <tr>
-                <td>操作</td>
-                <td>获得成长值</td>
+                <td>{t('操作')}</td>
+                <td>{t('获得成长值')}</td>
               </tr>
             </thead>
             <tbody>
@@ -777,7 +775,7 @@ class MyPage extends React.Component {
           className="commonweal-box-instruction-btn"
           onClick={this.closeModalNewInstruction}
         >
-          我知道了
+          {t('我知道了')}
         </div>
       </div>
     );
@@ -847,7 +845,7 @@ class MyPage extends React.Component {
           <div>
             <div className="page-my-line" />
             <a className="page-setting-quit" onClick={this.props.logoutAction}>
-              退出登录
+              {t('退出登录')}
             </a>
           </div>
         ) : null}
@@ -856,7 +854,7 @@ class MyPage extends React.Component {
   }
 }
 
-MyPage.title = "个人中心";
+MyPage.title = i18next.t("个人中心");
 
 MyPage.propTypes = {
   userCenterAction: PropTypes.func,
@@ -939,5 +937,5 @@ export default connect(
       },
       dispatch
     )
-)(MyPage);
+)(translate('translations')(MyPage));
 

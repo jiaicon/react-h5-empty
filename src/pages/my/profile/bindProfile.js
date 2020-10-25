@@ -10,17 +10,13 @@ import autoBind from "react-autobind";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import uploadToWX from "../../../utils/wxupload";
-import UploadAvatar from "./../../../components/uploadAvatar/uploadAvatar";
 import { requestUserInfo } from "../../../stores/common";
 import Avatar from "../../../components/avatar/avatar";
 import { addressDataAction } from "./profile.store";
 import { checkEdit } from "./../my.store";
-
-import { getQueryString } from "../../../utils/funcs";
 import uploadImage from "../../../utils/uploadImage";
 import "./verify.css";
 import { List, Checkbox, DatePicker, Radio, InputItem } from "antd-mobile";
-
 import "antd-mobile/lib/date-picker/style/css";
 import "antd-mobile/lib/checkbox/style/css";
 import "antd-mobile/lib/Radio/style/css";
@@ -33,12 +29,13 @@ import { cardtype, people } from '../../../utils/config';
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
 import monemt from "moment";
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 let isEmpty = false;
 
 function checkEmpty(value, label) {
     if (!value || !value.length) {
-        Alert.warning(`请填写${label}`);
+        Alert.warning(`${i18next.t('请填写')}${label}`);
         isEmpty = true;
         return true;
     } else {
@@ -266,14 +263,14 @@ class BindInfo extends React.Component {
             township,
             birthday,
         } = this.state;
-        const { user } = this.props;
+        const { user, t } = this.props;
         if (
-            (stateOrgData.open_nation && checkEmpty(people, "民族")) ||
-            (stateOrgData.open_addr && checkEmpty(`${province}`, "省份")) ||
-            (stateOrgData.open_addr && checkEmpty(`${city}`, "城市")) ||
-            (stateOrgData.open_addr && checkEmpty(`${county}`, "区县")) ||
-            (stateOrgData.open_addr && window.orgInfo.area_level === 4 && checkEmpty(township, "街道")) ||
-            (stateOrgData.open_addr && checkEmpty(`${address}`, "详细地址"))
+            (stateOrgData.open_nation && checkEmpty(people, t('民族'))) ||
+            (stateOrgData.open_addr && checkEmpty(`${province}`, t('省份'))) ||
+            (stateOrgData.open_addr && checkEmpty(`${city}`, t('城市'))) ||
+            (stateOrgData.open_addr && checkEmpty(`${county}`, t('区县'))) ||
+            (stateOrgData.open_addr && window.orgInfo.area_level === 4 && checkEmpty(township, t('街道'))) ||
+            (stateOrgData.open_addr && checkEmpty(`${address}`, t('详细地址')))
         ) {
             return;
         }
@@ -350,11 +347,11 @@ class BindInfo extends React.Component {
     }
 
     renderName() {
-        const { user } = this.props;
+        const { user, t } = this.props;
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
-                    <div className="page-my-profile-verify-fonts">姓名</div>
+                    <div className="page-my-profile-verify-fonts">{t('姓名')}</div>
                     <div className="padding-left-15">{user.real_name || user.username}</div>
                 </div>
                 <div className="line1px" />
@@ -363,17 +360,17 @@ class BindInfo extends React.Component {
     }
 
     renderIdCard() {
-        const { user } = this.props;
+        const { user, t } = this.props;
         const num_typeArr = cardtype.filter(v => Number(v.id) === Number(user.num_type));
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
-                    <div className="page-my-profile-verify-fonts">证件类型</div>
+                    <div className="page-my-profile-verify-fonts">{t('证件类型')}</div>
                     <div className="padding-left-15">{num_typeArr[0].name}</div>
                 </div>
                 <div className="line1px" />
                 <div className="page-my-profile-verify-header-box">
-                    <div className="page-my-profile-verify-fonts">证件号码</div>
+                    <div className="page-my-profile-verify-fonts">{t('证件号码')}</div>
                     <div className="padding-left-15">{user.id_number}</div>
                 </div>
                 <div className="line1px" />
@@ -382,12 +379,12 @@ class BindInfo extends React.Component {
     }
     //出生日期  需判断用户的证件类型，18位的不可修改
     renderBirthday() {
-        const { user } = this.props;
+        const { user, t } = this.props;
         if (user.num_type && user.num_type == 1) {
             return (
                 <div>
                     <div className="page-my-profile-verify-header-box">
-                        <div className="page-my-profile-verify-fonts">出生日期</div>
+                        <div className="page-my-profile-verify-fonts">{t('出生日期')}</div>
                         <div className="padding-left-15">{user.birthday}</div>
                     </div>
                     <div className="line1px" />
@@ -399,14 +396,14 @@ class BindInfo extends React.Component {
                     <div className="page-my-profile-verify-header-box default-picker">
                         <DatePicker
                             mode="date"
-                            title="选择出生日期"
+                            title={t('请选择出生日期')}
                             minDate={new Date('1870-01-01')}
                             maxDate={new Date()}
                             value={new Date(this.state.birthday || user.birthday)}
-                            extra="请选择出生日期"
+                            extra={t('请选择出生日期')}
                             onChange={date => this.setState({ birthday: date })}
                         >
-                            <List.Item arrow="horizontal">出生日期</List.Item>
+                            <List.Item arrow="horizontal">{t('出生日期')}</List.Item>
                         </DatePicker>
                     </div>
                     <div className="line1px" />
@@ -415,7 +412,7 @@ class BindInfo extends React.Component {
         }
     }
     renderNation() {
-        const { user } = this.props;
+        const { user, t } = this.props;
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
@@ -423,7 +420,7 @@ class BindInfo extends React.Component {
                         <span className="page-my-profile-verify-header-start">*</span>
                     ) : null}
 
-                    <div className="page-my-profile-verify-fonts">民族</div>
+                    <div className="page-my-profile-verify-fonts">{t('民族')}</div>
                     <label htmlFor="people">
                         <select
                             id="people"
@@ -449,7 +446,7 @@ class BindInfo extends React.Component {
     }
 
     renderAddr() {
-        const { user } = this.props;
+        const { user, t } = this.props;
         const province = this.props.address.data.province;
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
@@ -461,7 +458,7 @@ class BindInfo extends React.Component {
                         {this.state.winOrgInfo.open_addr === 1 ? (
                             <span className="page-my-profile-verify-header-start">*</span>
                         ) : null}
-                        <div className="page-my-profile-verify-fonts">省份</div>
+                        <div className="page-my-profile-verify-fonts">{t('省份')}</div>
                         <label htmlFor="province">
                             <select
                                 id="province"
@@ -486,7 +483,7 @@ class BindInfo extends React.Component {
                         {this.state.winOrgInfo.open_addr === 1 ? (
                             <span className="page-my-profile-verify-header-start">*</span>
                         ) : null}
-                        <div className="page-my-profile-verify-fonts">城市</div>
+                        <div className="page-my-profile-verify-fonts">{t('城市')}</div>
                         <label htmlFor="city">
                             <select
                                 id="city"
@@ -511,7 +508,7 @@ class BindInfo extends React.Component {
                         {this.state.winOrgInfo.open_addr === 1 ? (
                             <span className="page-my-profile-verify-header-start">*</span>
                         ) : null}
-                        <div className="page-my-profile-verify-fonts">区县</div>
+                        <div className="page-my-profile-verify-fonts">{t('区县')}</div>
                         <label htmlFor="county">
                             <select
                                 id="county"
@@ -539,7 +536,7 @@ class BindInfo extends React.Component {
                             {this.state.winOrgInfo.open_addr === 1 ? (
                                 <span className="page-my-profile-verify-header-start">*</span>
                             ) : null}
-                            <div className="page-my-profile-verify-fonts">街道</div>
+                            <div className="page-my-profile-verify-fonts">{t('街道')}</div>
                             <label htmlFor="township">
                                 <select
                                     id="township"
@@ -565,7 +562,7 @@ class BindInfo extends React.Component {
                         {this.state.winOrgInfo.open_addr === 1 ? (
                             <span className="page-my-profile-verify-header-start">*</span>
                         ) : null}
-                        <div className="page-my-profile-verify-fonts">详细地址</div>
+                        <div className="page-my-profile-verify-fonts">{t('详细地址')}</div>
                         <input
                             type="text"
                             ref={c => {
@@ -1005,7 +1002,6 @@ class BindInfo extends React.Component {
                 extendsArray[key] = value;
             }
         }
-        console.info(extendsArray)
         this.setState({
             ...this.state,
             extendsArray
@@ -1080,9 +1076,10 @@ class BindInfo extends React.Component {
             left: "0"
         };
         if (!this.props.user) {
-            return null;
+          return null;
         }
-        return (
+      const { t } = this.props;
+      return (
             <div className="page-my-profile-verify-container">
                 {this.state.winOrgInfo === null ? null : (
                     <div style={{ width: "100%", height: "100%" }}>
@@ -1103,7 +1100,7 @@ class BindInfo extends React.Component {
                                 this.renderOtherInfo()}
                         </div>
                         <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
-                            提交
+                          {t('提交')}
                         </div>
                     </div>
                 )}
@@ -1126,7 +1123,7 @@ class BindInfo extends React.Component {
 }
 
 
-BindInfo.title = '个人信息绑定';
+BindInfo.title = i18next.t('个人信息绑定');
 BindInfo.propTypes = {
     requestUserInfo: PropTypes.func,
     addressDataAction: PropTypes.func,
@@ -1199,4 +1196,4 @@ export default connect(
             },
             dispatch
         )
-)(BindInfo);
+)(translate('translations')(BindInfo));

@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
 import './list.css';
-import history from '../../history';
 import Link from '../../../components/link/link';
 import Filter, { TYPES_VALUE } from '../../../components/filter/filter';
 import Projects from '../../../components/projects/projects';
 import { isWindowReachBottom } from '../../../utils/funcs';
-import { getCity, getLocation } from "../../../utils/funcs";
-import Alert from 'react-s-alert';
+import { getLocation } from "../../../utils/funcs";
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 import {
   requestProjectList,
@@ -130,10 +130,9 @@ class ProjectListPage extends React.Component {
   }
 
   render() {
-    const { list: { data: listData } } = this.props;
+    const { list: { data: listData }, t } = this.props;
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
-
     let { type, category, target } = this.props.route.params;
     type = parseInt(type, 10);
     category = parseInt(category, 10);
@@ -144,7 +143,7 @@ class ProjectListPage extends React.Component {
         <div className="header">
           <div className="search-bar-container">
             <Link className="component-search-bar" to="/project/search">
-              <input className="input" placeholder="搜索项目"  disabled="disabled" />
+              <input className="input" placeholder={t('搜索项目')}  disabled="disabled" />
             </Link>
           </div>
         </div>
@@ -167,7 +166,7 @@ class ProjectListPage extends React.Component {
             ?
               <div className="component-loading-more">
                 <img src="/images/icon_loading.png" alt="loading" />
-              正在加载
+                {t('正在加载')}
             </div>
             : null
           }
@@ -198,7 +197,7 @@ ProjectListPage.propTypes = {
   }),
 };
 
-ProjectListPage.title = '志愿项目';
+ProjectListPage.title = i18next.t('志愿项目');
 
 export default connect(
   state => ({
@@ -208,4 +207,4 @@ export default connect(
   dispatch => bindActionCreators({
     requestProjectList,
   }, dispatch),
-)(ProjectListPage);
+)(translate('translations')(ProjectListPage));

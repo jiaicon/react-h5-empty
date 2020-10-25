@@ -6,16 +6,16 @@ import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import queryString from 'query-string';
 import './list.css';
-import history from '../../history';
 import Link from '../../../components/link/link';
 import Filter from '../component/filter/filter';
 import Teams from '../../../components/teams/teams';
 import { isWindowReachBottom } from '../../../utils/funcs';
 import { getAreaCity } from '../../home/home.store';
-import { getCity } from "../../../utils/funcs";
 import {
   requestTeamList,
 } from './list.store';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class TeamListPage extends React.Component {
 
@@ -148,7 +148,7 @@ class TeamListPage extends React.Component {
   }
 
   render() {
-    const { list: { data: listData } } = this.props;
+    const { list: { data: listData }, t } = this.props;
     const { area: { data: areaData } } = this.props;
 
     const showLoadingMore = listData &&
@@ -164,7 +164,7 @@ class TeamListPage extends React.Component {
         <div className="header">
           <div className="search-bar-container">
             <Link className="component-search-bar" to="/team/search">
-              <input className="input" placeholder="搜索团队"  disabled="disabled" />
+              <input className="input" placeholder={t('搜索团队')}  disabled="disabled" />
             </Link>
           </div>
         </div>
@@ -190,7 +190,7 @@ class TeamListPage extends React.Component {
             ?
               <div className="component-loading-more">
                 <img src="/images/icon_loading.png" alt="loading" />
-              正在加载
+                {t('正在加载')}
             </div>
             : null
           }
@@ -208,7 +208,7 @@ class TeamListPage extends React.Component {
                     'tab-icon-home': true,
                   })}
                 />
-                <span>首页</span>
+                <span>{t('首页')}</span>
               </Link>
             </li>
             <li>
@@ -219,7 +219,7 @@ class TeamListPage extends React.Component {
                     'tab-icon-sign': true,
                   })}
                 />
-                <span>签到打卡</span>
+                <span>{t('签到打卡')}</span>
               </Link>
             </li>
             <li>
@@ -230,7 +230,7 @@ class TeamListPage extends React.Component {
                     'tab-icon-me': true,
                   })}
                 />
-                <span>个人中心</span>
+                <span>{t('个人中心')}</span>
               </Link>
             </li>
           </ul>
@@ -263,7 +263,7 @@ TeamListPage.propTypes = {
   }),
 };
 
-TeamListPage.title = '志愿团队';
+TeamListPage.title = i18next.t('志愿团队');
 
 export default connect(
   state => ({
@@ -275,4 +275,4 @@ export default connect(
   dispatch => bindActionCreators({
     requestTeamList, getAreaCity,
   }, dispatch),
-)(TeamListPage);
+)(translate('translations')(TeamListPage));

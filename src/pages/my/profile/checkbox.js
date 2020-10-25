@@ -9,10 +9,10 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import history from '../../history';
 import { imporvePersonInfo } from './profile.store';
 import './checkbox.css';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Checkbox extends React.Component {
 
@@ -29,9 +29,9 @@ class Checkbox extends React.Component {
 
 
   componentWillMount() {
-    console.log(this.state.goodAt)
     const { goodAt } = this.state;
-    const GoodAt = window.goodAt == null ? ["社区服务","国际服务",  "应急救援", "赛事服务", "医疗卫生", "绿色环保", "文化倡导", "教育", "助残", "助老", "其他"] : window.goodAt;
+    const { t } = this.props;
+    const GoodAt = window.goodAt == null ? [t('社区服务'),t('国际服务'),  t('应急救援'), t('赛事服务'), t('医疗卫生'), t('绿色环保'), t('文化倡导'), t('教育'), t('助残'), t('助老'), t('其他')] : window.goodAt;
     const data = [];
     for (let i = 0; i < GoodAt.length; i += 1) {
       const obj = {};
@@ -89,7 +89,6 @@ class Checkbox extends React.Component {
     const limitNum = this.state.limitNum;
     const data = this.state.data;
     const len = limitArr.length;
-    console.log(len);
     if (!data[e.target.id - 1].toggle && len < limitNum) {
       data[e.target.id - 1].toggle = true;
       limitArr.push(data[e.target.id - 1].name);
@@ -112,6 +111,7 @@ class Checkbox extends React.Component {
 
   render() {
     const data = this.state.data;
+    const {t} = this.props;
     return (
       <div className="page-profile-checkbox-container">
         <ul className="page-profile-checkbox-ground">
@@ -123,14 +123,14 @@ class Checkbox extends React.Component {
             </li>,
           )}
         </ul>
-        <div className="page-profile-checkbox-btn" onClick={this.onSubmit}>提交</div>
+        <div className="page-profile-checkbox-btn" onClick={this.onSubmit}>{t('提交')}</div>
       </div>
     );
   }
 }
 
 
-Checkbox.title = '个人擅长';
+Checkbox.title = i18next.t('个人擅长');
 Checkbox.propTypes = {
   imporvePersonInfo: PropTypes.func,
   person: PropTypes.shape({
@@ -182,4 +182,4 @@ export default connect(
     person: state.info.person
   }),
   dispatch => bindActionCreators({ imporvePersonInfo }, dispatch)
-)(Checkbox);
+)(translate('translations')(Checkbox));

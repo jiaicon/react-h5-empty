@@ -9,6 +9,8 @@ import Link from '../link/link';
 import Image from '../image/image';
 import Avatar from '../avatar/avatar';
 import { parseTimeStringToDateString, parseDistance, isVolunteerInsure } from '../../utils/funcs';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Projects extends React.Component {
 
@@ -37,12 +39,12 @@ class Projects extends React.Component {
   }
 
   render() {
-    const { projects } = this.props;
+    const { projects, t } = this.props;
     const showLabel = this.props.showLabel;
     if (!projects) {
       return null;
     } else if (projects && !projects.length) {
-      return <div className="projects-empty-tip">目前还没有活动哦</div>;
+      return <div className="projects-empty-tip">{t('目前还没有活动哦')}</div>;
     }
 
     return (
@@ -54,10 +56,10 @@ class Projects extends React.Component {
             let name = "";
             if(!project.county_name.length) {
                 if(!project.city_name) {
-                    name=project.province_name;
+                    name=t(project.province_name);
                 }else {
                     if(project.city_name=="全省") {
-                        name=project.province_name;
+                        name=t(project.province_name);
                     }else {
                         name=project.city_name;
                     }
@@ -65,10 +67,10 @@ class Projects extends React.Component {
             }else {
                 if(project.county_name==="全市") {
                     if(!project.city_name) {
-                        name=project.province_name;
+                        name=t(project.province_name);
                     }else {
                         if(project.city_name=="全省") {
-                            name=project.province_name;
+                            name=t(project.province_name);
                         }else {
                             name=project.city_name;
                         }
@@ -94,7 +96,7 @@ class Projects extends React.Component {
                         })} />
                     </div>
                     <div className="project-date">
-                      活动日期：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}
+                      {t('活动日期')}：{parseTimeStringToDateString(project.begin)}-{parseTimeStringToDateString(project.end)}
                   </div>
                     {showLabel ? <div className={classnames({
                           "project-status": true,
@@ -166,7 +168,7 @@ class Projects extends React.Component {
                   </Link>
                   <div className="project-footer">
                     <div className="project-location">
-                      {name.length&&name || "全国"} {project.distance == -1 ? '' : (project.distance > 0 ? parseDistance(project.distance) : '0km')}
+                      {name.length&&name || t('全国')} {project.distance == -1 ? '' : (project.distance > 0 ? parseDistance(project.distance) : '0km')}
                     </div>
                       {
                           project.people_count_public == 1 ? <div className="project-members">
@@ -194,5 +196,5 @@ Projects.propTypes = {
   showLabel: PropTypes.bool,
 };
 
-export default Projects;
+export default translate('translations')(Projects);
 

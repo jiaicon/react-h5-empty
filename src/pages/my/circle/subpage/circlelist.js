@@ -10,14 +10,12 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import './circlelist.css';
 import MessageItem from '../../../../components/circle_message/index';
-import Link from '../../../../components/link/link';
 import { isWindowReachBottom } from '../../../../utils/funcs';
-
 import { newCommentAction } from '../circle.store';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class CircleList extends React.Component {
 
@@ -58,7 +56,7 @@ class CircleList extends React.Component {
   }
 
   render() {
-    const { newComment:  { data: listData } } = this.props;
+    const { newComment:  { data: listData }, t } = this.props;
     const showLoadingMore = listData &&
     listData.page && (listData.page.current_page < listData.page.total_page);
     return (
@@ -71,7 +69,7 @@ class CircleList extends React.Component {
             ?
               <div className="component-loading-more">
                 <img src="/images/icon_loading.png" alt="loading" />
-              正在加载
+                {t('正在加载')}
             </div>
             : null
           }
@@ -81,7 +79,7 @@ class CircleList extends React.Component {
 }
 
 
-CircleList.title = '消息列表';
+CircleList.title = i18next.t('消息列表');
 
 CircleList.propTypes = {
 
@@ -95,5 +93,5 @@ export default connect(
   }),
   dispatch => bindActionCreators({ newCommentAction },
     dispatch),
-)(CircleList);
+)(translate('translations')(CircleList));
 

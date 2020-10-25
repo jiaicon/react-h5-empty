@@ -29,7 +29,8 @@ import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
 
-import history from '../../history';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import { requestUserInfo } from '../../../stores/common';
 
 class CircleVists extends React.Component {
@@ -40,17 +41,18 @@ class CircleVists extends React.Component {
     this.state = ({
       showDialogA: false,
     });
+    const { t } = props;
     this.dialogA = {
-      title: '登录提示',
+      title: t('登录提示'),
       buttons: [
         {
           type: 'default',
-          label: '取消',
+          label: t('取消'),
           onClick: () => this.setState({ ...this.state, showDialogA: false }),
         },
         {
           type: 'primary',
-          label: '确认',
+          label: t('确认'),
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
             this.props.userCenterAction();
@@ -116,7 +118,7 @@ class CircleVists extends React.Component {
     this.props.unObserveAction(id);
   }
   renderCommunity() {
-    const { moreFeeling: { data: listData } } = this.props;
+    const { moreFeeling: { data: listData }, t } = this.props;
     const showLoadingMore = listData &&
         listData.page && (listData.page.current_page < listData.page.total_page);
     const {
@@ -177,13 +179,13 @@ class CircleVists extends React.Component {
           ?
             <div className="component-loading-more">
               <img src="/images/icon_loading.png" alt="loading" />
-            正在加载
+              {t('正在加载')}
           </div> : null
         }
             </div> : 
             <div className="page-circle-rendercommunity-container">
             <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
-            <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+            <div className="page-circle-rendercommunity-info">{t('还没有动态信息')}</div>
           </div>
 
         }
@@ -203,7 +205,8 @@ class CircleVists extends React.Component {
     this.props.deleteFeelingAction(id);
   }
   render() {
-    if (!this.props.moreFeeling.data) {
+    const { t , moreFeeling} = this.props
+    if (!moreFeeling.data) {
       return null;
     }
     return (
@@ -211,7 +214,7 @@ class CircleVists extends React.Component {
         {this.renderCommunity()}
         <div className="page-circlevisits-team-detail-community-link" onClick={this.onPublish} />
         <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-          只有登录的用户才能点赞和评论哦～
+          {t('只有登录的用户才能点赞和评论哦～')}
         </Dialog>
 
       </div>
@@ -220,7 +223,7 @@ class CircleVists extends React.Component {
 }
 
 
-CircleVists.title = '社区互动';
+CircleVists.title = i18next.t('社区互动');
 
 CircleVists.propTypes = {
 
@@ -245,5 +248,5 @@ export default connect(
     observeAction,
     moreFeelingAction },
     dispatch),
-)(CircleVists);
+)(translate('translations')(CircleVists));
 

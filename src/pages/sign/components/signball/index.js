@@ -3,19 +3,15 @@
 
 import React, { PropTypes } from "react";
 import autoBind from "react-autobind";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import classnames from "classnames";
 import moment from "moment";
-
-import { getCity, getLocation, isWeChatMiniApp } from "../../../../utils/funcs";
+import { translate } from 'react-i18next';
+import { isWeChatMiniApp } from "../../../../utils/funcs";
 import "./detail.css";
 // 定位距离
 function GetDistance(lat1, lng1, lat2, lng2) {
-  console.log(lat1, lng1, lat2, lng2);
   var radLat1 = (lat1 * Math.PI) / 180.0;
   var radLat2 = (lat2 * Math.PI) / 180.0;
-  console.log(radLat1, radLat2);
   var a = radLat1 - radLat2;
   var b = (lng1 * Math.PI) / 180.0 - (lng2 * Math.PI) / 180.0;
   var s =
@@ -32,7 +28,7 @@ function GetDistance(lat1, lng1, lat2, lng2) {
   return s;
 }
 
-export default class SignBall extends React.Component {
+class SignBall extends React.Component {
   static propTypes = {
     isLight: PropTypes.bool,
     clickFunc: PropTypes.func,
@@ -48,8 +44,6 @@ export default class SignBall extends React.Component {
 
     this.geolocation = null;
 
-    this.locationTimer = null; //用来间隔十秒刷新定位和状态
-
     this.state = {
       time: `${moment().format("HH:mm:ss")}`,
       locDetail: null,
@@ -63,7 +57,6 @@ export default class SignBall extends React.Component {
   }
 
   componentWillMount() {
-    const that = this;
 
   }
 
@@ -164,7 +157,6 @@ export default class SignBall extends React.Component {
       });
       return;
     }
-    console.log("if判断间隙2");
     if (
       (distanceData.city_name == "全省" || distanceData.city_id == 0) &&
       distanceData.province_name.replace("省", "") ==
@@ -259,6 +251,7 @@ export default class SignBall extends React.Component {
   }
   renderDistanceInfo() {
     const { signIndex } = this.state;
+    const { t } = this.props;
     let dom = null;
     // const signIndex = 2;
     if (signIndex == 1) {
@@ -271,7 +264,7 @@ export default class SignBall extends React.Component {
           }}
         >
           <img src="/images/sign/signsuccess.png" className="sign-first" />
-          已进入签到地点范围
+          {t('已进入签到地点范围')}
         </div>
       );
     } else if (signIndex == 2) {
@@ -292,14 +285,14 @@ export default class SignBall extends React.Component {
             'align-items': 'center'
           }}>
             <img src="/images/sign/signal.png" className="sign-first" />
-            当前不在签到地点范围
+            {t('当前不在签到地点范围')}
           </div>
           <div style={{
             'display': 'flex',
             'align-items': 'center'
           }}>
             {
-              this.state.isWeChatMiniApp === true ? null : <span style={{ color: " #230000" }}>查看签到地点</span>
+              this.state.isWeChatMiniApp === true ? null : <span style={{ color: " #230000" }}>{t('查看签到地点')}</span>
             }
             {/* <img
               src="/images/sign/signmore.png"
@@ -321,7 +314,7 @@ export default class SignBall extends React.Component {
           }}
         >
           <img src="/images/sign/signfail.png" className="sign-first" />
-          获取定位失败，请获取定位权限
+          {t('获取定位失败，请获取定位权限')}
           <img src="/images/sign/signaw.png" style={{ width: "9px" }} />
         </div>
       );
@@ -335,7 +328,7 @@ export default class SignBall extends React.Component {
           }}
         >
           <img src="/images/sign/signfail.png" className="sign-first" />
-          定位中...
+          {t('定位中...')}
           <img src="/images/sign/signaw.png" style={{ width: "9px" }} />
         </div>
       );
@@ -376,3 +369,5 @@ export default class SignBall extends React.Component {
     );
   }
 }
+
+export default translate('translations')(SignBall);

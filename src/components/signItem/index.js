@@ -4,11 +4,9 @@ import classnames from "classnames";
 import Link from "../link/link";
 import "./style.css";
 import {
-  parseTimeStringToDateString,
   parseDistance,
-  isVolunteerInsure
 } from "../../utils/funcs";
-
+import { translate } from 'react-i18next';
 
 class SignItem extends React.Component {
   static propTypes = {
@@ -19,24 +17,26 @@ class SignItem extends React.Component {
     autoBind(this);
   }
   renderEmpty() {
+    const { t } = this.props;
     return (
       <div className="no-record">
         <div>
           <img src="/images/sign.png" alt="" />
         </div>
         <span>
-          <p>还没有项目可以签到</p>
-          <p>快去加入项目吧</p>
+          <p>{t('还没有项目可以签到')}</p>
+          <p>{t('快去加入项目吧')}</p>
         </span>
         <div className="sign-btn-container">
           <Link to="/project/list" className="sign-btn">
-            浏览项目
+            {t('浏览项目')}
           </Link>
         </div>
       </div>
     );
   }
   renderProjectList(data) {
+    const { t } = this.props;
     return (
       <div>
         {data.map((record, index) => {
@@ -55,7 +55,7 @@ class SignItem extends React.Component {
                 <div className="sign-header">
                   <div className="project-title">{record.name}</div>
                   <div style={{ color: "#686868", fontSize: "13px" }}>
-                    活动日期:&nbsp;&nbsp;{record.begin.split(" ")[0]}&nbsp; -
+                    {t('活动日期')}:&nbsp;&nbsp;{record.begin.split(" ")[0]}&nbsp; -
                     &nbsp;
                     {record.end.split(" ")[0]}
                   </div>
@@ -86,8 +86,7 @@ class SignItem extends React.Component {
     );
   }
   render() {
-    const { data } = this.props;
-    console.log(data);
+    const { data, t } = this.props;
     if (!data) {
       return null;
     } else if (data && (data.three_day_project&&!data.three_day_project.length) && (data.project&&!data.project.length)) {
@@ -100,7 +99,7 @@ class SignItem extends React.Component {
     return <div className="page-sign">
         <div className="component-sign">
           {data.three_day_project && data.three_day_project.length > 0 ? <div className="component-sign-title">
-              近3天待打卡项目
+              {t('近3天待打卡项目')}
             </div> : null}
 
           <ul className="sign-list">
@@ -108,7 +107,7 @@ class SignItem extends React.Component {
                 {this.renderProjectList(data.three_day_project)}
               </div> : null}
             {data.project && data.project.length > 0 ? <div className="component-sign-title">
-                所有项目
+                {t('所有项目')}
               </div> : null}
             {data.project && data.project.length > 0 ? <div>
                 {this.renderProjectList(data.project)}
@@ -119,4 +118,4 @@ class SignItem extends React.Component {
   }
 }
 
-export default SignItem;
+export default translate('translations')(SignItem);

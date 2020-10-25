@@ -5,12 +5,11 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Link from '../../../components/link/link';
 import { ADMIN_HOST } from '../../../utils/config';
 import { requestUserInfo } from '../../../stores/common';
-import history from '../../history';
 import './entry.css';
 import { storeLoginSource } from '../login/login.store';
+import i18next from 'i18next';
 
 class Entry extends React.Component {
 
@@ -82,7 +81,7 @@ class Entry extends React.Component {
 }
 
 
-Entry.title = '登录';
+Entry.title = i18next.t('登录');
 
 Entry.propTypes = {
   requestUserInfo: PropTypes.func,

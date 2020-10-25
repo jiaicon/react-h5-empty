@@ -8,17 +8,15 @@ import { bindActionCreators } from "redux";
 import Alert from "react-s-alert";
 import Link from "../../../components/link/link";
 import { requestClockInfo, clocking } from "../../sign/sign.store";
-import classnames from "classnames";
 import moment from "moment";
-import history from "../../history";
 import SignBall from "../components/signball/index";
-import { getCity, getLocation, isWeChatMiniApp } from "../../../utils/funcs";
-import { requestHomeData, saveCity, getAreaCity } from "../../home/home.store";
+import { isWeChatMiniApp } from "../../../utils/funcs";
 import "./detail.css";
 import { requestProjectDetail } from '../../project/detail/detail.store';
-import { requestUserInfo } from '../../../stores/common';
 import ModalNew from "../../../components/posterModal/ModalNew";
 import { PostDataModel_ProjectSign } from "../../../components/posterModal/PostDataModel";
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class SignPage extends React.Component {
   constructor(props) {
@@ -73,14 +71,13 @@ class SignPage extends React.Component {
     const { failed: tFailed, fetching: tFetching } = this.props.clockinginfo;
     const { failed: nFailed, fetching: nFetching } = nextProps.clockinginfo;
     if (!tFailed && tFetching && !nFailed && !nFetching) {
-      Alert.success('打卡成功');
+      Alert.success(nextProps.t('打卡成功'));
       // location.replace(`/sign/signdetail/detail/${this.proid}/${this.Id}`);
       //打卡成功后重新获取数据，更新页面，页面state太多，不知道更新哪些，直接全部获取
       this.props.requestClockInfo(this.Id);
       this.props.requestProjectDetail(this.proid);
       this.openShare(nextProps.clockinginfo.data);
     }
-    console.log(nextProps)
     const { failed: dFailed, fetching: dFetching } = this.props.requestProjectDetailData;
     const { failed: dnFailed, fetching: dnFetching } = nextProps.requestProjectDetailData;
     if (!dFailed && dFetching && !dnFailed && !dnFetching) {
@@ -116,6 +113,7 @@ class SignPage extends React.Component {
     if (this.state.isWeChatMiniApp) {
       return null;
     }
+    const { t } = this.props;
     const { data: detaildata } = this.props.clickinfo;
     if (!detaildata) return null;
     let source = `https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:${
@@ -150,7 +148,7 @@ class SignPage extends React.Component {
           }}
           onClick={() => { this.setState({ turnMap: false }) }}
         >
-          关闭地图
+          {t('关闭地图')}
         </div>
         <iframe
           style={{
@@ -177,6 +175,7 @@ class SignPage extends React.Component {
     let renderDom = null;
     let firstPoint = false;
     let endPoint = false;
+    const { t } = this.props;
     console.log("=================================detaildata==================================", detaildata)
     if (Object.keys(userData).length === 0) {
       // 没超过时间，没打卡，显示打卡球
@@ -184,7 +183,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div className="sign-ball-content">
             <SignBall
-              ballTitle="签到打卡"
+              ballTitle={t('签到打卡')}
               clickFunc={this.handleBallClick}
               mapFunc={this.turnOnMap}
               data={detaildata.clock_info}
@@ -206,7 +205,7 @@ class SignPage extends React.Component {
                 src="/images/sign/signedit.png"
                 style={{ width: "16px", marginRight: "5px" }}
               />
-              申请补卡
+              {t('申请补卡')}
               <img
                 src="/images/sign/signmore.png"
                 style={{ width: "4px", marginLeft: "4px" }}
@@ -224,7 +223,7 @@ class SignPage extends React.Component {
           renderDom = (
             <div>
               <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
               </div>
               <div
                 style={{
@@ -256,7 +255,7 @@ class SignPage extends React.Component {
                   src="/images/sign/signedit.png"
                   style={{ width: "16px", marginRight: "5px" }}
                 />
-                申请补卡
+                {t('申请补卡')}
                 <img
                   src="/images/sign/signmore.png"
                   style={{ width: "4px", marginLeft: "4px" }}
@@ -271,7 +270,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div>
             <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-              {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+              {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
             </div>
             <div
               style={{
@@ -285,7 +284,7 @@ class SignPage extends React.Component {
             >
               {userData.clock_in_addr}
             </div>
-            <div style={{ color: "#9B9B9B", fontSize: "12px" }}>补卡·待审</div>
+            <div style={{ color: "#9B9B9B", fontSize: "12px" }}>{t('补卡')}·{t('待审')}</div>
           </div>
         );
       } else if (userData.verify_status === 1) {
@@ -294,7 +293,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div>
             <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-              {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+              {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
             </div>
             <div
               style={{
@@ -308,7 +307,7 @@ class SignPage extends React.Component {
             >
               {userData.clock_in_addr}
             </div>
-            <div style={{ color: "#9B9B9B", fontSize: "12px" }}>补卡·通过</div>
+            <div style={{ color: "#9B9B9B", fontSize: "12px" }}>{t('补卡')}·{t('通过')}</div>
           </div>
         );
       } else if (userData.verify_status === 2) {
@@ -317,7 +316,7 @@ class SignPage extends React.Component {
         renderDom = (
           <div>
             <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-              {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+              {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
             </div>
             <div
               style={{
@@ -331,7 +330,7 @@ class SignPage extends React.Component {
             >
               {userData.clock_in_addr}
             </div>
-            <div style={{ color: "#9B9B9B", fontSize: "12px" }}>补卡·驳回</div>
+            <div style={{ color: "#9B9B9B", fontSize: "12px" }}>{t('补卡')}·{t('驳回')}</div>
             <Link to={`/sign/replacement/${this.proid}/${this.Id}`}
               style={{
                 display: "flex",
@@ -372,7 +371,7 @@ class SignPage extends React.Component {
               />
               <div className="line1px-v" />
               <div className="detail-title">
-                打卡开始时间 &nbsp; &nbsp;
+                {t('打卡开始时间')} &nbsp; &nbsp;
                 {moment(data.begin).format("YYYY-MM-DD HH:mm")}
               </div>
               <div className="detail-content">{renderDom}</div>
@@ -381,7 +380,7 @@ class SignPage extends React.Component {
               <div className="item-point" />
               <div className="line1px-v" />
               <div className="detail-title">
-                打卡截止时间 &nbsp; &nbsp;
+                {t('打卡截止时间')} &nbsp; &nbsp;
                 {moment(data.end).format("YYYY-MM-DD HH:mm")}
               </div>
               <div className="detail-content" />
@@ -391,7 +390,7 @@ class SignPage extends React.Component {
                 className={`item-point ${endPoint ? "item-point-color" : ""}`}
               />
               <div className="detail-title">
-                预计可获得服务时长{data.reward_time}小时
+                {t('预计可获得服务时长')}{data.reward_time}{t('小时')}
               </div>
               <div className="detail-content" />
             </li>
@@ -405,20 +404,20 @@ class SignPage extends React.Component {
     if (!detaildata) return null;
     const { clock_info: data, user_clock_info: userData } = detaildata;
     const { type, isBeyond, isAfterToday } = this.state;
+    const { t } = this.props;
     let renderfirstDom = null;
     let rendersecondDom = null;
     let renderthirdDom = null;
     let firstPoint = false;
     let secondPoint = false;
     let endPoint = false;
-    console.log('detaildata::::', detaildata);
     if (Object.keys(userData).length === 0) {
       // 没超过时间，没打卡，显示打卡球
       if (!isBeyond) {
         renderfirstDom = (
           <div className="sign-ball-content">
             <SignBall
-              ballTitle="签到打卡"
+              ballTitle={t('签到打卡')}
               mapFunc={this.turnOnMap}
               clickFunc={this.handleBallClick}
               data={detaildata.clock_info}
@@ -441,7 +440,7 @@ class SignPage extends React.Component {
                 src="/images/sign/signedit.png"
                 style={{ width: "16px", marginRight: "5px" }}
               />
-              申请补卡
+              {t('申请补卡')}
               <img
                 src="/images/sign/signmore.png"
                 style={{ width: "4px", marginLeft: "4px" }}
@@ -465,7 +464,7 @@ class SignPage extends React.Component {
           renderfirstDom = (
             <div>
               <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
               </div>
               <div
                 style={{
@@ -485,7 +484,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  签退时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {t('签退时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -509,7 +508,7 @@ class SignPage extends React.Component {
             renderfirstDom = (
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -528,7 +527,7 @@ class SignPage extends React.Component {
             rendersecondDom = (
               <div className="sign-ball-content">
                 <SignBall
-                  ballTitle="签退打卡"
+                  ballTitle={t('签退打卡')}
                   mapFunc={this.turnOnMap}
                   clickFunc={this.handleBallClick}
                   data={detaildata.clock_info}
@@ -540,7 +539,7 @@ class SignPage extends React.Component {
             renderfirstDom = (
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -569,7 +568,7 @@ class SignPage extends React.Component {
                     src="/images/sign/signedit.png"
                     style={{ width: "16px", marginRight: "5px" }}
                   />
-                  申请补卡
+                  {t('申请补卡')}
                   <img
                     src="/images/sign/signmore.png"
                     style={{ width: "4px", marginLeft: "4px" }}
@@ -590,7 +589,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -617,7 +616,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -626,7 +625,7 @@ class SignPage extends React.Component {
                     fontSize: "12px"
                   }}
                 >
-                  补卡·待审
+                  {t('补卡')}·{t('待审')}
                 </div>
               </div>
             </div>
@@ -641,7 +640,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  签退时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {t('签退时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -668,7 +667,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                  {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -677,7 +676,7 @@ class SignPage extends React.Component {
                     fontSize: "12px"
                   }}
                 >
-                  补卡·待审
+                  {t('补卡')}·{t('待审')}
                 </div>
               </div>
             </div>
@@ -694,7 +693,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -721,7 +720,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -730,7 +729,7 @@ class SignPage extends React.Component {
                     fontSize: "12px"
                   }}
                 >
-                  补卡·通过
+                  {t('补卡')}·{t('通过')}
                 </div>
               </div>
             </div>
@@ -745,7 +744,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  签退时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {t('签退时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -772,7 +771,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                  {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -781,7 +780,7 @@ class SignPage extends React.Component {
                     fontSize: "12px"
                   }}
                 >
-                  补卡·通过
+                  {t('补卡')}·{t('通过')}
                 </div>
               </div>
             </div>
@@ -798,7 +797,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -825,7 +824,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                  {userData.type == 1 ? '打卡' : '签到'}时间 {moment(userData.clock_in_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_in_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -834,7 +833,7 @@ class SignPage extends React.Component {
                     fontSize: "12px"
                   }}
                 >
-                  补卡·驳回
+                  {t('补卡')}·{t('驳回')}
                 </div>
                 <div
                   style={{
@@ -847,7 +846,7 @@ class SignPage extends React.Component {
                     src="/images/sign/signedit.png"
                     style={{ width: "16px", marginRight: "5px" }}
                   />
-                  重新申请补卡
+                  {t('重新申请补卡')}
                   <img
                     src="/images/sign/signmore.png"
                     style={{ width: "4px", marginLeft: "4px" }}
@@ -866,7 +865,7 @@ class SignPage extends React.Component {
             <div>
               <div>
                 <div style={{ color: " #4A4A4A", fontSize: "14px" }}>
-                  签退时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {t('签退时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
                 <div
                   style={{
@@ -893,7 +892,7 @@ class SignPage extends React.Component {
                     fontSize: "14px"
                   }}
                 >
-                  {userData.type == 1 ? '打卡' : '签退'}时间 {moment(userData.clock_end_time).format("HH:mm")}
+                  {userData.type == 1 ? t('打卡') : t('签到')}{t('时间')} {moment(userData.clock_end_time).format("HH:mm")}
                 </div>
 
                 <div
@@ -902,7 +901,7 @@ class SignPage extends React.Component {
                     fontSize: "12px"
                   }}
                 >
-                  补卡·驳回
+                  {t('补卡')}·{t('驳回')}
                 </div>
                 <div
                   style={{
@@ -915,7 +914,7 @@ class SignPage extends React.Component {
                     src="/images/sign/signedit.png"
                     style={{ width: "16px", marginRight: "5px" }}
                   />
-                  重新申请补卡
+                  {t('重新申请补卡')}
                   <img
                     src="/images/sign/signmore.png"
                     style={{ width: "4px", marginLeft: "4px" }}
@@ -936,7 +935,7 @@ class SignPage extends React.Component {
           endPoint = true;
           renderthirdDom = (
             <div className="detail-title">
-              获得服务时长{userData.reward_time}小时
+              {t('获得服务时长')}{userData.reward_time}{t('小时')}
             </div>
           );
         }// 审核通过或者正常打卡获取时长了
@@ -946,7 +945,7 @@ class SignPage extends React.Component {
           endPoint = false;
           renderthirdDom = (
             <div className="detail-title">
-              预计可获得服务时长{userData.reward_time}小时
+              {t('预计可获得服务时长')}{userData.reward_time}{t('小时')}
             </div>
           );
         }//审核中或者审核驳回
@@ -954,7 +953,7 @@ class SignPage extends React.Component {
       else {
         renderthirdDom = (
           <div className="detail-title">
-            预计可获得服务时长{data.reward_time}小时
+            {t('预计可获得服务时长')}{data.reward_time}{t('小时')}
           </div>
         );
       }
@@ -965,7 +964,7 @@ class SignPage extends React.Component {
       endPoint = false;
       renderthirdDom = (
         <div className="detail-title">
-          预计可获得服务时长{data.reward_time}小时
+          {t('预计可获得服务时长')}{data.reward_time}{t('小时')}
         </div>
       );
     }
@@ -994,7 +993,7 @@ class SignPage extends React.Component {
               />
               <div className="line1px-v" />
               <div className="detail-title">
-                签到时间 &nbsp; &nbsp;
+                {t('签到时间')} &nbsp; &nbsp;
                 {moment(data.begin).format("YYYY-MM-DD HH:mm")}
               </div>
               {renderfirstDom}
@@ -1007,7 +1006,7 @@ class SignPage extends React.Component {
               />
               <div className="line1px-v" />
               <div className="detail-title">
-                签退时间 &nbsp; &nbsp;
+                {t('签退时间')} &nbsp; &nbsp;
                 {moment(data.end).format("YYYY-MM-DD HH:mm")}
               </div>
               {rendersecondDom}
@@ -1055,7 +1054,7 @@ class SignPage extends React.Component {
   }
 }
 
-SignPage.title = "签到打卡";
+SignPage.title = i18next.t("签到打卡");
 
 SignPage.propTypes = {
   data: PropTypes.shape({
@@ -1073,4 +1072,4 @@ export default connect(
     user: state.user
   }),
   dispatch => bindActionCreators({ requestClockInfo, clocking, requestProjectDetail }, dispatch)
-)(SignPage);
+)(translate('translations')(SignPage));

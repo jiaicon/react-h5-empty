@@ -54,7 +54,7 @@ class Announcement extends React.Component {
             infinite
           >
             {data.map((item, index) => (
-              <Link to={this.props.entry}>
+              <Link to={this.props.entry} key={index}>
                 <div className="v-item">{item.title}</div>
               </Link>
 

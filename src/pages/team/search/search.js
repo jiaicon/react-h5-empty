@@ -6,6 +6,8 @@ import './search.css';
 import Teams from '../../../components/teams/teams';
 import { isWindowReachBottom } from '../../../utils/funcs';
 import history from '../../history';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 import {
   requestSearch,
@@ -79,7 +81,7 @@ class TeamSearchPage extends React.Component {
   /* eslint-enable */
 
   render() {
-    const { list: { data: listData, keyword } } = this.props;
+    const { list: { data: listData, keyword }, t } = this.props;
     const showLoadingMore = listData && (keyword === this.keyword) &&
     listData.page && (listData.page.current_page < listData.page.total_page);
 
@@ -88,9 +90,9 @@ class TeamSearchPage extends React.Component {
         <div className="header"  onClick={this.handleSearch}>
           <div className="search-bar-container">
             <form onSubmit={this.handleSearch} className="component-search-bar">
-              <input ref={(el) => { this.searchInput = el; }} onBlur={this.handleSearch} className="input" placeholder="搜索团队" autofocus="autofocus" />
+              <input ref={(el) => { this.searchInput = el; }} onBlur={this.handleSearch} className="input" placeholder={t('搜索团队')} autofocus="autofocus" />
             </form>
-            <button onClick={this.handleCancelSearch}>取消</button>
+            <button onClick={this.handleCancelSearch}>{t('取消')}</button>
           </div>
         </div>
         <div className="line1px" />
@@ -103,7 +105,7 @@ class TeamSearchPage extends React.Component {
           ?
             <div className="component-loading-more">
               <img src="/images/icon_loading.png" alt="loading" />
-            正在加载
+              {t('正在加载')}
           </div>
           : null
         }
@@ -126,7 +128,7 @@ TeamSearchPage.propTypes = {
   }),
 };
 
-TeamSearchPage.title = '搜索志愿团队';
+TeamSearchPage.title = i18next.t('搜索志愿团队');
 
 export default connect(
   state => ({
@@ -136,4 +138,4 @@ export default connect(
   dispatch => bindActionCreators({
     requestSearch,
   }, dispatch),
-)(TeamSearchPage);
+)(translate('translations')(TeamSearchPage));

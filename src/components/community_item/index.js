@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import classnames from 'classnames';
-import history from '../../pages/history';
 import Link from '../link/link';
 import AVATAR from '../avatar/avatar';
 import IMAGE from '../image/image';
@@ -20,6 +19,7 @@ import { userCenterAction } from '../../pages/my/my.store';
 import { Dialog, Gallery, GalleryDelete, Button, Icon } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
+import { translate } from 'react-i18next';
 
 class COMMUNITYITEM extends React.Component {
   static propTypes = {
@@ -38,6 +38,7 @@ class COMMUNITYITEM extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    const { t } = props;
     this.state = ({
       descHeight: null,
       descTrigger: false,
@@ -45,16 +46,16 @@ class COMMUNITYITEM extends React.Component {
       previewData: []
     });
     this.dialog = {
-      title: '登录提示',
+      title: t('登录提示'),
       buttons: [
         {
           type: 'default',
-          label: '取消',
+          label: t('取消'),
           onClick: () => this.setState({ ...this.state, showDialog: false }),
         },
         {
           type: 'primary',
-          label: '确认',
+          label: t('确认'),
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
             this.props.userCenterAction();
@@ -143,7 +144,7 @@ class COMMUNITYITEM extends React.Component {
     };
   }
   render() {
-    const { user: { isLogin } } = this.props;
+    const { user: { isLogin }, t } = this.props;
     // is_like: [integer] 是否已点赞 如登陆且点赞则为1，否则为0
     const data = this.props.data;
     const joined = isLogin && (data.is_like === 1);
@@ -205,7 +206,7 @@ class COMMUNITYITEM extends React.Component {
                   })}
                 >{data.content}</div>
 
-                {this.state.descTrigger ? <div className="components-community-item-content-btn">查看全文</div> : null}
+                {this.state.descTrigger ? <div className="components-community-item-content-btn">{t('查看全文')}</div> : null}
               </Link>
               <ul className="components-community-item-photo-area">
                 {
@@ -236,7 +237,7 @@ class COMMUNITYITEM extends React.Component {
               <div className="components-community-item-footer">
                 <div className="components-community-item-footer-container">
                   <div className="components-community-item-footer-time">{data.created_at}</div>
-                  {data.user_info.id === this.props.user.id ? <div className="components-community-item-footer-del" onClick={this.handleDelete} data-info={JSON.stringify(data)}>删除</div> : null}
+                  {data.user_info.id === this.props.user.id ? <div className="components-community-item-footer-del" onClick={this.handleDelete} data-info={JSON.stringify(data)}>{t('删除')}</div> : null}
 
                 </div>
                 <div className="components-community-item-footer-container">
@@ -250,7 +251,7 @@ class COMMUNITYITEM extends React.Component {
 
         </div>
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-        只有登录的用户才能点赞和评论哦～
+          {t('只有登录的用户才能点赞和评论哦～')}
         </Dialog>
         <Gallery src={this.state.previewData} show={this.state.showMultiple} defaultIndex={this.state.defaultIndex}>
           <Button
@@ -272,4 +273,4 @@ export default connect(
   }),
   dispatch => bindActionCreators({ requestUserInfo, userCenterAction },
     dispatch),
-)(COMMUNITYITEM);
+)(translate('translations')(COMMUNITYITEM));

@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import classnames from 'classnames';
+import { translate } from 'react-i18next';
 import './filter.css';
 
 class Filter extends React.Component {
@@ -106,10 +107,11 @@ class Filter extends React.Component {
     );
   }
   render() {
+    const { t } = this.props;
     const { showOptionsType, selectedOption } = this.state;
-    const selectedType = selectedOption.types || '团队类型';
-    const selectedCategory = selectedOption.categories || '服务对象';
-    const selectedObject = selectedOption.objects || '所在区域';
+    const selectedType = selectedOption.types || t('团队类型');
+    const selectedCategory = selectedOption.categories || t('服务对象');
+    const selectedObject = selectedOption.objects || t('所在区域');
     return (
       <div className="component-project-filter">
         <div className="filter-header">
@@ -148,4 +150,4 @@ Filter.propTypes = {
   target: PropTypes.number,
 };
 
-export default Filter;
+export default translate('translations')(Filter);

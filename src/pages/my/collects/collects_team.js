@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import './collects.css';
 import { collectAction } from '../my.store';
 import TeamsItem from '../../../components/teams/teams';
-
+import i18next from 'i18next';
 
 class TeamPage extends React.Component {
 
@@ -45,7 +45,7 @@ class TeamPage extends React.Component {
   }
 }
 
-TeamPage.title = '我的收藏';
+TeamPage.title = i18next.t('我的收藏');
 
 TeamPage.propTypes = {
   collectAction: PropTypes.func,

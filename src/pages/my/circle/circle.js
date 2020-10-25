@@ -10,11 +10,8 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import CommunityItem from '../../../components/community_item/index';
-
 import { isWindowReachBottom } from '../../../utils/funcs';
-
 import './circle.css';
 import Link from '../../../components/link/link';
 import { myFeelingAction,
@@ -23,14 +20,12 @@ import { myFeelingAction,
         observeAction,
          } from './circle.store';
 import { userCenterAction } from '../my.store';
-
-
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
-
-import history from '../../history';
 import { requestUserInfo } from '../../../stores/common';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Circle extends React.Component {
 
@@ -40,17 +35,18 @@ class Circle extends React.Component {
     this.state = ({
       showDialogA: false,
     });
+    const { t } = props;
     this.dialogA = {
-      title: '登录提示',
+      title: t('登录提示'),
       buttons: [
         {
           type: 'default',
-          label: '取消',
+          label: t('取消'),
           onClick: () => this.setState({ ...this.state, showDialogA: false }),
         },
         {
           type: 'primary',
-          label: '确认',
+          label: t('确认'),
           onClick: () => {
             this.setState({ ...this.state, showDialogA: false });
             this.props.userCenterAction();
@@ -116,6 +112,7 @@ class Circle extends React.Component {
     this.props.unObserveAction(id);
   }
   renderCommunity() {
+    const { t } = this.props;
     const showLoadingMore = this.props.myFeeling.data &&
     this.props.myFeeling.data.page && (this.props.myFeeling.data.page.current_page < this.props.myFeeling.data.page.total_page);
     return (
@@ -138,7 +135,7 @@ class Circle extends React.Component {
             ?
               <div className="component-loading-more">
                 <img src="/images/icon_loading.png" alt="loading" />
-              正在加载
+                {t('正在加载')}
             </div>
             : null
           }
@@ -147,7 +144,7 @@ class Circle extends React.Component {
         :
           <div className="page-circle-rendercommunity-container">
             <img src="/images/my/information.png" className="page-circle-rendercommunity-img" />
-            <div className="page-circle-rendercommunity-info">还没有动态信息</div>
+            <div className="page-circle-rendercommunity-info">{t('还没有动态信息')}</div>
           </div>
         }
 
@@ -171,6 +168,7 @@ class Circle extends React.Component {
     if (!this.props.myFeeling.data) {
       return null;
     }
+    const { t } = this.props;
     return (
       <div className="page-circle-container">
         <div className="page-circle-header-container">
@@ -185,12 +183,12 @@ class Circle extends React.Component {
 
 
               </div>
-              消息列表
+              {t('消息列表')}
             </Link>
             <div className="line1px-v page-circle-header-top-line" />
             <div className="page-circle-header-top-link-container" onClick={this.onPublish}>
               <div className="page-circle-header-top-link-icon page-circle-header-top-link-icon-publish" />
-              发布动态
+              {t('发布动态')}
             </div>
           </div>
           <div className="line1px" />
@@ -198,7 +196,7 @@ class Circle extends React.Component {
         </div>
         {this.renderCommunity()}
         <Dialog type="ios" title={this.dialogA.title} buttons={this.dialogA.buttons} show={this.state.showDialogA}>
-          只有登录的用户才能点赞和评论哦～
+          {t('只有登录的用户才能点赞和评论哦～')}
         </Dialog>
 
       </div>
@@ -207,7 +205,7 @@ class Circle extends React.Component {
 }
 
 
-Circle.title = '我的志愿圈';
+Circle.title = i18next.t('我的志愿圈');
 
 Circle.propTypes = {
 
@@ -232,5 +230,5 @@ export default connect(
     myFeelingAction,
   },
     dispatch),
-)(Circle);
+)(translate('translations')(Circle));
 

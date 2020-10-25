@@ -21,7 +21,9 @@ import { requestVerifyCode, register } from '../register/register.store';
 import Avatar from '../../../components/avatar/avatar';
 import { API_HOST } from '../../../utils/config';
 import { format } from 'url';
-import { setToken } from '../../../utils/funcs'
+import { setToken } from '../../../utils/funcs';
+import { translate, Trans } from 'react-i18next';
+import i18next from 'i18next';
 
 class Login extends React.Component {
 
@@ -30,7 +32,7 @@ class Login extends React.Component {
     autoBind(this);
     this.state = {
       captchaUrl: `${API_HOST}/api/captcha?t=${Date.now()}`,
-      buttonString: '获取验证码',
+      buttonString: props.t && props.t('获取验证码'),
       timer: null,
       countDownTrigger: true,
     };
@@ -134,7 +136,6 @@ class Login extends React.Component {
           window.location.replace(bindlink);
         } else {
           if (from) {
-            console.log("登录状态设置了来源，from是：：：：：：", from);
             target = from;
           }
           if (from === '/my/login') {
@@ -147,7 +148,6 @@ class Login extends React.Component {
         // 如果登录状态设置了来源（例如从签到页跳转而来）则登录成功后需要跳转回去
 
         if (from) {
-          console.log("登录状态设置了来源，from是：：：：：：", from);
           target = from;
         }
         if (from === '/my/login') {
@@ -159,8 +159,6 @@ class Login extends React.Component {
     }
     const { code: cCode, forget: cForget } = this.props;
     const { code: nCode, forget: nForget } = nextProps;
-
-    console.log(nextProps, this.props);
 
     if (cCode.fetching && !cCode.failed && !nCode.fetching && !nCode.failed) {
       this.onStartCountDown();
@@ -205,15 +203,17 @@ class Login extends React.Component {
 
   componentWillUnmount() {
     const timer = this.state.timer;
+    const { t } = this.props;
     clearInterval(timer);
     this.setState({
 
-      buttonString: '获取验证码',
+      buttonString: t('获取验证码'),
       timer: null,
     });
   }
   onStartCountDown() {
     let timer = this.state.timer;
+    const { t } = this.props;
     let num = 60;
     const that = this;
     this.setState({
@@ -232,7 +232,7 @@ class Login extends React.Component {
         clearInterval(timer);
         that.setState({
           ...this.state,
-          buttonString: '获取验证码',
+          buttonString: t('获取验证码'),
           timer: null,
           countDownTrigger: true,
         });
@@ -246,6 +246,7 @@ class Login extends React.Component {
     });
   }
   onSend() {
+    const { t } = this.props;
     const phone = this.state.username;
     const captcha = this.state.captcha;
     const countDownTrigger = this.state.countDownTrigger;
@@ -259,9 +260,9 @@ class Login extends React.Component {
         Alert.warning('同一时间内不能多次点击');
       }
     } else if (!phone) {
-      Alert.warning('请输入手机号');
+      Alert.warning(t('请输入手机号'));
     } else {
-      Alert.warning('请输入验证码');
+      Alert.warning(t('请输入手机号'));
     }
   }
   submit() {
@@ -291,50 +292,52 @@ class Login extends React.Component {
     this.props.loginAction(data);
   }
   renderLogin() {
+    const { t } = this.props;
     return (
       <div className="page-login-box">
         <div className="page-login">
           <div className="page-login-item">
             <input type="text" ref={(c) => { this.loginUsername = c; }} onChange={this.onTextChanged}
-              placeholder="手机号或证件号码" className="page-login-item-input" />
+              placeholder={t('手机号或证件号码')} className="page-login-item-input" />
           </div>
           <div className="page-login-item">
             <input type="password" ref={(c) => { this.pwd = c; }} onChange={this.onTextChanged}
-              placeholder="输入密码" className="page-login-item-input" />
+              placeholder={t('输入密码')} className="page-login-item-input" />
           </div>
           <div className="page-login-forget">
             <Link to="/my/forget">
-              <span className="page-login-forget-item">忘记密码</span>
+              <span className="page-login-forget-item">{t('忘记密码')}</span>
             </Link>
           </div>
-          <div className="page-login-entry " onClick={this.submit}>登录</div>
+          <div className="page-login-entry " onClick={this.submit}>{t('登录')}</div>
         </div>
       </div>
     );
   }
   renderQuickLogin() {
+    const { t } = this.props;
     return (
       <div className="page-login-box">
         <div className="page-login">
           <div className="page-login-item">
             <input type="number" ref={(c) => { this.quickUsername = c; }} onChange={this.onTextChanged}
-              placeholder="请输入手机号" className="page-login-item-input" />
+              placeholder={t('请输入手机号')} className="page-login-item-input" />
           </div>
           <div className="page-login-item">
             <input type="text" ref={(c) => { this.captcha = c; }} onChange={this.onTextChanged}
-              placeholder="图形验证码" className="page-login-item-input" />
+              placeholder={t('图形验证码')} className="page-login-item-input" />
             <img className="page-login-item-code" src={this.state.captchaUrl}
               alt="" onClick={this.refreshCaptcha} />
           </div>
           <div className="page-login-item">
             <input type="number" ref={(c) => { this.usercode = c; }} onChange={this.onTextChanged}
-              placeholder="手机验证码" className="page-login-item-input" />
+              placeholder={t('手机验证码')} className="page-login-item-input" />
             <div className="page-login-item-code" onClick={this.onSend}>{this.state.buttonString}</div>
           </div>
-          <div className="page-login-entry page-login-quick-login" onClick={this.submit}>登录/注册</div>
+          <div className="page-login-entry page-login-quick-login" onClick={this.submit}>{t('登录/注册')}</div>
         </div>
         <div className="page-login-agree">
-          提交代表已阅读
+          {t('提交代表已阅读')}
                     {
             window.orgCode == 'joQeZJepZV' ?
               <Link to="/my/agree">
@@ -342,7 +345,7 @@ class Login extends React.Component {
               </Link>
               :
               <Link to="/my/agree">
-                <span className="page-login-agreement">《用户协议》</span>
+                <span className="page-login-agreement">{t('用户协议')}</span>
               </Link>
           }
 
@@ -357,16 +360,18 @@ class Login extends React.Component {
   }
   render() {
     const tabIndex = this.props.login.idx;
+    const { t, i18n } = this.props;
+    const { language } = i18n;
     return (
       <div>
         <Tab
           tabs={[
             {
-              label: '快速登录',
+              label: t('快速登录'),
               component: this.renderQuickLogin(),
             },
             {
-              label: '账号登录',
+              label: t('账号登录'),
               component: this.renderLogin(),
             },
           ]}
@@ -378,7 +383,7 @@ class Login extends React.Component {
   }
 }
 
-Login.title = '登录';
+Login.title = i18next.t('登录');
 
 Login.propTypes = {
   loginAction: PropTypes.func,
@@ -441,4 +446,4 @@ export default connect(
     regis: state.register.register,
   }),
   dispatch => bindActionCreators({ loginAction, storeLoginSource, changeIndex, requestVerifyCode, register }, dispatch),
-)(Login);
+)(translate('translations')(Login));

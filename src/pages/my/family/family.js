@@ -14,6 +14,8 @@ import {bindActionCreators} from 'redux';
 import FamilyItem from './component/familyItem';
 import {familyAction, deleteFamilyAction} from '../my.store';
 import './family.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Family extends React.Component {
 
@@ -47,23 +49,24 @@ class Family extends React.Component {
     }
 
     familyMember(data) {
-        return (
-            <Swipeout
-                right={[
-          {
-            text: '删除',
-            onPress: () => this.onSwipePress(data),
-            style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
-            className: 'custom-class-2'
-          },
-        ]}
+      const { t } = this.props;
+      return (
+          <Swipeout
+              right={[
+        {
+          text: t('删除'),
+          onPress: () => this.onSwipePress(data),
+          style: { backgroundColor: '#FBABAB', color: '#333333', fontSize: `${15}px` },
+          className: 'custom-class-2'
+        },
+      ]}
 
-            >
-                <Link to={`/my/profile/detail/${data.id}`}>
-                    <FamilyItem data={data} key={data.id}/>
-                </Link>
-            </Swipeout>
-        );
+          >
+              <Link to={`/my/profile/detail/${data.id}`}>
+                  <FamilyItem data={data} key={data.id}/>
+              </Link>
+          </Swipeout>
+      );
     }
     defaultFamilyMember(data, keys) {
         return (
@@ -71,20 +74,20 @@ class Family extends React.Component {
         )
     }
     render() {
-        const {family: {data: listData}} = this.props;
+        const {family: {data: listData}, t} = this.props;
         const isHouseholder = this.props.user.relation;
         if (listData == null) {
-            return <div>加载中</div>;
+            return <div>{t('加载中')}</div>;
         }
         return (
             <div className="page-family">
                 <div className="pages-family-top-area-container">
                     <div className="pages-family-top-area-title-and-btn">
-                        <h5>我的家庭</h5>
+                        <h5>{t('我的家庭')}</h5>
                         {
                             isHouseholder === '户主' || isHouseholder === ''?
                                 <Link to="/my/family/add">
-                                    <div className="pages-family-top-area-btn">添加成员</div>
+                                    <div className="pages-family-top-area-btn">{t('添加成员')}</div>
                                 </Link>
                                 : null
                         }
@@ -93,12 +96,12 @@ class Family extends React.Component {
                     <div className="page-family-top-area-view">
                         <div className="page-family-top-area-view-family-box">
                             <p><span>{listData ? listData.data.family_size : 0}</span>人</p>
-                            <p>家庭成员</p>
+                            <p>{t('家庭成员')}</p>
                         </div>
                         <div className="page-family-top-area-view-line"/>
                         <div className="page-family-top-area-view-family-box">
                             <p><span>{listData ? listData.data.reward_time : 0}</span>小时</p>
-                            <p>志愿总时长</p>
+                            <p>{t('志愿总时长')}</p>
                         </div>
                     </div>
                 </div>
@@ -124,7 +127,7 @@ class Family extends React.Component {
 }
 
 
-Family.title = '我的家庭';
+Family.title = i18next.t('我的家庭');
 
 Family.propTypes = {
     familyAction: PropTypes.func,
@@ -251,4 +254,4 @@ export default connect(
         deleteFamilyAction,
         requestUserInfo
     }, dispatch),
-)(Family);
+)(translate('translations')(Family));

@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Alert from "react-s-alert";
 import { projectCheckedApply, requestClockClassList, getProjectClockList, projectCheckedSubmit } from "../sign/sign.store";
-import classnames from "classnames";
 import moment from "moment";
-import history from "../history";
 import { createForm, formShape } from 'rc-form';
 import { Picker, List, DatePicker, TextareaItem, InputItem } from 'antd-mobile';
 import 'antd-mobile/lib/picker/style/css';
@@ -14,7 +12,8 @@ import 'antd-mobile/lib/list/style/css';
 import 'antd-mobile/lib/date-picker/style/css';
 import 'antd-mobile/lib/textarea-item/style/css';
 import UploadPhoto from '../../components/uploadPhoto/uploadPhoto';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import './replacement.css';
 
 class Replacement extends React.Component {
@@ -32,6 +31,7 @@ class Replacement extends React.Component {
         this.getProjectClockList(this.proid);
     }
     componentWillReceiveProps(nextprops) {
+      const { t } = nextprops;
         const { failed: ngFailed, fetching: ngFetching } = nextprops.getProjectClockListData;
         const { failed: pgFailed, fetching: pgFetching } = this.props.getProjectClockListData;
         if (!pgFailed && pgFetching && !ngFailed && !ngFetching) {
@@ -50,7 +50,7 @@ class Replacement extends React.Component {
         const { failed: nFailed, fetching: nFetching } = nextprops.projectCheckedSubmitData;
         const { failed: pFailed, fetching: pFetching } = this.props.projectCheckedSubmitData;
         if (!pFailed && pFetching && !nFailed && !nFetching) {
-            Alert.success('申请补卡成功');
+            Alert.success(t('申请补卡成功'));
             this.canSubmit = true;
             if (this.proid == 'proid') {
                 location.replace('/my/duration/applys');
@@ -84,9 +84,9 @@ class Replacement extends React.Component {
             return;
         }
         this.props.form.validateFields((error, value) => {
-            console.info(error, this.state, value);
+          const { t } = this.props;
             if (error) {
-                Alert.error('存在必填项，请完善后重新提交');
+                Alert.error(t('存在必填项，请完善后重新提交'));
                 this.canSubmit = true;
                 return;
             }
@@ -104,6 +104,7 @@ class Replacement extends React.Component {
         });
     }
     render() {
+      const { t } = this.props;
         const { getFieldProps } = this.props.form;
         const { data: proApplyList } = this.props.projectCheckedApplyData;
         let { list: getProjectClockListData } = this.props.getProjectClockListData;
@@ -139,7 +140,7 @@ class Replacement extends React.Component {
                         initialValue: [Number(this.proid)]
                     })}
                 >
-                    <List.Item arrow="horizontal">参加项目</List.Item>
+                    <List.Item arrow="horizontal">{t('参加项目')}</List.Item>
                 </Picker>
             </div>
 
@@ -166,7 +167,7 @@ class Replacement extends React.Component {
                         }
                     })}
                 >
-                    <List.Item arrow="horizontal">活动日期</List.Item>
+                    <List.Item arrow="horizontal">{t('活动日期')}</List.Item>
                 </DatePicker>
             </div>
 
@@ -174,7 +175,7 @@ class Replacement extends React.Component {
                 display: 'flex',
                 justifyContent: 'space-between'
             }}>
-                <List.Item>申请时长(小时)</List.Item>
+                <List.Item>{t('申请时长(小时)')}</List.Item>
                 <InputItem
                     {...getFieldProps('reward_time', {
                         rules: [{
@@ -195,7 +196,7 @@ class Replacement extends React.Component {
                 display: 'flex',
                 justifyContent: 'space-between'
             }}>
-                <List.Item>参加活动地点</List.Item>
+                <List.Item>{t('参加活动地点')}</List.Item>
                 <InputItem
                     {...getFieldProps('addr', {
                         rules: [{
@@ -206,7 +207,7 @@ class Replacement extends React.Component {
                         }
                         ],
                     })}
-                    placeholder="参加活动地点"
+                    placeholder={t('参加活动地点')}
                     style={{ minWidth: '120px', textAlign: 'right' }}
                 >
                 </InputItem>
@@ -288,7 +289,7 @@ class Replacement extends React.Component {
             } */}
             <div className="pages-sign-project-apply-line">
                 <TextareaItem
-                    placeholder={window.orgCode === 'mWZdPNwaKg' ? "申请说明（200字内）:请说明受益对象(幼儿园、小学等名称)/受益人数（老师+家长+学生人数）/活动说明":"申请说明（200字内）"}
+                    placeholder={window.orgCode === 'mWZdPNwaKg' ? t('申请说明'):t('申请说明(默认)')}
                     rows={3}
                     {...getFieldProps('content', {
                         rules: [{
@@ -298,18 +299,18 @@ class Replacement extends React.Component {
                 />
             </div>
             <div className="pages-sign-project-apply-line">
-    <div className="pages-sign-project-apply-line-img-title">{window.orgCode === 'mWZdPNwaKg' ? "活动证明图片（学生签到表、活动过程图片、合照均可，必填）":"工作证明图片(选填)"}</div>
+    <div className="pages-sign-project-apply-line-img-title">{window.orgCode === 'mWZdPNwaKg' ? t('活动证明图片'):t('活动证明图片(默认)')}</div>
                 <div className="pages-sign-project-apply-line-img-box">
                     <UploadPhoto onChange={this.onPhotoChange} multiple={false} length={3} totle={3} />
 
                 </div>
             </div>
-            <div className="pages-sign-project-apply-line-submit" onClick={this.onSubmit}>提交</div>
+            <div className="pages-sign-project-apply-line-submit" onClick={this.onSubmit}>{t('提交')}</div>
         </div>
     }
 }
 
-Replacement.title = "补卡申请";
+Replacement.title = i18next.t("补卡申请");
 
 Replacement.propTypes = {
     form: formShape
@@ -324,4 +325,4 @@ export default connect(
         projectCheckedSubmitData: state.sign.projectCheckedSubmit
     }),
     dispatch => bindActionCreators({ projectCheckedApply, requestClockClassList, getProjectClockList, projectCheckedSubmit }, dispatch)
-)(ReplacementForm);
+)(translate('translations')(ReplacementForm));

@@ -12,21 +12,17 @@ import autoBind from 'react-autobind';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Link from '../../../components/link/link';
-import {} from '../../../stores/common';
 import classnames from 'classnames';
-import Avatar from '../../../components/avatar/avatar';
 import {addFamilyAction} from '../my.store';
-import history from '../../history';
 import './add.css';
-
-
-import Tab from '../../../components/tab/tab';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import BindFamily from './addTab/bindFamily';
 import NewFamily from './addTab/newFamily';
 
 function checkEmpty(value, label) {
     if (!value || !value.length) {
-        Alert.warning(`请填写${label}`);
+        Alert.warning(`${i18next.t('请填写')}${label}`);
         return true;
     }
 
@@ -100,15 +96,16 @@ class Addmember extends React.Component {
         const name = this.state.name;
         const password = this.state.password;
         const photo = this.state.photo;
-        if (checkEmpty(name, '姓名') || checkEmpty(password, '密码')) {
+        const { t } = this.props;
+        if (checkEmpty(name, t('姓名')) || checkEmpty(password, t('密码'))) {
             return;
         }
         if (password.length <= 5 || password.length >= 19) {
-            Alert.warning('密码范围6-20位数字字母组成');
+            Alert.warning(t('密码范围6-20位数字字母组成'));
             return;
         }
         if (!/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
-            Alert.warning('请输入正确的用户名》');
+            Alert.warning(t('请输入正确的用户名'));
             return;
         }
 
@@ -123,6 +120,7 @@ class Addmember extends React.Component {
 
     render() {
         const {pages} = this.state;
+        const {t} = this.props;
         const {path} = this.props.route;
         return (
             <div className="page-add-family-tab-container">
@@ -132,7 +130,7 @@ class Addmember extends React.Component {
                     active: path==='/my/family/add'
                 })}>
                             <Link to="/my/family/add">
-                                <div>绑定家庭成员
+                                <div>{t('绑定家庭成员')}
                                 </div>
                             </Link>
                         </li>
@@ -140,7 +138,7 @@ class Addmember extends React.Component {
                   active: path ==='/my/family/add/newfamily'
                   })}>
                             <Link to="/my/family/add/newfamily">
-                                <div>新建家庭成员</div>
+                                <div>{t('新建家庭成员')}</div>
                             </Link>
                         </li>
                     </ul>
@@ -154,7 +152,7 @@ class Addmember extends React.Component {
 }
 
 
-Addmember.title = '添加成员';
+Addmember.title = i18next.t('添加成员');
 
 Addmember.propTypes = {
     addFamilyAction: PropTypes.func,
@@ -208,4 +206,4 @@ export default connect(
     dispatch => bindActionCreators({
         addFamilyAction,
     }, dispatch),
-)(Addmember);
+)(translate('translations')(Addmember));

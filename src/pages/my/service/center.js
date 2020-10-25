@@ -7,9 +7,9 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { } from '../my.store';
 import './center.css';
-import Avatar from '../../../components/avatar/avatar';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 
 class Center extends React.Component {
@@ -34,6 +34,7 @@ class Center extends React.Component {
 
 
   render() {
+    const { t } = this.props;
     const content = window.orgInfo.org_service;
     const phone = window.orgInfo.org_service_tel;
     return (
@@ -41,10 +42,10 @@ class Center extends React.Component {
         <div
           className="page-center-style" dangerouslySetInnerHTML={{
             __html: content ?
-          content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+          content.replace(/(\n+)/g, '<br/>') : t('暂无介绍') }}
         />
         {phone ? <div className="page-center-phone-take" /> : null}
-        {phone ? <a href={`tel:${phone}`} className="page-center-phone">客服电话</a> : null}
+        {phone ? <a href={`tel:${phone}`} className="page-center-phone">{t('客服电话')}</a> : null}
 
       </div>
     );
@@ -52,7 +53,7 @@ class Center extends React.Component {
 }
 
 
-Center.title = '客服中心';
+Center.title = i18next.t('客服中心');
 
 Center.propTypes = {
 };
@@ -60,4 +61,4 @@ Center.propTypes = {
 export default connect(
   state => state.my || {},
   dispatch => bindActionCreators({}, dispatch),
-)(Center);
+)(translate('translations')(Center));

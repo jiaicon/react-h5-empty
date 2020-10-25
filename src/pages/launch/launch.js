@@ -17,7 +17,7 @@ import SignClassPage from "../sign/signclass";
 import WXShare from '../../components/share';
 import MyPage from '../my/my';
 import { requestUserInfo } from '../../stores/common';
-
+import { translate, Trans } from 'react-i18next';
 
 
 class LaunchPage extends React.Component {
@@ -65,8 +65,7 @@ class LaunchPage extends React.Component {
 
   render() {
     const { page } = this.state;
-    const { path } = this.props.route;
-
+    const { route: {path}, t } = this.props;
 
     var daduhui = false;
     // VWPe9xdLyw 星巴克
@@ -90,7 +89,7 @@ class LaunchPage extends React.Component {
                   daduhui : daduhui,
                 })}
               />
-              <span>首页</span>
+              <span>{t('首页')}</span>
             </Link>
           </li>
           <li>
@@ -103,7 +102,7 @@ class LaunchPage extends React.Component {
                   "daduhui" : daduhui,
                 })}
               />
-              <span>签到打卡</span>
+              <span>{t('签到打卡')}</span>
             </Link>
           </li>
           <li>
@@ -116,7 +115,7 @@ class LaunchPage extends React.Component {
                   "daduhui" : daduhui,
                 })}
               />
-              <span>个人中心</span>
+              <span>{t('个人中心')}</span>
             </Link>
           </li>
         </ul>
@@ -147,4 +146,4 @@ LaunchPage.propTypes = {
 export default connect(
   state => ({ user: state.user }),
   dispatch => bindActionCreators({ requestUserInfo }, dispatch),
-)(LaunchPage);
+)(translate('translations')(LaunchPage));

@@ -18,6 +18,9 @@ import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
 import Alert from 'react-s-alert';
 import { Provider } from 'react-redux';
+// 翻译
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 import { Spinner } from 'react-redux-spinner';
 
@@ -44,21 +47,23 @@ const container = document.getElementById('container');
 
 function renderComponent(component) {
   ReactDOM.render(
-    <Provider store={store}>
-      <div>
-        {component}
-        <Alert
-          stack={{
-            limit: 3,
-          }}
-          effect="stackslide"
-          position="top"
-          offset={0}
-          timeout={2000}
-        />
-        <Spinner />
-      </div>
-    </Provider>, container);
+    <I18nextProvider i18n={i18n()}>
+      <Provider store={store}>
+        <div>
+          {component}
+          <Alert
+            stack={{
+              limit: 3,
+            }}
+            effect="stackslide"
+            position="top"
+            offset={0}
+            timeout={2000}
+          />
+          <Spinner />
+        </div>
+      </Provider>
+    </I18nextProvider>, container);
 }
 
 // Find and render a web page matching the current URL path, if such page is not

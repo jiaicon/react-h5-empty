@@ -5,6 +5,8 @@ import './teams.css';
 import Link from '../link/link';
 import Avatar from '../avatar/avatar';
 import Star from '../star/star';
+import { translate } from 'react-i18next';
+
 class Teams extends React.Component {
 
   constructor(props) {
@@ -26,12 +28,12 @@ class Teams extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const { teams } = this.props;
+    const { teams, t } = this.props;
     const showLabel = this.props.showLabel;
     if (!teams) {
       return null;
     } else if (teams && !teams.length) {
-      return <div className="teams-empty-tip">{showLabel ? '目前还没有您已加入的团队哦' : '目前还没有团队哦'}</div>;
+      return <div className="teams-empty-tip">{showLabel ? t('目前还没有您已加入的团队哦') : t('目前还没有团队哦')}</div>;
     }
     return (
       <ul className="component-teams">
@@ -56,13 +58,13 @@ class Teams extends React.Component {
                           'team-main-top-state': true,
                           'team-main-top-state-visiblehidden': team.join_status === 1,
                         })}
-                      >审核中</div> : null
+                      >{t('审核中')}</div> : null
                   }
                 </div>
 
                 <div className="team-info">
-                  <span>时长：{team.reward_sum} 小时</span>
-                  <span>成员：{team.team_size} 人</span>
+                  <span>{t('时长')}：{team.reward_sum} {t('小时')}</span>
+                  <span>{t('成员')}：{team.team_size} {t('人')}</span>
                 </div>
               </div>
             </Link>
@@ -84,4 +86,4 @@ Teams.propTypes = {
   showLabel: PropTypes.bool,
 };
 
-export default Teams;
+export default translate('translations')(Teams);

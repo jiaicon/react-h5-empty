@@ -24,16 +24,19 @@ import { requestHomeData, saveCity, getAreaCity } from "./home.store";
 import { Dialog } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
+import { translate } from 'react-i18next';
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    const { t, i18n } = props;
+    const { language } = i18n;
     this.state = {
       newcity: null,
       city: getCookie("provinceAndCityName")
-        ? JSON.parse(getCookie("provinceAndCityName")).city.replace("市", "")
-        : "全国",
+        ? (language === 'zh_CN' ? JSON.parse(getCookie("provinceAndCityName")).city.replace(t('市'), "") : JSON.parse(getCookie("provinceAndCityName")).city)
+        : t('全国'),
       showDialog: false
     };
     this.play = this.play.bind(this);
@@ -53,7 +56,7 @@ class HomePage extends React.Component {
       buttons: [
         {
           type: "default",
-          label: "取消",
+          label: t('取消'),
           onClick: () => {
             this.props.requestHomeData();
             this.setState({ ...this.state, showDialog: false });
@@ -61,7 +64,7 @@ class HomePage extends React.Component {
         },
         {
           type: "primary",
-          label: "确认",
+          label: t('确认'),
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
             const { newcity, pc, city } = this.state;
@@ -79,13 +82,14 @@ class HomePage extends React.Component {
 
   componentWillMount() {
     // TODO:
+    const { t } = this.props;
     this.props.requestHomeData();
     if (!getCookie("provinceAndCityName")) {
       getCity(
         (city, str) => {
           const { city: initaialCity } = this.state;
 
-          if (initaialCity == city.replace("市", "")) {
+          if (initaialCity == city.replace(t('市'), "")) {
             this.props.requestHomeData();
             return;
           } else {
@@ -109,7 +113,8 @@ class HomePage extends React.Component {
   componentWillUnmount() {}
   componentDidMount() {}
   renderHeaderBar() {
-    const { user } = this.props;
+    const { user, t, i18n } = this.props;
+    const { language } = i18n;
     const switchView = user.isLogin;
     //点击登录跳转判断
     let target = '/my/entry';
@@ -118,6 +123,12 @@ class HomePage extends React.Component {
     } else if(window.orgCode === '7N1aM8AeWm') {
       target='/my/login';
     }
+
+    const changeGlobalLanguage = () => {
+      i18n.changeLanguage(language === 'zh_CN' ? 'en_US' : 'zh_CN');
+      location.reload();
+    };
+
     return (
       <div className="header-bar">
         <Link to="/selectcity">
@@ -131,7 +142,7 @@ class HomePage extends React.Component {
                 <input
                   className="input"
                   style={{ marginLeft: "35px" }}
-                  placeholder="搜索项目/团队"
+                  placeholder={t('搜索项目/团队')}
                   disabled="disabled"
                 />
               </Link>
@@ -139,6 +150,7 @@ class HomePage extends React.Component {
             <Link to="/my">
               <Avatar src={user.avatars} size={{ width: 28 }} />
             </Link>
+            <span onClick={changeGlobalLanguage}>{language === 'zh_CN' ? '英文' : '中文'}</span>
           </div>
         ) : (
           <div style={{ display: "flex", width: "280px" }}>
@@ -146,15 +158,16 @@ class HomePage extends React.Component {
               <input
                 className="input"
                 style={{ marginLeft: "35px" }}
-                placeholder="搜索项目/团队"
+                placeholder={t('搜索项目/团队')}
                 disabled="disabled"
               />
             </Link>
             <Link
                 to={target}
               >
-              <div className="login-button">登录</div>
+              <div className="login-button">{t('登录')}</div>
             </Link>
+            <span onClick={changeGlobalLanguage}>{language === 'zh_CN' ? '英文' : '中文'}</span>
           </div>
         )}
       </div>
@@ -268,38 +281,42 @@ class HomePage extends React.Component {
     }
     return (
       <div className="slick-container">
-        {home.data.banner && home.data.banner.length ?
-          <Slick {...this.slickSettings}>
-            {home.data.banner.map(item => {
-              let url = "";
-              const mode = item.jump_mode;
+        {
+          home.data.banner && home.data.banner.length ?
+            <Slick {...this.slickSettings}>
+              {
+                home.data.banner.map(item => {
+                  let url = "";
+                  const mode = item.jump_mode;
 
-              if (mode === 1) {
-                // if (!user.isLogin) {
-                //   url = '/my/entry';
-                // }else{
-                // 第三方
-                url = item.href;
-              } else if (mode === 2) {
-                // 项目
-                url = `/project/detail/${item.jump_id}`;
-              } else if (mode === 3) {
-                // 团队
-                url = `/team/detail/${item.jump_id}`;
+                  if (mode === 1) {
+                    // if (!user.isLogin) {
+                    //   url = '/my/entry';
+                    // }else{
+                    // 第三方
+                    url = item.href;
+                  } else if (mode === 2) {
+                    // 项目
+                    url = `/project/detail/${item.jump_id}`;
+                  } else if (mode === 3) {
+                    // 团队
+                    url = `/team/detail/${item.jump_id}`;
+                  }
+
+                  return (
+                    <Link key={item.id} to={url}>
+                      <Image
+                        src={item.photo}
+                        className="image"
+                        resize={{ width: 1500 }}
+                      />
+                    </Link>
+                  );
+                })
               }
-
-              return (
-                <Link key={item.id} to={url}>
-                  <Image
-                    src={item.photo}
-                    className="image"
-                    resize={{ width: 1500 }}
-                  />
-                </Link>
-              );
-            })}
-          </Slick>
-         : null}
+            </Slick>
+          : null
+        }
       </div>
     );
   }
@@ -453,4 +470,4 @@ export default connect(
   }), //
   dispatch =>
     bindActionCreators({ requestHomeData, saveCity, getAreaCity }, dispatch)
-)(HomePage);
+)(translate('translations')(HomePage));

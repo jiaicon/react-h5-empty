@@ -14,6 +14,8 @@ import { bindActionCreators } from 'redux';
 import './duration.css';
 import DutationProjects from '../../../components/duration/projects';
 import { rewardTimeAction } from '../my.store';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Duration extends React.Component {
 
@@ -36,7 +38,7 @@ class Duration extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const { reward: { data: listData } } = this.props;
+    const { reward: { data: listData }, t } = this.props;
     return (
       <div className="page-duration">
 
@@ -46,15 +48,15 @@ class Duration extends React.Component {
               <span>
                 {this.props.reward.data === null ? 0 : this.props.reward.data.join_project_count}
               </span>个</p>
-            <p>参加的项目</p>
+            <p>{t('参加的项目')}</p>
           </div>
           <div className="page-duration-top-area-view-line" />
           <div className="page-duration-top-area-view-duration-box">
             <p>
               <span>
                 {this.props.reward.data === null ? 0 : this.props.reward.data.reward_time}
-              </span>小时</p>
-            <p>志愿总时长</p>
+              </span>{t('小时')}</p>
+            <p>{t('志愿总时长')}</p>
           </div>
         </div>
         <div className="line1px" />
@@ -70,7 +72,7 @@ class Duration extends React.Component {
 }
 
 
-Duration.title = '服务时长';
+Duration.title = i18next.t('服务时长');
 
 Duration.propTypes = {
   rewardTimeAction: PropTypes.func,
@@ -93,4 +95,4 @@ export default connect(
     user:state.user,
   }),
   dispatch => bindActionCreators({ rewardTimeAction }, dispatch),
-)(Duration);
+)(translate('translations')(Duration));

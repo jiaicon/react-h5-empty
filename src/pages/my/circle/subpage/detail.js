@@ -11,21 +11,17 @@ import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Alert from 'react-s-alert';
-
-
 import './detail.css';
-import Link from '../../../../components/link/link';
-
 import CommunityItem from '../../../../components/community_item/index';
 import { feelingDetailAction, postCommentAction, deleteCommentAction, deleteFeelingAction, unObserveAction, observeAction } from '../circle.store';
 import { requestUserInfo } from '../../../../stores/common';
 import { userCenterAction } from '../../my.store';
 import AVATAR from '../../../../components/avatar/avatar';
-import history from '../../../history';
-
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 function isTrue(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -46,17 +42,18 @@ class CircleDetail extends React.Component {
       feelId: null,
       trigger: false,
     });
+    const { t } = this.props;
     this.dialog = {
-      title: '登录提示',
+      title: t('登录提示'),
       buttons: [
         {
           type: 'default',
-          label: '取消',
+          label: t('取消'),
           onClick: () => this.setState({ ...this.state, showDialog: false }),
         },
         {
           type: 'primary',
-          label: '确认',
+          label: t('确认'),
           onClick: () => {
             this.setState({ ...this.state, showDialog: false });
             this.props.userCenterAction();
@@ -184,10 +181,11 @@ class CircleDetail extends React.Component {
   }
   submit(evt) {
     evt.preventDefault();
+    const { t } = this.props;
     const feelId = this.state.feelId;
     const comment = this.state.comment;
     if (!comment) {
-      Alert.warning('请输入评论');
+      Alert.warning(t('请输入评论'));
       return;
     }
     if (feelId) {
@@ -197,6 +195,7 @@ class CircleDetail extends React.Component {
     }
   }
   renderRemark() {
+    const { t } = this.props;
     return (
       <div className="page-circleDetail-remark-container">
         <div className="page-circleDetail-remark-main">
@@ -256,7 +255,7 @@ class CircleDetail extends React.Component {
                                       </div>
                                       <div className="page-circleDetail-remark-components-comment">
                                         {
-                                          !item.comment_to ? null : '回复'
+                                          !item.comment_to ? null : t('回复')
                                         }
                                         {
                                           item.comment_to ? <span className="page-circleDetail-remark-components-comment-to-name">{item.comment_to.username}</span> : null
@@ -269,7 +268,7 @@ class CircleDetail extends React.Component {
                                       </div>
                                       <div className="page-circleDetail-remark-components-comment-delete" >
                                         {
-                                        this.props.user.id === item.user_info.id ? <a onClick={this.deleteComment} data-info={JSON.stringify(item)}>删除</a> : null
+                                        this.props.user.id === item.user_info.id ? <a onClick={this.deleteComment} data-info={JSON.stringify(item)}>{t('删除')}</a> : null
                                         }
                                       </div>
                                     </div>
@@ -294,7 +293,7 @@ class CircleDetail extends React.Component {
         <div className="page-circleDetail-takeup" />
        
         <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-        只有登录的用户才能点赞和评论哦～
+          {t('只有登录的用户才能点赞和评论哦～')}
         </Dialog>
       </div>
     );
@@ -307,7 +306,7 @@ class CircleDetail extends React.Component {
   }
   
   render() {
-    const { feelingDetail: feelingData } = this.props;
+    const { feelingDetail: feelingData, t } = this.props;
     const currentId = parseInt(this.Id, 10);
     const nowId = feelingData.data ? feelingData.data.id : '';
 
@@ -334,11 +333,11 @@ class CircleDetail extends React.Component {
           <div className="line1px" />
           <div className="page-circleDetail-remark-send-message-main" >
             <textarea
-              placeholder={this.state.user == null ? '回复' : `回复 ${this.state.user}：`}
+              placeholder={this.state.user == null ? t('回复') : `${t('回复')} ${this.state.user}：`}
               className="page-circleDetail-remark-send-message-main-text" maxLength="200"
               ref={(c) => { this.comment = c; }} onBlur={this.onTextChanged}  onFocus={this.isLogin}  
             />
-            <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>发表</div>
+            <div className="page-circleDetail-remark-send-message-main-send" onClick={this.submit}>{t('发表')}</div>
 
           </div>
         </div>
@@ -348,7 +347,7 @@ class CircleDetail extends React.Component {
 }
 
 
-CircleDetail.title = '互动社区';
+CircleDetail.title = i18next.t('社区互动');
 
 CircleDetail.propTypes = {
   route: PropTypes.shape({
@@ -380,5 +379,5 @@ export default connect(
     userCenterAction,
   },
     dispatch),
-)(CircleDetail);
+)(translate('translations')(CircleDetail));
 

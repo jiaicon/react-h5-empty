@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import './collects.css';
 import { collectAction } from '../my.store';
 import ProjectsItem from '../../../components/projects/projects';
-
+import i18next from 'i18next';
 
 class ProjectPage extends React.Component {
 
@@ -49,7 +49,7 @@ class ProjectPage extends React.Component {
   }
 }
 
-ProjectPage.title = '我的收藏';
+ProjectPage.title = i18next.t('我的收藏');
 
 ProjectPage.propTypes = {
   collectAction: PropTypes.func,

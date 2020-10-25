@@ -27,6 +27,8 @@ import history from "../../history";
 import { Dialog, ActionSheet } from "react-weui";
 import "weui/dist/style/weui.css";
 import "react-weui/build/packages/react-weui.css";
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 import {
   requestTeamDetail,
@@ -50,6 +52,7 @@ class TeamDetailPage extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    const { t } = props;
     this.state = {
       showShareTip: false,
       dialogType: true,
@@ -58,7 +61,7 @@ class TeamDetailPage extends React.Component {
       menus: [],
       actions: [
         {
-          label: "取消",
+          label: t('取消'),
           onClick: this.hide
         }
       ]
@@ -76,16 +79,16 @@ class TeamDetailPage extends React.Component {
     this.teamId = props.route.params.teamId;
 
     this.dialog = {
-      title: `${this.state.dialogType ? "提示" : "登录提示"}`,
+      title: `${this.state.dialogType ? t('提示') : t('登录提示')}`,
       buttons: [
         {
           type: "default",
-          label: "取消",
+          label: t('取消'),
           onClick: () => this.setState({ ...this.state, showDialog: false })
         },
         {
           type: "primary",
-          label: "确认",
+          label: t('确认'),
           onClick: () => {
             if (this.state.dialogType) {
               this.setState({ ...this.state, showDialog: false });
@@ -102,12 +105,13 @@ class TeamDetailPage extends React.Component {
   }
 
   componentWillMount() {
+    const { t } = this.props;
     if (window.userAgent) {
       this.setState({
         ...this.state,
         menus: [
           {
-            label: "转发给好友",
+            label: t('转发给好友'),
             onClick: () => {
               this.setState(
                 {
@@ -120,7 +124,7 @@ class TeamDetailPage extends React.Component {
             }
           },
           {
-            label: "分享到朋友圈",
+            label: t('分享到朋友圈'),
             onClick: () => {
               this.setState(
                 {
@@ -133,7 +137,7 @@ class TeamDetailPage extends React.Component {
             }
           },
           {
-            label: "保存海报",
+            label: t('保存海报'),
             onClick: () => {
               this.setState(
                 {
@@ -153,7 +157,7 @@ class TeamDetailPage extends React.Component {
         ...this.state,
         menus: [
           {
-            label: "保存海报",
+            label: t('保存海报'),
             onClick: () => {
               console.log(1222);
               this.setState(
@@ -264,7 +268,7 @@ class TeamDetailPage extends React.Component {
   }
   handleActionClick(action) {
     const { teamId } = this;
-    const { detail: { team: detailData }, user } = this.props;
+    const { detail: { team: detailData }, user, t } = this.props;
     const realRegister = window.orgInfo.real_name_register;
     // in_blacklist 黑名单 0不在，1在
     // realRegister 机构实名 1 要求  0 否
@@ -347,7 +351,7 @@ class TeamDetailPage extends React.Component {
           }
         }
       } else if (user.isLogin && user.in_blacklist) {
-        Alert.warning('您已被添加到黑名单，请联系客服');
+        Alert.warning(t('您已被添加到黑名单，请联系客服'));
       }
     };
   }
@@ -416,7 +420,8 @@ class TeamDetailPage extends React.Component {
   renderBasic() {
     const {
       detail: { team: detailData },
-      user: { isLogin }
+      user: { isLogin },
+      t,
     } = this.props;
     // join_status: [integer] -1未提交 0审核中 1通过 2驳回, 详情页下发，登陆后如加入团队才有此字段
     const joined = isLogin && detailData.join_status === 1;
@@ -481,7 +486,7 @@ class TeamDetailPage extends React.Component {
                   </span>
                   {detailData.team_size >= 10000 ? "万" : ""}
                 </div>
-                <p>团队成员(人)</p>
+                <p>{t('团队成员(人)')}</p>
               </div>
               <div className="line1px-v" />
               <div className="team-member-item">
@@ -493,23 +498,23 @@ class TeamDetailPage extends React.Component {
                   </span>
                   {detailData.reward_sum >= 10000 ? "万" : ""}
                 </div>
-                <p>团队总时长(小时)</p>
+                <p>{t('团队总时长(小时)')}</p>
               </div>
             </div>
             <ul>
               <li>
-                <span>团队口号</span>
+                <span>{t('团队口号')}</span>
                 <span>{detailData.slogan}</span>
                 <div className="line1px" />
               </li>
               <li>
-                <span>团队类型</span>
+                <span>{t('团队类型')}</span>
                 <span>{detailData.type}</span>
                 <div className="line1px" />
               </li>
               {detailData.parent && detailData.parent.name ? (
                 <li>
-                  <span>上级团队</span>
+                  <span>{t('上级团队')}</span>
                   <Link to={`/team/detail/${detailData.parent.id}`}>
                     {detailData.parent.name}
                   </Link>
@@ -517,7 +522,7 @@ class TeamDetailPage extends React.Component {
                 </li>
               ) : null}
               <li>
-                <span>注册日期</span>
+                <span>{t('注册日期')}</span>
                 <span>
                   {detailData.created_at
                     ? dateTextToDateText(detailData.created_at.split(" ")[0])
@@ -526,13 +531,13 @@ class TeamDetailPage extends React.Component {
                 <div className="line1px" />
               </li>
               <li>
-                <span>团队管理</span>
+                <span>{t('团队管理')}</span>
                 <span>{detailData.contact_name}</span>
                 <div className="line1px" />
               </li>
               {
                 detailData.contact_phone_public ? (<li>
-                  <span>联系电话</span>
+                  <span>{t('联系电话')}</span>
                   <a href={`tel:${detailData.contact_phone}`}>
                     {detailData.contact_phone}
                   </a>
@@ -541,7 +546,7 @@ class TeamDetailPage extends React.Component {
               }
 
               <li>
-                <span>团队地址</span>
+                <span>{t('团队地址')}</span>
                 <span>{`${detailData.province_name}${detailData.city_name}${
                   detailData.county_name
                   }${detailData.addr}`}</span>
@@ -550,7 +555,7 @@ class TeamDetailPage extends React.Component {
           </div>
 
           <div className="team-description">
-            <div>团队简介</div>
+            <div>{t('团队简介')}</div>
             <p>{detailData.abstract}</p>
           </div>
 
@@ -568,7 +573,7 @@ class TeamDetailPage extends React.Component {
             <span
               className={classnames({ selected: detailData.collection_status })}
             />
-            <span>收藏</span>
+            <span>{t('收藏')}</span>
           </Link>
 
           <Link
@@ -581,7 +586,7 @@ class TeamDetailPage extends React.Component {
             className="team-action team-action-share"
           >
             <span />
-            <span>分享</span>
+            <span>{t('分享')}</span>
           </Link>
 
           <Link
@@ -598,7 +603,8 @@ class TeamDetailPage extends React.Component {
 
   renderProjects() {
     const {
-      detail: { projects }
+      detail: { projects },
+      t,
     } = this.props;
 
     return (
@@ -618,7 +624,7 @@ class TeamDetailPage extends React.Component {
                     "tab-icon-home": true
                   })}
                 />
-                <span>首页</span>
+                <span>{t('首页')}</span>
               </Link>
             </li>
             <li>
@@ -629,7 +635,7 @@ class TeamDetailPage extends React.Component {
                     "tab-icon-sign": true
                   })}
                 />
-                <span>签到打卡</span>
+                <span>{t('签到打卡')}</span>
               </Link>
             </li>
             <li>
@@ -640,7 +646,7 @@ class TeamDetailPage extends React.Component {
                     "tab-icon-me": true
                   })}
                 />
-                <span>个人中心</span>
+                <span>{t('个人中心')}</span>
               </Link>
             </li>
           </ul>
@@ -673,6 +679,7 @@ class TeamDetailPage extends React.Component {
   }
 
   renderCommunity() {
+    const { t } = this.props;
     return (
       <div>
         {this.props.feeling.data &&
@@ -698,7 +705,7 @@ class TeamDetailPage extends React.Component {
                 className="page-circle-rendercommunity-img"
               />
               <div className="page-circle-rendercommunity-info">
-                还没有动态信息
+                {t('还没有动态信息')}
             </div>
             </div>
           )}
@@ -724,7 +731,7 @@ class TeamDetailPage extends React.Component {
   }
   renderModal() {
     const {
-      detail: { team: detailData, tabTeamIndex },
+      detail: { team: detailData },
       user
     } = this.props;
 
@@ -732,7 +739,6 @@ class TeamDetailPage extends React.Component {
     return (
       <ModalNew
         postData={postData}
-        maskCloseable={true}
         visible={this.state.visible}
         maskCloseable={this.closeModal}
       />
@@ -740,7 +746,8 @@ class TeamDetailPage extends React.Component {
   }
   render() {
     const {
-      detail: { team: detailData, tabTeamIndex }
+      detail: { team: detailData, tabTeamIndex },
+      t,
     } = this.props;
     const currentTeamId = parseInt(this.teamId, 10);
     const dataTeamId = detailData ? detailData.id : "";
@@ -754,15 +761,15 @@ class TeamDetailPage extends React.Component {
         <Tab
           tabs={[
             {
-              label: "团队详情",
+              label: t('团队详情'),
               component: this.renderBasic()
             },
             {
-              label: "团队项目",
+              label: t("团队项目"),
               component: this.renderProjects()
             },
             {
-              label: "团队社区",
+              label: t("团队社区"),
               component: this.renderCommunity()
             }
           ]}
@@ -783,8 +790,8 @@ class TeamDetailPage extends React.Component {
           show={this.state.showDialog}
         >
           {this.state.dialogType
-            ? "确定要退出团队吗？"
-            : "只有登录的用户才能点赞和评论哦～"}
+            ? `${t('确定要退出团队吗')}？`
+            : t('只有登录的用户才能点赞和评论哦～')}
         </Dialog>
         {this.state.showShareTip ? (
           <ShareTip onClick={this.hideShareTip} />
@@ -826,7 +833,7 @@ TeamDetailPage.propTypes = {
   })
 };
 
-TeamDetailPage.title = "团队详情";
+TeamDetailPage.title = i18next.t("团队详情");
 
 export default connect(
   state => ({
@@ -857,4 +864,4 @@ export default connect(
       },
       dispatch
     )
-)(TeamDetailPage);
+)(translate('translations')(TeamDetailPage));

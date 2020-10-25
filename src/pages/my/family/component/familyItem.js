@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import './familyItem.css';
 import Avatar from '../../../../components/avatar/avatar';
+import { translate } from 'react-i18next';
 
 class FamilyItem extends React.Component {
 
@@ -28,6 +29,7 @@ class FamilyItem extends React.Component {
 
   componentWillUnmount() {}
   render() {
+    const { t } = this.props;
     const item = this.props.data;
     return (
       <div className="page-family-item-container">
@@ -37,10 +39,10 @@ class FamilyItem extends React.Component {
           </div>
           <div className="page-family-item-name-container">
             <div className="page-family-item-name">{item.real_name ? item.real_name : '未绑定个人名字'}</div>
-            <div className="page-family-item-account">关系：{item.relation}</div>
+            <div className="page-family-item-account">{t('关系')}：{item.relation}</div>
           </div>
           <div className="page-family-item-time-container">
-            <p>服务时长：<span>{item.reward_time}小时</span></p>
+            <p>{t('服务时长')}：<span>{item.reward_time}{t('小时')}</span></p>
           </div>
         </div>
         <div className="line1px" />
@@ -81,5 +83,5 @@ FamilyItem.propTypes = {
 };
 
 
-export default FamilyItem;
+export default translate('translations')(FamilyItem);
 

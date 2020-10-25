@@ -18,12 +18,13 @@ import {
   projectapplyAction,
   projectapplyclockAction
 } from "../my.store";
-import history from "../../history";
 import UploadPhoto from "../../../components/uploadPhoto/uploadPhoto";
 import { DatePicker, List } from "antd-mobile";
 import "antd-mobile/lib/date-picker/style/css";
 import moment from "moment";
 const isAndroid = /android/i.test(navigator.userAgent);
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Post extends React.Component {
   constructor(props) {
@@ -115,26 +116,26 @@ class Post extends React.Component {
   onNext() {
     const id = this.state.data.id;
     const { selectItem, attachment, info: content } = this.state;
-    console.log(content);
+    const { t } = this.props;
     const data = {};
     if (!id) {
-      Alert.warning("请选择申请项目");
+      Alert.warning(t('请选择申请项目'));
     }
     if (!selectItem) {
-      Alert.warning("请选择申请班次");
+      Alert.warning(t('请选择申请班次'));
     }
     if (selectItem.type == 1 && !this.state.cardtime) {
-      Alert.warning("请选择补卡时间");
+      Alert.warning(t('请选择补卡时间'));
     } else if (selectItem.type == 2) {
       if (!this.state.begin) {
-        Alert.warning("请选择签到时间");
+        Alert.warning(t('请选择签到时间'));
       }
       if (!this.state.end) {
-        Alert.warning("请选择签退时间");
+        Alert.warning(t('请选择签退时间'));
       }
     }
     if (!content) {
-      Alert.warning("请输入详细说明");
+      Alert.warning(t('请输入详细说明'));
       return;
     }
 
@@ -142,7 +143,6 @@ class Post extends React.Component {
       data.attachment = attachment;
     }
     const { postapply: Cpostapply } = this.props;
-    console.log(Cpostapply);
     if (Cpostapply.fetching) {
       return;
     }
@@ -180,6 +180,7 @@ class Post extends React.Component {
     });
   }
   render() {
+    const { t } = this.props;
     const { data, attachment, popToggle } = this.state;
     const { data: detaildata } = this.props.projectapplyclock;
     return (
@@ -192,7 +193,7 @@ class Post extends React.Component {
                   "page-post-font-color": data.name
                 })}
               >
-                {data.name ? data.name : "参加项目"}
+                {data.name ? data.name : t('参加项目')}
               </div>
               <div className="page-post-container-item-more" />
             </div>
@@ -212,7 +213,7 @@ class Post extends React.Component {
                   }}
                 >
                   <option style={{ color: "#999" }} disabled selected>
-                    补卡班次
+                    {t('补卡班次')}
                   </option>
 
                   {detaildata &&
@@ -248,7 +249,7 @@ class Post extends React.Component {
                       className="page-profile-publish-container-input "
                       style={{ color: "#999", lineHeight: "40px" }}
                     >
-                      打卡时间
+                      {t('打卡时间')}
                     </div>
                   )}
                 </DatePicker>
@@ -269,7 +270,7 @@ class Post extends React.Component {
                         className="page-profile-publish-container-input "
                         style={{ color: "#999", lineHeight: "40px" }}
                       >
-                        签到补卡时间
+                        {t('签到补卡时间')}
                       </div>
                     )}
                   </DatePicker>
@@ -288,7 +289,7 @@ class Post extends React.Component {
                         className="page-profile-publish-container-input "
                         style={{ color: "#999", lineHeight: "40px" }}
                       >
-                        签退补卡时间
+                        {t('签退补卡时间')}
                       </div>
                     )}
                   </DatePicker>
@@ -308,7 +309,7 @@ class Post extends React.Component {
           </div>
           <div style={{ background: "#fff", marginTop: "15px" }}>
             <div className="page-post-container-photo-text">
-              工作证明图片(选填)
+              {t('工作证明图片')}({t('选填')})
             </div>
             <div className="page-post-container-photo-container">
               <UploadPhoto
@@ -321,7 +322,7 @@ class Post extends React.Component {
           </div>
 
           <div className="page-post-btn" onClick={this.onNext}>
-            提交
+            {t('提交')}
           </div>
           {/** 遮罩层* */}
           <div
@@ -349,7 +350,7 @@ class Post extends React.Component {
   }
 }
 
-Post.title = "申请服务时长";
+Post.title = i18next.t('申请服务时长');
 
 Post.propTypes = {
   postapplyAction: PropTypes.func,
@@ -376,4 +377,4 @@ export default connect(
       { postapplyAction, projectapplyAction, projectapplyclockAction },
       dispatch
     )
-)(Post);
+)(translate('translations')(Post));

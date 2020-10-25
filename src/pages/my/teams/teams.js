@@ -14,6 +14,8 @@ import { teamAction } from '../my.store';
 import './teams.css';
 import Link from '../../../components/link/link';
 import TeamsItem from '../../../components/teams/teams';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Teams extends React.Component {
 
@@ -47,12 +49,13 @@ class Teams extends React.Component {
   }
   // <div className="page-teams-search-btn" />
   render() {
+    const { t } = this.props;
     return (
       <div className="page-teams-container">
         <div className="page-teams-search-container">
           <div className="page-teams-container-box">
             <Link className="component-search-bar" to="/team/search">
-              <input className="input" placeholder="搜索团队" />
+              <input className="input" placeholder={t('搜索团队')} />
             </Link>
           </div>
         </div>
@@ -69,7 +72,7 @@ class Teams extends React.Component {
 }
 
 
-Teams.title = '志愿团队';
+Teams.title = i18next.t('志愿团队');
 
 Teams.propTypes = {
   teamAction: PropTypes.func,
@@ -112,5 +115,5 @@ export default connect(
   dispatch => bindActionCreators({
     teamAction },
     dispatch),
-)(Teams);
+)(translate('translations')(Teams));
 

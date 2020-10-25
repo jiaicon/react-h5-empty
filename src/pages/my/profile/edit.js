@@ -7,12 +7,12 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { imporvePersonInfo } from './profile.store.js';
 import './edit.css';
-import history from '../../history';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Edit extends React.Component {
 
@@ -63,10 +63,11 @@ class Edit extends React.Component {
     }
   }
   render() {
+    const { t } = this.props;
     return (
       <div className="page-my-profile-edit-container">
         <textarea placeholder={this.props.user.slogan} className="page-my-profile-edit-text" maxLength="20" ref={(c) => { this.editslogan = c; }} onBlur={this.onTextChanged} />
-        <div className="page-mu-profile-edit-btn" onClick={this.onSubmit}>保存</div>
+        <div className="page-mu-profile-edit-btn" onClick={this.onSubmit}>{t('保存')}</div>
 
       </div>
     );
@@ -74,7 +75,7 @@ class Edit extends React.Component {
 }
 
 
-Edit.title = '志愿口号';
+Edit.title = i18next.t('志愿口号');
 Edit.propTypes = {
   imporvePersonInfo: PropTypes.func,
   user: PropTypes.shape({
@@ -123,4 +124,4 @@ export default connect(
     address: state.info.address,
   }),
   dispatch => bindActionCreators({ imporvePersonInfo }, dispatch),
-)(Edit);
+)(translate('translations')(Edit));

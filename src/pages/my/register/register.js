@@ -7,25 +7,20 @@
 import React, { PropTypes } from 'react';
 import Alert from 'react-s-alert';
 import autoBind from 'react-autobind';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import Link from '../../../components/link/link';
-import history from '../../history';
 import { requestVerifyCode, register } from './register.store';
-
-
 import Avatar from '../../../components/avatar/avatar';
 import { API_HOST } from '../../../utils/config';
-
 import './register.css';
 import uploadToWX from '../../../utils/wxupload';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
-    Alert.warning(`请填写${label}`);
+    Alert.warning(`${i18next.t('请填写')}${label}`);
     return true;
   }
 
@@ -38,11 +33,12 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    const { t } = props;
     // realRegister: 1  实名注册， 0  非实名注册
     this.realRegister = window.orgInfo.real_name_register;
     this.state = {
       captchaUrl: `${API_HOST}/api/captcha`,
-      buttonString: '获取验证码',
+      buttonString: t('获取验证码'),
       timer: null,
       countDownTrigger: true,
     };
@@ -73,10 +69,11 @@ class Register extends React.Component {
   }
 
   componentWillUnmount() {
-    const timer = this.state.timer;
+    const { t } = this.props;
+    const {timer} = this.state;
     clearInterval(timer);
     this.setState({
-      buttonString: '获取验证码',
+      buttonString: t('获取验证码'),
       timer: null,
     });
   }
@@ -86,24 +83,25 @@ class Register extends React.Component {
     if (!this.realRegister) {   // 非实名
       name = this.state.name;
     }
+    const { t } = this.props;
     const photo = this.state.photo;
     const phone = this.state.phone;
     const verifyCode = this.state.verifyCode;
     const password = this.state.password;
     if (!this.realRegister) {
-      if (checkEmpty(name, '姓名')) {
+      if (checkEmpty(name, t('姓名'))) {
         return;
       }
     }
-    if (checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码') || checkEmpty(password, '密码')) {
+    if (checkEmpty(phone, t('手机号')) || checkEmpty(verifyCode, t('手机验证码')) || checkEmpty(password, t('密码'))) {
       return;
     }
     if (!this.realRegister && !/^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(name)) {
-      Alert.warning('请输入字母数字中文格式昵称');
+      Alert.warning(t('请输入字母数字中文格式昵称'));
       return;
     }
     if (password.length <= 5) {
-      Alert.warning('密码最少6位');
+      Alert.warning(t('密码最少6位'));
       return;
     }
     const data = {};
@@ -120,6 +118,7 @@ class Register extends React.Component {
     this.props.register(data);
   }
   onSend() {
+    const { t } = this.props;
     const phone = this.state.phone;
     const captcha = this.state.captcha;
     const countDownTrigger = this.state.countDownTrigger;
@@ -130,12 +129,12 @@ class Register extends React.Component {
         data.captcha_code = captcha;
         this.props.requestVerifyCode(data);
       } else {
-        Alert.warning('同一时间内不能多次点击');
+        Alert.warning(t('同一时间内不能多次点击'));
       }
     } else if (!phone) {
-      Alert.warning('请输入手机号');
+      Alert.warning(t('请输入手机号'));
     } else {
-      Alert.warning('请输入验证码');
+      Alert.warning(t('请输入验证码'));
     }
   }
 
@@ -143,6 +142,7 @@ class Register extends React.Component {
     let timer = this.state.timer;
     let num = 60;
     const that = this;
+    const { t } = this.props;
     this.setState({
       ...this.state,
       buttonString: num,
@@ -158,7 +158,7 @@ class Register extends React.Component {
         clearInterval(timer);
         that.setState({
           ...this.state,
-          buttonString: '获取验证码',
+          buttonString: t('获取验证码'),
           timer: null,
           countDownTrigger: true,
         });
@@ -203,6 +203,7 @@ class Register extends React.Component {
     });
   }
   render() {
+    const { t } = this.props;
     return (
       <div className="page-register">
         {
@@ -215,7 +216,7 @@ class Register extends React.Component {
         }
         {
           this.realRegister && this.realRegister === 1 ? '' :
-          <div className="page-register-photo-fonts">上传头像(选填)</div>
+          <div className="page-register-photo-fonts">{t('上传头像(选填)')}</div>
         }
 
         <ul className={this.realRegister ? 'realRegisterUl' : ''}>
@@ -223,7 +224,7 @@ class Register extends React.Component {
             ? null :
             <li>
               <div className="page-register-item">
-                <span className="page-register-fonts">昵称</span>
+                <span className="page-register-fonts">{t('昵称')}</span>
                 <input className="page-register-input" type="text" ref={(c) => { this.username = c; }} onBlur={this.onTextChanged} />
               </div>
               <div className="line1px" />
@@ -231,14 +232,14 @@ class Register extends React.Component {
           }
           <li>
             <div className="page-register-item">
-              <span className="page-register-fonts">手机号</span>
+              <span className="page-register-fonts">{t('手机号')}</span>
               <input className="page-register-input" type="tel" ref={(c) => { this.userphone = c; }} onKeyUp={this.onTextChanged} maxLength="11" />
             </div>
             <div className="line1px" />
           </li>
           <li>
             <div className="page-register-item">
-              <span className="page-register-fonts">图片码</span>
+              <span className="page-register-fonts">{t('图片码')}</span>
               <input className="page-register-input" ref={(c) => { this.captcha = c; }} type="text" onKeyUp={this.onTextChanged} />
               <img className="page-register-code" src={this.state.captchaUrl} onClick={this.refreshCaptcha} alt="" />
             </div>
@@ -246,7 +247,7 @@ class Register extends React.Component {
           </li>
           <li>
             <div className="page-register-item">
-              <span className="page-register-fonts">验证码</span>
+              <span className="page-register-fonts">{t('验证码')}</span>
               <input className="page-register-input" type="number" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged} />
               <div className="page-register-code" onClick={this.onSend}>{this.state.buttonString}</div>
             </div>
@@ -254,20 +255,20 @@ class Register extends React.Component {
           </li>
           <li>
             <div className="page-register-item">
-              <span className="page-register-fonts">设置密码</span>
+              <span className="page-register-fonts">{t('设置密码')}</span>
               <input className="page-register-input" type="password" ref={(c) => { this.userpassword = c; }} onKeyUp={this.onTextChanged} maxLength="20" minLength="6" />
             </div>
             <div className="line1px" />
           </li>
         </ul>
-        <div className="page-register-submmit" onClick={this.onSubmit}>注册</div>
+        <div className="page-register-submmit" onClick={this.onSubmit}>{t('注册')}</div>
         <Link to="/my/login">
-          <div className="page-register-login">已有账号，前往登录</div>
+          <div className="page-register-login">{t('已有账号，前往登录')}</div>
         </Link>
         <div className="page-register-agree">
-          提交代表已阅读
+          {t('提交代表已阅读')}
           <Link to="/my/agree">
-            <span className="page-register-agreement">《志多星用户协议》</span>
+            <span className="page-register-agreement">《{t('志多星用户协议')}》</span>
           </Link>
         </div>
 
@@ -276,7 +277,7 @@ class Register extends React.Component {
   }
 }
 
-Register.title = '注册';
+Register.title = i18next.t('注册');
 
 Register.propTypes = {
   requestVerifyCode: PropTypes.func,
@@ -303,4 +304,4 @@ export default connect(
     regis: state.register.register,
   }),
   dispatch => bindActionCreators({ requestVerifyCode, register }, dispatch),
-)(Register);
+)(translate('translations')(Register));

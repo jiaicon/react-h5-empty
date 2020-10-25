@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { projectAction } from '../my.store';
 import ProjectsItem from '../../../components/projects/projects';
-
+import i18next from 'i18next';
 
 class Projects extends React.Component {
 
@@ -48,7 +48,7 @@ class Projects extends React.Component {
 }
 
 
-Projects.title = '志愿项目';
+Projects.title = i18next.t('志愿项目');
 
 Projects.propTypes = {
   projectAction: PropTypes.func,

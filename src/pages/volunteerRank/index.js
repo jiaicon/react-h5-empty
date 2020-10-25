@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
 import autoBind from "react-autobind";
 import { connect } from "react-redux";
-import classnames from "classnames";
-import history from '../history';
 import { bindActionCreators } from "redux";
 import { saveRankTabIndex, volunteerRankYearList, volunteerRankAllList } from "./index.store";
 import Tab from "../../components/tab/tab";
 import Link from "../../components/link/link";
 import Avatar from "../../components/avatar/avatar";
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import "./index.css";
 
 
@@ -85,6 +84,7 @@ class Index extends React.Component {
   }
 
   basicTopComponent(list) {
+    const { t } = this.props;
     if (!list) {
       return null;
     }
@@ -119,19 +119,19 @@ class Index extends React.Component {
         {
           list[1] && <Link to={`/volunteer_rank/${list[1].user_id}`}>
             <p>{list[1].real_name.length ? list[1].real_name : list[1].user.username}</p>
-            <p className="volunteer-rank-top-name-time">{Number(list[1].reward_time).toFixed(2)}时</p>
+            <p className="volunteer-rank-top-name-time">{Number(list[1].reward_time).toFixed(2)}{t('时')}</p>
           </Link>
         }
         {
           list[0] && <Link to={`/volunteer_rank/${list[0].user_id}`}>
             <p>{list[0].real_name.length ? list[0].real_name : list[0].user.username}</p>
-            <p className="volunteer-rank-top-name-time">{Number(list[0].reward_time).toFixed(2)}时</p>
+            <p className="volunteer-rank-top-name-time">{Number(list[0].reward_time).toFixed(2)}{t('时')}</p>
           </Link>
         }
         {
           list[2] && <Link to={`/volunteer_rank/${list[2].user_id}`}>
             <p>{list[2].real_name.length ? list[2].real_name : list[2].user.username}</p>
-            <p className="volunteer-rank-top-name-time">{Number(list[2].reward_time).toFixed(2)}时</p>
+            <p className="volunteer-rank-top-name-time">{Number(list[2].reward_time).toFixed(2)}{t('时')}</p>
           </Link>
         }
       </div>
@@ -139,6 +139,7 @@ class Index extends React.Component {
   }
 
   basicBotComponent(list) {
+    const { t } = this.props;
     if (!list) {
       return null;
     }
@@ -152,7 +153,7 @@ class Index extends React.Component {
           <Avatar size={{ width: 50, height: 50 }} src={item.user && item.user.avatars} />
           <div className="volunteer-rank-bot-box-detail">
             <div className="volunteer-rank-bot-box-detail-name">{item.real_name && item.real_name.length ? item.real_name : (item.user ? item.user.username : '')}</div>
-            <div className="volunteer-rank-bot-box-detail-time">{Number(item.reward_time).toFixed(2)}时</div>
+            <div className="volunteer-rank-bot-box-detail-time">{Number(item.reward_time).toFixed(2)}{t('时')}</div>
           </div>
         </Link>))
       }
@@ -160,12 +161,12 @@ class Index extends React.Component {
   }
 
   render() {
-    const { volunteerRank: { rankReducerTab } } = this.props;
+    const { volunteerRank: { rankReducerTab }, t } = this.props;
     return (<div className="demand">
       <Tab
         tabs={[
-          { label: "总榜", component: this.allRank() },
-          { label: "年度榜", component: this.yearRank() }
+          { label: t('总榜'), component: this.allRank() },
+          { label: t('年度榜'), component: this.yearRank() }
         ]}
         onChange={this.onTabChange}
         selectedIndex={rankReducerTab.tabIndex || 0}
@@ -180,7 +181,7 @@ Index.propTypes = {
   volunteerRankAllList: PropTypes.func,
 };
 
-Index.title = "志愿排行";
+Index.title = i18next.t("志愿排行");
 
 export default connect(
   state => ({
@@ -195,4 +196,4 @@ export default connect(
       },
       dispatch
     )
-)(Index);
+)(translate('translations')(Index));

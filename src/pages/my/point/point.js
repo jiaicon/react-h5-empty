@@ -10,16 +10,14 @@ import autoBind from "react-autobind";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import classnames from "classnames";
-import history from "../../history";
 import { userCenterAction, userAchieve } from "../my.store";
 import "./point.css";
 import ModalNew from "./../../../components/ModalNew/ModalNew";
 
 import Link from "../../../components/link/link";
-import IMAGE from "../../../components/image/image";
 import PayPage from "./point_pay";
 import IncomePage from "./point_income";
-
+import { translate } from 'react-i18next';
 const TAB_URL_MAPS = {
   "/my/point": <IncomePage />,
   "/my/point/pay": <PayPage />
@@ -42,7 +40,8 @@ class PointPage extends React.Component {
   }
 
   componentDidMount() {
-    document.title = `我的${scoreName || "星币"}明细`;
+    const { t } = this.props;
+    document.title = `${t('我的')}${scoreName || t('星币')}${t('明细')}`;
   }
   componentWillUnmount() {
     this.setState({
@@ -80,6 +79,7 @@ class PointPage extends React.Component {
     ) {
       data = this.props.userAchieveList.data.data.score;
     }
+    const { t } = this.props;
 
     return (
       <div className="commonweal-box">
@@ -90,17 +90,17 @@ class PointPage extends React.Component {
           <img src="/images/my/delete.png" alt="" />
         </div>
         <div className="commonweal-box-instruction-how">
-          如何获得{scoreName || "星币"}？
+          {t('如何获得')}{scoreName || t('星币')}？
         </div>
         <div className="commonweal-box-instruction-list">
-          下列操作可以帮你获得{scoreName || "星币"}：
+          下列操作可以帮你获得{scoreName || t('星币')}：
         </div>
         <div className="commonweal-box-instruction-table">
           <table>
             <thead>
               <tr>
-                <td>操作</td>
-                <td>获得{scoreName || "星币"}</td>
+                <td>{t('操作')}</td>
+                <td>{t('获得')}{scoreName || t('星币')}</td>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +117,7 @@ class PointPage extends React.Component {
           className="commonweal-box-instruction-btn"
           onClick={this.closeModalNewInstruction}
         >
-          我知道了
+          {t('我知道了')}
         </div>
       </div>
     );
@@ -138,18 +138,19 @@ class PointPage extends React.Component {
   render() {
     const { page } = this.state;
     const { path } = this.props.route;
+    const { t } = this.props;
     return (
       <div className="page-ponit">
         <div className="page-ponit-pic-container">
           <div className="page-ponit-pic-title">
-            <span>我的{scoreName || "星币"}明细(个)</span>
+            <span>{t('我的')}{scoreName || t('星币')}{'明细'}({t('个')})</span>
             <span style={{ margin: "13px 0 13px" }}>
               {this.props.usercenter.data == null
                 ? 0
                 : this.props.usercenter.data.user.score}
             </span>
             <span className="checkScoreMethod" onClick={this.checkScoreMethod}>
-              查看{scoreName || "星币"}获取方法
+              {t('查看')}{scoreName || t('星币')}{t('获取方法')}
             </span>
           </div>
         </div>
@@ -162,7 +163,7 @@ class PointPage extends React.Component {
                   active: path === "/my/point"
                 })}
               >
-                {scoreName || "星币"}获取
+                {scoreName || t('星币')}{t('获取')}
               </div>
             </Link>
           </div>
@@ -177,7 +178,7 @@ class PointPage extends React.Component {
                   active: path === "/my/point/pay"
                 })}
               >
-                {scoreName || "星币"}支出
+                {scoreName || t('星币')}{t('支出')}
               </div>
             </Link>
           </div>
@@ -230,4 +231,4 @@ export default connect(
     userAchieveList: state.my.userAchieve
   }),
   dispatch => bindActionCreators({ userCenterAction, userAchieve }, dispatch)
-)(PointPage);
+)(translate('translations')(PointPage));

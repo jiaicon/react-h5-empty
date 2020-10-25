@@ -7,9 +7,10 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { } from '../my.store';
 import Link from '../../../components/link/link';
 import './service.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Service extends React.Component {
 
@@ -32,6 +33,7 @@ class Service extends React.Component {
   componentWillUnmount() {}
   // <a href="tel:13240208305">
   render() {
+    const { t } = this.props;
     return (
       <div className="page-service">
         <Link to="/my/service/introduce">
@@ -73,7 +75,7 @@ class Service extends React.Component {
 }
 
 
-Service.title = '服务中心';
+Service.title = i18next.t('服务中心');
 
 Service.propTypes = {
 };
@@ -81,4 +83,4 @@ Service.propTypes = {
 export default connect(
   state => state.my || {},
   dispatch => bindActionCreators({}, dispatch),
-)(Service);
+)(translate('translations')(Service));

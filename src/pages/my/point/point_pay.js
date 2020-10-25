@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './point.css';
 import { scoreAction } from '../my.store';
-
+import { translate } from 'react-i18next';
 import POINTITEM from './component/pointItem';
 const scoreName =window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[1];
 class PointPay extends React.Component {
@@ -27,7 +27,8 @@ class PointPay extends React.Component {
   }
 
   componentDidMount() {
-    document.title = `我的${scoreName || '星币'}明细`;
+    const { t } = this.props;
+    document.title = `${t('我的')}${scoreName || t('星币')}${t('明细')}`;
   }
 
   componentWillReceiveProps() {
@@ -36,19 +37,20 @@ class PointPay extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const { t } = this.props;
     const { data: listData, type } = this.props.score;
     return (
 
       <div className="page-point-income-pay-container">
         <div className="line1px" />
         <div className="page-point-income-pay-title">
-          <span>时间</span>
-          <span>{scoreName || '星币'}</span>
+          <span>{t('时间')}</span>
+          <span>{scoreName || t('星币')}</span>
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
           {listData && listData.list.length >= 1 && type === 'pay' ?
-            <POINTITEM data={listData.list} isPay /> : <span className="page-point-income-pay-main-empty">暂无记录</span>}
+            <POINTITEM data={listData.list} isPay /> : <span className="page-point-income-pay-main-empty">{t('暂无记录')}</span>}
 
         </div>
       </div>
@@ -66,4 +68,4 @@ export default connect(
     score: state.my.score,
   }),
   dispatch => bindActionCreators({ scoreAction }, dispatch),
-)(PointPay);
+)(translate('translations')(PointPay));

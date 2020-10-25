@@ -15,7 +15,8 @@ import './collects.css';
 import { collectAction } from '../my.store';
 import TeamPage from './collects_team';
 import ProjectPage from './collects_project';
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import Link from '../../../components/link/link';
 
 const TAB_URL_MAPS = {
@@ -56,6 +57,7 @@ class Collects extends React.Component {
   render() {
     const { page } = this.state;
     const { path } = this.props.route;
+    const { t } = this.props;
     return (
       <div className="page-collects-tab-container">
         <div style={{ width: '100%', height: '50px' }}>
@@ -67,7 +69,7 @@ class Collects extends React.Component {
                     'page-collects-tab-ul-container-li-current': true,
                     active: path === '/my/collects/',
                   })}
-                >团队</div>
+                >{t('团队')}</div>
               </Link>
             </li>
             <li>
@@ -77,7 +79,7 @@ class Collects extends React.Component {
                     'page-collects-tab-ul-container-li-current': true,
                     active: path === '/my/collects/project',
                   })}
-                >项目</div>
+                >{t('项目')}</div>
               </Link>
             </li>
           </ul>
@@ -90,7 +92,7 @@ class Collects extends React.Component {
     );
   }
 }
-Collects.title = '我的收藏';
+Collects.title = i18next.t('我的收藏');
 
 Collects.propTypes = {
   collectAction: PropTypes.func,
@@ -149,4 +151,4 @@ export default connect(
     collect: state.my.collect,
   }),
   dispatch => bindActionCreators({ collectAction }, dispatch),
-)(Collects);
+)(translate('translations')(Collects));

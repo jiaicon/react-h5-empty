@@ -3,8 +3,10 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import classnames from 'classnames';
 import './filter.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
-export const TYPES = ['最新发布', '距离最近', '热门活动'];
+export const TYPES = [i18next.t('最新发布'), i18next.t('距离最近'), i18next.t('热门活动')];
 export const TYPES_VALUE = ['time', 'distance', 'recommend'];
 
 class Filter extends React.Component {
@@ -100,10 +102,11 @@ class Filter extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
     const { showOptionsType, selectedOption } = this.state;
-    const selectedType = selectedOption.types || '智能排序';
-    const selectedCategory = selectedOption.categories || '服务类型';
-    const selectedObject = selectedOption.objects || '服务对象';
+    const selectedType = selectedOption.types || t('智能排序');
+    const selectedCategory = selectedOption.categories || t('服务类型');
+    const selectedObject = selectedOption.objects || t('服务对象');
 
     return (
       <div className="component-project-filter">
@@ -141,4 +144,4 @@ Filter.propTypes = {
   target: PropTypes.number,
 };
 
-export default Filter;
+export default translate('translations')(Filter);

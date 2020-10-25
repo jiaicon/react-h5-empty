@@ -11,14 +11,15 @@ import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_HOST } from '../../../utils/config';
-import history from '../../history';
 import { updatePhone, imporvePersonInfo } from './profile.store';
 import { requestVerifyCode } from '../register/register.store';
 import './bind.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 function checkEmpty(value, label) {
   if (!value || !value.length) {
-    Alert.warning(`请填写${label}`);
+    Alert.warning(`${i18next.t('请填写')}${label}`);
     return true;
   }
 
@@ -29,10 +30,11 @@ class BindInfo extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    const { t } = props;
     this.type = this.props.route.params.type;
     this.state = ({
       captchaUrl: `${API_HOST}/api/captcha`,
-      buttonString: '获取验证码',
+      buttonString: t('获取验证码'),
       timer: null,
       countDownTrigger: true,
     });
@@ -78,9 +80,10 @@ class BindInfo extends React.Component {
   }
   componentWillUnmount() {
     const timer = this.state.timer;
+    const { t } = this.props;
     clearInterval(timer);
     this.setState({
-      buttonString: '获取验证码',
+      buttonString: t('获取验证码'),
       timer: null,
     });
   }
@@ -98,8 +101,9 @@ class BindInfo extends React.Component {
   }
   onSubmit() {
     const phone = this.state.phone;
+    const { t } = this.props;
     const verifyCode = this.state.verifyCode;
-    if (checkEmpty(phone, '手机号') || checkEmpty(verifyCode, '手机验证码')) {
+    if (checkEmpty(phone, t('手机号')) || checkEmpty(verifyCode, t('手机验证码'))) {
       return;
     }
     const data = {};
@@ -108,11 +112,12 @@ class BindInfo extends React.Component {
     this.props.updatePhone(data);
   }
   onSend() {
+    const { t } = this.props;
     const phone = this.state.phone;
     const captcha = this.state.captcha;
     const countDownTrigger = this.state.countDownTrigger;
     const data = {};
-    if (checkEmpty(phone, '手机号') || checkEmpty(captcha, '图片验证码')) {
+    if (checkEmpty(phone, t('手机号')) || checkEmpty(captcha, t('图片验证码'))) {
       return;
     }
     if (phone && captcha) {
@@ -121,12 +126,12 @@ class BindInfo extends React.Component {
         data.captcha_code = captcha;
         this.props.requestVerifyCode(data);
       } else {
-        Alert.warning('同一时间内不能多次点击');
+        Alert.warning(t('同一时间内不能多次点击'));
       }
     } else if (!phone) {
-      Alert.warning('请输入手机号');
+      Alert.warning(t('请输入手机号'));
     } else {
-      Alert.warning('请输入验证码');
+      Alert.warning(t('请输入验证码'));
     }
   }
   onStartCountDown() {
@@ -148,7 +153,7 @@ class BindInfo extends React.Component {
         clearInterval(timer);
         that.setState({
           ...this.state,
-          buttonString: '获取验证码',
+          buttonString: t('获取验证码'),
           timer: null,
           countDownTrigger: true,
         });
@@ -162,26 +167,27 @@ class BindInfo extends React.Component {
     });
   }
   bindPhoneview() {
+    const { t } = this.props;
     return (
       <div className="page-profile-bind-info-container">
         <div className="page-profile-bind-info-container-item">
-          <span className="page-profile-bind-info-container-fonts">手机号</span>
+          <span className="page-profile-bind-info-container-fonts">{t('手机号')}</span>
           <input className="page-profile-bind-info-container-input" type="tel" ref={(c) => { this.userphone = c; }} onKeyUp={this.onTextChanged} maxLength="11" />
         </div>
         <div className="line1px" />
         <div className="page-profile-bind-info-container-item">
-          <span className="page-profile-bind-info-container-fonts">图片码</span>
+          <span className="page-profile-bind-info-container-fonts">{t('图片码')}</span>
           <input className="page-profile-bind-info-container-input" ref={(c) => { this.captcha = c; }} type="text" onKeyUp={this.onTextChanged} />
           <img className="page-profile-bind-info-container-code" src={this.state.captchaUrl} onClick={this.refreshCaptcha} alt="" />
         </div>
         <div className="line1px" />
         <div className="page-profile-bind-info-container-item">
-          <span className="page-profile-bind-info-container-fonts">验证码</span>
+          <span className="page-profile-bind-info-container-fonts">{t('验证码')}</span>
           <input className="page-profile-bind-info-container-input" type="number" ref={(c) => { this.usercode = c; }} onKeyUp={this.onTextChanged} />
           <div className="page-profile-bind-info-container-code" onClick={this.onSend}>{this.state.buttonString}</div>
         </div>
         <div className="line1px" />
-        <div className="page-profile-bind-info-container-submmit" onClick={this.onSubmit}>确认提交</div>
+        <div className="page-profile-bind-info-container-submmit" onClick={this.onSubmit}>{t('确认提交')}</div>
       </div>
     );
   }
@@ -195,9 +201,10 @@ class BindInfo extends React.Component {
   }
   onMailSubmit() {
     const email = this.state.mail;
+    const { t } = this.props;
 
     if (email && !/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(email)) {
-      Alert.warning('请输入合法的邮箱地址');
+      Alert.warning(t('请输入合法的邮箱地址'));
       return;
     }
     const data = {
@@ -206,15 +213,16 @@ class BindInfo extends React.Component {
     this.props.imporvePersonInfo(data);
   }
   bindMailview() {
+    const { t } = this.props;
     return (
       <div className="page-profile-bind-info-container">
         <div className="page-profile-bind-info-container-item">
-          <span className="page-profile-bind-info-container-fonts">邮箱</span>
+          <span className="page-profile-bind-info-container-fonts">{t('邮箱')}</span>
           <input className="page-profile-bind-info-container-input" type="email" ref={(c) => { this.mail = c; }} onKeyUp={this.onTextMailChanged} />
 
         </div>
         <div className="line1px" />
-        <div className="page-profile-bind-info-container-submmit" onClick={this.onMailSubmit}>确认提交</div>
+        <div className="page-profile-bind-info-container-submmit" onClick={this.onMailSubmit}>{t('确认提交')}</div>
       </div>
     );
   }
@@ -230,7 +238,7 @@ class BindInfo extends React.Component {
 }
 
 
-BindInfo.title = '个人信息绑定';
+BindInfo.title = i18next.t('个人信息绑定');
 BindInfo.propTypes = {
   imporvePersonInfo: PropTypes.func,
   updatePhone: PropTypes.func,
@@ -262,4 +270,4 @@ export default connect(
     person: state.info.person,
   }),
   dispatch => bindActionCreators({ updatePhone, requestVerifyCode, imporvePersonInfo }, dispatch),
-)(BindInfo);
+)(translate('translations')(BindInfo));

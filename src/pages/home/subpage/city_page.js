@@ -10,6 +10,7 @@ import { getCity, getCookie, setCookie } from "../../../utils/funcs";
 import history from "../../history";
 import { requestHomeData, saveCity, getAreaCity } from "../home.store";
 import { addressDataAction } from "../../my/profile/profile.store";
+import { translate } from 'react-i18next';
 
 class CityPage extends React.Component {
   constructor(props) {
@@ -23,12 +24,15 @@ class CityPage extends React.Component {
   }
 
   componentWillMount() {
+    const { t } = this.props;
     this.props.addressDataAction(0);
     if (getCookie("provinceAndCityName")) {
       const data = JSON.parse(getCookie("provinceAndCityName"));
+      const dataEN = JSON.parse(getCookie("provinceAndCityNameEN"));
       this.setState({
-        province: data.province || "全国",
-        city: data.city == "全国" ? null : data.city
+        province: data.province || t('全国'),
+        city: data.city == '全国' ? null : data.city,
+        cityEN: dataEN.city === 'China' ? null : dataEN.city
       });
     };
   }
@@ -37,17 +41,22 @@ class CityPage extends React.Component {
 
   componentWillUnmount() {}
   handleProvinceClick(event) {
-    if (event.target.getAttribute("data") === "全国") {
+    const { t } = this.props;
+    if (event.target.getAttribute("data") === t('全国')) {
       this.setState({
         ...this.state,
-        province: "全国",
-        city: "全国"
+        province: '全国',
+        city: '全国',
       });
       setCookie("provinceAndCityName", JSON.stringify({
-          province: "全国",
-          city: "全国"
+          province: t('全国'),
+          city: t('全国')
         }),1);
-      this.props.saveCity("全国");
+      setCookie("provinceAndCityNameEN", JSON.stringify({
+        province: 'China',
+        city: 'China',
+      }),1);
+      this.props.saveCity(t('全国'));
       window.location.replace("/");
       return;
     }
@@ -60,7 +69,8 @@ class CityPage extends React.Component {
     const id = data.id;
     this.setState({
       ...this.state,
-      province
+      province,
+      provinceEN: data.pinyin,
     });
     this.props.saveCity();
     this.props.addressDataAction(id);
@@ -74,17 +84,19 @@ class CityPage extends React.Component {
   //         <div className="line1px" />
   //       </li>
   proviceRender() {
-    const province = this.props.address.data.province;
+    const { t, i18n, address } = this.props;
+    const { language } = i18n;
+    const province = address.data.province;
     return (
       <ul>
         <li>
           <div
             className="page-select-city-container-style"
-            key="全国"
-            data="全国"
+            key={t('全国')}
+            data={t('全国')}
             onClick={this.handleProvinceClick}
           >
-            全国
+            {t('全国')}
           </div>
           <div className="line1px" />
         </li>
@@ -97,7 +109,7 @@ class CityPage extends React.Component {
                 data={JSON.stringify({ item })}
                 onClick={this.handleProvinceClick}
               >
-                {item.name}
+                {language === 'zh_CN' ? item.name : item.pinyin}
               </div>
               <div className="line1px" />
             </li>
@@ -106,31 +118,38 @@ class CityPage extends React.Component {
     );
   }
   handleCityClick(event) {
+    const { t, i18n } = this.props;
     const data = JSON.parse(event.target.getAttribute("data")).item;
     const lat = data.lat;
     const lng = data.lon;
     setCookie("location", JSON.stringify({ lat, lng }),1);
     let cityAndProvince = getCookie('provinceAndCityName');
-    const notChange = cityAndProvince&&cityAndProvince.length ? JSON.parse(cityAndProvince).city : '';
+    const notChange = cityAndProvince && cityAndProvince.length ? JSON.parse(cityAndProvince).city : '';
     setCookie('notChange', notChange);  //用户不行切换的城市
-    const city = data.name.replace("市", "");
+    const city = data.name.replace(t('市'), "");
     const province = this.state.province;
     setCookie("provinceAndCityName", JSON.stringify({
         province,
         city
       }),1);
+    setCookie("provinceAndCityNameEN", JSON.stringify({
+      province: this.state.provinceEN,
+      city: data.pinyin,
+    }),1);
     this.props.saveCity(city);
-    const id = data.id;
     this.setState({
       ...this.state,
-      city
+      city,
+      cityEN: data.pinyin,
     });
     this.props.getAreaCity(city);
     // history.replace('/');
     window.location.replace("/");
   }
   cityRender() {
-    const city = this.props.address.data.city;
+    const { i18n, address } = this.props;
+    const { language } = i18n;
+    const city = address.data.city;
     return (
       <ul>
         {city &&
@@ -142,7 +161,7 @@ class CityPage extends React.Component {
                 data={JSON.stringify({ item })}
                 onClick={this.handleCityClick}
               >
-                {item.name}
+                {language === 'zh_CN' ? item.name : item.pinyin}
               </div>
               <div className="line1px" />
             </li>
@@ -151,19 +170,44 @@ class CityPage extends React.Component {
     );
   }
   render() {
+    const { t, i18n } = this.props;
+    const { language } = i18n;
+    const { city, cityEN } = this.state;
+    let label = null;
+
+    if (language === 'zh_CN') {
+      if (city) {
+        if (city !== '全国') {
+          label = '- ';
+        }
+        if (city === "克孜勒苏柯尔克孜自治州") {
+          label+='克孜勒苏柯尔克孜';
+        } else {
+          if (city !== '全国') {
+            label += city
+          }
+        }
+      }
+    } else {
+      if (cityEN) {
+        if (cityEN !== t('全国')) {
+          label = '- ';
+        }
+        if (cityEN === "Kizilsu") {
+          label += 'Kizilsu';
+        } else {
+          if (cityEN !== t('全国')) {
+            label += cityEN
+          }
+        }
+      }
+    }
     return (
       <div className="page-select-city-container">
         <div className="page-select-city-container-header">
-          当前城市:
-          <span>{this.state.province || null}</span>
-          {this.state.city ? (this.state.city === "全国" ? null : " - ") : null}
-          <span>
-            {this.state.city === "克孜勒苏柯尔克孜自治州"
-              ? "克孜勒苏柯尔克孜"
-              : this.state.city === "全国"
-              ? null
-              : this.state.city}
-          </span>
+          {t('当前城市')}:
+          <span>{(language === 'zh_CN' ? this.state.province : this.state.provinceEN) || null}</span>
+          {label}
         </div>
         <div className="line1px" />
         {this.state.renderTrigger ? this.proviceRender() : this.cityRender()}
@@ -237,4 +281,4 @@ export default connect(
       { requestHomeData, saveCity, addressDataAction, getAreaCity },
       dispatch
     )
-)(CityPage);
+)(translate('translations')(CityPage));

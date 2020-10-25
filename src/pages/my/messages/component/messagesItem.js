@@ -6,7 +6,7 @@
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import '../messages.css';
-
+import i18next from 'i18next';
 import Avatar from '../../../../components/avatar/avatar';
 
 
@@ -61,7 +61,7 @@ class MessagesItem extends React.Component {
 }
 
 
-MessagesItem.title = '站内邮箱';
+MessagesItem.title = i18next.t('站内邮箱');
 
 MessagesItem.propTypes = {
   data: PropTypes.shape({

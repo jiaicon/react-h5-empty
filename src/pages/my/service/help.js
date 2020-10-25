@@ -7,8 +7,9 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { } from '../my.store';
 import './help.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 class Help extends React.Component {
 
@@ -31,19 +32,20 @@ class Help extends React.Component {
   componentWillUnmount() {}
 
   render() {
+    const { t } = this.props;
     const content = window.orgInfo.org_manual;
     return (
       <div
         className="page-help-style" dangerouslySetInnerHTML={{
           __html: content ?
-        content.replace(/(\n+)/g, '<br/>') : '暂无介绍' }}
+        content.replace(/(\n+)/g, '<br/>') : t('暂无介绍') }}
       />
     );
   }
 }
 
 
-Help.title = '使用帮助';
+Help.title = i18next.t('使用帮助');
 
 Help.propTypes = {
 };
@@ -51,4 +53,4 @@ Help.propTypes = {
 export default connect(
   state => state.my || {},
   dispatch => bindActionCreators({}, dispatch),
-)(Help);
+)(translate('translations')(Help));
