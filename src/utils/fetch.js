@@ -71,7 +71,8 @@ export default function request(requestUrl, requestOptions = {}) {
       : "116.403847-39.915526",
     "X-unique-key": window.uniqueKey || "demo",
     "X-city": `${encodeURI(city)}`,
-    "X-original-city": `${encodeURI(oriCity)}` || ''
+    "X-original-city": `${encodeURI(oriCity)}` || '',
+    "X-language": getCookie('i18nextLng') || '',
   }
   if (!location) {
     delete headersObj["X-location"];
