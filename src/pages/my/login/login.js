@@ -257,7 +257,7 @@ class Login extends React.Component {
         data.captcha_code = captcha;
         this.props.requestVerifyCode(data);
       } else {
-        Alert.warning('同一时间内不能多次点击');
+        Alert.warning(t('同一时间内不能多次点击'));
       }
     } else if (!phone) {
       Alert.warning(t('请输入手机号'));

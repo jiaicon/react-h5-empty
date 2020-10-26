@@ -9,6 +9,7 @@ import QRCode from "qrcode";
 import html2canvas from "html2canvas";
 import { ImageToBase64 } from "../../utils/funcs";
 import  fetch from "../../utils/fetch";
+import { translate } from 'react-i18next';
 class ModalNew extends React.Component {
   static propTypes = {
     
@@ -134,8 +135,7 @@ htm2Click = () => {
   }
  
   render() {
-    console.log("Modal开始渲染",this.props);  
-    
+  const { t } = this.props;
     return <div className={classnames({
           visible: this.props.visible,
           hidden: !this.props.visible,
@@ -145,7 +145,7 @@ htm2Click = () => {
         <div className="poster-modal-new-wrap" onClick={this._closeModal}>
             <div className="poster-modal-new-close-btn" onClick={()=>{this._closeModal()}}></div>
           <div className="poster-modal-new-wrap-container" onClick={this._clearEvent}>
-            {this.state.dataUrl ? <div><img src={this.state.dataUrl} className="poster-modal-new-wrap-container-padding-image" /><div style={{color:'#fff',textAlign:'center',fontSize:'12px',marginTop:'12px',fontWeight:'200'}}>长按保存图片到手机</div> </div>: <div className="poster-modal-new-wrap-container-padding" ref="LaunchContent">
+            {this.state.dataUrl ? <div><img src={this.state.dataUrl} className="poster-modal-new-wrap-container-padding-image" /><div style={{color:'#fff',textAlign:'center',fontSize:'12px',marginTop:'12px',fontWeight:'200'}}>{t('长按保存图片到手机')}</div> </div>: <div className="poster-modal-new-wrap-container-padding" ref="LaunchContent">
                 <div>
                   <div className="content">
                     <img className="project-img" src={this.state.base64Array && this.state.base64Array[0]} />
@@ -164,7 +164,7 @@ htm2Click = () => {
                   <div style={{ width: "288px", display: "flex" }}>
                     <img style={{ width: "48px", height: "48px" }} src={this.state.qrcodeURL} />
                     <div style={{ width: "95px", fontSize: "12px", transform: "scale(0.83)", paddingTop: "17px", color: "#fff",paddingLeft:"5px" }}>
-                      长按识别二维码 一起来做志愿者
+                      {t('长按识别二维码 一起来做志愿者')}
                     </div>
                   </div>
                 </div>
@@ -178,4 +178,4 @@ htm2Click = () => {
   }
 }
 
-export default ModalNew;
+export default translate('translations')(ModalNew);

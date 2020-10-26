@@ -62,7 +62,7 @@
   overflow: hidden;
 }
 .page-home .header-bar .component-search-newbar {
-  width: 180px;
+  /*width: 180px;*/
   display: flex;
   align-items: stretch;
   height: 32px;
@@ -77,7 +77,7 @@
 }
 .content-boxpadding {
   box-sizing: border-box;
-  padding: 0 15px;
+  padding: 0 12px 0 15px;
   flex: 1;
 }
 .page-home .header-bar .component-search-newbar input {
@@ -85,6 +85,7 @@
   flex: 1;
   font-size: 14px;
   color: #333;
+  width: 116px;
 }
 .page-home .header-bar .login-button {
   width: 64px !important;

@@ -39,7 +39,7 @@ class Service extends React.Component {
         <Link to="/my/service/introduce">
           <div className="page-service-item">
             <div className="page-service-item-fonts-box">
-              <h3>平台介绍</h3>
+              <h3>{t('平台介绍')}</h3>
               <p>Platform introduction</p>
             </div>
             <div className="page-service-item-bg page-service-item-bg1" />
@@ -50,7 +50,7 @@ class Service extends React.Component {
         <Link to="/my/service/help">
           <div className="page-service-item">
             <div className="page-service-item-fonts-box">
-              <h3>使用帮助</h3>
+              <h3>{t('使用帮助')}</h3>
               <p>Use help</p>
             </div>
             <div className="page-service-item-bg page-service-item-bg2" />
@@ -62,7 +62,7 @@ class Service extends React.Component {
 
           <div className="page-service-item">
             <div className="page-service-item-fonts-box">
-              <h3>客服中心</h3>
+              <h3>{t('客服中心')}</h3>
               <p>Customer service center</p>
             </div>
             <div className="page-service-item-bg page-service-item-bg3" />

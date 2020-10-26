@@ -16,8 +16,8 @@ import './index.css';
 import history from '../../history';
 import { userCenterAction } from '../../my/my.store';
 import Link from '../../../components/link/link';
-
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import { Dialog } from 'react-weui';
 import 'weui/dist/style/weui.css';
 import 'react-weui/build/packages/react-weui.css';
@@ -59,17 +59,18 @@ class ShopDetailPage extends React.Component {
             autoplay: true,
             autoplaySpeed: 6000,
         };
+        const { t } = props;
         this.dialog = {
-            title: '确认兑换',
+            title: t('确认兑换'),
             buttons: [
                 {
                     type: 'default',
-                    label: '取消',
+                    label: t('取消'),
                     onClick: () => this.setState({ ...this.state, showDialog: false }),
                 },
                 {
                     type: 'primary',
-                    label: '确认',
+                    label: t('确认'),
                     onClick: () => {
                         this.setState({ ...this.state, showDialog: false });
                         //   this.props.quitProject(this.projectId);
@@ -115,7 +116,7 @@ class ShopDetailPage extends React.Component {
         </div>);
     }
     renderDetail() {
-        const { detail: { data } } = this.props;
+        const { detail: { data }, t } = this.props;
 
         if (!data) {
             return null;
@@ -126,10 +127,10 @@ class ShopDetailPage extends React.Component {
                     <div className="page-shop-goods-content-top-title">{data.g_name}</div>
                     <div className="page-shop-goods-content-top-price-container">
                         <div className="price-container">
-                            <div className="price"><span>{data.points}</span>{scoreName || '星币'}</div>
-                            <div className="now">¥{data.price}元</div>
+                            <div className="price"><span>{data.points}</span>{scoreName || t('星币')}</div>
+                            <div className="now">¥{data.price}{t('元')}</div>
                         </div>
-                        {data.g_num? <div className="num">库存{data.g_num}件</div> : null}
+                        {data.g_num? <div className="num">{t('库存n件', {n: data.g_num})}</div> : null}
                         {/* <div className="num">库存{data.g_num}件</div> */}
                     </div>
                     {
@@ -137,43 +138,42 @@ class ShopDetailPage extends React.Component {
                     }
 
                     <div className="line1px"></div>
-                    <div className="page-shop-goods-content-top-date">线下兑换日期:{data.created_at} 至 {data.updated_at}</div>
+                    <div className="page-shop-goods-content-top-date">{t('线下兑换日期')}:{data.created_at} {t('至')} {data.updated_at}</div>
                     <div className="line1px"></div>
                     {
                         data.team_info && data.team_info.name ?
                         <div>
-                             <div className="page-shop-goods-content-top-date">发起方：{data.team_info && data.team_info.name ? data.team_info.name : null}</div>
+                             <div className="page-shop-goods-content-top-date">{t('发起方')}：{data.team_info && data.team_info.name ? data.team_info.name : null}</div>
                             <div className="line1px"></div>
                         </div>
                         :null
                     }
                   
              
-                    {data.sponsor ? <div className="page-shop-goods-content-top-date">支持方：{data.sponsor}</div> : null}
+                    {data.sponsor ? <div className="page-shop-goods-content-top-date">{t('支持方')}：{data.sponsor}</div> : null}
 
                 </div>
                 <div className="page-shop-goods-content-line"></div>
                 <div className="page-shop-goods-content-bottom">
-                    <div className="title">商品简介</div>
+                    <div className="title">{t('商品简介')}</div>
                     <div className="content" dangerouslySetInnerHTML={{
                         __html: data.content ?
-                            data.content.replace(/(\n+)/g, '<br/>') : '暂无介绍'
+                            data.content.replace(/(\n+)/g, '<br/>') : t('暂无介绍')
                     }} />
                 </div>
                 <div className="page-shop-goods-takeup"></div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-                兑换该商品需要消耗{data.points}{scoreName || '星币'}，您是否兑换吗？
+                  {t('兑换该商品需要消耗')}{data.points}{scoreName || t('星币')}，{t('您是否兑换吗')}？
                 </Dialog>
             </div>
         )
     }
     renderBtn() {
-        const { detail: { data },user } = this.props;
+        const { detail: { data },user, t } = this.props;
 
         if (!data) {
             return null;
         }
-        console.log(data)
         // 1能买 0不能
         let actionLabel = '';
         let actionClassName = '';
@@ -181,20 +181,20 @@ class ShopDetailPage extends React.Component {
         if (user.isLogin) {
             if((data.g_num>0|| data.g_num == null) && data.change_num == 1){
                 actionClassName = 'page-shop-goods-main-btn';
-                actionLabel='立即兑换';
+                actionLabel=t('立即兑换');
                 action = 'sure'
             }else if(data.g_num == 0){
                 actionClassName = 'page-shop-goods-main-btn-end';
-                actionLabel='已售罄';
+                actionLabel=t('已售罄');
                 action = ''
             }else if((data.g_num>0|| data.g_num == null) && data.change_num == 0){
                 actionClassName = 'page-shop-goods-main-btn-end';
-                actionLabel='已达到兑换限制';
+                actionLabel=t('已达到兑换限制');
                 action = ''
             }
         } else {
             actionClassName = 'page-shop-goods-main-btn';
-            actionLabel='立即兑换';
+            actionLabel=t('立即兑换');
             action = 'sure'
         }
      
@@ -233,7 +233,7 @@ class ShopDetailPage extends React.Component {
 }
 
 
-ShopDetailPage.title = '商品详情';
+ShopDetailPage.title = i18next.t('商品详情');
 
 ShopDetailPage.propTypes = {
     changeOrdersAction: PropTypes.func,
@@ -256,4 +256,4 @@ export default connect(
         userCenterAction
     },
         dispatch),
-)(ShopDetailPage);
+)(translate('translations')(ShopDetailPage));

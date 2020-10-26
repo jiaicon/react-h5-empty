@@ -136,7 +136,7 @@ class HomePage extends React.Component {
         </Link>
 
         {switchView ? (
-          <div style={{ display: "flex", flex: "1" }}>
+          <div style={{ display: "flex", flex: "1", alignItems: 'center', }}>
             <div className="content-boxpadding">
               <Link className="component-search-bar dirmargin" to="/homesearch">
                 <input
@@ -147,13 +147,16 @@ class HomePage extends React.Component {
                 />
               </Link>
             </div>
+            <span
+              onClick={changeGlobalLanguage}
+              style={{backgroundImage: `url(${t('btn')})`, backgroundPosition: 'center', backgroundSize: 'cover', width: '23px', height: '23px', display: 'inline-block', marginRight: '12px'}}
+            />
             <Link to="/my">
               <Avatar src={user.avatars} size={{ width: 28 }} />
             </Link>
-            <span onClick={changeGlobalLanguage}>{language === 'zh_CN' ? '英文' : '中文'}</span>
           </div>
         ) : (
-          <div style={{ display: "flex", width: "280px" }}>
+          <div style={{ display: "flex", width: "280px", alignItems: 'center' }}>
             <Link className="component-search-newbar" to="/homesearch">
               <input
                 className="input"
@@ -162,12 +165,15 @@ class HomePage extends React.Component {
                 disabled="disabled"
               />
             </Link>
+            <span
+              onClick={changeGlobalLanguage}
+              style={{backgroundImage: `url(${t('btn')})`, backgroundPosition: 'center', backgroundSize: 'cover', width: '23px', height: '23px', display: 'block', marginRight: '12px'}}
+            />
             <Link
                 to={target}
               >
               <div className="login-button">{t('登录')}</div>
             </Link>
-            <span onClick={changeGlobalLanguage}>{language === 'zh_CN' ? '英文' : '中文'}</span>
           </div>
         )}
       </div>

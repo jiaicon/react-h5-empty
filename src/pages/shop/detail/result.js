@@ -7,13 +7,12 @@
  */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
 import Link from '../../../components/link/link';
-import { requestGoodsDetail, changeOrdersAction } from '../shop.store';
 import './result.css';
 import {getQueryString} from '../../../utils/funcs';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
+
 class ResultPage extends React.Component {
 
     constructor(props) {
@@ -31,11 +30,12 @@ class ResultPage extends React.Component {
     }
 
     componentDidMount() {
-        if (this.state.typeId == 1) {
-            document.title = "兑换成功"
-        } else {
-            document.title = "审核中"
-        }
+      const { t } = this.props;
+      if (this.state.typeId == 1) {
+          document.title = t('兑换成功')
+      } else {
+          document.title = t('审核中')
+      }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,33 +44,35 @@ class ResultPage extends React.Component {
 
     componentWillUnmount() { }
     renderSuccess() {
+      const { t } = this.props;
         return (
             <div className="page-shop-result-container">
                 <img src="/images/shop/success.png" />
-                <div className="page-shop-result-title">恭喜，兑换成功</div>
-                <div className="page-shop-result-points">支付金额：{this.state.dataInfo.points}积分</div>
-                <div className="page-shop-result-points">下单时间：{this.state.dataInfo.time}</div>
+                <div className="page-shop-result-title">{t('兑换成功')}</div>
+                <div className="page-shop-result-points">{t('支付金额')}：{this.state.dataInfo.points}{t('积分')}</div>
+                <div className="page-shop-result-points">{t('下单时间')}：{this.state.dataInfo.time}</div>
                 <div className="page-shop-result-access">{this.state.dataInfo.access}</div>
                 <Link to="/shop">
-                    <div className="page-shop-result-btn">返回积分商城首页</div>
+                    <div className="page-shop-result-btn">{t('返回积分商城首页')}</div>
                 </Link>
 
             </div>
         )
     }
     renderExamine() {
-        return (
-            <div className="page-shop-result-container">
-                <img src="/images/shop/wait.png" />
-                <div className="page-shop-result-title">审核中，请稍后...</div>
-                <div className="page-shop-result-points">支付金额：{this.state.dataInfo.points}积分</div>
-                <div className="page-shop-result-points">下单时间：{this.state.dataInfo.time}</div>
-                <Link to="/shop">
-                    <div className="page-shop-result-btn">返回积分商城首页</div>
-                </Link>
+      const { t } = this.props;
+      return (
+          <div className="page-shop-result-container">
+              <img src="/images/shop/wait.png" />
+              <div className="page-shop-result-title">{t('审核中，请稍后')}...</div>
+              <div className="page-shop-result-points">{t('支付金额')}：{this.state.dataInfo.points}积分</div>
+              <div className="page-shop-result-points">{t('下单时间')}：{this.state.dataInfo.time}</div>
+              <Link to="/shop">
+                  <div className="page-shop-result-btn">{t('返回积分商城首页')}</div>
+              </Link>
 
-            </div >
-        )
+          </div >
+      )
     }
     render() {
 
@@ -82,11 +84,4 @@ class ResultPage extends React.Component {
     }
 }
 
-
-// ResultPage.title = '';
-
-ResultPage.propTypes = {
-
-};
-
-export default ResultPage;
+export default translate('translations')(ResultPage);

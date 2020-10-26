@@ -5,17 +5,10 @@
 /* global wx:false */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import classnames from 'classnames';
-import history from '../../pages/history';
-import Link from '../link/link';
 import AVATAR from '../avatar/avatar';
 import IMAGE from '../image/image';
 import './index.css';
-import { requestUserInfo } from '../../stores/common';
-
+import { translate } from 'react-i18next';
 
 class CircleMessage extends React.Component {
   static propTypes = {
@@ -36,12 +29,12 @@ class CircleMessage extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, t } = this.props;
 
     if (!data) {
       return null;
     } else if (data && !data.length) {
-      return <div className="teams-empty-tip">目前还没有消息</div>;
+      return <div className="teams-empty-tip">{t('目前还没有消息')}</div>;
     }
 
     return (
@@ -86,4 +79,4 @@ class CircleMessage extends React.Component {
   }
 }
 
-export default CircleMessage;
+export default translate('translations')(CircleMessage);
