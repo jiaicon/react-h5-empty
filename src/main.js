@@ -21,7 +21,6 @@ import { Provider } from 'react-redux';
 // 翻译
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
-import i18next from 'i18next';
 import {  getCookie } from "./utils/funcs";
 import { Spinner } from 'react-redux-spinner';
 
@@ -45,13 +44,13 @@ if (wx && window.userAgent) {
 let routes = require('./routes.json').default; // Loaded with utils/routes-loader.js
 
 const container = document.getElementById('container');
+const i18nResult = i18n();
 if (getCookie('i18nextLng')) {
-  i18next.changeLanguage(getCookie('i18nextLng'));
+  i18nResult.changeLanguage(getCookie('i18nextLng'));
 }
-
 function renderComponent(component) {
   ReactDOM.render(
-    <I18nextProvider i18n={i18n()}>
+    <I18nextProvider i18n={i18nResult}>
       <Provider store={store}>
         <div>
           {component}

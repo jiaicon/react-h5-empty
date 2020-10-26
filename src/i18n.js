@@ -16,6 +16,8 @@ const options = {
     formatSeparator: ',',
   },
 
+  fallbackLng: ['en-US'],
+
   react: {
     wait: true,
   },
