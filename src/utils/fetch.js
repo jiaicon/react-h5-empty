@@ -59,7 +59,7 @@ export default function request(requestUrl, requestOptions = {}) {
   const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "全国";
 
   console.log(position);
-   
+   const i18nextLng = getCookie('i18nextLng');
   let headersObj = {
     ...headers,
     "X-auth-token": getToken() || "",
@@ -72,7 +72,7 @@ export default function request(requestUrl, requestOptions = {}) {
     "X-unique-key": window.uniqueKey || "demo",
     "X-city": `${encodeURI(city)}`,
     "X-original-city": `${encodeURI(oriCity)}` || '',
-    "X-language": getCookie('i18nextLng') || '',
+    "X-language": i18nextLng ? (i18nextLng === 'zh-CN' ? 'zh_CN' : 'en_US') : ''
   }
   if (!location) {
     delete headersObj["X-location"];

@@ -109,7 +109,7 @@ class CityPage extends React.Component {
                 data={JSON.stringify({ item })}
                 onClick={this.handleProvinceClick}
               >
-                {language === 'zh_CN' ? item.name : item.pinyin}
+                {language === 'zh-CN' ? item.name : item.pinyin}
               </div>
               <div className="line1px" />
             </li>
@@ -161,7 +161,7 @@ class CityPage extends React.Component {
                 data={JSON.stringify({ item })}
                 onClick={this.handleCityClick}
               >
-                {language === 'zh_CN' ? item.name : item.pinyin}
+                {language === 'zh-CN' ? item.name : item.pinyin}
               </div>
               <div className="line1px" />
             </li>
@@ -175,7 +175,7 @@ class CityPage extends React.Component {
     const { city, cityEN } = this.state;
     let label = null;
 
-    if (language === 'zh_CN') {
+    if (language === 'zh-CN') {
       if (city) {
         if (city !== '全国') {
           label = '- ';
@@ -206,7 +206,7 @@ class CityPage extends React.Component {
       <div className="page-select-city-container">
         <div className="page-select-city-container-header">
           {t('当前城市')}:
-          <span>{(language === 'zh_CN' ? this.state.province : this.state.provinceEN) || null}</span>
+          <span>{(language === 'zh-CN' ? this.state.province : this.state.provinceEN) || null}</span>
           {label}
         </div>
         <div className="line1px" />

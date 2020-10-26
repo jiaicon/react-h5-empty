@@ -4,7 +4,6 @@ import en_US from './utils/en_US';
 import zh_CN from './utils/zh_CN';
 
 const options = {
-  fallbackLng: 'en',
   // have a common namespace used around the full app
   ns: ['translations'],
   defaultNS: 'translations',
@@ -22,10 +21,10 @@ const options = {
   },
 };
 options.resources = {
-  en_US: {
+  'en-US': {
     ...en_US,
   },
-  zh_CN: {
+  'zh-CN': {
     ...zh_CN,
   },
 };

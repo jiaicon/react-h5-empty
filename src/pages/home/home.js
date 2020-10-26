@@ -35,7 +35,7 @@ class HomePage extends React.Component {
     this.state = {
       newcity: null,
       city: getCookie("provinceAndCityName")
-        ? (language === 'zh_CN' ? JSON.parse(getCookie("provinceAndCityName")).city.replace(t('市'), "") : JSON.parse(getCookie("provinceAndCityName")).city)
+        ? (language === 'zh-CN' ? JSON.parse(getCookie("provinceAndCityName")).city.replace(t('市'), "") : JSON.parse(getCookie("provinceAndCityName")).city)
         : t('全国'),
       showDialog: false
     };
@@ -125,7 +125,7 @@ class HomePage extends React.Component {
     }
 
     const changeGlobalLanguage = () => {
-      i18n.changeLanguage(language === 'zh_CN' ? 'en_US' : 'zh_CN');
+      i18n.changeLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN');
       location.reload();
     };
 
