@@ -96,7 +96,7 @@ class CityPage extends React.Component {
             data={t('全国')}
             onClick={this.handleProvinceClick}
           >
-            {t('全国')}
+            {language === 'zh-CN' ? '全国' : 'China'}
           </div>
           <div className="line1px" />
         </li>
@@ -205,7 +205,7 @@ class CityPage extends React.Component {
     return (
       <div className="page-select-city-container">
         <div className="page-select-city-container-header">
-          {t('当前城市')}:
+          {language === 'zh-CN' ? '当前城市' : 'Current location'}:
           <span>{(language === 'zh-CN' ? this.state.province : this.state.provinceEN) || null}</span>
           {label}
         </div>
