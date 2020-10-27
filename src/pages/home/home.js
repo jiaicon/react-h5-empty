@@ -32,10 +32,11 @@ class HomePage extends React.Component {
     autoBind(this);
     const { t, i18n } = props;
     const { language } = i18n;
+    console.log(JSON.parse(getCookie("provinceAndCityName")));
     this.state = {
       newcity: null,
       city: getCookie("provinceAndCityName")
-        ? (language === 'zh-CN' ? JSON.parse(getCookie("provinceAndCityName")).city.replace(t('市'), "") : JSON.parse(getCookie("provinceAndCityName")).city)
+        ? (language === 'zh-CN' ? JSON.parse(getCookie("provinceAndCityName")).city.replace(t('市'), "") : JSON.parse(getCookie("provinceAndCityNameEN")).city)
         : t('全国'),
       showDialog: false
     };
@@ -126,6 +127,7 @@ class HomePage extends React.Component {
 
     const changeGlobalLanguage = () => {
       i18n.changeLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN');
+      setCookie('i18nextLng', language === 'zh-CN' ? 'en-US' : 'zh-CN');
       location.reload();
     };
 
@@ -328,7 +330,7 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { home } = this.props;
+    const { home, t } = this.props;
     if (!home.data) {
       return null;
     }
@@ -356,8 +358,8 @@ class HomePage extends React.Component {
           buttons={this.dialog.buttons}
           show={this.state.showDialog}
         >
-          已经成功定位到当前定位城市
-          {this.state.newcity ? this.state.newcity : null},是否切换？
+        {t('已经成功定位到当前定位城市')}
+          {this.state.newcity ? this.state.newcity : null},{t('是否切换')}？
         </Dialog>
         <div className="page-home-body">
           {window.orgInfo && window.orgCode == "VolejRejNm" ? (
@@ -376,7 +378,7 @@ class HomePage extends React.Component {
                     <div className="list-header">
                       <div className="main-label">
                         <div className="label-line" />
-                        <span>回馈激励</span>
+                        <span>{t('回馈激励')}</span>
                         <div className="label-line" />
                       </div>
                       <div className="sub-label">Feedback incentive</div>
@@ -387,21 +389,21 @@ class HomePage extends React.Component {
                     <Link to="/shop">
                       <img
                         src="/images/sanlitun/feedback1.jpg"
-                        alt="回馈展示"
+                        alt={t('回馈展示')}
                       />
                     </Link>
                     {/* <Link to={`http://${location.host}/tmall`}> */}
                     <Link to="/shop">
                       <img
                         src="/images/sanlitun/feedback2.jpg"
-                        alt="回馈展示"
+                        alt={t('回馈展示')}
                       />
                     </Link>
                     {/* <Link to={`http://${location.host}/tmall`}> */}
                     <Link to="/shop">
                       <img
                         src="/images/sanlitun/feedback4.png"
-                        alt="回馈展示"
+                        alt={t('回馈展示')}
                       />
                     </Link>
                   </div>
@@ -411,13 +413,13 @@ class HomePage extends React.Component {
               {home.data && home.data.sanlitun && (window.orgCode === "mxkazpYdJ0" || window.orgCode === "7N1aM8AeWm") ? null : (
                 <div className="menus-activity">
                   <Link to="/project/list/type/1/category/1000/target/1000">
-                    <img src={activities_nearby_image} alt="附近" />
+                    <img src={activities_nearby_image} alt={t('附近')} />
                   </Link>
                   <Link to="/project/list/type/0/category/1000/target/1000">
-                    <img src={activities_new_image} alt="最新" />
+                    <img src={activities_new_image} alt={t('最新')} />
                   </Link>
                   <Link to="/project/list/type/2/category/1000/target/1000">
-                    <img src={activities_hot_image} alt="最热" />
+                    <img src={activities_hot_image} alt={t('最热')} />
                   </Link>
                 </div>
               )}
@@ -427,8 +429,8 @@ class HomePage extends React.Component {
                     <div className="label-line" />
                     <span>
                       {home.data && home.data.sanlitun
-                        ? "联盟活动"
-                        : "精品活动"}
+                        ? t('联盟活动')
+                        : t('精品活动')}
                     </span>
                     <div className="label-line" />
                   </div>

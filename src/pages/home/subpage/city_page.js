@@ -49,8 +49,8 @@ class CityPage extends React.Component {
         city: '全国',
       });
       setCookie("provinceAndCityName", JSON.stringify({
-          province: t('全国'),
-          city: t('全国')
+          province: '全国',
+          city: '全国',
         }),1);
       setCookie("provinceAndCityNameEN", JSON.stringify({
         province: 'China',
@@ -128,6 +128,7 @@ class CityPage extends React.Component {
     setCookie('notChange', notChange);  //用户不行切换的城市
     const city = data.name.replace(t('市'), "");
     const province = this.state.province;
+    return;
     setCookie("provinceAndCityName", JSON.stringify({
         province,
         city
