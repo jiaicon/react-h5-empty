@@ -128,7 +128,6 @@ class CityPage extends React.Component {
     setCookie('notChange', notChange);  //用户不行切换的城市
     const city = data.name.replace(t('市'), "");
     const province = this.state.province;
-    return;
     setCookie("provinceAndCityName", JSON.stringify({
         province,
         city

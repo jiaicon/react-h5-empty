@@ -19,7 +19,7 @@ import {
   getCookie,
   setCookie
 } from "../../utils/funcs";
-import { requestHomeData, saveCity, getAreaCity } from "./home.store";
+import { requestHomeData, saveCity, getAreaCity, getPinYin } from "./home.store";
 
 import { Dialog } from "react-weui";
 import "weui/dist/style/weui.css";
@@ -83,7 +83,8 @@ class HomePage extends React.Component {
 
   componentWillMount() {
     // TODO:
-    const { t } = this.props;
+    const { t, i18n } = this.props;
+    const { language } = i18n;
     this.props.requestHomeData();
     if (!getCookie("provinceAndCityName")) {
       getCity(
@@ -94,12 +95,28 @@ class HomePage extends React.Component {
             this.props.requestHomeData();
             return;
           } else {
-            this.setState({
-              ...this.state,
-              showDialog: true,
-              newcity: city,
-              pc: str
-            });
+            if (language === 'en-US') {
+              // 如果当前是英文模式，发送请求，获取英文版
+              getPinYin('郑州')
+                .then(res => {
+                  if (res && res.error_code === 0) {
+                    city=res.data.pinyin;
+                  }
+                  this.setState({
+                    ...this.state,
+                    showDialog: true,
+                    newcity: city,
+                    pc: str
+                  });
+                })
+            } else {
+              this.setState({
+                ...this.state,
+                showDialog: true,
+                newcity: city,
+                pc: str
+              });
+            }
           }
         },
         () => {
