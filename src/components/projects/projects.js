@@ -100,39 +100,39 @@ class Projects extends React.Component {
                   </div>
                     {showLabel ? <div className={classnames({
                           "project-status": true,
-                          "project-status-employed":
+                          [t("project-status-employed")]:
                             project.join_status === 1 &&
                           //  project.progress !== 4,
                             project.project_status !== 5,
-                          "project-status-employed-wait":
+                          [t("project-status-employed-wait")]:
                             project.join_status === 0 &&
                             // project.progress !== 4,
                             project.project_status !== 5,
-                            "project-status-employed-reject":
+                            [t("project-status-employed-reject")]:
                             project.join_status === 2 &&
                             // project.progress !== 4,
                             project.project_status !== 5,
-                          "project-status-employed-end":
+                          [t("project-status-employed-end")]:
                             //  project.progress == 4,
                             project.project_status === 5
                         })} /> : <div className={classnames({
                           "project-status": true,
-                          "project-status-recruit":
+                          [t("project-status-recruit")]:
                           //招募中
                             project.project_status === 2,
                             // project.progress === 1,
-                          "project-status-full":
+                          [t("project-status-full")]:
                           //已爆满
                             project.project_status === 4,
                             // project.progress === 3,
-                          "project-status-progress":
+                          [t("project-status-progress")]:
                           //进行中
                             project.project_status === 3,
                             // project.progress === 2,
-                          "project-status-end":
+                          [t("project-status-end")]:
                           //已结束
                             project.project_status === 5,
-                        "project-status-end-time":
+                        [t("project-status-end-time")]:
                         //报名截止
                         project.project_status === 6
                             // project.progress === 4,

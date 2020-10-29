@@ -434,8 +434,10 @@ export default {
 
     '您已加入该团队': '您已加入该团队',
     '已成功申请，请耐心等待审核': '已成功申请，请耐心等待审核',
+    '目前还没有志愿项目哦': '目前还没有志愿项目哦',
     '退出成功': '退出成功',
     '生成海报': '生成海报',
+
     '星币获取n': '{{n}}获取',
     '星币支出n': '{{n}}支出',
     '查看星币获取方法n': '查看{{n}}获取方法',
@@ -450,5 +452,26 @@ export default {
 
     '确定': '确定',
     '文明点亮你我，志愿感动社会': '文明点亮你我，志愿感动社会',
+
+    'person-entry': 'page-entry-person-btn',
+    'person-entry-bmw': 'page-entry-person-btn-bmw',
+
+    'team-login-entry': 'page-entry-team-btn-default',
+    'team-login-entry-bmw': 'page-entry-team-btn-bmw',
+
+
+    'team-register-entry': 'page-entry-team-btn-default',
+    'team-register-entry-bmw': 'page-entry-team-bmw',
+
+
+    'project-status-employed': 'project-status-employed',
+    'project-status-employed-wait': 'project-status-employed-wait',
+    'project-status-employed-reject': 'project-status-employed-reject',
+    'project-status-employed-end': 'project-status-employed-end',
+    'project-status-recruit': 'project-status-recruit',
+    'project-status-full': 'project-status-full',
+    'project-status-progress': 'project-status-progress',
+    'project-status-end': 'project-status-end',
+    'project-status-end-time': 'project-status-end-time',
   },
 }

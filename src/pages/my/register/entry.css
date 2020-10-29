@@ -49,6 +49,24 @@
   margin-bottom: 34px;
 }
 
+.page-entry-person-btn-en{
+  width: 160px;
+  height: 36px;
+  background-image: url(/images/my/person-login.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 34px;
+}
+
+.page-entry-person-btn-bmw-en{
+  width: 160px;
+  height: 36px;
+  background-image: url(/images/my/person-login-bmw.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 34px;
+}
+
 .page-entry-person-btn-bmw{
   width: 160px;
   height: 36px;
@@ -120,11 +138,43 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.page-entry-team-box a:nth-child(1) .page-entry-team-btn-default-en{
+  width: 110px;
+  height: 36px;
+  background-image: url(/images/my/team-login-default.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.page-entry-team-box a:nth-child(1) .page-entry-team-btn-default-bmw-en{
+    width: 110px;
+    height: 36px;
+    background-image: url(/images/my/team-login-bmw-en.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .page-entry-team-box a:nth-child(2) .page-entry-team-btn-default{
   width: 110px;
   height: 36px;
   background-image: url(/images/my/individual_teamsignup.png);
   background-size: contain;
   background-repeat: no-repeat;
+}
+.page-entry-team-box a:nth-child(2) .page-entry-team-btn-default-en{
+  width: 110px;
+  height: 36px;
+  background-image: url(/images/my/team-register-en.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.page-entry-team-box a:nth-child(2) .page-entry-team-btn-default-bmw-en{
+    width: 110px;
+    height: 36px;
+    background-image: url(/images/my/team-register-bmw-en.png);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 

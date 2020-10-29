@@ -66,33 +66,57 @@
 .component-projects .project-main .project-status-full {
   background-image: url(/images/full.png);
 }
-
+.component-projects .project-main .project-status-full-en {
+    background-image: url(/images/full-en.png);
+}
 .component-projects .project-main .project-status-recruit {
   background-image: url(/images/activities_status_recruit.png);
+}
+.component-projects .project-main .project-status-recruit-en {
+  background-image: url(/images/activities_status_recruit-en.png);
 }
 
 .component-projects .project-main .project-status-progress {
   background-image: url(/images/activities_status_progress.png);
 }
+.component-projects .project-main .project-status-progress-en {
+    background-image: url(/images/activities_status_progress-en.png);
+}
 .component-projects .project-main .project-status-end-time {
   background-image: url(/images/activities_status_end_time.png);
 }
-
+.component-projects .project-main .project-status-end-time-en {
+    background-image: url(/images/activities_status_end_time-en.png);
+}
 .component-projects .project-main .project-status-end {
   background-image: url(/images/activities_status_end.png);
 }
-
+.component-projects .project-main .project-status-end-en {
+    background-image: url(/images/activities_status_end-en.png);
+}
 .component-projects .project-main .project-status-employed-wait{
-  background-image: url(/images/employed_wait.png);
+    background-image: url(/images/employed_wait.png);
+}
+.component-projects .project-main .project-status-employed-wait-en{
+  background-image: url(/images/employed_wait-en.png);
 }
 .component-projects .project-main .project-status-employed-reject{
-  background-image: url(/images/employed_reject.png);
+    background-image: url(/images/employed_reject.png);
+}
+.component-projects .project-main .project-status-employed-reject-en{
+  background-image: url(/images/employed_reject-en.png);
 }
 .component-projects .project-main .project-status-employed{
   background-image: url(/images/employed.png);
 }
+.component-projects .project-main .project-status-employed-en{
+    background-image: url(/images/employed-en.png);
+}
 .component-projects .project-main .project-status-employed-end{
-  background-image: url(/images/activities_status_end.png);
+    background-image: url(/images/activities_status_end.png);
+}
+.component-projects .project-main .project-status-employed-end-en{
+  background-image: url(/images/activities_status_end-en.png);
 }
 
 

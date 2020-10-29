@@ -10,6 +10,7 @@ import { requestUserInfo } from '../../../stores/common';
 import './entry.css';
 import { storeLoginSource } from '../login/login.store';
 import i18next from 'i18next';
+import { translate } from 'react-i18next';
 
 class Entry extends React.Component {
 
@@ -38,18 +39,23 @@ class Entry extends React.Component {
     // history.replace('/my/login')
   }
   render() {
-    let loginRegisterClassName = "page-entry-team-btn-default";
+    const { t } = this.props;
+    let loginRegisterClassName = t('team-login-entry');
     if (window.orgCode === "EKQe1RaJYv") {
       loginRegisterClassName = "page-entry-team-btn-dalu";
     }
-    let personLoginRegisterClassName = "page-entry-person-btn";
+    let personLoginRegisterClassName = t('person-entry');
     let pageEntryPersonClassName = "page-entry-person";
-    let pageEntryTeamClassName = "page-entry-team";
+    let pageEntryTeamClassName = t('team-register-entry');
+    let pageEntryTeamImg = 'page-entry-team';
+
     if (window.orgCode === "mWZdPNwaKg") {
-      personLoginRegisterClassName = "page-entry-person-btn-bmw";
-      loginRegisterClassName = "page-entry-team-btn-bmw";
+      personLoginRegisterClassName = t('person-entry-bmw');
+      loginRegisterClassName = t('team-login-entry-bmw');
+
       pageEntryPersonClassName = "page-entry-person-bmw";
-      pageEntryTeamClassName = "page-entry-team-bmw"
+      pageEntryTeamImg='page-entry-team-bmw';
+      pageEntryTeamClassName = t('team-register-entry-bmw')
     }
 
 
@@ -65,13 +71,13 @@ class Entry extends React.Component {
           <p className="page-fonts">OR</p>
           <div className="line1px" style={{ width: '56px' }} />
         </div>
-        <div className={pageEntryTeamClassName} />
+        <div className={pageEntryTeamImg} />
         <div className="page-entry-team-box">
           <a href={`${ADMIN_HOST}/login/${window.orgCode}`}>
             <div className={loginRegisterClassName} />
           </a>
           <a href={`${ADMIN_HOST}/register/${window.orgCode}`}>
-            <div className={loginRegisterClassName} />
+            <div className={pageEntryTeamClassName} />
           </a>
         </div >
 
@@ -126,4 +132,4 @@ export default connect(
     login: state.login,
   }),
   dispatch => bindActionCreators({ requestUserInfo, storeLoginSource }, dispatch),
-)(Entry);
+)(translate('translations')(Entry));

@@ -452,5 +452,25 @@ export default {
     '￥n元': '￥{{n}}',
     '确定': 'Confirm',
     '文明点亮你我，志愿感动社会': 'Volunteer together, contribute selfless love and unlimited hope to society',
+
+    'person-entry': 'page-entry-person-btn-en',
+    'person-entry-bmw': 'page-entry-person-btn-bmw-en',
+
+    'team-login-entry': 'page-entry-team-btn-default-en',
+    'team-login-entry-bmw': 'page-entry-team-btn-bmw-en',
+
+    'team-register-entry': 'page-entry-team-btn-default-en',
+    'team-register-entry-bmw': 'page-entry-team-btn-default-bmw-en',
+
+
+    'project-status-employed': 'project-status-employed-en',
+    'project-status-employed-wait': 'project-status-employed-wait-en',
+    'project-status-employed-reject': 'project-status-employed-reject-en',
+    'project-status-employed-end': 'project-status-employed-end-en',
+    'project-status-recruit': 'project-status-recruit-en',
+    'project-status-full': 'project-status-full-en',
+    'project-status-progress': 'project-status-progress-en',
+    'project-status-end': 'project-status-end-en',
+    'project-status-end-time': 'project-status-end-time-en',
   },
 }
