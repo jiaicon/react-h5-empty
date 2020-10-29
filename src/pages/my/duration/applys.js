@@ -84,22 +84,22 @@ class Apply extends React.Component {
 
   render() {
     const { data: listData } = this.props.apply;
-    console.info(listData);
+    const { t } = this.props;
     return (
       <div className="page-apply">
         <div>
-          <ApplyItem data={listData ? listData.list : null} />
+          <ApplyItem t={t} data={listData ? listData.list : null} />
           <div className="page-apply-take-up" />
         </div>
         <Link to="/sign/replacement/proid/class" className="page-apply-bottom-btn">
-          <div className="page-apply-main">申请补卡</div>
+          <div className="page-apply-main">{t('申请补卡')}</div>
         </Link>
       </div>
     );
   }
 }
 
-Apply.title = i18next.t('补录申请');
+Apply.title = i18next.t('申请补卡');
 
 Apply.propTypes = {
   applyAction: PropTypes.func,

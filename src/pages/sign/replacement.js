@@ -127,6 +127,9 @@ class Replacement extends React.Component {
                 <Picker
                     data={proApplyListData}
                     cols={1}
+                    okText={t('确定')}
+                    dismissText={t('取消')}
+                    extra={t('请选择')}
                     {...getFieldProps('proApplyPicker', {
                         rules: [{
                             required: true
@@ -147,6 +150,9 @@ class Replacement extends React.Component {
             <div className="pages-sign-project-apply-line">
                 <DatePicker
                     mode="date"
+                    okText={t('确定')}
+                    dismissText={t('取消')}
+                    extra={t('请选择')}
                     format="YYYY-MM-DD"
                     {...getFieldProps('join_day', {
                         initialValue: undefined,
@@ -310,7 +316,7 @@ class Replacement extends React.Component {
     }
 }
 
-Replacement.title = i18next.t("补卡申请");
+Replacement.title = i18next.t("申请补卡");
 
 Replacement.propTypes = {
     form: formShape

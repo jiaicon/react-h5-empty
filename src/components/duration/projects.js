@@ -6,9 +6,7 @@ import autoBind from "react-autobind";
 import "./projects.css";
 import Link from "../link/link";
 import Avatar from "../avatar/avatar";
-
-
-
+import { translate } from 'react-i18next';
 import ModalNew from "../posterModal/ModalNew";
 import { PostDataModel_ProjectSign } from "../posterModal/PostDataModel";
 
@@ -60,12 +58,12 @@ class DurationProjects extends React.Component {
     })
   }
   render() {
-    const { durationProject } = this.props;
+    const { durationProject, t } = this.props;
     if (!durationProject) {
       return null;
     } else if (durationProject && !durationProject.length) {
       return (
-        <div className="duration-projects-empty-tip">目前还没有志愿项目哦</div>
+        <div className="duration-projects-empty-tip">{t('目前还没有志愿项目哦')}</div>
       );
     }
     const isEntry = this.props.isEntry;
@@ -98,7 +96,7 @@ class DurationProjects extends React.Component {
 
                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                           <div style={{ fontSize: "13px", color: "#6AC6F8", border: "1px solid #6AC6F8", borderRadius: "4px", padding: "2px 4px" }} onClick={() => this.poster(project)}>
-                            生成海报
+                            {t('生成海报')}
                           </div>
                         </div>
                       </div>
@@ -115,8 +113,8 @@ class DurationProjects extends React.Component {
                           {team.name}
                         </div>
                         <div className="component-duration-projects-footer-date-box">
-                          已获得时长：
-                          <span>{project.my_reward_time}小时</span>
+                          {t('已获得时长')}：
+                          <span>{project.my_reward_time}{t('小时')}</span>
                         </div>
                       </Link>
                     </div>
@@ -168,4 +166,4 @@ DurationProjects.propTypes = {
   user: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-export default DurationProjects;
+export default translate('translations')(DurationProjects);

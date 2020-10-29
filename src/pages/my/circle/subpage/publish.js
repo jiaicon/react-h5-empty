@@ -117,7 +117,7 @@ class CirclePublish extends React.Component {
     return (
       <div className="page-circlepublish-container">
         <textarea
-          placeholder="这一刻的想法…（最多200字）"
+          placeholder={t('这一刻的想法')}
           className="page-circlepublish-edit-text" maxLength="200"
           ref={(c) => { this.editsthink = c; }} onBlur={this.onTextChanged}
         />

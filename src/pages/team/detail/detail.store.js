@@ -1,4 +1,6 @@
 import fetch from '../../../utils/fetch';
+import i18next from 'i18next';
+const { t } = i18next;
 
 /**
  * 团队详情 Action
@@ -31,7 +33,7 @@ export const collectTeam = teamId => ({
       id: teamId,
       type: 1, // 0-项目, 1-团队
     },
-    successWords: '收藏成功',
+    successWords: t('收藏成功'),
   }),
 });
 
@@ -42,7 +44,7 @@ export const unCollectTeam = teamId => ({
       id: teamId,
       type: 1, // 0-项目, 1-团队
     },
-    successWords: '取消收藏成功',
+    successWords: t('取消收藏成功'),
   }),
 });
 

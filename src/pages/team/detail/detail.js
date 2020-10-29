@@ -431,15 +431,15 @@ class TeamDetailPage extends React.Component {
     let action = "";
 
     if (!joined && !auditing) {
-      actionLabel = "我要加入";
+      actionLabel = t('我要加入');
       actionClassName = "team-action-available";
       action = "join";
     } else if (joined) {
-      actionLabel = "我要退出";
+      actionLabel = t('我要退出');
       actionClassName = "team-action-quit";
       action = "quit";
     } else if (auditing) {
-      actionLabel = "等待审核";
+      actionLabel = t('等待审核');
       actionClassName = "team-action-auditing";
       action = "";
     }
@@ -509,7 +509,7 @@ class TeamDetailPage extends React.Component {
               </li>
               <li>
                 <span>{t('团队类型')}</span>
-                <span>{detailData.type}</span>
+                <span>{t(detailData.type)}</span>
                 <div className="line1px" />
               </li>
               {detailData.parent && detailData.parent.name ? (

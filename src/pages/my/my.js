@@ -105,7 +105,7 @@ class MyPage extends React.Component {
             {user.real_name || user.username || t("未设置昵称")}
           </p>
           <p className="page-my-user-info-signature">
-            {user.slogan || t("未设置口号")}
+            {t(user.slogan) || t("未设置口号")}
           </p>
           <div className="page-my-user-info-star">
             {user.stars ? (
@@ -176,7 +176,7 @@ class MyPage extends React.Component {
                 {scoreName || t('星币(center)')}
               </p>
               <p className="page-my-record-item-bottom">
-                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || "志愿"}
+                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || t('志愿')}
                 {scoreName || t('星币(center)')}
               </p>
             </div>
@@ -217,7 +217,7 @@ class MyPage extends React.Component {
   }
 
   renderPageMyphotoTemplate() {
-    let { userAchieveList, user } = this.props;
+    let { userAchieveList, user, t } = this.props;
     let label = "";
     let query = "";
     if (
@@ -296,7 +296,7 @@ class MyPage extends React.Component {
             )}
           </p>
           <p className="page-my-user-info-signature">
-            {user.slogan || "未设置口号"}
+            {t(user.slogan) || t("未设置口号")}
           </p>
           <div className="page-my-user-info-star">
             {user.stars ? (

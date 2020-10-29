@@ -102,7 +102,7 @@ class Projects extends React.Component {
                                             <div className="component-shopItem-price-container">
                                                 <div className="new">{item.points}</div>
                                                 <div className="fonts">{scoreName || t('星币')}</div>
-                                                <div className="old">¥{item.price}{t('元')}</div>
+                                                <div className="old">{t('￥n元', { n: item.price })}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +153,9 @@ class Projects extends React.Component {
                                             <div className="component-shopItem-price-container">
                                                 <div className="new">{item && item.goods_id && item.goods_id.points ? item.goods_id.points : null}</div>
                                                 <div className="fonts">{scoreName || t('星币')}</div>
-                                                <div className="old">¥{item && item.goods_id && item.goods_id.price ? item.goods_id.price : null}{t('元')}</div>
+                                                <div className="old">
+                                                  {t('￥n元', { n: item && item.goods_id && item.goods_id.price ? item.goods_id.price : null })}
+                                                  </div>
                                             </div>
                                         </div>
                                     </div>

@@ -1,4 +1,5 @@
 /* global wx:false, qq:false */
+import i18next from 'i18next';
 
 //写cookies（设置作用域）
 export function setCookie(name, value, Days) {
@@ -310,9 +311,13 @@ export function timestampToDateText(timestamp) {
 export function dateTextToDateText(dateText) {
   const re = /^(\d+)-(\d+)-(\d+)$/;
   const match = dateText.match(re);
-
+  const { language } = i18next;
   if (match) {
-    return `${match[1]}年${match[2]}月${match[3]}日`;
+    if (language === 'en-US') {
+      return `${match[1]}-${match[2]}-${match[3]}`;
+    } else {
+      return `${match[1]}年${match[2]}月${match[3]}日`;
+    }
   }
 
   return "";

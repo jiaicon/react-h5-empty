@@ -41,7 +41,7 @@ class PointPage extends React.Component {
 
   componentDidMount() {
     const { t } = this.props;
-    document.title = `${t('我的')}${scoreName || t('星币')}${t('明细')}`;
+    document.title = `${t('我的')}${t(scoreName) || t('星币')}${t('明细')}`;
   }
   componentWillUnmount() {
     this.setState({
@@ -90,17 +90,17 @@ class PointPage extends React.Component {
           <img src="/images/my/delete.png" alt="" />
         </div>
         <div className="commonweal-box-instruction-how">
-          {t('如何获得')}{scoreName || t('星币')}？
+          {t('如何获得星币n', {n: t(scoreName) || t('星币')})}？
         </div>
         <div className="commonweal-box-instruction-list">
-          下列操作可以帮你获得{scoreName || t('星币')}：
+          {t('下列操作可以帮你获得n', {n: t(scoreName) || t('星币')})}：
         </div>
         <div className="commonweal-box-instruction-table">
           <table>
             <thead>
               <tr>
                 <td>{t('操作')}</td>
-                <td>{t('获得')}{scoreName || t('星币')}</td>
+                <td>{t('获得n', {n: t(scoreName) || t('星币')})}</td>
               </tr>
             </thead>
             <tbody>
@@ -143,14 +143,16 @@ class PointPage extends React.Component {
       <div className="page-ponit">
         <div className="page-ponit-pic-container">
           <div className="page-ponit-pic-title">
-            <span>{t('我的')}{scoreName || t('星币')}{'明细'}({t('个')})</span>
+            <span>
+              {t('我的星币明细n', { n: t(scoreName) || t('星币') })}({t('个')})
+            </span>
             <span style={{ margin: "13px 0 13px" }}>
               {this.props.usercenter.data == null
                 ? 0
                 : this.props.usercenter.data.user.score}
             </span>
             <span className="checkScoreMethod" onClick={this.checkScoreMethod}>
-              {t('查看')}{scoreName || t('星币')}{t('获取方法')}
+              {t('查看星币获取方法n', {n: t(scoreName) || t('星币')})}
             </span>
           </div>
         </div>
@@ -163,7 +165,7 @@ class PointPage extends React.Component {
                   active: path === "/my/point"
                 })}
               >
-                {scoreName || t('星币')}{t('获取')}
+                {t('星币获取n', {n: t(scoreName) || t('星币')})}
               </div>
             </Link>
           </div>
@@ -178,7 +180,7 @@ class PointPage extends React.Component {
                   active: path === "/my/point/pay"
                 })}
               >
-                {scoreName || t('星币')}{t('支出')}
+                {t('星币支出n', {n: t(scoreName) || t('星币')})}
               </div>
             </Link>
           </div>

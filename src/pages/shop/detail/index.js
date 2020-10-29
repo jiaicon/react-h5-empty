@@ -127,8 +127,8 @@ class ShopDetailPage extends React.Component {
                     <div className="page-shop-goods-content-top-title">{data.g_name}</div>
                     <div className="page-shop-goods-content-top-price-container">
                         <div className="price-container">
-                            <div className="price"><span>{data.points}</span>{scoreName || t('星币')}</div>
-                            <div className="now">¥{data.price}{t('元')}</div>
+                            <div className="price"><span>{data.points}</span>{t(scoreName) || t('星币')}</div>
+                            <div className="now">{t('￥n元', { n: data.price })}</div>
                         </div>
                         {data.g_num? <div className="num">{t('库存n件', {n: data.g_num})}</div> : null}
                         {/* <div className="num">库存{data.g_num}件</div> */}
@@ -138,7 +138,7 @@ class ShopDetailPage extends React.Component {
                     }
 
                     <div className="line1px"></div>
-                    <div className="page-shop-goods-content-top-date">{t('线下兑换日期')}:{data.created_at} {t('至')} {data.updated_at}</div>
+                    <div className="page-shop-goods-content-top-date">{t('线下兑换日期')}: {data.created_at} {t('至')} {data.updated_at}</div>
                     <div className="line1px"></div>
                     {
                         data.team_info && data.team_info.name ?
@@ -163,7 +163,7 @@ class ShopDetailPage extends React.Component {
                 </div>
                 <div className="page-shop-goods-takeup"></div>
                 <Dialog type="ios" title={this.dialog.title} buttons={this.dialog.buttons} show={this.state.showDialog}>
-                  {t('兑换该商品需要消耗')}{data.points}{scoreName || t('星币')}，{t('您是否兑换吗')}？
+                  {t('兑换该商品需要消耗')}{data.points}{t(scoreName) || t('星币')}，{t('您是否兑换吗')}？
                 </Dialog>
             </div>
         )

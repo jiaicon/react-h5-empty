@@ -158,10 +158,10 @@ class ShopPage extends React.Component {
           {
             user.isLogin ?
 
-              <div className="left">{t('我的')}{scoreName || t('星币')}:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
+              <div className="left">{t('我的星币n', {n: t(scoreName) || t('星币')})}:<span>{usercenter && usercenter.data && usercenter.data.user && usercenter.data.user.score?usercenter.data.user.score:0}</span></div>
 
               :
-              <div className="left">{t('我的')}{scoreName || t('星币')}:<span className="redfonts">{t('请先登录')}</span></div>
+              <div className="left">{t('我的星币n', {n: t(scoreName) || t('星币')})}:<span className="redfonts">{t('请先登录')}</span></div>
 
           }
           {
