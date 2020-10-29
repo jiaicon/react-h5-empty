@@ -447,6 +447,7 @@ export default {
     '如何获得星币n': 'Way to earn {{n}}',
     '获得星币n': 'Earn {{n}}',
     '我的星币n': 'My {{n}}',
+    'n志愿星币m': '{{n}}{{m}}',
     '下列操作可以帮你获得n': 'The following operations can help you get {{n}}',
     '￥n元': '￥{{n}}',
     '确定': 'Confirm',
