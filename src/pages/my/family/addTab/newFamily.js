@@ -422,4 +422,4 @@ export default connect(
     dispatch => bindActionCreators({
         addressDataAction, addFamilyPeople
     }, dispatch),
-)(NewFamily);
+)(translate('translations')(NewFamily));
