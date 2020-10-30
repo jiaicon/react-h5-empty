@@ -461,7 +461,7 @@ export default {
 
 
     'team-register-entry': 'page-entry-team-btn-default',
-    'team-register-entry-bmw': 'page-entry-team-bmw',
+    'team-register-entry-bmw': 'page-entry-team-btn-bmw',
 
 
     'project-status-employed': 'project-status-employed',

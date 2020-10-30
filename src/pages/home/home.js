@@ -32,7 +32,7 @@ class HomePage extends React.Component {
     autoBind(this);
     const { t, i18n } = props;
     const { language } = i18n;
-    console.log(JSON.parse(getCookie("provinceAndCityName")));
+
     this.state = {
       newcity: null,
       city: getCookie("provinceAndCityName")
@@ -166,10 +166,12 @@ class HomePage extends React.Component {
                 />
               </Link>
             </div>
-            <span
+            {
+            window.orgInfo.language_change === 1 ? <span
               onClick={changeGlobalLanguage}
               style={{backgroundImage: `url(${t('btn')})`, backgroundPosition: 'center', backgroundSize: 'cover', width: '23px', height: '23px', display: 'inline-block', marginRight: '12px'}}
-            />
+            /> : null
+            }
             <Link to="/my">
               <Avatar src={user.avatars} size={{ width: 28 }} />
             </Link>
@@ -184,10 +186,12 @@ class HomePage extends React.Component {
                 disabled="disabled"
               />
             </Link>
-            <span
+            {
+            window.orgInfo.language_change === 1 ? <span
               onClick={changeGlobalLanguage}
               style={{backgroundImage: `url(${t('btn')})`, backgroundPosition: 'center', backgroundSize: 'cover', width: '23px', height: '23px', display: 'block', marginRight: '12px'}}
-            />
+            /> : null
+            }
             <Link
                 to={target}
               >

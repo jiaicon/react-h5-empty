@@ -18,7 +18,8 @@ import "./certificateBMW.css";
 import history from "../../history";
 import html2canvas from "html2canvas";
 import { ImageToBase64 } from "../../../utils/funcs";
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 class Certificate extends React.Component {
   constructor(props) {
     super(props);
@@ -250,8 +251,112 @@ class Certificate extends React.Component {
     );
   }
 
-  render() {
+
+  renderCertificateEN() {
     const { user: listData } = this.props;
+    if (!listData) {
+      return null;
+    }
+
+    const starWidth = this.props.user.stars
+      ? Number(this.props.user.stars) * Number(20) - Number(5) + "px"
+      : null;
+    return (
+      <div className="page-certificate-bg">
+        <div className="page-certificate-container-border" ref="LaunchContent">
+          <img src={this.state.bgImage || '/images/my/certificate-bgBMW2-en.png'} className='page-certificate-bg-img' ref="bgImage"></img>
+          <div className="page-certificate-container-content-certnumber">
+            Certificate No：<span className="bmw-typnextlight">{this.props.user.identifier}</span>
+          </div>
+          <div className="page-certificate-container-content-avatar">
+            <img
+              src={
+                this.state.base64Array && this.state.base64Array[1] // src={this.state.people}
+              }
+              id="avatars"
+              style={{
+                display: "block",
+                width: "80px",
+                height: "80px",
+                // borderRadius: "50%",
+                objectFit: "cover"
+              }}
+            />
+          </div>
+          <div className="page-certificate-container-name">
+            {this.props.user.real_name}
+          </div>
+          {this.props.user.stars ? (
+            <div
+              className="page-certificate-container-star"
+              style={{ width: `${starWidth}` }}
+            >
+              <Star
+                size={{ width: 15, height: 14, score: this.props.user.stars }}
+              />
+            </div>
+          ) : null}
+          <div className="page-certificate-container-content-register">
+            <span className="bmw-typnextlight">registers as a BMW volunteer on {this.state.register}</span>
+          </div>
+
+          <div className="page-certificate-container-hours-box">
+            <div className="page-certificate-container-hours">
+              <div className="page-certificate-container-hours-item-number">
+                <span>{this.props.user.join_project_count}</span>
+                <div style={{
+                  paddingTop: '24px',
+                  paddingLeft: '2px',
+                  fontWeight: 200,
+                  transform: 'scale(0.9)',
+                  fontSize: '10px',
+                  height: '33px'
+                }}>个
+                </div>
+              </div>
+              <div className="page-certificate-container-hours-item-subTitle">
+                volunteer projects
+              </div>
+            </div>
+            <div className="page-certificate-container-hours">
+              <div className="page-certificate-container-hours-item-number">
+                <span>{`${this.props.user.reward_time}`.length > 5 ? `${this.props.user.reward_time}`.split('.')[0] : `${this.props.user.reward_time}`}</span>
+                <div style={{
+                  paddingTop: '12px',
+                  paddingLeft: '2px',
+                  fontWeight: 200,
+                  transform: 'scale(0.9)',
+                  fontSize: '10px',
+                  height: '41px'
+                }}>小<br />时
+                </div>
+              </div>
+              <div className="page-certificate-container-hours-item-subTitle">
+                volunteer hours
+              </div>
+            </div>
+          </div>
+          <div className='page-certificate-container-bottom-infobox-parent'>
+            <div className="page-certificate-container-bottom-infobox">
+              <div className="page-certificate-container-bussiness">
+                <span className="bmw-typnextlight">BMW</span>Corporate Volunteer Association
+              </div>
+              <div
+                className="page-certificate-container-content"
+                style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
+              >
+                <span className="bmw-typnextlight">{this.state.now}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { user: listData, i18n } = this.props;
+    const { language } = i18n;
     const { dataUrl } = this.state;
     if (!listData || !listData.id) {
       return null;
@@ -286,6 +391,12 @@ class Certificate extends React.Component {
               src={`${this.state.dataUrl}`}
             />
           ) : (
+            language === 'en-US' ?
+              <div className="page-certificate-main-container">
+                {/** TODO: */}
+                {this.renderCertificateEN()}
+              </div>
+              :
               <div className="page-certificate-main-container">
                 {/** TODO: */}
                 {this.renderCertificate()}
@@ -302,7 +413,7 @@ class Certificate extends React.Component {
   }
 }
 
-Certificate.title = `我的证书`;
+Certificate.title = i18next.t('我的证书');
 
 Certificate.propTypes = {
   requestUserInfo: PropTypes.func,
@@ -338,4 +449,4 @@ Certificate.propTypes = {
 export default connect(
   state => ({ user: state.user }),
   dispatch => bindActionCreators({ requestUserInfo }, dispatch)
-)(Certificate);
+)(translate('translations')(Certificate));

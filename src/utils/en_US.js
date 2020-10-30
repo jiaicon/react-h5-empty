@@ -137,8 +137,8 @@ export default {
     '项目介绍': 'Introduction',
     '暂无介绍': 'No introduction',
     '收藏': 'Favorites',
-    '收藏成功': '收藏成功',
-    '取消收藏成功': '取消收藏成功',
+    '收藏成功': 'Collect successfully',
+    '取消收藏成功': 'Cancel successfully',
     '分享': 'Share',
     '项目详情': 'Project details',
     '项目社区': 'Project community',
@@ -382,7 +382,7 @@ export default {
     '教育': 'Education',
     '助残': 'Assistance to the disabled',
     '助老': 'Assistance to the elderly',
-    '其他': 'Other',
+
     '志愿者口号': 'Slogan',
     '保存': 'Save',
     '实名认证信息': 'Real-name authentication information',
@@ -433,11 +433,11 @@ export default {
     '长按识别二维码 一起来做志愿者': 'Long press to identify the QR code to be volunteers together',
     '我发现了这个团队，跟我一起做志愿服务吧': 'I found this team, let\'s do volunteer service with me',
 
-    '您已加入该团队': '您已加入该团队',
-    '已成功申请，请耐心等待审核': '已成功申请，请耐心等待审核',
-    '退出成功': '退出成功',
-    '目前还没有志愿项目哦': '目前还没有志愿项目哦',
-    '生成海报': '生成海报',
+    '您已加入该团队': 'You have joined this team',
+    '已成功申请，请耐心等待审核': 'You have applied successfully, please wait for review',
+    '退出成功': 'Exit successfully',
+    '目前还没有志愿项目哦': 'No project',
+    '生成海报': 'Generate poster',
 
 
     '星币获取n': 'Way to earn {{n}}',
