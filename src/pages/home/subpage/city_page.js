@@ -11,7 +11,6 @@ import history from "../../history";
 import { requestHomeData, saveCity, getAreaCity } from "../home.store";
 import { addressDataAction } from "../../my/profile/profile.store";
 import { translate } from 'react-i18next';
-
 class CityPage extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +22,7 @@ class CityPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { t } = this.props;
     this.props.addressDataAction(0);
     if (getCookie("provinceAndCityName")) {
@@ -32,7 +31,7 @@ class CityPage extends React.Component {
       this.setState({
         province: data.province || t('全国'),
         city: data.city == '全国' ? null : data.city,
-        cityEN: dataEN.city === 'China' ? null : dataEN.city
+        cityEN: dataEN && dataEN.city === 'China' ? null : (dataEN ? dataEN.city : 'China')
       });
     };
   }
@@ -49,9 +48,9 @@ class CityPage extends React.Component {
         city: '全国',
       });
       setCookie("provinceAndCityName", JSON.stringify({
-          province: '全国',
-          city: '全国',
-        }),1);
+        province: '全国',
+        city: '全国',
+      }),1);
       setCookie("provinceAndCityNameEN", JSON.stringify({
         province: 'China',
         city: 'China',
@@ -101,19 +100,19 @@ class CityPage extends React.Component {
           <div className="line1px" />
         </li>
         {province &&
-          province.map((item, keys) => (
-            <li>
-              <div
-                className="page-select-city-container-style"
-                key={keys}
-                data={JSON.stringify({ item })}
-                onClick={this.handleProvinceClick}
-              >
-                {language === 'zh-CN' ? item.name : item.pinyin}
-              </div>
-              <div className="line1px" />
-            </li>
-          ))}
+        province.map((item, keys) => (
+          <li>
+            <div
+              className="page-select-city-container-style"
+              key={keys}
+              data={JSON.stringify({ item })}
+              onClick={this.handleProvinceClick}
+            >
+              {language === 'zh-CN' ? item.name : item.pinyin}
+            </div>
+            <div className="line1px" />
+          </li>
+        ))}
       </ul>
     );
   }
@@ -129,9 +128,9 @@ class CityPage extends React.Component {
     const city = data.name.replace(t('市'), "");
     const province = this.state.province;
     setCookie("provinceAndCityName", JSON.stringify({
-        province,
-        city
-      }),1);
+      province,
+      city
+    }),1);
     setCookie("provinceAndCityNameEN", JSON.stringify({
       province: this.state.provinceEN,
       city: data.pinyin,
@@ -153,19 +152,19 @@ class CityPage extends React.Component {
     return (
       <ul>
         {city &&
-          city.map((item, keys) => (
-            <li>
-              <div
-                className="page-select-city-container-style"
-                key={keys}
-                data={JSON.stringify({ item })}
-                onClick={this.handleCityClick}
-              >
-                {language === 'zh-CN' ? item.name : item.pinyin}
-              </div>
-              <div className="line1px" />
-            </li>
-          ))}
+        city.map((item, keys) => (
+          <li>
+            <div
+              className="page-select-city-container-style"
+              key={keys}
+              data={JSON.stringify({ item })}
+              onClick={this.handleCityClick}
+            >
+              {language === 'zh-CN' ? item.name : item.pinyin}
+            </div>
+            <div className="line1px" />
+          </li>
+        ))}
       </ul>
     );
   }
@@ -190,13 +189,13 @@ class CityPage extends React.Component {
       }
     } else {
       if (cityEN) {
-        if (cityEN !== t('全国')) {
+        if (cityEN !== 'China') {
           label = '- ';
         }
         if (cityEN === "Kizilsu") {
           label += 'Kizilsu';
         } else {
-          if (cityEN !== t('全国')) {
+          if (cityEN !== 'China') {
             label += cityEN
           }
         }
