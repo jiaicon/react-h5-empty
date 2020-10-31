@@ -30,6 +30,7 @@ class CityPage extends React.Component {
       const dataEN = JSON.parse(getCookie("provinceAndCityNameEN"));
       this.setState({
         province: data.province || t('全国'),
+        provinceEN: dataEN && dataEN.province === 'China' ? null : (dataEN ? dataEN.province : 'China'),
         city: data.city == '全国' ? null : data.city,
         cityEN: dataEN && dataEN.city === 'China' ? null : (dataEN ? dataEN.city : 'China')
       });

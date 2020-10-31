@@ -11,6 +11,9 @@
     margin-right: 33px;
     border-radius: 100%;
 }
+.volunteer-rank-detail-top-detail {
+    flex: 1;
+}
 .volunteer-rank-detail-top-detail-name {
     font-family: PingFangSC-Regular;
     font-size: 17px;
