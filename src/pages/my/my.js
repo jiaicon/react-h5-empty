@@ -173,11 +173,11 @@ class MyPage extends React.Component {
                     ? 0
                     : this.props.usercenter.data.user.score}
                 </b>{" "}
-                {scoreName || t('星币(center)')}
+                {t(scoreName) || t('星币(center)')}
               </p>
               <p className="page-my-record-item-bottom">
                 {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || t('志愿')}
-                {scoreName || t('星币(center)')}
+                {t(scoreName) || t('星币(center)')}
               </p>
             </div>
           </Link>

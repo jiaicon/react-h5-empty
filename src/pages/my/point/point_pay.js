@@ -28,7 +28,7 @@ class PointPay extends React.Component {
 
   componentDidMount() {
     const { t } = this.props;
-    document.title = `${t('我的')}${scoreName || t('星币')}${t('明细')}`;
+    document.title = `${t('我的')}${t(scoreName) || t('星币')}${t('明细')}`;
   }
 
   componentWillReceiveProps() {
@@ -45,7 +45,7 @@ class PointPay extends React.Component {
         <div className="line1px" />
         <div className="page-point-income-pay-title">
           <span>{t('时间')}</span>
-          <span>{scoreName || t('星币')}</span>
+          <span>{t(scoreName) || t('星币')}</span>
         </div>
         <div className="line1px" />
         <div className="page-point-income-pay-main-contain">
