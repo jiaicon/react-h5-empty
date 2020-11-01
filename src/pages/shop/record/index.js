@@ -9,8 +9,8 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 import ShopItem from '../../../components/shopItme/index';
 import { ordersAction, sureOrdersAction } from '../shop.store';
 import './index.css';
@@ -62,7 +62,7 @@ class RecordPagr extends React.Component {
         });
     }
     render() {
-        const { orderList: { data: listData } } = this.props;
+        const { orderList: { data: listData }, t } = this.props;
         const showLoadingMore = listData &&
             listData.page && (listData.page.current_page < listData.page.total_page);
         return (
@@ -73,7 +73,7 @@ class RecordPagr extends React.Component {
                         ?
                         <div className="component-loading-more">
                             <img src="/images/icon_loading.png" alt="loading" />
-                            正在加载
+                          {t('正在加载')}
                          </div>
                         : null
                 }
@@ -83,7 +83,7 @@ class RecordPagr extends React.Component {
 }
 
 
-RecordPagr.title = '兑换记录';
+RecordPagr.title = i18next.t('兑换记录');
 
 RecordPagr.propTypes = {
     ordersAction: PropTypes.func,
@@ -102,4 +102,4 @@ export default connect(
         sureOrdersAction
     },
         dispatch),
-)(RecordPagr);
+)(translate('translations')(RecordPagr));

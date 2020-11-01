@@ -47,7 +47,7 @@ class Duration extends React.Component {
             <p>
               <span>
                 {this.props.reward.data === null ? 0 : this.props.reward.data.join_project_count}
-              </span>个</p>
+              </span>{t('n个')}</p>
             <p>{t('参加的项目')}</p>
           </div>
           <div className="page-duration-top-area-view-line" />

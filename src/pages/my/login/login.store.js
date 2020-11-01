@@ -148,7 +148,7 @@ export const againVerifyCode = data => ({
     type: 'CODE',
     payload: fetch(`${API_HOST}/api/phone/verifycode`, {
         data,
-        successWords: '发送成功',
+        successWords: i18next.t('发送成功'),
     }),
 });
 

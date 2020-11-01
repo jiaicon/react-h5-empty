@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 import fetch from '../../../utils/fetch';
 import { API_HOST } from '../../../utils/config';
-
+import i18next from 'i18next';
 
 export const REGISTER_PENDING = 'REGISTER_PENDING';
 export const REGISTER_FULFILLED = 'REGISTER_FULFILLED';
@@ -57,7 +57,7 @@ export const requestVerifyCode = data => ({
   type: 'CODE',
   payload: fetch(`${API_HOST}/api/verifycode`, {
     data,
-    successWords: '发送成功',
+    successWords: i18next.t('发送成功'),
   }),
 });
 

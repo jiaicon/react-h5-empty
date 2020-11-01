@@ -20,7 +20,8 @@
 }
 .page-forget-fonts{
   display: block;
-  width: 62px;
+  text-align: justify;
+  width: 120px;
   font-size: 15px;
   color: #999999;
   margin-right: 15px;

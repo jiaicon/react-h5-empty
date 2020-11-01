@@ -5,6 +5,8 @@ export default {
     '首页': 'Home',
     '个人中心': 'Personal center',
     '获取验证码': 'Obtain',
+    '验证码获取': 'Obtain',
+    '设置密码': '设置密码',
     '请输入验证码': 'Please enter the verification code',
     '请输入手机号': 'Please enter your mobile number',
     '手机号或证件号码': 'Mobile number/ID number',
@@ -450,6 +452,9 @@ export default {
     'n志愿星币m': '{{n}}{{m}}',
     '下列操作可以帮你获得n': 'The following operations can help you get {{n}}',
     '￥n元': '￥{{n}}',
+    '获得n': 'get {{n}}',
+    'n个': 'Piece',
+    'n人': '',
     '确定': 'Confirm',
     '文明点亮你我，志愿感动社会': 'Volunteer together, contribute selfless love and unlimited hope to society',
 
@@ -472,5 +477,7 @@ export default {
     'project-status-progress': 'project-status-progress-en',
     'project-status-end': 'project-status-end-en',
     'project-status-end-time': 'project-status-end-time-en',
+
+    '发送成功': '发送成功',
   },
 }

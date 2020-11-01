@@ -6,6 +6,8 @@ export default {
     '签到打卡': '签到打卡',
     '个人中心': '个人中心',
     '获取验证码': '获取验证码',
+    '验证码获取': '获取',
+    '设置密码': '设置密码',
     '请输入验证码': '请输入验证码',
     '请输入手机号': '请输入手机号',
     '手机号或证件号码': '手机号或证件号码',
@@ -449,6 +451,8 @@ export default {
     '下列操作可以帮你获得n': '下列操作可以帮你获得{{n}}',
 
     '￥n元': '￥{{n}}元',
+    '获得n': '获得{{n}}',
+    'n个': '个',
 
     '确定': '确定',
     '文明点亮你我，志愿感动社会': '文明点亮你我，志愿感动社会',
@@ -473,5 +477,8 @@ export default {
     'project-status-progress': 'project-status-progress',
     'project-status-end': 'project-status-end',
     'project-status-end-time': 'project-status-end-time',
+
+
+    '发送成功': '发送成功',
   },
 }

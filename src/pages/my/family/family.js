@@ -100,7 +100,7 @@ class Family extends React.Component {
                         </div>
                         <div className="page-family-top-area-view-line"/>
                         <div className="page-family-top-area-view-family-box">
-                            <p><span>{listData ? listData.data.reward_time : 0}</span>小时</p>
+                            <p><span>{listData ? listData.data.reward_time : 0}</span>{t('小时')}</p>
                             <p>{t('志愿总时长')}</p>
                         </div>
                     </div>

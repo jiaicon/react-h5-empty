@@ -1,5 +1,7 @@
 import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
+import i18next from 'i18next';
+const { t } = i18next;
 /**
  * 切换 TAB 记录 TAB 状态，在后退操作后需要记录
  */
@@ -42,7 +44,7 @@ export const collectProject = projectId => ({
       id: projectId,
       type: 0, // 0-项目, 1-团队
     },
-    successWords: '收藏成功',
+    successWords: t('收藏成功'),
   }),
 });
 
@@ -53,7 +55,7 @@ export const unCollectProject = projectId => ({
       id: projectId,
       type: 0, // 0-项目, 1-团队
     },
-    successWords: '取消收藏成功',
+    successWords: t('取消收藏成功'),
   }),
 });
 

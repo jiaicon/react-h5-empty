@@ -101,7 +101,7 @@ class Projects extends React.Component {
                                             </div>
                                             <div className="component-shopItem-price-container">
                                                 <div className="new">{item.points}</div>
-                                                <div className="fonts">{scoreName || t('星币')}</div>
+                                                <div className="fonts">{t(scoreName) || t('星币')}</div>
                                                 <div className="old">{t('￥n元', { n: item.price })}</div>
                                             </div>
                                         </div>
@@ -152,7 +152,7 @@ class Projects extends React.Component {
 
                                             <div className="component-shopItem-price-container">
                                                 <div className="new">{item && item.goods_id && item.goods_id.points ? item.goods_id.points : null}</div>
-                                                <div className="fonts">{scoreName || t('星币')}</div>
+                                                <div className="fonts">{t(scoreName) || t('星币')}</div>
                                                 <div className="old">
                                                   {t('￥n元', { n: item && item.goods_id && item.goods_id.price ? item.goods_id.price : null })}
                                                   </div>
@@ -178,7 +178,7 @@ class Projects extends React.Component {
                                             !item.state && item.status == 0 && time == 1 ? <div className="component-shopItem-order-time">{t('兑换失败，商品已过兑换日期（不返还积分）')}</div> : null
                                         }
                                         {
-                                            !item.state && item.status == 1 ? <div className="component-shopItem-order-time">{t('兑换失败')}：{item.reason}</div> : null}
+                                            !item.state && item.status == 1 ? <div className="component-shopItem-order-time">{t('兑换失败')}：{t(item.reason)}</div> : null}
                                         {
                                             !item.state && item.status == 2 ? <div className="component-shopItem-order-time component-shopItem-order-time-fonts-color">{t('审核中')}</div> : null
                                         }
