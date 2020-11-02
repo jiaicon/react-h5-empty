@@ -176,7 +176,11 @@ class ShopPage extends React.Component {
           {this.renderSlick()}
           {this.renderItem()}
           <div className="page-shop-backhome">
-            <Link to="/" />
+            <Link to="/" style={{
+              backgroundImage: `url(${t('backhome')})`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }} />
           </div>
           {
             showLoadingMore

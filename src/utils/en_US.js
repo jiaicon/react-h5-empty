@@ -6,7 +6,7 @@ export default {
     '个人中心': 'Personal center',
     '获取验证码': 'Obtain',
     '验证码获取': 'Obtain',
-    '设置密码': '设置密码',
+    '设置密码': 'Set the password',
     '请输入验证码': 'Please enter the verification code',
     '请输入手机号': 'Please enter your mobile number',
     '手机号或证件号码': 'Mobile number/ID number',
@@ -478,6 +478,7 @@ export default {
     'project-status-end': 'project-status-end-en',
     'project-status-end-time': 'project-status-end-time-en',
 
-    '发送成功': '发送成功',
+    '发送成功': 'Sent successfully',
+    'backhome': '/images/my/backhome-en.png',
   },
 }

@@ -747,7 +747,11 @@ class ProjectDetailPage extends React.Component {
                         />
                     </div>
                     <div className="project-description-backhome">
-                        <Link to="/" />
+                        <Link to="/" style={{
+                          backgroundImage: `url(${t('backhome')})`,
+                          backgroundSize: 'cover',
+                          backgroundRepeat: 'no-repeat',
+                        }} />
                     </div>
                     <div className="project-description-takeup" />
                 </div>

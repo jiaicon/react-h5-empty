@@ -560,7 +560,11 @@ class TeamDetailPage extends React.Component {
           </div>
 
           <div className="team-description-backhome">
-            <Link to="/" />
+            <Link to="/" style={{
+              backgroundImage: `url(${t('backhome')})`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+            }} />
           </div>
         </div>
         <div className="foot">

@@ -480,5 +480,6 @@ export default {
 
 
     '发送成功': '发送成功',
+    'backhome': '/images/my/backhome.png',
   },
 }
