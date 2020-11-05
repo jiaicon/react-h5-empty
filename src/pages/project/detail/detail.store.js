@@ -1,7 +1,6 @@
 import queryString from 'query-string';
 import fetch from '../../../utils/fetch';
 import i18next from 'i18next';
-const { t } = i18next;
 /**
  * 切换 TAB 记录 TAB 状态，在后退操作后需要记录
  */
@@ -44,7 +43,7 @@ export const collectProject = projectId => ({
       id: projectId,
       type: 0, // 0-项目, 1-团队
     },
-    successWords: t('收藏成功'),
+    successWords: i18next.t('收藏成功'),
   }),
 });
 
@@ -55,7 +54,7 @@ export const unCollectProject = projectId => ({
       id: projectId,
       type: 0, // 0-项目, 1-团队
     },
-    successWords: t('取消收藏成功'),
+    successWords: i18next.t('取消收藏成功'),
   }),
 });
 
@@ -69,7 +68,7 @@ export const joinProject = (projectId, join_verify_status) => ({
       id: projectId,
       type: 1, // 0-退出, 1-加入
     },
-    successWords: join_verify_status ? '已成功申请，请耐心等待审核' : '已成功申请',
+    successWords: join_verify_status ? i18next.t('已成功申请，请耐心等待审核') : i18next.t('已成功申请'),
   }),
 });
 
@@ -80,7 +79,7 @@ export const quitProject = projectId => ({
       id: projectId,
       type: 0, // 0-退出, 1-加入
     },
-    successWords: '退出成功',
+    successWords: i18next.t('退出成功'),
   }),
 });
 
@@ -93,6 +92,7 @@ export default (state = {
   lastProjectId:0,
   data: null,
 }, action) => {
+  console.log(action);
   switch (action.type) {
     case 'PROJECT_DETAIL_PENDING':
       return {
@@ -117,6 +117,7 @@ export default (state = {
         fetching: false,
       };
     case 'PROJECT_COLLECT_FULFILLED':
+      // console.log()
       return {
         ...state,
         data: {
