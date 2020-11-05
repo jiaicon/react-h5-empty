@@ -4,7 +4,7 @@ import { addAysncTask, removeAysncTask } from "../stores/common";
 import { storeLoginSource } from "../pages/my/login/login.store";
 import store from "../stores";
 import history, { USING_HISTORY_HASH } from "../pages/history";
-import { getToken,getCookie } from "./funcs";
+import { getToken,getCookie ,getQueryString2} from "./funcs";
 
 function encodeUnicode(str) {
   const res = [];
@@ -61,7 +61,7 @@ export default function request(requestUrl, requestOptions = {}) {
    const i18nextLng = getCookie('i18nextLng');
   let headersObj = {
     ...headers,
-    "X-auth-token": getToken() || "",
+    "X-auth-token": getToken() || getQueryString2('token') || '',
     "X-org-code": window.orgCode,
     "X-location": location
       ? `${
