@@ -208,6 +208,12 @@ export default {
     '个服务时长': 'volunteer hours',
     '跟我一起做志愿服务吧': 'I have joined the team, join together',
 
+    '我参与了"n"这个项目,累计获得x个服务时长,跟我一起做志愿服务吧': 'I\'ve participated in the project of "{{n}}",accumulated {{x}} Service hours. Join together~',
+
+    '我发现了"n"这个项目,跟我一起做志愿服务吧': 'I\'ve just participated in the project of "{{n}}". Join together~',
+
+    '我发现了"n"这个团队,跟我一起做志愿服务吧': 'I\'ve just joined the team of "{{n}}". Join together~',
+
     // 补卡
     '申请补卡成功': ' Applied for volunteer hours successfully',
     '申请服务时长': 'Application for volunteer hours',
@@ -433,10 +439,13 @@ export default {
 
     '长按保存图片到手机': 'Long press to save the picture to the phone',
     '长按识别二维码 一起来做志愿者': 'Long press to identify the QR code to be volunteers together',
+    '长按识别二维码': 'Long press to identify the QR code',
+    '一起来做志愿者': 'to be volunteers together',
     '我发现了这个团队，跟我一起做志愿服务吧': 'I found this team, let\'s do volunteer service with me',
 
     '您已加入该团队': 'You have joined this team',
     '已成功申请，请耐心等待审核': 'You have applied successfully, please wait for review',
+    '已成功申请': 'Applied successfully',
     '退出成功': 'Exit successfully',
     '目前还没有志愿项目哦': 'No project',
     '生成海报': 'Generate poster',

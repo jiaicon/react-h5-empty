@@ -163,8 +163,10 @@ htm2Click = () => {
                   </div>
                   <div style={{ width: "288px", display: "flex" }}>
                     <img style={{ width: "48px", height: "48px" }} src={this.state.qrcodeURL} />
-                    <div style={{ width: "95px", fontSize: "12px", transform: "scale(0.83)", paddingTop: "17px", color: "#fff",paddingLeft:"5px" }}>
-                      {t('长按识别二维码 一起来做志愿者')}
+                    <div style={{ fontSize: "12px", transform: "scale(0.83)", paddingTop: "17px", color: "#fff",paddingLeft:"5px", textAlign: 'left' }}>
+                      {/*{t('长按识别二维码 一起来做志愿者')}*/}
+                      <div>{t('长按识别二维码')}</div>
+                      <div>{t('一起来做志愿者')}</div>
                     </div>
                   </div>
                 </div>

@@ -2,6 +2,7 @@
 
 import Alert from "react-s-alert";
 import { USING_HISTORY_HASH } from "../../pages/history";
+import i18next from 'i18next';
 
 /*
  * window.orgInfo 由后端直接输出到页面中
@@ -24,7 +25,7 @@ const WXS = (option = {}) => {
     return;
   }
   const orgInfo = window.orgInfo || {
-    name: "志多星",
+    name: i18next.t("志多星"),
     logo: ""
   };
   const host = `${location.protocol}//${location.hostname}`;
@@ -43,7 +44,7 @@ const WXS = (option = {}) => {
     )}`;
   }
   const orgCode = orgInfo.orgCode;
-  let desxName = (orgInfo&&orgInfo.org_info) || "文明点亮你我，志愿感动社会";
+  let desxName = (orgInfo&&orgInfo.org_info) || i18next.t("文明点亮你我，志愿感动社会");
   if (orgCode == "qM7e5Ba2vp") {
     desxName = "志愿小金人，用爱传温暖！";
   }

@@ -818,6 +818,7 @@ class MyPage extends React.Component {
       top: "40px",
       right: "20px"
     };
+    const { t } = this.props;
     return (
       <div>
         <div className="page-my">
