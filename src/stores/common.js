@@ -54,7 +54,7 @@ if (localStorage.getItem("volunteer-userInfo")) {
   var storageData = JSON.parse(localStorage.getItem("volunteer-userInfo"));
 }
 
-export function userReducer(state = { isLogin: !!getToken(), ...storageData}, action) {
+export function userReducer(state = { isLogin: !!(getToken() || localStorage.getItem('appToken') && localStorage.getItem('appToken').length), ...storageData}, action) {
   const payload = action.payload;
   const data = payload && payload.data;
   switch (action.type) {
