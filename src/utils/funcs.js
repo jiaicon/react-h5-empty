@@ -271,8 +271,9 @@ export function getToken() {
   if (window.dev) {
     return localStorage.getItem(`${location.host}/token`);
   }
+  return window.token
 
-  return window.token || localStorage.getItem('appToken');
+  // return window.token || localStorage.getItem('appToken');
 }
 
 export function setToken(token) {
