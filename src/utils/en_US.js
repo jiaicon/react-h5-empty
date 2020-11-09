@@ -9,7 +9,7 @@ export default {
     '设置密码': 'Set the password',
     '请输入验证码': 'Please enter the verification code',
     '请输入手机号': 'Please enter your mobile number',
-    '请先阅读协议':'请先阅读协议',
+    '请先阅读协议':'Please check the consent after reading the user agreement.',
     '手机号或证件号码': 'Mobile number/ID number',
     '输入密码': 'Enter password',
     '忘记密码': 'Forget password',

@@ -73,7 +73,7 @@ class Login extends React.Component {
           return;
         }
 
-        if (window.orgCode === 'mWZdPNwaKg') {
+        if (window.orgCode === 'yMYerkEaOB') {
           window.location.replace(`/my/profile/verifyBMW?target=${target}`);
           return;
         }
@@ -123,7 +123,7 @@ class Login extends React.Component {
           if (window.orgCode === 'oBDbDkxal2') {
             bindlink = '/my/profile/bind_profile_starbucks/alert';
           }
-          if (window.orgCode === 'mWZdPNwaKg') {
+          if (window.orgCode === 'yMYerkEaOB') {
             bindlink = '/my/profile/bind_profile_BMW/alert';
           }
           window.location.replace(bindlink);
@@ -133,7 +133,7 @@ class Login extends React.Component {
           if (window.orgCode === 'oBDbDkxal2') {
             bindlink = `/my/profile/verifyStarbucks?target=${target}`;
           }
-          if (window.orgCode === 'mWZdPNwaKg') {
+          if (window.orgCode === 'yMYerkEaOB') {
             bindlink = `/my/profile/verifyBMW?target=${target}`;
           }
           window.location.replace(bindlink);
@@ -292,7 +292,7 @@ class Login extends React.Component {
       data.pwd = pwd;
       data.type = tabIndex;
     }
-    if (window.orgCode == "mWZdPNwaKg" && !this.state.checked && this.props.login.idx === 0) {
+    if (window.orgCode == "yMYerkEaOB" && !this.state.checked && this.props.login.idx === 0) {
       Alert.warning(t('请先阅读协议'));
       return;
     }
@@ -345,10 +345,10 @@ class Login extends React.Component {
         </div>
         <div className="page-login-agree">
           {
-            window.orgCode == "mWZdPNwaKg" ? <image src={`${this.state.checked ? 'check_box_select_login' : 'check_box_login'}`} style={{ width: 15, height: 15 }} onClick={() => { this.setSate({ checked: !checked }) }} /> : null
+            window.orgCode == "yMYerkEaOB" ? <image src={`${this.state.checked ? 'check_box_select_login' : 'check_box_login'}`} style={{ width: 15, height: 15 }} onClick={() => { this.setSate({ checked: !checked }) }} /> : null
           }
           {
-            window.orgCode == "mWZdPNwaKg" ? t('已阅读') : t('提交代表已阅读')
+            window.orgCode == "yMYerkEaOB" ? t('已阅读') : t('提交代表已阅读')
           }
           {
             window.orgCode == 'joQeZJepZV' ?
