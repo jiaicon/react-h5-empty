@@ -24,6 +24,8 @@ import { format } from 'url';
 import { setToken } from '../../../utils/funcs';
 import { translate, Trans } from 'react-i18next';
 import i18next from 'i18next';
+import checkboxSelected from '../../../../public/images/check_box_select_login.png'
+import checkboxNormal from '../../../../public/images/check_box_login.png'
 
 class Login extends React.Component {
 
@@ -35,6 +37,7 @@ class Login extends React.Component {
       buttonString: props.t && props.t('获取验证码'),
       timer: null,
       countDownTrigger: true,
+      checked: false,
     };
   }
 
@@ -266,6 +269,7 @@ class Login extends React.Component {
     }
   }
   submit() {
+    const { t } = this.props;
     const tabIndex = this.props.login.idx;
     const data = {};
     if (tabIndex == 0) {
@@ -287,7 +291,10 @@ class Login extends React.Component {
       data.username = username;
       data.pwd = pwd;
       data.type = tabIndex;
-
+    }
+    if (window.orgCode == "mWZdPNwaKg" && !this.state.checked && this.props.login.idx === 0) {
+      Alert.warning(t('请先阅读协议'));
+      return;
     }
     this.props.loginAction(data);
   }
@@ -337,8 +344,13 @@ class Login extends React.Component {
           <div className="page-login-entry page-login-quick-login" onClick={this.submit}>{t('登录/注册')}</div>
         </div>
         <div className="page-login-agree">
-          {t('提交代表已阅读')}
-                    {
+          {
+            window.orgCode == "mWZdPNwaKg" ? <image src={`${this.state.checked ? 'check_box_select_login' : 'check_box_login'}`} style={{ width: 15, height: 15 }} onClick={() => { this.setSate({ checked: !checked }) }} /> : null
+          }
+          {
+            window.orgCode == "mWZdPNwaKg" ? t('已阅读') : t('提交代表已阅读')
+          }
+          {
             window.orgCode == 'joQeZJepZV' ?
               <Link to="/my/agree">
                 <span className="page-login-agreement">《长春志愿者用户协议》</span>
