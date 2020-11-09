@@ -67,7 +67,7 @@ export default function request(requestUrl, requestOptions = {}) {
    const i18nextLng = getCookie('i18nextLng');
   let headersObj = {
     ...headers,
-    "X-auth-token": getToken()|| localStorage.getItem(`appToken`) || getQueryString2('token') || '',
+    "X-auth-token": getToken() || '',
     "X-org-code": window.orgCode,
     "X-location": location
       ? `${
