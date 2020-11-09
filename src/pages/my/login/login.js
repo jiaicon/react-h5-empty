@@ -345,7 +345,7 @@ class Login extends React.Component {
         </div>
         <div className="page-login-agree">
           {
-            window.orgCode == "yMYerkEaOB" ? <image src={`${this.state.checked ? 'check_box_select_login' : 'check_box_login'}`} style={{ width: 15, height: 15 }} onClick={() => { this.setSate({ checked: !checked }) }} /> : null
+            window.orgCode == "yMYerkEaOB" ? <image src={`${this.state.checked ? '/images/check_box_select_login.png' : '/images/check_box_login.png'}`} style={{ width: 15, height: 15 }} onClick={() => { this.setSate({ checked: !checked }) }} /> : null
           }
           {
             window.orgCode == "yMYerkEaOB" ? t('已阅读') : t('提交代表已阅读')
