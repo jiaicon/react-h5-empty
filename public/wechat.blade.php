@@ -7,7 +7,11 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="x5-orientation"content="portrait">
+<<<<<<< HEAD
   <meta name="last-build-time" content="Thu Nov 05 2020 23:16:58 GMT+0800 (GMT+08:00)">
+=======
+  <meta name="last-build-time" content="Tue Nov 10 2020 22:01:30 GMT+0800 (GMT+08:00)">
+>>>>>>> 71364d9f8ba27f65ee1bfa5b54dead32ab82f0f5
   <!--link rel="apple-touch-icon" href="apple-touch-icon.png"-->
   <script>
     var designWidth = 375;
@@ -132,7 +136,11 @@
   </div>
   <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=GT7BZ-UXACR-R2JWZ-WYSXR-DHWJV-VEFAI"></script>
   <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+<<<<<<< HEAD
   <script src="/dist/main.bf9cd5b2b9fc9e857b8d.js"></script>
+=======
+  <script src="/dist/main.27491b03482c30790f3c.js"></script>
+>>>>>>> 71364d9f8ba27f65ee1bfa5b54dead32ab82f0f5
 </body>
 
 </html>

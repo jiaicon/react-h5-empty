@@ -236,7 +236,10 @@ class Certificate extends React.Component {
           <div className='page-certificate-container-bottom-infobox-parent'>
             <div className="page-certificate-container-bottom-infobox">
               <div className="page-certificate-container-bussiness">
-                <span className="bmw-typnextlight">BMW</span>企业志愿者协会
+                {
+                  this.props.user && this.props.user.extends && this.props.user.extends.user_type.indexOf('宝马员工') >= 0 ?
+                    <div><span className="bmw-typnextlight">BMW</span>企业志愿者协会</div> : null
+                }
               </div>
               <div
                 className="page-certificate-container-content"
@@ -391,16 +394,16 @@ class Certificate extends React.Component {
               src={`${this.state.dataUrl}`}
             />
           ) : (
-            language === 'en-US' ?
-              <div className="page-certificate-main-container">
-                {/** TODO: */}
-                {this.renderCertificateEN()}
-              </div>
-              :
-              <div className="page-certificate-main-container">
-                {/** TODO: */}
-                {this.renderCertificate()}
-              </div>
+              language === 'en-US' ?
+                <div className="page-certificate-main-container">
+                  {/** TODO: */}
+                  {this.renderCertificateEN()}
+                </div>
+                :
+                <div className="page-certificate-main-container">
+                  {/** TODO: */}
+                  {this.renderCertificate()}
+                </div>
             )}
           {dataUrl ? null : (
             <div className="page-certificate-main-mask">

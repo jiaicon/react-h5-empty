@@ -30,6 +30,12 @@ function isPlainObject(o) {
  */
 export default function request(requestUrl, requestOptions = {}) {
   console.log(requestOptions);
+
+  if (getQueryString2('token')) {
+    console.info('获取到了params.token')
+    localStorage.setItem(`appToken`, getQueryString2('token'));
+  }
+
   let url = requestUrl;
   let { switchUrl } = requestOptions;
   const options = {
@@ -61,7 +67,7 @@ export default function request(requestUrl, requestOptions = {}) {
    const i18nextLng = getCookie('i18nextLng');
   let headersObj = {
     ...headers,
-    "X-auth-token": getToken() || getQueryString2('token') || '',
+    "X-auth-token": getToken() || '',
     "X-org-code": window.orgCode,
     "X-location": location
       ? `${
