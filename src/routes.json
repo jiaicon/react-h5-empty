@@ -66,6 +66,11 @@
     "chunk": "main"
   },
   {
+    "path": "/project/detail/community/:projectId",
+    "page": "./pages/project/detail/communityDetail",
+    "chunk": "main"
+  },
+  {
     "path": "/project/receipt/:sn",
     "page": "./pages/project/sign/receipt",
     "chunk": "main"
@@ -113,6 +118,11 @@
   {
     "path": "/team/detail/:teamId",
     "page": "./pages/team/detail/detail",
+    "chunk": "main"
+  },
+  {
+    "path": "/team/detail/community/:teamId",
+    "page": "./pages/team/detail/communityDetail",
     "chunk": "main"
   },
   {
