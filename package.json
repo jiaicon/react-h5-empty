@@ -7,7 +7,7 @@
     "npm": ">=3.8"
   },
   "dependencies": {
-    "antd-mobile": "^2.2.8",
+    "antd-mobile": "^2.3.4",
     "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "eventemitter3": "^2.0.3",

@@ -30,6 +30,8 @@ import "react-weui/build/packages/react-weui.css";
 import { cardtype, people } from '../../../utils/config'
 import { translate } from 'react-i18next';
 import i18next from 'i18next';
+import locale_ZN from 'antd-mobile/es/date-picker/locale/zh_CN';
+import locale_US from 'antd-mobile/es/date-picker/locale/en_US';
 const RadioItem = Radio.RadioItem;
 const isAndroid = /android/i.test(navigator.userAgent);
 
@@ -434,7 +436,8 @@ class Verify extends React.Component {
   }
 
   renderIdCard() {
-    const { t } = this.props;
+    const { t, i18n } = this.props;
+    const { language } = i18n;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
@@ -455,7 +458,7 @@ class Verify extends React.Component {
               {cardtype &&
                 cardtype.map((item, keys) => (
                   <option value={item.id} key={keys}>
-                    {item.name}
+                    {language === 'zh-CN' ? item.name : item.en_US}
                   </option>
                 ))}
             </select>
@@ -483,7 +486,8 @@ class Verify extends React.Component {
   }
 
   renderNation() {
-    const { t } = this.props;
+    const { t, i18n } = this.props;
+    const { language } = i18n;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
@@ -504,7 +508,7 @@ class Verify extends React.Component {
               {people &&
                 people.map((item, keys) => (
                   <option value={item.name} key={keys}>
-                    {item.name}
+                    {language === 'zh-CN' ? item.name : item.pinyin}
                   </option>
                 ))}
             </select>
@@ -516,7 +520,8 @@ class Verify extends React.Component {
   }
 
   renderAddr() {
-    const { t } = this.props;
+    const { t, i18n } = this.props;
+    const { language } = i18n;
     const province = this.props.address.data.province;
     const city = this.props.address.data.city;
     const county = this.props.address.data.county;
@@ -541,7 +546,7 @@ class Verify extends React.Component {
                 {province &&
                   province.map((item, keys) => (
                     <option value={item.id} key={keys}>
-                      {item.name}
+                      {language === 'zh-CN' ? item.name : item.pinyin}
                     </option>
                   ))}
               </select>
@@ -565,7 +570,7 @@ class Verify extends React.Component {
                 {city &&
                   city.map((item, keys) => (
                     <option value={item.id} key={keys}>
-                      {item.name}
+                      {language === 'zh-CN' ? item.name : item.pinyin}
                     </option>
                   ))}
               </select>
@@ -589,7 +594,7 @@ class Verify extends React.Component {
                 {county &&
                   county.map((item, keys) => (
                     <option value={item.id} key={keys}>
-                      {item.name}
+                      {language === 'zh-CN' ? item.name : item.pinyin}
                     </option>
                   ))}
               </select>
@@ -799,6 +804,8 @@ class Verify extends React.Component {
   renderOtherInfoDate(item) {
     const data = item;
     const key = data.key;
+    const { i18n } = this.props;
+    const { language } = i18n;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
@@ -812,6 +819,7 @@ class Verify extends React.Component {
             format="YYYY-MM-DD"
             value={this.state[key]}
             extra={` `}
+            locale={language === 'zh-CN' ? locale_ZN : locale_US}
             onOk={v => (
               this.pushExtendsArray(key, formatDate(v)),
               this.setState({
@@ -831,6 +839,8 @@ class Verify extends React.Component {
   renderOtherInfoDateTime(item) {
     const data = item;
     const key = data.key;
+    const { i18n } = this.props;
+    const { language } = i18n;
     return (
       <div>
         <div className="page-my-profile-verify-header-box">
@@ -843,6 +853,7 @@ class Verify extends React.Component {
             format="YYYY-MM-DD HH:mm"
             value={this.state[key]}
             extra={`  `}
+            locale={language === 'zh-CN' ? locale_ZN : locale_US}
             onOk={v => (
               this.pushExtendsArray(key, formatDate(v, true)),
               this.setState({
@@ -1173,6 +1184,7 @@ class Verify extends React.Component {
       top: "-55px",
       left: "0"
     };
+    const { t } = this.props;
     return (
       <div className="page-my-profile-verify-container">
         {this.state.winOrgInfo === null ? null : (
@@ -1198,7 +1210,7 @@ class Verify extends React.Component {
                 this.renderOtherInfo()}
             </div>
             <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
-              提交
+              {t('提交')}
             </div>
           </div>
         )}

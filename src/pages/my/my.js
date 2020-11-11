@@ -312,7 +312,8 @@ class MyPage extends React.Component {
   }
 
   renderPageMyRecordTemplate() {
-    const { user, t } = this.props;
+    const { user, t, i18n } = this.props;
+    const { language } = i18n;
     return (
       <div className="page-my-record-container">
         <Link to="/my/teams">
@@ -323,7 +324,7 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.team_count}
               </b>
-              {t('个')}
+              {t('个center')}
             </p>
             <p className="page-my-record-item-bottom">{t('我的团队')}</p>
           </div>
@@ -337,7 +338,7 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.project_count}
               </b>
-              {t('个')}
+              {t('个center')}
             </p>
             <p className="page-my-record-item-bottom">{t('我的项目')}</p>
           </div>
@@ -350,7 +351,7 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.user.reward_time}
               </b>
-              {t('小时')}
+              {t('小时center')}
             </p>
             <p className="page-my-record-item-bottom">{t('服务时长')}</p>
           </div>
@@ -365,7 +366,7 @@ class MyPage extends React.Component {
                     ? 0
                     : this.props.usercenter.data.user.score}
                 </b>{" "}
-                {t(scoreName) || t('星币')}
+                {language === 'zh-CN' ? (scoreName || '星币') : ''}
               </p>
               <p className="page-my-record-item-bottom">
                 {t('n志愿星币m', {
