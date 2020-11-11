@@ -663,7 +663,7 @@ class BindInfo extends React.Component {
                     {item.is_required === 1 ? (
                         <span className="page-my-profile-verify-header-start">*</span>
                     ) : null}
-                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+                    <div className={`page-my-profile-verify-fonts ${key === 'user_type' ? 'page-my-profile-verify-fonts-BMW' : ''}`}>{data.label}</div>
                     <label htmlFor={`${key}`}>
                         <select id={`${key}`} value={this[key] || this.state[key]} onChange={this.handleOtherInfoSelectClick}>
                             <option value="-1" />

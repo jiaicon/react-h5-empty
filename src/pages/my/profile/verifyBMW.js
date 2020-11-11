@@ -681,7 +681,7 @@ class Verify extends React.Component {
           {item.is_required === 1 ? (
             <span className="page-my-profile-verify-header-start">*</span>
           ) : null}
-          <div className="page-my-profile-verify-fonts">{data.label}</div>
+          <div className={`page-my-profile-verify-fonts ${key === 'user_type' ? 'page-my-profile-verify-fonts-BMW' : ''}`}>{data.label}</div>
           <label htmlFor={`${key}`}>
             <select id={`${key}`} onChange={this.handleOtherInfoSelectClick} value={this.state.extendsArray[key] && this.state.extendsArray[key].length && this.state.extendsArray[key] || undefined}>
               <option value="-1" style={{ display: 'none' }} />
