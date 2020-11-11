@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-
+import i18next from 'i18next';
 function decodeParam(val) {
   if (!(typeof val === 'string' || val.length === 0)) {
     return val;
@@ -105,7 +105,7 @@ function resolve(routes, context) {
         if (Page.title) {
           document.title = Page.title;
         } else {
-          document.title = window.orgInfo ? window.orgInfo.name : '';
+          document.title = window.orgInfo ? i18next.t(window.orgInfo.name) : '';
         }
 
         return (<Page

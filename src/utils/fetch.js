@@ -5,6 +5,7 @@ import { storeLoginSource } from "../pages/my/login/login.store";
 import store from "../stores";
 import history, { USING_HISTORY_HASH } from "../pages/history";
 import { getToken,getCookie ,getQueryString2} from "./funcs";
+import i18next from 'i18next';
 
 function encodeUnicode(str) {
   const res = [];
@@ -163,7 +164,7 @@ export default function request(requestUrl, requestOptions = {}) {
           console.log("请求返回失败-", url, json);
 
           if (options.noRedirect !== true) {
-            Alert.error(`请求失败: ${json.error_message}`);
+            Alert.error(`${i18next.t('请求失败')}: ${json.error_message}`);
           }
 
           reject(json);
@@ -174,7 +175,7 @@ export default function request(requestUrl, requestOptions = {}) {
           store.dispatch(removeAysncTask());
         }
 
-        Alert.error(`请求发送失败：${error}`);
+        Alert.error(`${i18next.t('请求失败')}：${error}`);
         console.log("请求失败-", url, error);
         reject(error);
       });

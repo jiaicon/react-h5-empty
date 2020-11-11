@@ -7,6 +7,7 @@ import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
 import '../messages.css';
 import i18next from 'i18next';
+import { translate } from 'react-i18next';
 import Avatar from '../../../../components/avatar/avatar';
 
 
@@ -35,6 +36,7 @@ class MessagesItem extends React.Component {
     if (!data) {
       return <div />;
     }
+    const { t } = this.props;
     const time = data.publish_time;
     const timeArr = time.split('-');
     const year = timeArr[0];
@@ -46,7 +48,7 @@ class MessagesItem extends React.Component {
           <Avatar src={data.avatars} size={{ width: 30, height: 30, radius: 4 }} />
 
           <div className="page-messagesitem-header-title-container">
-            <div className="page-messagesitem-header-title-container-bussiness">{data.username}</div>
+            <div className="page-messagesitem-header-title-container-bussiness">{t(data.username)}</div>
             <div className="page-messagesitem-header-title-container-date">{year}.{month}.{day}</div>
           </div>
         </div>
@@ -99,4 +101,4 @@ MessagesItem.propTypes = {
   }),
 };
 
-export default MessagesItem;
+export default translate('translations')(MessagesItem);

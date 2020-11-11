@@ -224,7 +224,7 @@ class BindInfo extends React.Component {
         } = this.state;
         if (key === 'user_type') {
             switch (value) {
-                case '宝马员工': {
+                case '宝马员工/BMW associate': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
                             v.is_required = 1;
@@ -232,7 +232,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '经销商员工': {
+                case '经销商员工/BMW dealer': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
                             v.is_required = 1;
@@ -240,7 +240,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '宝马车主': {
+                case '宝马车主/BMW car owner': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
                             v.is_required = 1;
@@ -248,7 +248,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '公众': {
+                case '公众/Public': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email') {
                             v.is_required = 1;
@@ -612,7 +612,7 @@ class BindInfo extends React.Component {
 
         if (key === 'user_type') {
             switch (value) {
-                case '宝马员工': {
+                case '宝马员工/BMW associate': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
                             v.is_required = 1;
@@ -620,7 +620,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '经销商员工': {
+                case '经销商员工/BMW dealer': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
                             v.is_required = 1;
@@ -628,7 +628,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '宝马车主': {
+                case '宝马车主/BMW car owner': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
                             v.is_required = 1;
@@ -636,7 +636,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '公众': {
+                case '公众/Public': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email') {
                             v.is_required = 1;
@@ -1093,19 +1093,19 @@ class BindInfo extends React.Component {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type"));
         }
 
-        if (extendsArray.user_type === '宝马员工') {
+        if (extendsArray.user_type === '宝马员工/BMW associate') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "company_affiliation" || v.key === "employee_id" || v.key === "email"))
         }
 
-        if (extendsArray.user_type === '经销商员工') {
+        if (extendsArray.user_type === '经销商员工/BMW dealer') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "dealer_name" || v.key === "email"))
         }
 
-        if (extendsArray.user_type === '宝马车主') {
+        if (extendsArray.user_type === '宝马车主/BMW car owner') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "car_model" || v.key === "email"))
         }
 
-        if (extendsArray.user_type === '公众') {
+        if (extendsArray.user_type === '公众/Public') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "email"))
         }
         return (

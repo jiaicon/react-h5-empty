@@ -2,6 +2,9 @@ export default {
   translations: {
     btn: '/images/home/zh_CN.png',
     '志多星': 'Volstar',
+    'BMW企业志愿者协会': 'BMW Corporate Volunteer Association',
+    '志多星演示版': 'Volstar Test',
+
     '首页': 'Home',
     '个人中心': 'Personal center',
     '获取验证码': 'Obtain',
@@ -54,7 +57,7 @@ export default {
     '服务对象': 'Service object',
     '项目日期': 'Project date',
     '招募截止': 'Recruitment deadline',
-    '服务时长': 'Service hour',
+    '服务时长': 'Volunteer hour',
     '搜索团队': 'Search',
     '团队类型': 'Team type',
     '党政机关': 'Party and government agency',
@@ -465,6 +468,7 @@ export default {
     '获得星币n': 'Earn {{n}}',
     '我的星币n': 'My {{n}}',
     'n志愿星币m': '{{n}} {{m}}',
+    '志愿center': 'My',
     '下列操作可以帮你获得n': 'The following operations can help you get {{n}}',
     '￥n元': '￥{{n}}',
     '获得n': 'get {{n}}',
@@ -495,5 +499,12 @@ export default {
 
     '发送成功': 'Sent successfully',
     'backhome': '/images/my/backhome-en.png',
+    '请求失败': 'Failed',
+
+    // 个人消息
+    '您申请的项目已被录用，请准时参加该活动n': 'Your application to join 《{{n}}》 have been accepted, please join on time',
+    '您申请加入项目《n》未通过审核': 'Your application to join 《{{n}}》 has been rejected',
+    '您已成功加入《n》，与团队小伙伴一起来做公益吧': 'You have successfully joined  《{{n}}》，let\'s do public welfare together with your team partners',
+    '您申请参加的团队《n》审核不通过，去看看其他更合适自己的团队吧': 'You have failed to pass the review of joining the 《{{n}}》. Please view the list to join other team',
   },
 }
