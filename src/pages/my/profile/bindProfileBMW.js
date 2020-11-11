@@ -1176,6 +1176,7 @@ class BindInfo extends React.Component {
         if (!this.props.user) {
             return null;
         }
+        const { t } = this.props;
         return (
             <div className="page-my-profile-verify-container">
                 {this.state.winOrgInfo === null ? null : (
@@ -1197,7 +1198,7 @@ class BindInfo extends React.Component {
                                 this.renderOtherInfo()}
                         </div>
                         <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
-                            提交
+                          {t('提交')}
                         </div>
                     </div>
                 )}
