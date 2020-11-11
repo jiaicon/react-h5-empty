@@ -215,12 +215,13 @@ class HomePage extends React.Component {
     this.slider.slickPrev();
   }
   renderAnnounceComponent() {
-    const { home, user } = this.props;
+    const { home, user, i18n } = this.props;
+    const { language } = i18n;
     if (!home.data || home.data.news.length == 0) {
       return null;
     }
     return (
-      <div className="notice">
+      <div className="notice" style={{backgroundImage: `url('${language === "zh-CN" ? "/images/newtitle.png" : "/images/newtitle-en.png"}')`, backgroundRepeat: 'no-repeat', backgroundSize: '30px 30px', backgroundPosition: '20px center'}}>
         {home.data.news.length > 0 ? (
           <Announcement data={home.data.news} entry="/announce" />
         ) : null}
