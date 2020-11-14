@@ -932,4 +932,4 @@ export default connect(
         joinPayProject,
         joinProjectAction
     }, dispatch),
-)(translate(translations)(SignUpPage));
+)(translate('translations')(SignUpPage));
