@@ -53,7 +53,8 @@ class ShopPage extends React.Component {
     this.refs.LaunchContent.addEventListener('scroll', this.handleScroll);
     const InfoData =this.Moudling(window.orgInfo.module_settings);
     if(InfoData && InfoData.label){
-      document.title=t(InfoData.label);
+      console.log(InfoData.label.replace(/<[^>]+>/g,""));
+      document.title=t(InfoData.label.replace(/<[^>]+>/g,""));
     }
   }
   Moudling(data) {
