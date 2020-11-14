@@ -69,4 +69,4 @@ export default connect(
     score: state.my.score,
   }),
   dispatch => bindActionCreators({ scoreAction }, dispatch),
-)(translate('translations')('PointIncome'));
+)(translate('translations')(PointIncome));

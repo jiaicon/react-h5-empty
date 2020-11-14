@@ -95,7 +95,7 @@ class Family extends React.Component {
                     </div>
                     <div className="page-family-top-area-view">
                         <div className="page-family-top-area-view-family-box">
-                            <p><span>{listData ? listData.data.family_size : 0}</span>人</p>
+                            <p><span>{listData ? listData.data.family_size : 0}</span>{t('人')}</p>
                             <p>{t('家庭成员')}</p>
                         </div>
                         <div className="page-family-top-area-view-line"/>

@@ -7,7 +7,8 @@ import autoBind from 'react-autobind';
 import history from '../../history';
 
 import './success.css';
-;
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
 
 
 class SignUpPage extends React.Component {
@@ -53,15 +54,15 @@ class SignUpPage extends React.Component {
   }
   render() {
   
-
+const { t } = this.props;
 
     return (
       <div className="page-project-success">
         <div className="logo"></div>
 
-        <div  className="fonts">报名成功</div>
-        <div className="btn project" onClick={this.goBackProject}>返回项目详情</div>
-        <div className="btn index" onClick={this.goBackIndex}>返回首页</div>
+        <div  className="fonts">{t('报名成功')}</div>
+        <div className="btn project" onClick={this.goBackProject}>{t('返回项目详情')}</div>
+        <div className="btn index" onClick={this.goBackIndex}>{t('返回首页')}</div>
       </div>
     );
   }
@@ -91,6 +92,6 @@ SignUpPage.propTypes = {
   }),
 };
 
-SignUpPage.title = '报名成功';
+SignUpPage.title = i18next.t('报名成功');
 
-export default SignUpPage
+export default translate('translations')(SignUpPage)

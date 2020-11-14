@@ -41,7 +41,7 @@ class PointPage extends React.Component {
 
   componentDidMount() {
     const { t } = this.props;
-    document.title = `${t('我的')}${t(scoreName) || t('星币')}${t('明细')}`;
+    document.title = `${t('我的')} ${t(scoreName) || t('星币')} ${t('明细')}`;
   }
   componentWillUnmount() {
     this.setState({
@@ -105,7 +105,7 @@ class PointPage extends React.Component {
             </thead>
             <tbody>
               {data.map((item, index) => (
-                <tr>
+                <tr key={index}>
                   <td>{item.label}</td>
                   <td>{item.value}</td>
                 </tr>
@@ -139,12 +139,13 @@ class PointPage extends React.Component {
     const { page } = this.state;
     const { path } = this.props.route;
     const { t } = this.props;
+    console.log(page);
     return (
       <div className="page-ponit">
         <div className="page-ponit-pic-container">
           <div className="page-ponit-pic-title">
             <span>
-              {t('我的星币明细n', { n: t(scoreName) || t('星币') })}({t('个')})
+              {t('我的星币明细n', { n: t(scoreName) || t('星币') })}{t('(个)')}
             </span>
             <span style={{ margin: "13px 0 13px" }}>
               {this.props.usercenter.data == null

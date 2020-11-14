@@ -167,7 +167,7 @@ class ShopPage extends React.Component {
           }
           {
             user.isLogin ?
-              <Link to="/shop/record"><div className="right">{t('兑换记录')}</div></Link>
+              <Link to="/shop/record"><div className="right">{t('兑换记录btn')}</div></Link>
               :
               <div className="right" onClick={this.onLogin}>{t('前往登录')}</div>
           }

@@ -392,7 +392,8 @@ class Profile extends React.Component {
     }
 
     renderHost() {
-        const { user, t } = this.props;
+        const { user, t, i18n } = this.props;
+        const { language } = i18n;
         let verifyRouter = "/my/profile/verify";
 
         if (window.orgCode === 'oBDbDkxal2') {
@@ -417,7 +418,7 @@ class Profile extends React.Component {
                         <div className="page-profile-fonts">{t('账号')}</div>
                         <div className="page-profile-edit-box">
                             <div className="page-profile-initial-fonts">
-                                {user.username}
+                                {user.username ? (language === 'zh-CN' ? user.username :user.username.replace('用户', 'user')) : ''}
                             </div>
                             <div className="page-profile-initial-fonts-take-up" />
                         </div>

@@ -69,7 +69,7 @@ class Collects extends React.Component {
                     'page-collects-tab-ul-container-li-current': true,
                     active: path === '/my/collects/',
                   })}
-                >{t('团队')}</div>
+                >{t('团队收藏')}</div>
               </Link>
             </li>
             <li>
@@ -79,7 +79,7 @@ class Collects extends React.Component {
                     'page-collects-tab-ul-container-li-current': true,
                     active: path === '/my/collects/project',
                   })}
-                >{t('项目')}</div>
+                >{t('项目收藏')}</div>
               </Link>
             </li>
           </ul>
