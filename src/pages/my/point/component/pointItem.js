@@ -3,6 +3,7 @@
 "react/no-array-index-key":"off" */
 import React, { PropTypes } from 'react';
 import autoBind from 'react-autobind';
+import { translate } from 'react-i18next';
 import './pointItem.css';
 
 Date.prototype.Format = function (fmt) { // author: meizz
@@ -40,8 +41,7 @@ class PointItem extends React.Component {
   componentWillUnmount() {}
 
   render() {
-    const isPay = this.props.isPay;
-    const data = this.props.data;
+    const { t, isPay, data } = this.props;
     return (
       <div className="component-point-item-container">
         {
@@ -60,7 +60,7 @@ class PointItem extends React.Component {
             data.map(item => (
               <div>
                 <div className="component-point-item-income">
-                  <span>{item.remark}</span>
+                  <span>{t(item.remark)}</span>
                   <span>{new Date(Date.parse(item.created_at.replace(/-/g, '/'))).Format('yyyy-MM-dd')}</span>
                   <span>+{item.score}</span>
                 </div>
@@ -81,4 +81,4 @@ PointItem.propTypes = {
 
 };
 
-export default PointItem;
+export default translate('translations')(PointItem);

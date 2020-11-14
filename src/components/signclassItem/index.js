@@ -75,7 +75,7 @@ class SignItem extends React.Component {
               <div className="project-info-time">
                 {t('预计最多可获得服务时长')}&nbsp;&nbsp;
                     <span style={{ color: "#6AC6F8" }}>
-                      {record.reward_time}小时
+                      {record.reward_time}{t('小时')}
                     </span>
                </div>
             );

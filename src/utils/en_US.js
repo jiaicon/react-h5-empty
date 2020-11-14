@@ -519,5 +519,9 @@ export default {
     'sign-record-status-shape-ing': 'sign-record-status-shape-ing-en',
     'sign-record-status-shape-recru': 'sign-record-status-shape-recru-en',
     'sign-record-status-shape-end': 'sign-record-status-shape-end-en',
+
+    '报名信息': '报名信息',
+    '全选': '全选',
+    '合计': '合计',
   },
 }
