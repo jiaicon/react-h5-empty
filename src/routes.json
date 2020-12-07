@@ -157,6 +157,11 @@
     "chunk": "main"
   },
   {
+    "path": "/my/certificateJinguo",
+    "page": "./pages/my/certificate/certificateJinguo",
+    "chunk": "main"
+  },
+  {
     "path": "/my/fundingApplication/list",
     "page": "./pages/my/fundingApplication/list",
     "chunk": "main"

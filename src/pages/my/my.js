@@ -26,7 +26,7 @@ import "./my.css";
 
 // 机构码
 const orgCode = window.orgCode;
-const scoreName = window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[1];
+const scoreName = window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[1];
 
 class MyPage extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class MyPage extends React.Component {
     this.props.userAchieve();
   }
 
-  componentWillReceiveProps() {}
+  componentWillReceiveProps() { }
 
   componentWillUnmount() {
     this.setState({
@@ -66,13 +66,13 @@ class MyPage extends React.Component {
         {this.props.usercenter.data === null ? (
           <span />
         ) : (
-          <span
-            className={classnames({
-              "page-my-header-messages-red-point":
-                this.props.usercenter.data.msg_count >= 1
-            })}
-          />
-        )}
+            <span
+              className={classnames({
+                "page-my-header-messages-red-point":
+                  this.props.usercenter.data.msg_count >= 1
+              })}
+            />
+          )}
       </div>
     );
   }
@@ -86,7 +86,7 @@ class MyPage extends React.Component {
     this.setState({
       previewData: arr,
       showMultiple: true,
-      defaultIndex: 0
+      defaultorgIndex: 0
     });
   }
   renderPageMyphotoTemplate() {
@@ -176,7 +176,7 @@ class MyPage extends React.Component {
                 {t(scoreName) || t('星币(center)')}
               </p>
               <p className="page-my-record-item-bottom">
-                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || t('志愿')}
+                {window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[0] || t('志愿')}
                 {t(scoreName) || t('星币(center)')}
               </p>
             </div>
@@ -237,18 +237,18 @@ class MyPage extends React.Component {
       });
       if (user.growth < userAchieveListLocal[0].growth) {
         label = "等级0";
-          query = userAchieveListLocal[0].name;
+        query = userAchieveListLocal[0].name;
       } else if (
         user.growth >=
         userAchieveListLocal[userAchieveListLocal.length - 1].growth
       ) {
         label = `等级${userAchieveListLocal.length - 1}`;
-          query = userAchieveListLocal[userAchieveListLocal.length - 1].name;
+        query = userAchieveListLocal[userAchieveListLocal.length - 1].name;
       } else {
         for (let i = 0; i < userAchieveListLocal.length; i++) {
           if (user.growth >= userAchieveListLocal[i].growth) {
             label = `等级${i + 1}`;
-              query = userAchieveListLocal[i+1].name;
+            query = userAchieveListLocal[i + 1].name;
           }
         }
       }
@@ -274,8 +274,8 @@ class MyPage extends React.Component {
                   {label || "暂无等级"}
                 </p>
               ) : (
-                <span />
-              )}
+                  <span />
+                )}
             </p>
 
             {window.orgInfo.st_achieve_op == 1 ? (
@@ -292,8 +292,8 @@ class MyPage extends React.Component {
                 </Link>
               </div>
             ) : (
-              <span />
-            )}
+                <span />
+              )}
           </p>
           <p className="page-my-user-info-signature">
             {t(user.slogan) || t("未设置口号")}
@@ -369,7 +369,7 @@ class MyPage extends React.Component {
               </p>
               <p className="page-my-record-item-bottom">
                 {t('n志愿星币m', {
-                  n: t(window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0]) || t('志愿'),
+                  n: t(window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[0]) || t('志愿'),
                   m: t(scoreName) || t('星币')
                 })}
               </p>
@@ -402,8 +402,22 @@ class MyPage extends React.Component {
     );
   }
 
+  certificatePath() {
+    if (orgCode === "7N1aM8AeWm") {
+      return null;
+    }
+    if (orgCode === "mWZdPNwaKg") {
+      return "/my/certificateBMW";
+    } // 星巴克需要定制化证书
+    if (orgCode === "LYqaQWldnj") {
+      return "/my/certificateJinguo";
+    } // todo 巾帼志愿需要定制化证书， 这里写的测试环境的机构码
+    return '/my/certificate';
+  }
+
   renderPageMyContainer() {
     const { t } = this.props;
+
     return (
       <div>
         <ul className="page-my-item-container">
@@ -429,13 +443,13 @@ class MyPage extends React.Component {
                     {this.props.usercenter.data === null ? (
                       <span />
                     ) : (
-                      <span
-                        className={classnames({
-                          "page-my-item-icon-circle-red-point":
-                            this.props.usercenter.data.comment_count >= 1
-                        })}
-                      />
-                    )}
+                        <span
+                          className={classnames({
+                            "page-my-item-icon-circle-red-point":
+                              this.props.usercenter.data.comment_count >= 1
+                          })}
+                        />
+                      )}
                   </i>
                   {t('我的志愿圈')}
                 </div>
@@ -453,13 +467,13 @@ class MyPage extends React.Component {
                   {t('我的消息')}
                   {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
                 </div>
-                  <div style={{display: 'flex', alignItems: 'center'}}>
-                      {
-                          this.props.usercenter.data&&this.props.usercenter.data.msg_count > 0 ?
-                          <span className="page-my-message-msg_count">{this.props.usercenter.data&&this.props.usercenter.data.msg_count}</span> : null
-                      }
-                      <span className="page-my-item-big" />
-                  </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {
+                    this.props.usercenter.data && this.props.usercenter.data.msg_count > 0 ?
+                      <span className="page-my-message-msg_count">{this.props.usercenter.data && this.props.usercenter.data.msg_count}</span> : null
+                  }
+                  <span className="page-my-item-big" />
+                </div>
               </Link>
               <div className="line1px" />
             </div>
@@ -478,10 +492,10 @@ class MyPage extends React.Component {
             </div>
           </li>
           {
-            orgCode === "7N1aM8AeWm" ? null :
+            this.certificatePath() ?
               (<li>
                 <div onClick={this.hasntIdnumber}>
-                  <Link to={window.orgCode === "mWZdPNwaKg" ? "/my/certificateBMW":"/my/certificate"} >
+                  <Link to={this.certificatePath()} >
                     <div className="page-my-item-box">
                       <i className="page-my-item-icon page-my-item-icon-certificate" />
                       {t('我的证书')}
@@ -490,22 +504,22 @@ class MyPage extends React.Component {
                   </Link>
                   <div className="line1px" />
                 </div>
-              </li>)
+              </li>) : null
           }
           {
             orgCode === "7N1aM8AeWm" ? null :
-            (<li>
-              <div>
-                <Link to="/my/family">
-                  <div className="page-my-item-box">
-                    <i className="page-my-item-icon page-my-item-icon-family" />
-                    {t('我的家庭')}
-                  </div>
-                  <span className="page-my-item-big" />
-                </Link>
-                <div className="line1px" />
-              </div>
-            </li>)
+              (<li>
+                <div>
+                  <Link to="/my/family">
+                    <div className="page-my-item-box">
+                      <i className="page-my-item-icon page-my-item-icon-family" />
+                      {t('我的家庭')}
+                    </div>
+                    <span className="page-my-item-big" />
+                  </Link>
+                  <div className="line1px" />
+                </div>
+              </li>)
           }
           <li>
             <div>
@@ -521,35 +535,35 @@ class MyPage extends React.Component {
           </li>
           {
             orgCode === "7N1aM8AeWm" ? null :
-            (<li>
-              <div>
-                <Link to="/my/duration/applys">
-                  <div className="page-my-item-box">
-                    <i className="page-my-item-icon page-my-item-icon-applys" />
-                    {t('申请服务时长')}
-                  </div>
-                  <span className="page-my-item-big" />
-                </Link>
-                <div className="line1px" />
-              </div>
-            </li>)
+              (<li>
+                <div>
+                  <Link to="/my/duration/applys">
+                    <div className="page-my-item-box">
+                      <i className="page-my-item-icon page-my-item-icon-applys" />
+                      {t('申请服务时长')}
+                    </div>
+                    <span className="page-my-item-big" />
+                  </Link>
+                  <div className="line1px" />
+                </div>
+              </li>)
           }
           {orgCode === "wMvbmOeYAl" || orgCode === "7N1aM8AeWm" ? (
             <li />
           ) : (
-            <li>
-              <div>
-                <Link to="/my/service">
-                  <div className="page-my-item-box">
-                    <i className="page-my-item-icon page-my-item-icon-service" />
-                    {t('服务中心')}
-                  </div>
-                  <span className="page-my-item-big" />
-                </Link>
-                <div className="line1px" />
-              </div>
-            </li>
-          )}
+              <li>
+                <div>
+                  <Link to="/my/service">
+                    <div className="page-my-item-box">
+                      <i className="page-my-item-icon page-my-item-icon-service" />
+                      {t('服务中心')}
+                    </div>
+                    <span className="page-my-item-big" />
+                  </Link>
+                  <div className="line1px" />
+                </div>
+              </li>
+            )}
           <li>
             <div>
               <Link to="/my/setting">
@@ -638,11 +652,10 @@ class MyPage extends React.Component {
           </div>
           <div>
             <p style={{ textAlign: "right" }}>{t('成长值')}</p>
-            <p>{`${
-              next_label === null
+            <p>{`${next_label === null
                 ? user.growth
                 : user.growth + "/" + next_label.growth
-            }`}</p>
+              }`}</p>
           </div>
         </div>
         <div className="commonweal-box-bar">
@@ -651,8 +664,8 @@ class MyPage extends React.Component {
               width:
                 now_label && last_label
                   ? `${(now_label.growth / last_label.growth >= 100
-                      ? 100
-                      : now_label.growth / last_label.growth) * 100}%`
+                    ? 100
+                    : now_label.growth / last_label.growth) * 100}%`
                   : 0
             }}
             className="commonweal-box-bar-active"
@@ -831,14 +844,14 @@ class MyPage extends React.Component {
               show={this.state.showMultiple}
               defaultIndex={this.state.defaultIndex}
             >
-                <div
-                    style={BackButtonStyle}
-                    onClick={e => this.setState({ showMultiple: false })}
-                    plain
-                >
-                    <img src="/images/my/delete.png" alt=""/>
-                    {/*<Image src="/images/preview/close_modal.png" resize={{width: 20, height: 20}} defaultSrc="/images/preview/close_modal.png" alt=""/>*/}
-                </div>
+              <div
+                style={BackButtonStyle}
+                onClick={e => this.setState({ showMultiple: false })}
+                plain
+              >
+                <img src="/images/my/delete.png" alt="" />
+                {/*<Image src="/images/preview/close_modal.png" resize={{width: 20, height: 20}} defaultSrc="/images/preview/close_modal.png" alt=""/>*/}
+              </div>
             </Gallery>
           </div>
           {this.renderModal()}
