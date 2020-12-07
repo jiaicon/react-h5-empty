@@ -176,8 +176,8 @@ class MyPage extends React.Component {
                 {t(scoreName) || t('星币(center)')}
               </p>
               <p className="page-my-record-item-bottom">
-                {window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[0] || t('志愿')}
-                {t(scoreName) || t('星币(center)')}
+                {window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0] || t('志愿')}
+                {t(scoreName) ? (t(scoreName) === 'Volunteer' ? 'My' : t(scoreName)) : t('星币(center)')}
               </p>
             </div>
           </Link>
@@ -312,7 +312,10 @@ class MyPage extends React.Component {
   }
 
   renderPageMyRecordTemplate() {
-    const { user, t } = this.props;
+    const { user, t, i18n } = this.props;
+    const { language } = i18n;
+
+    const n = window.orgInfo.st_point_uint&&window.orgInfo.st_point_uint[0];
     return (
       <div className="page-my-record-container">
         <Link to="/my/teams">
@@ -323,7 +326,7 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.team_count}
               </b>
-              {t('个')}
+              {t('个center')}
             </p>
             <p className="page-my-record-item-bottom">{t('我的团队')}</p>
           </div>
@@ -337,7 +340,7 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.project_count}
               </b>
-              {t('个')}
+              {t('个center')}
             </p>
             <p className="page-my-record-item-bottom">{t('我的项目')}</p>
           </div>
@@ -350,7 +353,7 @@ class MyPage extends React.Component {
                   ? 0
                   : this.props.usercenter.data.user.reward_time}
               </b>
-              {t('小时')}
+              {t('小时center')}
             </p>
             <p className="page-my-record-item-bottom">{t('服务时长')}</p>
           </div>
@@ -365,11 +368,11 @@ class MyPage extends React.Component {
                     ? 0
                     : this.props.usercenter.data.user.score}
                 </b>{" "}
-                {t(scoreName) || t('星币')}
+                {language === 'zh-CN' ? (scoreName || '星币') : ''}
               </p>
               <p className="page-my-record-item-bottom">
                 {t('n志愿星币m', {
-                  n: t(window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[0]) || t('志愿'),
+                  n: n ? (t(n) === 'Volunteer' ? 'My' : t(n)) : t('志愿center'),
                   m: t(scoreName) || t('星币')
                 })}
               </p>
@@ -459,25 +462,29 @@ class MyPage extends React.Component {
             </div>
           </li>
 
-          <li>
-            <div>
-              <Link to="/my/messages">
-                <div className="page-my-item-box">
-                  {this.renderPageMymessagesTemplate()}
-                  {t('我的消息')}
-                  {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
+          {
+            window.orgCode === 'mWZdPNwaKg' ? null : (
+              <li>
+                <div>
+                  <Link to="/my/messages">
+                    <div className="page-my-item-box">
+                      {this.renderPageMymessagesTemplate()}
+                      {t('我的消息')}
+                      {/*<i className="page-my-item-icon page-my-item-icon-news" />我的消息*/}
+                    </div>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                      {
+                        this.props.usercenter.data&&this.props.usercenter.data.msg_count > 0 ?
+                          <span className="page-my-message-msg_count">{this.props.usercenter.data&&this.props.usercenter.data.msg_count}</span> : null
+                      }
+                      <span className="page-my-item-big" />
+                    </div>
+                  </Link>
+                  <div className="line1px" />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {
-                    this.props.usercenter.data && this.props.usercenter.data.msg_count > 0 ?
-                      <span className="page-my-message-msg_count">{this.props.usercenter.data && this.props.usercenter.data.msg_count}</span> : null
-                  }
-                  <span className="page-my-item-big" />
-                </div>
-              </Link>
-              <div className="line1px" />
-            </div>
-          </li>
+              </li>
+            )
+          }
 
           <li>
             <div>

@@ -53,7 +53,8 @@ class ShopPage extends React.Component {
     this.refs.LaunchContent.addEventListener('scroll', this.handleScroll);
     const InfoData =this.Moudling(window.orgInfo.module_settings);
     if(InfoData && InfoData.label){
-      document.title=t(InfoData.label);
+      console.log(InfoData.label.replace(/<[^>]+>/g,""));
+      document.title=t(InfoData.label.replace(/<[^>]+>/g,""));
     }
   }
   Moudling(data) {
@@ -167,7 +168,7 @@ class ShopPage extends React.Component {
           }
           {
             user.isLogin ?
-              <Link to="/shop/record"><div className="right">{t('兑换记录')}</div></Link>
+              <Link to="/shop/record"><div className="right">{t('兑换记录btn')}</div></Link>
               :
               <div className="right" onClick={this.onLogin}>{t('前往登录')}</div>
           }

@@ -20,6 +20,10 @@ import 'antd-mobile/lib/Stepper/style/css';
 import 'antd-mobile/lib/Radio/style/css';
 import '../../my/profile/verifyAntd.css';
 import './signUp.css';
+import { translate } from 'react-i18next';
+import i18next from 'i18next';
+import locale_ZN from 'antd-mobile/es/date-picker/locale/zh_CN';
+import locale_US from 'antd-mobile/es/date-picker/locale/en_US';
 import {
     requestProjectDetail,
 } from '../detail/detail.store';
@@ -205,6 +209,8 @@ class SignUpPage extends React.Component {
     renderTime(item) {
         const data = item;
         const key = data.key;
+      const { i18n } = this.props;
+      const { language } = i18n;
         return (
             <div>
                 <div className="page-project-signUp-verify-header-box">
@@ -220,6 +226,7 @@ class SignUpPage extends React.Component {
                         mode="time"
                         value={this.state[key]}
                         extra={`  `}
+                        locale={language === 'zh-CN' ? locale_ZN : locale_US}
                         onOk={v => (
                             this.pushExtendsArray(key, formatDate(v)),
                             this.setState({
@@ -844,6 +851,7 @@ class SignUpPage extends React.Component {
             top: "-55px",
             left: "0"
         };
+        const { t } = this.props;
         return (
             <div className="page-project-signUp">
 
@@ -863,17 +871,17 @@ class SignUpPage extends React.Component {
                                     'all': !this.state.checkeAll,
                                 })} onClick={this.onCheckedAll}>
                                     <i className="checkall" onClick={this.onCheckedAll} />
-                                    全选
+                                  {t('全选')}
                   </div>
                                 : null
                         }
                         {
                             this.state.data ?
-                                <div className="total">合计：<span>¥{getnum(this.state.total || 0)}</span></div>
+                                <div className="total">{t('合计')}：<span>¥{getnum(this.state.total || 0)}</span></div>
                                 : null
                         }
 
-                        <div className="btn" onClick={this.onSubmmit}>提交</div>
+                        <div className="btn" onClick={this.onSubmmit}>{t('提交')}</div>
                     </div>
                 </div>
 
@@ -911,7 +919,7 @@ SignUpPage.propTypes = {
     }),
 };
 
-SignUpPage.title = '报名信息';
+SignUpPage.title = i18next.t('报名信息');
 
 export default connect(
     state => ({
@@ -924,4 +932,4 @@ export default connect(
         joinPayProject,
         joinProjectAction
     }, dispatch),
-)(SignUpPage);
+)(translate('translations')(SignUpPage));

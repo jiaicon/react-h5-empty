@@ -31,6 +31,8 @@ const isAndroid = /android/i.test(navigator.userAgent);
 import monemt from "moment";
 import { translate } from 'react-i18next';
 import i18next from 'i18next';
+import locale_ZN from 'antd-mobile/es/date-picker/locale/zh_CN';
+import locale_US from 'antd-mobile/es/date-picker/locale/en_US';
 let isEmpty = false;
 
 function checkEmpty(value, label) {
@@ -222,7 +224,7 @@ class BindInfo extends React.Component {
         } = this.state;
         if (key === 'user_type') {
             switch (value) {
-                case '宝马员工': {
+                case '宝马员工/BMW associate': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
                             v.is_required = 1;
@@ -230,7 +232,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '经销商员工': {
+                case '经销商员工/BMW dealer': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
                             v.is_required = 1;
@@ -238,7 +240,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '宝马车主': {
+                case '宝马车主/BMW car owner': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
                             v.is_required = 1;
@@ -246,7 +248,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '公众': {
+                case '公众/Public': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email') {
                             v.is_required = 1;
@@ -425,7 +427,8 @@ class BindInfo extends React.Component {
     }
     //出生日期  需判断用户的证件类型，18位的不可修改
     renderBirthday() {
-        const { user, t } = this.props;
+        const { user, t, i18n } = this.props;
+      const { language } = i18n;
         if (user.num_type && user.num_type == 1) {
             return (
                 <div>
@@ -447,6 +450,7 @@ class BindInfo extends React.Component {
                             maxDate={new Date()}
                             value={new Date(this.state.birthday || user.birthday)}
                             extra={t('请选择出生日期')}
+                            locale={language === 'zh-CN' ? locale_ZN : locale_US}
                             onChange={date => this.setState({ birthday: date })}
                         >
                             <List.Item arrow="horizontal">{t('出生日期')}</List.Item>
@@ -458,7 +462,8 @@ class BindInfo extends React.Component {
         }
     }
     renderNation() {
-        const { user, t } = this.props;
+        const { user, t, i18n } = this.props;
+      const { language } = i18n;
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
@@ -480,7 +485,7 @@ class BindInfo extends React.Component {
                             {people &&
                                 people.map((item, keys) => (
                                     <option value={item.name} key={keys}>
-                                        {item.name}
+                                      {language === 'zh-CN' ? item.name : item.pinyin}
                                     </option>
                                 ))}
                         </select>
@@ -492,7 +497,8 @@ class BindInfo extends React.Component {
     }
 
     renderAddr() {
-        const { user, t } = this.props;
+        const { user, t, i18n } = this.props;
+      const { language } = i18n;
         const province = this.props.address.data.province;
         const city = this.props.address.data.city;
         const county = this.props.address.data.county;
@@ -517,7 +523,7 @@ class BindInfo extends React.Component {
                                 {province &&
                                     province.map((item, keys) => (
                                         <option value={item.id} key={keys}>
-                                            {item.name}
+                                          {language === 'zh-CN' ? item.name : item.pinyin}
                                         </option>
                                     ))}
                             </select>
@@ -542,7 +548,7 @@ class BindInfo extends React.Component {
                                 {city &&
                                     city.map((item, keys) => (
                                         <option value={item.id} key={keys}>
-                                            {item.name}
+                                          {language === 'zh-CN' ? item.name : item.pinyin}
                                         </option>
                                     ))}
                             </select>
@@ -567,7 +573,7 @@ class BindInfo extends React.Component {
                                 {county &&
                                     county.map((item, keys) => (
                                         <option value={item.id} key={keys}>
-                                            {item.name}
+                                          {language === 'zh-CN' ? item.name : item.pinyin}
                                         </option>
                                     ))}
                             </select>
@@ -606,7 +612,7 @@ class BindInfo extends React.Component {
 
         if (key === 'user_type') {
             switch (value) {
-                case '宝马员工': {
+                case '宝马员工/BMW associate': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "company_affiliation" || v.key === 'employee_id') {
                             v.is_required = 1;
@@ -614,7 +620,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '经销商员工': {
+                case '经销商员工/BMW dealer': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "dealer_name") {
                             v.is_required = 1;
@@ -622,7 +628,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '宝马车主': {
+                case '宝马车主/BMW car owner': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email' || v.key === "car_model") {
                             v.is_required = 1;
@@ -630,7 +636,7 @@ class BindInfo extends React.Component {
                         else v.is_required = 0;
                     })
                 } break;
-                case '公众': {
+                case '公众/Public': {
                     extendsFormArr.filter(v => {
                         if (v.key === 'user_type' || v.key === 'email') {
                             v.is_required = 1;
@@ -657,7 +663,7 @@ class BindInfo extends React.Component {
                     {item.is_required === 1 ? (
                         <span className="page-my-profile-verify-header-start">*</span>
                     ) : null}
-                    <div className="page-my-profile-verify-fonts">{data.label}</div>
+                    <div className={`page-my-profile-verify-fonts ${key === 'user_type' ? 'page-my-profile-verify-fonts-BMW' : ''}`}>{data.label}</div>
                     <label htmlFor={`${key}`}>
                         <select id={`${key}`} value={this[key] || this.state[key]} onChange={this.handleOtherInfoSelectClick}>
                             <option value="-1" />
@@ -797,6 +803,8 @@ class BindInfo extends React.Component {
     renderOtherInfoDate(item) {
         const data = item;
         const key = data.key;
+      const { i18n } = this.props;
+      const { language } = i18n;
         return (
             <div>
                 <div className="page-my-profile-verify-header-box">
@@ -810,6 +818,7 @@ class BindInfo extends React.Component {
                         format="YYYY-MM-DD"
                         value={this[key] && new Date(this[key]) || new Date()}
                         extra={` `}
+                        locale={language === 'zh-CN' ? locale_ZN : locale_US}
                         onOk={v => (
                             this.pushExtendsArray(key, formatDate(v)),
                             this[key] = v,
@@ -1084,19 +1093,19 @@ class BindInfo extends React.Component {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type"));
         }
 
-        if (extendsArray.user_type === '宝马员工') {
+        if (extendsArray.user_type === '宝马员工/BMW associate') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "company_affiliation" || v.key === "employee_id" || v.key === "email"))
         }
 
-        if (extendsArray.user_type === '经销商员工') {
+        if (extendsArray.user_type === '经销商员工/BMW dealer') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "dealer_name" || v.key === "email"))
         }
 
-        if (extendsArray.user_type === '宝马车主') {
+        if (extendsArray.user_type === '宝马车主/BMW car owner') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "car_model" || v.key === "email"))
         }
 
-        if (extendsArray.user_type === '公众') {
+        if (extendsArray.user_type === '公众/Public') {
             renderArr = extendsFormArr && extendsFormArr.filter(v => (v.key === "user_type" || v.key === "email"))
         }
         return (
@@ -1167,6 +1176,7 @@ class BindInfo extends React.Component {
         if (!this.props.user) {
             return null;
         }
+        const { t } = this.props;
         return (
             <div className="page-my-profile-verify-container">
                 {this.state.winOrgInfo === null ? null : (
@@ -1188,7 +1198,7 @@ class BindInfo extends React.Component {
                                 this.renderOtherInfo()}
                         </div>
                         <div className="page-my-profile-verify-btn" onClick={this.onSubmit}>
-                            提交
+                          {t('提交')}
                         </div>
                     </div>
                 )}

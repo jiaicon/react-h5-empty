@@ -119,3 +119,19 @@
   background: url(/images/activities_status_end.png) no-repeat;
   background-size: cover;
 }
+
+
+.sign-record-status-shape-ing-en{
+    background: url(/images/activities_status_progress-en.png) no-repeat;
+    background-size: cover;
+}
+
+.sign-record-status-shape-recru-en{
+    background: url(/images/activities_status_recruit-en.png) no-repeat;
+    background-size: cover;
+}
+
+.sign-record-status-shape-end-en{
+    background: url(/images/activities_status_end-en.png) no-repeat;
+    background-size: cover;
+}

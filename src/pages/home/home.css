@@ -208,10 +208,10 @@
   height: 44px;
   background: #fff;
   padding-left: 59px;
-  background-image: url(/images/newtitle.png);
-  background-repeat: no-repeat;
-  background-size: 30px 30px;
-  background-position: 20px center;
+  /*background-image: url(/images/newtitle.png);*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: 30px 30px;*/
+  /*background-position: 20px center;*/
   display: flex;
   align-items: center;
 }

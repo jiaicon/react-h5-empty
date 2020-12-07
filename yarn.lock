@@ -286,9 +286,9 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd-mobile@^2.2.8:
-  version "2.2.8"
-  resolved "http://registry.npm.taobao.org/antd-mobile/download/antd-mobile-2.2.8.tgz#d69d21a7778b9de4e0f406dd68b4df47de2c19e6"
+antd-mobile@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.npm.taobao.org/antd-mobile/download/antd-mobile-2.3.4.tgz?cache=0&sync_timestamp=1600412345582&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd-mobile%2Fdownload%2Fantd-mobile-2.3.4.tgz#8f584707b30343d102f3ca10fdaf677e2a5d1cc8"
   dependencies:
     array-tree-filter "~2.1.0"
     babel-runtime "6.x"

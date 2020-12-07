@@ -31,6 +31,8 @@ const isAndroid = /android/i.test(navigator.userAgent);
 import monemt from "moment";
 import { translate } from 'react-i18next';
 import i18next from 'i18next';
+import locale_ZN from 'antd-mobile/es/date-picker/locale/zh_CN';
+import locale_US from 'antd-mobile/es/date-picker/locale/en_US';
 let isEmpty = false;
 
 function checkEmpty(value, label) {
@@ -379,7 +381,8 @@ class BindInfo extends React.Component {
     }
     //出生日期  需判断用户的证件类型，18位的不可修改
     renderBirthday() {
-        const { user, t } = this.props;
+        const { user, t, i18n } = this.props;
+      const { language } = i18n;
         if (user.num_type && user.num_type == 1) {
             return (
                 <div>
@@ -401,6 +404,7 @@ class BindInfo extends React.Component {
                             maxDate={new Date()}
                             value={new Date(this.state.birthday || user.birthday)}
                             extra={t('请选择出生日期')}
+                            locale={language === 'zh-CN' ? locale_ZN : locale_US}
                             onChange={date => this.setState({ birthday: date })}
                         >
                             <List.Item arrow="horizontal">{t('出生日期')}</List.Item>

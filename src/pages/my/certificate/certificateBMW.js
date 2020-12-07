@@ -341,7 +341,7 @@ class Certificate extends React.Component {
           <div className='page-certificate-container-bottom-infobox-parent'>
             <div className="page-certificate-container-bottom-infobox">
               <div className="page-certificate-container-bussiness">
-                <span className="bmw-typnextlight">BMW</span>Corporate Volunteer Association
+                <span className="bmw-typnextlight">BMW</span> Corporate Volunteer Association
               </div>
               <div
                 className="page-certificate-container-content"

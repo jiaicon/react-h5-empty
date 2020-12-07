@@ -109,12 +109,16 @@
 .page-my-profile-verify-fonts {
     font-size: 14px;
     color: #666;
-    width: 100px;
+    width: 120px;
     text-align: justify;
     text-align-last: justify;
     white-space:nowrap; 
     overflow:hidden; 
     text-overflow:ellipsis; 
+}
+
+.page-my-profile-verify-fonts-BMW {
+    width: 140px;
 }
 
 .page-my-profile-verify-text {
