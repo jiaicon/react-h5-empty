@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import './detail.css';
 import MessagesItem from './component/messagesItem';
 import { announceDetailAction } from './announce.store';
+import WXShare from "../../components/share";
 
 class MessagesDetail extends React.Component {
 
@@ -28,10 +29,28 @@ class MessagesDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+    console.info(nextProps);
+    const detailData = nextProps.announceDetail.data;
+    if (
+      detailData &&
+      detailData.id === parseInt(this.Id, 10)
+    ) {
+      document.title = detailData.title;
+      if (window.userAgent) {
+        wx.ready(() => {
+          WXShare({
+            title: detailData.title,
+            desc: detailData.content ?
+              detailData.content.replace(/(\n+)/g, '<br/>') : '',
+            image: detailData.photo,
+            success: () => { }
+          });
+        });
+      }
+    }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   render() {
     const { announceDetail: { data: detailData } } = this.props;
@@ -50,7 +69,8 @@ class MessagesDetail extends React.Component {
           className="page-center-style"
           dangerouslySetInnerHTML={{
             __html: detailData.content ?
-            detailData.content.replace(/(\n+)/g, '<br/>') : '' }}
+              detailData.content.replace(/(\n+)/g, '<br/>') : ''
+          }}
         />
       </div>
     );
