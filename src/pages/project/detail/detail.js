@@ -46,6 +46,7 @@ import { userCenterAction } from "../../my/my.store";
 import { storeLoginSource } from "../../my/login/login.store";
 import { translate } from 'react-i18next';
 import i18next from 'i18next';
+import detail from "../../team/detail/detail";
 
 class ProjectDetailContent extends React.Component {
     static propTypes = {
@@ -60,12 +61,12 @@ class ProjectDetailContent extends React.Component {
         const { data: detailData, t } = this.props;
         var arr = [];
         for (let attr in detailData) {
-            if (attr == "service_object_public" && detailData.service_object_public) {
+            if (attr == "service_object_public" && detailData.service_object_public && detailData.service_object.length) {
                 const serviceObjects = detailData.service_object
                     .map(obj => obj.service_object_name)
                     .join("、");
                 arr.push({ label: t('服务对象'), value: serviceObjects, islast: false });
-            } else if (attr == "join_end_public" && detailData.join_end_public) {
+            } else if (attr == "join_end_public" && detailData.join_end_public && !detailData.jinyun_state) {
                 arr.push({
                     label: t('招募截止'),
                     value: detailData.join_end,
@@ -81,7 +82,8 @@ class ProjectDetailContent extends React.Component {
                 });
             } else if (
                 attr == "reward_time_public" &&
-                detailData.reward_time_public
+                detailData.reward_time_public &&
+                !detailData.jinyun_state
             ) {
                 arr.push({
                     label: t('服务时长'),
@@ -171,7 +173,7 @@ class ProjectDetailPage extends React.Component {
         super(props);
         autoBind(this);
         this.projectId = props.route.params.projectId;
-        const {t} = props;
+        const { t } = props;
         this.state = {
             showShareTip: false,
             actionSheet: false,
@@ -225,7 +227,7 @@ class ProjectDetailPage extends React.Component {
     }
 
     componentWillMount() {
-      const {t} = this.props;
+        const { t } = this.props;
         if (window.userAgent) {
             this.setState({
                 ...this.state,
@@ -451,9 +453,9 @@ class ProjectDetailPage extends React.Component {
         const { projectId } = this;
         const realRegister = window.orgInfo.real_name_register;
         const {
-          user,
-          detail: { data: detailData },
-          t,
+            user,
+            detail: { data: detailData },
+            t,
         } = this.props;
         const customConfig = detailData.custom_config || null;
         const paymentConfig = detailData.custom_payment_config || null;
@@ -515,10 +517,10 @@ class ProjectDetailPage extends React.Component {
                     if (isVerify && user.have_pwd == 1) {
                         let bindlink = '/my/profile/bind_profile/alert';
                         if (window.orgCode === 'oBDbDkxal2') {
-                          bindlink = '/my/profile/bind_profile_starbucks/alert';
+                            bindlink = '/my/profile/bind_profile_starbucks/alert';
                         }
                         if (window.orgCode === 'mWZdPNwaKg') {
-                          bindlink = '/my/profile/bind_profile_BMW/alert';
+                            bindlink = '/my/profile/bind_profile_BMW/alert';
                         }
                         window.location.replace(bindlink);
                     } else if (isVerify) {
@@ -596,7 +598,7 @@ class ProjectDetailPage extends React.Component {
             "http://wx2.gongyibao.cn/H5page/ProdetailsNew.aspx?id=bf014416-f7c9-49ff-a326-c18e77f223b0";
     }
     renderTwoBtn() {
-      const {t} = this.props;
+        const { t } = this.props;
         return (
             <div className="project-action-main-two">
                 <Link
@@ -604,23 +606,23 @@ class ProjectDetailPage extends React.Component {
                     onClick={this.handleActionClickTwo}
                     className={`project-action-main project-action-main-color`}
                 >
-                  {t('我要捐款')}
+                    {t('我要捐款')}
                 </Link>
                 <Link
                     to=""
                     onClick={this.handleActionClick("join")}
                     className={`project-action-main project-action-available`}
                 >
-                  {t('我要报名')}
+                    {t('我要报名')}
                 </Link>
             </div>
         );
     }
     renderBasic() {
         const {
-          detail: { data: detailData, tabIndex },
-          user: { isLogin },
-          t,
+            detail: { data: detailData, tabIndex },
+            user: { isLogin },
+            t,
         } = this.props;
         const currentProjectId = parseInt(this.projectId, 10);
         const dataProjectId = detailData ? detailData.id : "";
@@ -699,7 +701,7 @@ class ProjectDetailPage extends React.Component {
                     <div className="project-category">
                         <div style={{ color: "#666666", marginBottom: "4px" }}>
                             {detailData.category_public
-                                ? `# ${serviceCategories.join("、")}`
+                                ? `# ${serviceCategories.join("、")}${detailData.jinyun_state ? (detailData.category.length ? '、津云项目':'津云项目'):''}`
                                 : null}
                         </div>
                         <div>{detailData.created_at.split(" ")[0]}</div>
@@ -722,7 +724,7 @@ class ProjectDetailPage extends React.Component {
 
                     <ProjectDetailContent data={detailData} t={t} />
 
-                    {detailData.people_count_public ? (
+                    {detailData.people_count_public && !detailData.jinyun_state ? (
                         <div className="project-report">
                             <span>{t('已录用人数')}</span>
                             <div>
@@ -731,7 +733,7 @@ class ProjectDetailPage extends React.Component {
                             </div>
                         </div>
                     ) : null}
-                    {!detailData.people_count_public ? (
+                    {!(detailData.people_count_public && !detailData.jinyun_state) ? (
                         <div
                             style={{ width: "100%", height: "5px", background: "#f8f8f8" }}
                         />
@@ -748,52 +750,55 @@ class ProjectDetailPage extends React.Component {
                     </div>
                     <div className="project-description-backhome">
                         <Link to="/" style={{
-                          backgroundImage: `url(${t('backhome')})`,
-                          backgroundSize: 'cover',
-                          backgroundRepeat: 'no-repeat',
+                            backgroundImage: `url(${t('backhome')})`,
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
                         }} />
                     </div>
                     <div className="project-description-takeup" />
                 </div>
-                <div className="foot">
-                    <div className="line1px" />
-                    <Link
-                        to=""
-                        onClick={this.handleFavoriteClick}
-                        className="project-action project-action-favorite"
-                    >
-                        <span
-                            className={classnames({
-                                selected: detailData.collection_status
-                            })}
-                        />
-                        <span>{t('收藏')}</span>
-                    </Link>
-                    <Link
-                        to=""
-                        onClick={e =>
-                            this.setState({
-                                visible: true
-                            })
-                        }
-                        className="project-action project-action-share"
-                    >
-                        <span />
-                        <span>{t('分享')}</span>
-                    </Link>
+                {
+                    !detailData.jinyun_state && <div className="foot">
+                        <div className="line1px" />
+                        <Link
+                            to=""
+                            onClick={this.handleFavoriteClick}
+                            className="project-action project-action-favorite"
+                        >
+                            <span
+                                className={classnames({
+                                    selected: detailData.collection_status
+                                })}
+                            />
+                            <span>{t('收藏')}</span>
+                        </Link>
+                        <Link
+                            to=""
+                            onClick={e =>
+                                this.setState({
+                                    visible: true
+                                })
+                            }
+                            className="project-action project-action-share"
+                        >
+                            <span />
+                            <span>{t('分享')}</span>
+                        </Link>
 
-                    {action === "two" ? (
-                        this.renderTwoBtn()
-                    ) : (
-                            <Link
-                                to=""
-                                onClick={this.handleActionClick(action)}
-                                className={`project-action-main ${actionClassName}`}
-                            >
-                                {actionLabel}
-                            </Link>
-                        )}
-                </div>
+                        {action === "two" ? (
+                            this.renderTwoBtn()
+                        ) : (
+                                <Link
+                                    to=""
+                                    onClick={this.handleActionClick(action)}
+                                    className={`project-action-main ${actionClassName}`}
+                                >
+                                    {actionLabel}
+                                </Link>
+                            )}
+                    </div>
+                }
+
             </div>
         );
     }
@@ -817,7 +822,7 @@ class ProjectDetailPage extends React.Component {
         this.props.unObserveAction(id);
     }
     renderCommunity() {
-      const {t} = this.props;
+        const { t } = this.props;
         return (
             <div>
                 {this.props.feeling.data &&
@@ -843,8 +848,8 @@ class ProjectDetailPage extends React.Component {
                                 className="page-circle-rendercommunity-img"
                             />
                             <div className="page-circle-rendercommunity-info">
-                              {t('还没有动态信息')}
-                        </div>
+                                {t('还没有动态信息')}
+                            </div>
                         </div>
                     )}
 
@@ -858,7 +863,7 @@ class ProjectDetailPage extends React.Component {
     render() {
         const {
             detail: { data: detailData, tabIndex },
-          t
+            t
         } = this.props;
 
         const currentProjectId = parseInt(this.projectId, 10);

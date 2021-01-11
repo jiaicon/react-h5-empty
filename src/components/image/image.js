@@ -43,7 +43,7 @@ class Image extends React.Component {
       that.setState({ iserror: true });
     };
     if (width || height) {
-      src = `${src}?${width || 0}x${height || 0}`;
+      src = `${src}?${width && width*2 || 0}x${height && height*2 || 0}`;
     }
 
     return src;

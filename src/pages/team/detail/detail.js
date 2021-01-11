@@ -444,6 +444,11 @@ class TeamDetailPage extends React.Component {
       action = "";
     }
 
+    let reward_sum = detailData.reward_sum;
+    if (detailData.jinyun_state) {
+      reward_sum = detailData.jinyun_timeSum / 3600.0;
+    }
+
     return (
       <div>
         <div className="header">
@@ -492,11 +497,11 @@ class TeamDetailPage extends React.Component {
               <div className="team-member-item">
                 <div>
                   <span>
-                    {detailData.reward_sum >= 10000
-                      ? (detailData.reward_sum / 10000).toFixed(2)
-                      : detailData.reward_sum}
+                    {reward_sum >= 10000
+                      ? (reward_sum / 10000).toFixed(2)
+                      : Number(reward_sum).toFixed(2)}
                   </span>
-                  {detailData.reward_sum >= 10000 ? "万" : ""}
+                  {reward_sum >= 10000 ? "万" : ""}
                 </div>
                 <p>{t('团队总时长(小时)')}</p>
               </div>
@@ -507,11 +512,13 @@ class TeamDetailPage extends React.Component {
                 <span>{detailData.slogan}</span>
                 <div className="line1px" />
               </li>
-              <li>
-                <span>{t('团队类型')}</span>
-                <span>{t(detailData.type)}</span>
-                <div className="line1px" />
-              </li>
+              {
+                detailData.type ? <li>
+                  <span>{t('团队类型')}</span>
+                  <span>{t(detailData.type)}</span>
+                  <div className="line1px" />
+                </li> : null
+              }
               {detailData.parent && detailData.parent.name ? (
                 <li>
                   <span>{t('上级团队')}</span>
@@ -523,11 +530,21 @@ class TeamDetailPage extends React.Component {
               ) : null}
               <li>
                 <span>{t('注册日期')}</span>
-                <span>
-                  {detailData.created_at
-                    ? dateTextToDateText(detailData.created_at.split(" ")[0])
-                    : ""}
-                </span>
+                {
+                  detailData.jinyun_state ?
+                    <span>
+                      {detailData.jinyun_regDate
+                        ? dateTextToDateText(detailData.jinyun_regDate.split(" ")[0])
+                        : ""}
+                    </span>
+                    :
+                    <span>
+                      {detailData.created_at
+                        ? dateTextToDateText(detailData.created_at.split(" ")[0])
+                        : ""}
+                    </span>
+                }
+                {/* 如果是津云的数据， 则用jinyun_regDate的数据 */}
                 <div className="line1px" />
               </li>
               <li>
@@ -547,8 +564,7 @@ class TeamDetailPage extends React.Component {
 
               <li>
                 <span>{t('团队地址')}</span>
-                <span>{`${detailData.province_name}${detailData.city_name}${
-                  detailData.county_name
+                <span>{`${detailData.province_name}${detailData.city_name}${detailData.county_name
                   }${detailData.addr}`}</span>
               </li>
             </ul>
@@ -556,7 +572,13 @@ class TeamDetailPage extends React.Component {
 
           <div className="team-description">
             <div>{t('团队简介')}</div>
-            <p>{detailData.abstract}</p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: detailData.abstract
+                  ? detailData.abstract.replace(/(\n+)/g, "<br/>")
+                  : t('暂无介绍')
+              }}
+            />
           </div>
 
           <div className="team-description-backhome">
@@ -567,40 +589,42 @@ class TeamDetailPage extends React.Component {
             }} />
           </div>
         </div>
-        <div className="foot">
-          <div className="line1px" />
-          <Link
-            to=""
-            onClick={this.handleFavoriteClick}
-            className="team-action team-action-favorite"
-          >
-            <span
-              className={classnames({ selected: detailData.collection_status })}
-            />
-            <span>{t('收藏')}</span>
-          </Link>
+        {
+          !detailData.jinyun_state && <div className="foot">
+            <div className="line1px" />
+            <Link
+              to=""
+              onClick={this.handleFavoriteClick}
+              className="team-action team-action-favorite"
+            >
+              <span
+                className={classnames({ selected: detailData.collection_status })}
+              />
+              <span>{t('收藏')}</span>
+            </Link>
 
-          <Link
-            to=""
-            onClick={e =>
-              this.setState({
-                visible: true
-              })
-            }
-            className="team-action team-action-share"
-          >
-            <span />
-            <span>{t('分享')}</span>
-          </Link>
+            <Link
+              to=""
+              onClick={e =>
+                this.setState({
+                  visible: true
+                })
+              }
+              className="team-action team-action-share"
+            >
+              <span />
+              <span>{t('分享')}</span>
+            </Link>
 
-          <Link
-            to=""
-            onClick={this.handleActionClick(action)}
-            className={`team-action-main ${actionClassName}`}
-          >
-            {actionLabel}
-          </Link>
-        </div>
+            <Link
+              to=""
+              onClick={this.handleActionClick(action)}
+              className={`team-action-main ${actionClassName}`}
+            >
+              {actionLabel}
+            </Link>
+          </div>
+        }
       </div>
     );
   }
@@ -617,7 +641,7 @@ class TeamDetailPage extends React.Component {
           <Projects projects={projects ? projects.list : null} />
           <div className="takeup" />
         </div>
-        <div className="tabs-container">
+        {/* <div className="tabs-container">
           <div className="line1px" />
           <ul className="tabs">
             <li>
@@ -654,7 +678,7 @@ class TeamDetailPage extends React.Component {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -710,7 +734,7 @@ class TeamDetailPage extends React.Component {
               />
               <div className="page-circle-rendercommunity-info">
                 {t('还没有动态信息')}
-            </div>
+              </div>
             </div>
           )}
 
