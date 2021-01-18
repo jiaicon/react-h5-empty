@@ -316,6 +316,11 @@ class MyPage extends React.Component {
     const { language } = i18n;
 
     const n = window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[0];
+
+    let rewordTime = 0;
+    if (this.props.usercenter.data.user) {
+      rewordTime = (Number(this.props.usercenter.data.user && this.props.usercenter.data.user.reward_time || 0) + (this.props.usercenter.data.user && this.props.usercenter.data.user.jinyun_timeSum || 0) / 3600);
+    }
     return (
       <div className="page-my-record-container">
         <Link to="/my/teams">
@@ -349,7 +354,10 @@ class MyPage extends React.Component {
           <div className="page-my-record-item">
             <p className="page-my-record-item-top">
               <b className="page-my-record-item-num">
-                {this.props.usercenter.data.user === null ? 0 : (Number(this.props.usercenter.data.user && this.props.usercenter.data.user.reward_time || 0) + (this.props.usercenter.data.user && this.props.usercenter.data.user.jinyun_timeSum || 0) / 3600).toFixed(2)}
+                {this.props.usercenter.data.user === null ?
+                  0
+                  :
+                  rewordTime.toFixed(2)}
               </b>
               {t('小时center')}
             </p>
