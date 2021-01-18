@@ -349,7 +349,7 @@ class MyPage extends React.Component {
           <div className="page-my-record-item">
             <p className="page-my-record-item-top">
               <b className="page-my-record-item-num">
-                {(Number(this.props.usercenter.data.user.reward_time || 0) + this.props.usercenter.data.user.jinyun_timeSum / 3600).toFixed(2)}
+                {(Number(this.props.usercenter.data.user && this.props.usercenter.data.user.reward_time || 0) + (this.props.usercenter.data.user && this.props.usercenter.data.user.jinyun_timeSum || 0) / 3600).toFixed(2)}
               </b>
               {t('小时center')}
             </p>
