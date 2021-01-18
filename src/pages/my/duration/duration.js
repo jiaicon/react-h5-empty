@@ -35,7 +35,7 @@ class Duration extends React.Component {
   componentWillReceiveProps() {
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   render() {
     const { reward: { data: listData }, t } = this.props;
@@ -54,7 +54,7 @@ class Duration extends React.Component {
           <div className="page-duration-top-area-view-duration-box">
             <p>
               <span>
-                {this.props.reward.data === null ? 0 : this.props.reward.data.reward_time}
+                {(Number(this.props.reward.data && this.props.reward.data.reward_time || 0) + (this.props.reward.data && this.props.reward.data.jinyun_timeSum || 0) / 3600).toFixed(2)}
               </span>{t('小时')}</p>
             <p>{t('志愿总时长')}</p>
           </div>
@@ -63,6 +63,14 @@ class Duration extends React.Component {
 
         <div className="page-duration-main-box">
           <DutationProjects durationProject={this.props.reward.data ? listData.project : null} user={this.props.user} isEntry />
+          {
+            this.props.reward.data && this.props.reward.data.jinyun_timeSum ? <div style={{
+              textAlign: 'center',
+              
+            }}>
+              津云平台项目总时长 {((this.props.reward.data && this.props.reward.data.jinyun_timeSum || 0) / 3600).toFixed(2)} 小时
+            </div> : null
+          }
         </div>
 
 
@@ -92,7 +100,7 @@ Duration.propTypes = {
 export default connect(
   state => ({
     reward: state.my.reward,
-    user:state.user,
+    user: state.user,
   }),
   dispatch => bindActionCreators({ rewardTimeAction }, dispatch),
 )(translate('translations')(Duration));

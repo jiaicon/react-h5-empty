@@ -25,7 +25,7 @@ class Teams extends React.Component {
   componentWillReceiveProps() {
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   render() {
     const { teams, t } = this.props;
@@ -46,11 +46,11 @@ class Teams extends React.Component {
                   <div className="team-name-content">
                     {team.name}
                     <div className="team-name-star">
-                    {/* <Star  size={{width:15,height:14,score:4}} isBlockEmptyStar/> */}
-                       {team.stars?<Star  size={{width:15,height:14,score:team.stars}} isBlockEmptyStar/>:null}
+                      {/* <Star  size={{width:15,height:14,score:4}} isBlockEmptyStar/> */}
+                      {team.stars ? <Star size={{ width: 15, height: 14, score: team.stars }} isBlockEmptyStar /> : null}
+                    </div>
                   </div>
-                  </div>
-                 
+
                   {
                     showLabel ?
                       <div
@@ -63,7 +63,7 @@ class Teams extends React.Component {
                 </div>
 
                 <div className="team-info">
-                  <span>{t('志愿时长')}：{team.reward_sum} {t('小时')}</span>
+                  <span>{t('志愿时长')}：{!!team.jinyun_state ? (team.jinyun_timeSum / 3600).toFixed(2) : team.reward_sum} {t('小时')}</span>
                   <span>{t('成员')}：{team.team_size} {t('人')}</span>
                 </div>
               </div>
@@ -78,9 +78,9 @@ class Teams extends React.Component {
 
 Teams.propTypes = {
   teams: PropTypes.arrayOf(
-      PropTypes.shape({
+    PropTypes.shape({
 
-      }),
+    }),
   ),
 
   showLabel: PropTypes.bool,
