@@ -357,7 +357,7 @@ class MyPage extends React.Component {
                 {this.props.usercenter.data === null ?
                   0
                   :
-                  'rewordTime.toFixed(2)'}
+                  rewordTime.toFixed(2)}
               </b>
               {t('小时center')}
             </p>
