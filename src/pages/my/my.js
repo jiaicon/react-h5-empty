@@ -317,10 +317,10 @@ class MyPage extends React.Component {
 
     const n = window.orgInfo.st_point_uint && window.orgInfo.st_point_uint[0];
 
-    // let rewordTime = 0;
-    // if (this.props.usercenter.data.user) {
-    //   rewordTime = (Number(this.props.usercenter.data.user && this.props.usercenter.data.user.reward_time || 0) + (this.props.usercenter.data.user && this.props.usercenter.data.user.jinyun_timeSum || 0) / 3600);
-    // }
+    let rewordTime = 0;
+    if (this.props.usercenter.data) {
+      rewordTime = (Number(this.props.usercenter.data.user && this.props.usercenter.data.user.reward_time || 0) + (this.props.usercenter.data.user && this.props.usercenter.data.user.jinyun_timeSum || 0) / 3600);
+    }
     return (
       <div className="page-my-record-container">
         <Link to="/my/teams">
@@ -354,7 +354,7 @@ class MyPage extends React.Component {
           <div className="page-my-record-item">
             <p className="page-my-record-item-top">
               <b className="page-my-record-item-num">
-                {this.props.usercenter.data.user === null ?
+                {this.props.usercenter.data === null ?
                   0
                   :
                   'rewordTime.toFixed(2)'}
