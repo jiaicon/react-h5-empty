@@ -520,5 +520,15 @@
     "path": "/volunteer_rank/:id",
     "page": "./pages/volunteerRank/detail",
     "chunk": "main"
+  },
+  {
+    "path": "/practice_base",
+    "page": "./pages/practiceBase/list",
+    "chunk": "main"
+  },
+  {
+    "path": "/practice_base/:id",
+    "page": "./pages/practiceBase/detail",
+    "chunk": "main"
   }
 ]

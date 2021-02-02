@@ -92,7 +92,6 @@ export default (state = {
   lastProjectId:0,
   data: null,
 }, action) => {
-  console.log(action);
   switch (action.type) {
     case 'PROJECT_DETAIL_PENDING':
       return {
@@ -117,7 +116,6 @@ export default (state = {
         fetching: false,
       };
     case 'PROJECT_COLLECT_FULFILLED':
-      // console.log()
       return {
         ...state,
         data: {
@@ -134,7 +132,6 @@ export default (state = {
         },
       };
     case 'PROJECT_JOIN_FULFILLED':
-      console.log(action);
       return {
         ...state,
         data: {

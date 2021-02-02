@@ -30,10 +30,10 @@ function isPlainObject(o) {
  *    @param {string}   successWords  接口调用成功后的提示语
  */
 export default function request(requestUrl, requestOptions = {}) {
-  console.log(requestOptions);
+  // console.log(requestOptions);
 
   if (getQueryString2('token')) {
-    console.info('获取到了params.token')
+    // console.info('获取到了params.token')
     localStorage.setItem(`appToken`, getQueryString2('token'));
   }
 
@@ -139,7 +139,7 @@ export default function request(requestUrl, requestOptions = {}) {
     // 临时调试用 options.credentials = 'same-origin';
   }
 
-  console.log("开始请求-", url, options);
+  // console.log("开始请求-", url, options);
 
   return new Promise((resolve, reject) => {
     fetch(url, options)
@@ -153,7 +153,7 @@ export default function request(requestUrl, requestOptions = {}) {
           if (options.successWords) {
             Alert.success(options.successWords);
           }
-          console.log("请求成功-", url, json);
+          // console.log("请求成功-", url, json);
           resolve(json);
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
           localStorage.removeItem("token");
@@ -161,7 +161,7 @@ export default function request(requestUrl, requestOptions = {}) {
           store.dispatch(storeLoginSource(from));
           history.replace("/my/login");
         } else {
-          console.log("请求返回失败-", url, json);
+          // console.log("请求返回失败-", url, json);
 
           if (options.noRedirect !== true) {
             Alert.error(`${i18next.t('请求失败')}: ${json.error_message}`);
@@ -176,7 +176,7 @@ export default function request(requestUrl, requestOptions = {}) {
         }
 
         Alert.error(`${i18next.t('请求失败')}：${error}`);
-        console.log("请求失败-", url, error);
+        // console.log("请求失败-", url, error);
         reject(error);
       });
   });

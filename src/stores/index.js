@@ -27,6 +27,7 @@ import { userReducer } from './common';
 import fundingApplicationReducer from '../pages/fundingApplication/fundingApplication.store';
 import demandReducer from '../pages/demand/demand.store';
 import rankReducer from '../pages/volunteerRank/index.store';
+import practiceBaseReducer from '../pages/practiceBase/index.store';
 
 const rootReducer = combineReducers({
     fundingApplication: fundingApplicationReducer,
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   shop:shopReducer,
   demand: demandReducer,
   volunteerRank: rankReducer,
+  practiceBase: practiceBaseReducer,
 });
 
 const middleware = [thunk, promiseMiddleware()];
