@@ -17,10 +17,10 @@ class PracticeBaseDetailPage extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.info(nextProps);
-        const detailData = nextProps.practiceBase.data;
+        const detailData = nextProps.detail && nextProps.detail.data;
         if (
           detailData &&
-          detailData.id === parseInt(this.Id, 10)
+          detailData.id === parseInt(this.props.route.params.id, 10)
         ) {
           document.title = detailData.title;
           if (window.userAgent) {
