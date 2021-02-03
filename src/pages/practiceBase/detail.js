@@ -8,6 +8,7 @@ import { requestPracticeBaseInfo } from './index.store'
 import { WingBlank, WhiteSpace } from 'antd-mobile';
 import 'antd-mobile/lib/wing-blank/style/css';
 import './list.css'
+import WXShare from "../../components/share";
 
 class PracticeBaseDetailPage extends React.Component {
 
@@ -22,7 +23,7 @@ class PracticeBaseDetailPage extends React.Component {
           detailData &&
           detailData.id === parseInt(this.props.route.params.id, 10)
         ) {
-          document.title = detailData.name;
+          document.title = detailData && detailData.name;
           if (window.userAgent) {
             wx.ready(() => {
               WXShare({
