@@ -41,7 +41,7 @@ class PracticeBaseDetailPage extends React.Component {
             },
         ];
         return <div>
-            <img src="http://api.volzdx.cn/images/uploads/2019-04/930121556591375.png" style={{ width: '100vw', height: '48VW', display: 'block' }} />
+            <img src={detailData && detailData.base_url} style={{ width: '100vw', height: '48VW', display: 'block' }} />
             <div style={{ background: 'white', margin: '12px 0px' }}>
                 {
                     subTitles.map(v => {
