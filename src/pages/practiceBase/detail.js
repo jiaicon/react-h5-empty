@@ -15,6 +15,28 @@ class PracticeBaseDetailPage extends React.Component {
         this.props.requestPracticeBaseInfo(this.props.route.params && this.props.route.params.id || null);
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.info(nextProps);
+        const detailData = nextProps.practiceBase.data;
+        if (
+          detailData &&
+          detailData.id === parseInt(this.Id, 10)
+        ) {
+          document.title = detailData.title;
+          if (window.userAgent) {
+            wx.ready(() => {
+              WXShare({
+                title: detailData.name,
+                desc: detailData.desc ?
+                  detailData.desc.replace(/(\n+)/g, '<br/>') : '',
+                image: detailData.base_url,
+                success: () => { }
+              });
+            });
+          }
+        }
+      }
+
     render() {
         console.info(this.props);
         const { detail: { data: detailData }, t } = this.props;

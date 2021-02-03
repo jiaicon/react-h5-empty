@@ -29,7 +29,6 @@ class MessagesDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.info(nextProps);
     const detailData = nextProps.announceDetail.data;
     if (
       detailData &&
