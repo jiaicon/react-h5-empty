@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import { requestPracticeBaseInfo } from './index.store'
 import { WingBlank, WhiteSpace } from 'antd-mobile';
 import 'antd-mobile/lib/wing-blank/style/css';
+import './list.css'
 
 class PracticeBaseDetailPage extends React.Component {
 
@@ -41,24 +42,25 @@ class PracticeBaseDetailPage extends React.Component {
             },
         ];
         return <div>
-            <img src={detailData && detailData.base_url} style={{ width: '100vw', height: '48VW', display: 'block' }} />
+            <div style={{ width: '100vw', height: '48VW', display: 'block', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundImage: `url(${detailData && detailData.base_url}?750x360)`, backgroundPosition: 'center center' }} />
             <div style={{ background: 'white', margin: '12px 0px' }}>
                 {
                     subTitles.map(v => {
                         return <div style={{ display: 'flex', paddingTop: 12, paddingBottom: 12, borderBottom: '0.5px solid #EBEDF0', color: 'rgba(0,0,0,0.85)', fontSize: 14 }}>
-                            <div style={{ marginLeft: '3.4vw', width: '24vw', minWidth:'24vw' }}>{v.title}</div>
-                            <div style={{paddingRight: '3.4vw'}}>{v.content}</div>
+                            <div style={{ marginLeft: '3.4vw', width: '24vw', minWidth: '24vw' }}>{v.title}</div>
+                            <div style={{ paddingRight: '3.4vw' }}>{v.content}</div>
                         </div>
                     })
                 }
             </div>
             {
-                detailData && detailData.desc && detailData.desc.length ? <div style={{ background: 'white', padding: '12px 3.4vw' }}>
+                detailData && detailData.desc && detailData.desc.length ? <div style={{ background: 'white', padding: '12px 3.4vw 52px' }}>
                     <div style={{ paddingBottom: 12, color: 'rgba(0,0,0,0.85)', fontSize: 15 }}>{t('基地介绍')}</div>
                     <p
+                        className="detailRichText"
                         dangerouslySetInnerHTML={{
                             __html: detailData.desc
-                                ? detailData.desc.replace(/(\n+)/g, "<br/>")
+                                ? detailData.desc.replace(/(\n+)/g, "<br/>").replace(new RegExp('<img', 'gi'), `<img style="max-width: 100%;"`)
                                 : t('暂无介绍')
                         }}
                     />

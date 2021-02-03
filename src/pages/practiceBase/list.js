@@ -98,7 +98,8 @@ class PracticeBaseListPage extends React.Component {
                                 return <div style={{ background: 'white', marginTop: 12, marginBottom: 12 }} onClick={() => {
                                     history.push(`/practice_base/${v.id}`)
                                 }}>
-                                    <img src={v && v.base_url} style={{ width: '93.6vw', height: '48VW', display: 'block', margin: '3.2vw', marginBottom: '1.6vw', paddingTop: '3.2vw' }} />
+                                    <div style={{ width: '100%', height: '3.2vw' }} />
+                                    <div style={{ width: '93.6vw', height: '48VW', display: 'block', margin: '0vw 3.2vw 1.6vw', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundImage: `url(${v && v.base_url}?750x360)`, backgroundPosition: 'center center' }} />
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', margin: '3.2vw', marginBottom: '3.2vw', paddingBottom: '3.2vw', marginTop: '1.6vw' }}>
                                         <div >
                                             <div style={{ color: 'rgba(0,0,0,0.85)', fontSize: 18 }}>{v.name}</div>
