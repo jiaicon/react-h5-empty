@@ -46,8 +46,8 @@ class PracticeBaseDetailPage extends React.Component {
                 {
                     subTitles.map(v => {
                         return <div style={{ display: 'flex', paddingTop: 12, paddingBottom: 12, borderBottom: '0.5px solid #EBEDF0', color: 'rgba(0,0,0,0.85)', fontSize: 14 }}>
-                            <div style={{ marginLeft: '3.4vw', width: '24vw' }}>{v.title}</div>
-                            <div>{v.content}</div>
+                            <div style={{ marginLeft: '3.4vw', width: '24vw', minWidth:'24vw' }}>{v.title}</div>
+                            <div style={{paddingRight: '3.4vw'}}>{v.content}</div>
                         </div>
                     })
                 }

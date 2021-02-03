@@ -34,7 +34,7 @@ class PracticeBaseListPage extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        // window.addEventListener('scroll', this.handleScroll);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -42,15 +42,15 @@ class PracticeBaseListPage extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        // window.removeEventListener('scroll', this.handleScroll);
     }
 
 
 
     handleScroll() {
-        if (isWindowReachBottom(50)) {
-            this.requestList(true);
-        }
+        // if (isWindowReachBottom(50)) {
+        //     this.requestList(true);
+        // }
     }
 
     requestList(category_id) {
@@ -98,13 +98,13 @@ class PracticeBaseListPage extends React.Component {
                                 return <div style={{ background: 'white', marginTop: 12, marginBottom: 12 }} onClick={() => {
                                     history.push(`/practice_base/${v.id}`)
                                 }}>
-                                    <img src={v && v.base_url} style={{ width: '93.6vw', height: '48VW', display: 'block', margin: '3.2vw', marginBottom: '1.6vw' }} />
+                                    <img src={v && v.base_url} style={{ width: '93.6vw', height: '48VW', display: 'block', margin: '3.2vw', marginBottom: '1.6vw', paddingTop: '3.2vw' }} />
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', margin: '3.2vw', marginBottom: '3.2vw', paddingBottom: '3.2vw', marginTop: '1.6vw' }}>
-                                        <div>
+                                        <div >
                                             <div style={{ color: 'rgba(0,0,0,0.85)', fontSize: 18 }}>{v.name}</div>
-                                            <div style={{ color: 'rgba(0,0,0,0.45)', fontSize: 12, marginTop: 4 }}>{v.address}</div>
+                                            <div style={{ color: 'rgba(0,0,0,0.45)', fontSize: 12, marginTop: 6 }}>{v.address}</div>
                                         </div>
-                                        <div style={{ background: '#6AC6F8', padding: '3px 12px', fontSize: 13, color: 'white' }}>预约</div>
+                                        <div style={{ background: '#6AC6F8', padding: '8px 14px', fontSize: 13, color: 'white', minWidth: 54 }}>预约</div>
                                     </div>
                                 </div>
                             }) : <div className="component-loading-more">
