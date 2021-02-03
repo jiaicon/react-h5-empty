@@ -22,7 +22,7 @@ class PracticeBaseDetailPage extends React.Component {
           detailData &&
           detailData.id === parseInt(this.props.route.params.id, 10)
         ) {
-          document.title = detailData.title;
+          document.title = detailData.name;
           if (window.userAgent) {
             wx.ready(() => {
               WXShare({

@@ -34,7 +34,7 @@ class MessagesDetail extends React.Component {
       detailData &&
       detailData.id === parseInt(this.Id, 10)
     ) {
-      document.title = detailData && detailData.name || '公告详情';
+      document.title = detailData && detailData.title || '公告详情';
       if (window.userAgent) {
         wx.ready(() => {
           WXShare({
