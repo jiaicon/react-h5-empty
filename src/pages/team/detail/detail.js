@@ -449,6 +449,11 @@ class TeamDetailPage extends React.Component {
       reward_sum = detailData.jinyun_timeSum / 3600.0;
     }
 
+    let team_size = detailData.team_size;
+    if (detailData.jinyun_state) {
+      team_size = detailData.jinyun_userSum || 0;
+    }
+
     return (
       <div>
         <div className="header">
@@ -485,11 +490,11 @@ class TeamDetailPage extends React.Component {
               <div className="team-member-item">
                 <div>
                   <span>
-                    {detailData.team_size >= 10000
-                      ? (detailData.team_size / 10000).toFixed(2)
-                      : detailData.team_size}
+                    {team_size >= 10000
+                      ? (team_size / 10000).toFixed(2)
+                      : team_size}
                   </span>
-                  {detailData.team_size >= 10000 ? "万" : ""}
+                  {team_size >= 10000 ? "万" : ""}
                 </div>
                 <p>{t('团队成员(人)')}</p>
               </div>
