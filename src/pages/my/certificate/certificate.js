@@ -5,16 +5,16 @@
 /* global wx:false */
 /* eslint  "class-methods-use-this":"off",
  */
-import React, { PropTypes } from "react";
+import React, {PropTypes} from "react";
 import autoBind from "react-autobind";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 import Star from "../../../components/star/star";
-import { dateTextToDateText } from "../../../utils/funcs";
-import { requestUserInfo } from "../../../stores/common";
+import {dateTextToDateText} from "../../../utils/funcs";
+import {requestUserInfo} from "../../../stores/common";
 import "./certificate.css";
 import html2canvas from "html2canvas";
-import { ImageToBase64 } from "../../../utils/funcs";
+import {ImageToBase64} from "../../../utils/funcs";
 
 class Certificate extends React.Component {
   constructor(props) {
@@ -25,17 +25,17 @@ class Certificate extends React.Component {
     this.certOrg = window.orgInfo.cert_org || "和众泽益";
     this.certCachet = window.orgInfo.cert_cachet || "/images/my/zdx.png";
     this.certAuthOrg = window.orgInfo.cert_auth_org || "和众泽益志愿服务中心";
-    const { user: listData } = props;
+    const {user: listData} = props;
     const register = listData.regitser_time
       ? dateTextToDateText(
-          listData.regitser_time ? listData.regitser_time.split(" ")[0] : 0
-        )
+        listData.regitser_time ? listData.regitser_time.split(" ")[0] : 0
+      )
       : null;
 
     const now = listData.server_time
       ? dateTextToDateText(
-          listData.server_time ? listData.server_time.split(" ")[0] : 0
-        )
+        listData.server_time ? listData.server_time.split(" ")[0] : 0
+      )
       : null;
 
     this.state = {
@@ -50,23 +50,23 @@ class Certificate extends React.Component {
     this.props.requestUserInfo();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   componentWillReceiveProps(nextProps) {
-    const { user: listData } = this.props;
-    const { user: NlistData } = nextProps;
+    const {user: listData} = this.props;
+    const {user: NlistData} = nextProps;
 
     if (nextProps.user.id) {
       const register = NlistData.regitser_time
         ? dateTextToDateText(
-            NlistData.regitser_time ? NlistData.regitser_time.split(" ")[0] : 0
-          )
+          NlistData.regitser_time ? NlistData.regitser_time.split(" ")[0] : 0
+        )
         : null;
-
-      const now= NlistData.server_time
+      const now = NlistData.server_time
         ? dateTextToDateText(
-            NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
-          )
+          NlistData.server_time ? NlistData.server_time.split(" ")[0] : 0
+        )
         : null;
       const that = this;
       ImageToBase64(
@@ -89,11 +89,13 @@ class Certificate extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+  }
+
   htm2Click = () => {
     var that = this;
     var shareContent = this.refs["LaunchContent"];
-    var width = shareContent.offsetWidth;
+    var width = shareContent ? shareContent.offsetWidth : 0;
     var height = shareContent.offsetHeight;
     var canvas = document.createElement("canvas");
     var scale = 4;
@@ -107,17 +109,18 @@ class Certificate extends React.Component {
       height: height,
       useCORS: true
     };
-    html2canvas(shareContent, opts).then(function(canvas) {
+    html2canvas(shareContent, opts).then(function (canvas) {
       var dataUrl = canvas.toDataURL("image/jpeg", 4);
-      that.setState({ dataUrl });
+      that.setState({dataUrl});
     });
   };
 
   renderCertificate() {
-    const { user: listData } = this.props;
+    const {user: listData} = this.props;
     if (!listData) {
       return null;
     }
+    const reward_time = Number(listData.reward_time) + Number(listData.jinyun_timeSum);
 
     const starWidth = this.props.user.stars
       ? Number(this.props.user.stars) * Number(20) - Number(5) + "px"
@@ -144,7 +147,7 @@ class Certificate extends React.Component {
             />
           </div>
 
-          <div className="page-certificate-container-certificate" />
+          <div className="page-certificate-container-certificate"/>
           <div className="page-certificate-container-name">
             {this.props.user.real_name}
           </div>
@@ -152,10 +155,10 @@ class Certificate extends React.Component {
           {this.props.user.stars ? (
             <div
               className="page-certificate-container-star"
-              style={{ width: `${starWidth}` }}
+              style={{width: `${starWidth}`}}
             >
               <Star
-                size={{ width: 15, height: 14, score: this.props.user.stars }}
+                size={{width: 15, height: 14, score: this.props.user.stars}}
               />
             </div>
           ) : null}
@@ -178,7 +181,7 @@ class Certificate extends React.Component {
             </div>
             <div className="page-certificate-container-hours">
               <div className="page-certificate-container-hours-item">
-                <span>{this.props.user.reward_time}</span>小时
+                <span>{reward_time}</span>小时
               </div>
               <div className="page-certificate-container-hours-item">
                 志愿服务时长
@@ -194,7 +197,7 @@ class Certificate extends React.Component {
             </div>
             <div
               className="page-certificate-container-content"
-              style={{ paddingLeft: 0, paddingRight: 0, textAlign: "right" }}
+              style={{paddingLeft: 0, paddingRight: 0, textAlign: "right"}}
             >
               {this.state.now}
             </div>
@@ -205,10 +208,10 @@ class Certificate extends React.Component {
                 className="first"
               />
             ) : (
-              <div />
+              <div/>
             )}
             {window.orgCode == "qM7e5Ba2vp" ? (
-              <img src="/images/my/zdx.png" className="second" />
+              <img src="/images/my/zdx.png" className="second"/>
             ) : null}
           </div>
         </div>
@@ -217,12 +220,11 @@ class Certificate extends React.Component {
   }
 
   render() {
-    const { user: listData } = this.props;
-    const { dataUrl } = this.state;
+    const {user: listData} = this.props;
+    const {dataUrl} = this.state;
     if (!listData || !listData.id) {
       return null;
     }
-    console.log(listData);
     return (
       <div
         style={{
@@ -258,7 +260,7 @@ class Certificate extends React.Component {
         )}
         {dataUrl ? null : (
           <div className="page-certificate-main-mask">
-            <img className="loading-img" src="/images/loadingimg.png" />
+            <img className="loading-img" src="/images/loadingimg.png"/>
           </div>
         )}
       </div>
@@ -300,6 +302,6 @@ Certificate.propTypes = {
 };
 
 export default connect(
-  state => ({ user: state.user }),
-  dispatch => bindActionCreators({ requestUserInfo }, dispatch)
+  state => ({user: state.user}),
+  dispatch => bindActionCreators({requestUserInfo}, dispatch)
 )(Certificate);

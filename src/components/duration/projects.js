@@ -25,7 +25,7 @@ class DurationProjects extends React.Component {
 
 
   componentWillMount() {
-    console.log(this.props.user)
+
   }
 
   componentDidMount() {}
@@ -36,14 +36,14 @@ class DurationProjects extends React.Component {
 
   onClick(e) {
     const info = JSON.parse(e.currentTarget.getAttribute("data-data"));
-    console.log(info);
+
     const data = {
       ...info
     };
     this.props.HandleClick(data);
   }
   poster=(data)=>{
-    console.log(data,this.props);
+
     this.setState({
       ...this.state,
       visible: true,
