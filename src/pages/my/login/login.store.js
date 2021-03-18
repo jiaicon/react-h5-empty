@@ -5,6 +5,7 @@ import history from '../../history';
 import {USERINFO_FULFILLED, USERINFO_CLEAR} from '../../../stores/common';
 import {API_HOST} from '../../../utils/config';
 import {setToken} from '../../../utils/funcs';
+import i18next from 'i18next';
 
 
 export const LOGIN_PENDING = 'LOGIN_PENDING';

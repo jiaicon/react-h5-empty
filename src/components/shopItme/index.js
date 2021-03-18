@@ -134,10 +134,7 @@ class Projects extends React.Component {
                     orderData.map((item) => {
                         let time = 0;
                         if (item.goods_id) {
-                            console.log(item.goods_id.start_time)
-                            console.log(item.goods_id.end_time)
                             time = isInTimeArea(item.goods_id.start_time, item.goods_id.end_time);
-                            console.log(time)
                         }
                         return (
                             <div>
@@ -161,7 +158,7 @@ class Projects extends React.Component {
                                     </div>
                                     <div className="line1px" />
                                     <div className="component-shopItem-order-container">
-                                        <div className="component-shopItem-order-time">{t('下单时间')}：{item.updated_at}</div>
+                                        <div className="component-shopItem-order-time">{t('下单时间')}：{item.created_at}</div>
                                         {
                                             item.state ?
                                                 <div className="component-shopItem-order-time">{t('兑换时间')}：{item.collect_time}</div> : null}
