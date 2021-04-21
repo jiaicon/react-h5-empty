@@ -1,22 +1,11 @@
 import Alert from "react-s-alert";
 import { API_PREFIX } from "./config";
-import { addAysncTask, removeAysncTask } from "../stores/common";
-import { storeLoginSource } from "../pages/my/login/login.store";
-import store from "../stores";
 import history, { USING_HISTORY_HASH } from "../pages/history";
-import { getToken,getCookie ,getQueryString2} from "./funcs";
+import { getCookie } from "./funcs";
 import i18next from 'i18next';
 
-function encodeUnicode(str) {
-  const res = [];
-  for (let i = 0; i < str.length; i++) {
-    res[i] = `00${str.charCodeAt(i).toString(16)}`.slice(-4);
-  }
-  return `\\u${res.join("\\u")}`;
-}
-
 function isPlainObject(o) {
-  return typeof o == "object" && o.constructor == Object;
+  return typeof o === 'object' && o.constructor === Object;
 }
 
 /**
@@ -30,13 +19,6 @@ function isPlainObject(o) {
  *    @param {string}   successWords  接口调用成功后的提示语
  */
 export default function request(requestUrl, requestOptions = {}) {
-  // console.log(requestOptions);
-
-  if (getQueryString2('token')) {
-    // console.info('获取到了params.token')
-    localStorage.setItem(`appToken`, getQueryString2('token'));
-  }
-
   let url = requestUrl;
   let { switchUrl } = requestOptions;
   const options = {
@@ -60,29 +42,12 @@ export default function request(requestUrl, requestOptions = {}) {
   // 需要服务端进行设置，参考https://stackoverflow.com/questions/40900977/custom-request-heade
   // r s-not-being-sent-with-a-javascript-fetch-request
   const headers = options.headers || {};
-  const location = getCookie("location") ? JSON.parse(getCookie("location")) : null;
-  const position = getCookie("X-original-location") ? JSON.parse(getCookie("X-original-location")) : null;
-  const oriCity = position&&position.city? position.city:null;
-  const city = getCookie("provinceAndCityName") ? JSON.parse(getCookie("provinceAndCityName")).city : "全国";
-
-   const i18nextLng = getCookie('i18nextLng');
+  const i18nextLng = getCookie('i18nextLng');
   let headersObj = {
     ...headers,
-    "X-auth-token": getToken() || '',
-    "X-org-code": window.orgCode,
-    "X-location": location
-      ? `${
-      location.lng // 授权 token // 机构代码 // 经纬度 经度-纬度
-      }-${location.lat}`
-      : "116.403847-39.915526",
-    "X-unique-key": window.uniqueKey || "demo",
-    "X-city": `${encodeURI(city)}`,
-    "X-original-city": `${encodeURI(oriCity)}` || '',
     "X-language": i18nextLng || '',
-  }
-  if (!location) {
-    delete headersObj["X-location"];
-  }
+  };
+
   options.headers = headersObj;
   // 自定义头必须设置 mode 为 cors
   options.mode = "cors";
@@ -121,17 +86,15 @@ export default function request(requestUrl, requestOptions = {}) {
     options.headers["Content-Type"] = "application/x-www-form-urlencoded";
     options.body = params.join("&");
   } else {
-      if(params) {
-          if(url.indexOf('?')>-1) {
-              url = `${url}&${params.join("&")}`;
-          }else {
-              url = `${url}?${params.join("&")}`;
-          }
+    if(params) {
+      if(url.indexOf('?')>-1) {
+        url = `${url}&${params.join("&")}`;
+      }else {
+        url = `${url}?${params.join("&")}`;
       }
+    }
   }
-
   if (options.loading) {
-    store.dispatch(addAysncTask());
   }
 
   if (!options.credentials) {
@@ -146,7 +109,6 @@ export default function request(requestUrl, requestOptions = {}) {
       .then(response => response.json())
       .then(json => {
         if (options.loading) {
-          store.dispatch(removeAysncTask());
         }
 
         if ("error_code" in json && json.error_code === 0) {
@@ -156,13 +118,9 @@ export default function request(requestUrl, requestOptions = {}) {
           // console.log("请求成功-", url, json);
           resolve(json);
         } else if (json.error_code === 9999 && options.noRedirect !== true) {
-          localStorage.removeItem("token");
-          let from = window.location.pathname;
-          store.dispatch(storeLoginSource(from));
           history.replace("/my/login");
         } else {
           // console.log("请求返回失败-", url, json);
-
           if (options.noRedirect !== true) {
             Alert.error(`${i18next.t('请求失败')}: ${json.error_message}`);
           }
@@ -172,7 +130,6 @@ export default function request(requestUrl, requestOptions = {}) {
       })
       .catch(error => {
         if (options.loading) {
-          store.dispatch(removeAysncTask());
         }
 
         Alert.error(`${i18next.t('请求失败')}：${error}`);
