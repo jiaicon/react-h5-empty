@@ -134,7 +134,7 @@ const config = {
               sourceMap: isDebug,
               importLoaders: true,
               // CSS Modules https://github.com/css-modules/css-modules
-              modules: false,
+              modules: true,
               localIdentName: isDebug
                 ? '[name]_[local]_[hash:base64:3]'
                 : '[hash:base64:4]',
